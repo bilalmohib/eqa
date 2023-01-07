@@ -1,0 +1,174 @@
+body {
+    background: url(../../assets/Images/Home/login-background.png) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+/* Main Container */
+.containerCustom {
+    /* border: 1px solid red; */
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
+}
+
+/******************************************** Left Side ***************************************/
+.leftSide {
+    /* border: 5px solid rgb(0, 255, 13); */
+    width: 55%;
+    /* height: 100vh; */
+    /* display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; */
+    padding-left: 13%;
+    padding-right: none;
+    padding-top: 14%;
+}
+
+.left_heading_about {
+    font-size: 33px;
+    font-weight: 600;
+    color: #e79f43;
+    margin-top: 40px;
+}
+
+.desc_left_login {
+    font-size: 18px;
+    font-weight: 400;
+    color: #fdfdfd;
+    margin-top: 0px;
+    width: 400px;
+}
+
+.heading_info_login {
+    font-size: 30px;
+    font-weight: 600;
+    color: #ffffff;
+    margin-top: 20px;
+    line-height: 43px;
+}
+
+.bottom_desc_login {
+    font-size: 18px;
+    font-weight: 400;
+    width: 100%;
+    color: #aab9bb;
+    /* border: 1px solid red; */
+    margin-top: 15px;
+    padding-right: 15%;
+}
+
+.btn_learn_more {
+    margin-top: 10px;
+    text-transform: none;
+    color: #d09647;
+    font-size: 16px;
+    border-width: 1px;
+    height: 45px;
+    border-radius: 7px;
+    width: 140px !important;
+    background-color: transparent;
+}
+
+/******************************************** Left Side ***************************************/
+
+/******************************************** Right Side ***************************************/
+.rightSide {
+    width: 45%;
+    padding-top: 200px;
+    padding-left: 6%;
+    /* height: 100vh; */
+    /* display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; */
+    background-color: #ffffff;
+}
+
+.logoRight {
+    width: 230px;
+}
+
+.titleLoginAccount {
+    font-size: 33px;
+    font-weight: 600;
+    color: #487377;
+    margin-top: 40px;
+}
+
+.form_inputs {
+    margin-top: 20px;
+}
+
+/* Label */
+.label_info {
+    font-size: 14px;
+    font-weight: 400;
+    color: #4b7579;
+    margin-bottom: 10px;
+    margin-top: 20px;
+}
+
+.email {
+    width: 450px;
+    border-radius: 25px;
+    height: 50px;
+    padding-left: 20px;
+    border: none;
+    box-shadow: 0px 0px 10px 0.2rem rgba(171, 171, 171, 0.25);
+}
+
+.password {
+    width: 450px;
+    border-radius: 25px;
+    height: 50px;
+    padding-left: 20px;
+    border: none;
+    box-shadow: 0px 0px 10px 0.2rem rgba(171, 171, 171, 0.25);
+}
+
+.rememberMeBlock {
+    margin-top: 25px;
+    font-size: 14px;
+    font-weight: 400;
+    color: #4b7579;
+}
+
+.forgotPassword {
+    margin-top: 15px;
+    font-size: 14px;
+    font-weight: 400;
+    color: #4b7579;
+}
+
+.btn_login {
+    margin-top: 15px;
+    color: white;
+    text-transform: none;
+    border-radius: 25px;
+    height: 50px;
+    font-size: 20px;
+    width: 450px !important;
+    background-color: #e79f43;
+}
+
+.btn_login:hover {
+    background-color: #e79f43;
+    color: white;
+}
+
+.btn_login:focus {
+    background-color: #e79f43 !important;
+    color: white !important;
+}
+
+.btn_login:active {
+    background-color: #e79f43 !important;
+    color: white !important;
+}
+
+/* when button is pressed hold */
+/******************************************** Right Side ***************************************/
