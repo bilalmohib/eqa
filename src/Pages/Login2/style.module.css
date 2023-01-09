@@ -1,0 +1,323 @@
+body {
+    background: url(../../assets/Images/Home/login-background.png) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+/* Main Container */
+.containerCustom {
+    /* border: 1px solid red; */
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
+}
+
+/******************************************** Left Side ***************************************/
+.leftSide {
+    /* border: 5px solid rgb(0, 255, 13); */
+    width: 55%;
+    /* height: 100vh; */
+    /* display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; */
+    padding-left: 13%;
+    padding-right: none;
+    padding-top: 14%;
+}
+
+.topContainerLeftLogin {
+    display: flex;
+    /* border: 2px solid red; */
+}
+
+.tabLogin {
+    /* border: 2px solid rgb(115, 255, 0); */
+    width: 220px;
+    height: 45px;
+    display: flex;
+    border-radius: 25px;
+    margin-top: 20px;
+}
+
+.generalLeft {
+    width: 120px;
+    font-size: 15px;
+    text-align: center;
+    font-weight: 500;
+    padding-top: 10px;
+    position: relative;
+    z-index: 1;
+}
+
+.leftTabLogin {
+    background-color: #e59d43 !important;
+    color: #ffffff;
+    border-top-left-radius: 25px;
+    border-bottom-left-radius: 25px;
+    padding-left: -12px;
+    cursor: pointer;
+}
+
+.leftSelectedTabLogin {
+    background-color: #ffffff;
+    color: #436368;
+    border-radius: 25px;
+    padding-left: -10px;
+}
+
+.generalRight {
+    text-align: center;
+    padding-top: 10px;
+    font-size: 15px;
+    margin-left: -15px;
+    font-weight: 500;
+    position: relative;
+    color: #436368;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+.rightTabLogin {
+    background-color: #e59d43;
+    border-top-right-radius: 25px;
+    border-bottom-right-radius: 25px;
+    width: 140px;
+    padding-left: 12px;
+}
+
+.rightSelectedTabLogin {
+    background-color: white !important;
+    border-radius: 25px;
+    width: 140px;
+    z-index: 1 !important;
+}
+
+.announcementListContainer {
+    /* border: 3px solid red; */
+    width: 625px;
+    height: 450px;
+    overflow-y: auto;
+    /* margin-right: 50px; */
+}
+
+/* Works on Chrome, Edge, and Safari */
+.announcementListContainer::-webkit-scrollbar {
+    width: 5px;
+}
+
+.announcementListContainer::-webkit-scrollbar-track {
+    background: #bcc9cb;
+    border-radius: 5px;
+}
+
+.announcementListContainer::-webkit-scrollbar-thumb {
+    background-color: #e79f43;
+    border-radius: 20px;
+    /* border: 3px solid orange; */
+}
+
+.announcementSubContainer {
+    width: 95%;
+    height: 70px;
+    background-color: white;
+    border-radius: 40px;
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.leftAnnouncementSubContainer {
+    /* border: 1px solid red; */
+    width: 25%;
+    padding-left: 5%;
+    color: #35585d;
+    padding-top: 5px;
+}
+
+.dateCountAnnouncementSC {
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.dateMonthAnnouncementSC {
+    font-size: 15px;
+    font-weight: 600;
+    margin-top: -50px !important;
+}
+
+.rightAnnouncementSubContainer {
+    /* border: 1px solid green; */
+    width: 75%;
+}
+
+.descHAnnouncementSC {
+    /* border: 1px solid red; */
+    font-size: 15px;
+    font-weight: bold;
+    margin-top: 5px;
+}
+
+.descDAnnouncementSC {
+    /* border: 1px solid rgb(0, 140, 255); */
+    margin-top: -15px;
+    font-size: 12px;
+    line-height: 15px;
+    padding-right: 30%;
+}
+
+.left_heading_about {
+    font-size: 33px;
+    font-weight: 600;
+    color: #e79f43;
+}
+
+.desc_left_login {
+    font-size: 18px;
+    font-weight: 400;
+    color: #fdfdfd;
+    margin-top: 0px;
+    width: 400px;
+}
+
+.heading_info_login {
+    font-size: 30px;
+    font-weight: 600;
+    color: #ffffff;
+    margin-top: 20px;
+    line-height: 43px;
+}
+
+.bottom_desc_login {
+    font-size: 18px;
+    font-weight: 400;
+    width: 100%;
+    color: #aab9bb;
+    /* border: 1px solid red; */
+    margin-top: 15px;
+    padding-right: 15%;
+}
+
+.btn_learn_more {
+    margin-top: 10px;
+    text-transform: none;
+    color: #d09647;
+    font-size: 16px;
+    border-width: 1px;
+    height: 45px;
+    border-radius: 7px;
+    width: 140px !important;
+    background-color: transparent;
+}
+
+/******************************************** Left Side ***************************************/
+
+/******************************************** Right Side ***************************************/
+.rightSide {
+    width: 45%;
+    /* padding-top: 200px; */
+    padding-left: 6%;
+    /* height: 100vh; */
+    /* display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; */
+    background-color: #ffffff00;
+}
+
+.loginContainer {
+    background-color: #ffffff;
+    width: 480px;
+    padding-top: 50px;
+    padding-bottom: 40px;
+    padding-left: 40px;
+    border-radius: 10px;
+    margin-top: 200px;
+    box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
+}
+
+.logoRight {
+    width: 230px;
+}
+
+.titleLoginAccount {
+    font-size: 33px;
+    font-weight: 600;
+    color: #487377;
+    margin-top: 40px;
+}
+
+.form_inputs {
+    margin-top: 20px;
+}
+
+/* Label */
+.label_info {
+    font-size: 14px;
+    font-weight: 400;
+    color: #4b7579;
+    margin-bottom: 10px;
+    margin-top: 20px;
+}
+
+.email {
+    width: 400px;
+    border-radius: 8px;
+    height: 50px;
+    padding-left: 20px;
+    border: none;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+
+.password {
+    width: 400px;
+    border-radius: 8px;
+    height: 50px;
+    padding-left: 20px;
+    border: none;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+
+.rememberMeBlock {
+    margin-top: 25px;
+    font-size: 14px;
+    font-weight: 400;
+    color: #4b7579;
+}
+
+.forgotPassword {
+    margin-top: 15px;
+    font-size: 14px;
+    font-weight: 400;
+    color: #4b7579;
+}
+
+.btn_login {
+    margin-top: 15px;
+    color: white;
+    text-transform: none;
+    border-radius: 5px;
+    height: 50px;
+    font-size: 20px;
+    width: 400px !important;
+    background-color: #e79f43;
+}
+
+.btn_login:hover {
+    background-color: #e79f43;
+    color: white;
+}
+
+.btn_login:focus {
+    background-color: #e79f43 !important;
+    color: white !important;
+}
+
+.btn_login:active {
+    background-color: #e79f43 !important;
+    color: white !important;
+}
+
+/* when button is pressed hold */
+/******************************************** Right Side ***************************************/

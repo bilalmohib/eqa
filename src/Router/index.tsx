@@ -10,7 +10,9 @@ import {
 import Home from "../Pages/Home";
 // 2) Login Page
 import Login from "../Pages/Login";
-// 3) Forgot Password Page
+// 3) Login2 Page
+import Login2 from "../Pages/Login2";
+// 4) Forgot Password Page
 import ForgetPassWord from "../Pages/ForgetPassWord";
 
 const AppRouter = () => {
@@ -19,6 +21,7 @@ const AppRouter = () => {
             <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/login" element={<Login />} />
+                <Route path="/login2" element={<Login2 />} />
                 <Route path="/forget-password" element={<ForgetPassWord />} />
             </Routes>
         </Router>
