@@ -47,6 +47,7 @@ html:not([data-scroll="0"]) .headerContainer {
     padding-right: 10px;
     border-radius: 5px;
     user-select: none;
+    margin-right: 20px;
     width: 110px;
 }
 
@@ -86,6 +87,24 @@ html:not([data-scroll="0"]) .headerContainer {
         display: flex;
         flex-direction: row;
         justify-content: end;
+        margin-right: 10px;
+        /* border: 1px solid red; */
+    }
+
+    .menuDropDown {
+        color: white;
+        /* border: 1px solid red; */
+        margin-top: -2px;
+        font-size: 30px;
+        padding-top: 2px;
+        cursor: pointer;
+        width: 50px;
+        padding-left: 12px;
+    }
+
+    .menuDropDown:hover, .menuDropDown:active {
+        background-color: #4974828b;
+        transition: 0.4s linear;
     }
 
     .logo {
