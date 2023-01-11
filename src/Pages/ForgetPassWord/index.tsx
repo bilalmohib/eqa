@@ -5,6 +5,7 @@ import styles from './style.module.css';
 // Importing Logo
 import logo from '../../assets/Images/Login/login_logo.png';
 import forgetPassword_logo from '../../assets/Images/ForgetPassword/lock.png';
+import Header from "../../Components/Header";
 
 const ForgetPassWord = () => {
 
@@ -12,12 +13,14 @@ const ForgetPassWord = () => {
         <div className={styles.containerCustom}>
             <div className={styles.forgetPasswordContainer}>
                 <form className={styles.loginContainer} action="return false">
-                    <img
-                        className={styles.logo}
-                        src={logo}
-                        alt={"EQA University"}
-                        title={"EQA University"}
-                    />
+                    <div className={styles.logo_mobile_container}>
+                        <img
+                            className={styles.logo}
+                            src={logo}
+                            alt={"EQA University"}
+                            title={"EQA University"}
+                        />
+                    </div>
                     <div>
                         <img
                             className={styles.logoLock}

@@ -1,0 +1,98 @@
+.headerContainer {
+    display: flex;
+    justify-content: space-between;
+    height: 100px;
+    background-color: transparent;
+    /* border: 2px solid red; */
+    width: 100%;
+    padding-top: 40px;
+    padding-left: 12%;
+    padding-right: 12%;
+    position: fixed;
+}
+
+.logo {
+    display: block;
+    width: 190px;
+    height: 40px;
+    user-select: none;
+    /* border: 1px solid black; */
+}
+
+.langDropDown {
+    border: 1px solid rgba(255, 0, 0, 0);
+    cursor: grab;
+    color: white;
+    display: flex;
+    flex-direction: row;
+    padding-top: 8px;
+    height: 45px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 5px;
+    user-select: none;
+    width: 110px;
+}
+
+.langDropDown:active, .langDropDown:hover {
+    background-color: #497482;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    transition: 1s linear;
+}
+
+.langDropDown img {
+    width: 25px;
+    height: 25px;
+    margin-right: 5px;
+}
+
+.langDropDown p {
+    margin-left: 5px;
+    /* font-size: 18px; */
+}
+
+/* For responsiveness */
+@media all and (max-width: 768px) {
+    .headerContainer {
+        padding-left: 2%;
+        padding-right: 2%;
+        /* border: 1px solid red; */
+        flex-direction: column-reverse;
+        height: auto;
+        padding-top: 10px;
+    }
+
+    .langDropDown {
+        /* border: 2px solid green; */
+    }
+
+    .mobileDropStyle {
+        display: flex;
+        flex-direction: row;
+        justify-content: end;
+    }
+
+    .logo {
+        width: 300px;
+        height: 60px;
+    }
+
+    .logoMobileContainer {
+        /* border: 1px solid red; */
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        margin-top: 20px;
+    }
+}
+
+@media all and (max-width:350px) {
+    .logo {
+        width: 250px;
+    }
+}
+@media all and (max-width:300px) {
+    .logo {
+        width: 230px;
+    }
+}

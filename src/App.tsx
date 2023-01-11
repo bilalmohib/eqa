@@ -1,5 +1,14 @@
 // importing App Router
 import AppRouter from "./Router";
+// importing Header
+import Header from "./Components/Header";
 
-const App = () => <AppRouter />;
+const App = () => {
+    return (
+        <div>
+            <Header />
+            <AppRouter />
+        </div>
+    )
+}
 export default App;
