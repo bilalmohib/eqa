@@ -67,6 +67,9 @@ html:not([data-scroll="0"]) .headerContainer {
     margin-left: 5px;
     /* font-size: 18px; */
 }
+.menuDropDown{
+    display: none;
+}
 
 /* For responsiveness */
 @media all and (max-width: 768px) {
@@ -92,6 +95,7 @@ html:not([data-scroll="0"]) .headerContainer {
     }
 
     .menuDropDown {
+        display: block;
         color: white;
         /* border: 1px solid red; */
         margin-top: -2px;

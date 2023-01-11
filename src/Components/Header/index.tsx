@@ -70,7 +70,7 @@ const Header = () => {
                     </div>
                 </div>
                 <div>
-                    <div className="dropdown" title="Select a language for the site">
+                    <div className="dropdown">
                         <div className={`${styles.menuDropDown}`} id="dropdownMenuButton" data-mdb-toggle="dropdown" aria-expanded="false">
                             <i className="fas fa-bars"></i>
                         </div>

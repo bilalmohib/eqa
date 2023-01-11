@@ -1,0 +1,225 @@
+/******************************************** Login Container Styling ***************************************/
+
+.loginContainer {
+    background-color: #ffffff;
+    width: 480px;
+    padding-top: 50px;
+    padding-bottom: 40px;
+    border-radius: 10px;
+    margin-top: 200px;
+    box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
+}
+
+.logoRight {
+    width: 230px;
+    padding-left: 6%;
+}
+
+.titleLoginAccount {
+    font-size: 33px;
+    font-weight: 600;
+    color: #487377;
+    margin-top: 40px;
+    padding-left: 6%;
+}
+
+.form_inputs {
+    margin-top: 20px;
+    padding-left: 6%;
+}
+
+/* Label */
+.label_info {
+    font-size: 14px;
+    font-weight: 400;
+    color: #4b7579;
+    margin-bottom: 10px;
+    margin-top: 20px;
+}
+
+.email {
+    width: 92%;
+    border-radius: 8px;
+    height: 50px;
+    padding-left: 20px;
+    border: none;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+
+.password {
+    width: 92%;
+    border-radius: 8px;
+    height: 50px;
+    padding-left: 20px;
+    border: none;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+
+.rememberMeBlock {
+    margin-top: 25px;
+    font-size: 14px;
+    font-weight: 400;
+    color: #4b7579;
+}
+
+.forgotPassword {
+    margin-top: 15px;
+    font-size: 14px;
+    font-weight: 400;
+    color: #4b7579;
+}
+
+.btn_login {
+    margin-top: 15px;
+    color: white;
+    text-transform: none;
+    border-radius: 5px;
+    height: 50px;
+    font-size: 20px;
+    width: 92%;
+    background-color: #e79f43;
+}
+
+.btn_login:hover {
+    background-color: #e79f43;
+    color: white;
+}
+
+.btn_login:focus {
+    background-color: #e79f43 !important;
+    color: white !important;
+}
+
+.btn_login:active {
+    background-color: #e79f43 !important;
+    color: white !important;
+}
+
+.rmt {
+    padding-left: 4%;
+}
+
+/* when button is pressed hold */
+/******************************************** Login Container Styling ***************************************/
+
+@media screen and (max-width:750px) {
+    .loginContainer {
+        border-radius: 40px;
+    }
+}
+
+@media all and (max-width:550px) {
+    .loginContainer {
+        width: 100%;
+        /* height: 560px; */
+        /* margin-top: 180px; */
+    }
+
+    .logoRight {
+        width: 180px;
+        /* border: 1px solid red; */
+        padding-left: initial;
+    }
+
+    .mobileCenter {
+        display: flex;
+        justify-content: center;
+    }
+
+    .titleLoginAccount {
+        font-size: 28px;
+        padding-left: 0%;
+        text-align: center;
+        /* border: 1px solid red; */
+    }
+}
+
+@media all and (max-width:415px) {
+    .titleLoginAccount {
+        margin-left: 10%;
+        width: 80%;
+        margin-right: 10%;
+    }
+
+    .loginContainer {
+        padding-top: 40px;
+    }
+
+    .rememberMeBlock {
+        /* border: 1px solid red; */
+        width: 100%;
+        padding-right: 0%;
+        display: flex;
+    }
+
+    .rmt {
+        /* border: 1px solid rgb(134, 13, 13); */
+        width: 100%;
+        /* padding-right: 10%;
+        padding-left: 2%; */
+        padding-right: 2%;
+    }
+}
+
+@media all and (max-width:390px) {
+    .loginContainer {
+        height: 530px;
+        padding-top: 20px;
+    }
+
+    .titleLoginAccount {
+        font-size: 25px;
+        margin-top: 18px;
+    }
+
+    .form_inputs {
+        /* border: 1px solid red; */
+        padding-top: 0px;
+        margin-bottom: 0px;
+    }
+
+    .label_info {
+        margin-top: 10px;
+        /* border: 1px solid red; */
+    }
+
+    .btn_login {
+        font-size: 18px;
+        height: 45px;
+        padding-top: 5px;
+    }
+
+    .email, .password {
+        height: 45px;
+    }
+
+    .logoRight {
+        margin-top: 0px;
+    }
+}
+
+@media all and (max-width:325px) {
+    .loginContainer {
+        height: 510px;
+        padding-top: 20px;
+    }
+
+    .titleLoginAccount {
+        font-size: 23px;
+        margin-top: 15px;
+    }
+
+    .logoRight {
+        width: 150px;
+    }
+
+    .btn_login {
+        height: 40px;
+        font-size: 18px;
+        padding-top: 6px;
+    }
+
+    .email, .password {
+        height: 40px;
+    }
+}
