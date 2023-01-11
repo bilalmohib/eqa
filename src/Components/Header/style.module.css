@@ -11,6 +11,22 @@
     position: fixed;
 }
 
+/* html:not([data-scroll='0'])  {
+    transition: 1s linear;
+    background-color: red;
+} */
+
+html:not([data-scroll="0"]) .headerContainer {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    /* background-color: #fff; */
+    opacity: 1;
+    box-shadow: 0 0 0.5em rgba(0, 0, 0, 0.5);
+    transition: 0.4s linear;
+    background-color: #395a60;
+}
+
 .logo {
     display: block;
     width: 190px;
@@ -75,6 +91,9 @@
     .logo {
         width: 300px;
         height: 60px;
+        /* border: 1px solid red; */
+        margin-top: -10px;
+        margin-bottom: 10px;
     }
 
     .logoMobileContainer {
@@ -91,6 +110,7 @@
         width: 250px;
     }
 }
+
 @media all and (max-width:300px) {
     .logo {
         width: 230px;

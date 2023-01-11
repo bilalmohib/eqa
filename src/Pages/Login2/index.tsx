@@ -21,18 +21,20 @@ const Login2 = () => {
                             {(currentTab === 1) ? ("EQA is a web based application to automate") : ("These are recent notifications listed below.")}
                         </p>
                     </div>
-                    <div className={styles.tabLogin}>
-                        <div className={`${styles.generalLeft} ${(currentTab === 1) ? (styles.leftSelectedTabLogin) : (styles.leftTabLogin)}`} onClick={() => { setCurrentTab(1); }}>
-                            About Us
-                        </div>
-                        <div className={`${styles.generalRight} ${(currentTab === 2) ? (styles.rightSelectedTabLogin) : (styles.rightTabLogin)}`} onClick={() => { setCurrentTab(2); }}>
-                            Notice Board
+                    <div className={styles.mobileTabLogin}>
+                        <div className={styles.tabLogin}>
+                            <div className={`${styles.generalLeft} ${(currentTab === 1) ? (styles.leftSelectedTabLogin) : (styles.leftTabLogin)}`} onClick={() => { setCurrentTab(1); }}>
+                                About Us
+                            </div>
+                            <div className={`${styles.generalRight} ${(currentTab === 2) ? (styles.rightSelectedTabLogin) : (styles.rightTabLogin)}`} onClick={() => { setCurrentTab(2); }}>
+                                Notice Board
+                            </div>
                         </div>
                     </div>
                 </div>
 
                 {(currentTab === 1) ? (
-                    <div>
+                    <div className={styles.aboutContainer}>
                         <h1 className={styles.heading_info_login}>
                             Education Quality Assurance (EQA) an <br />
                             Accreditation Framework for NCAA & ABET
@@ -58,7 +60,7 @@ const Login2 = () => {
                                 <div className={styles.announcementSubContainer}>
                                     <div className={styles.leftAnnouncementSubContainer}>
                                         <p className={styles.dateCountAnnouncementSC}>21</p> <br />
-                                        <p className={styles.dateMonthAnnouncementSC}>July 2022</p> 
+                                        <p className={styles.dateMonthAnnouncementSC}>July 2022</p>
                                     </div>
                                     <div className={styles.rightAnnouncementSubContainer}>
                                         <p className={styles.descHAnnouncementSC}>+12 class exam result announcement</p>
@@ -70,14 +72,16 @@ const Login2 = () => {
                     </div>
                 )}
             </div>
-            <div className='rightSide'>
+            <div className={styles.rightSide}>
                 <form className={styles.loginContainer} action="return false">
-                    <img
-                        className={styles.logoRight}
-                        src={logo}
-                        alt={"EQA University"}
-                        title={"EQA University"}
-                    />
+                    <div className={styles.mobileCenter}>
+                        <img
+                            className={styles.logoRight}
+                            src={logo}
+                            alt={"EQA University"}
+                            title={"EQA University"}
+                        />
+                    </div>
                     <h2 className={styles.titleLoginAccount}>Login With Your Account</h2>
                     <section className={styles.form_inputs}>
                         <div>
@@ -99,7 +103,7 @@ const Login2 = () => {
                         {/* Default radio */}
                         <div className={`form-check ${styles.rememberMeBlock}`}>
                             <input className={`form-check-input`} type="radio" name="flexRadioDefault" id="flexRadioDefault1" />
-                            <label className="form-check-label" htmlFor="flexRadioDefault1">&nbsp; Remember me for the next 30 days</label>
+                            <label className={`form-check-label ${styles.rmt}`} htmlFor="flexRadioDefault1">Remember me for the next 30 days</label>
                         </div>
                         <button type='button' className={`btn ${styles.btn_login}`}>
                             Login
