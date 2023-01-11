@@ -1,11 +1,20 @@
-import { useEffect } from "react";
+import { useEffect, FC } from "react";
 
 import logo from "../../assets/Images/Navbar/logo.png";
 // Language Images
 import eng from "../../assets/Images/Navbar/united-kingdom.png";
+import saud from "../../assets/Images/Navbar/saudi-arabia.png";
 import styles from './style.module.css';
 
-const Header = () => {
+interface HeaderProps {
+    setMobileViewContainer: any,
+    setCurrentTab: any
+}
+
+const Header: FC<HeaderProps> = ({
+    setMobileViewContainer,
+    setCurrentTab
+}): JSX.Element => {
 
     useEffect(() => {
         // The debounce function receives our function as a parameter
@@ -64,8 +73,38 @@ const Header = () => {
                             <p>Eng <i className="fas fa-chevron-down"></i></p>
                         </div>
                         <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <li><a className="dropdown-item" href="#">About Us</a></li>
-                            <li><a className="dropdown-item" href="#">Notice Board</a></li>
+                            <li>
+                                <a className="dropdown-item" href="#English">
+                                    <div className={styles.dropDownContainer}>
+                                        <img
+                                            width={25}
+                                            height={25}
+                                            src={eng}
+                                            alt="English"
+                                            title="English"
+                                        />
+                                        <p>
+                                            English
+                                        </p>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a className="dropdown-item" href="#Arabic">
+                                    <div className={styles.dropDownContainer}>
+                                        <img
+                                            width={25}
+                                            height={25}
+                                            src={saud}
+                                            alt="Arabic"
+                                            title="Arabic"
+                                        />
+                                        <p>
+                                            Arabic
+                                        </p>
+                                    </div>
+                                </a>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -75,8 +114,18 @@ const Header = () => {
                             <i className="fas fa-bars"></i>
                         </div>
                         <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <li><a className="dropdown-item" href="#">About Us</a></li>
-                            <li><a className="dropdown-item" href="#">Notice Board</a></li>
+                            <li onClick={() => {
+                                setMobileViewContainer("Login");
+                                setCurrentTab(1);
+                            }}><a className="dropdown-item" href="#Login">Login</a></li>
+                            <li onClick={() => {
+                                setMobileViewContainer("About");
+                                setCurrentTab(1);
+                            }}><a className="dropdown-item" href="#Announcement">About Us</a></li>
+                            <li onClick={() => {
+                                setMobileViewContainer("Announcement");
+                                setCurrentTab(2);
+                            }}><a className="dropdown-item" href="#NoticeBoard">Notice Board</a></li>
                         </ul>
                     </div>
                 </div>

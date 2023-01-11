@@ -1,6 +1,8 @@
 // Importing CSS
 import styles from './style.module.css';
 
+import { Link } from 'react-router-dom';
+
 // Importing Logo
 import logo from '../../assets/Images/Login/login_logo.png';
 
@@ -43,7 +45,7 @@ const LoginContainer = () => {
                 </button>
                 <div className={styles.forgotPassword}>
                     Forgot Password?
-                    <a href="#">click here</a>
+                    <Link to="/forgetpassword">click here</Link>
                 </div>
             </section>
         </form>

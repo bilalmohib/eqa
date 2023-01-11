@@ -1,5 +1,8 @@
+import React from 'react';
 // Importing CSS
 import styles from './style.module.css';
+
+import { Link } from 'react-router-dom';
 
 // Importing Logo
 import logo from '../../assets/Images/Login/login_logo.png';
@@ -29,7 +32,7 @@ const Login = () => {
                 </button>
             </div>
             <div className={styles.rightSide}>
-                <form action="return false">
+                <form action="">
                     <img
                         className={styles.logoRight}
                         src={logo}
@@ -42,7 +45,8 @@ const Login = () => {
                             <label className={styles.label_info}>User Name</label>
                             <input
                                 className={`form-control ${styles.email}`}
-                                type="text"
+                                type="email"
+                                required={true}
                                 placeholder='Enter User Name'
                             />
                         </div>
@@ -51,6 +55,7 @@ const Login = () => {
                             <input
                                 className={`form-control ${styles.password}`}
                                 type="password"
+                                required={true}
                                 placeholder='Enter Password'
                             />
                         </div>
@@ -59,12 +64,12 @@ const Login = () => {
                             <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" />
                             <label className="form-check-label" htmlFor="flexRadioDefault1">&nbsp; Remember me for the next 30 days</label>
                         </div>
-                        <button type='button' className={`btn ${styles.btn_login}`}>
+                        <button type='submit' className={`btn ${styles.btn_login}`}>
                             Login
                         </button>
                         <div className={styles.forgotPassword}>
                             Forgot Password?
-                            <a href="#">click here</a>
+                            <Link to="/forgetpassword">click here</Link>
                         </div>
                     </section>
                 </form>

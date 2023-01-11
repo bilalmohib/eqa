@@ -11,6 +11,15 @@
     position: fixed;
 }
 
+.dropDownContainer{
+    display: flex;
+    height: 25px;
+}
+.dropDownContainer p {
+    padding-left: 20px;
+    padding-top: 2px;
+}
+
 /* html:not([data-scroll='0'])  {
     transition: 1s linear;
     background-color: red;
@@ -71,8 +80,27 @@ html:not([data-scroll="0"]) .headerContainer {
     display: none;
 }
 
+@media all and (max-width:1150px){
+    .menuDropDown {
+        display: block;
+        color: white;
+        /* border: 1px solid red; */
+        margin-top: -2px;
+        font-size: 30px;
+        padding-top: 2px;
+        cursor: pointer;
+        width: 50px;
+        padding-left: 12px;
+    }
+
+    .menuDropDown:hover, .menuDropDown:active {
+        background-color: #4974828b;
+        transition: 0.4s linear;
+    }
+}
+
 /* For responsiveness */
-@media all and (max-width: 768px) {
+@media all and (max-width: 600px) {
     .headerContainer {
         padding-left: 2%;
         padding-right: 2%;
@@ -94,25 +122,8 @@ html:not([data-scroll="0"]) .headerContainer {
         /* border: 1px solid red; */
     }
 
-    .menuDropDown {
-        display: block;
-        color: white;
-        /* border: 1px solid red; */
-        margin-top: -2px;
-        font-size: 30px;
-        padding-top: 2px;
-        cursor: pointer;
-        width: 50px;
-        padding-left: 12px;
-    }
-
-    .menuDropDown:hover, .menuDropDown:active {
-        background-color: #4974828b;
-        transition: 0.4s linear;
-    }
-
     .logo {
-        width: 300px;
+        width: 240px;
         height: 60px;
         /* border: 1px solid red; */
         margin-top: -10px;

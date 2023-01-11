@@ -6,7 +6,6 @@
     padding-top: 50px;
     padding-bottom: 40px;
     border-radius: 10px;
-    margin-top: 200px;
     box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
 }
 
@@ -102,7 +101,27 @@
 /* when button is pressed hold */
 /******************************************** Login Container Styling ***************************************/
 
-@media screen and (max-width:750px) {
+@media all and (max-width:1300px){
+    .loginContainer {
+        width: 440px;
+        /* padding-top: 50px;
+        padding-bottom: 40px;
+        border-radius: 10px;
+        box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px; */
+    }
+}
+
+@media all and (max-width:1150px){
+    .loginContainer {
+        width: 480px;
+        /* padding-top: 50px;
+        padding-bottom: 40px;
+        border-radius: 10px;
+        box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px; */
+    }
+}
+
+@media all and (max-width:750px) {
     .loginContainer {
         border-radius: 40px;
     }
