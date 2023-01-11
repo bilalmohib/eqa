@@ -122,17 +122,19 @@ body {
 .announcementSubContainer {
     width: 95%;
     height: 70px;
-    background-color: white;
+    background: transparent;
     border-radius: 40px;
     display: flex;
     margin-bottom: 10px;
+    border: 1px solid white;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }
 
 .leftAnnouncementSubContainer {
     /* border: 1px solid red; */
     width: 25%;
     padding-left: 5%;
-    color: #35585d;
+    color: #ffffff;
     padding-top: 5px;
 }
 
@@ -150,6 +152,7 @@ body {
 .rightAnnouncementSubContainer {
     /* border: 1px solid green; */
     width: 75%;
+    color: #ffffff;
 }
 
 .descHAnnouncementSC {
