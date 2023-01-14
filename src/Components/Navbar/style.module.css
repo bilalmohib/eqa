@@ -1,0 +1,30 @@
+.nav_bar{
+    position: fixed;
+    width: 100%;
+    background-color: #ffffff !important;
+    color: #ffffff;
+    padding: 10px;
+    display: flex;
+    height: 50px;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 2;
+}
+
+.navbarHamburger{
+    box-shadow: 2px 2px 2px solid rgb(0, 0, 0);
+    /* border: 2px solid red; */
+}
+
+.navItems {
+    display: flex;
+    flex-direction: row !important;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.dropdown_nav{
+    margin-left: -100px !important;
+    z-index: 10 !important;
+    /* border: 1px solid red; */
+}
