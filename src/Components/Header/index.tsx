@@ -1,10 +1,22 @@
-import { useEffect, FC } from "react";
+import { useEffect, FC, useState } from "react";
+// import { useNavigate } from "react-router";
+
+import i18n from "../../i18n";
+//Importing useTranslation and Trans from react-i18next
+import { useTranslation, Trans } from 'react-i18next';
 
 import logo from "../../assets/Images/Navbar/logo.png";
 // Language Images
 import eng from "../../assets/Images/Navbar/united-kingdom.png";
 import saud from "../../assets/Images/Navbar/saudi-arabia.png";
 import styles from './style.module.css';
+
+const lngs = {
+    en: { nativeName: 'English' },
+    de: { nativeName: 'Deutsch' },
+    chi: { nativeName: 'Chinese' },
+    ar: { nativeName: 'Arabic' }
+};
 
 interface HeaderProps {
     setMobileViewContainer: any,
@@ -15,6 +27,21 @@ const Header: FC<HeaderProps> = ({
     setMobileViewContainer,
     setCurrentTab
 }): JSX.Element => {
+    // const navigate = useNavigate();
+
+    const [currentLang, setCurrentLang] = useState<string>("en");
+
+    const changeTheLanguage = (e: any) => {
+        i18n.changeLanguage(e);
+        // if (e === "en") {
+        //     // alert("Language changed english")
+        //     // navigate(`/`);
+        // }
+        // else {
+        //     // navigate(`/${e}`);            
+        //     // alert("Language Arabic")
+        // }
+    }
 
     useEffect(() => {
         // The debounce function receives our function as a parameter
@@ -49,6 +76,20 @@ const Header: FC<HeaderProps> = ({
         storeScroll();
     })
 
+    const selectLanguage = (value: any) => {
+        if (value === "en") {
+            changeTheLanguage("ar");
+            document.documentElement.setAttribute("lang", 'ar');
+            document.documentElement.setAttribute("dir", 'rtl');
+            setCurrentLang("ar");
+        } else if (value === "ar") {
+            changeTheLanguage("en");
+            document.documentElement.setAttribute("lang", 'en');
+            document.documentElement.setAttribute("dir", 'ltl');
+            setCurrentLang("en");
+        }
+    }
+
     return (
         <header className={styles.headerContainer}>
             <div className={styles.logoMobileContainer}>
@@ -62,18 +103,20 @@ const Header: FC<HeaderProps> = ({
             <div className={`d-flex ${styles.mobileDropStyle}`}>
                 <div>
                     <div className="dropdown" title="Select a language for the site">
-                        <div className={`${styles.langDropDown}`} id="dropdownMenuButton" data-mdb-toggle="dropdown" aria-expanded="false">
+                        <div style={{ direction: "ltr" }} className={`${styles.langDropDown}`} id="dropdownMenuButton" data-mdb-toggle="dropdown" aria-expanded="false">
                             <img
                                 width={25}
                                 height={25}
-                                src={eng}
+                                src={(currentLang === "en") ? (eng) : (saud)}
                                 alt="English"
                                 title="English"
                             />
-                            <p>Eng <i className="fas fa-chevron-down"></i></p>
+                            <p>
+                                {/* {(currentLang === "en") ? ("Eng") : ("Ar")}  */}
+                                <i className={`fas fa-chevron-down`}></i></p>
                         </div>
                         <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <li>
+                            <li onClick={() => selectLanguage("ar")}>
                                 <a className="dropdown-item" href="#English">
                                     <div className={styles.dropDownContainer}>
                                         <img
@@ -89,7 +132,7 @@ const Header: FC<HeaderProps> = ({
                                     </div>
                                 </a>
                             </li>
-                            <li>
+                            <li onClick={() => selectLanguage("en")}>
                                 <a className="dropdown-item" href="#Arabic">
                                     <div className={styles.dropDownContainer}>
                                         <img

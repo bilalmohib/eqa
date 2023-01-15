@@ -11,13 +11,13 @@
 .Home{
     display: block;
     border: 1px solid red;
-    margin-left: 250px;
-    margin-top: 50px;
+    margin-left: 280px;
+    margin-top: 80px;
     transition: 0.6s linear;
 }
 
 .onSideClose{
     margin-left: 0px;
-    margin-top: 50px;
+    margin-top: 80px;
     transition: 0.6s linear;
 }

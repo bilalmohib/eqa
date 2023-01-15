@@ -1,11 +1,47 @@
 .sidebar {
     position: fixed !important;
-    background-color: #1e1f21;
+    background-color: #446870;
     /* border: 1px solid red; */
-    top: 3rem;
-    width: 250px;
-    height: 95.3vh;
+    top: 5rem;
+    width: 280px;
+    height: 91.8vh;
     transition: 0.6s linear;
+}
+
+.profileInfoContainer {
+    background-image: url("https://images.unsplash.com/photo-1508951377804-f6ed6d17163e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTd8fGd1eSUyMGluJTIwYmxhY2slMjBiYWNrZ3JvdW5kfGVufDB8fDB8fA%3D%3D&w=1000&q=80");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 200px;
+}
+
+.imageProfile {
+    border-radius: 50%;
+    margin-left: 40px;
+}
+
+.rightInsideProfile {
+    margin-left: 10px;
+}
+
+.rightInsideProfile h3 {
+    margin-top: 3px;
+    font-size: 20px;
+    color: white;
+}
+
+.rightInsideProfile p {
+    color: white;
+    margin-top: -10px;
+    font-size: 15px;
+}
+
+
+.insideContainerProfile {
+    /* border: 1px solid red; */
+    display: flex;
+    padding-top: 60px;
 }
 
 .hideSidebar {
@@ -16,10 +52,11 @@
 .sidebarItemsContainer {
     /* border: 1px solid red; */
     border-top: 1px solid #424244;
-    padding-left: 20px;
-    padding-top: 10px;
+    padding-left: 30px;
+    padding-top: 0px;
 }
 
+/*
 .btn_createSidebar {
     border-radius: 24px !important;
     border: 1px solid #424244;
@@ -35,44 +72,42 @@
 }
 .btn_createSidebar:hover{
     background-color: #2b2c2e;
-}
+} */
 
 .SidebarMenuList {
     list-style: none;
     /* border: 1px solid rgb(0, 72, 255); */
     padding-bottom: 5px;
     margin-left: -25px !important;
-    margin-top: 10px;
+    margin-top: 0px;
 }
 
 .SidebarMenuList li {
     color: #d7d6d5;
     cursor: pointer;
-    width: 250px !important;
-    margin-left: -32px;
-    height: 38px;
-    padding-top: 2.5%;
+    width: 278px !important;
+    margin-left: -36px;
+    height: 50px;
+    padding-top: 4.5%;
     padding-left: 25px;
 }
 
 .SidebarMenuList li:hover {
-    background-color: #303132;
+    background-color: #7dbebe;
 }
 
 .selected_Menu_Item, .selected_Menu_Item:hover {
-    background-color: #424345 !important;
+    background-color: #24363a !important;
 }
 
 .itemMenuListText {
-    margin-top: 2px;
-}
-
-.itemMenuListText {
-    margin-left: 8px;
+    margin-top: 1.5px;
+    margin-left: 20px;
+    font-size: 18px;
 }
 
 /* __________________________________ Workspace block ___________________________________ */
-.workSpaceBlock {
+/* .workSpaceBlock {
     border: 1px solid #424244;
     width: 248px;
     margin-left: -20px;
@@ -89,13 +124,11 @@
     cursor: pointer;
 }
 
-/* Project Members Block */
 .projectListCoverContainer{
     margin-top: -10px;
 }
 
 .projectMembersBlock {
-    /* border: 1px solid red; */
     list-style: none;
     margin-left: -25px;
     display: flex;
@@ -109,7 +142,6 @@
 }
 
 .projectListContainer{
-    /* border: 1px solid red; */
     width: 255px;
     margin-left: -25px;
     height: 30px;
@@ -130,36 +162,47 @@
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
-    width:170px; /* some width */
+    width:170px; 
 }
 
 .projectListCoverContainer{
     list-style: none;
     margin-left: -15px;
-}
+} */
 
 /* ________________________________________ Footer block ________________________________________ */
-.sidebarFooter{
+.sidebarFooter {
     /* border: 1px solid red; */
     position: absolute;
     bottom: 0px;
-    margin-left: -25px;
-    width: 252px;
-    height: 50px;
-    background-color: #1e1f21;
+    margin-left: -30px;
+    width: 278px;
+    height: 70px;
+    background-color: #233336;
     border-top: 1px solid #424244;
     border-bottom: 1px solid #424244;
     padding-bottom: 5px;
 }
 
-.sidebarFooterContainer{
+.sidebarFooterContainer {
     /* border: 1px solid red; */
-    margin-left: 20px;
-    margin-top: 10px;
+    margin-left: 30px;
+    margin-top: 20px;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     color: white;
     font-weight: 300;
 }
+
+.logoutText {
+    margin-top: 0;
+    margin-left: 25px;
+    font-size: 20px;
+    cursor: pointer;
+}
+.logoutText:hover{
+    text-decoration: underline;
+}
+
 /* ________________________________________ Footer block ________________________________________ */

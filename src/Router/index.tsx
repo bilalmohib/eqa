@@ -1,4 +1,5 @@
-import { FC } from "react";
+import React from 'react';
+import { useEffect, FC } from "react";
 // This is a React Router v6 app
 import {
     BrowserRouter as Router,
@@ -16,6 +17,13 @@ import Login2 from "../Pages/Login2";
 // 4) Forgot Password Page
 import ForgetPassWord from "../Pages/ForgetPassWord";
 
+import { useTranslation, Trans } from 'react-i18next';
+
+import i18n from "../i18n";
+
+const baseRouteUrl = "/:locale(ar|en|de|chi)?";
+export const baseUrl = i18n.language === '/en' ? '' : '/' + i18n.language;
+
 interface AppRouterProps {
     mobileViewContainer: any,
     currentTab: any,
@@ -27,18 +35,25 @@ const AppRouter: FC<AppRouterProps> = ({
     setCurrentTab,
     mobileViewContainer
 }): JSX.Element => {
+
+    const { t } = useTranslation();
+
+    useEffect(() => {
+        console.log("The base url is equal to : ", baseRouteUrl);
+    })
+
     return (
         <Router>
             <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/login" element={<Login />} />
-                <Route path="/login2" element={<Login2
+                <Route path={"/"} element={<Home />} />
+                <Route path={"/login"} element={<Login />} />
+                <Route path={"/login2"} element={<Login2
                     currentTab={currentTab}
                     setCurrentTab={setCurrentTab}
                     mobileViewContainer={mobileViewContainer}
                 />}
                 />
-                <Route path="/forgetpassword" element={<ForgetPassWord />} />
+                <Route path={"/forgetpassword"} element={<ForgetPassWord />} />
             </Routes>
         </Router>
     )
