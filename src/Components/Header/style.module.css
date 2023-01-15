@@ -12,8 +12,10 @@
 }
 
 .dropDownContainer{
+    direction: ltr;
     display: flex;
     height: 25px;
+    /* border: 1px solid red; */
 }
 .dropDownContainer p {
     padding-left: 20px;
@@ -57,7 +59,7 @@ html:not([data-scroll="0"]) .headerContainer {
     border-radius: 5px;
     user-select: none;
     margin-right: 20px;
-    width: 110px;
+    width: 70px;
 }
 
 .langDropDown:active, .langDropDown:hover {

@@ -5,7 +5,6 @@
     flex-direction: row;
     height: 100vh;
     padding-top: 10%;
-    
     background: url(../../assets/Images/Home/login-background.png) no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
@@ -23,12 +22,15 @@
     justify-content: center;
     align-items: center; */
     padding-left: 13%;
-    padding-right: none;
     /* padding-top: 14%; */
+}
+html[dir=rtl] .leftSide{
+    padding-right: 7%;
 }
 
 .topContainerLeftLogin {
     display: flex;
+    padding-right: 15%;
     /* border: 2px solid red; */
 }
 
@@ -101,6 +103,9 @@
     overflow-y: auto;
     /* margin-right: 50px; */
 }
+html[dir='rtl'] .announcementListContainer{
+    margin-right: 15%;
+}
 
 /* Works on Chrome, Edge, and Safari */
 .announcementListContainer::-webkit-scrollbar {
@@ -128,6 +133,9 @@
     border: 1px solid white;
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }
+html[dir=rtl] .announcementSubContainer{
+    padding-right: 5%;
+}
 
 .leftAnnouncementSubContainer {
     /* border: 1px solid red; */
@@ -135,6 +143,12 @@
     padding-left: 5%;
     color: #ffffff;
     padding-top: 5px;
+}
+html[dir=rtl] .leftAnnouncementSubContainer{
+    /* border: 1px solid red; */
+    /* padding-right: 2%; */
+    width: 20%;
+    
 }
 
 .dateCountAnnouncementSC {
@@ -153,6 +167,9 @@
     width: 75%;
     color: #ffffff;
 }
+html[dir=rtl] .rightAnnouncementSubContainer{
+    /* border: 1px solid red; */
+}
 
 .descHAnnouncementSC {
     /* border: 1px solid red; */
@@ -167,6 +184,10 @@
     font-size: 12px;
     line-height: 15px;
     padding-right: 30%;
+}
+html[dir=rtl] .descDAnnouncementSC{
+    padding-left: 20% !important;
+    padding-right: 0%;
 }
 
 .left_heading_about {
@@ -188,6 +209,7 @@
     font-weight: 600;
     color: #ffffff;
     margin-top: 20px;
+    padding-right: 15%;
     line-height: 43px;
 }
 
@@ -198,6 +220,10 @@
     color: #aab9bb;
     /* border: 1px solid red; */
     margin-top: 15px;
+    padding-right: 15%;
+}
+
+.bottomContainerTopContainer{
     padding-right: 15%;
 }
 
@@ -212,6 +238,24 @@
     width: 140px !important;
     background-color: transparent;
 }
+.findustext{
+    margin-top: 30px;
+    font-size: 20px;
+    color: #aab9bb;
+}
+.socialIconsList{
+    display: flex;
+    flex-direction: row;
+    list-style: none;
+    /* border: 1px solid red; */
+    margin-left: -30px;
+    margin-right: -10%;
+    margin-top: 20px;
+}
+.socialIconsList li{
+    margin-right: 20px;
+}
+
 
 /******************************************** Left Side ***************************************/
 
@@ -225,7 +269,11 @@
     flex-direction: column;
     justify-content: center;
     align-items: center; */
+    /* border: 2px solid white; */
     background-color: #ffffff00;
+}
+html[dir=rtl] .rightSide{
+    padding-right: 6%;
 }
 
 /* when button is pressed hold */

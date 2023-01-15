@@ -4,6 +4,8 @@ import { CgMenu } from 'react-icons/cg';
 import styles from './style.module.css';
 import { useNavigate } from 'react-router';
 
+import logo from "../../assets/Images/Navbar/logo.png";
+
 import {
     CircularProgress,
     Box,
@@ -32,11 +34,17 @@ const Navbar: React.FC<NavProps> = ({
             <div className="container-fluid">
                 <a className="navbar-brand" href="#">
                     &nbsp; 
-                    <button type="button" className="btn btn-sm btn-outline-primary" style={{color:"#487173",border:"1px solid #487173"}} data-mdb-ripple-color="dark">
+                    <button type="button" className="btn btn-sm btn-outline-primary" style={{color:"#e09d3b",border:"1px solid #e09d3b"}} data-mdb-ripple-color="dark">
                         <span className={styles.navbarHamburger} onClick={() => setIsOpen(!isOpen)}> <CgMenu size={25} /> </span>
                     </button>
                     &nbsp; &nbsp;
-                    <span style={{ fontSize: 20, marginTop: '3px' }}>Project Management Software</span>
+                   <img
+                        src={logo}
+                        height={36}
+                        width={194}
+                        alt=""
+                        loading="lazy"
+                    />
                 </a>
                 <div>
                     {(true) ? (
