@@ -1,9 +1,10 @@
 /* Main Container */
 .containerCustom {
     /* border: 1px solid red; */
-    display: flex;
-    flex-direction: row;
-    height: 100vh;
+    /* display: flex;
+    flex-direction: row; */
+    min-height: 100vh;
+    height: auto;
     padding-top: 10%;
     background: url(../../assets/Images/Home/login-background.png) no-repeat center center fixed;
     -webkit-background-size: cover;
@@ -15,22 +16,23 @@
 /******************************************** Left Side ***************************************/
 .leftSide {
     /* border: 5px solid rgb(0, 255, 13); */
-    width: 55%;
+    /* width: 55%; */
     /* height: 100vh; */
     /* display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center; */
-    padding-left: 13%;
+    /* padding-left: 13%; */
     /* padding-top: 14%; */
+    /* border: 1px solid red; */
 }
 html[dir=rtl] .leftSide{
-    padding-right: 7%;
+    /* padding-right: 7%; */
 }
 
 .topContainerLeftLogin {
     display: flex;
-    padding-right: 15%;
+    /* padding-right: 15%; */
     /* border: 2px solid red; */
 }
 
@@ -104,7 +106,7 @@ html[dir=rtl] .leftSide{
     /* margin-right: 50px; */
 }
 html[dir='rtl'] .announcementListContainer{
-    margin-right: 15%;
+    /* margin-right: 15%; */
 }
 
 /* Works on Chrome, Edge, and Safari */
@@ -146,7 +148,7 @@ html[dir=rtl] .announcementSubContainer{
 }
 html[dir=rtl] .leftAnnouncementSubContainer{
     /* border: 1px solid red; */
-    /* padding-right: 2%; */
+    padding-right: 2%;
     width: 20%;
     
 }
@@ -209,7 +211,6 @@ html[dir=rtl] .descDAnnouncementSC{
     font-weight: 600;
     color: #ffffff;
     margin-top: 20px;
-    padding-right: 15%;
     line-height: 43px;
 }
 
@@ -220,11 +221,10 @@ html[dir=rtl] .descDAnnouncementSC{
     color: #aab9bb;
     /* border: 1px solid red; */
     margin-top: 15px;
-    padding-right: 15%;
 }
 
 .bottomContainerTopContainer{
-    padding-right: 15%;
+    /* padding-right: 15%; */
 }
 
 .btn_learn_more {
@@ -261,16 +261,21 @@ html[dir=rtl] .descDAnnouncementSC{
 
 /******************************************** Right Side ***************************************/
 .rightSide {
-    width: 45%;
+    /* width: 45%; */
     /* padding-top: 200px; */
-    padding-left: 6%;
+    /* padding-left: 6%; */
+    /*
+    padding-right: 40%; */
     /* height: 100vh; */
     /* display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center; */
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: end;
     /* border: 2px solid white; */
-    background-color: #ffffff00;
 }
 html[dir=rtl] .rightSide{
     padding-right: 6%;

@@ -3,12 +3,12 @@
     justify-content: space-between;
     height: 100px;
     background-color: transparent;
-    /* border: 2px solid red; */
-    width: 100%;
-    padding-top: 40px;
-    padding-left: 12%;
-    padding-right: 12%;
+    width:72%;
+    padding-top: 2%;
+    /* padding-left: 12%;
+    padding-right: 12%; */
     position: fixed;
+    margin-left: -0.5%;
 }
 
 .dropDownContainer{
@@ -47,18 +47,17 @@ html:not([data-scroll="0"]) .headerContainer {
 }
 
 .langDropDown {
-    border: 1px solid rgba(255, 0, 0, 0);
     cursor: grab;
     color: white;
     display: flex;
     flex-direction: row;
-    padding-top: 8px;
+    padding-top: 10px;
     height: 45px;
     padding-left: 10px;
-    padding-right: 10px;
+    padding-right: 20px;
     border-radius: 5px;
     user-select: none;
-    margin-right: 20px;
+    margin-right: 0px;
     width: 70px;
 }
 

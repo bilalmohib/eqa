@@ -95,8 +95,8 @@ const LoginContainer = () => {
                 </div>
                 {/* Default radio */}
                 <div className={`form-check ${styles.rememberMeBlock}`}>
-                    <input className={`form-check-input`} type="radio" checked={isChecked} name="flexRadioDefault" id="flexRadioDefault1" />
-                    <label className={`form-check-label ${styles.rmt}`} htmlFor="flexRadioDefault1" onClick={() => setIsChecked(!isChecked)}> {t('login.rightSide.loginContainer.formInputs.rememberMeText')}</label>
+                    <input className={`form-check-input`} type="checkbox" style={{direction:"ltr"}} checked={isChecked} onClick={() => setIsChecked(!isChecked)} />
+                    <label className={`form-check-label ${styles.rmt}`} onClick={() => setIsChecked(!isChecked)}> {t('login.rightSide.loginContainer.formInputs.rememberMeText')}</label>
                 </div>
                 <button type='button' className={`btn ${styles.btn_login}`} onClick={validateForm}>
                     {t('login.rightSide.loginContainer.formInputs.btnLogin')}
