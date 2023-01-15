@@ -8,7 +8,8 @@
     border-radius: 10px;
     box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
 }
-html[dir='rtl'] .loginContainer{
+
+html[dir='rtl'] .loginContainer {
     padding-right: 6%;
 }
 
@@ -23,7 +24,7 @@ html[dir='rtl'] .loginContainer{
     color: #487377;
     margin-top: 40px;
     padding-left: 6%;
-   
+
 }
 
 .form_inputs {
@@ -63,6 +64,15 @@ html[dir='rtl'] .loginContainer{
     font-size: 14px;
     font-weight: 400;
     color: #4b7579;
+    /* direction: ltr; */
+}
+
+html[dir=rtl] .rememberMeBlock {
+    width: 60%;
+    /* border: 1px solid red; */
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }
 
 .forgotPassword {
@@ -100,12 +110,17 @@ html[dir='rtl'] .loginContainer{
 
 .rmt {
     padding-left: 4%;
+    margin-top: 1px;
+}
+
+html[dir=rtl] .rmt {
+    margin-top: initial;
 }
 
 /* when button is pressed hold */
 /******************************************** Login Container Styling ***************************************/
 
-@media all and (max-width:1300px){
+@media all and (max-width:1300px) {
     .loginContainer {
         width: 440px;
         /* padding-top: 50px;
@@ -115,7 +130,7 @@ html[dir='rtl'] .loginContainer{
     }
 }
 
-@media all and (max-width:1150px){
+@media all and (max-width:1150px) {
     .loginContainer {
         width: 480px;
         /* padding-top: 50px;
