@@ -30,10 +30,17 @@
     margin-top: 150px;
     box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
 }
+html[dir=rtl] .loginContainer{
+    /* padding-left: none; */
+    /* border: 1px solid red; */
+}
 
 .logo {
     width: 270px;
     padding-left: 40px;
+}
+html[dir=rtl] .logo{
+    padding-right: 40px;
 }
 
 .logoLock{
@@ -73,6 +80,10 @@
     /* border: 1px solid red; */
     margin-left: 7.5%;
 }
+html[dir=rtl] .label_info{
+    margin-right: 7.5%;
+    margin-left: initial;
+}
 
 .email {
     width: 85%;
@@ -84,6 +95,10 @@
     border: none;
     color: #a4a4a4;
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+html[dir=rtl] .email{
+    margin-right: 7.5%;
+    margin-left: initial;
 }
 
 .btn_forgetPassword {
@@ -97,6 +112,10 @@
     width: 85%;
     margin-left: 7.5%;
     background-color: #e79f43;
+}
+html[dir=rtl] .btn_forgetPassword{
+    margin-right: 7.5%;
+    margin-left: initial;
 }
 
 .btn_forgetPassword:hover {

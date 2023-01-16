@@ -9,13 +9,13 @@
     box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
 }
 
-html[dir='rtl'] .loginContainer {
-    padding-right: 6%;
-}
-
 .logoRight {
     width: 230px;
     padding-left: 6%;
+}
+html[dir=rtl] .logoRight {
+    padding-right: 6%;
+    padding-left: initial;
 }
 
 .titleLoginAccount {
@@ -24,12 +24,19 @@ html[dir='rtl'] .loginContainer {
     color: #487377;
     margin-top: 40px;
     padding-left: 6%;
-
+}
+html[dir=rtl] .titleLoginAccount {
+    padding-right: 6%;
+    padding-left: initial;
 }
 
 .form_inputs {
     margin-top: 20px;
     padding-left: 6%;
+}
+html[dir=rtl] .form_inputs {
+    padding-right: 6%;
+    padding-left: initial;
 }
 
 /* Label */
@@ -49,6 +56,10 @@ html[dir='rtl'] .loginContainer {
     border: none;
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }
+html[dir=rtl] .email{
+    padding-right: 20px;
+    padding-left: initial;
+}
 
 .password {
     width: 92%;
@@ -57,6 +68,10 @@ html[dir='rtl'] .loginContainer {
     padding-left: 20px;
     border: none;
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+html[dir=rtl] .password{
+    padding-right: 20px;
+    padding-left: initial;
 }
 
 .rememberMeBlock {
@@ -115,6 +130,8 @@ html[dir=rtl] .rememberMeBlock {
 
 html[dir=rtl] .rmt {
     margin-top: initial;
+    padding-right: 4%;
+    padding-left: initial;
 }
 
 /* when button is pressed hold */
