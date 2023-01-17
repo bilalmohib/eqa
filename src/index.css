@@ -1,6 +1,6 @@
 
 
-body {
+/* body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
@@ -15,7 +15,7 @@ code {
 }
 /* .form-control,.form-control:active,.form-control:focus,input:focus,.input:active {
   border: 1px solid #aab9bb !important;
-} */
+}
 
 input[type=text]:focus:not([readonly]) + label, input[type=password]:focus:not([readonly]) + label {
   color: #aab9bb; 
@@ -41,7 +41,7 @@ input[type='radio']:after {
 input[type='radio']:checked::after {
 background-color: #002aff;
 } */
-
+/* 
 input[type=radio] {
   accent-color: pink;
 }
@@ -56,4 +56,6 @@ input[type=radio]{
 
 input[type=radio] {
   accent-color: #FF0000 !important;
-}
+} */
+
+

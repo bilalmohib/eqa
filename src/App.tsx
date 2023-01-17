@@ -21,7 +21,7 @@ const App = () => {
         console.log("The current location is: ", window.location.pathname);
         const url = window.location.pathname;
 
-        if (url === "/") {
+        if (url === "/" || url === "/dashboard") {
             setShowHeader(false);
         } else {
             setShowHeader(true);
