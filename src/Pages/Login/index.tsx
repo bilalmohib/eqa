@@ -1,11 +1,12 @@
 import React from 'react';
-// Importing CSS
-import styles from './style.module.css';
 
 import { Link } from 'react-router-dom';
 
 // Importing Logo
 import logo from '../../assets/Images/Login/login_logo.png';
+
+// Importing CSS
+import styles from './style.module.css';
 
 const Login = () => {
     return (

@@ -16,6 +16,8 @@ import Login from "../Pages/Login";
 import Login2 from "../Pages/Login2";
 // 4) Forgot Password Page
 import ForgetPassWord from "../Pages/ForgetPassWord";
+// 5) Marketing Dashboard Page
+import MarketingDashboard from "../Components/MarketingDashboard";
 
 import { useTranslation, Trans } from 'react-i18next';
 
@@ -45,7 +47,7 @@ const AppRouter: FC<AppRouterProps> = ({
     return (
         <Router>
             <Routes>
-                <Route path={"/"} element={<Home />} />
+                <Route path={"/"} element={<MarketingDashboard />} />
                 <Route path={"/login"} element={<Login />} />
                 <Route path={"/login2"} element={<Login2
                     currentTab={currentTab}
@@ -54,6 +56,7 @@ const AppRouter: FC<AppRouterProps> = ({
                 />}
                 />
                 <Route path={"/forgetpassword"} element={<ForgetPassWord />} />
+                <Route path={"/dashboard"} element={<MarketingDashboard />} />
             </Routes>
         </Router>
     )

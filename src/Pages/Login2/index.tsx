@@ -6,11 +6,11 @@ import { GrLinkedin } from "react-icons/gr";
 //Importing useTranslation and Trans from react-i18next
 import { useTranslation } from 'react-i18next';
 
-// Importing CSS
-import styles from './style.module.css';
-
 // importing components
 import LoginContainer from "../../Components/LoginContainer";
+
+// Importing CSS
+import styles from './style.module.css';
 
 interface LoginProps {
     mobileViewContainer: any,
