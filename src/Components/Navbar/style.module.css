@@ -1,17 +1,30 @@
-.nav_bar{
+.nav_bar {
     position: fixed;
     width: 100%;
-    background: #446870 !important;
-    color: #ffffff;
+    background: #ffffff !important;
+    color: #4f747a;
     padding: 10px;
     display: flex;
-    height: 80px;
+    height: 66px;
     justify-content: space-between;
     align-items: center;
     z-index: 2;
 }
 
-.navbarHamburger{
+.isSideOpen {
+    width: 85.33%;
+    margin-left: 267px;
+    /* border: 2px solid red; */
+    transition: 0.2s linear;
+}
+
+.isSideClose {
+    width: 100%;
+    margin-left: 0px;
+    transition: 0.2s linear;
+}
+
+.navbarHamburger {
     box-shadow: 2px 2px 2px solid rgb(0, 0, 0);
     /* border: 2px solid red; */
 }
@@ -23,7 +36,7 @@
     align-items: center;
 }
 
-.dropdown_nav{
+.dropdown_nav {
     margin-left: -100px !important;
     z-index: 10 !important;
     /* border: 1px solid red; */

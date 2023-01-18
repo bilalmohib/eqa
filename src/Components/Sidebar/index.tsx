@@ -1,21 +1,25 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState, useEffect } from 'react';
 //Importing icons
-import { AiOutlinePlus,AiFillDashboard } from "react-icons/ai";
+import { AiOutlinePlus, AiFillDashboard, AiOutlineDown, AiOutlinePhone } from "react-icons/ai";
 import { IoHomeOutline } from "react-icons/io5";
+import { IoIosArrowUp } from "react-icons/io";
+import { SlArrowUp } from "react-icons/sl";
 import { BsCheckCircle } from "react-icons/bs";
-import { BsBell } from "react-icons/bs";
+import { BsBell, BsChevronDown } from "react-icons/bs";
 import { BiStats } from "react-icons/bi";
-import { HiChartSquareBar } from "react-icons/hi";
+import { HiChartSquareBar, HiOutlineSupport } from "react-icons/hi";
 import { GiStairsGoal } from "react-icons/gi";
 import { RiLogoutCircleRFill } from "react-icons/ri";
-import { FiPlus,FiSettings } from "react-icons/fi";
-import { GoTriangleDown } from "react-icons/go";
+import { RxDot } from "react-icons/rx";
+import { FiChevronDown, FiSettings } from "react-icons/fi";
+import { GoDeviceDesktop } from "react-icons/go";
 import { CgShapeSquare } from "react-icons/cg";
-import {FaUserAlt} from "react-icons/fa";
+import { FaUserAlt, FaRegComments } from "react-icons/fa";
 import { FcInvite } from "react-icons/fc";
 import { useNavigate } from 'react-router';
 
+import logo from "../../assets/Images/Navbar/logo.png";
 
 import user from "../../assets/Images/Navbar/user.gif";
 
@@ -35,140 +39,150 @@ const Sidebar: React.FC<IProps> = ({
     setCurrentMenuItem
 }) => {
     const navigate = useNavigate();
+
+    const [showFilterMenu, setShowFilterMenu] = useState<boolean>(false);
+
+    const [currentSubMenuSidebarOpenItem, setCurrentSubMenuSidebarOpenItem] = useState<Number>(0);
+
     return (
         <section className={`${styles.sidebar} ${(isOpen) ? ("") : (styles.hideSidebar)}`}>
             <div>
-                <div className={styles.profileInfoContainer}>
-                    <div className={styles.insideContainerProfile}>
-                        <div className={styles.leftInsideProfile}>
-                            <img
-                                className={styles.imageProfile}
-                                width={50}
-                                height={50}
-                                src="https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8Mnx8fGVufDB8fHx8&w=1000&q=80"
-                                alt="David Warner"
-                            />
+                <div className={styles.sidebarLogoContainer}>
+                    <img
+                        src={logo}
+                        width={220}
+                        height={50}
+                        className={styles.LogoSidebar}
+                        title="EQA Web App"
+                        alt={"EQA Web App"}
+                    /> <FiChevronDown color="grey" />
+                </div>
+                {(!showFilterMenu) ? (
+                    <div className={styles.profileInfoContainer}>
+                        <div className={styles.profilePullTriggerBtn} role="button" onClick={() => setShowFilterMenu(!showFilterMenu)}>
+                            <FiChevronDown color="#ffffff" />
                         </div>
-                        <div className={styles.rightInsideProfile}>
-                            <h3>David Warner</h3>
-                            <p>Los Angeles, USA</p>
+                        <div className={styles.insideContainerProfile}>
+                            <div className={styles.leftInsideProfile}>
+                                <img
+                                    className={styles.imageProfile}
+                                    width={50}
+                                    height={50}
+                                    src="https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8Mnx8fGVufDB8fHx8&w=1000&q=80"
+                                    alt="David Warner"
+                                />
+                            </div>
+                            <div className={styles.rightInsideProfile}>
+                                <h3>David Warner</h3>
+                                <p>Los Angeles, USA</p>
+                            </div>
                         </div>
                     </div>
-                </div>
+                ) : (
+                    <div className={styles.searchFilterMenuContainer}>
+                        <div className={styles.searchFilterMenuSubContainer}>
+                            <input
+                                className={`form-control ${styles.searchFilterMenu}`}
+                                placeholder="Filter menu"
+                                type="text"
+                            />
+                            <div className={`${styles.searchFilterIconContainer}`} onClick={() => setShowFilterMenu(false)}>
+                                <IoIosArrowUp style={{ marginTop: -5 }} color="#ffffff" />
+                            </div>
+                        </div>
+                    </div>
+                )}
+
                 <div className={styles.sidebarItemsContainer}>
                     <ul className={styles.SidebarMenuList}>
                         <li className={(currentMenuItem === 1) ? (styles.selected_Menu_Item) : ("")}
                             onClick={() => {
-                                setCurrentMenuItem(1)
+                                setCurrentMenuItem(1);
                                 navigate('/');
+                                if (currentSubMenuSidebarOpenItem === 1) {
+                                    setCurrentSubMenuSidebarOpenItem(0);
+                                }
+                                else {
+                                    setCurrentSubMenuSidebarOpenItem(1);
+                                }
                             }}
                         >
                             <div className='d-flex'>
-                                <p> <AiFillDashboard size={20} /> </p> <p className={styles.itemMenuListText}>Dashbboard</p>
+                                <p> <GoDeviceDesktop size={18} /> </p> <p className={styles.itemMenuListText}>Assessment App</p>
                             </div>
                         </li>
+                        {(currentSubMenuSidebarOpenItem === 1) && (
+                            <ul className={styles.SubMenuItemContainer}>
+                                <li> <RxDot style={{ marginLeft: 2 }} /> &nbsp; &nbsp; &nbsp; Dashboard </li>
+                                <li> <RxDot style={{ marginLeft: 2 }} /> &nbsp; &nbsp; &nbsp; Create Assessment </li>
+                                <li> <RxDot style={{ marginLeft: 2 }} /> &nbsp; &nbsp; &nbsp; Enter Grade </li>
+                                <li> <RxDot style={{ marginLeft: 2 }} /> &nbsp; &nbsp; &nbsp; Enter Overall Grade </li>
+                            </ul>
+                        )}
                         <li className={(currentMenuItem === 3) ? (styles.selected_Menu_Item) : ("")}
                             onClick={() => {
                                 setCurrentMenuItem(3)
                                 navigate('/');
+                                if (currentSubMenuSidebarOpenItem === 2) {
+                                    setCurrentSubMenuSidebarOpenItem(0);
+                                }
+                                else {
+                                    setCurrentSubMenuSidebarOpenItem(2);
+                                }
                             }}
                         >
                             <div className='d-flex'>
-                                <p> <FaUserAlt size={18} /> </p> <p className={styles.itemMenuListText}>User Management</p>
+                                <p> <FaUserAlt size={16} /> </p> <p className={styles.itemMenuListText}>User Management</p>
                             </div>
                         </li>
+                        {(currentSubMenuSidebarOpenItem === 2) && (
+                            <ul className={styles.SubMenuItemContainer}>
+                                <li> <RxDot style={{ marginLeft: 2 }} /> &nbsp; &nbsp; &nbsp; User Management </li>
+                                <li> <RxDot style={{ marginLeft: 2 }} /> &nbsp; &nbsp; &nbsp; Open Management </li>
+                            </ul>
+                        )}
                         <li className={(currentMenuItem === 2) ? (styles.selected_Menu_Item) : ("")}
                             onClick={() => {
                                 setCurrentMenuItem(2)
                                 navigate('/');
+                                if (currentSubMenuSidebarOpenItem === 3) {
+                                    setCurrentSubMenuSidebarOpenItem(0);
+                                }
+                                else {
+                                    setCurrentSubMenuSidebarOpenItem(3);
+                                }
                             }}
                         >
                             <div className='d-flex'>
-                                <p> <FiSettings size={20} /> </p> <p className={styles.itemMenuListText}>Settings</p>
+                                <p> <FiSettings size={18} /> </p> <p className={styles.itemMenuListText}>Settings</p>
                             </div>
                         </li>
-                        {/* <li className={(currentMenuItem === 4) ? (styles.selected_Menu_Item) : ("")}
-                            onClick={() => {
-                                setCurrentMenuItem(4)
-                                navigate('/');
-                            }}
-                        >
-                            <div className='d-flex'>
-                                <p> <BiStats size={25} /> </p> <p className={styles.itemMenuListText}>Reporting</p>
-                            </div>
-                        </li>
-                        <li className={(currentMenuItem === 5) ? (styles.selected_Menu_Item) : ("")}
-                            onClick={() => {
-                                setCurrentMenuItem(5)
-                                navigate('/');
-                            }}
-                        >
-                            <div className='d-flex'>
-                                <p> <HiChartSquareBar size={25} /> </p> <p className={styles.itemMenuListText}>Portfolios</p>
-                            </div>
-                        </li>
-                        <li className={(currentMenuItem === 6) ? (styles.selected_Menu_Item) : ("")}
-                            onClick={() => {
-                                setCurrentMenuItem(6)
-                                navigate('/');
-                            }}
-                        >
-                            <div className='d-flex'>
-                                <p> <GiStairsGoal size={25} /> </p> <p className={styles.itemMenuListText}>Goals</p>
-                            </div>
-                        </li> */}
+                        {(currentSubMenuSidebarOpenItem === 3) && (
+                            <ul className={styles.SubMenuItemContainer}>
+                                <li> <RxDot style={{ marginLeft: 2 }} /> &nbsp; &nbsp; &nbsp; User Management </li>
+                                <li> <RxDot style={{ marginLeft: 2 }} /> &nbsp; &nbsp; &nbsp; Open Management </li>
+                            </ul>
+                        )}
                     </ul>
-                  
-                    {/* <section className={styles.workSpaceBlock}>
-                        <div className={`${styles.worspace_text_block} d-flex justify-content-between`} style={{ paddingRight: 20 }}>
-                            <p style={{ fontSize: 15, letterSpacing: 1, paddingLeft: 20, paddingTop: 5, fontWeight: "350" }}>My Workspace</p>
-                            <p style={{ marginTop: 5, paddingRight: 10 }}><FiPlus size={17} /></p>
-                        </div>
-
-                  
-                        <section>
-                            <ul className={styles.projectMembersBlock}>
-                                <li> <img alt='Email@email.com' title='Email@email.com' src={user} width={25} height={25} /> </li>
-                                <li> <img alt='Email@email.com' title='Email@email.com' src={user} width={25} height={25} /> </li>
-                                <li> <img alt='Email@email.com' title='Email@email.com' src={user} width={25} height={25} /> </li>
-                                <li> <img alt='Email@email.com' title='Email@email.com' src={user} width={25} height={25} /> </li>
-                                <li> <img alt='Email@email.com' title='Email@email.com' src={user} width={25} height={25} /> </li>
-                                <li> <img alt='Email@email.com' title='Email@email.com' src={user} width={25} height={25} /> </li>
-                            </ul>
-                        </section>
-                  
-
-                    
-                        <section>
-                            <ul className={styles.projectListCoverContainer}>
-                                <li>
-                                    <div className={`${styles.projectListContainer} d-flex justify-content-between`}>
-                                        <p className={styles.projectName}><CgShapeSquare style={{ marginTop: -1.5 }} color={"#9ee7e3"} size={10} /> &nbsp; Project Management Software</p>
-                                        <p style={{ marginTop: 2.5 }}><GoTriangleDown fontWeight={300} size={12} color='white' /></p>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div className={`${styles.projectListContainer} d-flex justify-content-between`}>
-                                        <p className={styles.projectName}><CgShapeSquare style={{ marginTop: -1.5 }} color={"#b36bd4"} size={10} /> &nbsp; Testing Project</p>
-                                        <p style={{ marginTop: 2.5 }}><GoTriangleDown fontWeight={300} size={12} color='white' /></p>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div className={`${styles.projectListContainer} d-flex justify-content-between`}>
-                                        <p className={styles.projectName}><CgShapeSquare style={{ marginTop: -1.5 }} color={"#b36bd4"} size={10} /> &nbsp; 2019-CS-682 / bilal 1:1</p>
-                                        <p style={{ marginTop: 2.5 }}><GoTriangleDown fontWeight={300} size={12} color='white' /></p>
-                                    </div>
-                                </li>
-                            </ul>
-                        </section>
-                    </section> */}
-                
 
                     {/* Invite Members Section */}
                     <div className={styles.sidebarFooter}>
                         <div className={styles.sidebarFooterContainer}>
-                            <p><RiLogoutCircleRFill size={30} style={{ marginTop: 2,color:"red" }} /></p>
-                            <p className={styles.logoutText}>Logout</p>
+                            <p title='Chat'>
+                                <a href="">
+                                    <FaRegComments size={22} style={{ marginTop: 3, color: "white" }} />
+                                </a>
+                            </p>
+                            <p title='Support'>
+                                <a href="">
+                                    <HiOutlineSupport size={22} style={{ marginTop: 3, color: "white" }} />
+                                </a>
+                            </p>
+                            <p title='Call'>
+                                <a href="">
+                                    <AiOutlinePhone size={22} style={{ marginTop: 3, color: "white" }} />
+                                </a>
+                            </p>
                         </div>
                     </div>
                     {/* Invite Members Section */}
