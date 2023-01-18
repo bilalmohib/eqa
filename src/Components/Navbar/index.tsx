@@ -4,7 +4,11 @@ import { CgMenu } from 'react-icons/cg';
 import styles from './style.module.css';
 import { useNavigate } from 'react-router';
 
-import logo from "../../assets/Images/Navbar/logo.png";
+import {
+    IoIosNotificationsOutline
+} from "react-icons/io";
+import { IoSettingsOutline } from "react-icons/io5";
+import { RxCube } from "react-icons/rx";
 
 import {
     CircularProgress,
@@ -30,38 +34,99 @@ const Navbar: React.FC<NavProps> = ({
     }
 
     return (
-        <nav className={`navbar navbar-expand-lg navbar-light bg-dark ${styles.nav_bar}`}>
+        <nav className={`navbar navbar-expand-lg navbar-light bg-dark ${styles.nav_bar} ${(isOpen === true) ? (styles.isSideOpen) : (styles.isSideClose)}`}>
             <div className="container-fluid">
                 <a className="navbar-brand" href="#">
-                    &nbsp; 
-                    <button type="button" className="btn btn-sm btn-outline-primary" style={{color:"#e09d3b",border:"1px solid #e09d3b"}} data-mdb-ripple-color="dark">
-                        <span className={styles.navbarHamburger} onClick={() => setIsOpen(!isOpen)}> <CgMenu size={25} /> </span>
+                    &nbsp;
+                    <button onClick={() => setIsOpen(!isOpen)} type="button" className="btn btn-sm btn-outline-primary" style={{ color: "#e09d3b", border: "1px solid #e09d3b" }} data-mdb-ripple-color="dark">
+                        <span className={styles.navbarHamburger}> <CgMenu size={25} /> </span>
                     </button>
                     &nbsp; &nbsp;
-                   <img
-                        src={logo}
-                        height={36}
-                        width={194}
-                        alt=""
-                        loading="lazy"
-                    />
+                    <div>
+                        <input
+                            type="text"
+                            className='form-control'
+                            placeholder='Search for anything'
+                        />
+                    </div>
                 </a>
                 <div>
                     {(true) ? (
                         <div className={`${styles.navItems} navbar-nav`}>
-                            {/* <a className="nav-link active" aria-current="page" href="#">5 days left in trial</a>
-                            <a className="nav-link" href="#">
-                                <button className="btn btn-warning btn-sm">Add billing info</button>
-                            </a> */}
+                            {/* Avatar */}
+                            <li className="nav-item dropdown">
+                                <a className="nav-link d-flex align-items-center" href="#" id="navbarDropdownMenuLink" role="button" data-mdb-toggle="dropdown" aria-expanded="false">
+                                    <IoSettingsOutline
+                                        size={25}
+                                        color="#4f747a"
+                                    />
+                                </a>
+                                <ul className={`dropdown-menu ${styles.dropdown_nav}`} aria-labelledby="navbarDropdownMenuLink">
+                                    <li>
+                                        <a className="dropdown-item" href="#">My profile</a>
+                                    </li>
+                                    <li>
+                                        <a className="dropdown-item" href="#">Settings</a>
+                                    </li>
+                                    <li onClick={logoutUser}>
+                                        <a className="dropdown-item" href="#">Logout</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            {/* Avatar */}
 
                             {/* Avatar */}
                             <li className="nav-item dropdown">
-                                <a className="nav-link dropdown-toggle d-flex align-items-center" href="#" id="navbarDropdownMenuLink" role="button" data-mdb-toggle="dropdown" aria-expanded="false">
+                                <a className="nav-link d-flex align-items-center" href="#" id="navbarDropdownMenuLink" role="button" data-mdb-toggle="dropdown" aria-expanded="false">
+                                    <RxCube
+                                        size={25}
+                                        color="#4f747a"
+                                    />
+                                </a>
+                                <ul className={`dropdown-menu ${styles.dropdown_nav}`} aria-labelledby="navbarDropdownMenuLink">
+                                    <li>
+                                        <a className="dropdown-item" href="#">My profile</a>
+                                    </li>
+                                    <li>
+                                        <a className="dropdown-item" href="#">Settings</a>
+                                    </li>
+                                    <li onClick={logoutUser}>
+                                        <a className="dropdown-item" href="#">Logout</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            {/* Avatar */}
+
+                            {/* Avatar */}
+                            <li className="nav-item dropdown">
+                                <a className="nav-link d-flex align-items-center" href="#" id="navbarDropdownMenuLink" role="button" data-mdb-toggle="dropdown" aria-expanded="false">
+                                    <IoIosNotificationsOutline
+                                        size={32}
+                                        color="#4f747a"
+                                    />
+                                </a>
+                                <ul className={`dropdown-menu ${styles.dropdown_nav}`} aria-labelledby="navbarDropdownMenuLink">
+                                    <li>
+                                        <a className="dropdown-item" href="#">My profile</a>
+                                    </li>
+                                    <li>
+                                        <a className="dropdown-item" href="#">Settings</a>
+                                    </li>
+                                    <li onClick={logoutUser}>
+                                        <a className="dropdown-item" href="#">Logout</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            {/* Avatar */}
+
+                            {/* Avatar */}
+                            <li className="nav-item dropdown">
+                                <a className="nav-link d-flex align-items-center" href="#" id="navbarDropdownMenuLink" role="button" data-mdb-toggle="dropdown" aria-expanded="false">
                                     <img
                                         src="https://mdbootstrap.com/img/new/avatars/2.jpg"
                                         className="rounded-circle"
-                                        width={22}
-                                        height={22}
+                                        width={33}
+                                        height={33}
                                         alt="avatar"
                                         loading="lazy" />
                                 </a>

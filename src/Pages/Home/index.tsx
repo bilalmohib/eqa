@@ -2,6 +2,7 @@ import { useState } from "react";
 
 //importing navbar
 import Navbar from "../../Components/Navbar";
+import AssessmentDashboard from "../../Components/Pages/Home/AssessmentDashboard";
 import Sidebar from "../../Components/Sidebar";
 
 import styles from "./style.module.css";
@@ -24,8 +25,8 @@ const Home = () => {
                 <div className='d-flex'>
                     <Sidebar currentMenuItem={currentMenuItem} setCurrentMenuItem={setCurrentMenuItem} isOpen={isOpen} setIsOpen={setIsOpen} />
 
-                    <div className={`${(isOpen)?(styles.Home):(styles.onSideClose)}`}>
-                        <h1>This is Home Page Lorem ipsum dolor, sit amet consectetur adipisicing elit. Tempore, eveniet. Quaerat ducimus facilis reprehenderit delectus quod quisquam, magnam omnis aperiam ex soluta molestias reiciendis eveniet tempore, sint nemo illo molestiae?</h1>
+                    <div className={`${(isOpen) ? (styles.Home) : (styles.onSideClose)}`}>
+                        <AssessmentDashboard />
                     </div>
 
                 </div>
