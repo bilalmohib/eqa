@@ -1,0 +1,73 @@
+.container {
+    border:0.5px solid rgb(219, 219, 219);
+    border-radius: 5px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+}
+
+/* Header Container Starts here */
+.headerContainer{
+    border-bottom: 0.5px solid rgb(219, 219, 219);
+    width: 100%;
+    height: 48px;
+    padding-left: 12px;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.headingTopLeft{
+    font-size: 18px;
+    font-weight: lighter;
+    padding-top: 12px;
+}
+
+.headerRight{
+    display: flex;
+}
+
+.headerButtonContainer{
+    display: flex;
+    padding-top: 15px;
+    margin-right: 15px;
+}
+
+.btnControls{
+    width: 16px;
+    height: 16px;
+    border-radius: 50px;
+    /* background-color: black; */
+    margin-left: 7px;
+    cursor: pointer;
+}
+.btnControls:hover{
+    background-color: grey;
+}
+.btnDropDownTableBtn{
+    cursor: pointer;
+    padding-top: 9px;
+    padding-left: 6px;
+    width: 30px;
+    border-radius: 0.3px solid black;
+    /* border: 1px solid black; */
+}
+.btnDropDownTableBtn:hover,.btnDropDownTableBtn:active{
+    background-color: rgb(236, 236, 236);
+    transition:0.3s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+/* Header Ends Here */
+
+/* Body Starts Here */
+.bodyContainer{
+    /* border: 1px solid blue; */
+    width: 100%;
+    height: 400px;
+}
+/* Body Ends Here */
+
+/* Footer Starts here */
+.footerContainer{
+    height: 40px;
+    width: 100%;
+    border: 1px solid green;
+}

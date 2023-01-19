@@ -1,13 +1,54 @@
 .container{
-    border: 1px solid red;
+    /* border: 1px solid red; */
     width: 100% !important;
     padding-left: 30px;
     padding-right: 30px;
     padding-top: 20px;
 }
 
+/* Top Container Starts */
 .topContainer{
     border: 1px solid rgb(12, 47, 246);
     display: flex;
     justify-content: space-between;
 }
+
+/* Left Top Container */
+.leftTopContainer{
+    display: flex;
+    padding-top: 16px;
+}
+
+.topContainerLeftText{
+    font-size: 22px;
+    margin-left: 10px;
+    font-weight: 300;
+    color: #767676;
+}
+/* Left Top Container */
+
+.progressBarTopContainer{
+    display: flex;
+    /* border: 1px solid red; */
+    padding-top: 2px;
+}
+
+.containerRightProgress{
+    /* border: 1px solid black; */
+    height: 60px;
+    padding-left: 10px;
+}
+/* Top Container Over */
+
+/* Box Container Starts */
+.containerBoxes{
+    margin-top: 40px;
+    padding-left: 0px;
+    padding-right: 0px;
+}
+.insideContainerBox{
+    /* border: 1px solid black;
+    border-radius: 3px;
+    background-color: red; */
+}
+/* Box Container Ends */

@@ -46,6 +46,7 @@ const Navbar: React.FC<NavProps> = ({
                         <input
                             type="text"
                             className='form-control'
+                            style={{border:"none"}}
                             placeholder='Search for anything'
                         />
                     </div>

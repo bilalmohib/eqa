@@ -1,5 +1,5 @@
 .sidebar {
-    position: relative !important;
+    position: fixed !important;
     background-color: #4f747a;
     /* border: 1px solid red; */
     top: 0rem;
@@ -20,7 +20,7 @@
 .sidebarLogoContainer {
     position: relative;
     background-color: #4f747a;
-    /* border: 1px solid green; */
+    /* border: 1px solid rgb(220, 3, 3); */
     height: 66px;
     display: flex;
     flex-direction: row;
@@ -29,6 +29,11 @@
     transition: 0.1s linear;
     cursor: pointer;
     z-index: 10;
+}
+
+.sidebarLogoContainer:active {
+    transform: scale(0.95);
+    transition: 0.1s linear;
 }
 
 .profilePullTriggerBtn {
@@ -73,11 +78,6 @@
     color: white;
     transition: 0.3s cubic-bezier(0.075, 0.82, 0.165, 1);
     padding: 12px 5px;
-}
-
-.sidebarLogoContainer:active {
-    transform: scale(0.95);
-    transition: 0.1s linear;
 }
 
 .LogoSidebar {
@@ -175,7 +175,7 @@
 /* search Filter Menu Container */
 
 .hideSidebar {
-    margin-left: -267px !important;
+    margin-left: -270px !important;
     transition: 0.2s linear;
 }
 
@@ -359,7 +359,7 @@ transition: 0.6s linear;
     position: absolute;
     bottom: 0px;
     margin-left: -30px;
-    width: 268px;
+    width: 269px;
     height: 45px;
     background-color: #3c6766;
     /* border-top: 1px solid #424244;

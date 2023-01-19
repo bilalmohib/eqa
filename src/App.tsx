@@ -4,6 +4,8 @@ import AppRouter from "./Router";
 // importing Header
 import Header from "./Components/Header";
 
+import "react-circular-progressbar/dist/styles.css";
+
 const App = () => {
     // Three Containers will be there 
     // 1) Login

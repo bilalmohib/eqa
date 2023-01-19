@@ -11,7 +11,7 @@
 .Home{
     display: block;
     /* border: 1px solid red; */
-    margin-left: 0px;
+    margin-left: 270px;
     margin-top: 66px;
     transition: 0.2s linear;
     width: 100%;
@@ -21,4 +21,5 @@
     margin-left: 0px;
     margin-top: 66px;
     transition: 0.2s linear;
+    width: 100%;
 }
