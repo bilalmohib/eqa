@@ -12,7 +12,7 @@ const percentage = 30;
 const AssessmentDashboard = () => {
     return (
         <div className={`${styles.container}`}>
-            <div>
+            <div style={{ marginTop: 5 }}>
                 <span style={{ color: "#4f747a" }}>EQA</span> / Assessment / Dashboard
             </div>
 
@@ -94,66 +94,56 @@ const AssessmentDashboard = () => {
             </div>
             {/* Top Container */}
 
-            {/* <div className={`container-fluid px-4 ${styles.containerBoxes}`}>
-                <div className="row gx-5 gy-5">
-                    <div className={`col-4 ${styles.insideContainerBox}`}>
-                        1
-                    </div>
-                    <div className={`col-4 ${styles.insideContainerBox}`}>
-                        2
-                    </div>
-                    <div className={`col-4 ${styles.insideContainerBox}`}>
-                        3
-                    </div>
-                </div>
-                <div className="row gx-5 gy-5">
-                    <div className={`col-4 ${styles.insideContainerBox}`}>
-                        4
-                    </div>
-                    <div className={`col-4 ${styles.insideContainerBox}`}>
-                        5
-                    </div>
-                    <div className={`col-4 ${styles.insideContainerBox}`}>
-                        6
-                    </div>
-                </div>
-            </div> */}
-
+            {/* Box Container */}
             <div className={`container-fluid ${styles.containerBoxes}`}>
-                <div className="row gx-3" style={{marginBottom:25}}>
-                    <div className={`col-md-4 ${styles.insideContainerBox}`}>
-                        <div className="p-3 border bg-light">Custom Number 1</div>
+                <div className="row gx-4" style={{ marginBottom: 24, marginLeft: "-36px", marginRight: "-36px" }}>
+                    <div className={`col-md-4`}>
+                        <div className={styles.insideContainerBox} style={{ backgroundColor: "#a5b3e9" }}>
+                            <div className={styles.countICB}>80</div>
+                            <p className={styles.infoICB}>Total Courses</p>
+                        </div>
                     </div>
                     <div className="col-md-4">
-                        <div className="p-3 border bg-light">Custom Number 2</div>
+                        <div className={styles.insideContainerBox} style={{ backgroundColor: "#ffcda1" }}>
+                            <div className={styles.countICB}>20</div>
+                            <p className={styles.infoICB}>Total Campuses</p>
+                        </div>
                     </div>
                     <div className="col-md-4">
-                        <div className="p-3 border bg-light">Custom Number 3</div>
+                        <div className={styles.insideContainerBox} style={{ backgroundColor: "#77d16d" }}>
+                            <div className={styles.countICB}>40000+</div>
+                            <p className={styles.infoICB}>No. of assessments created</p>
+                        </div>
                     </div>
                 </div>
-                <div className="row gx-3">
+                <div className="row gx-4" style={{ marginLeft: "-36px", marginRight: "-36px" }}>
                     <div className="col-md-4">
-                        <div className="p-3 border bg-light">Custom Number 1</div>
+                        <div className={styles.insideContainerBox} style={{ backgroundColor: "#83b5dd" }}>
+                            <div className={styles.countICB}>50000+</div>
+                            <p className={styles.infoICB}>Graduated</p>
+                        </div>
                     </div>
                     <div className="col-md-4">
-                        <div className="p-3 border bg-light">Custom Number 2</div>
+                        <div className={styles.insideContainerBox} style={{ backgroundColor: "#eadeaa" }}>
+                            <div className={styles.countICB}>14</div>
+                            <p className={styles.infoICB}>Libraries in Campus</p>
+                        </div>
                     </div>
                     <div className="col-md-4">
-                        <div className="p-3 border bg-light">Custom Number 3</div>
+                        <div className={styles.insideContainerBox} style={{ backgroundColor: "#a3c890" }}>
+                            <div className={styles.countICB}>456</div>
+                            <p className={styles.infoICB}>Faculty Members</p>
+                        </div>
                     </div>
                 </div>
             </div>
+            {/* Box Container */}
 
-            <br />
-            <hr />
-            <br />
-
-
-            <div>
+            <div style={{ marginTop: 30 }}>
                 <DataTableMD />
             </div>
 
-            <br /><br /><br /><br /><br />
+            <br /><br />
 
         </div>
     )

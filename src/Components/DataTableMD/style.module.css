@@ -45,8 +45,6 @@
 }
 .btnDropDownTableBtn{
     cursor: pointer;
-    padding-top: 9px;
-    padding-left: 6px;
     width: 30px;
     border-radius: 0.3px solid black;
     /* border: 1px solid black; */
@@ -63,6 +61,30 @@
     width: 100%;
     height: 400px;
 }
+
+/* Body Header Starts Here */
+.containerbodyHeader{
+    margin-top: 20px;
+    /* border: 1px solid red; */
+    width: 100%;
+    padding-left: 12px;
+    padding-right: 12px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.btnControl{
+    border: 0.5px solid rgb(219, 219, 219);
+    margin-left: 5px;
+    border-radius: 3px;
+}
+.insideBtnControl{
+    text-transform: none !important;
+    color: #4a7174 !important;
+}
+/* Body Header Starts Here */
+
 /* Body Ends Here */
 
 /* Footer Starts here */

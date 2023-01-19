@@ -34,7 +34,7 @@ const Navbar: React.FC<NavProps> = ({
     }
 
     return (
-        <nav className={`navbar navbar-expand-lg navbar-light bg-dark ${styles.nav_bar} ${(isOpen === true) ? (styles.isSideOpen) : (styles.isSideClose)}`}>
+        <nav className={`navbar navbar-expand-lg navbar-light ${styles.nav_bar} ${(isOpen === true) ? (styles.isSideOpen) : (styles.isSideClose)}`}>
             <div className="container-fluid">
                 <a className="navbar-brand" href="#">
                     &nbsp;

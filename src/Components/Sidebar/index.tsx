@@ -23,6 +23,9 @@ import logo from "../../assets/Images/Navbar/logo.png";
 
 import user from "../../assets/Images/Navbar/user.gif";
 
+import 'mdb-react-ui-kit/dist/css/mdb.min.css';
+import "@fortawesome/fontawesome-free/css/all.min.css";
+
 import styles from './style.module.css';
 
 interface IProps {
