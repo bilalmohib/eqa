@@ -1,12 +1,19 @@
-import { BsPrinter,BsSearch } from "react-icons/bs";
+
+// Importing Icons
+import { BsPrinter, BsSearch } from "react-icons/bs";
 import { HiDotsVertical } from "react-icons/hi";
 
-import Ripples from 'react-ripples'
+// Importing Ripples
+import Ripples from 'react-ripples';
+import { createRipples } from 'react-ripples';
 
-import { createRipples } from 'react-ripples'
+// Importing components
+import CustomTable from "./CustomTable";
 
+// Importing Styles
 import styles from "./style.module.css";
 
+// Creating Button Ripples
 const ButtonRipples = createRipples({
     color: 'rgba(0, 0, 0, .1)',
     during: 600,
@@ -15,7 +22,7 @@ const ButtonRipples = createRipples({
 const DataTableMD = () => {
     return (
         <div className={styles.container}>
-
+            
             {/* Header Starts here */}
             <header className={styles.headerContainer}>
                 <section className={styles.headerLeft}>
@@ -48,10 +55,13 @@ const DataTableMD = () => {
                     </div>
                 </section>
             </header>
+            {/* Header Ends here */}
 
             {/* Body Starts here */}
             <section className={styles.bodyContainer}>
-                <div className={styles.containerbodyHeader}>
+
+                {/* Body of Header Starts Here */}
+                <header className={styles.containerbodyHeader}>
                     <div>
                         <div className="input-group" style={{ backgroundColor: "#f3f3f3" }}>
                             <span className="input-group-text" id="Search">
@@ -80,8 +90,17 @@ const DataTableMD = () => {
                             </div>
                         </div>
                     </div>
+                </header>
+                {/* Body of Header Ends Here */}
+
+                {/* Body of Body Container Starts Here */}
+                <div className={styles.bodyOfBodyContainer}>
+                    <CustomTable/>
                 </div>
+                {/* Body of Body Container Ends Here */}
+
             </section>
+            {/* Body Ends here */}
 
             {/* Footer Stats here */}
             {/* <section className={styles.footerContainer}>

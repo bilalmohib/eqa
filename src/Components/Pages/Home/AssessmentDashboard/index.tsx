@@ -143,7 +143,7 @@ const AssessmentDashboard = () => {
                 <DataTableMD />
             </div>
 
-            <br /><br />
+            <br />
 
         </div>
     )

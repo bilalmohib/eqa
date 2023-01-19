@@ -19,7 +19,7 @@
 .headingTopLeft{
     font-size: 18px;
     font-weight: lighter;
-    padding-top: 12px;
+    padding-top: 13px;
 }
 
 .headerRight{
@@ -59,7 +59,8 @@
 .bodyContainer{
     /* border: 1px solid blue; */
     width: 100%;
-    height: 400px;
+    height: 100%;
+    margin-bottom: 24px;
 }
 
 /* Body Header Starts Here */

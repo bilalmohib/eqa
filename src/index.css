@@ -57,3 +57,8 @@ input[type=radio]{
 input[type=radio] {
   accent-color: #FF0000 !important;
 }
+
+.css-pdct74-MuiTablePagination-selectLabel,.MuiTablePagination-selectLabel,.css-levciy-MuiTablePagination-displayedRows{
+  /* border: 1px solid rgb(0, 0, 0) !important; */
+  margin-top: 16px !important;
+}
