@@ -1,5 +1,5 @@
 .nav_bar {
-    position: fixed;
+    position: fixed !important;
     width: 100%;
     background: #ffffff !important;
     color: #4f747a;
