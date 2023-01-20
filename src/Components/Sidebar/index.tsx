@@ -41,6 +41,118 @@ const Sidebar: React.FC<IProps> = ({
     currentMenuItem,
     setCurrentMenuItem
 }) => {
+
+    const menuItemsArray = [
+        {
+            icon: <AiFillDashboard size={18} />,
+            text: "Dashboard",
+            link: "/",
+            subMenu: [
+                {
+                    icon: <RxDot style={{ marginLeft: 2 }} />,
+                    text: "Dashboard",
+                    link: "/",
+                },
+                {
+                    icon: <RxDot style={{ marginLeft: 2 }} />,
+                    text: "Create Assessment",
+                    link: "/",
+                },
+                {
+                    icon: <RxDot style={{ marginLeft: 2 }} />,
+                    text: "Enter Grade",
+                    link: "/",
+                },
+                {
+                    icon: <RxDot style={{ marginLeft: 2 }} />,
+                    text: "Enter Overall Grade",
+                    link: "/",
+                }
+            ]
+        },
+        {
+            icon: <FaUserAlt size={16} />,
+            text: "User Management",
+            link: "/",
+            subMenu: [
+                {
+                    icon: <RxDot style={{ marginLeft: 2 }} />,
+                    text: "Create User",
+                    link: "/",
+                },
+                {
+                    icon: <RxDot style={{ marginLeft: 2 }} />,
+                    text: "Edit User",
+                    link: "/",
+                },
+                {
+                    icon: <RxDot style={{ marginLeft: 2 }} />,
+                    text: "Update User",
+                    link: "/",
+                },
+                {
+                    icon: <RxDot style={{ marginLeft: 2 }} />,
+                    text: "Delete User",
+                    link: "/",
+                }
+            ]
+        },
+        {
+            icon: <FiSettings size={18} />,
+            text: "Settings",
+            link: "/",
+            subMenu: [
+                {
+                    icon: <RxDot style={{ marginLeft: 2 }} />,
+                    text: "Settings",
+                    link: "/",
+                },
+                {
+                    icon: <RxDot style={{ marginLeft: 2 }} />,
+                    text: "Create Settings",
+                    link: "/",
+                },
+                {
+                    icon: <RxDot style={{ marginLeft: 2 }} />,
+                    text: "Edit Settings",
+                    link: "/",
+                },
+                {
+                    icon: <RxDot style={{ marginLeft: 2 }} />,
+                    text: "Update Settings",
+                    link: "/",
+                }
+            ]
+        }
+    ];
+
+    const [menuItemsArrayState, setMenuItemsArrayState] = useState<any>(menuItemsArray);
+
+    const [searchTextSidebar, setSearchTextSidebar] = useState<string>("");
+
+    useEffect(() => {
+        console.log("Sub menu item: ", menuItemsArrayState);
+
+        if (showFilterMenu) {
+            let searchFilterInput = document.getElementById('searchFilterMenu') as HTMLInputElement;
+            searchFilterInput.focus();
+        }
+    });
+
+    useEffect(() => {
+        // if (searchTextSidebar !== "") {
+        const filteredArray = menuItemsArray.filter((item: any) => {
+            return (
+                item.text.toString().toLowerCase().includes(searchTextSidebar.toLowerCase())
+            );
+        });
+        // console.log("Filtered Menu Items: ", filteredArray); 
+        setMenuItemsArrayState(filteredArray);
+        // } else {
+        //     setMenuItemsArrayState(menuItemsArray);
+        // }
+    }, [searchTextSidebar]);
+
     const navigate = useNavigate();
 
     const [showFilterMenu, setShowFilterMenu] = useState<boolean>(false);
@@ -62,7 +174,9 @@ const Sidebar: React.FC<IProps> = ({
                 </div>
                 {(!showFilterMenu) ? (
                     <div className={styles.profileInfoContainer}>
-                        <div className={styles.profilePullTriggerBtn} role="button" onClick={() => setShowFilterMenu(!showFilterMenu)}>
+                        <div className={styles.profilePullTriggerBtn} role="button" onClick={() => {
+                            setShowFilterMenu(!showFilterMenu)
+                        }}>
                             <FiChevronDown color="#ffffff" />
                         </div>
                         <div className={styles.insideContainerProfile}>
@@ -85,11 +199,18 @@ const Sidebar: React.FC<IProps> = ({
                     <div className={styles.searchFilterMenuContainer}>
                         <div className={styles.searchFilterMenuSubContainer}>
                             <input
-                                className={`form-control ${styles.searchFilterMenu}`}
+                                value={searchTextSidebar}
+                                onChange={(e) => setSearchTextSidebar(e.target.value)}
+                                className={`form-control  ${styles.searchFilterMenu}`}
                                 placeholder="Filter menu"
+                                id='searchFilterMenu'
                                 type="text"
                             />
-                            <div className={`${styles.searchFilterIconContainer}`} onClick={() => setShowFilterMenu(false)}>
+                            <div className={`${styles.searchFilterIconContainer}`} onClick={() => {
+                                // let e = document.getElementById('searchFilterMenu') as HTMLInputElement;
+                                // e.focus();
+                                setShowFilterMenu(false)
+                            }}>
                                 <IoIosArrowUp style={{ marginTop: -5 }} color="#ffffff" />
                             </div>
                         </div>
@@ -98,74 +219,47 @@ const Sidebar: React.FC<IProps> = ({
 
                 <div className={styles.sidebarItemsContainer}>
                     <ul className={styles.SidebarMenuList}>
-                        <li className={(currentMenuItem === 1) ? (styles.selected_Menu_Item) : ("")}
-                            onClick={() => {
-                                setCurrentMenuItem(1);
-                                navigate('/');
-                                if (currentSubMenuSidebarOpenItem === 1) {
-                                    setCurrentSubMenuSidebarOpenItem(0);
-                                }
-                                else {
-                                    setCurrentSubMenuSidebarOpenItem(1);
-                                }
-                            }}
-                        >
-                            <div className='d-flex'>
-                                <p> <GoDeviceDesktop size={18} /> </p> <p className={styles.itemMenuListText}>Assessment App</p>
-                            </div>
-                        </li>
-                        {(currentSubMenuSidebarOpenItem === 1) && (
-                            <ul className={styles.SubMenuItemContainer}>
-                                <li> <RxDot style={{ marginLeft: 2 }} /> &nbsp; &nbsp; &nbsp; Dashboard </li>
-                                <li> <RxDot style={{ marginLeft: 2 }} /> &nbsp; &nbsp; &nbsp; Create Assessment </li>
-                                <li> <RxDot style={{ marginLeft: 2 }} /> &nbsp; &nbsp; &nbsp; Enter Grade </li>
-                                <li> <RxDot style={{ marginLeft: 2 }} /> &nbsp; &nbsp; &nbsp; Enter Overall Grade </li>
-                            </ul>
-                        )}
-                        <li className={(currentMenuItem === 3) ? (styles.selected_Menu_Item) : ("")}
-                            onClick={() => {
-                                setCurrentMenuItem(3)
-                                navigate('/');
-                                if (currentSubMenuSidebarOpenItem === 2) {
-                                    setCurrentSubMenuSidebarOpenItem(0);
-                                }
-                                else {
-                                    setCurrentSubMenuSidebarOpenItem(2);
-                                }
-                            }}
-                        >
-                            <div className='d-flex'>
-                                <p> <FaUserAlt size={16} /> </p> <p className={styles.itemMenuListText}>User Management</p>
-                            </div>
-                        </li>
-                        {(currentSubMenuSidebarOpenItem === 2) && (
-                            <ul className={styles.SubMenuItemContainer}>
-                                <li> <RxDot style={{ marginLeft: 2 }} /> &nbsp; &nbsp; &nbsp; User Management </li>
-                                <li> <RxDot style={{ marginLeft: 2 }} /> &nbsp; &nbsp; &nbsp; Open Management </li>
-                            </ul>
-                        )}
-                        <li className={(currentMenuItem === 2) ? (styles.selected_Menu_Item) : ("")}
-                            onClick={() => {
-                                setCurrentMenuItem(2)
-                                navigate('/');
-                                if (currentSubMenuSidebarOpenItem === 3) {
-                                    setCurrentSubMenuSidebarOpenItem(0);
-                                }
-                                else {
-                                    setCurrentSubMenuSidebarOpenItem(3);
-                                }
-                            }}
-                        >
-                            <div className='d-flex'>
-                                <p> <FiSettings size={18} /> </p> <p className={styles.itemMenuListText}>Settings</p>
-                            </div>
-                        </li>
-                        {(currentSubMenuSidebarOpenItem === 3) && (
-                            <ul className={styles.SubMenuItemContainer}>
-                                <li> <RxDot style={{ marginLeft: 2 }} /> &nbsp; &nbsp; &nbsp; User Management </li>
-                                <li> <RxDot style={{ marginLeft: 2 }} /> &nbsp; &nbsp; &nbsp; Open Management </li>
-                            </ul>
-                        )}
+                        {
+                            menuItemsArrayState.map((item: any, index: any) => {
+                                return (
+                                    <>
+                                        <li key={index} className={(currentMenuItem === index + 1) ? (styles.selected_Menu_Item) : ("")}
+                                            onClick={() => {
+                                                setCurrentMenuItem(index + 1);
+                                                navigate('/');
+                                                if (currentSubMenuSidebarOpenItem === (index + 1)) {
+                                                    setCurrentSubMenuSidebarOpenItem(0);
+                                                }
+                                                else {
+                                                    setCurrentSubMenuSidebarOpenItem(index + 1);
+                                                }
+                                            }}
+                                        >
+                                            <div className='d-flex'>
+                                                <p> {item.icon} </p> <p className={styles.itemMenuListText}>{item.text}</p>
+                                            </div>
+                                        </li>
+                                        {
+                                            (currentSubMenuSidebarOpenItem === index + 1) && (
+                                                <ul className={styles.SubMenuItemContainer}>
+                                                    {
+                                                        menuItemsArray[index].subMenu.map((subItem, subIndex) => {
+                                                            return (
+                                                                <li key={subIndex}>
+                                                                    {subItem.icon}
+                                                                    &nbsp; &nbsp; &nbsp;
+                                                                    {subItem.text}
+                                                                </li>
+                                                            )
+                                                        })
+                                                    }
+                                                </ul>
+                                            )
+                                        }
+                                    </>
+                                )
+                            })
+                        }
                     </ul>
 
                     {/* Invite Members Section */}
