@@ -1,3 +1,4 @@
+import { useState } from "react";
 
 // Importing Icons
 import { BsPrinter, BsSearch } from "react-icons/bs";
@@ -20,9 +21,12 @@ const ButtonRipples = createRipples({
 })
 
 const DataTableMD = () => {
+
+    const [searchText, setSearchText] = useState<string>("");
+
     return (
         <div className={styles.container}>
-            
+
             {/* Header Starts here */}
             <header className={styles.headerContainer}>
                 <section className={styles.headerLeft}>
@@ -67,7 +71,15 @@ const DataTableMD = () => {
                             <span className="input-group-text" id="Search">
                                 <BsSearch />
                             </span>
-                            <input type="text" className="form-control" placeholder="Search" aria-label="Search" aria-describedby="Search" />
+                            <input
+                                type="text"
+                                className="form-control"
+                                placeholder="Search"
+                                aria-label="Search"
+                                aria-describedby="Search"
+                                value={searchText}
+                                onChange={(e: any) => setSearchText(e.target.value)}
+                            />
                         </div>
                     </div>
                     <div>
@@ -95,7 +107,7 @@ const DataTableMD = () => {
 
                 {/* Body of Body Container Starts Here */}
                 <div className={styles.bodyOfBodyContainer}>
-                    <CustomTable/>
+                    <CustomTable searchText={searchText} />
                 </div>
                 {/* Body of Body Container Ends Here */}
 
