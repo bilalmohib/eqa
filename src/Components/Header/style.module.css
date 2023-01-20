@@ -17,9 +17,24 @@
     height: 25px;
     /* border: 1px solid red; */
 }
+
+.liElementDropDown{
+    border: 0.1px solid transparent !important;
+}
+.liElementDropDown:hover{
+    background-color: #49748200 !important;
+    border: 0.1px solid rgba(255, 255, 255, 0.179) !important;
+    transition: 0.4s linear;
+}
+
 .dropDownContainer p {
     padding-left: 20px;
     padding-top: 2px;
+    color: white;
+}
+.dropDownContainer p:hover{
+    /* color: #395a60; */
+    transition: 0.4s linear;
 }
 
 /* html:not([data-scroll='0'])  {
@@ -79,6 +94,15 @@ html:not([data-scroll="0"]) .headerContainer {
 }
 .menuDropDown{
     display: none;
+}
+
+.dropDownLang{
+    background-color: rgba(255, 0, 0, 0) !important;
+    border: 0.1px solid rgba(255, 255, 255, 0.179) !important;
+}
+.dropDownLang:hover{
+    background-color: rgba(255, 0, 0, 0) !important;
+    color: #395a60 !important;
 }
 
 @media all and (max-width:1150px){

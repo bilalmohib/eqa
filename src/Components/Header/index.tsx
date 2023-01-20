@@ -116,9 +116,9 @@ const Header: FC<HeaderProps> = ({
                                     {/* {(currentLang === "en") ? ("Eng") : ("Ar")}  */}
                                     <i className={`fas fa-chevron-down`}></i></p>
                             </div>
-                            <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <ul className={`dropdown-menu ${styles.dropDownLang}`} aria-labelledby="dropdownMenuButton">
                                 <li onClick={() => selectLanguage("ar")}>
-                                    <a className="dropdown-item" href="#English">
+                                    <a className={`dropdown-item ${styles.liElementDropDown}`} href="#English">
                                         <div className={styles.dropDownContainer}>
                                             <img
                                                 width={25}
@@ -134,7 +134,7 @@ const Header: FC<HeaderProps> = ({
                                     </a>
                                 </li>
                                 <li onClick={() => selectLanguage("en")}>
-                                    <a className="dropdown-item" href="#Arabic">
+                                    <a className={`dropdown-item ${styles.liElementDropDown}`} href="#Arabic">
                                         <div className={styles.dropDownContainer}>
                                             <img
                                                 width={25}
@@ -157,7 +157,7 @@ const Header: FC<HeaderProps> = ({
                             <div className={`${styles.menuDropDown}`} id="dropdownMenuButton" data-mdb-toggle="dropdown" aria-expanded="false">
                                 <i className="fas fa-bars"></i>
                             </div>
-                            <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <ul className={`dropdown-menu`} aria-labelledby="dropdownMenuButton">
                                 <li onClick={() => {
                                     setMobileViewContainer("Login");
                                     setCurrentTab(1);
