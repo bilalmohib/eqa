@@ -44,6 +44,7 @@ const Sidebar: React.FC<IProps> = ({
 
     const menuItemsArray = [
         {
+            index: 1,
             icon: <AiFillDashboard size={18} />,
             text: "Dashboard",
             link: "/",
@@ -71,6 +72,7 @@ const Sidebar: React.FC<IProps> = ({
             ]
         },
         {
+            index: 2,
             icon: <FaUserAlt size={16} />,
             text: "User Management",
             link: "/",
@@ -98,6 +100,7 @@ const Sidebar: React.FC<IProps> = ({
             ]
         },
         {
+            index: 3,
             icon: <FiSettings size={18} />,
             text: "Settings",
             link: "/",
@@ -146,7 +149,23 @@ const Sidebar: React.FC<IProps> = ({
                 item.text.toString().toLowerCase().includes(searchTextSidebar.toLowerCase())
             );
         });
-        // console.log("Filtered Menu Items: ", filteredArray); 
+        console.log("Filtered Menu Items ===>: ", filteredArray);
+        //
+        //
+        //
+        // Finding the index of the item in the array
+        for (let i = 0; i < filteredArray.length; i++) {
+            if (filteredArray[i].text === searchTextSidebar) {
+                console.log("Index of the item: ", i);
+                setCurrentSubMenuSidebarOpenItem(i+1);
+            }
+            else{
+                setCurrentSubMenuSidebarOpenItem(0);
+            }
+        }
+        //
+        //
+        //
         setMenuItemsArrayState(filteredArray);
         // } else {
         //     setMenuItemsArrayState(menuItemsArray);
@@ -200,15 +219,15 @@ const Sidebar: React.FC<IProps> = ({
                         <div className={styles.searchFilterMenuSubContainer}>
                             <input
                                 value={searchTextSidebar}
-                                onChange={(e) => setSearchTextSidebar(e.target.value)}
-                                className={`form-control  ${styles.searchFilterMenu}`}
+                                onChange={(e) => {
+                                    setSearchTextSidebar(e.target.value)
+                                }}
+                                className={`form-control ${styles.searchFilterMenu}`}
                                 placeholder="Filter menu"
                                 id='searchFilterMenu'
                                 type="text"
                             />
                             <div className={`${styles.searchFilterIconContainer}`} onClick={() => {
-                                // let e = document.getElementById('searchFilterMenu') as HTMLInputElement;
-                                // e.focus();
                                 setShowFilterMenu(false)
                             }}>
                                 <IoIosArrowUp style={{ marginTop: -5 }} color="#ffffff" />
