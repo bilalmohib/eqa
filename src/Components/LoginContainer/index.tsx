@@ -55,6 +55,7 @@ const LoginContainer = () => {
     // Validation for Email
     useEffect(() => {
         if (email.length !== 0) {
+            setValidateNow(true);
             setValidationStatusEmail(true);
         }
         else {
@@ -65,6 +66,7 @@ const LoginContainer = () => {
     // Validation for Password
     useEffect(() => {
         if (password.length !== 0) {
+            setValidateNow(true);
             setValidationStatusPassword(true);
         }
         else {

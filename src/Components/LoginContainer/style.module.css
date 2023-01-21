@@ -172,7 +172,6 @@ html[dir=rtl] .rememberMeBlock {
 }
 
 html[dir=rtl] .rmt {
-    margin-top: initial;
     padding-right: 4%;
     padding-left: initial;
 }

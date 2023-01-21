@@ -46,7 +46,7 @@ const Navbar: React.FC<NavProps> = ({
                         <input
                             type="text"
                             className='form-control'
-                            style={{border:"none"}}
+                            style={{ border: "none" }}
                             placeholder='Search for anything'
                         />
                     </div>
@@ -106,7 +106,7 @@ const Navbar: React.FC<NavProps> = ({
                                         color="#4f747a"
                                     />
                                 </a>
-                                <ul className={`dropdown-menu ${styles.dropdown_nav}`} aria-labelledby="navbarDropdownMenuLink">
+                                <ul className={`dropdown-menu ${styles.dropdown_nav} ${styles.dropdownProfileNab}`} aria-labelledby="navbarDropdownMenuLink">
                                     <li>
                                         <a className="dropdown-item" href="#">My profile</a>
                                     </li>
@@ -131,15 +131,108 @@ const Navbar: React.FC<NavProps> = ({
                                         alt="avatar"
                                         loading="lazy" />
                                 </a>
-                                <ul className={`dropdown-menu ${styles.dropdown_nav}`} aria-labelledby="navbarDropdownMenuLink">
+                                <ul className={`dropdown-menu ${styles.dropdown_nav} ${styles.dropdownProfileNav}`} aria-labelledby="navbarDropdownMenuLink">
                                     <li>
-                                        <a className="dropdown-item" href="#">My profile</a>
+                                        <div className={styles.topContainerDropDownNav}>
+                                            <div className={styles.insideContainerProfile}>
+                                                <div className={styles.leftInsideProfile}>
+                                                    <img
+                                                        className={styles.imageProfile}
+                                                        width={50}
+                                                        height={50}
+                                                        src="http://localhost:3001/img/demo/avatars/avatar-admin.png"
+                                                        alt="Md Shabbir Alam"
+                                                    />
+                                                </div>
+                                                <div className={styles.rightInsideProfile}>
+                                                    <h3>Md Shabbir Alam</h3>
+                                                    <p>New York, Uk</p>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </li>
+                                    <li><a className="dropdown-item" href="#">Reset Layout</a></li>
                                     <li>
                                         <a className="dropdown-item" href="#">Settings</a>
                                     </li>
-                                    <li onClick={logoutUser}>
-                                        <a className="dropdown-item" href="#">Logout</a>
+                                    {/* Divider */}
+                                    <li><hr className="dropdown-divider" /></li>
+                                    <li>
+                                        <a className="dropdown-item" href="#">
+                                            <div className="d-flex justify-content-between">
+                                                <div>
+                                                    Full Screen
+                                                </div>
+                                                <div>
+                                                    <i style={{ color: "grey" }}>F 11</i>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a className="dropdown-item" href="#">
+                                            <div className="d-flex justify-content-between">
+                                                <div>
+                                                    Print
+                                                </div>
+                                                <div>
+                                                    <i style={{ color: "grey" }}>Ctrl + P</i>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a className="dropdown-item" href="#">
+                                            <div className="d-flex justify-content-between">
+                                                <div>
+                                                    Language
+                                                </div>
+                                                <div>
+                                                    <b style={{ color: "black" }}>
+                                                        &gt;
+                                                    </b>
+                                                </div>
+                                            </div>
+                                        </a>
+                                        <ul className="dropdown-menu dropdown-submenu">
+                                            <li>
+                                                <a className="dropdown-item" href="#">English</a>
+                                            </li>
+                                            <li>
+                                                <a className="dropdown-item" href="#">Arabic</a>
+                                            </li>
+                                            {/* <li>
+                                                <a className="dropdown-item" href="#">Submenu item 3 &raquo; </a>
+                                                <ul className="dropdown-menu dropdown-submenu">
+                                                    <li>
+                                                        <a className="dropdown-item" href="#">Multi level 1</a>
+                                                    </li>
+                                                    <li>
+                                                        <a className="dropdown-item" href="#">Multi level 2</a>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                            <li>
+                                                <a className="dropdown-item" href="#">Submenu item 4</a>
+                                            </li>
+                                            <li>
+                                                <a className="dropdown-item" href="#">Submenu item 5</a>
+                                            </li> */}
+                                        </ul>
+                                    </li>
+                                    {/* Divider */}
+                                    <li><hr className="dropdown-divider" /></li>
+                                    <li>
+                                        <a className="dropdown-item" href="#">
+                                            <div className="d-flex justify-content-between" style={{height:30}}>
+                                                <div>
+                                                    <b className='text-danger'>Logout</b>
+                                                </div>
+                                                <div style={{ textOverflow: "ellipsis", width: 120 }}>
+                                                    <p style={{ color: "black", textOverflow: "ellipsis", overflow: "hidden" }}>bilalmohib7896@gmail.com</p>
+                                                </div>
+                                            </div>
+                                        </a>
                                     </li>
                                 </ul>
                             </li>
