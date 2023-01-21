@@ -13,6 +13,7 @@
     width: 230px;
     padding-left: 6%;
 }
+
 html[dir=rtl] .logoRight {
     padding-right: 6%;
     padding-left: initial;
@@ -25,6 +26,7 @@ html[dir=rtl] .logoRight {
     margin-top: 40px;
     padding-left: 6%;
 }
+
 html[dir=rtl] .titleLoginAccount {
     padding-right: 6%;
     padding-left: initial;
@@ -34,6 +36,7 @@ html[dir=rtl] .titleLoginAccount {
     margin-top: 20px;
     padding-left: 6%;
 }
+
 html[dir=rtl] .form_inputs {
     padding-right: 6%;
     padding-left: initial;
@@ -50,35 +53,72 @@ html[dir=rtl] .form_inputs {
 
 .email {
     width: 92%;
-    border-radius: 8px;
+    border-radius: 5px;
     height: 50px;
-    padding-left: 20px;
-    border: none;
+    /* padding-left: 20px; */
+    /* border: none; */
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }
-html[dir=rtl] .email{
+
+.infoInputs{
+    font-size: 14px;
+    font-weight: 400;
+    color: #ff0000;
+    margin-bottom: 20px !important;
+    margin-top: 2px;
+}
+
+html[dir=rtl] .email {
     padding-right: 20px;
     padding-left: initial;
 }
 
+.inputValidatedFalse {
+    border: 2px solid #ff0000;
+}
+
+.inputValidatedTrue {
+    border: 2px solid #6bb6b5;
+}
+
 .password {
     width: 92%;
-    border-radius: 8px;
+    border-radius: 5px;
     height: 50px;
-    padding-left: 20px;
-    border: none;
+    /* padding-left: 20px; */
+    /* border: none; */
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }
-html[dir=rtl] .password{
+
+html[dir=rtl] .password {
     padding-right: 20px;
     padding-left: initial;
+}
+
+.formLabelStyles {
+    margin-top: 4px;
+    padding-left: 9px;
+    transition: 0.3s linear;
+}
+
+/* Validated Styles */
+.validatedTrue {
+    color: #6bb6b5;
+}
+
+/* Not validated Styles */
+.validatedFalse {
+    color: red;
 }
 
 .rememberMeBlock {
     margin-top: 25px;
     font-size: 14px;
     font-weight: 400;
-    color: #4b7579;
+    color: #6bb6b5;
+    display: flex;
+    padding-left: 0px !important;
+    /* border: 1px solid red; */
     /* direction: ltr; */
 }
 
@@ -125,7 +165,10 @@ html[dir=rtl] .rememberMeBlock {
 
 .rmt {
     padding-left: 4%;
-    margin-top: 1px;
+    margin-top: -4px;
+    display: block;
+    font-size: 18px;
+    color: #6bb6b5;
 }
 
 html[dir=rtl] .rmt {
