@@ -1,5 +1,3 @@
-
-
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -13,18 +11,20 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
 /* .form-control,.form-control:active,.form-control:focus,input:focus,.input:active {
   border: 1px solid #aab9bb !important;
 } */
 
-input[type=text]:focus:not([readonly]) + label, input[type=password]:focus:not([readonly]) + label {
-  color: #aab9bb; 
+input[type=text]:focus:not([readonly])+label, input[type=password]:focus:not([readonly])+label {
+  color: #aab9bb;
 }
 
-input[type=text]:focus:not([readonly]),input[type=password]:focus:not([readonly]) {
+input[type=text]:focus:not([readonly]), input[type=password]:focus:not([readonly]) {
   border: 0.5px solid #aab9bb;
-  box-shadow: 0 0.5px 0 0 #aab9bb; 
+  box-shadow: 0 0.5px 0 0 #aab9bb;
 }
+
 /* 
 input[type=radio],input[type=radio]:focus{
   color: #aab9bb !important;
@@ -58,12 +58,12 @@ input[type=radio] {
   accent-color: #FF0000 !important;
 } */
 
-.css-pdct74-MuiTablePagination-selectLabel,.MuiTablePagination-selectLabel,.css-levciy-MuiTablePagination-displayedRows{
+.css-pdct74-MuiTablePagination-selectLabel, .MuiTablePagination-selectLabel, .css-levciy-MuiTablePagination-displayedRows {
   /* border: 1px solid rgb(0, 0, 0) !important; */
   margin-top: 16px !important;
 }
 
-.form-outline input[type=text]:focus:not([readonly]),.form-outline input[type=password]:focus:not([readonly]) {
+.form-outline input[type=text]:focus:not([readonly]), .form-outline input[type=password]:focus:not([readonly]) {
   border: none !important;
   box-shadow: none !important;
 }
@@ -90,7 +90,29 @@ input[type=checkbox] {
   font-size: 30px !important;
   background-color: white !important;
 }
+
 /* 
 input[type=checkbox]:checked:before{
   background-color:green !important;
-  } */
+} 
+*/
+
+.dropdown-menu li {
+  position: relative;
+}
+
+.dropdown-menu .dropdown-submenu {
+  display: none;
+  position: absolute;
+  left:-57%;
+  top: 0px;
+}
+
+.dropdown-menu .dropdown-submenu-left {
+  right: 100%;
+  left: auto;
+}
+
+.dropdown-menu>li:hover>.dropdown-submenu {
+  display: block;
+}
