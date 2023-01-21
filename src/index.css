@@ -22,8 +22,8 @@ input[type=text]:focus:not([readonly]) + label, input[type=password]:focus:not([
 }
 
 input[type=text]:focus:not([readonly]),input[type=password]:focus:not([readonly]) {
-  border: 0.3px solid #aab9bb;
-  box-shadow: 0 0.3px 0 0 #aab9bb; 
+  border: 0.5px solid #aab9bb;
+  box-shadow: 0 0.5px 0 0 #aab9bb; 
 }
 /* 
 input[type=radio],input[type=radio]:focus{
@@ -42,7 +42,7 @@ input[type='radio']:checked::after {
 background-color: #002aff;
 } */
 
-input[type=radio] {
+/* input[type=radio] {
   accent-color: pink;
 }
 
@@ -56,9 +56,41 @@ input[type=radio]{
 
 input[type=radio] {
   accent-color: #FF0000 !important;
-}
+} */
 
 .css-pdct74-MuiTablePagination-selectLabel,.MuiTablePagination-selectLabel,.css-levciy-MuiTablePagination-displayedRows{
   /* border: 1px solid rgb(0, 0, 0) !important; */
   margin-top: 16px !important;
 }
+
+.form-outline input[type=text]:focus:not([readonly]),.form-outline input[type=password]:focus:not([readonly]) {
+  border: none !important;
+  box-shadow: none !important;
+}
+
+/* .form-check-input[type='checkbox']:checked + .form-check-label:before {
+  border-right: 2px solid #494949 !important;
+  border-bottom: 2px solid #494949 !important;
+  background-color: #494949 !important;
+}
+
+input[type='checkbox']:checked + .form-check-label:before {
+  border-right: 2px solid #494949 !important;
+  border-bottom: 2px solid #494949 !important;
+  background-color: #494949 !important;
+}
+
+input[type=checkbox] {
+  accent-color: red !important;
+} */
+
+
+input[type=checkbox] {
+  accent-color: #6bb6b5;
+  font-size: 30px !important;
+  background-color: white !important;
+}
+/* 
+input[type=checkbox]:checked:before{
+  background-color:green !important;
+  } */
