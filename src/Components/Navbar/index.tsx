@@ -34,6 +34,23 @@ const Navbar: React.FC<NavProps> = ({
 }) => {
     const navigate = useNavigate();
 
+    const [windowSize, setWindowSize] = useState([
+        window.innerWidth,
+        window.innerHeight,
+    ]);
+
+    useEffect(() => {
+        const handleWindowResize = () => {
+            setWindowSize([window.innerWidth, window.innerHeight]);
+        };
+
+        window.addEventListener('resize', handleWindowResize);
+
+        return () => {
+            window.removeEventListener('resize', handleWindowResize);
+        };
+    });
+
     const [selectedDay, setSelectedDay] = useState<any>(null);
 
     const [currentNotificationActiveTab, setCurrentNotificationActiveTab] = useState<Number>(1);
@@ -123,7 +140,12 @@ const Navbar: React.FC<NavProps> = ({
     }
 
     return (
-        <nav className={`navbar navbar-expand-lg navbar-light ${styles.nav_bar} ${(isOpen === true) ? (styles.isSideOpen) : (styles.isSideClose)}`}>
+        <nav className={`navbar navbar-expand-lg navbar-light ${styles.nav_bar} ${(isOpen === true) ? (styles.isSideOpen) : (styles.isSideClose)} ${(windowSize[0] < 991 && isOpen) ? ("") : ("")}`}
+            onClick={() => {
+                if (windowSize[0] < 991)
+                    setIsOpen(!isOpen)
+            }}
+        >
             <div className="container-fluid">
                 <a className="navbar-brand" href="#">
                     &nbsp;

@@ -8,10 +8,19 @@ import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import DataTableMD from "../../../DataTableMD";
 
 import styles from "./style.module.css";
+import "./style.css";
 
 const percentage = 30;
 
-const AssessmentDashboard = () => {
+interface AssessmentDashboardProps {
+    setIsOpen: any,
+    isOpen: Boolean
+}
+
+const AssessmentDashboard: React.FC<AssessmentDashboardProps> = ({
+    setIsOpen,
+    isOpen
+}) => {
 
     const [windowSize, setWindowSize] = useState([
         window.innerWidth,
@@ -43,7 +52,10 @@ const AssessmentDashboard = () => {
     });
 
     return (
-        <div className={`${styles.container}`}>
+        <div className={`${styles.container} ${(windowSize[0] < 991 && isOpen)?("bgMobileOnSideOpen"):("")}`} onClick={() => {
+            if (windowSize[0] < 991)
+                setIsOpen(!isOpen)
+        }}>
             <div style={{ marginTop: 5 }}>
                 <span style={{ color: "#4f747a" }}>EQA</span> / Assessment / Dashboard
             </div>
