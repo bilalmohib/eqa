@@ -11,3 +11,14 @@
 
     /* box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px; */
 }
+
+.insideTableContainer {
+    height: 800px;
+    width: 100%;
+}
+
+@media all and (max-width:600px){
+    .insideTableContainer {
+        height: 400px;
+    }
+}

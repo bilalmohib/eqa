@@ -17,8 +17,9 @@ input[type=text]:focus:not([readonly])+label, input[type=password]:focus:not([re
 }
 
 input[type=text]:focus:not([readonly]), input[type=password]:focus:not([readonly]) {
-  border: 0.5px solid #aab9bb;
+  border: 0.5px solid #4f747a;
   box-shadow: 0 0.5px 0 0 #aab9bb;
+  /* border-radius: 0px; */
 }
 
 .css-pdct74-MuiTablePagination-selectLabel, .MuiTablePagination-selectLabel, .css-levciy-MuiTablePagination-displayedRows {

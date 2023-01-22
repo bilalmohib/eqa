@@ -1781,7 +1781,7 @@ const CustomTable: FC<CustomTableProps> = ({
 
     return (
         <div className={styles.container}>
-            <div style={{ height: 800, width: '100%' }}>
+            <div className={styles.insideTableContainer}>
                 <StripedDataGrid
                     loading={loading}
                     rows={filteredDataRows}

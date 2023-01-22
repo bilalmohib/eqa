@@ -1,3 +1,5 @@
+import { useState, useEffect } from "react";
+
 import { IoSpeedometerOutline } from "react-icons/io5";
 
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
@@ -10,13 +12,42 @@ import styles from "./style.module.css";
 const percentage = 30;
 
 const AssessmentDashboard = () => {
+
+    const [windowSize, setWindowSize] = useState([
+        window.innerWidth,
+        window.innerHeight,
+    ]);
+
+    const styleFirstRowCB = {
+        marginBottom: 24,
+        marginLeft: -36,
+        marginRight: -36,
+    };
+
+    const styleForResponsiveFirstRowCB = {
+        marginBottom: 0,
+        marginLeft: -36,
+        marginRight: -36,
+    }
+
+    useEffect(() => {
+        const handleWindowResize = () => {
+            setWindowSize([window.innerWidth, window.innerHeight]);
+        };
+
+        window.addEventListener('resize', handleWindowResize);
+
+        return () => {
+            window.removeEventListener('resize', handleWindowResize);
+        };
+    });
+
     return (
         <div className={`${styles.container}`}>
             <div style={{ marginTop: 5 }}>
                 <span style={{ color: "#4f747a" }}>EQA</span> / Assessment / Dashboard
             </div>
 
-            <br />
             {/* <hr />
             <br /> */}
             {/* Top Container */}
@@ -25,8 +56,8 @@ const AssessmentDashboard = () => {
                     <IoSpeedometerOutline size={27} style={{ marginTop: "3px" }} color="#4f747a" />
                     <p className={styles.topContainerLeftText}> <b style={{ fontWeight: "bold" }}>Assessment</b> Dashboard </p>
                 </div>
-                <div className="d-flex">
-                    <div className={styles.progressBarTopContainer} style={{ marginRight: 20 }}>
+                <div className={styles.rightTopContainer}>
+                    <div className={styles.progressBarTopContainer}>
                         <div style={{ width: "60px" }}>
                             <CircularProgressbar
                                 value={70}
@@ -96,7 +127,7 @@ const AssessmentDashboard = () => {
 
             {/* Box Container */}
             <div className={`container-fluid ${styles.containerBoxes}`}>
-                <div className="row gx-4" style={{ marginBottom: 24, marginLeft: "-36px", marginRight: "-36px" }}>
+                <div className="row gx-4" style={(windowSize[0] > 767) ? (styleFirstRowCB) : (styleForResponsiveFirstRowCB)}>
                     <div className={`col-md-4`}>
                         <div className={styles.insideContainerBox} style={{ backgroundColor: "#a5b3e9" }}>
                             <div className={styles.countICB}>80</div>
