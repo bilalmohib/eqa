@@ -394,3 +394,9 @@ transition: 0.6s linear;
 }
 
 /* ________________________________________ Footer block ________________________________________ */
+
+@media all and (max-width:1050px){
+    .sidebar{
+        margin-left: -270px;
+    }
+}
