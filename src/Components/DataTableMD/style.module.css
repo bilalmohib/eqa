@@ -94,3 +94,35 @@
     width: 100%;
     border: 1px solid green;
 }
+
+.btnContainerTable{
+    display: flex;
+}
+
+@media all and (max-width:600px){
+    .containerbodyHeader{
+        flex-direction: column;
+        justify-content: start;
+        align-items: left;
+    }
+    .btnContainerTable{
+        justify-content: space-between;
+        margin-top: 20px;
+        margin-bottom: 15px;
+        margin-left: 0px !important;
+        padding-left: 0px !important;
+
+    }
+    .btnControl{
+        width: 30% !important;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding-left: 0px !important;
+        margin-left: 0px !important;
+    }
+    .bodyOfBodyContainer{
+        width: 97%;
+        margin-left: 1.5%;
+    }
+}

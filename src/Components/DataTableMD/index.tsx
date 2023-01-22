@@ -84,7 +84,7 @@ const DataTableMD = () => {
                     </div>
                     <div>
                         {/* Standard */}
-                        <div className="d-flex">
+                        <div className={styles.btnContainerTable}>
                             <div className={styles.btnControl}>
                                 <ButtonRipples>
                                     <button className={`btn btn-light ${styles.insideBtnControl}`}>CSV</button>
