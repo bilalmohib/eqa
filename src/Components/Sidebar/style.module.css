@@ -399,11 +399,11 @@
     .sidebar {
         margin-left: 0px;
         z-index: 1;
-        transition: 0.3s linear;
+        transition: 0.1s linear;
     }
 
     .hideSidebar {
         margin-left: 0px;
-        transition: 0.3s linear;
+        transition: 0.1s linear;
     }
 }
