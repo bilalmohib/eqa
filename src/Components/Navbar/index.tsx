@@ -341,7 +341,7 @@ const Navbar: React.FC<NavProps> = ({
                             <li className="nav-item dropdown">
                                 <a className="nav-link d-flex align-items-center" title="Profile Information" href="#" id="navbarDropdownMenuLink" role="button" data-mdb-toggle="dropdown" aria-expanded="false">
                                     <img
-                                        src="https://mdbootstrap.com/img/new/avatars/2.jpg"
+                                        src="https://mdbootstrap.com/img/new/avatars/22.jpg"
                                         className={`rounded-circle ${styles.navLinkDropDown}`}
                                         width={33}
                                         height={33}
@@ -361,7 +361,7 @@ const Navbar: React.FC<NavProps> = ({
                                                         className={styles.imageProfile}
                                                         width={50}
                                                         height={50}
-                                                        src="http://localhost:3001/img/demo/avatars/avatar-admin.png"
+                                                        src="https://mdbootstrap.com/img/new/avatars/22.jpg"
                                                         alt="Md Shabbir Alam"
                                                     />
                                                 </div>

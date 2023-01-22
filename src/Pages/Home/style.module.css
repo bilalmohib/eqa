@@ -12,14 +12,14 @@
     display: block;
     /* border: 1px solid red; */
     margin-left: 270px;
-    transition: 0.0s linear;
+    transition: 0.3s linear;
     width: 100%;
     margin-top: 67px;
 }
 
 .onSideClose{
     margin-left: 0px;
-    transition: 0.0s linear;
+    transition: 0.3s linear;
     width: 100%;
     margin-top: 67px;
 }
@@ -30,9 +30,12 @@
         display: block;
         /* border: 1px solid red; */
         margin-left: 0px;
-        transition: 0.2s linear;
+        transition: 0.1s linear;
         width: 100%;
         margin-top: 67px;
         z-index: 0;
+    }
+    .onSideClose{
+        transition: 0.1s linear;
     }
 }

@@ -152,3 +152,15 @@
         margin-bottom: 20px;
     }
 }
+
+@media all and (max-width:330px){
+    .topContainerLeftText{
+        font-size: 21px;
+        text-align: center;
+        display: flex;
+        justify-content: space-between;
+    }
+    .topContainerLeftText b{
+        margin-right: 10px;
+    }
+}
