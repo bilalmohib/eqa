@@ -260,9 +260,9 @@
     width: 265px !important;
     background-color: #3c6766;
     list-style: none;
-margin-left: -35px;
-transition: 0.6s linear;
-/* border: 2px solid blue; */
+    margin-left: -35px;
+    transition: 0.6s linear;
+    /* border: 2px solid blue; */
 }
 
 .SubMenuItemContainer::before {
@@ -395,8 +395,13 @@ transition: 0.6s linear;
 
 /* ________________________________________ Footer block ________________________________________ */
 
-@media all and (max-width:1050px){
-    .sidebar{
-        margin-left: -270px;
+@media all and (max-width:990px) {
+    .sidebar {
+        margin-left: 0px;
+        z-index: 1;
+    }
+
+    .hideSidebar {
+        margin-left: 0px;
     }
 }

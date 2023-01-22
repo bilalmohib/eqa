@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 //importing navbar
 import Navbar from "../../Components/Navbar";
@@ -8,6 +8,32 @@ import Sidebar from "../../Components/Sidebar";
 import styles from "./style.module.css";
 
 const Home = () => {
+
+    const [windowSize, setWindowSize] = useState([
+        window.innerWidth,
+        window.innerHeight,
+    ]);
+
+    useEffect(() => {
+        const handleWindowResize = () => {
+            // if (window.innerWidth < 991) {
+            //     setIsOpen(false);
+            // }
+            setWindowSize([window.innerWidth, window.innerHeight]);
+        };
+
+        window.addEventListener('resize', handleWindowResize);
+
+        return () => {
+            window.removeEventListener('resize', handleWindowResize);
+        };
+    });
+
+    useEffect(() => {
+        if (window.innerWidth < 991) {
+            setIsOpen(false);
+        }
+    }, [windowSize]);
 
     const [hideExtra, setHideExtra] = useState<Number>(1);
     const [loading, setLoading] = useState<Boolean>(true);
@@ -33,7 +59,7 @@ const Home = () => {
                     <Sidebar currentMenuItem={currentMenuItem} setCurrentMenuItem={setCurrentMenuItem} isOpen={isOpen} setIsOpen={setIsOpen} />
 
                     <div className={`${(isOpen) ? (styles.Home) : (styles.onSideClose)}`}>
-                        <AssessmentDashboard />
+                        <AssessmentDashboard isOpen={isOpen} setIsOpen={setIsOpen} />
                     </div>
 
                 </div>

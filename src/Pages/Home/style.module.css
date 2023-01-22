@@ -12,14 +12,27 @@
     display: block;
     /* border: 1px solid red; */
     margin-left: 270px;
-    transition: 0.2s linear;
+    transition: 0.0s linear;
     width: 100%;
     margin-top: 67px;
 }
 
 .onSideClose{
     margin-left: 0px;
-    transition: 0.2s linear;
+    transition: 0.0s linear;
     width: 100%;
     margin-top: 67px;
+}
+
+/* For Responsiveness */
+@media all and (max-width:990px) {
+    .Home{
+        display: block;
+        /* border: 1px solid red; */
+        margin-left: 0px;
+        transition: 0.2s linear;
+        width: 100%;
+        margin-top: 67px;
+        z-index: 0;
+    }
 }

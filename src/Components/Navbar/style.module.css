@@ -9,6 +9,7 @@
     justify-content: space-between;
     align-items: center;
     z-index: 2;
+    
 }
 
 .searchBoxNavbar {
@@ -31,7 +32,7 @@
 }
 
 .isSideOpen {
-    width: 85.05%;
+    width: calc(100% - 270px) !important;
     margin-left: 270px;
     /* border: 2px solid red; */
     transition: 0.2s linear;
@@ -41,6 +42,7 @@
     width: 100%;
     margin-left: 0px;
     transition: 0.2s linear;
+    /* border: 2px solid rgb(0, 13, 255); */
 }
 
 .navbarHamburger {
@@ -408,7 +410,24 @@
 
 /* {{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{ App DropDown Container }}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}} */
 
-@media all and (max-width:508px) {
+@media all and (max-width:990px){
+    .isSideOpen {
+        width: calc(100% - 0px) !important;
+        margin-left: 0px;
+        /* border: 2px solid rgb(77, 255, 0); */
+        transition: 0.2s linear;
+        z-index: 1;
+    }
+    
+    .isSideClose {
+        width: 100%;
+        margin-left: 0px;
+        transition: 0.2s linear;
+        /* border: 2px solid rgb(0, 13, 255); */
+    }
+}
+
+@media all and (max-width:770px) {
     .searchBoxNavbar {
         /* border: 1px solid rgb(0, 115, 255); */
         display: none;
