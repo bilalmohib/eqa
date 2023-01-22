@@ -41,10 +41,30 @@
     width: 280px !important;
     z-index: 10 !important;
     border-radius: 5px !important;
+    margin-top: 0px !important;
     /* border: 1px solid red !important; */
 }
 
-.topContainerDropDownNav{
+/* DropDown Nav Link */
+.navLinkDropDown {
+    border-radius: 50px;
+    /* width: 30px;
+    height: 30px; */
+    border: 0.1px solid transparent;
+    color: #4f747a;
+    transition:0.3s cubic-bezier(0.455, 0.03, 0.515, 0.955);
+}
+
+.navLinkDropDown:hover {
+    border: 0.1px solid #4f747a;
+    background-color: #4f747a;
+    color: aliceblue;
+    transition:0.3s cubic-bezier(0.455, 0.03, 0.515, 0.955);
+}
+
+/* DropDown Nav Link */
+
+.topContainerDropDownNav {
     height: 106px;
     width: 100%;
     background-color: #4f747a;
@@ -52,7 +72,7 @@
     border-top-right-radius: 5px !important;
 }
 
-.dropdownProfileNav{
+.dropdownProfileNav {
     border-radius: 5px !important;
     width: 280px !important;
 }
@@ -103,4 +123,268 @@
     margin-top: -10px;
     font-size: 15px;
 }
+
 /* @@@@@@@@@@@@@@@@@@@@ Profile Inside Container @@@@@@@@@@@@@@@@@@@@@ */
+
+/* {{{{{{{{{{{{{{{{{{{{{{{{{{{{ Notification DropDown Container }}}}}}}}}}}}}}}}}}}}}}}}}}}} */
+.dropdownNotificationNav {
+    /* border: 2px solid red !important; */
+    width: 350px !important;
+    margin-left: -280px !important;
+}
+
+.topContainerNotificationNav {
+    /* border: 1px solid red !important; */
+    height: 85px;
+    width: 100%;
+    background-color: #4f747a;
+    border-top-left-radius: 5px !important;
+    border-top-right-radius: 5px !important;
+    color: white;
+}
+
+.topContainerNotificationNav h3 {
+    text-align: center;
+    width: 100%;
+    padding-top: 18px;
+    font-size: 20px;
+    color: white;
+    /* border: 1px solid red !important; */
+}
+
+.topContainerNotificationNav p {
+    text-align: center;
+    width: 100%;
+    /* border: 1px solid red !important; */
+
+    color: white;
+    margin-top: -8px;
+    font-size: 15px;
+}
+
+/* ((((((((((((((((((((((( Tabs Part )))))))))))))))))))))))) */
+
+.TabsContainerNotificationNav {
+    border-bottom: 0.3px solid #4f747a49;
+    transition: 0.3s linear;
+    display: flex;
+    height: 50px;
+}
+
+.TabsContainerNotificationNav h3 {
+    /* border-bottom: 1px solid red; */
+    font-size: 15px;
+    width: 33.3%;
+    text-align: center;
+    height: 50px;
+    padding-top: 17px;
+    font-weight: 300;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: 0.3s linear;
+}
+
+.activeDropDownTabStyle {
+    border-bottom: 1px solid #6bb6b5;
+    transition: 0.3s linear;
+    letter-spacing: 3px !important;
+    font-weight: bold !important;
+    color: #4f747a;
+}
+
+/* ((((((((((((((((((((((( Tabs Part )))))))))))))))))))))))) */
+
+/* &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& Message Container &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& */
+.messageList {
+    /* border: 1px solid red; */
+    overflow: auto;
+    height: 420px;
+}
+
+.individualMessageList {
+    width: 100%;
+    display: flex;
+    height: 100px;
+    border-bottom: 0.1px solid rgba(0, 0, 0, 0.212) !important;
+    /* border: 2px solid blue; */
+}
+
+.individualMessageList:hover {
+    background-color: rgba(128, 128, 128, 0.125);
+    cursor: pointer;
+}
+
+.leftSideML {
+    width: 30%;
+    height: 100%;
+    /* border: 1px solid rgb(64, 255, 0); */
+    text-align: center;
+    padding-top: 18px;
+}
+
+/* ************* ************* Right Side ML ************* ************* */
+.rightSideML {
+    width: 70%;
+    height: 100%;
+    /* border: 1px solid rgb(0, 81, 255); */
+}
+
+.nameML {
+    font-size: 16px;
+    /* border: 1px solid red; */
+    margin-top: 19px;
+}
+
+.messageML {
+    line-height: 15px;
+    font-size: 12px !important;
+    height: 14px;
+    margin-top: -3px !important;
+    display: -webkit-box !important;
+    max-width: 220px !important;
+    -webkit-line-clamp: 4 !important;
+    -webkit-box-orient: vertical !important;
+    overflow: hidden !important;
+    /* border: 1px solid rgb(0, 42, 255); */
+}
+
+.timeML {
+    margin-top: -13px;
+    font-size: 12px !important;
+    color: grey;
+}
+
+.eventContainer h5 {
+    margin-top: 20px;
+}
+
+/* ************* ************* Right Side ML ************* ************* */
+
+/* &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& Message Container &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& */
+
+/* %%%%%%%%%%%%%%%%%%%%%%% Notifcations container %%%%%%%%%%%%%%%%%%%% */
+.notificationsContainer {
+    height: 420px;
+    overflow: auto;
+}
+
+.individualNotificationList {
+    width: 100%;
+    height: 100px;
+    padding-left: 5%;
+    border-bottom: 0.1px solid rgba(0, 0, 0, 0.212) !important;
+    /* border: 2px solid blue; */
+}
+
+.individualNotificationList:hover {
+    background-color: rgba(128, 128, 128, 0.125);
+    cursor: pointer;
+}
+
+.nlTitle {
+    font-size: 16px;
+    /* border: 1px solid red; */
+    padding-top: 12px;
+}
+
+.nlMessage {
+    /* border: 1px solid red; */
+    line-height: 15px;
+    font-size: 12px !important;
+    height: fit-content;
+    margin-top: -3px !important;
+    display: -webkit-box !important;
+    max-width: 90% !important;
+    -webkit-line-clamp: 4 !important;
+    -webkit-box-orient: vertical !important;
+    overflow: hidden !important;
+}
+
+.nlTime {
+    margin-top: -13px;
+    font-size: 12px !important;
+    color: grey;
+}
+
+/* %%%%%%%%%%%%%%%%%%%%%%% Notifcations container %%%%%%%%%%%%%%%%%%%% */
+
+/* {{{{{{{{{{{{{{{{{{{{{{{{{{{{ Notification DropDown Container }}}}}}}}}}}}}}}}}}}}}}}}}}}} */
+
+/* @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ */
+
+/* {{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{ App DropDown Container }}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}} */
+.dropdownAppNav {
+    /*
+    height: 85px !important; */
+    width: 350px !important;
+    margin-left: -220px !important;
+}
+
+.topContainerAppNav {
+    /* border: 1px solid red !important; */
+    height: 85px;
+    width: 100%;
+    background-color: #4f747a;
+    border-top-left-radius: 5px !important;
+    border-top-right-radius: 5px !important;
+    color: white;
+}
+
+.topContainerAppNav h3 {
+    text-align: center;
+    width: 100%;
+    padding-top: 18px;
+    font-size: 20px;
+    color: white;
+    font-weight: 400;
+    /* border: 1px solid red !important; */
+}
+
+.topContainerAppNav p {
+    text-align: center;
+    width: 100%;
+    /* border: 1px solid red !important; */
+    font-weight: lighter;
+    color: white;
+    margin-top: -8px;
+    font-size: 15px;
+}
+
+/* Inside Apps List Container DropDown */
+.AppsContainerDropDown {
+    /* border: 1px solid red; */
+    width: 100%;
+    /* height: 20px; */
+}
+
+.insideContainerAC {
+    /* border: 1px solid red; */
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: 90%;
+    margin-left: 5%;
+    margin-right: 5%;
+    transition: 0.3s ease-in-out;
+}
+
+.insideContainerAC li {
+    width: 100px;
+    height: 95px;
+    border-radius: 5px;
+    /* border: 1px solid rgb(100, 100, 100); */
+    cursor: pointer;
+    transition: 0.2s ease-in-out;
+    text-align: center;
+    padding-top: 10px;
+}
+
+.insideContainerAC li:hover {
+    background-color: #f7f7f7;
+    transition: 0.2s linear;
+    color: #4f747a;
+    transform: scale(1.1);
+}
+
+/* Inside Apps List Container DropDown */
+
+/* {{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{ App DropDown Container }}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}} */
