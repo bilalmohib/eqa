@@ -398,5 +398,9 @@ transition: 0.6s linear;
 @media all and (max-width:1050px){
     .sidebar{
         margin-left: -270px;
+        position: absolute;
     }
+    /* .hideSidebar{
+        margin-left: 0px;
+    } */
 }
