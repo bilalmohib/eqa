@@ -9,8 +9,62 @@
     justify-content: space-between;
     align-items: center;
     z-index: 2;
-    
+
 }
+
+/* Minifying Navigation Styles */
+.minifyNavigationDropdown {
+    min-width: 63px !important;
+    border: 1px solid rgba(105, 105, 106, 0.369) !important;
+    border-radius: 3px !important;
+    margin-left: -6px;
+    margin-top: -35px !important;
+    padding-bottom: 5px;
+    height: calc(100% + 90px) !important;
+}
+
+.minifyNavigationDropdown li {
+    /* border: 1px solid rgba(105, 105, 106, 0.369) !important; */
+    padding-right: 0px !important;
+    padding-left: 0px !important;
+    width: 63px !important;
+    margin-right: 0px !important;
+    border-radius: 3px !important;
+    margin-bottom: 0px;
+    padding-top: 5px;
+}
+
+.minifyNavigationDropdown li a:hover {
+    background-color: #ffffff !important;
+    transition: 0.3s linear;
+    width: 59px !important;
+}
+
+.minifyNavigationDropdown li a {
+    width: 63px !important;
+    transition: 0.3s linear;
+    padding-left: 0px !important;
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+    padding-right: 0px !important;
+    padding-left: 0px !important;
+}
+
+.minifyNavigationDropdown li a button {
+    margin-left: 4px !important;
+    /* margin-bottom: 1px; */
+}
+
+.minifyNavigationDropdown li a button:hover {
+    /* padding-left: 0px !important;
+ padding-right: 0px !important; */
+    transition: 0.3s linear;
+    color: white !important;
+    border: 1px solid rgb(4, 190, 10) !important;
+    background-color: #4f747a !important;
+}
+
+/* Minifying Navigation Styles */
 
 .searchBoxNavbar {
     transition: 0.3s linear;
@@ -24,9 +78,9 @@
     /* border-bottom: 0.2px solid #4f747a56 !important; */
     box-shadow: none !important;
     border-radius: 0px !important;
-  }
-  
-.searchBoxNavbar:active,.searchBoxNavbar:focus{
+}
+
+.searchBoxNavbar:active, .searchBoxNavbar:focus {
     border-bottom: 0.2px solid #4f747a56;
     border-radius: 0px !important;
 }
@@ -410,7 +464,7 @@
 
 /* {{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{ App DropDown Container }}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}} */
 
-@media all and (max-width:990px){
+@media all and (max-width:990px) {
     .isSideOpen {
         width: calc(100% - 0px) !important;
         margin-left: 0px;
@@ -418,7 +472,7 @@
         transition: 0.1s linear;
         z-index: 1;
     }
-    
+
     .isSideClose {
         width: 100%;
         margin-left: 0px;
