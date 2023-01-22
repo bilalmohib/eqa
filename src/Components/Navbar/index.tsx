@@ -131,7 +131,7 @@ const Navbar: React.FC<NavProps> = ({
                         <span className={styles.navbarHamburger}> <CgMenu size={25} /> </span>
                     </button>
                     &nbsp; &nbsp;
-                    <div>
+                    <div className={`${styles.searchBoxNavbar}`}>
                         <input
                             type="text"
                             className='form-control'
@@ -426,7 +426,7 @@ const Navbar: React.FC<NavProps> = ({
                                     <li><hr className="dropdown-divider" /></li>
                                     <li>
                                         <a className="dropdown-item" href="#">
-                                            <div className="d-flex justify-content-between" style={{ height: 30 }}>
+                                            <div className="d-flex justify-content-between" style={{ height: 30 }} onClick={logoutUser}>
                                                 <div>
                                                     <b className='text-danger'>Logout</b>
                                                 </div>

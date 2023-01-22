@@ -11,6 +11,25 @@
     z-index: 2;
 }
 
+.searchBoxNavbar {
+    transition: 0.3s linear;
+    /* border-bottom: 0.2px solid #4f747a56; */
+    border-radius: 0px;
+}
+
+.searchBoxNavbar:focus {
+    /* border: 0.5px solid #aab9bb;
+    box-shadow: 0 0.5px 0 0 #aab9bb; */
+    /* border-bottom: 0.2px solid #4f747a56 !important; */
+    box-shadow: none !important;
+    border-radius: 0px !important;
+  }
+  
+.searchBoxNavbar:active,.searchBoxNavbar:focus{
+    border-bottom: 0.2px solid #4f747a56;
+    border-radius: 0px !important;
+}
+
 .isSideOpen {
     width: 85.05%;
     margin-left: 270px;
@@ -52,14 +71,14 @@
     height: 30px; */
     border: 0.1px solid transparent;
     color: #4f747a;
-    transition:0.3s cubic-bezier(0.455, 0.03, 0.515, 0.955);
+    transition: 0.3s cubic-bezier(0.455, 0.03, 0.515, 0.955);
 }
 
 .navLinkDropDown:hover {
     border: 0.1px solid #4f747a;
     background-color: #4f747a;
     color: aliceblue;
-    transition:0.3s cubic-bezier(0.455, 0.03, 0.515, 0.955);
+    transition: 0.3s cubic-bezier(0.455, 0.03, 0.515, 0.955);
 }
 
 /* DropDown Nav Link */
@@ -388,3 +407,10 @@
 /* Inside Apps List Container DropDown */
 
 /* {{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{ App DropDown Container }}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}} */
+
+@media all and (max-width:508px) {
+    .searchBoxNavbar {
+        /* border: 1px solid rgb(0, 115, 255); */
+        display: none;
+    }
+}

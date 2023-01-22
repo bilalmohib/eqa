@@ -11,12 +11,18 @@
     /* border: 1px solid rgb(12, 47, 246); */
     display: flex;
     justify-content: space-between;
+    margin-top: 25px;
 }
 
 /* Left Top Container */
 .leftTopContainer {
     display: flex;
     padding-top: 16px;
+}
+
+/* Right Top Container */
+.rightTopContainer {
+    display: flex;
 }
 
 .topContainerLeftText {
@@ -32,6 +38,7 @@
     display: flex;
     /* border: 1px solid red; */
     padding-top: 2px;
+    margin-right: 20px;
 }
 
 .containerRightProgress {
@@ -82,3 +89,66 @@
 /* Inside Container Box Styles */
 
 /* Box Container Ends */
+
+
+/* For Responsivenesss */
+@media all and (max-width:870px) {
+    .insideContainerBox {
+        /* border: 1px solid black; */
+        height: 170px;
+    }
+}
+
+@media all and (max-width:767px) {
+    .insideContainerBox {
+        /* border: 1px solid rgb(255, 0, 0); */
+        height: 100px;
+        padding-left: initial;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .topContainer {
+        /* border: 1px solid rgb(12, 47, 246); */
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin-top: 5px;
+    }
+}
+
+@media all and (max-width:600px){
+    .insideContainerBox{
+        border-radius: 0px;
+        height: 80px;
+        padding-top: 4px;
+    }
+
+    .countICB {
+        font-size: 30px;
+        font-weight: 500;
+        color: white;
+        user-select: none;
+    }
+    
+    .infoICB {
+        font-size: 18px;
+        color: white;
+        font-weight: normal;
+        margin-top: -10px;
+    }
+}
+
+@media all and (max-width:479px) {
+    .containerBoxes{
+     margin-top: 20px;   
+    }
+    /* Right Top Container */
+    .rightTopContainer {
+        flex-direction: column;
+    }
+    .progressBarTopContainer{
+        margin-bottom: 20px;
+    }
+}
