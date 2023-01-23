@@ -1,8 +1,10 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState, useEffect } from 'react';
 import { CgMenu } from 'react-icons/cg';
+import { MdMenuOpen } from 'react-icons/md';
 import styles from './style.module.css';
 import { useNavigate } from 'react-router';
+import { AiTwotoneLock } from 'react-icons/ai';
 
 import FullCalendar from '@fullcalendar/react' // must go before plugins
 import dayGridPlugin from '@fullcalendar/daygrid' // a plugin!
@@ -149,9 +151,40 @@ const Navbar: React.FC<NavProps> = ({
             <div className="container-fluid">
                 <a className="navbar-brand" href="#">
                     &nbsp;
-                    <button onClick={() => setIsOpen(!isOpen)} type="button" className="btn btn-sm btn-outline-primary" style={{ color: "#e09d3b", border: "1px solid #e09d3b" }} data-mdb-ripple-color="dark">
-                        <span className={styles.navbarHamburger}> <CgMenu size={25} /> </span>
-                    </button>
+                    {(windowSize[0] < 991) ? (
+                        <button onClick={() => setIsOpen(!isOpen)} type="button" className="btn btn-sm btn-outline-primary" style={{ color: "#e09d3b", border: "1px solid #e09d3b" }} data-mdb-ripple-color="dark">
+                            <span className={styles.navbarHamburger}> <CgMenu size={25} /> </span>
+                        </button>
+                    ) : (
+                        <div className="dropdown">
+                            <button onClick={() => setIsOpen(!isOpen)} type="button" className="btn btn-sm btn-outline-primary" style={{ color: "#e09d3b", border: "1px solid #e09d3b" }} data-mdb-ripple-color="dark" id="dropdownMenuLink" data-mdb-toggle="dropdown" aria-expanded="false">
+                                <span className={styles.navbarHamburger}> <CgMenu size={25} /> </span>
+                            </button>
+                            <ul className={`dropdown-menu ${styles.minifyNavigationDropdown}`} aria-labelledby="dropdownMenuLink">
+                                <li>
+                                    <a className="dropdown-item" href="#">
+                                        <button onClick={() => setIsOpen(!isOpen)} type="button" className="btn btn-sm btn-outline-primary" style={{ color: "#e09d3b", border: "1px solid #e09d3b" }} data-mdb-ripple-color="dark">
+                                            <span className={styles.navbarHamburger}> <CgMenu size={25} /> </span>
+                                        </button>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a className="dropdown-item" href="#">
+                                        <button onClick={() => setIsOpen(!isOpen)} type="button" className="btn btn-sm btn-outline-primary" style={{ color: "#e09d3b", border: "1px solid #e09d3b" }} data-mdb-ripple-color="dark">
+                                            <span className={styles.navbarHamburger}> <MdMenuOpen size={25} /> </span>
+                                        </button>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a className="dropdown-item" href="#">
+                                        <button onClick={() => setIsOpen(!isOpen)} type="button" className="btn btn-sm btn-outline-primary" style={{ color: "#e09d3b", border: "1px solid #e09d3b" }} data-mdb-ripple-color="dark">
+                                            <span className={styles.navbarHamburger}> <AiTwotoneLock size={25} /> </span>
+                                        </button>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    )}
                     &nbsp; &nbsp;
                     <div className={`${styles.searchBoxNavbar}`}>
                         <input
