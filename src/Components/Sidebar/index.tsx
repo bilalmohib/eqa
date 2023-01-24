@@ -20,6 +20,8 @@ import { FcInvite } from "react-icons/fc";
 import { useNavigate } from 'react-router';
 
 import logo from "../../assets/Images/Navbar/logo.png";
+// minified logo
+import logoMinified from "../../assets/Images/Navbar/logoMinify.png";
 
 import user from "../../assets/Images/Navbar/user.gif";
 
@@ -29,8 +31,12 @@ import "@fortawesome/fontawesome-free/css/all.min.css";
 import styles from './style.module.css';
 
 interface IProps {
+    // For hiding the sidebar 
     setIsOpen: any,
     isOpen: Boolean,
+    // For minifying the sidebar
+    isMinified: Boolean,
+    setIsMinified: any,
     currentMenuItem: Number,
     setCurrentMenuItem: any
 }
@@ -38,6 +44,8 @@ interface IProps {
 const Sidebar: React.FC<IProps> = ({
     setIsOpen,
     isOpen,
+    isMinified,
+    setIsMinified,
     currentMenuItem,
     setCurrentMenuItem
 }) => {
@@ -45,7 +53,7 @@ const Sidebar: React.FC<IProps> = ({
     const menuItemsArray = [
         {
             index: 1,
-            icon: <AiFillDashboard size={18} />,
+            icon: <AiFillDashboard size={20} style={{ width: 25, height: 25 }} />,
             text: "Dashboard",
             link: "/",
             subMenu: [
@@ -73,7 +81,7 @@ const Sidebar: React.FC<IProps> = ({
         },
         {
             index: 2,
-            icon: <FaUserAlt size={16} />,
+            icon: <FaUserAlt size={17} style={{ width: 23, height: 23 }} />,
             text: "User Management",
             link: "/",
             subMenu: [
@@ -101,7 +109,7 @@ const Sidebar: React.FC<IProps> = ({
         },
         {
             index: 3,
-            icon: <FiSettings size={18} />,
+            icon: <FiSettings size={20} style={{ width: 23, height: 23 }} />,
             text: "Settings",
             link: "/",
             subMenu: [
@@ -161,7 +169,7 @@ const Sidebar: React.FC<IProps> = ({
             // Finding the index of the item in the array
             for (let i = 0; i < filteredArray.length; i++) {
                 if (filteredArray[i].text.includes(searchTextSidebar)) {
-                    setCurrentSubMenuSidebarOpenItem(i+1);
+                    setCurrentSubMenuSidebarOpenItem(i + 1);
                     console.log("Index of the item: ", i);
                     // for (let j = 0; j < filteredArray[i].subMenu.length; j++) {
                     //     if (filteredArray[i].subMenu[j].text.includes(searchTextSidebar)) {
@@ -183,6 +191,7 @@ const Sidebar: React.FC<IProps> = ({
         } else {
             setMenuItemsArrayState(menuItemsArray);
         }
+        // @ ts-ignore
     }, [searchTextSidebar]);
 
     const navigate = useNavigate();
@@ -192,11 +201,20 @@ const Sidebar: React.FC<IProps> = ({
     const [currentSubMenuSidebarOpenItem, setCurrentSubMenuSidebarOpenItem] = useState<Number>(0);
 
     return (
-        <section className={`${styles.sidebar} ${(isOpen) ? ("") : (styles.hideSidebar)}`}>
+        <section className={`${styles.sidebar} ${(!isOpen) && (styles.hideSidebar)} ${(isMinified) && (styles.minifySidebar)}`}
+            onMouseLeave={() => {
+                if (isMinified) {
+                    // if 2 seconds passsed then hide the sub menu item
+                    setTimeout(() => {
+                        setCurrentSubMenuSidebarOpenItem(0);
+                    }, 3000);
+                }
+            }}
+        >
             <div>
                 <div className={styles.sidebarLogoContainer}>
                     <img
-                        src={logo}
+                        src={(isMinified) ? (logoMinified) : (logo)}
                         width={220}
                         height={50}
                         className={styles.LogoSidebar}
@@ -206,9 +224,18 @@ const Sidebar: React.FC<IProps> = ({
                 </div>
                 {(!showFilterMenu) ? (
                     <div className={styles.profileInfoContainer}>
-                        <div className={styles.profilePullTriggerBtn} role="button" onClick={() => {
-                            setShowFilterMenu(!showFilterMenu)
-                        }}>
+                        <div
+                            className={styles.profilePullTriggerBtn}
+                            role="button"
+                            onClick={() => {
+                                if (!isMinified) {
+                                    setShowFilterMenu(!showFilterMenu)
+                                }
+                                else {
+                                    alert("Please expand the sidebar first");
+                                }
+                            }}
+                        >
                             <FiChevronDown color="#ffffff" />
                         </div>
                         <div className={styles.insideContainerProfile}>
@@ -255,32 +282,126 @@ const Sidebar: React.FC<IProps> = ({
                             menuItemsArrayState.map((item: any, index: any) => {
                                 return (
                                     <>
-                                        <li key={index} className={(currentMenuItem === index + 1) ? (styles.selected_Menu_Item) : ("")}
+                                        <li
+                                            key={index}
+                                            className={
+                                                `${(currentMenuItem === index + 1) ? (styles.selected_Menu_Item) : ("")} ${(isMinified) && (styles.listItemMinified)}`
+                                            }
+                                            style={{ cursor: (isMinified)?("default"):("pointer") }}
                                             onClick={() => {
-                                                setCurrentMenuItem(index + 1);
-                                                navigate('/');
-                                                if (currentSubMenuSidebarOpenItem === (index + 1)) {
-                                                    setCurrentSubMenuSidebarOpenItem(0);
+                                                if (!isMinified) {
+                                                    setCurrentMenuItem(index + 1);
+                                                    navigate('/');
+                                                    if (currentSubMenuSidebarOpenItem === (index + 1)) {
+                                                        setCurrentSubMenuSidebarOpenItem(0);
+                                                    }
+                                                    else {
+                                                        setCurrentSubMenuSidebarOpenItem(index + 1);
+                                                    }
                                                 }
-                                                else {
-                                                    setCurrentSubMenuSidebarOpenItem(index + 1);
+                                            }}
+
+                                            onMouseLeave={() => {
+                                                if (isMinified) {
+                                                    // setCurrentMenuItem(0);
+                                                    // setCurrentSubMenuSidebarOpenItem(0);
                                                 }
                                             }}
                                         >
-                                            <div className='d-flex'>
+                                            <div
+                                                className={`d-flex ${(isMinified) && (styles.minifiedSidebarInsideContainer)}`}
+                                                role={"button"}
+                                                onMouseEnter={() => {
+                                                    if (isMinified) {
+                                                        setCurrentMenuItem(index + 1);
+                                                        //if (currentSubMenuSidebarOpenItem === (index + 1)) {
+                                                        // setCurrentSubMenuSidebarOpenItem(0);
+                                                        //}
+                                                        //else {
+                                                        setCurrentSubMenuSidebarOpenItem(index + 1);
+                                                        //}
+                                                    }
+                                                }}
+                                            >
                                                 <p> {item.icon} </p> <p className={styles.itemMenuListText}>{item.text}</p>
                                             </div>
                                         </li>
                                         {
                                             (currentSubMenuSidebarOpenItem === index + 1) && (
-                                                <ul className={styles.SubMenuItemContainer}>
+                                                <ul
+                                                    onMouseLeave={() => {
+                                                        if (isMinified) {
+                                                            // setCurrentMenuItem(0);
+                                                           /// setCurrentSubMenuSidebarOpenItem(0);
+                                                        }
+                                                    }}
+                                                    onMouseEnter={() => {
+                                                        if (isMinified) {
+                                                            setCurrentSubMenuSidebarOpenItem(index + 1);
+                                                        }
+                                                    }}
+                                                    className={`${(isMinified) ? (styles.SubMenuItemContainerMinifiedVersion) : (styles.SubMenuItemContainer)}`}>
                                                     {
                                                         menuItemsArray[index].subMenu.map((subItem, subIndex) => {
                                                             return (
-                                                                <li key={subIndex}>
-                                                                    {subItem.icon}
-                                                                    &nbsp; &nbsp; &nbsp;
-                                                                    {subItem.text}
+                                                                <li
+                                                                onClick={() => {
+                                                                    if (isMinified) {
+                                                                        // setCurrentMenuItem(0);
+                                                                       setCurrentSubMenuSidebarOpenItem(0);
+                                                                    }
+                                                                }} 
+                                                                style={{
+                                                                    borderTopLeftRadius:
+                                                                        (subIndex === 0 && isMinified) ?
+                                                                            (5) :
+                                                                            (0),
+                                                                    borderTopRightRadius:
+                                                                        (subIndex === 0 && isMinified) ?
+                                                                            (5) :
+                                                                            (0),
+                                                                    borderBottomLeftRadius:
+                                                                        ((subIndex === menuItemsArray[index].subMenu.length - 1)
+                                                                            &&
+                                                                            isMinified) ?
+                                                                            (5) :
+                                                                            (0),
+                                                                    borderBottomRightRadius: ((subIndex === menuItemsArray[index].subMenu.length - 1)
+                                                                        &&
+                                                                        isMinified) ?
+                                                                        (5) :
+                                                                        (0)
+                                                                }}
+                                                                    className={`${(isMinified) && (styles.SubMenuItemContainerMinifiedVersionli)}`}
+                                                                    key={subIndex}
+                                                                >
+                                                                    {(!isMinified) ? (
+                                                                        <div>
+                                                                            {subItem.icon}
+                                                                            &nbsp;
+                                                                            &nbsp;
+                                                                            &nbsp;
+                                                                            <span
+                                                                                className={styles.textSidebarSubMenuList}
+                                                                            >
+                                                                                {subItem.text}
+                                                                            </span>
+                                                                        </div>
+                                                                    ) : (
+                                                                        <div className='d-flex'>
+                                                                            <p>
+                                                                                {subItem.icon}
+                                                                            </p>
+                                                                            &nbsp;
+                                                                            &nbsp;
+                                                                            &nbsp;
+                                                                            <p
+                                                                                className={styles.textSidebarSubMenuList}
+                                                                            >
+                                                                                {subItem.text}
+                                                                            </p>
+                                                                        </div>
+                                                                    )}
                                                                 </li>
                                                             )
                                                         })

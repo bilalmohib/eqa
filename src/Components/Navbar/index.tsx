@@ -27,12 +27,18 @@ import {
 
 interface NavProps {
     setIsOpen: any,
-    isOpen: Boolean
+    isOpen: Boolean,
+    // For minified sidebar
+    isMinified: Boolean,
+    setIsMinified: any
 }
 
 const Navbar: React.FC<NavProps> = ({
     setIsOpen,
-    isOpen
+    isOpen,
+    // For minified sidebar
+    isMinified,
+    setIsMinified
 }) => {
     const navigate = useNavigate();
 
@@ -142,10 +148,11 @@ const Navbar: React.FC<NavProps> = ({
     }
 
     return (
-        <nav className={`navbar navbar-expand-lg navbar-light ${styles.nav_bar} ${(isOpen === true) ? (styles.isSideOpen) : (styles.isSideClose)} ${(windowSize[0] < 991 && isOpen) ? ("") : ("")}`}
+        <nav className={`navbar navbar-expand-lg navbar-light ${styles.nav_bar} ${(isOpen === true) ? (`${(!isMinified) ? (styles.isSideOpen) : (styles.isSideOpenMinified)}`) : (styles.isSideClose)} ${(windowSize[0] < 991 && isOpen) ? ("") : ("")}`}
             onClick={() => {
-                if (windowSize[0] < 991)
-                    setIsOpen(!isOpen)
+                if (windowSize[0] < 991) {
+                    setIsOpen(!isOpen);
+                }
             }}
         >
             <div className="container-fluid">
@@ -163,21 +170,42 @@ const Navbar: React.FC<NavProps> = ({
                             <ul className={`dropdown-menu ${styles.minifyNavigationDropdown}`} aria-labelledby="dropdownMenuLink">
                                 <li>
                                     <a className="dropdown-item" href="#">
-                                        <button onClick={() => setIsOpen(!isOpen)} type="button" className="btn btn-sm btn-outline-primary" style={{ color: "#e09d3b", border: "1px solid #e09d3b" }} data-mdb-ripple-color="dark">
+                                        <button onClick={() => {
+                                            if (isMinified === true && isOpen === true) {
+                                                setIsMinified(!isMinified)
+                                                setIsOpen(false);
+                                            } else {
+                                                setIsOpen(!isOpen)
+                                            }
+
+                                        }} type="button" className="btn btn-sm btn-outline-primary" style={{ color: "#e09d3b", border: "1px solid #e09d3b" }} data-mdb-ripple-color="dark">
                                             <span className={styles.navbarHamburger}> <CgMenu size={25} /> </span>
                                         </button>
                                     </a>
                                 </li>
                                 <li>
                                     <a className="dropdown-item" href="#">
-                                        <button onClick={() => setIsOpen(!isOpen)} type="button" className="btn btn-sm btn-outline-primary" style={{ color: "#e09d3b", border: "1px solid #e09d3b" }} data-mdb-ripple-color="dark">
+                                        <button onClick={() => {
+                                            if (isOpen === true && isMinified === false) {
+                                                setIsMinified(true);
+                                                // setIsOpen(!isOpen);
+                                            } else if (isOpen === true && isMinified === true) {
+                                                setIsOpen(false);
+                                                setIsMinified(false);
+                                            } else if (isOpen === false && isMinified === true) {
+                                                setIsMinified(!isMinified);
+                                            } else {
+                                                setIsOpen(true);
+                                                setIsMinified(true);
+                                            }
+                                        }} type="button" className="btn btn-sm btn-outline-primary" style={{ color: "#e09d3b", border: "1px solid #e09d3b" }} data-mdb-ripple-color="dark">
                                             <span className={styles.navbarHamburger}> <MdMenuOpen size={25} /> </span>
                                         </button>
                                     </a>
                                 </li>
                                 <li>
                                     <a className="dropdown-item" href="#">
-                                        <button onClick={() => setIsOpen(!isOpen)} type="button" className="btn btn-sm btn-outline-primary" style={{ color: "#e09d3b", border: "1px solid #e09d3b" }} data-mdb-ripple-color="dark">
+                                        <button onClick={() => console.log("It should be locked.")} type="button" className="btn btn-sm btn-outline-primary" style={{ color: "#e09d3b", border: "1px solid #e09d3b" }} data-mdb-ripple-color="dark">
                                             <span className={styles.navbarHamburger}> <AiTwotoneLock size={25} /> </span>
                                         </button>
                                     </a>
