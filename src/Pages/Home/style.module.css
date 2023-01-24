@@ -1,28 +1,34 @@
-.HomeContainer{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    width: 100vw;
-    /* background-color: #ff0000; */
-}
-
 .Home{
     display: block;
-    /* border: 1px solid red; */
+    /* border: 1px solid rgb(0, 38, 255); */
     margin-left: 270px;
-    transition: 0.3s linear;
+    transition: 0.1s linear;
     width: 100%;
     margin-top: 67px;
 }
 
 .onSideClose{
     margin-left: 0px;
-    transition: 0.3s linear;
+    transition: 0.1s linear;
     width: 100%;
     margin-top: 67px;
 }
+
+/* ///////////////////////////////////////// Minified CSS ///////////////////////////////////////// */
+
+/* Home Container */
+.minifySidebarContainer .main .Home{
+/* border: 1px solid red !important; */
+margin-left: calc(270px - 190px);
+transition: 0.1s linear;
+}
+
+.minifySidebarContainer .main .onSideClose{
+    margin-left: calc(0px) !important;
+    /* border: 1px solid rgb(0, 115, 255) !important; */
+    transition: 0.1s linear;
+}
+/* ///////////////////////////////////////// Minified CSS ///////////////////////////////////////// */
 
 /* For Responsiveness */
 @media all and (max-width:990px) {

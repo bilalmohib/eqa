@@ -5,7 +5,7 @@
     top: 0rem;
     width: 270px;
     height: 100vh;
-    transition: 0.3s linear;
+    transition: 0.1s linear;
 }
 
 .profileInfoContainer {
@@ -14,6 +14,7 @@
     background-repeat: no-repeat;
     background-position: center;
     height: 150px;
+    transition: 0.1s linear;
     /* border: 1px solid red; */
 }
 
@@ -82,27 +83,32 @@
 
 .LogoSidebar {
     /* border: 1px solid red; */
+    transition: 0.1s linear;
 }
 
 .imageProfile {
     border-radius: 50%;
     margin-left: 40px;
+    transition: 0.1s linear;
 }
 
 .rightInsideProfile {
     margin-left: 10px;
+    transition: 0.1s linear;
 }
 
 .rightInsideProfile h3 {
     margin-top: 3px;
     font-size: 20px;
     color: white;
+    transition: 0.1s linear;
 }
 
 .rightInsideProfile p {
     color: white;
     margin-top: -10px;
     font-size: 15px;
+    transition: 0.1s linear;
 }
 
 
@@ -110,12 +116,13 @@
     /* border: 1px solid red; */
     display: flex;
     padding-top: 50px;
+    transition: 0.1s linear;
 }
 
 /* search Filter Menu Container */
 .searchFilterMenuContainer {
     height: 66px;
-
+    transition: 0.1s linear;
     /* border: 1px solid red; */
 }
 
@@ -128,7 +135,7 @@
     border: 1px solid rgb(41, 91, 65);
     background-color: #2f4649;
     color: white !important;
-    transition: 0.3s linear;
+    transition: 0.1s linear;
     height: 37px !important;
     display: flex;
 }
@@ -136,7 +143,7 @@
 .searchFilterMenuSubContainer:focus, .searchFilterMenuSubContainer:active, .searchFilterMenuSubContainer:after {
     background-color: #2f4649;
     color: white !important;
-    transition: 0.3s linear;
+    transition: 0.1s linear;
     border: 1px solid rgb(11, 46, 11) !important;
 }
 
@@ -167,7 +174,7 @@
 .searchFilterMenu:focus, .searchFilterMenu:active, .searchFilterMenu::after, .searchFilterMenu::backdrop, .searchFilterMenu:focus {
     background-color: #2f4649;
     color: white !important;
-    transition: 0.3s linear;
+    transition: 0.1s linear;
     border: none !important;
     box-shadow: none !important;
     border-radius: 5px !important;
@@ -175,9 +182,10 @@
 
 /* search Filter Menu Container */
 
+/* When The sidebar is hidden */
 .hideSidebar {
     margin-left: -270px !important;
-    transition: 0.3s linear;
+    transition: 0.1s linear;
 }
 
 .sidebarItemsContainer {
@@ -186,6 +194,7 @@
     padding-left: 30px;
     padding-top: 0px;
     margin-top: 20px;
+    transition: 0.1s linear;
 }
 
 /*
@@ -212,6 +221,7 @@
     padding-bottom: 5px;
     margin-left: -25px !important;
     margin-top: 0px;
+    transition: 0.1s linear;
 }
 
 .SidebarMenuList li {
@@ -222,42 +232,35 @@
     height: 44px;
     padding-top: 3%;
     padding-left: 25px;
-    transition: 0.2s cubic-bezier(1, 0, 0, 1);
+    transition: 0.1s linear;
 }
 
 .SidebarMenuList li:hover {
     background-color: #47686e;
-    transition: 0.2s cubic-bezier(1, 0, 0, 1);
+    transition: 0.1s linear;
 }
 
 .selected_Menu_Item {
     background-color: #56797f !important;
     border-left: 2px solid #64a9a8;
-    transition: 0.2s linear;
+    transition: 0.1s linear;
+    padding-left: 23px !important;
 }
 
 .selected_Menu_Item:hover {
     background-color: #47686e !important;
-    transition: 0.2s calc(3, 4, 5);
+    transition: 0.1s linear;
 }
 
 .itemMenuListText {
     margin-top: 2px;
     margin-left: 20px;
     font-size: 16px;
-}
-
-.outerSubMenuContainer {
-    background-color: #3c6766;
-    /* border: 1px solid red; */
-    width: 265px;
-    height: 50px;
-    margin-left: -35px;
-    transition: 0.6s linear;
+    transition: 0.1s linear;
 }
 
 .SubMenuItemContainer {
-    width: 265px !important;
+    width: 268px !important;
     background-color: #3c6766;
     list-style: none;
     margin-left: -35px;
@@ -265,94 +268,30 @@
     /* border: 2px solid blue; */
 }
 
-.SubMenuItemContainer::before {
-    /* width: 200px; */
-    /* background-color: rgb(43, 255, 0);  */
-    /* border: 2px solid blue;*/
-}
-
 .SubMenuItemContainer li {
-    background-color: #3c6766 !important;
-    width: 265px !important;
+    background-color: #3c6766;
+    width: 269px !important;
     /* border: 1px solid red; */
-    margin-left: -35px;
+    margin-left: -33px;
     height: 42px;
+    /* padding-left: 2px !important; */
     padding-top: 8px;
-    transition: 0.3s all;
+    transition: 0.1s linear;
 }
 
 .SubMenuItemContainer li:hover {
     background-color: #517170 !important;
-    transition: 0.3s all;
-    /* width: 240px !important; */
-    /* width: 90% !important; */
-    /* margin-left: -33px; */
-    /* width: 215px !important; */
+    transition: 0.1s linear;
 }
 
-/* __________________________________ Workspace block ___________________________________ */
-/* .workSpaceBlock {
-    border: 1px solid #424244;
-    width: 248px;
-    margin-left: -20px;
+/* Inside sub menu item container */
+.SubMenuItemContainer li div {
+    padding-left: 2px;
 }
 
-.worspace_text_block {
-    color: #ffffff;
-    height: 35px;
-    margin-top: 10px;
+.textSidebarSubMenuList {
+    padding-left: 5px !important;
 }
-
-.worspace_text_block:hover {
-    background-color: #303132;
-    cursor: pointer;
-}
-
-.projectListCoverContainer{
-    margin-top: -10px;
-}
-
-.projectMembersBlock {
-    list-style: none;
-    margin-left: -25px;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    margin-top: 10px;
-}
-
-.projectMembersBlock li {
-    margin-left: 10px;
-}
-
-.projectListContainer{
-    width: 255px;
-    margin-left: -25px;
-    height: 30px;
-    padding-left: 18px;
-    padding-right: 35px;
-}
-.projectListContainer:hover{
-    background-color: #303132;
-    cursor: pointer;
-}
-
-.projectName{
-    color: #ffffff;
-    margin-left: 10px;
-    margin-top: 2px;
-    font-size: 15px;
-    height: 30px;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
-    width:170px; 
-}
-
-.projectListCoverContainer{
-    list-style: none;
-    margin-left: -15px;
-} */
 
 /* ________________________________________ Footer block ________________________________________ */
 .sidebarFooter {
@@ -394,6 +333,228 @@
 }
 
 /* ________________________________________ Footer block ________________________________________ */
+
+
+/* @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ Minified Sidbar @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ */
+.minifySidebar {
+    margin-left: 0px !important;
+    transition: 0.1s linear;
+    /* border: 1px solid rgb(0, 76, 255); */
+    width: 80px;
+}
+
+/* .changeMinifiedSidebar{
+    margin-left: 0px !important;
+    transition: 0.1s linear;
+    border: 1px solid rgb(0, 76, 255);
+    width: 0px;
+} */
+
+/* Changing the logo styles */
+.minifySidebar div .sidebarLogoContainer .LogoSidebar {
+    /* border: 1px solid rgb(0, 110, 255); */
+    width: 40px;
+    height: 40px;
+    margin-left: 5px;
+    transition: 0.1s linear;
+}
+
+/* Profile Info Container */
+.minifySidebar div .profileInfoContainer {
+    /* border: 2px solid green; */
+    height: 100px;
+    transition: 0.1s linear;
+}
+
+/* Profile Image Profile Info Container */
+.minifySidebar div .profileInfoContainer .insideContainerProfile {
+    /* border: 2px solid rgb(30, 255, 0); */
+    padding-top: 0px !important;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    transition: 0.1s linear;
+}
+
+.minifySidebar div .profileInfoContainer .insideContainerProfile .leftInsideProfile {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: fit-content;
+    /* border: 2px solid rgb(251, 226, 0); */
+    width: calc(100%);
+    margin-top: 0px !important;
+}
+
+.minifySidebar div .profileInfoContainer .insideContainerProfile .leftInsideProfile .imageProfile {
+    /* border: 2px solid red; */
+    width: 50px;
+    height: 50px;
+    display: block;
+    margin-left: 0px;
+    transition: 0.1s linear;
+    border: 1px solid rgba(255, 255, 255, 0);
+}
+
+.minifySidebar div .profileInfoContainer .insideContainerProfile .leftInsideProfile .imageProfile:hover {
+    border: 1px solid #b7cfd3;
+    transform: rotate(360deg);
+    cursor: pointer;
+}
+
+/* Hide Right Side */
+.minifySidebar div .profileInfoContainer .insideContainerProfile .rightInsideProfile {
+    display: none;
+}
+
+/* List Sidebar Container */
+.minifySidebar div .sidebarItemsContainer {
+    /* border: 2px solid rgb(0, 255, 255); */
+    margin-top: 0px;
+    transition: 0.1s linear;
+}
+
+/* List Sidebar */
+.minifySidebar div .sidebarItemsContainer .SidebarMenuList {
+    /* border: 1px solid rgb(43, 0, 255) !important; */
+    width: 77px !important;
+    margin-left: -30px !important;
+    transition: 0.1s linear;
+}
+
+/* individual list */
+.minifySidebar div .sidebarItemsContainer .SidebarMenuList li {
+    width: 266px !important;
+    /* border: 1px solid red !important; */
+    margin-left: -32px !important;
+    border-left: 4px solid transparent !important;
+    display: flex;
+background-color: transparent !important;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding-left: 24px !important;
+    padding-top: 5px !important;
+    transition: 0.1s linear !important;
+}
+
+.minifySidebar div .sidebarItemsContainer .SidebarMenuList li:hover {
+    /* border: 1px solid red !important; */
+    transition: 0.1s linear !important;
+}
+
+/* Increasing the font size of the icon items */
+.minifySidebar div .sidebarItemsContainer .SidebarMenuList li div p {
+    font-size: 16px !important;
+    padding-left: 0px !important;
+    padding-top: 2.5px !important;
+    transition: 0.1s linear;
+}
+
+/* Selected List item of minified sidebar adding some padding  */
+.minifySidebar div .sidebarItemsContainer .SidebarMenuList .selected_Menu_Item div p {
+    padding-left: 0px !important;
+    padding-top: 2.5px !important;
+    transition: 0.1s linear;
+}
+
+/* Minfied Sidebar Selected List item */
+.minifySidebar div .sidebarItemsContainer .SidebarMenuList .selected_Menu_Item {
+    /* border: 1px solid red !important; */
+    background-color: #56797f !important;
+    color: rgb(199, 199, 199) !important;
+    border-left: 4px solid #64a9a8 !important;
+    transition: 0.1s linear;
+    width: 80px !important;
+}
+
+/* 
+    When the sidebar is minified, the list items text is hidden, but the icons are shown and when 
+    hovering adding a border of 4px to the left of the items. 
+*/
+
+
+/* %%%%%%%%%%%%%%%%%%%%%%%%%% IDHAR  */
+.minifySidebar div .sidebarItemsContainer .SidebarMenuList .selected_Menu_Item:hover {
+    /* background-color: #474b6e !important;
+    border-left: 4px solid #64a9a8 !important; */
+    background-color: transparent ;
+    color: white !important;
+    transition: 0.1s linear;
+}
+
+/* Hiding the text of the list */
+.minifySidebar div .sidebarItemsContainer .SidebarMenuList li div .itemMenuListText {
+    display: none;
+    transition: 0.1s linear;
+}
+
+/* Minify Sidebar Footer */
+.minifySidebar div .sidebarFooter {
+    /* border: 2px solid red !important; */
+    width: 80px;
+    display: none;
+    transition: 0.1s linear;
+}
+
+/* Submenu Items Styles */
+.SubMenuItemContainerMinifiedVersion {
+    /* border: 1px solid red; */
+    position: absolute;
+    border-radius: 5px !important;
+    margin-top: -90px !important;
+    margin-left: 50px !important;
+    transition: 0.1s linear;
+    background-color: #3c6766 !important;
+}
+
+/* Minified version of the sidebar submenu dropdown items */
+.SubMenuItemContainerMinifiedVersionli {
+    position: relative !important;
+    background-color: #3c6766 !important;
+    /* border: 1px solid rgb(255, 0, 0); */
+    margin-left: 0px !important;
+    height: 42px;
+    transition: 0.2s cubic-bezier(0.215, 0.610, 0.355, 1) !important;
+    display: flex;
+    justify-content: flex-start;
+}
+
+/* When hovering occurs on sub menu drop down items */
+.SubMenuItemContainerMinifiedVersionli:hover {
+    background-color: #517170;
+    margin-left: 0px !important;
+    transition: cubic-bezier(0.215, 0.610, 0.355, 1) !important;
+    box-shadow: #00b2b233 0px 30px 60px -12px inset, #03f9f962 0px 18px 36px -18px inset !important;
+}
+
+/* Increasing the margin for minified sidebar submenu dropdown for its icon and text */
+.SubMenuItemContainerMinifiedVersionli div .textSidebarSubMenuList, .SubMenuItemContainerMinifiedVersionli div p {
+    margin-top: 1px;
+}
+
+/* @@@@@@@ Inside Container of Minified Sidebar @@@@@@@@ */
+.minifiedSidebarInsideContainer {
+    width: 79px;
+    margin-left: -27px !important;
+    justify-content: center;
+    align-items: center;
+    margin-top: -5px;
+    height: inherit;
+    padding-top: 10px;
+    border-left: 3px solid #ff000000 !important;
+}
+.minifiedSidebarInsideContainer:hover{
+    background-color: #47686e !important;
+    border-left: 3px solid #64a9a8 !important;
+    margin-left: -27px !important;
+}
+
+/* @@@@@@@@ Inside Container of Minified Sidebar @@@@@@@ */
+
+/* @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ Minified Sidbar @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ */
+
 
 @media all and (max-width:990px) {
     .sidebar {

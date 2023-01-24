@@ -14,12 +14,18 @@ const percentage = 30;
 
 interface AssessmentDashboardProps {
     setIsOpen: any,
-    isOpen: Boolean
+    isOpen: Boolean,
+    // For minified sidebar
+    isMinified: Boolean,
+    setIsMinified: any,
 }
 
 const AssessmentDashboard: React.FC<AssessmentDashboardProps> = ({
     setIsOpen,
-    isOpen
+    isOpen,
+    // For minified sidebar
+    isMinified,
+    setIsMinified
 }) => {
 
     const currentFormatedDate:string = new Date().toLocaleString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
@@ -58,12 +64,12 @@ const AssessmentDashboard: React.FC<AssessmentDashboardProps> = ({
             if (windowSize[0] < 991)
                 setIsOpen(!isOpen)
         }}>
-            <div style={{ marginTop: 5 }} className="d-flex justify-content-between">
+            <div style={{ marginTop: 5 }} className={`${(windowSize[0] > 990)?("d-flex justify-content-between"):("d-flex flex-column justify-content-start")}`}>
                 <div>
                     <span style={{ color: "#4f747a" }}>EQA</span> / Assessment / Dashboard
                 </div>
                 <div>
-                    <span style={{ color: "#4f747a" }}>{currentFormatedDate}</span>
+                    <span style={{ color: "#4f747a",paddingRight:10 }}>{currentFormatedDate}</span>
                 </div>
             </div>
 
