@@ -90,11 +90,22 @@ const Navbar: React.FC<NavProps> = ({
                             <span className={styles.navbarHamburger}> <CgMenu size={25} /> </span>
                         </button>
                     ) : (
-                        <div className="dropdown">
+                        <div
+                            className="dropdown NavigationDropDown"
+                            data-hover="dropdown"
+                            role="menu"
+                            data-animations="fadeInDown fadeInRight fadeInUp fadeInLeft"
+                        >
                             <button onClick={() => setIsOpen(!isOpen)} type="button" className="btn btn-sm btn-outline-primary" style={{ color: "#e09d3b", border: "1px solid #e09d3b" }} data-mdb-ripple-color="dark" id="dropdownMenuLink" data-mdb-toggle="dropdown" aria-expanded="false">
                                 <span className={styles.navbarHamburger}> <CgMenu size={25} /> </span>
                             </button>
-                            <ul className={`dropdown-menu ${styles.minifyNavigationDropdown}`} aria-labelledby="dropdownMenuLink">
+                            <ul
+                                className={`dropdown-menu ${styles.minifyNavigationDropdown}`}
+                                aria-labelledby="dropdownMenuLink"
+                                data-hover="dropdown"
+                                role="menu"
+                                data-animations="fadeInDown fadeInRight fadeInUp fadeInLeft"
+                            >
                                 <li>
                                     <a className="dropdown-item" href="#">
                                         <button onClick={() => {

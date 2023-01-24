@@ -1,0 +1,24 @@
+.container {
+    border-radius: 3px;
+    /* border: 1px solid rgb(255, 0, 0) !important; */
+    width: 98.4%;
+    height: 100%;
+
+    /* padding Covered Here */
+    margin-left: 0.8%;
+    margin-right: 0.8%;
+    margin-top: 1.5%;
+
+    /* box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px; */
+}
+
+.insideTableContainer {
+    height: 800px;
+    width: 100%;
+}
+
+@media all and (max-width:600px){
+    .insideTableContainer {
+        height: 400px;
+    }
+}
