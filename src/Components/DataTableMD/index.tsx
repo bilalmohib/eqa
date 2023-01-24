@@ -8,8 +8,16 @@ import { HiDotsVertical } from "react-icons/hi";
 import Ripples from 'react-ripples';
 import { createRipples } from 'react-ripples';
 
+// @@@@@@@@@@@@@@ IMPORTING COURSE OFFERING TABLE DATA @@@@@@@@@@@@@@@@@
+// Importing the course offering table data
+import { data, states } from '../../Data/Tables/CourseOfferings';
+
+// Importing types
+import { CourseOfferingTypes } from "../../Data/Tables/CourseOfferings/types";
+
 // Importing components
-import CustomTable from "./CustomTable";
+// import CustomTable from "./CustomTable";
+import CustomTableCrud from "./CustomTableCrud";
 
 // Importing Styles
 import styles from "./style.module.css";
@@ -107,7 +115,13 @@ const DataTableMD = () => {
 
                 {/* Body of Body Container Starts Here */}
                 <div className={styles.bodyOfBodyContainer}>
-                    <CustomTable searchText={searchText} />
+                    <CustomTableCrud
+                        searchText={searchText}
+                        data={data}
+                        states={states}
+                        columnValues={"CourseOfferingTypes"}
+                        buttonTitle={"Create New Course Offering"}
+                    />
                 </div>
                 {/* Body of Body Container Ends Here */}
 
