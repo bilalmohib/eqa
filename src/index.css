@@ -146,8 +146,8 @@ input[type=checkbox] {
 
 
 /* ENABLE BOOTSTRAP DROPDOWN ON HOVER */
-.dropdown:hover .dropdown-menu {
+/* .dropdown:hover .dropdown-menu {
   display: block;
-  margin-top: 0; /* remove the gap so it doesn't close */
-}
+  margin-top: 0; 
+} */
 /* ENABLE BOOTSTRAP DROPDOWN ON HOVER */

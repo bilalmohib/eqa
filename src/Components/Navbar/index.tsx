@@ -9,12 +9,17 @@ import { AiTwotoneLock } from 'react-icons/ai';
 import FullCalendar from '@fullcalendar/react' // must go before plugins
 import dayGridPlugin from '@fullcalendar/daygrid' // a plugin!
 
-import "react-modern-calendar-datepicker/lib/DatePicker.css";
-import { Calendar } from "react-modern-calendar-datepicker";
+// Importing the Data
+import MessageList from '../../Data/Navbar/MessageList';
+import NotificationsList from '../../Data/Navbar/NotificationsList';
+// Importing the Data
 
 import {
     IoIosNotificationsOutline
 } from "react-icons/io";
+import {
+    IoColorPaletteOutline, IoColorPaletteSharp
+} from "react-icons/io5";
 import { IoSettingsOutline } from "react-icons/io5";
 import { RxCube } from "react-icons/rx";
 
@@ -62,84 +67,6 @@ const Navbar: React.FC<NavProps> = ({
     const [selectedDay, setSelectedDay] = useState<any>(null);
 
     const [currentNotificationActiveTab, setCurrentNotificationActiveTab] = useState<Number>(1);
-
-    const messageList = [
-        {
-            name: "Melissa Ayre",
-            message: "Re: New Security Codes. Hello again and thanks for being part of our amazing community.",
-            time: "56 seconds ago",
-            isOnline: "success",
-            profileURL: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSlqSdStWAtFfqu7ZUGwOXD4wGJZA1z8vb-WLWw1FwhGo_b-xXWM3B-J01wdL9zwUBbsAI&usqp=CAU"
-        },
-        {
-            name: "Adison Lee",
-            message: "What are you doing right now.",
-            time: "2 minutes ago",
-            isOnline: "warning",
-            profileURL: "https://media.istockphoto.com/id/480286744/photo/portrait-of-a-german-businessman-with-beard.jpg?s=612x612&w=0&k=20&c=PAi9oWMV2LLkbPM14nvpWOAZUk_kb6DXvpQ4ZwyJvjs="
-        },
-        {
-            name: "MM Alam",
-            message: "Hey our plan has destroyed 5 pans in just a second.",
-            time: "1 second ago",
-            isOnline: "dark",
-            profileURL: "https://i.pinimg.com/originals/c3/33/27/c333273fcfc3198e93df380c0cfc0437.jpg"
-        },
-        {
-            name: "Major Aziz Bhatti",
-            message: "I have made the strategy of india to be failed and have given my life for it.",
-            time: "46 years ago",
-            isOnline: "warning",
-            profileURL: "https://t3.ftcdn.net/jpg/03/31/63/82/360_F_331638217_BsSy1TcziNymxOBAMGO6Zrc4hge5yQWz.jpg"
-        },
-        {
-            name: "Melissa Ayre",
-            message: "Re: New Security Codes. Hello again and thanks for being part of our amazing community.",
-            time: "56 seconds ago",
-            isOnline: "success",
-            profileURL: "https://visafoto.com/img/source355x388_ar.jpg"
-        },
-        {
-            name: "Melissa Ayre",
-            message: "Re: New Security Codes. Hello again and thanks for being part of our amazing community.",
-            time: "56 seconds ago",
-            isOnline: "success",
-            profileURL: "https://cdn1.sph.harvard.edu/wp-content/uploads/sites/2501/2020/12/Prof.-Alemayehu-Worku-e1607531245550.jpg"
-        }
-    ]
-
-    const notificationList = [
-        {
-            title: "New Assessment Created",
-            message: "New Assessment named `Work on your home work` has been created ",
-            time: "56 seconds ago"
-        },
-        {
-            title: "User Added",
-            message: "A User with a name Shabbir Hussain has been created",
-            time: "2 minutes ago"
-        },
-        {
-            title: "Course Created",
-            message: "A course with the title Learning React JS has been created.",
-            time: "1 second ago"
-        },
-        {
-            title: "Event Created",
-            message: "Your meeting with Muhammad Bilal has been established now.",
-            time: "46 years ago"
-        },
-        {
-            title: "New Message Received",
-            message: "From Muhammad Ali: What are you doing right now?.",
-            time: "56 seconds ago"
-        },
-        {
-            title: "Melissa Ayre",
-            message: "Re: New Security Codes. Hello again and thanks for being part of our amazing community.",
-            time: "56 seconds ago"
-        }
-    ]
 
     const logoutUser = () => {
         if (window.confirm("Are you sure you want to logout?")) {
@@ -226,7 +153,18 @@ const Navbar: React.FC<NavProps> = ({
                 <div>
                     {(true) ? (
                         <div className={`${styles.navItems} navbar-nav`}>
-                            {/* Settings DropDown */}
+                            {/* Generic Settings Menu Item */}
+                            <li className="nav-item">
+                                <a className="nav-link d-flex align-items-center" title="Generic Settings" href="#" role="button" data-mdb-toggle="dropdown" aria-expanded="false">
+                                    <IoColorPaletteOutline
+                                        size={28}
+                                        className={styles.navLinkDropDown}
+                                    />
+                                </a>
+                            </li>
+                            {/* Settings Menu Item */}
+
+                            {/* Settings Menu Item */}
                             <li className="nav-item">
                                 <a className="nav-link d-flex align-items-center" title="Settings" href="#" id="navbarDropdownMenuLink" role="button" data-mdb-toggle="dropdown" aria-expanded="false">
                                     <IoSettingsOutline
@@ -235,7 +173,7 @@ const Navbar: React.FC<NavProps> = ({
                                     />
                                 </a>
                             </li>
-                            {/* Settings DropDown */}
+                            {/* Settings Menu Item */}
 
                             {/* Apps DropDown */}
                             <li className="nav-item dropdown">
@@ -334,7 +272,7 @@ const Navbar: React.FC<NavProps> = ({
                                     <li>
                                         {(currentNotificationActiveTab === 1) ? (
                                             <div className={styles.messageList}>
-                                                {(messageList.map((v, i) => {
+                                                {(MessageList.map((v, i) => {
                                                     return (
                                                         <div className={styles.individualMessageList}>
                                                             <div className={styles.leftSideML}>
@@ -357,7 +295,7 @@ const Navbar: React.FC<NavProps> = ({
                                             </div>
                                         ) : (currentNotificationActiveTab === 2) ? (
                                             <div className={styles.notificationsContainer}>
-                                                {(notificationList.map((v, i) => {
+                                                {(NotificationsList.map((v, i) => {
                                                     return (
                                                         <div className={styles.individualNotificationList}>
                                                             <h3 className={styles.nlTitle}>{v.title}</h3>
