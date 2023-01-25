@@ -1,8 +1,10 @@
 export type CourseOfferingTypes = {
-    id: string;
-    firstName: string;
-    lastName: string;
-    email: string;
-    age: number;
-    state: string;
-  };
+  id: string,
+  name: string,
+  section: number,
+  noofstudent: number,
+  coordinator: string,
+  instructor: string,
+  campus: string,
+  semester: string
+};

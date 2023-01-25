@@ -3,11 +3,100 @@ import { useState, useEffect } from "react";
 //importing navbar
 import Navbar from "../../Components/Navbar";
 import AssessmentDashboard from "../../Components/Pages/Home/AssessmentDashboard";
+import Groups from "../../Components/Pages/UserManagement/Groups";
+import Users from "../../Components/Pages/UserManagement/Users";
 import Sidebar from "../../Components/Sidebar";
+
+import { AiFillDashboard } from "react-icons/ai";
+import { RxDot } from "react-icons/rx";
+import { FiSettings } from "react-icons/fi";
+import { FaUserAlt } from "react-icons/fa";
 
 import styles from "./style.module.css";
 
 const Home = () => {
+
+    const menuItemsArray = [
+        {
+            index: 1,
+            icon: <AiFillDashboard size={20} style={{ width: 25, height: 25 }} />,
+            text: "Dashboard",
+            link: "/",
+            subMenu: [
+                {
+                    icon: <RxDot style={{ marginLeft: 2 }} />,
+                    text: "Dashboard",
+                    link: "/",
+                },
+                {
+                    icon: <RxDot style={{ marginLeft: 2 }} />,
+                    text: "Create Assessment",
+                    link: "/",
+                },
+                {
+                    icon: <RxDot style={{ marginLeft: 2 }} />,
+                    text: "Enter Grade",
+                    link: "/",
+                },
+                {
+                    icon: <RxDot style={{ marginLeft: 2 }} />,
+                    text: "Enter Overall Grade",
+                    link: "/",
+                }
+            ]
+        },
+        {
+            index: 2,
+            icon: <FaUserAlt size={17} style={{ width: 23, height: 23 }} />,
+            text: "User Management",
+            link: "/",
+            subMenu: [
+                {
+                    icon: <RxDot style={{ marginLeft: 2 }} />,
+                    text: "Users",
+                    link: "/",
+                },
+                {
+                    icon: <RxDot style={{ marginLeft: 2 }} />,
+                    text: "Groups",
+                    link: "/",
+                },
+                {
+                    icon: <RxDot style={{ marginLeft: 2 }} />,
+                    text: "Role",
+                    link: "/",
+                }
+            ]
+        },
+        {
+            index: 3,
+            icon: <FiSettings size={20} style={{ width: 23, height: 23 }} />,
+            text: "Settings",
+            link: "/",
+            subMenu: [
+                {
+                    icon: <RxDot style={{ marginLeft: 2 }} />,
+                    text: "Settings",
+                    link: "/",
+                },
+                {
+                    icon: <RxDot style={{ marginLeft: 2 }} />,
+                    text: "Create Settings",
+                    link: "/",
+                },
+                {
+                    icon: <RxDot style={{ marginLeft: 2 }} />,
+                    text: "Edit Settings",
+                    link: "/",
+                },
+                {
+                    icon: <RxDot style={{ marginLeft: 2 }} />,
+                    text: "Update Settings",
+                    link: "/",
+                }
+            ]
+        }
+    ];
 
     const [windowSize, setWindowSize] = useState([
         window.innerWidth,
@@ -76,11 +165,29 @@ const Home = () => {
                         // For minified sidebar
                         isMinified={isMinified}
                         setIsMinified={setIsMinified}
+                        // Sidebar Menu Items Array
+                        sidebarList={menuItemsArray}
                     />
 
                     <div className={`${(isOpen) ? (styles.Home) : (styles.onSideClose)}`}>
-                        <AssessmentDashboard
+                        {/* <AssessmentDashboard
                             // For simple open/close sidebar
+                            isOpen={isOpen}
+                            setIsOpen={setIsOpen}
+                            // For minified sidebar
+                            isMinified={isMinified}
+                            setIsMinified={setIsMinified}
+                        /> */}
+                        {/* 
+                        <Users
+                            isOpen={isOpen}
+                            setIsOpen={setIsOpen}
+                            // For minified sidebar
+                            isMinified={isMinified}
+                            setIsMinified={setIsMinified}
+                        /> */}
+
+                        <Groups
                             isOpen={isOpen}
                             setIsOpen={setIsOpen}
                             // For minified sidebar
@@ -88,7 +195,6 @@ const Home = () => {
                             setIsMinified={setIsMinified}
                         />
                     </div>
-
                 </div>
             </main>
 

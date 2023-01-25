@@ -38,7 +38,9 @@ interface IProps {
     isMinified: Boolean,
     setIsMinified: any,
     currentMenuItem: Number,
-    setCurrentMenuItem: any
+    setCurrentMenuItem: any,
+    // Sidebar Menu Items Array
+    sidebarList: any
 }
 
 const Sidebar: React.FC<IProps> = ({
@@ -47,97 +49,12 @@ const Sidebar: React.FC<IProps> = ({
     isMinified,
     setIsMinified,
     currentMenuItem,
-    setCurrentMenuItem
+    setCurrentMenuItem,
+    // Sidebar Menu Items Array
+    sidebarList
 }) => {
 
-    const menuItemsArray = [
-        {
-            index: 1,
-            icon: <AiFillDashboard size={20} style={{ width: 25, height: 25 }} />,
-            text: "Dashboard",
-            link: "/",
-            subMenu: [
-                {
-                    icon: <RxDot style={{ marginLeft: 2 }} />,
-                    text: "Dashboard",
-                    link: "/",
-                },
-                {
-                    icon: <RxDot style={{ marginLeft: 2 }} />,
-                    text: "Create Assessment",
-                    link: "/",
-                },
-                {
-                    icon: <RxDot style={{ marginLeft: 2 }} />,
-                    text: "Enter Grade",
-                    link: "/",
-                },
-                {
-                    icon: <RxDot style={{ marginLeft: 2 }} />,
-                    text: "Enter Overall Grade",
-                    link: "/",
-                }
-            ]
-        },
-        {
-            index: 2,
-            icon: <FaUserAlt size={17} style={{ width: 23, height: 23 }} />,
-            text: "User Management",
-            link: "/",
-            subMenu: [
-                {
-                    icon: <RxDot style={{ marginLeft: 2 }} />,
-                    text: "Create User",
-                    link: "/",
-                },
-                {
-                    icon: <RxDot style={{ marginLeft: 2 }} />,
-                    text: "Edit User",
-                    link: "/",
-                },
-                {
-                    icon: <RxDot style={{ marginLeft: 2 }} />,
-                    text: "Update User",
-                    link: "/",
-                },
-                {
-                    icon: <RxDot style={{ marginLeft: 2 }} />,
-                    text: "Delete User",
-                    link: "/",
-                }
-            ]
-        },
-        {
-            index: 3,
-            icon: <FiSettings size={20} style={{ width: 23, height: 23 }} />,
-            text: "Settings",
-            link: "/",
-            subMenu: [
-                {
-                    icon: <RxDot style={{ marginLeft: 2 }} />,
-                    text: "Settings",
-                    link: "/",
-                },
-                {
-                    icon: <RxDot style={{ marginLeft: 2 }} />,
-                    text: "Create Settings",
-                    link: "/",
-                },
-                {
-                    icon: <RxDot style={{ marginLeft: 2 }} />,
-                    text: "Edit Settings",
-                    link: "/",
-                },
-                {
-                    icon: <RxDot style={{ marginLeft: 2 }} />,
-                    text: "Update Settings",
-                    link: "/",
-                }
-            ]
-        }
-    ];
-
-    const [menuItemsArrayState, setMenuItemsArrayState] = useState<any>(menuItemsArray);
+    const [menuItemsArrayState, setMenuItemsArrayState] = useState<any>(sidebarList);
 
     const [searchTextSidebar, setSearchTextSidebar] = useState<string>("");
 
@@ -152,7 +69,7 @@ const Sidebar: React.FC<IProps> = ({
 
     useEffect(() => {
         if (searchTextSidebar !== "") {
-            const filteredArray = menuItemsArray.filter((item: any) => {
+            const filteredArray = sidebarList.filter((item: any) => {
                 return (
                     item.text.toString().toLowerCase().includes(searchTextSidebar.toLowerCase()) ||
                     item.subMenu.filter((subItem: any) => {
@@ -189,7 +106,7 @@ const Sidebar: React.FC<IProps> = ({
             //
             setMenuItemsArrayState(filteredArray);
         } else {
-            setMenuItemsArrayState(menuItemsArray);
+            setMenuItemsArrayState(sidebarList);
         }
         // @ ts-ignore
     }, [searchTextSidebar]);
@@ -287,7 +204,7 @@ const Sidebar: React.FC<IProps> = ({
                                             className={
                                                 `${(currentMenuItem === index + 1) ? (styles.selected_Menu_Item) : ("")} ${(isMinified) && (styles.listItemMinified)}`
                                             }
-                                            style={{ cursor: (isMinified)?("default"):("pointer") }}
+                                            style={{ cursor: (isMinified) ? ("default") : ("pointer") }}
                                             onClick={() => {
                                                 if (!isMinified) {
                                                     setCurrentMenuItem(index + 1);
@@ -332,7 +249,7 @@ const Sidebar: React.FC<IProps> = ({
                                                     onMouseLeave={() => {
                                                         if (isMinified) {
                                                             // setCurrentMenuItem(0);
-                                                           /// setCurrentSubMenuSidebarOpenItem(0);
+                                                            /// setCurrentSubMenuSidebarOpenItem(0);
                                                         }
                                                     }}
                                                     onMouseEnter={() => {
@@ -342,36 +259,36 @@ const Sidebar: React.FC<IProps> = ({
                                                     }}
                                                     className={`${(isMinified) ? (styles.SubMenuItemContainerMinifiedVersion) : (styles.SubMenuItemContainer)}`}>
                                                     {
-                                                        menuItemsArray[index].subMenu.map((subItem, subIndex) => {
+                                                        sidebarList[index].subMenu.map((subItem: any, subIndex: number) => {
                                                             return (
                                                                 <li
-                                                                onClick={() => {
-                                                                    if (isMinified) {
-                                                                        // setCurrentMenuItem(0);
-                                                                       setCurrentSubMenuSidebarOpenItem(0);
-                                                                    }
-                                                                }} 
-                                                                style={{
-                                                                    borderTopLeftRadius:
-                                                                        (subIndex === 0 && isMinified) ?
-                                                                            (5) :
-                                                                            (0),
-                                                                    borderTopRightRadius:
-                                                                        (subIndex === 0 && isMinified) ?
-                                                                            (5) :
-                                                                            (0),
-                                                                    borderBottomLeftRadius:
-                                                                        ((subIndex === menuItemsArray[index].subMenu.length - 1)
+                                                                    onClick={() => {
+                                                                        if (isMinified) {
+                                                                            // setCurrentMenuItem(0);
+                                                                            setCurrentSubMenuSidebarOpenItem(0);
+                                                                        }
+                                                                    }}
+                                                                    style={{
+                                                                        borderTopLeftRadius:
+                                                                            (subIndex === 0 && isMinified) ?
+                                                                                (5) :
+                                                                                (0),
+                                                                        borderTopRightRadius:
+                                                                            (subIndex === 0 && isMinified) ?
+                                                                                (5) :
+                                                                                (0),
+                                                                        borderBottomLeftRadius:
+                                                                            ((subIndex === sidebarList[index].subMenu.length - 1)
+                                                                                &&
+                                                                                isMinified) ?
+                                                                                (5) :
+                                                                                (0),
+                                                                        borderBottomRightRadius: ((subIndex === sidebarList[index].subMenu.length - 1)
                                                                             &&
                                                                             isMinified) ?
                                                                             (5) :
-                                                                            (0),
-                                                                    borderBottomRightRadius: ((subIndex === menuItemsArray[index].subMenu.length - 1)
-                                                                        &&
-                                                                        isMinified) ?
-                                                                        (5) :
-                                                                        (0)
-                                                                }}
+                                                                            (0)
+                                                                    }}
                                                                     className={`${(isMinified) && (styles.SubMenuItemContainerMinifiedVersionli)}`}
                                                                     key={subIndex}
                                                                 >
