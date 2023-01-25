@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 
 import { IoSpeedometerOutline } from "react-icons/io5";
+import { HiUserGroup } from "react-icons/hi2";
 
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 
@@ -12,11 +13,11 @@ import DataTableMD from "../../../DataTableMD";
 import { data, states } from '../../../../Data/Tables/CourseOfferings';
 
 import styles from "./style.module.css";
-import "./style.css";
+// import "./style.css";
 
 const percentage = 30;
 
-interface AssessmentDashboardProps {
+interface GroupsProps {
     setIsOpen: any,
     isOpen: Boolean,
     // For minified sidebar
@@ -24,7 +25,7 @@ interface AssessmentDashboardProps {
     setIsMinified: any,
 }
 
-const AssessmentDashboard: React.FC<AssessmentDashboardProps> = ({
+const Groups: React.FC<GroupsProps> = ({
     setIsOpen,
     isOpen,
     // For minified sidebar
@@ -70,7 +71,7 @@ const AssessmentDashboard: React.FC<AssessmentDashboardProps> = ({
         }}>
             <div style={{ marginTop: 5 }} className={`${(windowSize[0] > 990) ? ("d-flex justify-content-between") : ("d-flex flex-column justify-content-start")}`}>
                 <div>
-                    <span style={{ color: "#4f747a" }}>EQA</span> / Assessment / Dashboard
+                    EQA / User Management /<span style={{ color: "#4f747a" }}> Groups </span>
                 </div>
                 <div>
                     <span style={{ color: "#4f747a", paddingRight: 10 }}>{currentFormatedDate}</span>
@@ -82,8 +83,8 @@ const AssessmentDashboard: React.FC<AssessmentDashboardProps> = ({
             {/* Top Container */}
             <div className={styles.topContainer}>
                 <div className={styles.leftTopContainer}>
-                    <IoSpeedometerOutline size={27} style={{ marginTop: "3px" }} color="#4f747a" />
-                    <p className={styles.topContainerLeftText}> <b style={{ fontWeight: "bold" }}>Assessment</b> Dashboard </p>
+                    <HiUserGroup size={27} style={{ marginTop: "3px" }} color="#4f747a" />
+                    <p className={styles.topContainerLeftText}> <b style={{ fontWeight: "bold" }}>Groups</b> Management </p>
                 </div>
                 <div className={styles.rightTopContainer}>
                     <div className={styles.progressBarTopContainer}>
@@ -108,14 +109,14 @@ const AssessmentDashboard: React.FC<AssessmentDashboardProps> = ({
                                     // pathTransition: 'none',
 
                                     // Colors
-                                    pathColor: `rgba(79,116,122,0.8)`,
-                                    trailColor: 'rgba(79,116,122,0.4)'
+                                    pathColor: `#1c4e80`,
+                                    trailColor: '#1c4e8047'
                                 })}
                             />
                         </div>
                         <div className={styles.containerRightProgress}>
-                            <p style={{ fontSize: "15px", marginTop: 3 }}>Present Students</p>
-                            <p style={{ fontSize: 20, marginTop: -18, fontWeight: "bold" }}>200</p>
+                            <p style={{ fontSize: "15px", marginTop: 3 }}>Present Staff</p>
+                            <p style={{ fontSize: 20, marginTop: -18, fontWeight: "bold" }}>743</p>
                         </div>
                     </div>
                     <div className={styles.progressBarTopContainer}>
@@ -140,8 +141,8 @@ const AssessmentDashboard: React.FC<AssessmentDashboardProps> = ({
                                     // pathTransition: 'none',
 
                                     // Colors
-                                    pathColor: `rgba(0,138,248)`,
-                                    trailColor: '#9acffa'
+                                    pathColor: `#dbad58e9`,
+                                    trailColor: '#dbad583e'
                                 })}
                             />
                         </div>
@@ -158,41 +159,21 @@ const AssessmentDashboard: React.FC<AssessmentDashboardProps> = ({
             <div className={`container-fluid ${styles.containerBoxes}`}>
                 <div className="row gx-4" style={(windowSize[0] > 767) ? (styleFirstRowCB) : (styleForResponsiveFirstRowCB)}>
                     <div className={`col-md-4`}>
-                        <div className={styles.insideContainerBox} style={{ backgroundColor: "#a5b3e9" }}>
-                            <div className={styles.countICB}>80</div>
-                            <p className={styles.infoICB}>Total Courses</p>
+                        <div className={styles.insideContainerBox} style={{ backgroundColor: "#6aac4c" }}>
+                            <div className={styles.countICB}>6000</div>
+                            <p className={styles.infoICB}>Total Groups</p>
                         </div>
                     </div>
-                    <div className="col-md-4">
-                        <div className={styles.insideContainerBox} style={{ backgroundColor: "#ffcda1" }}>
-                            <div className={styles.countICB}>20</div>
-                            <p className={styles.infoICB}>Total Campuses</p>
+                    <div className={`col-md-4`}>
+                        <div className={styles.insideContainerBox} style={{ backgroundColor: "#29aaca" }}>
+                            <div className={styles.countICB}>800</div>
+                            <p className={styles.infoICB}>Staff</p>
                         </div>
                     </div>
-                    <div className="col-md-4">
-                        <div className={styles.insideContainerBox} style={{ backgroundColor: "#77d16d" }}>
-                            <div className={styles.countICB}>40000+</div>
-                            <p className={styles.infoICB}>No. of assessments created</p>
-                        </div>
-                    </div>
-                </div>
-                <div className="row gx-4" style={{ marginLeft: "-36px", marginRight: "-36px" }}>
-                    <div className="col-md-4">
-                        <div className={styles.insideContainerBox} style={{ backgroundColor: "#83b5dd" }}>
-                            <div className={styles.countICB}>50000+</div>
-                            <p className={styles.infoICB}>Graduated</p>
-                        </div>
-                    </div>
-                    <div className="col-md-4">
-                        <div className={styles.insideContainerBox} style={{ backgroundColor: "#eadeaa" }}>
-                            <div className={styles.countICB}>14</div>
-                            <p className={styles.infoICB}>Libraries in Campus</p>
-                        </div>
-                    </div>
-                    <div className="col-md-4">
-                        <div className={styles.insideContainerBox} style={{ backgroundColor: "#a3c890" }}>
-                            <div className={styles.countICB}>456</div>
-                            <p className={styles.infoICB}>Faculty Members</p>
+                    <div className={`col-md-4`}>
+                        <div className={styles.insideContainerBox} style={{ backgroundColor: "#23272b" }}>
+                            <div className={styles.countICB}>700</div>
+                            <p className={styles.infoICB}>Students</p>
                         </div>
                     </div>
                 </div>
@@ -205,8 +186,8 @@ const AssessmentDashboard: React.FC<AssessmentDashboardProps> = ({
                     data={data}
                     states={states}
                     columnValues={"CourseOfferingTypes"}
-                    buttonTitle={"Create New Course Offering"}
-                    tableTitle={`<b style={{ fontWeight: "bold" }}>Offered</b> <i>Courses</i>`}
+                    buttonTitle={"Create New Group"}
+                    tableTitle={`<b style={{ fontWeight: "bold" }}>Groups</b> <i>List</i>`}
                 />
             </div>
 
@@ -214,4 +195,4 @@ const AssessmentDashboard: React.FC<AssessmentDashboardProps> = ({
         </div>
     )
 }
-export default AssessmentDashboard;
+export default Groups;

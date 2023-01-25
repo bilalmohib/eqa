@@ -3,68 +3,54 @@ import { CourseOfferingTypes } from './types';
 export const data: CourseOfferingTypes[] = [
   {
     id: '502346-1',
-    firstName: 'Kelvin',
-    lastName: 'Langosh',
-    email: 'Jerod14@hotmail.com',
-    age: 19,
-    state: 'Ohio',
+    name: 'Operating System',
+    section: 3011,
+    noofstudent: 76,
+    coordinator: 'Dr. Alajmi',
+    instructor: "Dr. Khalid",
+    campus: "Hawiya",
+    semester: "Fall/2020"
   },
   {
     id: '502372-2',
-    firstName: 'Molly',
-    lastName: 'Purdy',
-    email: 'Hugh.Dach79@hotmail.com',
-    age: 37,
-    state: 'Rhode Island',
+    name: 'Fundamentals of Database',
+    section: 2012,
+    noofstudent: 45,
+    coordinator: 'Dr. Sultan',
+    instructor: "Dr. Rokaya",
+    campus: "Hawiya",
+    semester: "Fall/2020"
   },
   {
     id: '502372-3',
-    firstName: 'Henry',
-    lastName: 'Lynch',
-    email: 'Camden.Macejkovic@yahoo.com',
-    age: 20,
-    state: 'California',
+    name: 'Object Oriented Programming',
+    section: 2023,
+    noofstudent: 97,
+    coordinator: 'Mr. Amjad Majeed',
+    instructor: "Dr Shehzad Asif",
+    campus: "UET",
+    semester: "Fall/2019"
   },
   {
     id: '502372-4',
-    firstName: 'Glenda',
-    lastName: 'Douglas',
-    email: 'Eric0@yahoo.com',
-    age: 38,
-    state: 'Montana',
+    name: 'Fundamentals of Databases',
+    section: 2024,
+    noofstudent: 56,
+    coordinator: 'Dr. Asif Iqbal',
+    instructor: "Dr. Ishaq shafeeeq",
+    campus: "PUCIT",
+    semester: "Fall/2018"
   },
   {
     id: '502372-5',
-    firstName: 'Leone',
-    lastName: 'Williamson',
-    email: 'Ericka_Mueller52@yahoo.com',
-    age: 19,
-    state: 'Colorado',
-  },
-  {
-    id: '502372-6',
-    firstName: 'Mckenna',
-    lastName: 'Friesen',
-    email: 'Veda_Feeney@yahoo.com',
-    age: 34,
-    state: 'New York',
-  },
-  {
-    id: '502372-7',
-    firstName: 'Wyman',
-    lastName: 'Jast',
-    email: 'Melvin.Pacocha@yahoo.com',
-    age: 23,
-    state: 'Montana',
-  },
-  {
-    id: '502372-8',
-    firstName: 'Janick',
-    lastName: 'Willms',
-    email: 'Delfina12@gmail.com',
-    age: 25,
-    state: 'Nebraska',
-  },
+    name: 'Design Patterns',
+    section: 2018,
+    noofstudent: 50,
+    coordinator: 'Dr. Sheeraz Asif',
+    instructor: "Dr. Ali Moen",
+    campus: "FAST",
+    semester: "Fall/2017"
+  }
 ];
 
 //50 us states array
@@ -123,12 +109,12 @@ export const states = [
 ];
 
 export const columnValues = [
-  'Course Code',
-  'Name',
-  'Section',
-  'No. of Students',
-  'Co-ordinator',
-  'Instructor',
-  'Campus',
-  'Semester'
+  "id",
+  "name",
+  "section",
+  "noofstudent",
+  "coordinator",
+  "instructor",
+  "campus",
+  "semester"
 ];

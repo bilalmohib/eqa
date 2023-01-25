@@ -1,4 +1,4 @@
-import { useState,FC } from "react";
+import { useState, FC } from "react";
 
 // Importing Icons
 import { BsPrinter, BsSearch } from "react-icons/bs";
@@ -7,10 +7,6 @@ import { HiDotsVertical } from "react-icons/hi";
 // Importing Ripples
 import Ripples from 'react-ripples';
 import { createRipples } from 'react-ripples';
-
-// @@@@@@@@@@@@@@ IMPORTING COURSE OFFERING TABLE DATA @@@@@@@@@@@@@@@@@
-// Importing the course offering table data
-import { data, states } from '../../Data/Tables/CourseOfferings';
 
 // Importing types
 import { CourseOfferingTypes } from "../../Data/Tables/CourseOfferings/types";
@@ -29,11 +25,21 @@ const ButtonRipples = createRipples({
 })
 
 interface DataTableMDProps {
-    isOpen:Boolean
+    isOpen: Boolean
+    data: any
+    states: any
+    columnValues: string
+    buttonTitle: string,
+    tableTitle: string
 }
 
 const DataTableMD: FC<DataTableMDProps> = ({
-    isOpen
+    isOpen,
+    data,
+    states,
+    columnValues,
+    buttonTitle,
+    tableTitle
 }): JSX.Element => {
 
     const [searchText, setSearchText] = useState<string>("");
@@ -44,7 +50,10 @@ const DataTableMD: FC<DataTableMDProps> = ({
             {/* Header Starts here */}
             <header className={styles.headerContainer}>
                 <section className={styles.headerLeft}>
-                    <h5 className={styles.headingTopLeft}><b style={{ fontWeight: "bold" }}>Offered</b> <i>Courses</i></h5>
+                    <h5
+                        className={styles.headingTopLeft}
+                        dangerouslySetInnerHTML={{ __html: tableTitle }}
+                    />
                 </section>
                 <section className={styles.headerRight}>
                     <div className={styles.headerButtonContainer}>
@@ -125,8 +134,8 @@ const DataTableMD: FC<DataTableMDProps> = ({
                         searchText={searchText}
                         data={data}
                         states={states}
-                        columnValues={"CourseOfferingTypes"}
-                        buttonTitle={"Create New Course Offering"}
+                        columnValues={columnValues}
+                        buttonTitle={buttonTitle}
                         isOpen={isOpen}
                     />
                 </div>
