@@ -2,7 +2,7 @@ import { CourseOfferingTypes } from './types';
 
 export const data: CourseOfferingTypes[] = [
   {
-    id: '9s41rp',
+    id: '502346-1',
     firstName: 'Kelvin',
     lastName: 'Langosh',
     email: 'Jerod14@hotmail.com',
@@ -10,7 +10,7 @@ export const data: CourseOfferingTypes[] = [
     state: 'Ohio',
   },
   {
-    id: '08m6rx',
+    id: '502372-2',
     firstName: 'Molly',
     lastName: 'Purdy',
     email: 'Hugh.Dach79@hotmail.com',
@@ -18,7 +18,7 @@ export const data: CourseOfferingTypes[] = [
     state: 'Rhode Island',
   },
   {
-    id: '5ymtrc',
+    id: '502372-3',
     firstName: 'Henry',
     lastName: 'Lynch',
     email: 'Camden.Macejkovic@yahoo.com',
@@ -26,7 +26,7 @@ export const data: CourseOfferingTypes[] = [
     state: 'California',
   },
   {
-    id: 'ek5b97',
+    id: '502372-4',
     firstName: 'Glenda',
     lastName: 'Douglas',
     email: 'Eric0@yahoo.com',
@@ -34,7 +34,7 @@ export const data: CourseOfferingTypes[] = [
     state: 'Montana',
   },
   {
-    id: 'xxtydd',
+    id: '502372-5',
     firstName: 'Leone',
     lastName: 'Williamson',
     email: 'Ericka_Mueller52@yahoo.com',
@@ -42,7 +42,7 @@ export const data: CourseOfferingTypes[] = [
     state: 'Colorado',
   },
   {
-    id: 'wzxj9m',
+    id: '502372-6',
     firstName: 'Mckenna',
     lastName: 'Friesen',
     email: 'Veda_Feeney@yahoo.com',
@@ -50,7 +50,7 @@ export const data: CourseOfferingTypes[] = [
     state: 'New York',
   },
   {
-    id: '21dwtz',
+    id: '502372-7',
     firstName: 'Wyman',
     lastName: 'Jast',
     email: 'Melvin.Pacocha@yahoo.com',
@@ -58,7 +58,7 @@ export const data: CourseOfferingTypes[] = [
     state: 'Montana',
   },
   {
-    id: 'o8oe4k',
+    id: '502372-8',
     firstName: 'Janick',
     lastName: 'Willms',
     email: 'Delfina12@gmail.com',

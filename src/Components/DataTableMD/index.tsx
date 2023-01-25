@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState,FC } from "react";
 
 // Importing Icons
 import { BsPrinter, BsSearch } from "react-icons/bs";
@@ -28,7 +28,13 @@ const ButtonRipples = createRipples({
     during: 600,
 })
 
-const DataTableMD = () => {
+interface DataTableMDProps {
+    isOpen:Boolean
+}
+
+const DataTableMD: FC<DataTableMDProps> = ({
+    isOpen
+}): JSX.Element => {
 
     const [searchText, setSearchText] = useState<string>("");
 
@@ -121,6 +127,7 @@ const DataTableMD = () => {
                         states={states}
                         columnValues={"CourseOfferingTypes"}
                         buttonTitle={"Create New Course Offering"}
+                        isOpen={isOpen}
                     />
                 </div>
                 {/* Body of Body Container Ends Here */}

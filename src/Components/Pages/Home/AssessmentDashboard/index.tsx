@@ -196,7 +196,7 @@ const AssessmentDashboard: React.FC<AssessmentDashboardProps> = ({
             {/* Box Container */}
 
             <div style={{ marginTop: 30 }}>
-                <DataTableMD />
+                <DataTableMD isOpen={isOpen} />
             </div>
 
             <br />

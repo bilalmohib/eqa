@@ -18,7 +18,9 @@ import {
     TextField,
     Tooltip,
 } from '@mui/material';
+import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import { Delete, Edit } from '@mui/icons-material';
+// import { ExportToCsv } from 'export-to-csv'; //or use your library of choice here
 
 // Importing @@@@@@@@@@@@@@@@@@@ any @@@@@@@@@@@@@@@@@@@@@
 import { CourseOfferingTypes } from '../../../Data/Tables/CourseOfferings/types';
@@ -44,6 +46,7 @@ interface CustomTableProps {
     states: string[],
     columnValues: string,
     buttonTitle: string,
+    isOpen: Boolean
 }
 
 const CustomTableCrud: FC<CustomTableProps> = ({
@@ -52,6 +55,7 @@ const CustomTableCrud: FC<CustomTableProps> = ({
     states,
     columnValues,
     buttonTitle,
+    isOpen
 }): JSX.Element => {
 
     const [columnStateValues, setColumnStateValues] = useState<any>(null);
@@ -135,31 +139,35 @@ const CustomTableCrud: FC<CustomTableProps> = ({
         () => [
             {
                 accessorKey: 'id',
-                header: 'ID',
+                header: 'Course Code',
                 enableColumnOrdering: false,
                 enableEditing: false, //disable editing on this column
                 enableSorting: false,
-                size: 80,
+                size: 120,
             },
             {
                 accessorKey: 'firstName',
-                header: 'First Name',
-                size: 140,
+                header: 'Name',
+                size: 120,
+                enableClickToCopy: true,
                 muiTableBodyCellEditTextFieldProps: ({ cell }) => ({
                     ...getCommonEditTextFieldProps(cell),
                 }),
             },
             {
                 accessorKey: 'lastName',
-                header: 'Last Name',
-                size: 140,
+                header: 'Section',
+                size: 120,
+                enableClickToCopy: true,
                 muiTableBodyCellEditTextFieldProps: ({ cell }) => ({
                     ...getCommonEditTextFieldProps(cell),
                 }),
             },
             {
                 accessorKey: 'email',
-                header: 'Email',
+                header: 'No. of Students',
+                size: 120,
+                enableClickToCopy: true,
                 muiTableBodyCellEditTextFieldProps: ({ cell }) => ({
                     ...getCommonEditTextFieldProps(cell),
                     type: 'email',
@@ -167,8 +175,9 @@ const CustomTableCrud: FC<CustomTableProps> = ({
             },
             {
                 accessorKey: 'age',
-                header: 'Age',
-                size: 80,
+                size: 120,
+                enableClickToCopy: true,
+                header: 'Co-ordinator',
                 muiTableBodyCellEditTextFieldProps: ({ cell }) => ({
                     ...getCommonEditTextFieldProps(cell),
                     type: 'number',
@@ -176,7 +185,9 @@ const CustomTableCrud: FC<CustomTableProps> = ({
             },
             {
                 accessorKey: 'state',
-                header: 'State',
+                size: 120,
+                enableClickToCopy: true,
+                header: 'Instructor',
                 muiTableBodyCellEditTextFieldProps: {
                     select: true, //change to select for a dropdown
                     children: states.map((state) => (
@@ -185,6 +196,46 @@ const CustomTableCrud: FC<CustomTableProps> = ({
                         </MenuItem>
                     )),
                 },
+            },
+            {
+                accessorKey: 'age',
+                size: 120,
+                enableClickToCopy: true,
+                header: 'Co-ordinator',
+                muiTableBodyCellEditTextFieldProps: ({ cell }) => ({
+                    ...getCommonEditTextFieldProps(cell),
+                    type: 'number',
+                }),
+            },
+            {
+                accessorKey: 'age',
+                size: 120,
+                enableClickToCopy: true,
+                header: 'Co-ordinator',
+                muiTableBodyCellEditTextFieldProps: ({ cell }) => ({
+                    ...getCommonEditTextFieldProps(cell),
+                    type: 'number',
+                }),
+            },
+            {
+                accessorKey: 'age',
+                header: 'Co-ordinator',
+                size: 80,
+                enableClickToCopy: true,
+                muiTableBodyCellEditTextFieldProps: ({ cell }) => ({
+                    ...getCommonEditTextFieldProps(cell),
+                    type: 'number',
+                }),
+            },
+            {
+                accessorKey: 'age',
+                header: 'Co-ordinator',
+                size: 80,
+                enableClickToCopy: true,
+                muiTableBodyCellEditTextFieldProps: ({ cell }) => ({
+                    ...getCommonEditTextFieldProps(cell),
+                    type: 'number',
+                }),
             },
         ],
         [getCommonEditTextFieldProps],
@@ -203,56 +254,124 @@ const CustomTableCrud: FC<CustomTableProps> = ({
         }
     }, [data]);
 
+    // const csvOptions = {
+    //     fieldSeparator: ',',
+    //     quoteStrings: '"',
+    //     decimalSeparator: '.',
+    //     showLabels: true,
+    //     useBom: true,
+    //     useKeysAsHeaders: false,
+    //     headers: columnStateValues.map((c:any) => c.header),
+    // };
+
+    //const csvExporter = new ExportToCsv(csvOptions);
+
+    const handleExportRows = (rows: MRT_Row<any>[]) => {
+
+    };
+
+    const handleExportData = () => {
+
+    };
+
     return (
-        <Box className={styles.container}>
-            <MaterialReactTable
-                displayColumnDefOptions={{
-                    'mrt-row-actions': {
-                        muiTableHeadCellProps: {
-                            align: 'center',
+        <div className={styles.container}>
+            <div className={styles.insideTableContainer}>
+                {(isOpen)?(
+                    <MaterialReactTable
+                    displayColumnDefOptions={{
+                        'mrt-row-actions': {
+                            muiTableHeadCellProps: {
+                                align: 'center',
+                            },
+                            size: 120,
                         },
-                        size: 120,
-                    },
-                }}
-                columns={columnStateValues}
-                data={tableData}
-                editingMode="modal" //default
-                enableColumnOrdering
-                enableEditing
-                onEditingRowSave={handleSaveRowEdits}
-                onEditingRowCancel={handleCancelRowEdits}
-                renderRowActions={({ row, table }) => (
-                    <Box sx={{ display: 'flex', gap: '1rem' }}>
-                        <Tooltip arrow placement="left" title="Edit">
-                            <IconButton onClick={() => table.setEditingRow(row)}>
-                                <Edit />
-                            </IconButton>
-                        </Tooltip>
-                        <Tooltip arrow placement="right" title="Delete">
-                            <IconButton color="error" onClick={() => handleDeleteRow(row)}>
-                                <Delete />
-                            </IconButton>
-                        </Tooltip>
-                    </Box>
+                    }}
+                    enableColumnVirtualization
+                    columns={columnStateValues}
+                    data={tableData}
+                    editingMode="modal" //default
+                    enableColumnOrdering
+                    enableEditing
+                    enableClickToCopy
+                    onEditingRowSave={handleSaveRowEdits}
+                    onEditingRowCancel={handleCancelRowEdits}
+                    renderRowActions={({ row, table }) => (
+                        <Box sx={{ display: 'flex', gap: '1rem' }}>
+                            <Tooltip arrow placement="left" title="Edit">
+                                <IconButton onClick={() => table.setEditingRow(row)}>
+                                    <Edit />
+                                </IconButton>
+                            </Tooltip>
+                            <Tooltip arrow placement="right" title="Delete">
+                                <IconButton color="error" onClick={() => handleDeleteRow(row)}>
+                                    <Delete />
+                                </IconButton>
+                            </Tooltip>
+                        </Box>
+                    )}
+                    renderTopToolbarCustomActions={() => (
+                        <Button
+                            color="primary"
+                            onClick={() => setCreateModalOpen(true)}
+                            variant="outlined"
+                        >
+                            {buttonTitle}
+                        </Button>
+                    )}
+                />
+                ):(
+                    <MaterialReactTable
+                    displayColumnDefOptions={{
+                        'mrt-row-actions': {
+                            muiTableHeadCellProps: {
+                                align: 'center',
+                            },
+                            size: 120,
+                        },
+                    }}
+                    columns={columnStateValues}
+                    data={tableData}
+                    editingMode="modal" //default
+                    enableColumnOrdering
+                    enableEditing
+                    enableClickToCopy
+                    onEditingRowSave={handleSaveRowEdits}
+                    onEditingRowCancel={handleCancelRowEdits}
+                    renderRowActions={({ row, table }) => (
+                        <Box sx={{ display: 'flex', gap: '1rem' }}>
+                            <Tooltip arrow placement="left" title="Edit">
+                                <IconButton onClick={() => table.setEditingRow(row)}>
+                                    <Edit />
+                                </IconButton>
+                            </Tooltip>
+                            <Tooltip arrow placement="right" title="Delete">
+                                <IconButton color="error" onClick={() => handleDeleteRow(row)}>
+                                    <Delete />
+                                </IconButton>
+                            </Tooltip>
+                        </Box>
+                    )}
+                    renderTopToolbarCustomActions={() => (
+                        <Button
+                            color="primary"
+                            onClick={() => setCreateModalOpen(true)}
+                            variant="outlined"
+                        >
+                            {buttonTitle}
+                        </Button>
+                    )}
+                />
                 )}
-                renderTopToolbarCustomActions={() => (
-                    <Button
-                        color="primary"
-                        onClick={() => setCreateModalOpen(true)}
-                        variant="outlined"
-                    >
-                        {buttonTitle}
-                    </Button>
-                )}
-            />
-            <CreateNewAccountModal
-                columns={columnStateValues}
-                open={createModalOpen}
-                onClose={() => setCreateModalOpen(false)}
-                onSubmit={handleCreateNewRow}
-                buttonTitle={buttonTitle}
-            />
-        </Box>
+                <CreateNewAccountModal
+                    columns={columnStateValues}
+                    open={createModalOpen}
+                    onClose={() => setCreateModalOpen(false)}
+                    onSubmit={handleCreateNewRow}
+                    buttonTitle={buttonTitle}
+                />
+            </div>
+        </div>
     );
 };
 
@@ -263,7 +382,7 @@ export const CreateNewAccountModal: FC<{
     onSubmit: (values: any) => void;
     open: boolean;
     buttonTitle?: string;
-}> = ({ open, columns, onClose, onSubmit,buttonTitle }) => {
+}> = ({ open, columns, onClose, onSubmit, buttonTitle }) => {
     const [values, setValues] = useState<any>(() =>
         columns.reduce((acc, column) => {
             acc[column.accessorKey ?? ''] = '';

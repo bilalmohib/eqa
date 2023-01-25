@@ -1,6 +1,6 @@
 .container {
     border-radius: 3px;
-    /* border: 1px solid rgb(255, 0, 0) !important; */
+    /* border: 1px solid rgb(166, 255, 0) !important; */
     width: 98.4%;
     height: 100%;
 
@@ -13,8 +13,12 @@
 }
 
 .insideTableContainer {
-    height: 800px;
-    width: 100%;
+    /* border: 1px solid rgb(0, 0, 255) !important; */
+    width: 100% !important;
+    margin-left: 0px !important;
+    margin-right: 0px !important;
+    padding-left: 0px !important;
+    padding-right: 0px !important;
 }
 
 @media all and (max-width:600px){
