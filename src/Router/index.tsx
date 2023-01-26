@@ -20,13 +20,15 @@ import ForgetPassWord from "../Pages/ForgetPassWord";
 // 5) Admin Dashboard Page
 import AssessmentDashboard from "../Components/Pages/Home/AssessmentDashboard";
 // 6) User Management Pages
-import Users from "../Components/Pages/Home/UserManagement/Users";
+import ViewUsers from "../Components/Pages/Home/UserManagement/Users/ViewUsers";
 // 7) Groups Page
-import Groups from "../Components/Pages/Home/UserManagement/Groups";
+import ViewGroups from "../Components/Pages/Home/UserManagement/Groups/ViewGroups";
 // 8) Roles Page
-import Roles from '../Components/Pages/Home/UserManagement/Roles';
+import ViewRoles from '../Components/Pages/Home/UserManagement/Roles/ViewRoles';
 // 9) Settings Page
 import Settings from '../Components/Pages/Home/Settings/Main';
+// 10) Create User Page
+import AddUser from '../Components/Pages/Home/UserManagement/Users/AddUser';
 
 // $$$$$$$$$$$$$$$$$$$$ Importing Components and Pages $$$$$$$$$$$$$$$$$$$$
 
@@ -88,63 +90,88 @@ const AppRouter: FC<AppRouterProps> = ({
                     />
                 </Route>
                 <Route path="usermanagement">
-                    <Route
-                        path={"users"}
-                        element={<Home
-                            isOpen={isOpen}
-                            setIsOpen={setIsOpen}
-                            // For minified sidebar
-                            isMinified={isMinified}
-                            setIsMinified={setIsMinified}
-                            subComponent={
-                                <Users
-                                    isOpen={isOpen}
-                                    setIsOpen={setIsOpen}
-                                    // For minified sidebar
-                                    isMinified={isMinified}
-                                    setIsMinified={setIsMinified}
-                                />
-                            }
-                        />}
-                    />
-                    <Route
-                        path={"groups"}
-                        element={<Home
-                            isOpen={isOpen}
-                            setIsOpen={setIsOpen}
-                            // For minified sidebar
-                            isMinified={isMinified}
-                            setIsMinified={setIsMinified}
-                            subComponent={
-                                <Groups
-                                    isOpen={isOpen}
-                                    setIsOpen={setIsOpen}
-                                    // For minified sidebar
-                                    isMinified={isMinified}
-                                    setIsMinified={setIsMinified}
-                                />
-                            }
-                        />}
-                    />
-                     <Route
-                        path={"roles"}
-                        element={<Home
-                            isOpen={isOpen}
-                            setIsOpen={setIsOpen}
-                            // For minified sidebar
-                            isMinified={isMinified}
-                            setIsMinified={setIsMinified}
-                            subComponent={
-                                <Roles
-                                    isOpen={isOpen}
-                                    setIsOpen={setIsOpen}
-                                    // For minified sidebar
-                                    isMinified={isMinified}
-                                    setIsMinified={setIsMinified}
-                                />
-                            }
-                        />}
-                    />
+                    <Route path={"users"}>
+                        <Route
+                            path={"viewusers"}
+                            element={<Home
+                                isOpen={isOpen}
+                                setIsOpen={setIsOpen}
+                                // For minified sidebar
+                                isMinified={isMinified}
+                                setIsMinified={setIsMinified}
+                                subComponent={
+                                    <ViewUsers
+                                        isOpen={isOpen}
+                                        setIsOpen={setIsOpen}
+                                        // For minified sidebar
+                                        isMinified={isMinified}
+                                        setIsMinified={setIsMinified}
+                                    />
+                                }
+                            />}
+                        />
+                        <Route
+                            path={"adduser"}
+                            element={<Home
+                                isOpen={isOpen}
+                                setIsOpen={setIsOpen}
+                                // For minified sidebar
+                                isMinified={isMinified}
+                                setIsMinified={setIsMinified}
+                                subComponent={
+                                    <AddUser
+                                        isOpen={isOpen}
+                                        setIsOpen={setIsOpen}
+                                        // For minified sidebar
+                                        isMinified={isMinified}
+                                        setIsMinified={setIsMinified}
+                                    />
+                                }
+                            />}
+                        />
+                    </Route>
+                    <Route path={"groups"}>
+                        <Route
+                            path={"viewgroups"}
+                            element={<Home
+                                isOpen={isOpen}
+                                setIsOpen={setIsOpen}
+                                // For minified sidebar
+                                isMinified={isMinified}
+                                setIsMinified={setIsMinified}
+                                subComponent={
+                                    <ViewGroups
+                                        isOpen={isOpen}
+                                        setIsOpen={setIsOpen}
+                                        // For minified sidebar
+                                        isMinified={isMinified}
+                                        setIsMinified={setIsMinified}
+                                    />
+                                }
+                            />}
+                        />
+                    </Route>
+                    <Route path={"roles"}>
+                        <Route
+                            path={"viewroles"}
+                            element={<Home
+                                isOpen={isOpen}
+                                setIsOpen={setIsOpen}
+                                // For minified sidebar
+                                isMinified={isMinified}
+                                setIsMinified={setIsMinified}
+                                subComponent={
+                                    <ViewRoles
+                                        isOpen={isOpen}
+                                        setIsOpen={setIsOpen}
+                                        // For minified sidebar
+                                        isMinified={isMinified}
+                                        setIsMinified={setIsMinified}
+                                    />
+                                }
+                            />}
+                        />
+                    </Route>
                 </Route>
                 <Route path="settings">
                     <Route

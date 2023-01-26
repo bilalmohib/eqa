@@ -5,12 +5,16 @@ import { HiUserGroup } from "react-icons/hi2";
 
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 
+import AddIcon from '@mui/icons-material/Add';
+// Importing material ui components
+import Button from '@mui/material/Button';
+
 // Importing components
-import DataTableMD from "../../../../DataTableMD";
+import DataTableMD from "../../../../../DataTableMD";
 
 // @@@@@@@@@@@@@@ IMPORTING COURSE OFFERING TABLE DATA @@@@@@@@@@@@@@@@@
 // Importing the course offering table data
-import { data, states } from '../../../../../Data/Tables/CourseOfferings';
+import { data, states } from '../../../../../../Data/Tables/CourseOfferings';
 
 import styles from "./style.module.css";
 // import "./style.css";
@@ -25,7 +29,7 @@ interface GroupsProps {
     setIsMinified: any,
 }
 
-const Groups: React.FC<GroupsProps> = ({
+const ViewGroups: React.FC<GroupsProps> = ({
     setIsOpen,
     isOpen,
     // For minified sidebar
@@ -87,76 +91,31 @@ const Groups: React.FC<GroupsProps> = ({
                     <p className={styles.topContainerLeftText}> <b style={{ fontWeight: "bold" }}>Groups</b> Management </p>
                 </div>
                 <div className={styles.rightTopContainer}>
-                    <div className={styles.progressBarTopContainer}>
-                        <div style={{ width: "60px" }}>
-                            <CircularProgressbar
-                                value={70}
-                                strokeWidth={15}
-                                styles={buildStyles({
-                                    // Rotation of path and trail, in number of turns (0-1)
-                                    rotation: 0,
-
-                                    // Whether to use rounded or flat corners on the ends - can use 'butt' or 'round'
-                                    strokeLinecap: 'butt',
-
-                                    // Text size
-                                    textSize: '16px',
-
-                                    // How long animation takes to go from one percentage to another, in seconds
-                                    pathTransitionDuration: 0.5,
-
-                                    // Can specify path transition in more detail, or remove it entirely
-                                    // pathTransition: 'none',
-
-                                    // Colors
-                                    pathColor: `#1c4e80`,
-                                    trailColor: '#1c4e8047'
-                                })}
-                            />
-                        </div>
-                        <div className={styles.containerRightProgress}>
-                            <p style={{ fontSize: "15px", marginTop: 3 }}>Present Staff</p>
-                            <p style={{ fontSize: 20, marginTop: -18, fontWeight: "bold" }}>743</p>
-                        </div>
-                    </div>
-                    <div className={styles.progressBarTopContainer}>
-                        <div style={{ width: "60px" }}>
-                            <CircularProgressbar
-                                value={percentage}
-                                strokeWidth={15}
-                                styles={buildStyles({
-                                    // Rotation of path and trail, in number of turns (0-1)
-                                    rotation: 0,
-
-                                    // Whether to use rounded or flat corners on the ends - can use 'butt' or 'round'
-                                    strokeLinecap: 'butt',
-
-                                    // Text size
-                                    textSize: '16px',
-
-                                    // How long animation takes to go from one percentage to another, in seconds
-                                    pathTransitionDuration: 0.5,
-
-                                    // Can specify path transition in more detail, or remove it entirely
-                                    // pathTransition: 'none',
-
-                                    // Colors
-                                    pathColor: `#dbad58e9`,
-                                    trailColor: '#dbad583e'
-                                })}
-                            />
-                        </div>
-                        <div className={styles.containerRightProgress}>
-                            <p style={{ fontSize: "15px", marginTop: 3 }}>Total No. of Login</p>
-                            <p style={{ fontSize: 20, marginTop: -18, fontWeight: "bold" }}>45698</p>
-                        </div>
-                    </div>
+                    <Button
+                        variant="contained"
+                        sx={{
+                            backgroundColor: "#e79f43",
+                            // textTransform: "none",
+                            fontWeight: "bold",
+                            height: 40,
+                            mt: 1,
+                            "&:hover": {
+                                backgroundColor: "#e79f43",
+                            }
+                        }}
+                        onClick={() => {
+                            // navigate("/usermanagement/users/adduser");
+                        }}
+                    >
+                        <AddIcon style={{ marginRight: 5 }} />
+                        Add Group
+                    </Button>
                 </div>
             </div>
             {/* Top Container */}
 
             {/* Box Container */}
-            <div className={`container-fluid ${styles.containerBoxes}`}>
+            {/* <div className={`container-fluid ${styles.containerBoxes}`}>
                 <div className="row gx-4" style={(windowSize[0] > 767) ? (styleFirstRowCB) : (styleForResponsiveFirstRowCB)}>
                     <div className={`col-md-4`}>
                         <div className={styles.insideContainerBox} style={{ backgroundColor: "#6aac4c" }}>
@@ -177,7 +136,7 @@ const Groups: React.FC<GroupsProps> = ({
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> */}
             {/* Box Container */}
 
             <div style={{ marginTop: 30 }}>
@@ -195,4 +154,4 @@ const Groups: React.FC<GroupsProps> = ({
         </div>
     )
 }
-export default Groups;
+export default ViewGroups;

@@ -5,6 +5,7 @@ import { MdMenuOpen } from 'react-icons/md';
 import styles from './style.module.css';
 import { useNavigate } from 'react-router';
 import { AiTwotoneLock } from 'react-icons/ai';
+import SearchIcon from '@mui/icons-material/Search';
 
 import FullCalendar from '@fullcalendar/react' // must go before plugins
 import dayGridPlugin from '@fullcalendar/daygrid' // a plugin!
@@ -152,14 +153,19 @@ const Navbar: React.FC<NavProps> = ({
                         </div>
                     )}
                     &nbsp; &nbsp;
-                    <div className={`${styles.searchBoxNavbar}`}>
-                        <input
-                            type="text"
-                            className='form-control'
-                            style={{ border: "none" }}
-                            placeholder='Search for anything'
-                        />
-                    </div>
+                    <Box sx={{ display: "flex",ml:4}}>
+                        <Box>
+                            <SearchIcon color="action" />
+                        </Box>
+                        <div className={`${styles.searchBoxNavbar}`}>
+                            <input
+                                type="text"
+                                className='form-control'
+                                style={{ border: "none" }}
+                                placeholder='Search for anything'
+                            />
+                        </div>
+                    </Box>
                 </a>
                 <div>
                     {(true) ? (
