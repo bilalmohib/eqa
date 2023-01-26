@@ -283,9 +283,9 @@ const Navbar: React.FC<NavProps> = ({
                                     <li>
                                         {(currentNotificationActiveTab === 1) ? (
                                             <div className={styles.messageList}>
-                                                {(MessageList.map((v, i) => {
+                                                {(MessageList.map((v:any, i:number) => {
                                                     return (
-                                                        <div className={styles.individualMessageList}>
+                                                        <div key={i} className={styles.individualMessageList}>
                                                             <div className={styles.leftSideML}>
                                                                 <img
                                                                     className={styles.imageProfile}
@@ -306,9 +306,9 @@ const Navbar: React.FC<NavProps> = ({
                                             </div>
                                         ) : (currentNotificationActiveTab === 2) ? (
                                             <div className={styles.notificationsContainer}>
-                                                {(NotificationsList.map((v, i) => {
+                                                {(NotificationsList.map((v:any, i:number) => {
                                                     return (
-                                                        <div className={styles.individualNotificationList}>
+                                                        <div key={i} className={styles.individualNotificationList}>
                                                             <h3 className={styles.nlTitle}>{v.title}</h3>
                                                             <p className={styles.nlMessage}>{v.message}</p>
                                                             <p className={styles.nlTime}>{v.time}</p>

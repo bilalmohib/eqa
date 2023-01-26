@@ -1,23 +1,23 @@
 import { useState, useEffect } from "react";
 
 import { IoSpeedometerOutline } from "react-icons/io5";
-import { FaUserAlt } from "react-icons/fa";
+import { HiUserGroup } from "react-icons/hi2";
 
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 
 // Importing components
-import DataTableMD from "../../../DataTableMD";
+import DataTableMD from "../../../../DataTableMD";
 
 // @@@@@@@@@@@@@@ IMPORTING COURSE OFFERING TABLE DATA @@@@@@@@@@@@@@@@@
 // Importing the course offering table data
-import { data, states } from '../../../../Data/Tables/CourseOfferings';
+import { data, states } from '../../../../../Data/Tables/CourseOfferings';
 
 import styles from "./style.module.css";
 // import "./style.css";
 
 const percentage = 30;
 
-interface UserProps {
+interface RolesProps {
     setIsOpen: any,
     isOpen: Boolean,
     // For minified sidebar
@@ -25,7 +25,7 @@ interface UserProps {
     setIsMinified: any,
 }
 
-const Users: React.FC<UserProps> = ({
+const Roles: React.FC<RolesProps> = ({
     setIsOpen,
     isOpen,
     // For minified sidebar
@@ -71,7 +71,7 @@ const Users: React.FC<UserProps> = ({
         }}>
             <div style={{ marginTop: 5 }} className={`${(windowSize[0] > 990) ? ("d-flex justify-content-between") : ("d-flex flex-column justify-content-start")}`}>
                 <div>
-                    EQA / User Management /<span style={{ color: "#4f747a" }}> Users </span>
+                    EQA / User Management /<span style={{ color: "#4f747a" }}> Groups </span>
                 </div>
                 <div>
                     <span style={{ color: "#4f747a", paddingRight: 10 }}>{currentFormatedDate}</span>
@@ -83,8 +83,8 @@ const Users: React.FC<UserProps> = ({
             {/* Top Container */}
             <div className={styles.topContainer}>
                 <div className={styles.leftTopContainer}>
-                    <FaUserAlt size={27} style={{ marginTop: "3px" }} color="#4f747a" />
-                    <p className={styles.topContainerLeftText}> <b style={{ fontWeight: "bold" }}>Users</b> Management </p>
+                    <HiUserGroup size={27} style={{ marginTop: "3px" }} color="#4f747a" />
+                    <p className={`${styles.topContainerLeftText}`}> <b style={{ fontWeight: "bold",color:"#4f747a" }}>Roles</b> Management </p>
                 </div>
                 <div className={styles.rightTopContainer}>
                     <div className={styles.progressBarTopContainer}>
@@ -115,7 +115,7 @@ const Users: React.FC<UserProps> = ({
                             />
                         </div>
                         <div className={styles.containerRightProgress}>
-                            <p style={{ fontSize: "15px", marginTop: 3 }}>Present Staff</p>
+                            <p style={{ fontSize: "15px", marginTop: 3 }}>Present Role Members</p>
                             <p style={{ fontSize: 20, marginTop: -18, fontWeight: "bold" }}>743</p>
                         </div>
                     </div>
@@ -159,21 +159,21 @@ const Users: React.FC<UserProps> = ({
             <div className={`container-fluid ${styles.containerBoxes}`}>
                 <div className="row gx-4" style={(windowSize[0] > 767) ? (styleFirstRowCB) : (styleForResponsiveFirstRowCB)}>
                     <div className={`col-md-4`}>
-                        <div className={styles.insideContainerBox} style={{ backgroundColor: "#488A99" }}>
+                        <div className={styles.insideContainerBox} style={{ backgroundColor: "#6aac4c" }}>
                             <div className={styles.countICB}>6000</div>
-                            <p className={styles.infoICB}>Total Staff</p>
+                            <p className={styles.infoICB}>Total Roles</p>
                         </div>
                     </div>
                     <div className={`col-md-4`}>
-                        <div className={styles.insideContainerBox} style={{ backgroundColor: "#1C4E80" }}>
+                        <div className={styles.insideContainerBox} style={{ backgroundColor: "#29aaca" }}>
                             <div className={styles.countICB}>800</div>
-                            <p className={styles.infoICB}>Teachers</p>
+                            <p className={styles.infoICB}>Administrator</p>
                         </div>
                     </div>
                     <div className={`col-md-4`}>
-                        <div className={styles.insideContainerBox} style={{ backgroundColor: "#DBAE58" }}>
-                            <div className={styles.countICB}>6</div>
-                            <p className={styles.infoICB}>HOD's</p>
+                        <div className={styles.insideContainerBox} style={{ backgroundColor: "#23272b" }}>
+                            <div className={styles.countICB}>700</div>
+                            <p className={styles.infoICB}>Staff</p>
                         </div>
                     </div>
                 </div>
@@ -186,8 +186,8 @@ const Users: React.FC<UserProps> = ({
                     data={data}
                     states={states}
                     columnValues={"CourseOfferingTypes"}
-                    buttonTitle={"Create New User"}
-                    tableTitle={`<b style={{ fontWeight: "bold" }}>Users</b> <i>List</i>`}
+                    buttonTitle={"Create New Role"}
+                    tableTitle={`<b style={{ fontWeight: "bold" }}>Roles</b> <i>List</i>`}
                 />
             </div>
 
@@ -195,4 +195,4 @@ const Users: React.FC<UserProps> = ({
         </div>
     )
 }
-export default Users;
+export default Roles;

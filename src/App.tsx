@@ -4,6 +4,8 @@ import AppRouter from "./Router";
 // importing Header
 import Header from "./Components/Header";
 
+// import { Helmet } from 'react-helmet';
+
 import 'react-circular-progressbar/dist/styles.css';
 
 const App = () => {
@@ -11,27 +13,32 @@ const App = () => {
     // 1) Login
     // 2) About Us
     // 3) Announcements
-    const [mobileViewContainer, setMobileViewContainer] = useState<String>("Login");
+    const [mobileViewContainer, setMobileViewContainer] = useState<string>("Login");
 
-    const [currentTab, setCurrentTab] = useState<Number>(1);
+    const [currentTab, setCurrentTab] = useState<number>(1);
 
-    const [showHeader, setShowHeader] = useState<Boolean>(false);
+    const [showHeader, setShowHeader] = useState<boolean>(true);
 
     useEffect(() => {
         // The current location.
-        console.clear();
+        // console.clear();
         console.log("The current location is: ", window.location.pathname);
         const url = window.location.pathname;
 
-        if (url === "/") {
-            setShowHeader(false);
-        } else {
+        if (url === "/login2" || url === "/forgetpassword") {
             setShowHeader(true);
+        } else {
+            setShowHeader(false);
         }
-    }, [showHeader, setShowHeader]);
+    }, []);
 
     return (
         <div>
+            {/* <Helmet>
+        <title>EQA</title>
+        <meta name="description" content="Education Quality Assurance Application" />
+        <meta name="theme-color" content="#008f68" />
+      </Helmet> */}
             {(showHeader) && (
                 <Header
                     setCurrentTab={setCurrentTab}
