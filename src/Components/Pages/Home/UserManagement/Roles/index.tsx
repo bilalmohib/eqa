@@ -65,10 +65,15 @@ const Roles: React.FC<RolesProps> = ({
     });
 
     return (
-        <div className={`${styles.container} ${(windowSize[0] < 991 && isOpen) ? ("bgMobileOnSideOpen") : ("")}`} onClick={() => {
-            if (windowSize[0] < 991)
-                setIsOpen(!isOpen)
-        }}>
+        <div
+            className={`${styles.container} ${(windowSize[0] < 991 && isOpen) ? ("bgMobileOnSideOpen") : ("")}`}
+
+            // On click of the sidebar, if the sidebar is open, then close it
+            onClick={() => {
+                if ((windowSize[0] < 991) && isOpen)
+                    setIsOpen(false)
+            }}
+        >
             <div style={{ marginTop: 5 }} className={`${(windowSize[0] > 990) ? ("d-flex justify-content-between") : ("d-flex flex-column justify-content-start")}`}>
                 <div>
                     EQA / User Management /<span style={{ color: "#4f747a" }}> Groups </span>
@@ -84,7 +89,7 @@ const Roles: React.FC<RolesProps> = ({
             <div className={styles.topContainer}>
                 <div className={styles.leftTopContainer}>
                     <HiUserGroup size={27} style={{ marginTop: "3px" }} color="#4f747a" />
-                    <p className={`${styles.topContainerLeftText}`}> <b style={{ fontWeight: "bold",color:"#4f747a" }}>Roles</b> Management </p>
+                    <p className={`${styles.topContainerLeftText}`}> <b style={{ fontWeight: "bold", color: "#4f747a" }}>Roles</b> Management </p>
                 </div>
                 <div className={styles.rightTopContainer}>
                     <div className={styles.progressBarTopContainer}>

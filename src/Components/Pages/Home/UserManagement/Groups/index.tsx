@@ -66,8 +66,8 @@ const Groups: React.FC<GroupsProps> = ({
 
     return (
         <div className={`${styles.container} ${(windowSize[0] < 991 && isOpen) ? ("bgMobileOnSideOpen") : ("")}`} onClick={() => {
-            if (windowSize[0] < 991)
-                setIsOpen(!isOpen)
+            if ((windowSize[0] < 991) && isOpen)
+                setIsOpen(false);
         }}>
             <div style={{ marginTop: 5 }} className={`${(windowSize[0] > 990) ? ("d-flex justify-content-between") : ("d-flex flex-column justify-content-start")}`}>
                 <div>

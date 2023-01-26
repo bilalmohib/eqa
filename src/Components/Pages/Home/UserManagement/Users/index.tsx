@@ -65,10 +65,13 @@ const Users: React.FC<UserProps> = ({
     });
 
     return (
-        <div className={`${styles.container} ${(windowSize[0] < 991 && isOpen) ? ("bgMobileOnSideOpen") : ("")}`} onClick={() => {
-            if (windowSize[0] < 991)
-                setIsOpen(!isOpen)
-        }}>
+        <div
+            className={`${styles.container} ${(windowSize[0] < 991 && isOpen) ? ("bgMobileOnSideOpen") : ("")}`}
+            onClick={() => {
+                if ((windowSize[0] < 991) && isOpen)
+                    setIsOpen(false);
+            }}
+        >
             <div style={{ marginTop: 5 }} className={`${(windowSize[0] > 990) ? ("d-flex justify-content-between") : ("d-flex flex-column justify-content-start")}`}>
                 <div>
                     EQA / User Management /<span style={{ color: "#4f747a" }}> Users </span>
