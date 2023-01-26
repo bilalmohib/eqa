@@ -133,8 +133,8 @@ const Home = ({
             subMenu: [
                 {
                     icon: <RxDot style={{ marginLeft: 2 }} />,
-                    text: "Settings",
-                    link: "/settings",
+                    text: "General Settings",
+                    link: "/settings/general",
                 },
                 {
                     icon: <RxDot style={{ marginLeft: 2 }} />,
