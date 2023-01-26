@@ -1,55 +1,49 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState, useEffect } from 'react';
+
 //Importing icons
-import { AiOutlinePlus, AiFillDashboard, AiOutlineDown, AiOutlinePhone } from "react-icons/ai";
-import { IoHomeOutline } from "react-icons/io5";
 import { IoIosArrowUp } from "react-icons/io";
-import { SlArrowUp } from "react-icons/sl";
-import { BsCheckCircle } from "react-icons/bs";
-import { BsBell, BsChevronDown } from "react-icons/bs";
-import { BiStats } from "react-icons/bi";
-import { HiChartSquareBar, HiOutlineSupport } from "react-icons/hi";
-import { GiStairsGoal } from "react-icons/gi";
-import { RiLogoutCircleRFill } from "react-icons/ri";
-import { RxDot } from "react-icons/rx";
+import { AiOutlinePhone } from "react-icons/ai";
+import { HiOutlineSupport } from "react-icons/hi";
 import { FiChevronDown, FiSettings } from "react-icons/fi";
-import { GoDeviceDesktop } from "react-icons/go";
-import { CgShapeSquare } from "react-icons/cg";
-import { FaUserAlt, FaRegComments } from "react-icons/fa";
-import { FcInvite } from "react-icons/fc";
+import { FaRegComments } from "react-icons/fa";
 import { useNavigate } from 'react-router';
 
+// Importing logo
 import logo from "../../assets/Images/Navbar/logo.png";
-// minified logo
+
+// Importing Minified logo
 import logoMinified from "../../assets/Images/Navbar/logoMinify.png";
-
-import user from "../../assets/Images/Navbar/user.gif";
-
-import 'mdb-react-ui-kit/dist/css/mdb.min.css';
-import "@fortawesome/fontawesome-free/css/all.min.css";
 
 import styles from './style.module.css';
 
-interface IProps {
+interface SidebarProps {
     // For hiding the sidebar 
-    setIsOpen: any,
     isOpen: Boolean,
     // For minifying the sidebar
     isMinified: Boolean,
-    setIsMinified: any,
+
+    // Current Menu Item
     currentMenuItem: Number,
     setCurrentMenuItem: any,
+
+    // Current Sub Menu Item
+    currentSubMenuSidebarOpenItem: Number,
+    setCurrentSubMenuSidebarOpenItem: any,
+
     // Sidebar Menu Items Array
     sidebarList: any
 }
 
-const Sidebar: React.FC<IProps> = ({
-    setIsOpen,
+const Sidebar: React.FC<SidebarProps> = ({
     isOpen,
     isMinified,
-    setIsMinified,
+    // Current Menu Item
     currentMenuItem,
     setCurrentMenuItem,
+    // Current Sub Menu Item
+    currentSubMenuSidebarOpenItem,
+    setCurrentSubMenuSidebarOpenItem,
     // Sidebar Menu Items Array
     sidebarList
 }) => {
@@ -108,14 +102,11 @@ const Sidebar: React.FC<IProps> = ({
         } else {
             setMenuItemsArrayState(sidebarList);
         }
-        // @ ts-ignore
     }, [searchTextSidebar]);
 
     const navigate = useNavigate();
 
     const [showFilterMenu, setShowFilterMenu] = useState<boolean>(false);
-
-    const [currentSubMenuSidebarOpenItem, setCurrentSubMenuSidebarOpenItem] = useState<Number>(0);
 
     return (
         <section className={`${styles.sidebar} ${(!isOpen) && (styles.hideSidebar)} ${(isMinified) && (styles.minifySidebar)}`}
@@ -198,17 +189,16 @@ const Sidebar: React.FC<IProps> = ({
                         {
                             menuItemsArrayState.map((item: any, index: any) => {
                                 return (
-                                    <>
+                                    <li key={index}>
                                         <li
-                                            key={index}
                                             className={
                                                 `${(currentMenuItem === index + 1) ? (styles.selected_Menu_Item) : ("")} ${(isMinified) && (styles.listItemMinified)}`
                                             }
                                             style={{ cursor: (isMinified) ? ("default") : ("pointer") }}
                                             onClick={() => {
-                                                if (!isMinified) {
+                                                if (isMinified === false) {
                                                     setCurrentMenuItem(index + 1);
-                                                    navigate('/');
+                                                    // navigate('/');
                                                     if (currentSubMenuSidebarOpenItem === (index + 1)) {
                                                         setCurrentSubMenuSidebarOpenItem(0);
                                                     }
@@ -262,7 +252,12 @@ const Sidebar: React.FC<IProps> = ({
                                                         sidebarList[index].subMenu.map((subItem: any, subIndex: number) => {
                                                             return (
                                                                 <li
+                                                                    key={subIndex}
                                                                     onClick={() => {
+                                                                        // Navigate to the link
+                                                                        navigate(subItem.link);
+
+                                                                        // Set the current menu item
                                                                         if (isMinified) {
                                                                             // setCurrentMenuItem(0);
                                                                             setCurrentSubMenuSidebarOpenItem(0);
@@ -290,7 +285,6 @@ const Sidebar: React.FC<IProps> = ({
                                                                             (0)
                                                                     }}
                                                                     className={`${(isMinified) && (styles.SubMenuItemContainerMinifiedVersionli)}`}
-                                                                    key={subIndex}
                                                                 >
                                                                     {(!isMinified) ? (
                                                                         <div>
@@ -326,7 +320,7 @@ const Sidebar: React.FC<IProps> = ({
                                                 </ul>
                                             )
                                         }
-                                    </>
+                                    </li>
                                 )
                             })
                         }

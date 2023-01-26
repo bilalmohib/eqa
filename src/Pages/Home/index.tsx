@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react";
 
+// For routing
+import { useNavigate } from "react-router";
+
+import { Outlet } from "react-router-dom";
+
 //importing navbar
 import Navbar from "../../Components/Navbar";
-import AssessmentDashboard from "../../Components/Pages/Home/AssessmentDashboard";
-import Groups from "../../Components/Pages/UserManagement/Groups";
-import Users from "../../Components/Pages/UserManagement/Users";
 import Sidebar from "../../Components/Sidebar";
 
 import { AiFillDashboard } from "react-icons/ai";
@@ -14,95 +16,34 @@ import { FaUserAlt } from "react-icons/fa";
 
 import styles from "./style.module.css";
 
-const Home = () => {
+interface HomeProps {
+    isOpen: Boolean,
+    setIsOpen: any,
+    // For minified sidebar
+    isMinified: Boolean,
+    setIsMinified: any,
+    subComponent: any
+}
 
-    const menuItemsArray = [
-        {
-            index: 1,
-            icon: <AiFillDashboard size={20} style={{ width: 25, height: 25 }} />,
-            text: "Dashboard",
-            link: "/",
-            subMenu: [
-                {
-                    icon: <RxDot style={{ marginLeft: 2 }} />,
-                    text: "Dashboard",
-                    link: "/",
-                },
-                {
-                    icon: <RxDot style={{ marginLeft: 2 }} />,
-                    text: "Create Assessment",
-                    link: "/",
-                },
-                {
-                    icon: <RxDot style={{ marginLeft: 2 }} />,
-                    text: "Enter Grade",
-                    link: "/",
-                },
-                {
-                    icon: <RxDot style={{ marginLeft: 2 }} />,
-                    text: "Enter Overall Grade",
-                    link: "/",
-                }
-            ]
-        },
-        {
-            index: 2,
-            icon: <FaUserAlt size={17} style={{ width: 23, height: 23 }} />,
-            text: "User Management",
-            link: "/",
-            subMenu: [
-                {
-                    icon: <RxDot style={{ marginLeft: 2 }} />,
-                    text: "Users",
-                    link: "/",
-                },
-                {
-                    icon: <RxDot style={{ marginLeft: 2 }} />,
-                    text: "Groups",
-                    link: "/",
-                },
-                {
-                    icon: <RxDot style={{ marginLeft: 2 }} />,
-                    text: "Role",
-                    link: "/",
-                }
-            ]
-        },
-        {
-            index: 3,
-            icon: <FiSettings size={20} style={{ width: 23, height: 23 }} />,
-            text: "Settings",
-            link: "/",
-            subMenu: [
-                {
-                    icon: <RxDot style={{ marginLeft: 2 }} />,
-                    text: "Settings",
-                    link: "/",
-                },
-                {
-                    icon: <RxDot style={{ marginLeft: 2 }} />,
-                    text: "Create Settings",
-                    link: "/",
-                },
-                {
-                    icon: <RxDot style={{ marginLeft: 2 }} />,
-                    text: "Edit Settings",
-                    link: "/",
-                },
-                {
-                    icon: <RxDot style={{ marginLeft: 2 }} />,
-                    text: "Update Settings",
-                    link: "/",
-                }
-            ]
-        }
-    ];
+const Home = ({
+    isOpen,
+    setIsOpen,
+    // For minified sidebar
+    isMinified,
+    setIsMinified,
+    subComponent
+}: HomeProps) => {
 
+    // For routing
+    const navigate = useNavigate();
+
+    // For getting the window size
     const [windowSize, setWindowSize] = useState([
         window.innerWidth,
         window.innerHeight,
     ]);
 
+    // For handling the window resize
     useEffect(() => {
         const handleWindowResize = () => {
             // if (window.innerWidth < 991) {
@@ -118,33 +59,112 @@ const Home = () => {
         };
     });
 
+    // For handling the window resize and closing the sidebar
     useEffect(() => {
         if (window.innerWidth < 991) {
             setIsOpen(false);
         }
     }, [windowSize]);
 
-    const [hideExtra, setHideExtra] = useState<Number>(1);
-    const [loading, setLoading] = useState<Boolean>(true);
+    // Current Sidebar menu item
+    const [currentMenuItem, setCurrentMenuItem] = useState<number>(1);
 
-    // For simple open/close sidebar
-    const [isOpen, setIsOpen] = useState<Boolean>(true);
+    // Current Sidebar Sub menu item
+    const [currentSubMenuSidebarOpenItem, setCurrentSubMenuSidebarOpenItem] = useState<Number>(0);
 
-    // For minified sidebar
-    const [isMinified, setIsMinified] = useState<Boolean>(false);
-
-    const [currentMenuItem, setCurrentMenuItem] = useState<Number>(1);
-
-    const [currentFullLengthItem, setCurrentFullLengthItem] = useState<Number>(1);
+    // ######################## Array of menu items ########################
+    const SidebarMenuItemsArray = [
+        {
+            index: 1,
+            icon: <AiFillDashboard size={20} style={{ width: 25, height: 25 }} />,
+            text: "Dashboard",
+            // link: "/",
+            subMenu: [
+                {
+                    icon: <RxDot style={{ marginLeft: 2 }} />,
+                    text: "Dashboard",
+                    link: "/dashboard/assessment"
+                },
+                {
+                    icon: <RxDot style={{ marginLeft: 2 }} />,
+                    text: "Create Assessment",
+                    link: "/dashboard/createassessment"
+                },
+                {
+                    icon: <RxDot style={{ marginLeft: 2 }} />,
+                    text: "Enter Grade",
+                    link: "/dashboard/entergrade"
+                },
+                {
+                    icon: <RxDot style={{ marginLeft: 2 }} />,
+                    text: "Enter Overall Grade",
+                    link: "/dashboard/enteroverallgrade"
+                }
+            ]
+        },
+        {
+            index: 2,
+            icon: <FaUserAlt size={17} style={{ width: 23, height: 23 }} />,
+            text: "User Management",
+            // link: "/usermanagement",
+            subMenu: [
+                {
+                    icon: <RxDot style={{ marginLeft: 2 }} />,
+                    text: "Users",
+                    link: "/usermanagement/users"
+                },
+                {
+                    icon: <RxDot style={{ marginLeft: 2 }} />,
+                    text: "Groups",
+                    link: "/usermanagement/groups"
+                },
+                {
+                    icon: <RxDot style={{ marginLeft: 2 }} />,
+                    text: "Role",
+                    link: "/usermanagement/roles"
+                }
+            ]
+        },
+        {
+            index: 3,
+            icon: <FiSettings size={20} style={{ width: 23, height: 23 }} />,
+            text: "Settings",
+            // link: "/",
+            subMenu: [
+                {
+                    icon: <RxDot style={{ marginLeft: 2 }} />,
+                    text: "Settings",
+                    link: "/settings",
+                },
+                {
+                    icon: <RxDot style={{ marginLeft: 2 }} />,
+                    text: "Create Settings",
+                    link: "/createsettings",
+                },
+                {
+                    icon: <RxDot style={{ marginLeft: 2 }} />,
+                    text: "Edit Settings",
+                    link: "/editsettings",
+                },
+                {
+                    icon: <RxDot style={{ marginLeft: 2 }} />,
+                    text: "Update Settings",
+                    link: "/updatesettings",
+                }
+            ]
+        }
+    ];
+    // ######################## Array of menu items ########################
 
     return (
         <div className={`${styles.container} ${(isMinified) && (styles.minifySidebarContainer)}`}>
-            {/* <Head>
-            <title>Home - Project Management Software</title>
-            <meta name="description" content="Generated by create next app" />
-            <link rel="icon" href="/logocopy.ico" />
-            </Head> 
-        */}
+            {/* 
+                <Head>
+                    <title>Home - Project Management Software</title>
+                    <meta name="description" content="Generated by create next app" />
+                    <link rel="icon" href="/logocopy.ico" />
+                </Head> 
+            */}
 
             <main className={styles.main}>
                 <Navbar
@@ -157,43 +177,25 @@ const Home = () => {
                 />
                 <div className='d-flex'>
                     <Sidebar
+                        // Current menu item
                         currentMenuItem={currentMenuItem}
                         setCurrentMenuItem={setCurrentMenuItem}
+
+                        // Current Sub menu item
+                        currentSubMenuSidebarOpenItem={currentSubMenuSidebarOpenItem}
+                        setCurrentSubMenuSidebarOpenItem={setCurrentSubMenuSidebarOpenItem}
+
                         // For simple open/close sidebar
                         isOpen={isOpen}
-                        setIsOpen={setIsOpen}
+                        
                         // For minified sidebar
                         isMinified={isMinified}
-                        setIsMinified={setIsMinified}
                         // Sidebar Menu Items Array
-                        sidebarList={menuItemsArray}
+                        sidebarList={SidebarMenuItemsArray}
                     />
 
                     <div className={`${(isOpen) ? (styles.Home) : (styles.onSideClose)}`}>
-                        {/* <AssessmentDashboard
-                            // For simple open/close sidebar
-                            isOpen={isOpen}
-                            setIsOpen={setIsOpen}
-                            // For minified sidebar
-                            isMinified={isMinified}
-                            setIsMinified={setIsMinified}
-                        /> */}
-                        {/* 
-                        <Users
-                            isOpen={isOpen}
-                            setIsOpen={setIsOpen}
-                            // For minified sidebar
-                            isMinified={isMinified}
-                            setIsMinified={setIsMinified}
-                        /> */}
-
-                        <Groups
-                            isOpen={isOpen}
-                            setIsOpen={setIsOpen}
-                            // For minified sidebar
-                            isMinified={isMinified}
-                            setIsMinified={setIsMinified}
-                        />
+                        {subComponent}
                     </div>
                 </div>
             </main>

@@ -224,7 +224,7 @@
     transition: 0.1s linear;
 }
 
-.SidebarMenuList li {
+.SidebarMenuList li li {
     color: #d7d6d5;
     cursor: pointer;
     width: 266px !important;
@@ -235,9 +235,11 @@
     transition: 0.1s linear;
 }
 
-.SidebarMenuList li:hover {
+.SidebarMenuList li li:hover {
     background-color: #47686e;
     transition: 0.1s linear;
+    width: 268px !important;
+    /* border: 1px solid red; */
 }
 
 .selected_Menu_Item {
@@ -275,13 +277,15 @@
     margin-left: -33px;
     height: 42px;
     /* padding-left: 2px !important; */
-    padding-top: 8px;
+    padding-top: 10px !important;
     transition: 0.1s linear;
 }
 
 .SubMenuItemContainer li:hover {
     background-color: #517170 !important;
     transition: 0.1s linear;
+    margin-left: -32px !important;
+    /* border: 1px solid red !important; */
 }
 
 /* Inside sub menu item container */
@@ -425,13 +429,13 @@
 }
 
 /* individual list */
-.minifySidebar div .sidebarItemsContainer .SidebarMenuList li {
+.minifySidebar div .sidebarItemsContainer .SidebarMenuList li li {
     width: 266px !important;
     /* border: 1px solid red !important; */
     margin-left: -32px !important;
     border-left: 4px solid transparent !important;
     display: flex;
-background-color: transparent !important;
+    background-color: transparent !important;
     justify-content: flex-start;
     align-items: flex-start;
     padding-left: 24px !important;
@@ -439,13 +443,13 @@ background-color: transparent !important;
     transition: 0.1s linear !important;
 }
 
-.minifySidebar div .sidebarItemsContainer .SidebarMenuList li:hover {
+.minifySidebar div .sidebarItemsContainer .SidebarMenuList li li:hover {
     /* border: 1px solid red !important; */
     transition: 0.1s linear !important;
 }
 
 /* Increasing the font size of the icon items */
-.minifySidebar div .sidebarItemsContainer .SidebarMenuList li div p {
+.minifySidebar div .sidebarItemsContainer .SidebarMenuList li li div p {
     font-size: 16px !important;
     padding-left: 0px !important;
     padding-top: 2.5px !important;
@@ -453,14 +457,14 @@ background-color: transparent !important;
 }
 
 /* Selected List item of minified sidebar adding some padding  */
-.minifySidebar div .sidebarItemsContainer .SidebarMenuList .selected_Menu_Item div p {
+.minifySidebar div .sidebarItemsContainer .SidebarMenuList li .selected_Menu_Item div p {
     padding-left: 0px !important;
     padding-top: 2.5px !important;
     transition: 0.1s linear;
 }
 
 /* Minfied Sidebar Selected List item */
-.minifySidebar div .sidebarItemsContainer .SidebarMenuList .selected_Menu_Item {
+.minifySidebar div .sidebarItemsContainer .SidebarMenuList li .selected_Menu_Item {
     /* border: 1px solid red !important; */
     background-color: #56797f !important;
     color: rgb(199, 199, 199) !important;
@@ -476,16 +480,16 @@ background-color: transparent !important;
 
 
 /* %%%%%%%%%%%%%%%%%%%%%%%%%% IDHAR  */
-.minifySidebar div .sidebarItemsContainer .SidebarMenuList .selected_Menu_Item:hover {
+.minifySidebar div .sidebarItemsContainer .SidebarMenuList li .selected_Menu_Item:hover {
     /* background-color: #474b6e !important;
     border-left: 4px solid #64a9a8 !important; */
-    background-color: transparent ;
+    background-color: transparent;
     color: white !important;
     transition: 0.1s linear;
 }
 
 /* Hiding the text of the list */
-.minifySidebar div .sidebarItemsContainer .SidebarMenuList li div .itemMenuListText {
+.minifySidebar div .sidebarItemsContainer .SidebarMenuList li li div .itemMenuListText {
     display: none;
     transition: 0.1s linear;
 }
@@ -545,7 +549,8 @@ background-color: transparent !important;
     padding-top: 10px;
     border-left: 3px solid #ff000000 !important;
 }
-.minifiedSidebarInsideContainer:hover{
+
+.minifiedSidebarInsideContainer:hover {
     background-color: #47686e !important;
     border-left: 3px solid #64a9a8 !important;
     margin-left: -27px !important;

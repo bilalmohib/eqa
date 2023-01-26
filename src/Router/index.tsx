@@ -1,5 +1,5 @@
 import React from 'react';
-import { useEffect, FC } from "react";
+import { useState, FC } from "react";
 // This is a React Router v6 app
 import {
     BrowserRouter as Router,
@@ -7,7 +7,8 @@ import {
     Route
 } from "react-router-dom";
 
-// Importing Components
+// $$$$$$$$$$$$$$$$$$$$ Importing Components and Pages $$$$$$$$$$$$$$$$$$$$
+
 // 1) Home Page
 import Home from "../Pages/Home";
 // 2) Login Page
@@ -16,13 +17,16 @@ import Login from "../Pages/Login";
 import Login2 from "../Pages/Login2";
 // 4) Forgot Password Page
 import ForgetPassWord from "../Pages/ForgetPassWord";
+// 5) Admin Dashboard Page
+import AssessmentDashboard from "../Components/Pages/Home/AssessmentDashboard";
+// 6) User Management Pages
+import Users from "../Components/Pages/Home/UserManagement/Users";
+// 7) Groups Page
+import Groups from "../Components/Pages/Home/UserManagement/Groups";
+// 8) Roles Page
+import Roles from '../Components/Pages/Home/UserManagement/Roles';
 
-import { useTranslation, Trans } from 'react-i18next';
-
-import i18n from "../i18n";
-
-const baseRouteUrl = "/:locale(ar|en|de|chi)?";
-export const baseUrl = i18n.language === '/en' ? '' : '/' + i18n.language;
+// $$$$$$$$$$$$$$$$$$$$ Importing Components and Pages $$$$$$$$$$$$$$$$$$$$
 
 interface AppRouterProps {
     mobileViewContainer: any,
@@ -36,16 +40,110 @@ const AppRouter: FC<AppRouterProps> = ({
     mobileViewContainer
 }): JSX.Element => {
 
-    const { t } = useTranslation();
+    // For simple open/close sidebar
+    const [isOpen, setIsOpen] = useState<Boolean>(true);
 
-    useEffect(() => {
-        console.log("The base url is equal to : ", baseRouteUrl);
-    })
+    // For minified sidebar
+    const [isMinified, setIsMinified] = useState<Boolean>(false);
 
     return (
         <Router>
             <Routes>
-                <Route path={"/"} element={<Home />} />
+                <Route path={"/"} element={<Home
+                    isOpen={isOpen}
+                    setIsOpen={setIsOpen}
+                    // For minified sidebar
+                    isMinified={isMinified}
+                    setIsMinified={setIsMinified}
+                    subComponent={<AssessmentDashboard
+                        isOpen={isOpen}
+                        setIsOpen={setIsOpen}
+                        // For minified sidebar
+                        isMinified={isMinified}
+                        setIsMinified={setIsMinified}
+                    />
+                    }
+                />} />
+                <Route path="dashboard">
+                    <Route
+                        path="assessment"
+                        element={<Home
+                            isOpen={isOpen}
+                            setIsOpen={setIsOpen}
+                            // For minified sidebar
+                            isMinified={isMinified}
+                            setIsMinified={setIsMinified}
+                            subComponent={
+                                <AssessmentDashboard
+                                    isOpen={isOpen}
+                                    setIsOpen={setIsOpen}
+                                    // For minified sidebar
+                                    isMinified={isMinified}
+                                    setIsMinified={setIsMinified}
+                                />
+                            }
+                        />}
+                    />
+                </Route>
+                <Route path="usermanagement">
+                    <Route
+                        path={"users"}
+                        element={<Home
+                            isOpen={isOpen}
+                            setIsOpen={setIsOpen}
+                            // For minified sidebar
+                            isMinified={isMinified}
+                            setIsMinified={setIsMinified}
+                            subComponent={
+                                <Users
+                                    isOpen={isOpen}
+                                    setIsOpen={setIsOpen}
+                                    // For minified sidebar
+                                    isMinified={isMinified}
+                                    setIsMinified={setIsMinified}
+                                />
+                            }
+                        />}
+                    />
+                    <Route
+                        path={"groups"}
+                        element={<Home
+                            isOpen={isOpen}
+                            setIsOpen={setIsOpen}
+                            // For minified sidebar
+                            isMinified={isMinified}
+                            setIsMinified={setIsMinified}
+                            subComponent={
+                                <Groups
+                                    isOpen={isOpen}
+                                    setIsOpen={setIsOpen}
+                                    // For minified sidebar
+                                    isMinified={isMinified}
+                                    setIsMinified={setIsMinified}
+                                />
+                            }
+                        />}
+                    />
+                     <Route
+                        path={"roles"}
+                        element={<Home
+                            isOpen={isOpen}
+                            setIsOpen={setIsOpen}
+                            // For minified sidebar
+                            isMinified={isMinified}
+                            setIsMinified={setIsMinified}
+                            subComponent={
+                                <Roles
+                                    isOpen={isOpen}
+                                    setIsOpen={setIsOpen}
+                                    // For minified sidebar
+                                    isMinified={isMinified}
+                                    setIsMinified={setIsMinified}
+                                />
+                            }
+                        />}
+                    />
+                </Route>
                 <Route path={"/login"} element={<Login />} />
                 <Route path={"/login2"} element={<Login2
                     currentTab={currentTab}
@@ -54,6 +152,16 @@ const AppRouter: FC<AppRouterProps> = ({
                 />}
                 />
                 <Route path={"/forgetpassword"} element={<ForgetPassWord />} />
+                <Route
+                    path={"/*"}
+                    element={
+                        <div>
+                            <br />
+                            <br />
+                            <h1 className='text-center text-dark mt-4'>404: Not Found</h1>
+                        </div>
+                    }
+                />
             </Routes>
         </Router>
     )

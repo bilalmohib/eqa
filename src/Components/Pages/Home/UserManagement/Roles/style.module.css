@@ -54,8 +54,7 @@
     margin-top: 40px;
     padding-left: 0px;
     padding-right: 0px;
-    /* border: 1px solid red; */
-    width: 100% !important;
+    width: 96.7% !important;
 }
 
 /* Inside Container Box Styles */
@@ -65,6 +64,7 @@
     height: 97px;
     padding-left: 20px;
     padding-top: 5px;
+    width: 100% !important;
 }
 
 .insideContainerBox:hover {

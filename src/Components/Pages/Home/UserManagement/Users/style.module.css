@@ -117,8 +117,8 @@
     }
 }
 
-@media all and (max-width:600px){
-    .insideContainerBox{
+@media all and (max-width:600px) {
+    .insideContainerBox {
         border-radius: 0px;
         height: 80px;
         padding-top: 4px;
@@ -130,7 +130,7 @@
         color: white;
         user-select: none;
     }
-    
+
     .infoICB {
         font-size: 18px;
         color: white;
@@ -140,26 +140,29 @@
 }
 
 @media all and (max-width:479px) {
-    .containerBoxes{
-     margin-top: 20px;   
+    .containerBoxes {
+        margin-top: 20px;
     }
+
     /* Right Top Container */
     .rightTopContainer {
         flex-direction: column;
     }
-    .progressBarTopContainer{
+
+    .progressBarTopContainer {
         margin-bottom: 20px;
     }
 }
 
-@media all and (max-width:330px){
-    .topContainerLeftText{
+@media all and (max-width:330px) {
+    .topContainerLeftText {
         font-size: 21px;
         text-align: center;
         display: flex;
         justify-content: space-between;
     }
-    .topContainerLeftText b{
+
+    .topContainerLeftText b {
         margin-right: 10px;
     }
 }
