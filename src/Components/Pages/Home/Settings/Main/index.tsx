@@ -85,67 +85,49 @@ const Groups: React.FC<GroupsProps> = ({
             settingsItems: [
                 {
                     title: "Enable Email Notifications",
-                    description: "Receive email notifications when a new meeting is scheduled",
+                    description: "Enable Email Notification while creating meeting. So that you can get notified via email when a new meeting is scheduled.",
                     checked: true,
                     icon: <IoSpeedometerOutline size={30} />,
                 },
                 {
-                    title: "Enable Email Notifications",
-                    description: "Receive email notifications when a new meeting is scheduled",
+                    title: "Microsoft Team option visible on Create Meeting Form",
+                    description: "If this is Visible, then user can see this option on form. Check this option to do that.",
                     checked: true,
                     icon: <IoSpeedometerOutline size={30} />,
                 }
             ]
         },
         {
-            title: "Meeting",
+            title: "Minute of Meeting",
             icon: <IoSpeedometerOutline size={30} />,
             settingsItems: [
                 {
                     title: "Enable Email Notifications",
-                    description: "Receive email notifications when a new meeting is scheduled",
-                    checked: true,
-                    icon: <IoSpeedometerOutline size={30} />,
-                },
-                {
-                    title: "Enable Email Notifications",
-                    description: "Receive email notifications when a new meeting is scheduled",
+                    description: "Enable Email Notification while creating meeting. So that all users can be notified via email when a new meeting is scheduled.",
                     checked: true,
                     icon: <IoSpeedometerOutline size={30} />,
                 }
             ]
         },
         {
-            title: "Meeting",
+            title: "Task Management",
             icon: <IoSpeedometerOutline size={30} />,
             settingsItems: [
                 {
                     title: "Enable Email Notifications",
-                    description: "Receive email notifications when a new meeting is scheduled",
-                    checked: true,
-                    icon: <IoSpeedometerOutline size={30} />,
-                },
-                {
-                    title: "Enable Email Notifications",
-                    description: "Receive email notifications when a new meeting is scheduled",
+                    description: "Enable Email Notification while creating meeting. So that all users can be notified via email when a new meeting is scheduled.",
                     checked: true,
                     icon: <IoSpeedometerOutline size={30} />,
                 }
             ]
         },
         {
-            title: "Meeting",
+            title: "Committee Management",
             icon: <IoSpeedometerOutline size={30} />,
             settingsItems: [
                 {
                     title: "Enable Email Notifications",
-                    description: "Receive email notifications when a new meeting is scheduled",
-                    checked: true,
-                    icon: <IoSpeedometerOutline size={30} />,
-                },
-                {
-                    title: "Enable Email Notifications",
-                    description: "Receive email notifications when a new meeting is scheduled",
+                    description: "Enable Email Notification while creating meeting. So that all users can be notified via email when a new meeting is scheduled.",
                     checked: true,
                     icon: <IoSpeedometerOutline size={30} />,
                 }
@@ -154,10 +136,11 @@ const Groups: React.FC<GroupsProps> = ({
     ]
 
     return (
-        <div className={`${styles.container} ${(windowSize[0] < 991 && isOpen) ? ("bgMobileOnSideOpen") : ("")}`} onClick={() => {
-            if (windowSize[0] < 991)
-                setIsOpen(!isOpen)
-        }}>
+        <div className={`${styles.container} ${(windowSize[0] < 991 && isOpen) ? ("bgMobileOnSideOpen") : ("")}`}
+            onClick={() => {
+                if ((windowSize[0] < 991) && isOpen)
+                    setIsOpen(false);
+            }}>
             <div style={{ marginTop: 5 }} className={`${(windowSize[0] > 990) ? ("d-flex justify-content-between") : ("d-flex flex-column justify-content-start")}`}>
                 <div>
                     EQA / Settings /<span style={{ color: "#4f747a" }}> General </span>
@@ -186,129 +169,110 @@ const Groups: React.FC<GroupsProps> = ({
                     Save
                 </Button>
 
-                <Button variant="outlined" size="large" sx={{
-                    // textTransform: "none",
-                }}
+                <Button
+                    variant="outlined"
+                    size="large"
+                    sx={{
+                        // textTransform: "none",
+                    }}
                     endIcon={<DeleteIcon />}
                     color="error"
                 >Discard</Button>
             </Stack>
 
-
-            {/* <Typography
-                    variant="h4"
-                    component="div"
-                    sx={{
-                        color: '#fff',
-                        padding: 0.5,
-                        borderTopLeftRadius: 50,
-                        borderTopRightRadius: 50,
-                        textAlign: "center",
-                        backgroundColor: "#4f7679",
-                        cursor: "default",
-                        transition: "all 0.3s ease 0s;",
-                        boxShadow: "rgba(9, 30, 66, 0.25) 0px 1px 1px, rgba(9, 30, 66, 0.13) 0px 0px 1px 1px;",
-                        "&:hover": {
-                            color: "#e9a037",
-                            backgroundColor: "#4f7679",
-                            boxShadow: "rgba(9, 30, 66, 0.25) 0px 1px 1px, rgba(9, 30, 66, 0.13) 0px 0px 1px 1px;",
-                            transition: "all 0.3s ease 0s;"
-                        },
-                    }}
-                >
-                    Meeting
-                </Typography>
-
-                <Box sx={{ display: "flex", mt: 3 }}>
-                    <Box sx={{ paddingLeft: "2%", paddingRight: "1%" }}>
-                        <Checkbox
-                            defaultChecked
-                            checked={checked}
-                            onChange={handleChange}
-                            color="success"
-                            sx={{ '& .MuiSvgIcon-root': { fontSize: 30 } }}
-                        />
-                    </Box>
-                    <Box sx={{ borderLeft: "1px solid rgba(9, 30, 66, 0.25)", paddingLeft: "2%" }}>
-                        <h3 style={{ marginTop: 5 }} className="text-dark" role={"button"} onClick={() => setChecked(!checked)}>Enable Email Notificatons</h3>
-                        <p style={{ color: "#b5b5b5" }}>;lskdajf;lkjdsaf;lkjdsaf;lkjdsaf;ljdsafk;ljdsaf</p>
-                    </Box>
-                </Box>
-                <Box sx={{ display: "flex", mt: 3 }}>
-                    <Box sx={{ paddingLeft: "2%", paddingRight: "1%" }}>
-                        <Checkbox
-                            defaultChecked
-                            checked={checked}
-                            onChange={handleChange}
-                            color="success"
-                            sx={{ '& .MuiSvgIcon-root': { fontSize: 30 } }}
-                        />
-                    </Box>
-                    <Box sx={{ borderLeft: "1px solid rgba(9, 30, 66, 0.25)", paddingLeft: "2%" }}>
-                        <h3 style={{ marginTop: 5 }} className="text-dark" role={"button"} onClick={() => setChecked(!checked)}>sadfjkdsafl;j d;saklfj ;lkdsafj ;lkadsfj</h3>
-                        <p style={{ color: "#b5b5b5" }}>;lskdajf;lkjdsaf;lkjdsaf;lkjdsaf;ljdsafk;ljdsaf</p>
-                    </Box>
-                </Box>
-                <br /> */}
-
-            {/* Please render it using map */}
-            {
-                settings.map((setting: any, index: number) => {
-                    return (
-                        <Box
-                            key={index}
-                            sx={{ mt: 5, borderTopLeftRadius: 50, borderTopRightRadius: 50, border: 1, borderColor: "#e8ebef" }}
-                        >
-                            <Typography
-                                variant="h4"
-                                component="div"
-                                sx={{
-                                    color: '#fff',
-                                    padding: 0.5,
-                                    borderTopLeftRadius: 50,
-                                    borderTopRightRadius: 50,
-                                    textAlign: "center",
-                                    backgroundColor: "#4f7679",
-                                    cursor: "default",
-                                    transition: "all 0.3s ease 0s;",
-                                    boxShadow: "rgba(9, 30, 66, 0.25) 0px 1px 1px, rgba(9, 30, 66, 0.13) 0px 0px 1px 1px;",
-                                    "&:hover": {
-                                        color: "#e9a037",
-                                        backgroundColor: "#4f7679",
-                                        boxShadow: "rgba(9, 30, 66, 0.25) 0px 1px 1px, rgba(9, 30, 66, 0.13) 0px 0px 1px 1px;",
-                                        transition: "all 0.3s ease 0s;"
-                                    },
-                                }}
+            <section>
+                {/* Rendering settings items using map */}
+                {
+                    settings.map((setting: any, index: number) => {
+                        return (
+                            <Box
+                                key={index}
+                                sx={{ mt: 5, borderTopLeftRadius: 50, borderTopRightRadius: 50, border: 1, borderColor: "#e8ebef" }}
                             >
-                                {setting.title}
-                            </Typography>
+                                <Typography
+                                    variant="h4"
+                                    component="div"
+                                    sx={{
+                                        // width: {
+                                        //     xs: 100, // theme.breakpoints.up('xs')
+                                        //     sm: 200, // theme.breakpoints.up('sm')
+                                        //     md: 300, // theme.breakpoints.up('md')
+                                        //     lg: 400, // theme.breakpoints.up('lg')
+                                        //     xl: 500, // theme.breakpoints.up('xl')
+                                        // },
+                                        fontSize: {
+                                            xs: 25, // theme.breakpoints.up('xs')
+                                            sm: 30, // theme.breakpoints.up('sm')
+                                            md: 32, // theme.breakpoints.up('md')
+                                            lg: 34, // theme.breakpoints.up('lg')
+                                            xl: 34, // theme.breakpoints.up('xl')
+                                        },
+                                        color: '#fff',
+                                        padding: 0.5,
+                                        borderTopLeftRadius: 50,
+                                        borderTopRightRadius: 50,
+                                        textAlign: "center",
+                                        backgroundColor: "#4f7679",
+                                        cursor: "default",
+                                        transition: "all 0.3s ease 0s;",
+                                        boxShadow: "rgba(9, 30, 66, 0.25) 0px 1px 1px, rgba(9, 30, 66, 0.13) 0px 0px 1px 1px;",
+                                        "&:hover": {
+                                            color: "#e9a037",
+                                            backgroundColor: "#4f7679",
+                                            boxShadow: "rgba(9, 30, 66, 0.25) 0px 1px 1px, rgba(9, 30, 66, 0.13) 0px 0px 1px 1px;",
+                                            transition: "all 0.3s ease 0s;"
+                                        },
+                                    }}
+                                >
+                                    {setting.title}
+                                </Typography>
 
-                            {/* Please render the settings subItems using map */}
-                            {
-                                setting.settingsItems.map((settingsItem: any, index: number) => {
-                                    return (
-                                        <Box sx={{ display: "flex", mt: 3 }} key={index}>
-                                            <Box sx={{ paddingLeft: "2%", paddingRight: "1%" }}>
-                                                <Checkbox
-                                                    checked={checked}
-                                                    onChange={handleChange}
-                                                    color="success"
-                                                    sx={{ '& .MuiSvgIcon-root': { fontSize: 30 } }}
-                                                />
+                                {/* Please render the settings subItems using map */}
+                                {
+                                    setting.settingsItems.map((settingsItem: any, index: number) => {
+                                        return (
+                                            <Box sx={{ display: "flex", mt: 3 }} key={index}>
+                                                <Box sx={{ paddingLeft: "2%", paddingRight: "1%" }}>
+                                                    <Checkbox
+                                                        checked={checked}
+                                                        onChange={handleChange}
+                                                        color="success"
+                                                        sx={{ '& .MuiSvgIcon-root': { fontSize: 30 } }}
+                                                    />
+                                                </Box>
+                                                <Box sx={{ borderLeft: "1px solid rgba(9, 30, 66, 0.25)", paddingLeft: "2%" }}>
+                                                    <Typography
+                                                        variant="h4"
+                                                        component="div"
+                                                        sx={{
+                                                            fontSize: {
+                                                                xs: 22, // theme.breakpoints.up('xs')
+                                                                sm: 24, // theme.breakpoints.up('sm')
+                                                                md: 25, // theme.breakpoints.up('md')
+                                                                lg: 26.5, // theme.breakpoints.up('lg')
+                                                                xl: 27, // theme.breakpoints.up('xl')
+                                                            },
+                                                            marginTop: 1
+                                                        }}
+                                                        className="text-dark"
+                                                        role={"button"}
+                                                        onClick={() => setChecked(!checked)}
+                                                    >
+                                                        {settingsItem.title}
+                                                    </Typography>
+                                                    <p style={{ color: "#b5b5b5" }}>{settingsItem.description}</p>
+                                                </Box>
                                             </Box>
-                                            <Box sx={{ borderLeft: "1px solid rgba(9, 30, 66, 0.25)", paddingLeft: "2%" }}>
-                                                <h3 style={{ marginTop: 5 }} className="text-dark" role={"button"} onClick={() => setChecked(!checked)}>{settingsItem.title}</h3>
-                                                <p style={{ color: "#b5b5b5" }}>{settingsItem.description}</p>
-                                            </Box>
-                                        </Box>
-                                    )
-                                })
-                            }
-                            <br />
-                        </Box>
-                    )
-                })
-            }
+                                        )
+                                    })
+                                }
+                                <br />
+                            </Box>
+                        )
+                    })
+                }
+            </section>
+            {/* Rendering settings items using map */}
             <br />
             <br />
         </div>
