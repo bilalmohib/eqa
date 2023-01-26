@@ -1,23 +1,29 @@
 import { useState, useEffect } from "react";
 
+import { useNavigate } from "react-router";
+
 import { IoSpeedometerOutline } from "react-icons/io5";
-import { HiUserGroup } from "react-icons/hi2";
+import { FaUserAlt } from "react-icons/fa";
 
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 
 // Importing components
-import DataTableMD from "../../../../DataTableMD";
+import DataTableMD from "../../../../../DataTableMD";
+
+import AddIcon from '@mui/icons-material/Add';
+// Importing material ui components
+import Button from '@mui/material/Button';
 
 // @@@@@@@@@@@@@@ IMPORTING COURSE OFFERING TABLE DATA @@@@@@@@@@@@@@@@@
 // Importing the course offering table data
-import { data, states } from '../../../../../Data/Tables/CourseOfferings';
+import { data, states } from '../../../../../../Data/Tables/CourseOfferings';
 
 import styles from "./style.module.css";
 // import "./style.css";
 
 const percentage = 30;
 
-interface RolesProps {
+interface UserProps {
     setIsOpen: any,
     isOpen: Boolean,
     // For minified sidebar
@@ -25,13 +31,15 @@ interface RolesProps {
     setIsMinified: any,
 }
 
-const Roles: React.FC<RolesProps> = ({
+const ViewUsers: React.FC<UserProps> = ({
     setIsOpen,
     isOpen,
     // For minified sidebar
     isMinified,
     setIsMinified
 }) => {
+
+    const navigate = useNavigate();
 
     const currentFormatedDate: string = new Date().toLocaleString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
 
@@ -67,16 +75,14 @@ const Roles: React.FC<RolesProps> = ({
     return (
         <div
             className={`${styles.container} ${(windowSize[0] < 991 && isOpen) ? ("bgMobileOnSideOpen") : ("")}`}
-
-            // On click of the sidebar, if the sidebar is open, then close it
             onClick={() => {
                 if ((windowSize[0] < 991) && isOpen)
-                    setIsOpen(false)
+                    setIsOpen(false);
             }}
         >
             <div style={{ marginTop: 5 }} className={`${(windowSize[0] > 990) ? ("d-flex justify-content-between") : ("d-flex flex-column justify-content-start")}`}>
                 <div>
-                    EQA / User Management /<span style={{ color: "#4f747a" }}> Groups </span>
+                    EQA / User Management /<span style={{ color: "#4f747a" }}> Users </span>
                 </div>
                 <div>
                     <span style={{ color: "#4f747a", paddingRight: 10 }}>{currentFormatedDate}</span>
@@ -88,11 +94,11 @@ const Roles: React.FC<RolesProps> = ({
             {/* Top Container */}
             <div className={styles.topContainer}>
                 <div className={styles.leftTopContainer}>
-                    <HiUserGroup size={27} style={{ marginTop: "3px" }} color="#4f747a" />
-                    <p className={`${styles.topContainerLeftText}`}> <b style={{ fontWeight: "bold", color: "#4f747a" }}>Roles</b> Management </p>
+                    <FaUserAlt size={27} style={{ marginTop: "3px" }} color="#4f747a" />
+                    <p className={styles.topContainerLeftText}> <b style={{ fontWeight: "bold" }}>Users</b> Management </p>
                 </div>
                 <div className={styles.rightTopContainer}>
-                    <div className={styles.progressBarTopContainer}>
+                    {/* <div className={styles.progressBarTopContainer}>
                         <div style={{ width: "60px" }}>
                             <CircularProgressbar
                                 value={70}
@@ -120,7 +126,7 @@ const Roles: React.FC<RolesProps> = ({
                             />
                         </div>
                         <div className={styles.containerRightProgress}>
-                            <p style={{ fontSize: "15px", marginTop: 3 }}>Present Role Members</p>
+                            <p style={{ fontSize: "15px", marginTop: 3 }}>Present Staff</p>
                             <p style={{ fontSize: 20, marginTop: -18, fontWeight: "bold" }}>743</p>
                         </div>
                     </div>
@@ -155,7 +161,27 @@ const Roles: React.FC<RolesProps> = ({
                             <p style={{ fontSize: "15px", marginTop: 3 }}>Total No. of Login</p>
                             <p style={{ fontSize: 20, marginTop: -18, fontWeight: "bold" }}>45698</p>
                         </div>
-                    </div>
+                    </div> */}
+
+                    <Button
+                        variant="contained"
+                        sx={{
+                            backgroundColor: "#e79f43",
+                            // textTransform: "none",
+                            fontWeight: "bold",
+                            height: 40,
+                            mt: 1,
+                            "&:hover": {
+                                backgroundColor: "#e79f43",
+                            }
+                        }}
+                        onClick={() => {
+                            navigate("/usermanagement/users/adduser");
+                        }}
+                    >
+                        <AddIcon style={{ marginRight: 5 }} />
+                        Add User
+                    </Button>
                 </div>
             </div>
             {/* Top Container */}
@@ -164,21 +190,21 @@ const Roles: React.FC<RolesProps> = ({
             <div className={`container-fluid ${styles.containerBoxes}`}>
                 <div className="row gx-4" style={(windowSize[0] > 767) ? (styleFirstRowCB) : (styleForResponsiveFirstRowCB)}>
                     <div className={`col-md-4`}>
-                        <div className={styles.insideContainerBox} style={{ backgroundColor: "#6aac4c" }}>
+                        <div className={styles.insideContainerBox} style={{ backgroundColor: "#488A99" }}>
                             <div className={styles.countICB}>6000</div>
-                            <p className={styles.infoICB}>Total Roles</p>
+                            <p className={styles.infoICB}>Total Active Users</p>
                         </div>
                     </div>
                     <div className={`col-md-4`}>
-                        <div className={styles.insideContainerBox} style={{ backgroundColor: "#29aaca" }}>
+                        <div className={styles.insideContainerBox} style={{ backgroundColor: "#1C4E80" }}>
                             <div className={styles.countICB}>800</div>
-                            <p className={styles.infoICB}>Administrator</p>
+                            <p className={styles.infoICB}>Total InActive Users</p>
                         </div>
                     </div>
                     <div className={`col-md-4`}>
-                        <div className={styles.insideContainerBox} style={{ backgroundColor: "#23272b" }}>
-                            <div className={styles.countICB}>700</div>
-                            <p className={styles.infoICB}>Staff</p>
+                        <div className={styles.insideContainerBox} style={{ backgroundColor: "#DBAE58" }}>
+                            <div className={styles.countICB}>6800</div>
+                            <p className={styles.infoICB}>Total Users</p>
                         </div>
                     </div>
                 </div>
@@ -191,8 +217,8 @@ const Roles: React.FC<RolesProps> = ({
                     data={data}
                     states={states}
                     columnValues={"CourseOfferingTypes"}
-                    buttonTitle={"Create New Role"}
-                    tableTitle={`<b style={{ fontWeight: "bold" }}>Roles</b> <i>List</i>`}
+                    buttonTitle={"Create New User"}
+                    tableTitle={`<b style={{ fontWeight: "bold" }}>Users</b> <i>List</i>`}
                 />
             </div>
 
@@ -200,4 +226,4 @@ const Roles: React.FC<RolesProps> = ({
         </div>
     )
 }
-export default Roles;
+export default ViewUsers;

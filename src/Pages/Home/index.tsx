@@ -111,17 +111,17 @@ const Home = ({
                 {
                     icon: <RxDot style={{ marginLeft: 2 }} />,
                     text: "Users",
-                    link: "/usermanagement/users"
+                    link: "/usermanagement/users/viewusers"
                 },
                 {
                     icon: <RxDot style={{ marginLeft: 2 }} />,
                     text: "Groups",
-                    link: "/usermanagement/groups"
+                    link: "/usermanagement/groups/viewgroups"
                 },
                 {
                     icon: <RxDot style={{ marginLeft: 2 }} />,
                     text: "Role",
-                    link: "/usermanagement/roles"
+                    link: "/usermanagement/roles/viewroles"
                 }
             ]
         },
@@ -156,6 +156,22 @@ const Home = ({
     ];
     // ######################## Array of menu items ########################
 
+    // Automatically open the sub menu if the current location path is in the sub menu
+    useEffect(() => {
+        // For getting the current location path
+        const currentLocationPath = window.location.pathname;
+
+        // Do it using for loop
+        for (let i = 0; i < SidebarMenuItemsArray.length; i++) {
+            for (let j = 0; j < SidebarMenuItemsArray[i].subMenu.length; j++) {
+                if (SidebarMenuItemsArray[i].subMenu[j].link === currentLocationPath) {
+                    setCurrentMenuItem(i+1);
+                    setCurrentSubMenuSidebarOpenItem(i+1);
+                }
+            }
+        }
+    }, []);
+
     return (
         <div className={`${styles.container} ${(isMinified) && (styles.minifySidebarContainer)}`}>
             {/* 
@@ -176,25 +192,27 @@ const Home = ({
                     setIsMinified={setIsMinified}
                 />
                 <div className='d-flex'>
-                    <Sidebar
-                        // Current menu item
-                        currentMenuItem={currentMenuItem}
-                        setCurrentMenuItem={setCurrentMenuItem}
+                    <div style={{position:"relative",zIndex:1}}>
+                        <Sidebar
+                            // Current menu item
+                            currentMenuItem={currentMenuItem}
+                            setCurrentMenuItem={setCurrentMenuItem}
 
-                        // Current Sub menu item
-                        currentSubMenuSidebarOpenItem={currentSubMenuSidebarOpenItem}
-                        setCurrentSubMenuSidebarOpenItem={setCurrentSubMenuSidebarOpenItem}
+                            // Current Sub menu item
+                            currentSubMenuSidebarOpenItem={currentSubMenuSidebarOpenItem}
+                            setCurrentSubMenuSidebarOpenItem={setCurrentSubMenuSidebarOpenItem}
 
-                        // For simple open/close sidebar
-                        isOpen={isOpen}
-                        
-                        // For minified sidebar
-                        isMinified={isMinified}
-                        // Sidebar Menu Items Array
-                        sidebarList={SidebarMenuItemsArray}
-                    />
+                            // For simple open/close sidebar
+                            isOpen={isOpen}
 
-                    <div className={`${(isOpen) ? (styles.Home) : (styles.onSideClose)}`}>
+                            // For minified sidebar
+                            isMinified={isMinified}
+                            // Sidebar Menu Items Array
+                            sidebarList={SidebarMenuItemsArray}
+                        />
+                    </div>
+
+                    <div style={{ position: "relative", zIndex: 0 }} className={`${(isOpen) ? (styles.Home) : (styles.onSideClose)}`}>
                         {subComponent}
                     </div>
                 </div>

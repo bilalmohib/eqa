@@ -337,6 +337,20 @@ const CustomTableCrud: FC<CustomTableProps> = ({
                                 color="primary"
                                 onClick={() => setCreateModalOpen(true)}
                                 variant="outlined"
+                                sx={{
+                                    backgroundColor: "#e79f43",
+                                    border: "1px solid #e79f43",
+                                    color:"white",
+                                    // textTransform: "none",
+                                    fontWeight: "bold",
+                                    height: 40,
+                                    mt: 1,
+                                    "&:hover": {
+                                        backgroundColor: "#e79f43",
+                                        border: "1px solid #e79f43",
+                                        color:"white"
+                                    }
+                                }}
                             >
                                 {buttonTitle}
                             </Button>

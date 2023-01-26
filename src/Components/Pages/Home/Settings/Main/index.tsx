@@ -152,17 +152,24 @@ const Groups: React.FC<GroupsProps> = ({
 
             <hr />
 
-            <h2 style={{ color: "#e9a037" }}>Settings</h2>
+            <h2 style={{ color: "#4f747a" }}>Settings</h2>
 
             <Stack sx={{ mt: 3 }}
                 direction="row"
                 spacing={2}
             >
-                <Button variant="contained"
-                    color="success"
+                <Button
+                    variant="contained"
                     size="large"
                     sx={{
+                        backgroundColor: "#e79f43",
                         // textTransform: "none",
+                        "&:hover": {
+                            backgroundColor: "#e79f43",
+                        }
+                    }}
+                    onClick={() => {
+                        // navigate("/usermanagement/users/adduser");
                     }}
                     endIcon={<SaveIcon />}
                 >
@@ -187,7 +194,8 @@ const Groups: React.FC<GroupsProps> = ({
                         return (
                             <Box
                                 key={index}
-                                sx={{ mt: 5, borderTopLeftRadius: 50, borderTopRightRadius: 50, border: 1, borderColor: "#e8ebef" }}
+                                sx={{ mt: 5, border: 1, borderColor: "#e8ebef", borderTopLeftRadius: 4,
+                                borderTopRightRadius: 4 }}
                             >
                                 <Typography
                                     variant="h4"
@@ -201,23 +209,24 @@ const Groups: React.FC<GroupsProps> = ({
                                         //     xl: 500, // theme.breakpoints.up('xl')
                                         // },
                                         fontSize: {
-                                            xs: 25, // theme.breakpoints.up('xs')
-                                            sm: 30, // theme.breakpoints.up('sm')
-                                            md: 32, // theme.breakpoints.up('md')
-                                            lg: 34, // theme.breakpoints.up('lg')
-                                            xl: 34, // theme.breakpoints.up('xl')
+                                            xs: 22, // theme.breakpoints.up('xs')
+                                            sm: 23, // theme.breakpoints.up('sm')
+                                            md: 24, // theme.breakpoints.up('md')
+                                            lg: 26, // theme.breakpoints.up('lg')
+                                            xl: 26, // theme.breakpoints.up('xl')
                                         },
                                         color: '#fff',
                                         padding: 0.5,
-                                        borderTopLeftRadius: 50,
-                                        borderTopRightRadius: 50,
-                                        textAlign: "center",
+                                        borderTopLeftRadius: 4,
+                                        borderTopRightRadius: 4,
+                                        paddingLeft: 3,
+                                        textAlign: "left",
                                         backgroundColor: "#4f7679",
                                         cursor: "default",
                                         transition: "all 0.3s ease 0s;",
                                         boxShadow: "rgba(9, 30, 66, 0.25) 0px 1px 1px, rgba(9, 30, 66, 0.13) 0px 0px 1px 1px;",
                                         "&:hover": {
-                                            color: "#e9a037",
+                                            // color: "#e9a037",
                                             backgroundColor: "#4f7679",
                                             boxShadow: "rgba(9, 30, 66, 0.25) 0px 1px 1px, rgba(9, 30, 66, 0.13) 0px 0px 1px 1px;",
                                             transition: "all 0.3s ease 0s;"
@@ -237,7 +246,7 @@ const Groups: React.FC<GroupsProps> = ({
                                                         checked={checked}
                                                         onChange={handleChange}
                                                         color="success"
-                                                        sx={{ '& .MuiSvgIcon-root': { fontSize: 30 } }}
+                                                        sx={{ '& .MuiSvgIcon-root': { fontSize: 25 } }}
                                                     />
                                                 </Box>
                                                 <Box sx={{ borderLeft: "1px solid rgba(9, 30, 66, 0.25)", paddingLeft: "2%" }}>
@@ -246,11 +255,11 @@ const Groups: React.FC<GroupsProps> = ({
                                                         component="div"
                                                         sx={{
                                                             fontSize: {
-                                                                xs: 22, // theme.breakpoints.up('xs')
-                                                                sm: 24, // theme.breakpoints.up('sm')
-                                                                md: 25, // theme.breakpoints.up('md')
-                                                                lg: 26.5, // theme.breakpoints.up('lg')
-                                                                xl: 27, // theme.breakpoints.up('xl')
+                                                                xs: 20, // theme.breakpoints.up('xs')
+                                                                sm: 20, // theme.breakpoints.up('sm')
+                                                                md: 22, // theme.breakpoints.up('md')
+                                                                lg: 22, // theme.breakpoints.up('lg')
+                                                                xl: 22, // theme.breakpoints.up('xl')
                                                             },
                                                             marginTop: 1
                                                         }}

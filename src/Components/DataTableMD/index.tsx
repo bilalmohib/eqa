@@ -11,6 +11,8 @@ import { createRipples } from 'react-ripples';
 // Importing types
 import { CourseOfferingTypes } from "../../Data/Tables/CourseOfferings/types";
 
+import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
+
 // Importing components
 // import CustomTable from "./CustomTable";
 import CustomTableCrud from "./CustomTableCrud";
@@ -89,8 +91,8 @@ const DataTableMD: FC<DataTableMDProps> = ({
 
                 {/* Body of Header Starts Here */}
                 <header className={styles.containerbodyHeader}>
-                    <div>
-                        <div className="input-group" style={{ backgroundColor: "#f3f3f3" }}>
+                    <div className="d-flex" style={{marginTop:3}}>
+                        {/* <div className="input-group" style={{ backgroundColor: "#f3f3f3" }}>
                             <span className="input-group-text" id="Search">
                                 <BsSearch />
                             </span>
@@ -103,7 +105,16 @@ const DataTableMD: FC<DataTableMDProps> = ({
                                 value={searchText}
                                 onChange={(e: any) => setSearchText(e.target.value)}
                             />
+                        </div> */}
+                        <div>
+                            <LibraryBooksIcon sx={{ color: "#4f747a" }} />
                         </div>
+                        <h5 className={styles.tableSubTitleTopLeft}> 
+                        <b>
+                        Following courses are offered
+                        </b>
+                        </h5>
+
                     </div>
                     <div>
                         {/* Standard */}
