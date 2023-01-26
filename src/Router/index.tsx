@@ -25,6 +25,8 @@ import Users from "../Components/Pages/Home/UserManagement/Users";
 import Groups from "../Components/Pages/Home/UserManagement/Groups";
 // 8) Roles Page
 import Roles from '../Components/Pages/Home/UserManagement/Roles';
+// 9) Settings Page
+import Settings from '../Components/Pages/Home/Settings/Main';
 
 // $$$$$$$$$$$$$$$$$$$$ Importing Components and Pages $$$$$$$$$$$$$$$$$$$$
 
@@ -134,6 +136,27 @@ const AppRouter: FC<AppRouterProps> = ({
                             setIsMinified={setIsMinified}
                             subComponent={
                                 <Roles
+                                    isOpen={isOpen}
+                                    setIsOpen={setIsOpen}
+                                    // For minified sidebar
+                                    isMinified={isMinified}
+                                    setIsMinified={setIsMinified}
+                                />
+                            }
+                        />}
+                    />
+                </Route>
+                <Route path="settings">
+                    <Route
+                        path={"general"}
+                        element={<Home
+                            isOpen={isOpen}
+                            setIsOpen={setIsOpen}
+                            // For minified sidebar
+                            isMinified={isMinified}
+                            setIsMinified={setIsMinified}
+                            subComponent={
+                                <Settings
                                     isOpen={isOpen}
                                     setIsOpen={setIsOpen}
                                     // For minified sidebar

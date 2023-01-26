@@ -6,160 +6,25 @@
     padding-top: 20px;
 }
 
-/* Top Container Starts */
-.topContainer {
-    /* border: 1px solid rgb(12, 47, 246); */
-    display: flex;
-    justify-content: space-between;
-    margin-top: 25px;
-}
-
-/* Left Top Container */
-.leftTopContainer {
-    display: flex;
-    padding-top: 16px;
-}
-
-/* Right Top Container */
-.rightTopContainer {
-    display: flex;
-}
-
-.topContainerLeftText {
-    font-size: 22px;
-    margin-left: 10px;
-    font-weight: 300;
-    color: #767676;
-}
-
-/* Left Top Container */
-
-.progressBarTopContainer {
-    display: flex;
-    /* border: 1px solid red; */
-    padding-top: 2px;
-    margin-right: 20px;
-}
-
-.containerRightProgress {
-    /* border: 1px solid black; */
-    height: 60px;
-    padding-left: 10px;
-}
-
-/* Top Container Over */
-
-/* Box Container Starts */
-.containerBoxes {
-    margin-top: 40px;
-    padding-left: 0px;
-    padding-right: 0px;
-    width: 96.7% !important;
-}
-
-/* Inside Container Box Styles */
-.insideContainerBox {
-    /* border: 1px solid black; */
-    border-radius: 3px;
-    height: 97px;
-    padding-left: 20px;
-    padding-top: 5px;
-}
-
-.insideContainerBox:hover {
-    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
-    cursor: pointer;
-}
-
-.countICB {
-    font-size: 40px;
-    font-weight: 500;
-    color: white;
-    user-select: none;
-}
-
-.infoICB {
-    font-size: 18px;
-    color: white;
-    font-weight: normal;
-    margin-top: -10px;
-}
-
-/* Inside Container Box Styles */
-
-/* Box Container Ends */
 
 /* For Responsivenesss */
 
 @media all and (max-width:870px) {
-    .insideContainerBox {
-        /* border: 1px solid black; */
-        height: 170px;
-    }
+
 }
 
 @media all and (max-width:767px) {
-    .insideContainerBox {
-        /* border: 1px solid rgb(255, 0, 0); */
-        height: 100px;
-        padding-left: initial;
-        text-align: center;
-        margin-bottom: 20px;
-    }
-
-    .topContainer {
-        /* border: 1px solid rgb(12, 47, 246); */
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        margin-top: 5px;
-    }
+    
 }
 
 @media all and (max-width:600px){
-    .insideContainerBox{
-        border-radius: 0px;
-        height: 80px;
-        padding-top: 4px;
-    }
-
-    .countICB {
-        font-size: 30px;
-        font-weight: 500;
-        color: white;
-        user-select: none;
-    }
-    
-    .infoICB {
-        font-size: 18px;
-        color: white;
-        font-weight: normal;
-        margin-top: -10px;
-    }
+   
 }
 
 @media all and (max-width:479px) {
-    .containerBoxes{
-     margin-top: 20px;   
-    }
-    /* Right Top Container */
-    .rightTopContainer {
-        flex-direction: column;
-    }
-    .progressBarTopContainer{
-        margin-bottom: 20px;
-    }
+  
 }
 
 @media all and (max-width:330px){
-    .topContainerLeftText{
-        font-size: 21px;
-        text-align: center;
-        display: flex;
-        justify-content: space-between;
-    }
-    .topContainerLeftText b{
-        margin-right: 10px;
-    }
+   
 }

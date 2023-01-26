@@ -27,7 +27,7 @@ import {
     CircularProgress,
     Box,
     Typography,
-    Link,
+    Link
 } from "@mui/material";
 
 interface NavProps {
@@ -176,7 +176,7 @@ const Navbar: React.FC<NavProps> = ({
                             {/* Settings Menu Item */}
 
                             {/* Settings Menu Item */}
-                            <li className="nav-item">
+                            <li className="nav-item" onClick={() => navigate("/settings/general")}>
                                 <a className="nav-link d-flex align-items-center" title="Settings" href="#" id="navbarDropdownMenuLink" role="button" data-mdb-toggle="dropdown" aria-expanded="false">
                                     <IoSettingsOutline
                                         size={28}
@@ -283,7 +283,7 @@ const Navbar: React.FC<NavProps> = ({
                                     <li>
                                         {(currentNotificationActiveTab === 1) ? (
                                             <div className={styles.messageList}>
-                                                {(MessageList.map((v:any, i:number) => {
+                                                {(MessageList.map((v: any, i: number) => {
                                                     return (
                                                         <div key={i} className={styles.individualMessageList}>
                                                             <div className={styles.leftSideML}>
@@ -306,7 +306,7 @@ const Navbar: React.FC<NavProps> = ({
                                             </div>
                                         ) : (currentNotificationActiveTab === 2) ? (
                                             <div className={styles.notificationsContainer}>
-                                                {(NotificationsList.map((v:any, i:number) => {
+                                                {(NotificationsList.map((v: any, i: number) => {
                                                     return (
                                                         <div key={i} className={styles.individualNotificationList}>
                                                             <h3 className={styles.nlTitle}>{v.title}</h3>

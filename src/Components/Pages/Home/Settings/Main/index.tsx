@@ -2,15 +2,22 @@ import { useState, useEffect } from "react";
 
 import { IoSpeedometerOutline } from "react-icons/io5";
 import { HiUserGroup } from "react-icons/hi2";
+import SaveIcon from '@mui/icons-material/Save';
+import DeleteIcon from '@mui/icons-material/Delete';
+
+import Button from '@mui/material/Button';
+import Stack from '@mui/material/Stack';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+
+import FormGroup from '@mui/material/FormGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
 
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 
-// Importing components
-import DataTableMD from "../../../../DataTableMD";
+import Ripples from 'react-ripples'
 
-// @@@@@@@@@@@@@@ IMPORTING COURSE OFFERING TABLE DATA @@@@@@@@@@@@@@@@@
-// Importing the course offering table data
-import { data, states } from '../../../../../Data/Tables/CourseOfferings';
 
 import styles from "./style.module.css";
 // import "./style.css";
@@ -34,6 +41,9 @@ const Groups: React.FC<GroupsProps> = ({
 }) => {
 
     const currentFormatedDate: string = new Date().toLocaleString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+
+    // For checkbox
+    const [checked, setChecked] = useState(true);
 
     const [windowSize, setWindowSize] = useState([
         window.innerWidth,
@@ -64,6 +74,10 @@ const Groups: React.FC<GroupsProps> = ({
         };
     });
 
+    const handleChange = (event: any) => {
+        setChecked(event.target.checked);
+    };
+
     return (
         <div className={`${styles.container} ${(windowSize[0] < 991 && isOpen) ? ("bgMobileOnSideOpen") : ("")}`} onClick={() => {
             if (windowSize[0] < 991)
@@ -71,128 +85,99 @@ const Groups: React.FC<GroupsProps> = ({
         }}>
             <div style={{ marginTop: 5 }} className={`${(windowSize[0] > 990) ? ("d-flex justify-content-between") : ("d-flex flex-column justify-content-start")}`}>
                 <div>
-                    EQA / User Management /<span style={{ color: "#4f747a" }}> Groups </span>
+                    EQA / Settings /<span style={{ color: "#4f747a" }}> General </span>
                 </div>
                 <div>
                     <span style={{ color: "#4f747a", paddingRight: 10 }}>{currentFormatedDate}</span>
                 </div>
             </div>
 
-            {/* <hr />
-            <br /> */}
-            {/* Top Container */}
-            <div className={styles.topContainer}>
-                <div className={styles.leftTopContainer}>
-                    <HiUserGroup size={27} style={{ marginTop: "3px" }} color="#4f747a" />
-                    <p className={styles.topContainerLeftText}> <b style={{ fontWeight: "bold" }}>Groups</b> Management </p>
-                </div>
-                <div className={styles.rightTopContainer}>
-                    <div className={styles.progressBarTopContainer}>
-                        <div style={{ width: "60px" }}>
-                            <CircularProgressbar
-                                value={70}
-                                strokeWidth={15}
-                                styles={buildStyles({
-                                    // Rotation of path and trail, in number of turns (0-1)
-                                    rotation: 0,
+            <hr />
 
-                                    // Whether to use rounded or flat corners on the ends - can use 'butt' or 'round'
-                                    strokeLinecap: 'butt',
+            <h2 style={{ color: "#e9a037" }}>Settings</h2>
 
-                                    // Text size
-                                    textSize: '16px',
+            <Stack sx={{ mt: 3 }}
+                direction="row"
+                spacing={2}
+            >
+                <Button variant="contained"
+                    color="success"
+                    size="large"
+                    sx={{
+                        // textTransform: "none",
+                    }}
+                    endIcon={<SaveIcon />}
+                >
+                    Save
+                </Button>
 
-                                    // How long animation takes to go from one percentage to another, in seconds
-                                    pathTransitionDuration: 0.5,
+                <Button variant="outlined" size="large" sx={{
+                    // textTransform: "none",
+                }}
+                    endIcon={<DeleteIcon />}
+                    color="error"
+                >Discard</Button>
+            </Stack>
 
-                                    // Can specify path transition in more detail, or remove it entirely
-                                    // pathTransition: 'none',
+            <Box sx={{ mt: 5, borderTopLeftRadius: 50, borderTopRightRadius: 50, border: 1, borderColor: "#e8ebef" }}>
+                <Typography
+                    variant="h4"
+                    component="div"
+                    sx={{
+                        color: '#fff',
+                        padding: 0.5,
+                        borderTopLeftRadius: 50,
+                        borderTopRightRadius: 50,
+                        textAlign: "center",
+                        backgroundColor: "#4f7679",
+                        cursor: "default",
+                        transition: "all 0.3s ease 0s;",
+                        boxShadow: "rgba(9, 30, 66, 0.25) 0px 1px 1px, rgba(9, 30, 66, 0.13) 0px 0px 1px 1px;",
+                        "&:hover": {
+                            color: "#e9a037",
+                            backgroundColor: "#4f7679",
+                            boxShadow: "rgba(9, 30, 66, 0.25) 0px 1px 1px, rgba(9, 30, 66, 0.13) 0px 0px 1px 1px;",
+                            transition: "all 0.3s ease 0s;"
+                        },
+                    }}
+                >
+                    Meeting
+                </Typography>
 
-                                    // Colors
-                                    pathColor: `#1c4e80`,
-                                    trailColor: '#1c4e8047'
-                                })}
-                            />
-                        </div>
-                        <div className={styles.containerRightProgress}>
-                            <p style={{ fontSize: "15px", marginTop: 3 }}>Present Staff</p>
-                            <p style={{ fontSize: 20, marginTop: -18, fontWeight: "bold" }}>743</p>
-                        </div>
-                    </div>
-                    <div className={styles.progressBarTopContainer}>
-                        <div style={{ width: "60px" }}>
-                            <CircularProgressbar
-                                value={percentage}
-                                strokeWidth={15}
-                                styles={buildStyles({
-                                    // Rotation of path and trail, in number of turns (0-1)
-                                    rotation: 0,
+                <Box sx={{ display: "flex", mt: 3 }}>
+                    <Box sx={{ paddingLeft: "2%", paddingRight: "1%" }}>
+                        <Checkbox
+                            defaultChecked
+                            checked={checked}
+                            onChange={handleChange}
+                            color="success"
+                            sx={{ '& .MuiSvgIcon-root': { fontSize: 30 } }}
+                        />
+                    </Box>
+                    <Box sx={{ borderLeft: "1px solid rgba(9, 30, 66, 0.25)", paddingLeft: "2%" }}>
+                        <h3 style={{ marginTop: 5 }} className="text-dark" role={"button"} onClick={() => setChecked(!checked)}>Enable Email Notificatons</h3>
+                        <p style={{ color: "#b5b5b5" }}>;lskdajf;lkjdsaf;lkjdsaf;lkjdsaf;ljdsafk;ljdsaf</p>
+                    </Box>
+                </Box>
+                <Box sx={{ display: "flex", mt: 3 }}>
+                    <Box sx={{ paddingLeft: "2%", paddingRight: "1%" }}>
+                        <Checkbox
+                            defaultChecked
+                            checked={checked}
+                            onChange={handleChange}
+                            color="success"
+                            sx={{ '& .MuiSvgIcon-root': { fontSize: 30 } }}
+                        />
+                    </Box>
+                    <Box sx={{ borderLeft: "1px solid rgba(9, 30, 66, 0.25)", paddingLeft: "2%" }}>
+                        <h3 style={{ marginTop: 5 }} className="text-dark" role={"button"} onClick={() => setChecked(!checked)}>sadfjkdsafl;j d;saklfj ;lkdsafj ;lkadsfj</h3>
+                        <p style={{ color: "#b5b5b5" }}>;lskdajf;lkjdsaf;lkjdsaf;lkjdsaf;ljdsafk;ljdsaf</p>
+                    </Box>
+                </Box>
+                <br />
+            </Box>
 
-                                    // Whether to use rounded or flat corners on the ends - can use 'butt' or 'round'
-                                    strokeLinecap: 'butt',
-
-                                    // Text size
-                                    textSize: '16px',
-
-                                    // How long animation takes to go from one percentage to another, in seconds
-                                    pathTransitionDuration: 0.5,
-
-                                    // Can specify path transition in more detail, or remove it entirely
-                                    // pathTransition: 'none',
-
-                                    // Colors
-                                    pathColor: `#dbad58e9`,
-                                    trailColor: '#dbad583e'
-                                })}
-                            />
-                        </div>
-                        <div className={styles.containerRightProgress}>
-                            <p style={{ fontSize: "15px", marginTop: 3 }}>Total No. of Login</p>
-                            <p style={{ fontSize: 20, marginTop: -18, fontWeight: "bold" }}>45698</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            {/* Top Container */}
-
-            {/* Box Container */}
-            <div className={`container-fluid ${styles.containerBoxes}`}>
-                <div className="row gx-4" style={(windowSize[0] > 767) ? (styleFirstRowCB) : (styleForResponsiveFirstRowCB)}>
-                    <div className={`col-md-4`}>
-                        <div className={styles.insideContainerBox} style={{ backgroundColor: "#6aac4c" }}>
-                            <div className={styles.countICB}>6000</div>
-                            <p className={styles.infoICB}>Total Groups</p>
-                        </div>
-                    </div>
-                    <div className={`col-md-4`}>
-                        <div className={styles.insideContainerBox} style={{ backgroundColor: "#29aaca" }}>
-                            <div className={styles.countICB}>800</div>
-                            <p className={styles.infoICB}>Staff</p>
-                        </div>
-                    </div>
-                    <div className={`col-md-4`}>
-                        <div className={styles.insideContainerBox} style={{ backgroundColor: "#23272b" }}>
-                            <div className={styles.countICB}>700</div>
-                            <p className={styles.infoICB}>Students</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            {/* Box Container */}
-
-            <div style={{ marginTop: 30 }}>
-                <DataTableMD
-                    isOpen={isOpen}
-                    data={data}
-                    states={states}
-                    columnValues={"CourseOfferingTypes"}
-                    buttonTitle={"Create New Group"}
-                    tableTitle={`<b style={{ fontWeight: "bold" }}>Groups</b> <i>List</i>`}
-                />
-            </div>
-
-            <br />
-        </div>
+        </div >
     )
 }
 export default Groups;
