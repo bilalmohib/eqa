@@ -85,67 +85,49 @@ const Groups: React.FC<GroupsProps> = ({
             settingsItems: [
                 {
                     title: "Enable Email Notifications",
-                    description: "Receive email notifications when a new meeting is scheduled",
+                    description: "Enable Email Notification while creating meeting. So that you can get notified via email when a new meeting is scheduled.",
                     checked: true,
                     icon: <IoSpeedometerOutline size={30} />,
                 },
                 {
-                    title: "Enable Email Notifications",
-                    description: "Receive email notifications when a new meeting is scheduled",
+                    title: "Microsoft Team option visible on Create Meeting Form",
+                    description: "If this is Visible, then user can see this option on form. Check this option to do that.",
                     checked: true,
                     icon: <IoSpeedometerOutline size={30} />,
                 }
             ]
         },
         {
-            title: "Meeting",
+            title: "Minute of Meeting",
             icon: <IoSpeedometerOutline size={30} />,
             settingsItems: [
                 {
                     title: "Enable Email Notifications",
-                    description: "Receive email notifications when a new meeting is scheduled",
-                    checked: true,
-                    icon: <IoSpeedometerOutline size={30} />,
-                },
-                {
-                    title: "Enable Email Notifications",
-                    description: "Receive email notifications when a new meeting is scheduled",
+                    description: "Enable Email Notification while creating meeting. So that all users can be notified via email when a new meeting is scheduled.",
                     checked: true,
                     icon: <IoSpeedometerOutline size={30} />,
                 }
             ]
         },
         {
-            title: "Meeting",
+            title: "Task Management",
             icon: <IoSpeedometerOutline size={30} />,
             settingsItems: [
                 {
                     title: "Enable Email Notifications",
-                    description: "Receive email notifications when a new meeting is scheduled",
-                    checked: true,
-                    icon: <IoSpeedometerOutline size={30} />,
-                },
-                {
-                    title: "Enable Email Notifications",
-                    description: "Receive email notifications when a new meeting is scheduled",
+                    description: "Enable Email Notification while creating meeting. So that all users can be notified via email when a new meeting is scheduled.",
                     checked: true,
                     icon: <IoSpeedometerOutline size={30} />,
                 }
             ]
         },
         {
-            title: "Meeting",
+            title: "Committee Management",
             icon: <IoSpeedometerOutline size={30} />,
             settingsItems: [
                 {
                     title: "Enable Email Notifications",
-                    description: "Receive email notifications when a new meeting is scheduled",
-                    checked: true,
-                    icon: <IoSpeedometerOutline size={30} />,
-                },
-                {
-                    title: "Enable Email Notifications",
-                    description: "Receive email notifications when a new meeting is scheduled",
+                    description: "Enable Email Notification while creating meeting. So that all users can be notified via email when a new meeting is scheduled.",
                     checked: true,
                     icon: <IoSpeedometerOutline size={30} />,
                 }
