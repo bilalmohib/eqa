@@ -413,7 +413,7 @@ const LoginContainer = () => {
                                 '& .MuiFormControlLabel-label': {
                                     fontSize: "18px",
                                     color: "#6bb6b5",
-                                    fontFamily: 'IRANSansWeb',
+                                    fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;",
                                     paddingLeft: (direction === "ltr") ? (2) : (0),
                                     paddingRight: (direction === "rtl") ? (2) : (0),
                                 }
