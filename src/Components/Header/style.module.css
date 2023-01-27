@@ -10,6 +10,7 @@
     position: fixed;
     /* margin-left: -0.5%; */
     /* border: 1px solid red; */
+    z-index: 2;
 }
 
 .dropDownContainer {
@@ -133,7 +134,17 @@ html:not([data-scroll="0"]) .headerContainer {
     color: #395a60 !important;
 }
 
+@media all and (max-width:1450px){
+    .headerContainer {
+        padding-top: 2.5%;
+    }
+    
+}
+
 @media all and (max-width:1150px) {
+    .headerContainer {
+        padding-top: 3%;
+    }
     .menuDropDown {
         display: block;
         color: white;
@@ -153,6 +164,30 @@ html:not([data-scroll="0"]) .headerContainer {
     .menuDropDown:hover, .menuDropDown:active {
         background-color: #4974828b;
         transition: 0.4s linear;
+    }
+}
+
+@media all and (max-width: 1000px) {
+    .headerContainer {
+        padding-top: 3.5%;
+    }
+}
+
+@media all and (max-width: 850px) {
+    .headerContainer {
+        padding-top: 4%;
+    }
+}
+
+@media all and (max-width: 800px) {
+    .headerContainer {
+        padding-top: 4.5%;
+    }
+}
+
+@media all and (max-width: 700px) {
+    .headerContainer {
+        padding-top: 5%;
     }
 }
 
