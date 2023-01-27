@@ -28,7 +28,8 @@ import {
     CircularProgress,
     Box,
     Typography,
-    Link
+    Link,
+    TextField
 } from "@mui/material";
 
 interface NavProps {
@@ -67,6 +68,8 @@ const Navbar: React.FC<NavProps> = ({
 
     const [selectedDay, setSelectedDay] = useState<any>(null);
 
+    const [searchValue, setSearchValue] = useState<string>("");
+
     const [currentNotificationActiveTab, setCurrentNotificationActiveTab] = useState<Number>(1);
 
     const logoutUser = () => {
@@ -97,7 +100,14 @@ const Navbar: React.FC<NavProps> = ({
                             role="menu"
                             data-animations="fadeInDown fadeInRight fadeInUp fadeInLeft"
                         >
-                            <button onClick={() => setIsOpen(!isOpen)} type="button" className="btn btn-sm btn-outline-primary" style={{ color: "#e09d3b", border: "1px solid #e09d3b" }} data-mdb-ripple-color="dark" id="dropdownMenuLink" data-mdb-toggle="dropdown" aria-expanded="false">
+                            <button onClick={() => {
+                                if (isMinified === true && isOpen === true) {
+                                    setIsMinified(!isMinified)
+                                    setIsOpen(false);
+                                } else {
+                                    setIsOpen(!isOpen)
+                                }
+                            }} type="button" className="btn btn-sm btn-outline-primary" style={{ color: "#e09d3b", border: "1px solid #e09d3b" }} data-mdb-ripple-color="dark" id="dropdownMenuLink" data-mdb-toggle="dropdown" aria-expanded="false">
                                 <span className={styles.navbarHamburger}> <CgMenu size={25} /> </span>
                             </button>
                             <ul
@@ -116,7 +126,6 @@ const Navbar: React.FC<NavProps> = ({
                                             } else {
                                                 setIsOpen(!isOpen)
                                             }
-
                                         }} type="button" className="btn btn-sm btn-outline-primary" style={{ color: "#e09d3b", border: "1px solid #e09d3b" }} data-mdb-ripple-color="dark">
                                             <span className={styles.navbarHamburger}> <CgMenu size={25} /> </span>
                                         </button>
@@ -154,7 +163,7 @@ const Navbar: React.FC<NavProps> = ({
                     )}
                     &nbsp; &nbsp;
                     <Box className={`${styles.searchBoxNavbar}`}>
-                        <Box>
+                        {/* <Box>
                             <SearchIcon color="action" />
                         </Box>
                         <input
@@ -162,6 +171,38 @@ const Navbar: React.FC<NavProps> = ({
                             className='form-control'
                             style={{ border: "none" }}
                             placeholder='Search for anything'
+                        /> */}
+                        <TextField
+                            variant="standard" // <== changed this
+                            margin="normal"
+                            // fullWidth
+                            id="search"
+                            name="search"
+                            autoComplete="search"
+                            // autoFocus
+                            value={searchValue}
+                            sx={{
+                                // Focus the input
+                                '&:focus': {
+                                    border: "none",
+                                },
+                                // Add padding of text from left side
+                                '& .MuiInputBase-input': {
+                                    paddingLeft: '0.5rem',
+                                },
+                            }}
+                            onChange={(e) => setSearchValue(e.target.value)}
+                            placeholder='Search for anything'
+                            InputProps={{
+                                startAdornment: <SearchIcon color="action" />, 
+                                // For hiding the underline
+                                disableUnderline: true,
+                                style: { 
+                                    border: "none", 
+                                    // Add padding of text from left side
+                                },
+                           
+                            }}
                         />
                     </Box>
                 </a>

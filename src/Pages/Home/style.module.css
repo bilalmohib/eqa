@@ -1,4 +1,4 @@
-.Home{
+.Home {
     display: block;
     /* border: 1px solid rgb(0, 38, 255); */
     margin-left: 270px;
@@ -7,7 +7,7 @@
     margin-top: 67px;
 }
 
-.onSideClose{
+.onSideClose {
     margin-left: 0px;
     transition: 0.1s linear;
     width: 100%;
@@ -17,22 +17,24 @@
 /* ///////////////////////////////////////// Minified CSS ///////////////////////////////////////// */
 
 /* Home Container */
-.minifySidebarContainer .main .Home{
-/* border: 1px solid red !important; */
-margin-left: calc(270px - 190px);
-transition: 0.1s linear;
+.minifySidebarContainer .main .Home {
+    /* border: 1px solid red !important; */
+    width: calc(100% - 80px) !important;
+    margin-left: 80px;
+    transition: 0.1s linear;
 }
 
-.minifySidebarContainer .main .onSideClose{
+.minifySidebarContainer .main .onSideClose {
     margin-left: calc(0px) !important;
     /* border: 1px solid rgb(0, 115, 255) !important; */
     transition: 0.1s linear;
 }
+
 /* ///////////////////////////////////////// Minified CSS ///////////////////////////////////////// */
 
 /* For Responsiveness */
 @media all and (max-width:990px) {
-    .Home{
+    .Home {
         display: block;
         /* border: 1px solid red; */
         margin-left: 0px;
@@ -41,7 +43,8 @@ transition: 0.1s linear;
         margin-top: 67px;
         z-index: 0;
     }
-    .onSideClose{
+
+    .onSideClose {
         transition: 0.1s linear;
     }
 }
