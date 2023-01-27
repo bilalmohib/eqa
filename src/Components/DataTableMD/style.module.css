@@ -1,8 +1,10 @@
 .container {
     border:0.5px solid rgb(219, 219, 219);
+    /* border: 0.5px solid red; */
     border-radius: 5px;
     box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
     width: 100% !important;
+    height: 100%;
 }
 
 /* Header Container Starts here */
@@ -98,6 +100,8 @@
    /* width: 98%;
    margin-left: 1%;
    margin-right: 1%; */
+   /* border: 1px solid red; */
+   min-height: 520px !important;
 }
 /* Body Ends Here */
 
@@ -110,6 +114,16 @@
 
 .btnContainerTable{
     display: flex;
+}
+
+@media all and (max-width:1400px){
+    .container {
+        /* border:0.5px solid rgb(219, 219, 219); */
+        /* border: 0.5px solid red; */
+        width: 100%;
+        margin-left:auto;
+        margin-right:auto;
+    }
 }
 
 @media all and (max-width:600px){
