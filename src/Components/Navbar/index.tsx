@@ -97,7 +97,14 @@ const Navbar: React.FC<NavProps> = ({
                             role="menu"
                             data-animations="fadeInDown fadeInRight fadeInUp fadeInLeft"
                         >
-                            <button onClick={() => setIsOpen(!isOpen)} type="button" className="btn btn-sm btn-outline-primary" style={{ color: "#e09d3b", border: "1px solid #e09d3b" }} data-mdb-ripple-color="dark" id="dropdownMenuLink" data-mdb-toggle="dropdown" aria-expanded="false">
+                            <button onClick={() => {
+                                if (isMinified === true && isOpen === true) {
+                                    setIsMinified(!isMinified)
+                                    setIsOpen(false);
+                                } else {
+                                    setIsOpen(!isOpen)
+                                }
+                            }} type="button" className="btn btn-sm btn-outline-primary" style={{ color: "#e09d3b", border: "1px solid #e09d3b" }} data-mdb-ripple-color="dark" id="dropdownMenuLink" data-mdb-toggle="dropdown" aria-expanded="false">
                                 <span className={styles.navbarHamburger}> <CgMenu size={25} /> </span>
                             </button>
                             <ul
@@ -116,7 +123,6 @@ const Navbar: React.FC<NavProps> = ({
                                             } else {
                                                 setIsOpen(!isOpen)
                                             }
-
                                         }} type="button" className="btn btn-sm btn-outline-primary" style={{ color: "#e09d3b", border: "1px solid #e09d3b" }} data-mdb-ripple-color="dark">
                                             <span className={styles.navbarHamburger}> <CgMenu size={25} /> </span>
                                         </button>
