@@ -1,5 +1,5 @@
 import React from 'react';
-import { useState,useEffect, FC } from "react";
+import { useState, useEffect, FC } from "react";
 import { useLocation } from 'react-router-dom';
 // This is a React Router v6 app
 import {
@@ -30,6 +30,10 @@ import ViewRoles from '../Components/Pages/Home/UserManagement/Roles/ViewRoles';
 import Settings from '../Components/Pages/Home/Settings/Main';
 // 10) Create User Page
 import AddUser from '../Components/Pages/Home/UserManagement/Users/AddUser';
+// 11) Create Group Page
+import AddGroup from '../Components/Pages/Home/UserManagement/Groups/AddGroup';
+// 12) Create Role Page
+import AddRole from '../Components/Pages/Home/UserManagement/Roles/AddRole';
 
 // $$$$$$$$$$$$$$$$$$$$ Importing Components and Pages $$$$$$$$$$$$$$$$$$$$
 
@@ -59,7 +63,7 @@ const AppRouter: FC<AppRouterProps> = ({
         <Router>
             <Routes>
                 <Route path={"/"} element={<Home
-                  setShowHeader={setShowHeader}
+                    setShowHeader={setShowHeader}
                     isOpen={isOpen}
                     setIsOpen={setIsOpen}
                     // For minified sidebar
@@ -160,6 +164,26 @@ const AppRouter: FC<AppRouterProps> = ({
                                 }
                             />}
                         />
+                        <Route
+                            path={"addgroup"}
+                            element={<Home
+                                setShowHeader={setShowHeader}
+                                isOpen={isOpen}
+                                setIsOpen={setIsOpen}
+                                // For minified sidebar
+                                isMinified={isMinified}
+                                setIsMinified={setIsMinified}
+                                subComponent={
+                                    <AddGroup
+                                        isOpen={isOpen}
+                                        setIsOpen={setIsOpen}
+                                        // For minified sidebar
+                                        isMinified={isMinified}
+                                        setIsMinified={setIsMinified}
+                                    />
+                                }
+                            />}
+                        />
                     </Route>
                     <Route path={"roles"}>
                         <Route
@@ -173,6 +197,26 @@ const AppRouter: FC<AppRouterProps> = ({
                                 setIsMinified={setIsMinified}
                                 subComponent={
                                     <ViewRoles
+                                        isOpen={isOpen}
+                                        setIsOpen={setIsOpen}
+                                        // For minified sidebar
+                                        isMinified={isMinified}
+                                        setIsMinified={setIsMinified}
+                                    />
+                                }
+                            />}
+                        />
+                         <Route
+                            path={"addrole"}
+                            element={<Home
+                                setShowHeader={setShowHeader}
+                                isOpen={isOpen}
+                                setIsOpen={setIsOpen}
+                                // For minified sidebar
+                                isMinified={isMinified}
+                                setIsMinified={setIsMinified}
+                                subComponent={
+                                    <AddRole
                                         isOpen={isOpen}
                                         setIsOpen={setIsOpen}
                                         // For minified sidebar
@@ -208,7 +252,7 @@ const AppRouter: FC<AppRouterProps> = ({
                 </Route>
                 <Route path={"/login"} element={<Login setShowHeader={setShowHeader} />} />
                 <Route path={"/login2"} element={<Login2
-                setShowHeader={setShowHeader}
+                    setShowHeader={setShowHeader}
                     currentTab={currentTab}
                     setCurrentTab={setCurrentTab}
                     mobileViewContainer={mobileViewContainer}

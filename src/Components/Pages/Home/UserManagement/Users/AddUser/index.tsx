@@ -6,9 +6,9 @@ import { useNavigate } from "react-router";
 import { styled } from '@mui/material/styles';
 
 // Importing Icons
-import PeopleOutlineIcon from '@mui/icons-material/PeopleOutline';
+import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 import LockOpenIcon from '@mui/icons-material/LockOpen';
-import AddIcon from '@mui/icons-material/Add';
+import SendIcon from '@mui/icons-material/Send';
 
 // Importing material ui components
 import {
@@ -169,7 +169,7 @@ const AddUser: React.FC<UserProps> = ({
                         justifyContent: "center",
                         alignItems: "center",
                     }}>
-                        <PeopleOutlineIcon
+                        <PersonOutlineIcon
                             sx={{
                                 color: "#4f747a",
                                 fontSize: 35,
@@ -604,12 +604,12 @@ const AddUser: React.FC<UserProps> = ({
                 fullWidth={(
                     windowSize[0] < 600
                 ) ? true : false}
-            // onClick={() => {
-            //     navigate("/");
-            // }}
+                // onClick={() => {
+                //     navigate("/");
+                // }}
+                startIcon={<SendIcon />}
             >
-                <AddIcon style={{ marginRight: 5, display: "block" }} />
-                <Typography style={{ display: "block", marginTop: 2 }}>Submit</Typography>
+                <Typography style={{ display: "block" }}>Submit</Typography>
             </Button>
 
             <br /><br />

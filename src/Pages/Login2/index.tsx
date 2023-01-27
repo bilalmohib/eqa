@@ -1,4 +1,4 @@
-import { FC,useEffect } from "react";
+import { FC, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
 import { ImFacebook2, ImGoogle2 } from "react-icons/im";
@@ -7,6 +7,11 @@ import { GrLinkedin } from "react-icons/gr";
 
 //Importing useTranslation and Trans from react-i18next
 import { useTranslation } from 'react-i18next';
+
+import {
+    Box,
+    ButtonBase
+} from "@mui/material";
 
 // Importing CSS
 import styles from './style.module.css';
@@ -61,14 +66,27 @@ const Login2: FC<LoginProps> = ({
                                 </p>
                             </div>
                             <div className={`${styles.mobileTabLogin} ${styles.hideForMobile}`} style={{ direction: "ltr" }}>
-                                <div className={styles.tabLogin}>
-                                    <div className={`${styles.generalLeft} ${(currentTab === 1) ? (styles.leftSelectedTabLogin) : (styles.leftTabLogin)}`} onClick={() => { setCurrentTab(1); }}>
+                                <Box
+                                    className={styles.tabLogin}
+                                    sx={{
+                                        backgroundColor: "#e59d43"
+                                    }}
+                                >
+                                    <ButtonBase
+                                        sx={{
+                                            backgroundColor: (currentTab === 1) ? ("#ffffff") : ("#e59d43"),
+                                        }}
+                                        role={"div"} className={`${styles.generalLeft} ${(currentTab === 1) ? (styles.leftSelectedTabLogin) : (styles.leftTabLogin)}`} onClick={() => { setCurrentTab(1); }}>
                                         {t('login.leftSide.tabs.aboutus.name')}
-                                    </div>
-                                    <div className={`${styles.generalRight} ${(currentTab === 2) ? (styles.rightSelectedTabLogin) : (styles.rightTabLogin)}`} onClick={() => { setCurrentTab(2); }}>
+                                    </ButtonBase>
+                                    <ButtonBase
+                                        sx={{
+                                            backgroundColor: (currentTab === 2) ? ("#ffffff") : ("#e59d43"),
+                                        }}
+                                        role={"div"} className={`${styles.generalRight} ${(currentTab === 2) ? (styles.rightSelectedTabLogin) : (styles.rightTabLogin)}`} onClick={() => { setCurrentTab(2); }}>
                                         {t('login.leftSide.tabs.noticeboard.name')}
-                                    </div>
-                                </div>
+                                    </ButtonBase>
+                                </Box>
                             </div>
                         </div>
 

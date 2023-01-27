@@ -178,8 +178,8 @@ const ViewUsers: React.FC<UserProps> = ({
                         onClick={() => {
                             navigate("/usermanagement/users/adduser");
                         }}
+                        startIcon={<AddIcon />}
                     >
-                        <AddIcon style={{ marginRight: 5 }} />
                         Add User
                     </Button>
                 </div>

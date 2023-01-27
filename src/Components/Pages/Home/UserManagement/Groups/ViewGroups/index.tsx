@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 
+import { useNavigate } from "react-router";
+
 import { IoSpeedometerOutline } from "react-icons/io5";
 import { HiUserGroup } from "react-icons/hi2";
 
@@ -36,6 +38,7 @@ const ViewGroups: React.FC<GroupsProps> = ({
     isMinified,
     setIsMinified
 }) => {
+    const navigate = useNavigate();
 
     const currentFormatedDate: string = new Date().toLocaleString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
 
@@ -104,10 +107,10 @@ const ViewGroups: React.FC<GroupsProps> = ({
                             }
                         }}
                         onClick={() => {
-                            // navigate("/usermanagement/users/adduser");
+                            navigate("/usermanagement/groups/addgroup");
                         }}
+                        startIcon={<AddIcon />}
                     >
-                        <AddIcon style={{ marginRight: 5 }} />
                         Add Group
                     </Button>
                 </div>

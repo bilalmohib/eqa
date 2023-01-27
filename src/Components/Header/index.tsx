@@ -104,7 +104,7 @@ const Header: FC<HeaderProps> = ({
                 <div className={`d-flex ${styles.mobileDropStyle}`}>
                     <div>
                         <div className="dropdown" title="Select a language for the site">
-                            <div style={{ direction: "ltr" }} className={`${styles.langDropDown}`} id="dropdownMenuButton" data-mdb-toggle="dropdown" aria-expanded="false">
+                            <div style={{ direction: "ltr" }} className={`${styles.langDropDown}`} id="dropdownMenuButtonForLangChange" data-mdb-toggle="dropdown" aria-expanded="false">
                                 <img
                                     width={25}
                                     height={25}
@@ -117,7 +117,12 @@ const Header: FC<HeaderProps> = ({
                                     <i className={`fas fa-chevron-down`}></i></p>
                             </div>
                             <ul className={`dropdown-menu ${styles.dropDownLang}`} aria-labelledby="dropdownMenuButton">
-                                <li onClick={() => selectLanguage("ar")}>
+                                <li
+                                    style={{
+                                        display: (currentLang === "en") ? ("none") : ("block")
+                                    }}
+                                    onClick={() => selectLanguage("ar")}
+                                >
                                     <a className={`dropdown-item ${styles.liElementDropDown}`} href="#English">
                                         <div className={styles.dropDownContainer}>
                                             <img
@@ -133,7 +138,12 @@ const Header: FC<HeaderProps> = ({
                                         </div>
                                     </a>
                                 </li>
-                                <li onClick={() => selectLanguage("en")}>
+                                <li
+                                    style={{
+                                        display: (currentLang === "ar") ? ("none") : ("block")
+                                    }}
+                                    onClick={() => selectLanguage("en")}
+                                >
                                     <a className={`dropdown-item ${styles.liElementDropDown}`} href="#Arabic">
                                         <div className={styles.dropDownContainer}>
                                             <img

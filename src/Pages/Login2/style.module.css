@@ -43,6 +43,7 @@ html[dir=rtl] .leftSide{
     display: flex;
     border-radius: 25px;
     margin-top: 20px;
+    /* background-color: #e59d43; */
 }
 
 .generalLeft {
@@ -50,7 +51,10 @@ html[dir=rtl] .leftSide{
     font-size: 15px;
     text-align: center;
     font-weight: 500;
-    padding-top: 10px;
+    border-top-left-radius: 25px !important;
+    border-bottom-left-radius: 25px !important;
+    /* background-color: #e59d43 !important; */
+    /* padding-top: 10px; */
     position: relative;
     z-index: 1;
 }
@@ -58,8 +62,6 @@ html[dir=rtl] .leftSide{
 .leftTabLogin {
     background-color: #e59d43 !important;
     color: #ffffff;
-    border-top-left-radius: 25px;
-    border-bottom-left-radius: 25px;
     padding-left: -12px;
     cursor: pointer;
 }
@@ -73,20 +75,21 @@ html[dir=rtl] .leftSide{
 
 .generalRight {
     text-align: center;
-    padding-top: 10px;
+    /* padding-top: 10px; */
     font-size: 15px;
     margin-left: -15px;
     font-weight: 500;
+    border-top-right-radius: 25px !important;
+    border-bottom-right-radius: 25px !important;
     position: relative;
     color: #436368;
+    /* background-color: #ffffff !important; */
     cursor: pointer;
     overflow: hidden;
 }
 
 .rightTabLogin {
     background-color: #e59d43;
-    border-top-right-radius: 25px;
-    border-bottom-right-radius: 25px;
     width: 140px;
     padding-left: 12px;
 }

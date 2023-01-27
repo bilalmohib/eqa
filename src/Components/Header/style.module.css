@@ -72,8 +72,15 @@ html:not([data-scroll="0"]) .headerContainer {
     padding-right: 20px;
     border-radius: 5px;
     user-select: none;
-    margin-right: 0px;
+    margin-right: 3px !important;
+    /* border: 1px solid red; */
     width: 70px;
+}
+[dir=rtl] .langDropDown {
+    /* padding-right: 10px;
+    padding-left: 20px; */
+    margin-right:  0px !important;
+    margin-left: 13px !important;
 }
 
 .langDropDown:active, .langDropDown:hover {
