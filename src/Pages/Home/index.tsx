@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 
 // For routing
 import { useNavigate } from "react-router";
+import { useLocation } from "react-router-dom";
 
 import { Outlet } from "react-router-dom";
 
@@ -22,7 +23,8 @@ interface HomeProps {
     // For minified sidebar
     isMinified: Boolean,
     setIsMinified: any,
-    subComponent: any
+    subComponent: any,
+    setShowHeader: any,
 }
 
 const Home = ({
@@ -31,11 +33,27 @@ const Home = ({
     // For minified sidebar
     isMinified,
     setIsMinified,
-    subComponent
+    subComponent,
+    setShowHeader
 }: HomeProps) => {
 
     // For routing
     const navigate = useNavigate();
+    const location = useLocation();
+
+    useEffect(() => {
+        // The current location.
+        // console.clear();
+        console.log("The current location is: ", location.pathname);
+        const url = location.pathname;
+
+        if (url === "/login2" || url === "/forgetpassword") {
+            setShowHeader(true);
+        } else {
+            setShowHeader(false);
+        }
+    }, [location, setShowHeader]);
+
 
     // For getting the window size
     const [windowSize, setWindowSize] = useState([
@@ -165,8 +183,8 @@ const Home = ({
         for (let i = 0; i < SidebarMenuItemsArray.length; i++) {
             for (let j = 0; j < SidebarMenuItemsArray[i].subMenu.length; j++) {
                 if (SidebarMenuItemsArray[i].subMenu[j].link === currentLocationPath) {
-                    setCurrentMenuItem(i+1);
-                    setCurrentSubMenuSidebarOpenItem(i+1);
+                    setCurrentMenuItem(i + 1);
+                    setCurrentSubMenuSidebarOpenItem(i + 1);
                 }
             }
         }
@@ -192,7 +210,7 @@ const Home = ({
                     setIsMinified={setIsMinified}
                 />
                 <div className='d-flex'>
-                    <div style={{position:"relative",zIndex:1}}>
+                    <div style={{ position: "relative", zIndex: 1 }}>
                         <Sidebar
                             // Current menu item
                             currentMenuItem={currentMenuItem}

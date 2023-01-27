@@ -28,7 +28,7 @@ const LoginContainer = () => {
     const jsonData = [
         {
             email: "bilalmohib7896@gmail.com",
-            password: "bilal"
+            password: "123"
         },
         {
             email: "bilalmohib123@gmail.com",
@@ -55,7 +55,7 @@ const LoginContainer = () => {
     // Validation for Email
     useEffect(() => {
         if (email.length !== 0) {
-            setValidateNow(true);
+            setValidateNow(false);
             setValidationStatusEmail(true);
         }
         else {
@@ -66,7 +66,7 @@ const LoginContainer = () => {
     // Validation for Password
     useEffect(() => {
         if (password.length !== 0) {
-            setValidateNow(true);
+            setValidateNow(false);
             setValidationStatusPassword(true);
         }
         else {
@@ -76,19 +76,19 @@ const LoginContainer = () => {
 
     const validateForm = () => {
         setValidateNow(true);
-        // if (email === "" && password === "") {
-        //     setValidationStatusEmail(false);
-        //     setValidationStatusPassword(false);
-        //     return;
-        // }
-        // for (let i = 0; i < jsonData.length; i++) {
-        //     if (email === jsonData[i].email && password === jsonData[i].password) {
-        //         alert("Validated Correctly");
-        //         setValidationStatusEmail(true);
-        //         setValidationStatusPassword(true);
-        //         navigate("/")
-        //     }
-        // }
+        if (email === "" && password === "") {
+            setValidationStatusEmail(false);
+            setValidationStatusPassword(false);
+            return;
+        }
+        for (let i = 0; i < jsonData.length; i++) {
+            if (email === jsonData[i].email && password === jsonData[i].password) {
+                alert("Validated Correctly");
+                // setValidationStatusEmail(true);
+                // setValidationStatusPassword(true);
+                navigate("/")
+            }
+        }
         if (email.length !== 0 && (document.getElementById("userName") !== document.activeElement)) {
             // @ts-ignore
             document.getElementById("emailLabel").style = "display:none; !important";
@@ -131,29 +131,66 @@ const LoginContainer = () => {
                     <div>
                         <div>
                             <label className={styles.label_info}>{t('login.rightSide.loginContainer.formInputs.userName.label')}</label>
-                            <input
-                                className={`form-control ${styles.email}`}
-                                type="text"
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)}
-                                placeholder={`${t('login.rightSide.loginContainer.formInputs.userName.placeHolder')}`}
-                                style={{
-                                    paddingLeft: 20,
-                                }}
-                            />
+                            <div className={`form-outline ${styles.email} ${(validationStatusEmail) && (styles.inputValidatedTrue)}`}>
+                                <i className={`${(validationStatusEmail) && (`fas fa-check ${styles.validatedTrue}`)} trailing`} style={{ fontSize: 22 }} />
+                                <input
+                                    onFocus={
+                                        () => {
+                                            if (email.length === 0 && (document.getElementById("userName") === document.activeElement)) {
+                                                // @ts-ignore
+                                                document.getElementById("emailLabel").style = "display:none;";
+                                            }
+                                        }
+                                    }
+                                    type="text"
+                                    value={email}
+                                    onChange={(e: any) => {
+                                        setEmail(e.target.value)
+                                        if (email.length === 0 && (document.getElementById("userName") === document.activeElement)) {
+                                            // @ts-ignore
+                                            document.getElementById("emailLabel").style = "display:none;";
+                                        }
+                                    }}
+                                    placeholder={`${t('login.rightSide.loginContainer.formInputs.userName.placeHolder')}`}
+                                    className="form-control form-icon-trailing"
+                                    style={{ height: 50, paddingLeft: 21, paddingBottom: 10 }}
+                                    id="userName"
+                                />
+                                {/* {(!validationStatusEmail) && (email.length === 0) && (<p className={styles.infoInputs}>Please fill out the email field</p>)} */}
+                            </div>
                         </div>
-                        <div>
+                        <div style={{ marginTop: (!validationStatusEmail) ? (5) : (5) }}>
                             <label className={styles.label_info}>{t('login.rightSide.loginContainer.formInputs.password.label')}</label>
-                            <input
-                                className={`form-control ${styles.password}`}
-                                type="password"
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
-                                placeholder={`${t('login.rightSide.loginContainer.formInputs.password.placeHolder')}`}
-                                style={{
-                                    paddingLeft: 20,
-                                }}
-                            />
+                            <div className={`form-outline ${styles.password} ${(validationStatusPassword) && (styles.inputValidatedTrue)}`}>
+                                <i className={`${(validationStatusPassword) && (`fas fa-check ${styles.validatedTrue}`)} trailing`} style={{ fontSize: 22 }} />
+                                <input
+                                    onFocus={
+                                        () => {
+                                            if (password.length === 0 && (document.getElementById("passwordInput") === document.activeElement)) {
+                                                // @ts-ignore
+                                                document.getElementById("passwordLabel").style = "display:none;";
+                                            }
+                                        }
+                                    }
+                                    type="password"
+                                    value={password}
+                                    onChange={(e: any) => {
+                                        setPassword(e.target.value)
+                                        if (password.length === 0 && (document.getElementById("passwordInput") === document.activeElement)) {
+                                            // @ts-ignore
+                                            document.getElementById("passwordLabel").style = "display:none;";
+                                        }
+                                    }}
+                                    placeholder={`${t('login.rightSide.loginContainer.formInputs.password.placeHolder')}`}
+                                    className="form-control form-icon-trailing"
+                                    style={{ height: 50, paddingLeft: 21, paddingBottom: 10 }}
+                                    id="passwordInput"
+                                />
+                                {/* {(!validationStatusPassword) && (password.length === 0) && (<p className={styles.infoInputs}>Please fill out the password field</p>)} */}
+                                <label className={`form-label ${styles.formLabelStyles}`} id="passwordLabel" htmlFor="passwordInput">
+                                    Enter Password
+                                </label>
+                            </div>
                         </div>
                     </div>
                 ) : (
@@ -229,10 +266,10 @@ const LoginContainer = () => {
                 {/* VALIDATION ENDS HERE */}
 
                 {(validateNow === false) ? (
-                    <div style={{marginTop:0}}>
+                    <div style={{marginTop:30}}>
                     </div>
                 ) : (
-                    <div style={{marginTop:25}}>
+                    <div style={{marginTop:30}}>
                     </div>
                 )}
 

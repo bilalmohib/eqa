@@ -1,4 +1,6 @@
-import { FC } from "react";
+import { FC,useEffect } from "react";
+import { useLocation } from "react-router-dom";
+
 import { ImFacebook2, ImGoogle2 } from "react-icons/im";
 import { FaTwitterSquare } from "react-icons/fa";
 import { GrLinkedin } from "react-icons/gr";
@@ -15,16 +17,33 @@ import LoginContainer from "../../Components/LoginContainer";
 interface LoginProps {
     mobileViewContainer: any,
     currentTab: any,
-    setCurrentTab: any
+    setCurrentTab: any,
+    setShowHeader: any
 }
 
 const Login2: FC<LoginProps> = ({
     mobileViewContainer,
     currentTab,
-    setCurrentTab
+    setCurrentTab,
+    setShowHeader
 }): JSX.Element => {
-
     const { t } = useTranslation();
+
+    const location = useLocation();
+
+    useEffect(() => {
+
+        // The current location.
+        // console.clear();
+        console.log('The current location is: ', location.pathname);
+        const url = location.pathname;
+
+        if (url === '/login2' || url === '/forgetpassword') {
+            setShowHeader(true);
+        } else {
+            setShowHeader(false);
+        }
+    }, [location, setShowHeader]);
 
     return (
         <div className={`${styles.containerCustom}`}>
