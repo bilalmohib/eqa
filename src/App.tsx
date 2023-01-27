@@ -4,11 +4,15 @@ import AppRouter from "./Router";
 // importing Header
 import Header from "./Components/Header";
 
+import { useLocation } from 'react-router-dom';
+
 // import { Helmet } from 'react-helmet';
 
 import 'react-circular-progressbar/dist/styles.css';
 
 const App = () => {
+    // const location = useLocation();
+
     // Three Containers will be there 
     // 1) Login
     // 2) About Us
@@ -17,20 +21,20 @@ const App = () => {
 
     const [currentTab, setCurrentTab] = useState<number>(1);
 
-    const [showHeader, setShowHeader] = useState<boolean>(true);
+    const [showHeader, setShowHeader] = useState<boolean>(false);
 
-    useEffect(() => {
-        // The current location.
-        // console.clear();
-        console.log("The current location is: ", window.location.pathname);
-        const url = window.location.pathname;
+    // useEffect(() => {
+    //     // The current location.
+    //     // console.clear();
+    //     console.log("The current location is: ", location.pathname);
+    //     const url = location.pathname;
 
-        if (url === "/login2" || url === "/forgetpassword") {
-            setShowHeader(true);
-        } else {
-            setShowHeader(false);
-        }
-    }, []);
+    //     if (url === "/login2" || url === "/forgetpassword") {
+    //         setShowHeader(true);
+    //     } else {
+    //         setShowHeader(false);
+    //     }
+    // }, [location]);
 
     return (
         <div>
@@ -49,6 +53,8 @@ const App = () => {
                 currentTab={currentTab}
                 setCurrentTab={setCurrentTab}
                 mobileViewContainer={mobileViewContainer}
+                showHeader={showHeader}
+                setShowHeader={setShowHeader}
             />
         </div>
     )

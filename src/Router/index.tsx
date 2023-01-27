@@ -1,5 +1,6 @@
 import React from 'react';
-import { useState, FC } from "react";
+import { useState,useEffect, FC } from "react";
+import { useLocation } from 'react-router-dom';
 // This is a React Router v6 app
 import {
     BrowserRouter as Router,
@@ -35,13 +36,17 @@ import AddUser from '../Components/Pages/Home/UserManagement/Users/AddUser';
 interface AppRouterProps {
     mobileViewContainer: any,
     currentTab: any,
-    setCurrentTab: any
+    setCurrentTab: any,
+    showHeader: boolean,
+    setShowHeader: any
 }
 
 const AppRouter: FC<AppRouterProps> = ({
     currentTab,
     setCurrentTab,
-    mobileViewContainer
+    mobileViewContainer,
+    showHeader,
+    setShowHeader
 }): JSX.Element => {
 
     // For simple open/close sidebar
@@ -54,6 +59,7 @@ const AppRouter: FC<AppRouterProps> = ({
         <Router>
             <Routes>
                 <Route path={"/"} element={<Home
+                  setShowHeader={setShowHeader}
                     isOpen={isOpen}
                     setIsOpen={setIsOpen}
                     // For minified sidebar
@@ -72,6 +78,7 @@ const AppRouter: FC<AppRouterProps> = ({
                     <Route
                         path="assessment"
                         element={<Home
+                            setShowHeader={setShowHeader}
                             isOpen={isOpen}
                             setIsOpen={setIsOpen}
                             // For minified sidebar
@@ -94,6 +101,7 @@ const AppRouter: FC<AppRouterProps> = ({
                         <Route
                             path={"viewusers"}
                             element={<Home
+                                setShowHeader={setShowHeader}
                                 isOpen={isOpen}
                                 setIsOpen={setIsOpen}
                                 // For minified sidebar
@@ -113,6 +121,7 @@ const AppRouter: FC<AppRouterProps> = ({
                         <Route
                             path={"adduser"}
                             element={<Home
+                                setShowHeader={setShowHeader}
                                 isOpen={isOpen}
                                 setIsOpen={setIsOpen}
                                 // For minified sidebar
@@ -134,6 +143,7 @@ const AppRouter: FC<AppRouterProps> = ({
                         <Route
                             path={"viewgroups"}
                             element={<Home
+                                setShowHeader={setShowHeader}
                                 isOpen={isOpen}
                                 setIsOpen={setIsOpen}
                                 // For minified sidebar
@@ -155,6 +165,7 @@ const AppRouter: FC<AppRouterProps> = ({
                         <Route
                             path={"viewroles"}
                             element={<Home
+                                setShowHeader={setShowHeader}
                                 isOpen={isOpen}
                                 setIsOpen={setIsOpen}
                                 // For minified sidebar
@@ -177,6 +188,7 @@ const AppRouter: FC<AppRouterProps> = ({
                     <Route
                         path={"general"}
                         element={<Home
+                            setShowHeader={setShowHeader}
                             isOpen={isOpen}
                             setIsOpen={setIsOpen}
                             // For minified sidebar
@@ -194,14 +206,15 @@ const AppRouter: FC<AppRouterProps> = ({
                         />}
                     />
                 </Route>
-                <Route path={"/login"} element={<Login />} />
+                <Route path={"/login"} element={<Login setShowHeader={setShowHeader} />} />
                 <Route path={"/login2"} element={<Login2
+                setShowHeader={setShowHeader}
                     currentTab={currentTab}
                     setCurrentTab={setCurrentTab}
                     mobileViewContainer={mobileViewContainer}
                 />}
                 />
-                <Route path={"/forgetpassword"} element={<ForgetPassWord />} />
+                <Route path={"/forgetpassword"} element={<ForgetPassWord setShowHeader={setShowHeader} />} />
                 <Route
                     path={"/*"}
                     element={

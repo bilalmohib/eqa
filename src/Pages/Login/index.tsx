@@ -1,4 +1,6 @@
 import React from 'react';
+import { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 // Importing CSS
 import styles from './style.module.css';
 
@@ -7,7 +9,27 @@ import { Link } from 'react-router-dom';
 // Importing Logo
 import logo from '../../assets/Images/Login/login_logo.png';
 
-const Login = () => {
+interface LoginProps {
+    setShowHeader: any;
+}
+
+const Login: React.FC<LoginProps> = ({ setShowHeader }) => {
+    const location = useLocation();
+
+    useEffect(() => {
+        // The current location.
+        // console.clear();
+        console.log('The current location is: ', location.pathname);
+        const url = location.pathname;
+
+        if (url === '/login2' || url === '/forgetpassword') {
+            setShowHeader(true);
+        } else {
+            setShowHeader(false);
+        }
+    }, [location, setShowHeader]);
+
+
     return (
         <div className={styles.containerCustom}>
             <div className={styles.leftSide}>

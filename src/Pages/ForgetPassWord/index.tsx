@@ -1,3 +1,6 @@
+import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
+
 //Importing useTranslation and Trans from react-i18next
 import { useTranslation } from 'react-i18next';
 
@@ -8,7 +11,26 @@ import forgetPassword_logo from '../../assets/Images/ForgetPassword/lock.png';
 // Importing CSS
 import styles from './style.module.css';
 
-const ForgetPassWord = () => {
+interface ForgetPasswordProps {
+    setShowHeader: any;
+}
+
+const ForgetPassWord: React.FC<ForgetPasswordProps> = ({ setShowHeader }) => {
+    const location = useLocation();
+
+    useEffect(() => {
+        // The current location.
+        // console.clear();
+        console.log('The current location is: ', location.pathname);
+        const url = location.pathname;
+
+        if (url === '/login2' || url === '/forgetpassword') {
+            setShowHeader(true);
+        } else {
+            setShowHeader(false);
+        }
+    }, [location, setShowHeader]);
+
 
     const { t } = useTranslation();
 

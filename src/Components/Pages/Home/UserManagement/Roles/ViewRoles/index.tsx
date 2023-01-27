@@ -1,9 +1,13 @@
 import { useState, useEffect } from "react";
 
+import { useNavigate } from "react-router";
+
 import { IoSpeedometerOutline } from "react-icons/io5";
 import { HiUserGroup } from "react-icons/hi2";
 
-import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
+import AddIcon from '@mui/icons-material/Add';
+// Importing material ui components
+import Button from '@mui/material/Button';
 
 // Importing components
 import DataTableMD from "../../../../../DataTableMD";
@@ -32,6 +36,7 @@ const ViewRoles: React.FC<RolesProps> = ({
     isMinified,
     setIsMinified
 }) => {
+    const navigate = useNavigate();
 
     const currentFormatedDate: string = new Date().toLocaleString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
 
@@ -92,7 +97,7 @@ const ViewRoles: React.FC<RolesProps> = ({
                     <p className={`${styles.topContainerLeftText}`}> <b style={{ fontWeight: "bold", color: "#4f747a" }}>Roles</b> Management </p>
                 </div>
                 <div className={styles.rightTopContainer}>
-                    <div className={styles.progressBarTopContainer}>
+                    {/* <div className={styles.progressBarTopContainer}>
                         <div style={{ width: "60px" }}>
                             <CircularProgressbar
                                 value={70}
@@ -155,35 +160,29 @@ const ViewRoles: React.FC<RolesProps> = ({
                             <p style={{ fontSize: "15px", marginTop: 3 }}>Total No. of Login</p>
                             <p style={{ fontSize: 20, marginTop: -18, fontWeight: "bold" }}>45698</p>
                         </div>
-                    </div>
+                    </div> */}
+                    <Button
+                        variant="contained"
+                        sx={{
+                            backgroundColor: "#e79f43",
+                            // textTransform: "none",
+                            fontWeight: "bold",
+                            height: 40,
+                            mt: 1,
+                            "&:hover": {
+                                backgroundColor: "#e79f43",
+                            }
+                        }}
+                        onClick={() => {
+                            navigate("/usermanagement/roles/addrole");
+                        }}
+                    >
+                        <AddIcon style={{ marginRight: 5 }} />
+                        Add Role
+                    </Button>
                 </div>
             </div>
             {/* Top Container */}
-
-            {/* Box Container */}
-            <div className={`container-fluid ${styles.containerBoxes}`}>
-                <div className="row gx-4" style={(windowSize[0] > 767) ? (styleFirstRowCB) : (styleForResponsiveFirstRowCB)}>
-                    <div className={`col-md-4`}>
-                        <div className={styles.insideContainerBox} style={{ backgroundColor: "#6aac4c" }}>
-                            <div className={styles.countICB}>6000</div>
-                            <p className={styles.infoICB}>Total Roles</p>
-                        </div>
-                    </div>
-                    <div className={`col-md-4`}>
-                        <div className={styles.insideContainerBox} style={{ backgroundColor: "#29aaca" }}>
-                            <div className={styles.countICB}>800</div>
-                            <p className={styles.infoICB}>Administrator</p>
-                        </div>
-                    </div>
-                    <div className={`col-md-4`}>
-                        <div className={styles.insideContainerBox} style={{ backgroundColor: "#23272b" }}>
-                            <div className={styles.countICB}>700</div>
-                            <p className={styles.infoICB}>Staff</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            {/* Box Container */}
 
             <div style={{ marginTop: 30 }}>
                 <DataTableMD

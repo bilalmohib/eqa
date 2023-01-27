@@ -153,18 +153,16 @@ const Navbar: React.FC<NavProps> = ({
                         </div>
                     )}
                     &nbsp; &nbsp;
-                    <Box sx={{ display: "flex",ml:4}}>
+                    <Box className={`${styles.searchBoxNavbar}`}>
                         <Box>
                             <SearchIcon color="action" />
                         </Box>
-                        <div className={`${styles.searchBoxNavbar}`}>
-                            <input
-                                type="text"
-                                className='form-control'
-                                style={{ border: "none" }}
-                                placeholder='Search for anything'
-                            />
-                        </div>
+                        <input
+                            type="text"
+                            className='form-control'
+                            style={{ border: "none" }}
+                            placeholder='Search for anything'
+                        />
                     </Box>
                 </a>
                 <div>
