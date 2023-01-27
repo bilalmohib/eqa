@@ -1,11 +1,11 @@
 /* Main Container */
 .containerCustom {
-    /* border: 1px solid red; */
+    /* border: 5px solid red; */
     /* display: flex;
     flex-direction: row; */
     min-height: 100vh;
     height: auto;
-    padding-top: 10%;
+    padding-top: 10% !important;
     background: url(../../assets/Images/Home/login-background.png) no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
@@ -288,24 +288,28 @@ html[dir=rtl] .rightSide{
 /* when button is pressed hold */
 /******************************************** Right Side ***************************************/
 
-@media all and (max-height: 800px) {
-    .containerCustom {
-        padding-top: 8vh;
-    }
-}
-
 @media all and (max-width:1550px) {
     .containerCustom{
         padding-top: 20vh;
     }
     .leftSide {
         /* border: 2px solid rgb(128, 0, 0); */
-        padding-left: 5%;
+        /* padding-left: 5%; */
         /* padding-top: 15%; */
     }
 
     .rightSide {
         /* border: 2px solid rgb(255, 255, 255); */
+    }
+}
+
+@media all and (max-width:1399px){
+    .mobileTabLogin{
+        margin-left: -100px;
+    }
+    .desc_left_login {
+        font-size: 18px;
+        padding-right: 100px;
     }
 }
 
@@ -319,7 +323,7 @@ html[dir=rtl] .rightSide{
 
     .rightSide {
         /* border: 3px solid rgb(255, 255, 255); */
-        padding-left: 2%;
+        /* padding-left: 2%; */
     }
 }
 
@@ -343,12 +347,19 @@ html[dir=rtl] .rightSide{
 
     .desc_left_login {
         font-size: 18px;
+        padding-right: 200px;
     }
 
     .topContainerLeftLogin {
         /* border: 1px solid green; */
         padding-right: 20%;
         flex: 2;
+    }
+}
+
+@media all and (max-width:1199px){
+    .mobileTabLogin{
+        margin-left: -200px;
     }
 }
 
@@ -377,7 +388,10 @@ html[dir=rtl] .rightSide{
         flex-direction: row;
         justify-content: center;
         align-items: center;
-        padding-left: initial;
+        padding-left: 0px !important;
+        padding-right: 0px !important;
+        margin-left: 0px !important;
+        margin-right: 0px !important;
     }
 
     .topContainerLeftLogin {
@@ -397,6 +411,12 @@ html[dir=rtl] .rightSide{
 @media all and (max-width:900px){
     .announcementListContainer{
         width: 83%;
+    }
+}
+
+@media all and (max-height: 800px) {
+    .containerCustom {
+        padding-top: 8vh;
     }
 }
 
@@ -452,8 +472,9 @@ html[dir=rtl] .rightSide{
 }
 @media all and (max-width:550px) {
     .rightSide {
-        width: 90%;
-        margin-left: 5%;
+        width: 95% !important;
+        margin-left: 2.5% !important;
+        margin-right: 2.5% !important;
         /* border: 2px solid red; */
     }
 

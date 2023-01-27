@@ -91,9 +91,9 @@ const Header: FC<HeaderProps> = ({
     }
 
     return (
-        <header className={`container`}>
+        <header>
             <div className={styles.headerContainer}>
-                <div className={styles.logoMobileContainer}>
+                <div className={`${styles.logoMobileContainer} ${styles.leftContainer}`}>
                     <img
                         className={styles.logo}
                         src={logo}
@@ -101,7 +101,7 @@ const Header: FC<HeaderProps> = ({
                         title="EQA University"
                     />
                 </div>
-                <div className={`d-flex ${styles.mobileDropStyle}`}>
+                <div className={`d-flex ${styles.rightContainer} ${styles.mobileDropStyle}`}>
                     <div>
                         <div className="dropdown" title="Select a language for the site">
                             <div style={{ direction: "ltr" }} className={`${styles.langDropDown}`} id="dropdownMenuButtonForLangChange" data-mdb-toggle="dropdown" aria-expanded="false">
