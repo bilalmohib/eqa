@@ -60,7 +60,7 @@ html[dir=rtl] .form_inputs {
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }
 
-.infoInputs{
+.infoInputs {
     font-size: 14px;
     font-weight: 400;
     color: #ff0000;
@@ -69,7 +69,7 @@ html[dir=rtl] .form_inputs {
 }
 
 html[dir=rtl] .email {
-    padding-right: 20px;
+    /* padding-right: 20px; */
     padding-left: initial;
 }
 
@@ -91,7 +91,7 @@ html[dir=rtl] .email {
 }
 
 html[dir=rtl] .password {
-    padding-right: 20px;
+    /* padding-right: 20px; */
     padding-left: initial;
 }
 
@@ -99,6 +99,11 @@ html[dir=rtl] .password {
     margin-top: 4px;
     padding-left: 9px;
     transition: 0.3s linear;
+}
+
+html[dir=rtl] .formLabelStyles {
+    padding-right: 9px;
+    padding-left: initial;
 }
 
 /* Validated Styles */
@@ -191,7 +196,12 @@ html[dir=rtl] .rmt {
 
 @media all and (max-width:1150px) {
     .loginContainer {
+        /* margin-top: -12% !important;
+        border: 10px solid red; */
         width: 480px;
+        margin-bottom: 100px;
+        margin-left: 0% !important;
+        margin-right: 0% !important;
         /* padding-top: 50px;
         padding-bottom: 40px;
         border-radius: 10px;
@@ -199,17 +209,43 @@ html[dir=rtl] .rmt {
     }
 }
 
+@media all and (max-width:991px) {
+    .loginContainer {
+        /* margin-top: -16% !important;
+        border: 10px solid rgb(0, 8, 255); */
+    }
+}
+
+@media all and (max-width:767px){
+    .loginContainer {
+        /* margin-top: -21% !important;
+        border: 10px solid rgb(255, 0, 170); */
+    }
+}
+
 @media all and (max-width:750px) {
     .loginContainer {
         border-radius: 40px;
+        /* margin-top: -25% !important;
+        border: 10px solid rgb(255, 0, 170); */
+    }
+}
+
+@media all and (max-width:600px){
+    .loginContainer {
+        /* margin-top: -20% !important;
+        border: 10px solid rgb(68, 255, 0); */
     }
 }
 
 @media all and (max-width:550px) {
     .loginContainer {
         width: 100%;
+        /* border: 10px solid red !important; */
+        /* margin-top: -20% !important; */
         /* height: 560px; */
         /* margin-top: 180px; */
+        margin-top: 5% !important;
     }
 
     .logoRight {
@@ -240,6 +276,8 @@ html[dir=rtl] .rmt {
 
     .loginContainer {
         padding-top: 40px;
+        /* border: 10px solid red !important; */
+        /* margin-top: -24% !important; */
     }
 
     .rememberMeBlock {
@@ -260,8 +298,10 @@ html[dir=rtl] .rmt {
 
 @media all and (max-width:390px) {
     .loginContainer {
-        height: 530px;
+        min-height: 530px;
         padding-top: 20px;
+        border-radius: 30px;
+        margin-top: 8% !important;
     }
 
     .titleLoginAccount {
@@ -294,11 +334,16 @@ html[dir=rtl] .rmt {
         margin-top: 0px;
     }
 }
-
+@media all and (max-width:350px) {
+    .loginContainer{
+        margin-top: 12% !important;
+    }
+}
 @media all and (max-width:325px) {
     .loginContainer {
-        height: 510px;
+        min-height: 510px;
         padding-top: 20px;
+        margin-top: 15% !important;
     }
 
     .titleLoginAccount {

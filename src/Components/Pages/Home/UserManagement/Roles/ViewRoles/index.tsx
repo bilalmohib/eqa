@@ -81,7 +81,7 @@ const ViewRoles: React.FC<RolesProps> = ({
         >
             <div style={{ marginTop: 5 }} className={`${(windowSize[0] > 990) ? ("d-flex justify-content-between") : ("d-flex flex-column justify-content-start")}`}>
                 <div>
-                    EQA / User Management /<span style={{ color: "#4f747a" }}> Groups </span>
+                    EQA / User Management /<span style={{ color: "#4f747a" }}> Roles </span>
                 </div>
                 <div>
                     <span style={{ color: "#4f747a", paddingRight: 10 }}>{currentFormatedDate}</span>
@@ -176,8 +176,8 @@ const ViewRoles: React.FC<RolesProps> = ({
                         onClick={() => {
                             navigate("/usermanagement/roles/addrole");
                         }}
+                        startIcon={<AddIcon />}
                     >
-                        <AddIcon style={{ marginRight: 5 }} />
                         Add Role
                     </Button>
                 </div>

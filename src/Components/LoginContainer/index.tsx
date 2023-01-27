@@ -1,3 +1,5 @@
+import * as React from 'react';
+
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
@@ -7,16 +9,28 @@ import logo from '../../assets/Images/Login/login_logo.png';
 //Importing useTranslation and Trans from react-i18next
 import { useTranslation } from 'react-i18next';
 
+import {
+    TextField,
+    Checkbox,
+    FormControlLabel
+} from '@mui/material';
+
 // Importing CSS
 import styles from './style.module.css';
 
 const LoginContainer = () => {
     const navigate = useNavigate();
 
+    // Check if direction is rtl or not
+    const { i18n } = useTranslation();
+    const direction = i18n.dir();
+
     const { t } = useTranslation();
 
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
+
+    const [showPassword, setShowPassword] = useState<boolean>(false);
 
     const [validationStatusEmail, setValidationStatusEmail] = useState<boolean>(false);
     const [validationStatusPassword, setValidationStatusPassword] = useState<boolean>(false);
@@ -74,6 +88,12 @@ const LoginContainer = () => {
         }
     }, [password]);
 
+    const handleClickShowPassword = () => setShowPassword((show) => !show);
+
+    const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
+        event.preventDefault();
+    };
+
     const validateForm = () => {
         setValidateNow(true);
         if (email === "" && password === "") {
@@ -89,6 +109,8 @@ const LoginContainer = () => {
                 navigate("/")
             }
         }
+        setValidationStatusEmail(false);
+        setValidationStatusPassword(false);
         if (email.length !== 0 && (document.getElementById("userName") !== document.activeElement)) {
             // @ts-ignore
             document.getElementById("emailLabel").style = "display:none; !important";
@@ -103,6 +125,7 @@ const LoginContainer = () => {
 
     return (
         <form className={styles.loginContainer} action="return false" noValidate
+            autoComplete='off'
             onClick={
                 () => {
                     if (email.length === 0 && (document.getElementById("userName") !== document.activeElement)) {
@@ -156,8 +179,60 @@ const LoginContainer = () => {
                                     style={{ height: 50, paddingLeft: 21, paddingBottom: 10 }}
                                     id="userName"
                                 />
-                                {/* {(!validationStatusEmail) && (email.length === 0) && (<p className={styles.infoInputs}>Please fill out the email field</p>)} */}
                             </div>
+                            {/* <TextField
+                                dir={direction}
+                                id="username"
+                                label={t('login.rightSide.loginContainer.formInputs.userName.label')}
+                                // Change label color
+                                InputLabelProps={{
+                                    style: {
+                                        color: "#4b7579",
+                                        fontSize: 16,
+                                        fontFamily: "AppleSystemUIFont, Helvetica Neue, Helvetica, Arial, sans-serif",
+                                        fontWeight: 400,
+                                        direction: direction === "ltr" ? "ltr" : "rtl"
+                                    }
+                                }}
+                                placeholder="Enter username"
+                                variant="standard"
+                                type="text"
+                                helperText=""
+                                margin="normal"
+                                sx={{
+                                    width: '92%',
+                                    '& .MuiInput-underline:after': {
+                                        borderBottomColor: '#3E68A8',
+                                    },
+                                    '& .MuiOutlinedInput-root': {
+                                        '& fieldset': {
+                                            borderBottomColor: '#3E68A8',
+                                        },
+                                        '&:hover fieldset': {
+                                            borderBottomColor: '#3E68A8',
+                                            borderWidth: '0.15rem',
+                                        },
+                                        '&.Mui-focused fieldset': {
+                                            borderBottomColor: '#3E68A8',
+                                        },
+                                    },
+                                }}
+
+                                // Change the border color
+                                InputProps={{
+                                    style: {
+                                        color: "#4b7579",
+                                        fontSize: 16,
+                                        fontFamily: "AppleSystemUIFont, Helvetica Neue, Helvetica, Arial, sans-serif",
+                                        fontWeight: 400,
+                                        // borderBottom: "1px solid #4b7579"
+                                    }
+                                }}
+                            // fullWidth // t
+                            // InputProps={{
+
+                            // }}
+                            /> */}
                         </div>
                         <div style={{ marginTop: (!validationStatusEmail) ? (5) : (5) }}>
                             <label className={styles.label_info}>{t('login.rightSide.loginContainer.formInputs.password.label')}</label>
@@ -186,11 +261,65 @@ const LoginContainer = () => {
                                     style={{ height: 50, paddingLeft: 21, paddingBottom: 10 }}
                                     id="passwordInput"
                                 />
-                                {/* {(!validationStatusPassword) && (password.length === 0) && (<p className={styles.infoInputs}>Please fill out the password field</p>)} */}
-                                <label className={`form-label ${styles.formLabelStyles}`} id="passwordLabel" htmlFor="passwordInput">
-                                    Enter Password
-                                </label>
+                                {/* <label className={`form-label ${styles.formLabelStyles}`} id="passwordLabel"
+                                    style={{
+                                        direction: direction === "ltr" ? "ltr" : "rtl",
+                                    }}
+                                    htmlFor="passwordInput">
+                                    {t('login.rightSide.loginContainer.formInputs.password.label')}
+                                </label> */}
                             </div>
+                            {/* <TextField
+                                dir={
+                                    direction === "ltr" ? "ltr" : "rtl"
+                                }
+                                id="password"
+                                label={t('login.rightSide.loginContainer.formInputs.password.label')}
+                                // Change label color
+                                InputLabelProps={{
+                                    style: {
+                                        color: "#4b7579",
+                                        fontSize: 16,
+                                        fontFamily: "AppleSystemUIFont, Helvetica Neue, Helvetica, Arial, sans-serif",
+                                        fontWeight: 400,
+                                        direction: direction === "ltr" ? "ltr" : "rtl"
+                                    }
+                                }}
+                                placeholder={`${t('login.rightSide.loginContainer.formInputs.password.placeHolder')}`}
+                                variant="standard"
+                                type="password"
+                                helperText=""
+                                margin="normal"
+                                sx={{
+                                    width: '92%',
+                                    '& .MuiInput-underline:after': {
+                                        borderBottomColor: '#3E68A8',
+                                    },
+                                    '& .MuiOutlinedInput-root': {
+                                        '& fieldset': {
+                                            borderBottomColor: '#3E68A8',
+                                        },
+                                        '&:hover fieldset': {
+                                            borderBottomColor: '#3E68A8',
+                                            borderWidth: '0.15rem',
+                                        },
+                                        '&.Mui-focused fieldset': {
+                                            borderBottomColor: '#3E68A8',
+                                        },
+                                    },
+                                }}
+
+                                // Change the border color
+                                InputProps={{
+                                    style: {
+                                        color: "#4b7579",
+                                        fontSize: 16,
+                                        fontFamily: "AppleSystemUIFont, Helvetica Neue, Helvetica, Arial, sans-serif",
+                                        fontWeight: 400,
+                                        // borderBottom: "1px solid #4b7579"
+                                    }
+                                }}
+                            /> */}
                         </div>
                     </div>
                 ) : (
@@ -266,18 +395,50 @@ const LoginContainer = () => {
                 {/* VALIDATION ENDS HERE */}
 
                 {(validateNow === false) ? (
-                    <div style={{marginTop:30}}>
+                    <div style={{ marginTop: 30 }}>
                     </div>
                 ) : (
-                    <div style={{marginTop:30}}>
+                    <div style={{ marginTop: 30 }}>
                     </div>
                 )}
 
                 <div>
                     {/* Remember Me Checkbox */}
-                    <div className={`form-check ${styles.rememberMeBlock}`} style={{ marginTop: ((!validationStatusPassword)?(40):(0)) }}>
-                        <input type="checkbox" style={{ direction: "ltr",width:20,height:20 }} checked={isChecked} onClick={() => setIsChecked(!isChecked)} />
-                        <label className={`form-check-label ${styles.rmt}`} onClick={() => setIsChecked(!isChecked)}> {t('login.rightSide.loginContainer.formInputs.rememberMeText')}</label>
+                    <div className={`form-check ${styles.rememberMeBlock}`} style={{ marginTop: ((!validationStatusPassword) ? (40) : (0)) }}>
+                        {/* <input type="checkbox" style={{ direction: "ltr", width: 20, height: 20 }} checked={isChecked} onClick={() => setIsChecked(!isChecked)} />
+                         */}
+                        <FormControlLabel
+                            label={t('login.rightSide.loginContainer.formInputs.rememberMeText')}
+                            sx={{
+                                '& .MuiFormControlLabel-label': {
+                                    fontSize: "18px",
+                                    color: "#6bb6b5",
+                                    fontFamily: 'IRANSansWeb',
+                                    paddingLeft: (direction === "ltr") ? (2) : (0),
+                                    paddingRight: (direction === "rtl") ? (2) : (0),
+                                }
+                            }}
+                            value="rememberMe"
+                            control={
+                                <Checkbox
+                                    name="rememberMe"
+                                    checked={isChecked}
+                                    onChange={() => setIsChecked(!isChecked)}
+                                    sx={{
+                                        '& .MuiSvgIcon-root': {
+                                            fontSize: 25,
+                                            color: "#6bb6b5",
+                                        },
+                                        style: { direction: "ltr" },
+                                        /// CHECKBOX COLOR
+                                        '& .Mui-checked': {
+                                            color: "#6bb6b5",
+                                        },
+                                    }}
+                                />
+                            }
+                        />
+                        {/* <label className={`form-check-label ${styles.rmt}`} onClick={() => setIsChecked(!isChecked)}> {t('login.rightSide.loginContainer.formInputs.rememberMeText')}</label> */}
                     </div>
                     <button type='button' className={`btn ${styles.btn_login}`} onClick={validateForm}>
                         {t('login.rightSide.loginContainer.formInputs.btnLogin')}

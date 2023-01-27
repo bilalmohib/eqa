@@ -3,25 +3,28 @@
     justify-content: space-between;
     height: 100px;
     background-color: transparent;
-    width:72%;
+    width: 100%;
     padding-top: 2%;
     /* padding-left: 12%;
     padding-right: 12%; */
     position: fixed;
-    margin-left: -0.5%;
+    /* margin-left: -0.5%; */
+    /* border: 1px solid red; */
+    z-index: 2;
 }
 
-.dropDownContainer{
+.dropDownContainer {
     direction: ltr;
     display: flex;
     height: 25px;
     /* border: 1px solid red; */
 }
 
-.liElementDropDown{
+.liElementDropDown {
     border: 0.1px solid transparent !important;
 }
-.liElementDropDown:hover{
+
+.liElementDropDown:hover {
     background-color: #49748200 !important;
     border: 0.1px solid rgba(255, 255, 255, 0.179) !important;
     transition: 0.4s linear;
@@ -32,7 +35,8 @@
     padding-top: 2px;
     color: white;
 }
-.dropDownContainer p:hover{
+
+.dropDownContainer p:hover {
     /* color: #395a60; */
     transition: 0.4s linear;
 }
@@ -53,12 +57,27 @@ html:not([data-scroll="0"]) .headerContainer {
     background-color: #395a60;
 }
 
+/* Inside Left & Right Containers */
+.leftContainer {
+    /* border: 1px solid red; */
+    display: block;
+    margin-left: 13.2%;
+}
+
+.rightContainer {
+    /* border: 1px solid red; */
+    margin-right: 13.2%;
+    display: block;
+}
+
+/* Inside Left & Right Containers */
+
 .logo {
     display: block;
     width: 190px;
     height: 40px;
     user-select: none;
-    /* border: 1px solid black; */
+    /* border: 1px solid rgb(255, 0, 0); */
 }
 
 .langDropDown {
@@ -72,8 +91,16 @@ html:not([data-scroll="0"]) .headerContainer {
     padding-right: 20px;
     border-radius: 5px;
     user-select: none;
-    margin-right: 0px;
+    margin-right: 3px !important;
+    /* border: 1px solid red; */
     width: 70px;
+}
+
+[dir=rtl] .langDropDown {
+    /* padding-right: 10px;
+    padding-left: 20px; */
+    margin-right: 0px !important;
+    margin-left: 13px !important;
 }
 
 .langDropDown:active, .langDropDown:hover {
@@ -92,20 +119,32 @@ html:not([data-scroll="0"]) .headerContainer {
     margin-left: 5px;
     /* font-size: 18px; */
 }
-.menuDropDown{
+
+.menuDropDown {
     display: none;
 }
 
-.dropDownLang{
+.dropDownLang {
     background-color: rgba(255, 0, 0, 0) !important;
     border: 0.1px solid rgba(255, 255, 255, 0.179) !important;
 }
-.dropDownLang:hover{
+
+.dropDownLang:hover {
     background-color: rgba(255, 0, 0, 0) !important;
     color: #395a60 !important;
 }
 
-@media all and (max-width:1150px){
+@media all and (max-width:1450px){
+    .headerContainer {
+        padding-top: 2.5%;
+    }
+    
+}
+
+@media all and (max-width:1150px) {
+    .headerContainer {
+        padding-top: 3%;
+    }
     .menuDropDown {
         display: block;
         color: white;
@@ -117,10 +156,38 @@ html:not([data-scroll="0"]) .headerContainer {
         width: 50px;
         padding-left: 12px;
     }
+    html[dir=rtl] .menuDropDown {
+        padding-left: 0px;
+        padding-right: 10px;
+    }
 
     .menuDropDown:hover, .menuDropDown:active {
         background-color: #4974828b;
         transition: 0.4s linear;
+    }
+}
+
+@media all and (max-width: 1000px) {
+    .headerContainer {
+        padding-top: 3.5%;
+    }
+}
+
+@media all and (max-width: 850px) {
+    .headerContainer {
+        padding-top: 4%;
+    }
+}
+
+@media all and (max-width: 800px) {
+    .headerContainer {
+        padding-top: 4.5%;
+    }
+}
+
+@media all and (max-width: 700px) {
+    .headerContainer {
+        padding-top: 5%;
     }
 }
 
@@ -162,6 +229,40 @@ html:not([data-scroll="0"]) .headerContainer {
         justify-content: center;
         margin-top: 20px;
     }
+
+    /* Inside Left & Right Containers */
+    .leftContainer{
+        /* border: 1px solid red; */
+        display: block;
+        margin-left: 0% !important;
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+    html[dir=rtl] .leftContainer {
+        border: 1px solid rgb(0, 76, 255);
+        margin-right: 0% !important;
+        margin-left: 0% !important;
+        width: 100% !important;
+    }
+
+
+    .rightContainer {
+        /* border: 1px solid red; */
+        margin-right: 13.2%;
+        display: block;
+        width: 100%;
+    }
+
+    html[dir=rtl] .rightContainer {
+        border: 1px solid rgb(0, 76, 255);
+        margin-right: 0% !important;
+        margin-left: 0% !important;
+        width: 100% !important;
+    }
+
+    /* Inside Left & Right Containers */
 }
 
 @media all and (max-width:350px) {

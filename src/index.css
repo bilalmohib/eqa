@@ -21,11 +21,15 @@ input[type=text]:focus:not([readonly]),input[type=password]:focus:not([readonly]
   box-shadow: 0 0.5px 0 0 #aab9bb;
 } */
 
-.form-control:focus {
-  border: .125rem solid #4f747a !important;
+.form-control:focus:not([readonly]) {
+  border: .15rem solid #4f747a !important;
 }
 
-.form-control:focus~.form-notch .form-notch-trailing {
+.form-control {
+  border: inherit !important;
+}
+
+.form-control:focus:not([readonly])~.form-notch .form-notch-trailing {
   border: .125rem solid #4f747a !important;
 }
 
