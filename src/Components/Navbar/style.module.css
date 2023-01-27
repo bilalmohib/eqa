@@ -71,8 +71,9 @@
     transition: 0.1s linear;
     /* border-bottom: 0.2px solid #4f747a56; */
     border-radius: 0px;
-    display: flex;
+    /* display: flex; */
     margin-left: 20px;
+    margin-top: -5px;
 }
 
 .searchBoxNavbar:focus {
@@ -84,7 +85,7 @@
 }
 
 .searchBoxNavbar:active, .searchBoxNavbar:focus {
-    border-bottom: 0.2px solid #4f747a56;
+    /* border-bottom: 0.2px solid #4f747a56; */
     border-radius: 0px !important;
 }
 

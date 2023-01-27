@@ -91,7 +91,32 @@
 
 /* For Responsivenesss */
 
+@media all and (max-width:1400px){
+    .containerBoxes {
+        /* border: 1px solid red; */
+        width: 96% !important;
+    }
+}
+
+@media all and (max-width:1100px){
+    .containerBoxes {
+        /* border: 1px solid rgb(17, 0, 255); */
+        width: 95% !important;
+    }
+}
+
+@media all and (max-width:900px){
+    .containerBoxes {
+        /* border: 1px solid rgb(38, 255, 0); */
+        width: 94% !important;
+    }
+}
+
 @media all and (max-width:870px) {
+    .containerBoxes {
+        /* border: 1px solid rgb(38, 255, 0); */
+        width: 93.5% !important;
+    }
     .insideContainerBox {
         /* border: 1px solid black; */
         height: 170px;
@@ -99,6 +124,10 @@
 }
 
 @media all and (max-width:767px) {
+    .containerBoxes {
+        /* border: 1px solid rgb(38, 255, 0); */
+        width: 93% !important;
+    }
     .insideContainerBox {
         /* border: 1px solid rgb(255, 0, 0); */
         height: 100px;
@@ -118,6 +147,10 @@
 }
 
 @media all and (max-width:600px){
+    .containerBoxes {
+        /* border: 1px solid rgb(255, 0, 0); */
+        width: 92% !important;
+    }
     .insideContainerBox{
         border-radius: 0px;
         height: 80px;
@@ -136,6 +169,13 @@
         color: white;
         font-weight: normal;
         margin-top: -10px;
+    }
+}
+
+@media all and (max-width:500px){
+    .containerBoxes {
+        /* border: 1px solid rgb(0, 136, 255); */
+        width: 89% !important;
     }
 }
 

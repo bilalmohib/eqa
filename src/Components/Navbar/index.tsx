@@ -28,7 +28,8 @@ import {
     CircularProgress,
     Box,
     Typography,
-    Link
+    Link,
+    TextField
 } from "@mui/material";
 
 interface NavProps {
@@ -66,6 +67,8 @@ const Navbar: React.FC<NavProps> = ({
     });
 
     const [selectedDay, setSelectedDay] = useState<any>(null);
+
+    const [searchValue, setSearchValue] = useState<string>("");
 
     const [currentNotificationActiveTab, setCurrentNotificationActiveTab] = useState<Number>(1);
 
@@ -160,7 +163,7 @@ const Navbar: React.FC<NavProps> = ({
                     )}
                     &nbsp; &nbsp;
                     <Box className={`${styles.searchBoxNavbar}`}>
-                        <Box>
+                        {/* <Box>
                             <SearchIcon color="action" />
                         </Box>
                         <input
@@ -168,6 +171,38 @@ const Navbar: React.FC<NavProps> = ({
                             className='form-control'
                             style={{ border: "none" }}
                             placeholder='Search for anything'
+                        /> */}
+                        <TextField
+                            variant="standard" // <== changed this
+                            margin="normal"
+                            // fullWidth
+                            id="search"
+                            name="search"
+                            autoComplete="search"
+                            // autoFocus
+                            value={searchValue}
+                            sx={{
+                                // Focus the input
+                                '&:focus': {
+                                    border: "none",
+                                },
+                                // Add padding of text from left side
+                                '& .MuiInputBase-input': {
+                                    paddingLeft: '0.5rem',
+                                },
+                            }}
+                            onChange={(e) => setSearchValue(e.target.value)}
+                            placeholder='Search for anything'
+                            InputProps={{
+                                startAdornment: <SearchIcon color="action" />, 
+                                // For hiding the underline
+                                disableUnderline: true,
+                                style: { 
+                                    border: "none", 
+                                    // Add padding of text from left side
+                                },
+                           
+                            }}
                         />
                     </Box>
                 </a>
