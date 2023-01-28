@@ -9,6 +9,8 @@ import { FiChevronDown, FiSettings } from "react-icons/fi";
 import { FaRegComments } from "react-icons/fa";
 import { useNavigate } from 'react-router';
 
+import ButtonBase from '@mui/material/ButtonBase';
+
 // Importing logo
 import logo from "../../assets/Images/Navbar/logo.png";
 
@@ -60,6 +62,29 @@ const Sidebar: React.FC<SidebarProps> = ({
             searchFilterInput.focus();
         }
     });
+
+    function createRipple(event:
+        any
+    ) {
+        const button = event.currentTarget;
+
+        const circle = document.createElement("span");
+        const diameter = Math.max(button.clientWidth, button.clientHeight);
+        const radius = diameter / 2;
+
+        circle.style.width = circle.style.height = `${diameter}px`;
+        circle.style.marginLeft = `${event.clientX - button.offsetLeft - radius}px`;
+        circle.style.marginTop = `${event.clientY - button.offsetTop - radius}px`;
+        circle.classList.add("ripple");
+
+        const ripple = button.getElementsByClassName("ripple")[0];
+
+        if (ripple) {
+            ripple.remove();
+        }
+
+        button.appendChild(circle);
+    }
 
     useEffect(() => {
         if (searchTextSidebar !== "") {
@@ -192,10 +217,11 @@ const Sidebar: React.FC<SidebarProps> = ({
                                     <li key={index}>
                                         <li
                                             className={
-                                                `${(currentMenuItem === index + 1) ? (styles.selected_Menu_Item) : ("")} ${(isMinified) && (styles.listItemMinified)}`
+                                                `${(currentMenuItem === index + 1) ? (`ripple ${styles.selected_Menu_Item}`) : ("")} ${(isMinified) && (styles.listItemMinified)}`
                                             }
                                             style={{ cursor: (isMinified) ? ("default") : ("pointer") }}
-                                            onClick={() => {
+                                            onClick={(e: any) => {
+                                                createRipple(e);
                                                 if (isMinified === false) {
                                                     setCurrentMenuItem(index + 1);
                                                     // navigate('/');
