@@ -81,7 +81,7 @@ const Navbar: React.FC<NavProps> = ({
     return (
         <nav className={`navbar navbar-expand-lg navbar-light ${styles.nav_bar} ${(isOpen === true) ? (`${(!isMinified) ? (styles.isSideOpen) : (styles.isSideOpenMinified)}`) : (styles.isSideClose)} ${(windowSize[0] < 991 && isOpen) ? ("") : ("")}`}
             onClick={() => {
-                if (windowSize[0] < 991) {
+                if (windowSize[0] < 991 && isOpen) {
                     setIsOpen(!isOpen);
                 }
             }}
