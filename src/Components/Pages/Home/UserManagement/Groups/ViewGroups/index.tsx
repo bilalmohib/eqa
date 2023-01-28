@@ -153,7 +153,7 @@ const ViewGroups: React.FC<GroupsProps> = ({
                 />
             </div>
 
-            <br />
+            <br /> <br /> <br />
         </div>
     )
 }

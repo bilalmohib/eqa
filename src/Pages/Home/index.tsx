@@ -223,6 +223,7 @@ const Home = ({
 
                             // For simple open/close sidebar
                             isOpen={isOpen}
+                            setIsOpen={setIsOpen}
 
                             // For minified sidebar
                             isMinified={isMinified}
@@ -235,7 +236,7 @@ const Home = ({
                         {subComponent}
                     </div>
                 </div>
-                
+
                 <Footer />
             </main>
         </div>

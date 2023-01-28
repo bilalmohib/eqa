@@ -210,7 +210,7 @@ const AssessmentDashboard: React.FC<AssessmentDashboardProps> = ({
                 />
             </div>
 
-            <br />
+            <br /><br /> <br />
         </div>
     )
 }
