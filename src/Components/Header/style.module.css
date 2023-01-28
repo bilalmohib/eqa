@@ -204,8 +204,11 @@ html[dir=rtl] .rightContainer {
 /* For responsiveness */
 @media all and (max-width: 600px) {
     .headerContainer {
-        padding-left: 2%;
-        padding-right: 2%;
+        width:100% !important;
+        padding-left: 0%;
+        padding-right: 0%;
+        margin-left: 0%;
+        margin-right: 0%;
         /* border: 1px solid red; */
         flex-direction: column-reverse;
         height: auto;
@@ -251,7 +254,7 @@ html[dir=rtl] .rightContainer {
         justify-content: center;
     }
     html[dir=rtl] .leftContainer {
-        border: 1px solid rgb(0, 76, 255);
+        /* border: 1px solid rgb(0, 76, 255); */
         margin-right: 0% !important;
         margin-left: 0% !important;
         width: 100% !important;
@@ -259,14 +262,14 @@ html[dir=rtl] .rightContainer {
 
 
     .rightContainer {
-        /* border: 1px solid red; */
+        /* border: 1px solid rgb(149, 255, 0); */
         margin-right: 13.2%;
         display: block;
         width: 100%;
     }
 
     html[dir=rtl] .rightContainer {
-        border: 1px solid rgb(0, 76, 255);
+        /* border: 1px solid rgb(0, 76, 255); */
         margin-right: 0% !important;
         margin-left: 0% !important;
         width: 100% !important;
