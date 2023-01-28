@@ -204,7 +204,7 @@
 
 @media all and (max-width:400px){
     .containerBoxes {
-        border: 1px solid rgb(0, 30, 255);
+        /* border: 1px solid rgb(0, 30, 255); */
         width: 86% !important;
     }
 }

@@ -284,6 +284,8 @@ const Groups: React.FC<GroupsProps> = ({
             {/* Rendering settings items using map */}
             <br />
             <br />
+            <br />
+            <br />
         </div>
     )
 }

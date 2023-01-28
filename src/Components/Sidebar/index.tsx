@@ -9,8 +9,6 @@ import { FiChevronDown, FiSettings } from "react-icons/fi";
 import { FaRegComments } from "react-icons/fa";
 import { useNavigate } from 'react-router';
 
-import ButtonBase from '@mui/material/ButtonBase';
-
 // Importing logo
 import logo from "../../assets/Images/Navbar/logo.png";
 
@@ -22,6 +20,8 @@ import styles from './style.module.css';
 interface SidebarProps {
     // For hiding the sidebar 
     isOpen: Boolean,
+    setIsOpen: any,
+
     // For minifying the sidebar
     isMinified: Boolean,
 
@@ -39,6 +39,8 @@ interface SidebarProps {
 
 const Sidebar: React.FC<SidebarProps> = ({
     isOpen,
+    setIsOpen,
+    // For minifying the sidebar
     isMinified,
     // Current Menu Item
     currentMenuItem,
@@ -49,6 +51,25 @@ const Sidebar: React.FC<SidebarProps> = ({
     // Sidebar Menu Items Array
     sidebarList
 }) => {
+
+    // For detecting the window size
+    const [windowSize, setWindowSize] = useState([
+        window.innerWidth,
+        window.innerHeight,
+    ]);
+
+    useEffect(() => {
+        const handleWindowResize = () => {
+            setWindowSize([window.innerWidth, window.innerHeight]);
+        };
+
+        window.addEventListener('resize', handleWindowResize);
+
+        return () => {
+            window.removeEventListener('resize', handleWindowResize);
+        };
+    });
+    // For detecting the window size
 
     const [menuItemsArrayState, setMenuItemsArrayState] = useState<any>(sidebarList);
 
@@ -282,6 +303,12 @@ const Sidebar: React.FC<SidebarProps> = ({
                                                                     onClick={() => {
                                                                         // Navigate to the link
                                                                         navigate(subItem.link);
+
+                                                                        if (
+                                                                            windowSize[0] <= 990
+                                                                        ) {
+                                                                            setIsOpen(false);
+                                                                        }
 
                                                                         // Set the current menu item
                                                                         if (isMinified) {

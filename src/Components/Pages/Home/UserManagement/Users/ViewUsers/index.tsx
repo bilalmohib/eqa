@@ -221,7 +221,7 @@ const ViewUsers: React.FC<UserProps> = ({
                     tableTitle={`<b style={{ fontWeight: "bold" }}>Users</b> <i>List</i>`}
                 />
             </div>
-
+<br /><br />
             <br />
         </div>
     )

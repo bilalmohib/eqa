@@ -296,7 +296,7 @@ const CustomTableCrud: FC<CustomTableProps> = ({
                                 onClick={() => setCreateModalOpen(true)}
                                 variant="outlined"
                             >
-                                {buttonTitle}
+                                +
                             </Button>
                         )}
                     />
@@ -332,29 +332,29 @@ const CustomTableCrud: FC<CustomTableProps> = ({
                                 </Tooltip>
                             </Box>
                         )}
-                        renderTopToolbarCustomActions={() => (
-                            <Button
-                                color="primary"
-                                onClick={() => setCreateModalOpen(true)}
-                                variant="outlined"
-                                sx={{
-                                    backgroundColor: "#e79f43",
-                                    border: "1px solid #e79f43",
-                                    color:"white",
-                                    // textTransform: "none",
-                                    fontWeight: "bold",
-                                    height: 40,
-                                    mt: 1,
-                                    "&:hover": {
-                                        backgroundColor: "#e79f43",
-                                        border: "1px solid #e79f43",
-                                        color:"white"
-                                    }
-                                }}
-                            >
-                                {buttonTitle}
-                            </Button>
-                        )}
+                        // renderTopToolbarCustomActions={() => (
+                        //     <Button
+                        //         color="primary"
+                        //         onClick={() => setCreateModalOpen(true)}
+                        //         variant="outlined"
+                        //         sx={{
+                        //             backgroundColor: "#e79f43",
+                        //             border: "1px solid #e79f43",
+                        //             color:"white",
+                        //             // textTransform: "none",
+                        //             fontWeight: "bold",
+                        //             height: 40,
+                        //             mt: 1,
+                        //             "&:hover": {
+                        //                 backgroundColor: "#e79f43",
+                        //                 border: "1px solid #e79f43",
+                        //                 color:"white"
+                        //             }
+                        //         }}
+                        //     >
+                        //         {buttonTitle}
+                        //     </Button>
+                        // )}
                     />
                 )}
                 <CreateNewAccountModal
