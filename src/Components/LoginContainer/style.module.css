@@ -275,6 +275,12 @@ html[dir=rtl] .rmt {
         margin-right: 10%;
     }
 
+    html[dir=rtl] .titleLoginAccount {
+        margin-left: 10%;
+        width: 80%;
+        margin-right: 10%;
+    }
+
     .loginContainer {
         padding-top: 40px;
         /* border: 10px solid red !important; */
@@ -288,12 +294,29 @@ html[dir=rtl] .rmt {
         display: flex;
     }
 
+    html[dir=rtl] .rememberMeBlock {
+        /* border: 1px solid red; */
+        width: 100%;
+        padding-right: 0%;
+        display: flex;
+    }
+
     .rmt {
         /* border: 1px solid rgb(134, 13, 13); */
         width: 100%;
         /* padding-right: 10%;
         padding-left: 2%; */
         padding-right: 2%;
+    }
+
+
+    html[dir=rtl] .rmt {
+        /* border: 1px solid rgb(134, 13, 13); */
+        width: 100%;
+        /* padding-right: 10%;
+        padding-left: 2%; */
+        padding-left: 2%;
+        padding-right: 0%;
     }
 }
 
