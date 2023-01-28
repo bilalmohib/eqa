@@ -19,6 +19,7 @@ import CustomTableCrud from "./CustomTableCrud";
 
 // Importing Styles
 import styles from "./style.module.css";
+import { ButtonBase } from "@mui/material";
 
 // Creating Button Ripples
 const ButtonRipples = createRipples({
@@ -59,12 +60,12 @@ const DataTableMD: FC<DataTableMDProps> = ({
                 </section>
                 <section className={styles.headerRight}>
                     <div className={styles.headerButtonContainer}>
-                        <div className={styles.btnControls} style={{ backgroundColor: "#6cc561" }}>
-                        </div>
-                        <div className={styles.btnControls} style={{ backgroundColor: "#ffcc9f" }}>
-                        </div>
-                        <div className={styles.btnControls} style={{ backgroundColor: "#ff5969" }}>
-                        </div>
+                        <ButtonBase className={styles.btnControls} style={{ backgroundColor: "#6cc561" }}>
+                        </ButtonBase>
+                        <ButtonBase className={styles.btnControls} style={{ backgroundColor: "#ffcc9f" }}>
+                        </ButtonBase>
+                        <ButtonBase className={styles.btnControls} style={{ backgroundColor: "#ff5969" }}>
+                        </ButtonBase>
                     </div>
                     <div className={styles.btnDropDownTableBtn}>
                         <div className="dropdown">
