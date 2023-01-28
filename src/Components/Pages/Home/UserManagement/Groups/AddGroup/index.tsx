@@ -63,6 +63,18 @@ const AddGroup: React.FC<UserProps> = ({
         window.innerHeight,
     ]);
 
+    useEffect(() => {
+        const handleWindowResize = () => {
+            setWindowSize([window.innerWidth, window.innerHeight]);
+        };
+
+        window.addEventListener('resize', handleWindowResize);
+
+        return () => {
+            window.removeEventListener('resize', handleWindowResize);
+        };
+    });
+
     interface FilmOptionType {
         title: string;
         year: number;
@@ -109,18 +121,6 @@ const AddGroup: React.FC<UserProps> = ({
     const { group1, group2 } = assignGroupState;
     const error = [group1, group2].filter((v) => v).length !== 2;
     // Assign group checkboxes
-
-    useEffect(() => {
-        const handleWindowResize = () => {
-            setWindowSize([window.innerWidth, window.innerHeight]);
-        };
-
-        window.addEventListener('resize', handleWindowResize);
-
-        return () => {
-            window.removeEventListener('resize', handleWindowResize);
-        };
-    });
 
     return (
         <Box

@@ -1,4 +1,4 @@
-import { FC, useEffect } from "react";
+import { FC, useState,useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
 import { ImFacebook2, ImGoogle2 } from "react-icons/im";
@@ -50,6 +50,23 @@ const Login2: FC<LoginProps> = ({
         }
     }, [location, setShowHeader]);
 
+    const [windowSize, setWindowSize] = useState([
+        window.innerWidth,
+        window.innerHeight,
+    ]);
+
+    useEffect(() => {
+        const handleWindowResize = () => {
+            setWindowSize([window.innerWidth, window.innerHeight]);
+        };
+
+        window.addEventListener('resize', handleWindowResize);
+
+        return () => {
+            window.removeEventListener('resize', handleWindowResize);
+        };
+    });
+
     return (
         <div className={`${styles.containerCustom}`}>
             <div className="container">
@@ -93,7 +110,7 @@ const Login2: FC<LoginProps> = ({
                         <section className={`${(mobileViewContainer === "About" || mobileViewContainer === "Announcement") ? ("") : (styles.hideForMobile)}`}>
                             {(currentTab === 1) ? (
                                 <div className={`${(mobileViewContainer === "About") ? ("") : (styles.hideForMobile)} ${styles.aboutContainer}`}>
-                                    <h1 className={styles.heading_info_login} >
+                                    <h1 className={styles.heading_info_login}>
                                         {t('login.leftSide.tabs.aboutus.title')}
                                     </h1>
                                     <p className={styles.bottom_desc_login}>
@@ -177,7 +194,14 @@ const Login2: FC<LoginProps> = ({
                 <div className="row">
                     <div className="col-md-12">
                         {/* Define a footer here with content copyright@2021 by EQA */}
-                        <footer style={{ color: "white", marginTop: 50, marginBottom: 50, textAlign: "center" }}>
+                        <footer
+                            style={{
+                                color: "white",
+                                marginTop: window.innerWidth > 600 ? 40 : 20,
+                                marginBottom: window.innerWidth > 600 ? 40 : 20,
+                                textAlign: "center"
+                            }}
+                        >
                             <span
                                 style={
                                     {
@@ -185,8 +209,12 @@ const Login2: FC<LoginProps> = ({
                                         color: "#e59d43"
                                     }
                                 }
-                            >All rights reserved © EQA 2023.</span>
+                            >
+                                All rights reserved © EQA 2023.
+                            </span>
+
                             <br />
+
                             <span
                                 style={
                                     {
@@ -194,7 +222,9 @@ const Login2: FC<LoginProps> = ({
                                         color: "lightgrey"
                                     }
                                 }
-                            >Connect with us: info@eqa.com | Follow us on social media for updates and promotions</span>
+                            >
+                                Connect with us: info@eqa.com | Follow us on social media for updates and promotions
+                            </span>
                         </footer>
                     </div>
                 </div>

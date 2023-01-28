@@ -145,6 +145,20 @@ html[dir=rtl] .announcementSubContainer {
     padding-right: 5%;
 }
 
+.descDAnnouncementSC {
+    /* border: 1px solid rgb(0, 140, 255); */
+    margin-top: -15px;
+    font-size: 12px;
+    line-height: 15px;
+    padding-right: 30%;
+}
+
+html[dir=rtl] .descDAnnouncementSC {
+    padding-left: 20% !important;
+    padding-right: 0%;
+
+}
+
 .leftAnnouncementSubContainer {
     /* border: 1px solid red; */
     width: 25%;
@@ -186,19 +200,6 @@ html[dir=rtl] .rightAnnouncementSubContainer {
     font-size: 15px;
     font-weight: bold;
     margin-top: 5px;
-}
-
-.descDAnnouncementSC {
-    /* border: 1px solid rgb(0, 140, 255); */
-    margin-top: -15px;
-    font-size: 12px;
-    line-height: 15px;
-    padding-right: 30%;
-}
-
-html[dir=rtl] .descDAnnouncementSC {
-    padding-left: 20% !important;
-    padding-right: 0%;
 }
 
 .left_heading_about {
@@ -382,6 +383,7 @@ html[dir=rtl] .rightSide {
     .desc_left_login {
         font-size: 18px;
         padding-right: 200px;
+        /* border: 2px solid red; */
     }
 
     .topContainerLeftLogin {
@@ -403,12 +405,16 @@ html[dir=rtl] .rightSide {
 
 @media all and (max-width:1199px) {
     .mobileTabLogin {
-        margin-left: -200px;
+        margin-left: -170px;
     }
 
     html[dir=rtl] .mobileTabLogin {
-        margin-right: -200px;
+        margin-right: -170px;
         margin-left: 0px;
+    }
+    .announcementListContainer {
+        width: 95%;
+        height: 530px;
     }
 }
 
@@ -423,27 +429,42 @@ html[dir=rtl] .rightSide {
     }
 
     .announcementListContainer {
-        width: 80%;
+        width: 100%;
         height: 530px;
     }
 
     .leftSide {
-        width: 100%;
+        width: 80%;
         /* padding-top: 8%; */
-        padding-bottom: 80px;
-        padding-left: 13%;
+        padding-bottom: 30px;
+        margin-top: 30px;
+        padding-left: 0px !important;
+        padding-right: 0px !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+        /* border: 2px solid rgb(21, 0, 255); */
+    }
+
+    .containerCustom{
+        /* border: 1px solid red; */
+        display: flex;
+    }
+    .aboutContainer{
+        width: 100%;
+        /* border: 2px solid red; */
     }
 
     .rightSide {
-        width: 100%;
+        width: 100% !important;
         display: flex;
         flex-direction: row;
         justify-content: center;
         align-items: center;
         padding-left: 0px !important;
         padding-right: 0px !important;
-        margin-left: 0px !important;
-        margin-right: 0px !important;
+        margin-left: 0% !important;
+        margin-right: 0% !important;
+        /* border: 2px solid red; */
     }
 
     html[dir=rtl] .leftSide {
@@ -464,15 +485,32 @@ html[dir=rtl] .rightSide {
 
     /* Main Container */
     .containerCustom {
-        /* border: 1px solid red; */
+        /* border: 10px solid rgb(255, 0, 21); */
+        margin-left: 0% !important;
+        margin-right: 0% !important;
+        padding-left: 0% !important;
+        padding-right: 0% !important;
         flex-direction: column-reverse;
         height: auto;
     }
+
+    .desc_left_login {
+        padding-right:initial;
+        /* border: 2px solid rgb(0, 157, 255); */
+    }
+    html[dir=rtl] .desc_left_login {
+        padding-left:initial;
+        padding-right:initial;
+    }
+
+    .heading_info_login {
+        margin-top: 0px;
+            }
 }
 
 @media all and (max-width:900px) {
     .announcementListContainer {
-        width: 83%;
+        width: 100%;
     }
 }
 
@@ -493,24 +531,57 @@ html[dir=rtl] .rightSide {
     }
 }
 
+@media all and (max-width:800px) {
+    .leftSide {
+        width: 200% !important;
+        margin-top: 50px;
+        padding-left: 0px !important;
+        padding-right: 0px !important;
+        margin-left: 0px !important;
+        margin-right: 0px !important;
+        /* border: 2px solid rgb(174, 255, 0); */
+    }
+}
+
+@media screen and (max-width:767px) {
+    .dateCountAnnouncementSC {
+        font-size: 22px;
+    }
+    .dateMonthAnnouncementSC {
+        font-size: 15px;
+        padding-top: 2px;
+    }
+}
+
 @media screen and (max-width:750px) {
-    .announcementListContainer {
+    .announcementListContainer,.aboutContainer {
         width: 100%;
+        /* border: 2px solid red; */
     }
 
     .leftSide {
-        padding-left: 5%;
-        padding-right: 5%;
+        width: 95% !important;
+        margin-top: 40px;
+        padding-left: 0px !important;
+        padding-right:0px !important;
+        margin-left: 2.5% !important;
+        margin-right: 2.5% !important;
+        /* border: 2px solid rgb(174, 255, 0); */
     }
 
     html[dir=rtl] .leftSide {
-        padding-left: 5%;
-        padding-right: 5%;
+        width: 95% !important;
+        margin-top: 40px;
+        padding-left: 0px !important;
+        padding-right:0px !important;
+        margin-left: 2.5% !important;
+        margin-right: 2.5% !important;
+        /* border: 2px solid rgb(174, 255, 0); */
     }
 
     .rightSide {
         /* margin-top: 40px; */
-        /* width: 100%; */
+        width: 100%;
         padding-top: 20px;
         /* border: 2px solid red; */
         display: flex;
@@ -552,6 +623,56 @@ html[dir=rtl] .rightSide {
     }
 }
 
+@media all and (max-width:600px){
+    .topContainerLeftLogin{
+        margin-top: 40px;
+    }
+    .rightSide{
+        /* margin-top: 50px; */
+        padding-left: 0px !important;
+        padding-right:0px !important;
+        margin-left: 0% !important;
+        margin-right: 0% !important;
+        /* border: 2px solid rgb(255, 0, 0) !important; */
+    }
+    .leftSide {
+        width: 84% !important;
+        margin-top: 90px !important;
+        padding-left: 0px !important;
+        padding-right:0px !important;
+        margin-left: 8% !important;
+        margin-right: 8% !important;
+        /* border: 2px solid rgb(34, 0, 255); */
+    }
+    html[dir=rtl] .leftSide{
+        width: 84% !important;
+        margin-top: 90px !important;
+        padding-left: 0px !important;
+        padding-right:0px !important;
+        margin-left: 8% !important;
+        margin-right: 8% !important;
+        /* border: 2px solid rgb(34, 0, 255); */
+    }
+
+    .containerCustom{
+        margin-right: 0px !important;
+        margin-left: 0px !important;
+        padding-left: 0px !important;
+        padding-right: 0px !important;
+        width: 100% !important;
+        /* border: 2px solid rgb(81, 255, 0); */
+    }
+
+    .heading_info_login {
+margin-top: 0px;
+    }
+
+    .bottom_desc_login {
+        /* border: 1px solid red; */
+        margin-top: 5px;
+    }
+}
+
 @media all and (max-width:550px) {
     .rightSide {
         width: 95% !important;
@@ -574,6 +695,11 @@ html[dir=rtl] .rightSide {
 }
 
 @media all and (max-width:480px) {
+
+    .topContainerLeftLogin{
+        margin-top: 50px !important;
+    }
+
     .announcementSubContainer {
         height: 100px;
         padding-top: 7px;
@@ -585,7 +711,7 @@ html[dir=rtl] .rightSide {
 
     html[dir=rtl] .leftAnnouncementSubContainer {
         padding-left: 0%;
-        padding-right: 10%;
+        padding-right: 5%;
     }
 
     .dateCountAnnouncementSC {
@@ -596,6 +722,21 @@ html[dir=rtl] .rightSide {
         /* border: 1px solid red; */
         line-height: 20px;
         padding-top: 10px;
+    }
+    
+    html[dir=rtl] .announcementSubContainer {
+        padding-right: 0%;
+    }
+    
+    .descDAnnouncementSC {
+        /* border: 1px solid rgb(0, 140, 255); */
+        padding-right: 2%;
+    }
+    
+    html[dir=rtl] .descDAnnouncementSC {
+        padding-left: 2% !important;
+        padding-right: 0%;
+    
     }
 }
 
@@ -615,23 +756,25 @@ html[dir=rtl] .rightSide {
 
 @media all and (max-width:390px) {
     .announcementSubContainer {
-        height: 135px;
+        height: 115px;
         padding-top: 10px;
     }
 
     .rightAnnouncementSubContainer {
-        padding-right: 10%;
+        padding-right: 0%;
+        padding-left: 2%;
+        /* border: 1px solid red; */
     }
 
     html[dir=rtl] .rightAnnouncementSubContainer {
-        padding-left: 10%;
-        padding-right: 0%;
+        padding-left: 0%;
+        padding-right: 2%;
     }
 }
 
 @media all and (max-width:350px) {
     .announcementSubContainer {
-        height: 140px;
+        height: 130px;
         padding-top: 12px;
     }
 }
