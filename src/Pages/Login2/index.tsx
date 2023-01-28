@@ -174,6 +174,30 @@ const Login2: FC<LoginProps> = ({
                         <LoginContainer />
                     </div>
                 </div>
+                <div className="row">
+                    <div className="col-md-12">
+                        {/* Define a footer here with content copyright@2021 by EQA */}
+                        <footer style={{ color: "white", marginTop: 50, marginBottom: 50, textAlign: "center" }}>
+                            <span
+                                style={
+                                    {
+                                        fontSize: (window.innerWidth > 600) ? (20) : (12),
+                                        color: "#e59d43"
+                                    }
+                                }
+                            >All rights reserved © EQA 2023.</span>
+                            <br />
+                            <span
+                                style={
+                                    {
+                                        fontSize: 12,
+                                        color: "lightgrey"
+                                    }
+                                }
+                            >Connect with us: info@eqa.com | Follow us on social media for updates and promotions</span>
+                        </footer>
+                    </div>
+                </div>
             </div>
         </div>
     )

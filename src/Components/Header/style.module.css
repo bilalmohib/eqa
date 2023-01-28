@@ -70,6 +70,16 @@ html:not([data-scroll="0"]) .headerContainer {
     display: block;
 }
 
+html[dir=rtl] .leftContainer {
+    margin-left: 0px;
+    margin-right: 13.2%;
+}
+
+html[dir=rtl] .rightContainer {
+    margin-right: 0px;
+    margin-left: 13.2%;
+}
+
 /* Inside Left & Right Containers */
 
 .logo {

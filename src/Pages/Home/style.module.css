@@ -5,6 +5,7 @@
     transition: 0.1s linear;
     width: calc(100% - 270px) !important;
     margin-top: 67px;
+    margin-bottom: 50px;
 }
 
 .onSideClose {

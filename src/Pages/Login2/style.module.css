@@ -26,7 +26,8 @@
     /* padding-top: 14%; */
     /* border: 1px solid red; */
 }
-html[dir=rtl] .leftSide{
+
+html[dir=rtl] .leftSide {
     /* padding-right: 7%; */
 }
 
@@ -108,7 +109,8 @@ html[dir=rtl] .leftSide{
     overflow-y: auto;
     /* margin-right: 50px; */
 }
-html[dir='rtl'] .announcementListContainer{
+
+html[dir='rtl'] .announcementListContainer {
     /* margin-right: 15%; */
 }
 
@@ -138,7 +140,8 @@ html[dir='rtl'] .announcementListContainer{
     border: 1px solid white;
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }
-html[dir=rtl] .announcementSubContainer{
+
+html[dir=rtl] .announcementSubContainer {
     padding-right: 5%;
 }
 
@@ -149,11 +152,12 @@ html[dir=rtl] .announcementSubContainer{
     color: #ffffff;
     padding-top: 5px;
 }
-html[dir=rtl] .leftAnnouncementSubContainer{
+
+html[dir=rtl] .leftAnnouncementSubContainer {
     /* border: 1px solid red; */
     padding-right: 2%;
     width: 20%;
-    
+
 }
 
 .dateCountAnnouncementSC {
@@ -172,7 +176,8 @@ html[dir=rtl] .leftAnnouncementSubContainer{
     width: 75%;
     color: #ffffff;
 }
-html[dir=rtl] .rightAnnouncementSubContainer{
+
+html[dir=rtl] .rightAnnouncementSubContainer {
     /* border: 1px solid red; */
 }
 
@@ -190,7 +195,8 @@ html[dir=rtl] .rightAnnouncementSubContainer{
     line-height: 15px;
     padding-right: 30%;
 }
-html[dir=rtl] .descDAnnouncementSC{
+
+html[dir=rtl] .descDAnnouncementSC {
     padding-left: 20% !important;
     padding-right: 0%;
 }
@@ -226,7 +232,7 @@ html[dir=rtl] .descDAnnouncementSC{
     margin-top: 15px;
 }
 
-.bottomContainerTopContainer{
+.bottomContainerTopContainer {
     /* padding-right: 15%; */
 }
 
@@ -241,12 +247,14 @@ html[dir=rtl] .descDAnnouncementSC{
     width: 140px !important;
     background-color: transparent;
 }
-.findustext{
+
+.findustext {
     margin-top: 30px;
     font-size: 20px;
     color: #aab9bb;
 }
-.socialIconsList{
+
+.socialIconsList {
     display: flex;
     flex-direction: row;
     list-style: none;
@@ -255,7 +263,8 @@ html[dir=rtl] .descDAnnouncementSC{
     margin-right: -10%;
     margin-top: 20px;
 }
-.socialIconsList li{
+
+.socialIconsList li {
     margin-right: 20px;
 }
 
@@ -281,7 +290,8 @@ html[dir=rtl] .descDAnnouncementSC{
     justify-content: end;
     /* border: 2px solid white; */
 }
-html[dir=rtl] .rightSide{
+
+html[dir=rtl] .rightSide {
     padding-right: 6%;
 }
 
@@ -289,9 +299,10 @@ html[dir=rtl] .rightSide{
 /******************************************** Right Side ***************************************/
 
 @media all and (max-width:1550px) {
-    .containerCustom{
+    .containerCustom {
         padding-top: 20vh;
     }
+
     .leftSide {
         /* border: 2px solid rgb(128, 0, 0); */
         /* padding-left: 5%; */
@@ -303,13 +314,25 @@ html[dir=rtl] .rightSide{
     }
 }
 
-@media all and (max-width:1399px){
-    .mobileTabLogin{
+@media all and (max-width:1399px) {
+    .mobileTabLogin {
         margin-left: -100px;
     }
+
     .desc_left_login {
         font-size: 18px;
         padding-right: 100px;
+    }
+
+    /* Do corrections for rtl */
+    html[dir=rtl] .desc_left_login {
+        padding-left: 100px;
+        padding-right: 0px;
+    }
+
+    html[dir=rtl] .mobileTabLogin {
+        margin-right: -100px;
+        margin-left: 0px;
     }
 }
 
@@ -336,6 +359,17 @@ html[dir=rtl] .rightSide{
         /* border: 3px solid rgb(255, 255, 255); */
         padding-left: 2%;
     }
+
+    /* For rtl */
+    html[dir=rtl] .leftSide {
+        padding-left: 0%;
+        padding-right: 3%;
+    }
+
+    html[dir=rtl] .rightSide {
+        padding-left: 0%;
+        padding-right: 2%;
+    }
 }
 
 
@@ -355,26 +389,44 @@ html[dir=rtl] .rightSide{
         padding-right: 20%;
         flex: 2;
     }
+
+    html[dir=rtl] .desc_left_login {
+        padding-left: 200px;
+        padding-right: 0px;
+    }
+
+    html[dir=rtl] .topContainerLeftLogin {
+        padding-left: 20%;
+        padding-right: 0px;
+    }
 }
 
-@media all and (max-width:1199px){
-    .mobileTabLogin{
+@media all and (max-width:1199px) {
+    .mobileTabLogin {
         margin-left: -200px;
+    }
+
+    html[dir=rtl] .mobileTabLogin {
+        margin-right: -200px;
+        margin-left: 0px;
     }
 }
 
 /* Changing the overall look here */
 @media screen and (max-width:1150px) {
-    .hideForMobile{
+    .hideForMobile {
         display: none !important;
     }
-    .mobileTabLogin{
+
+    .mobileTabLogin {
         display: none;
     }
-    .announcementListContainer{
+
+    .announcementListContainer {
         width: 80%;
         height: 530px;
     }
+
     .leftSide {
         width: 100%;
         /* padding-top: 8%; */
@@ -394,6 +446,16 @@ html[dir=rtl] .rightSide{
         margin-right: 0px !important;
     }
 
+    html[dir=rtl] .leftSide {
+        padding-left: 0%;
+        padding-right: 13%;
+    }
+
+    html[dir=rtl] .rightSide {
+        padding-left: 0%;
+        padding-right: 0%;
+    }
+
     .topContainerLeftLogin {
         width: 100%;
         display: flex;
@@ -408,8 +470,8 @@ html[dir=rtl] .rightSide{
     }
 }
 
-@media all and (max-width:900px){
-    .announcementListContainer{
+@media all and (max-width:900px) {
+    .announcementListContainer {
         width: 83%;
     }
 }
@@ -424,13 +486,24 @@ html[dir=rtl] .rightSide{
     .leftSide {
         padding-left: 10%;
     }
+
+    html[dir=rtl] .leftSide {
+        padding-left: 0%;
+        padding-right: 10%;
+    }
 }
 
 @media screen and (max-width:750px) {
-    .announcementListContainer{
+    .announcementListContainer {
         width: 100%;
     }
+
     .leftSide {
+        padding-left: 5%;
+        padding-right: 5%;
+    }
+
+    html[dir=rtl] .leftSide {
         padding-left: 5%;
         padding-right: 5%;
     }
@@ -444,10 +517,18 @@ html[dir=rtl] .rightSide{
         justify-content: center;
     }
 
+    html[dir=rtl] .rightSide {
+        padding-top: 20px;
+    }
+
     .topContainerLeftLogin {
         flex-direction: column-reverse;
         padding-right: none;
         padding-right: 0% !important;
+    }
+
+    html[dir=rtl] .topContainerLeftLogin {
+        padding-left: 0% !important;
     }
 
     .tabLogin {
@@ -470,12 +551,19 @@ html[dir=rtl] .rightSide{
         font-weight: 500;
     }
 }
+
 @media all and (max-width:550px) {
     .rightSide {
         width: 95% !important;
         margin-left: 2.5% !important;
         margin-right: 2.5% !important;
         /* border: 2px solid red; */
+    }
+
+    html[dir=rtl] .rightSide {
+        width: 95% !important;
+        margin-left: 2.5% !important;
+        margin-right: 2.5% !important;
     }
 
     .mobileCenter {
@@ -485,29 +573,39 @@ html[dir=rtl] .rightSide{
 
 }
 
-@media all and (max-width:480px){
-    .announcementSubContainer{
+@media all and (max-width:480px) {
+    .announcementSubContainer {
         height: 100px;
         padding-top: 7px;
     }
-    .leftAnnouncementSubContainer{
+
+    .leftAnnouncementSubContainer {
         padding-left: 10%;
     }
-    .dateCountAnnouncementSC{
+
+    html[dir=rtl] .leftAnnouncementSubContainer {
+        padding-left: 0%;
+        padding-right: 10%;
+    }
+
+    .dateCountAnnouncementSC {
         font-size: 20px;
     }
-    .dateMonthAnnouncementSC{
+
+    .dateMonthAnnouncementSC {
         /* border: 1px solid red; */
         line-height: 20px;
         padding-top: 10px;
     }
 }
+
 @media all and (max-width:440px) {
-    .announcementSubContainer{
+    .announcementSubContainer {
         height: 120px;
         padding-top: 7px;
     }
 }
+
 @media all and (max-width:430px) {
     .desc_left_login {
         /* border: 1px solid red; */
@@ -515,17 +613,24 @@ html[dir=rtl] .rightSide{
     }
 }
 
-@media all and (max-width:390px){
-    .announcementSubContainer{
+@media all and (max-width:390px) {
+    .announcementSubContainer {
         height: 135px;
         padding-top: 10px;
     }
-    .rightAnnouncementSubContainer{
+
+    .rightAnnouncementSubContainer {
         padding-right: 10%;
     }
+
+    html[dir=rtl] .rightAnnouncementSubContainer {
+        padding-left: 10%;
+        padding-right: 0%;
+    }
 }
-@media all and (max-width:350px){
-    .announcementSubContainer{
+
+@media all and (max-width:350px) {
+    .announcementSubContainer {
         height: 140px;
         padding-top: 12px;
     }

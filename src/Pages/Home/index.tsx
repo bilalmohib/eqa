@@ -16,6 +16,7 @@ import { FiSettings } from "react-icons/fi";
 import { FaUserAlt } from "react-icons/fa";
 
 import styles from "./style.module.css";
+import Footer from "../../Components/Footer";
 
 interface HomeProps {
     isOpen: Boolean,
@@ -234,22 +235,9 @@ const Home = ({
                         {subComponent}
                     </div>
                 </div>
+                
+                <Footer />
             </main>
-
-            <footer className={styles.footer}>
-                {/* 
-                <a
-                    href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    Powered by{' '}
-                    <span className={styles.logo}>
-                    <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
-                    </span>
-                </a> 
-                */}
-            </footer>
         </div>
     )
 }
