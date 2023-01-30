@@ -5,17 +5,13 @@ import { BsPrinter, BsSearch } from "react-icons/bs";
 import { HiDotsVertical } from "react-icons/hi";
 
 // Importing Ripples
-import Ripples from 'react-ripples';
 import { createRipples } from 'react-ripples';
-
-// Importing types
-import { CourseOfferingTypes } from "../../Data/Tables/CourseOfferings/types";
 
 import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
 
+import { Line } from 'react-chartjs-2';
+
 // Importing components
-// import CustomTable from "./CustomTable";
-import CustomTableCrud from "./CustomTableCrud";
 
 // Importing Styles
 import styles from "./style.module.css";
@@ -27,7 +23,7 @@ const ButtonRipples = createRipples({
     during: 600,
 })
 
-interface DataTableMDProps {
+interface GradeComparisonProps {
     isOpen: Boolean
     data: any
     states: any
@@ -36,7 +32,7 @@ interface DataTableMDProps {
     tableTitle: string
 }
 
-const DataTableMD: FC<DataTableMDProps> = ({
+const GradeComparison: FC<GradeComparisonProps> = ({
     isOpen,
     data,
     states,
@@ -92,7 +88,7 @@ const DataTableMD: FC<DataTableMDProps> = ({
 
                 {/* Body of Header Starts Here */}
                 <header className={styles.containerbodyHeader}>
-                    <div className="d-flex" style={{marginTop:3}}>
+                    <div className="d-flex" style={{ marginTop: 3 }}>
                         {/* <div className="input-group" style={{ backgroundColor: "#f3f3f3" }}>
                             <span className="input-group-text" id="Search">
                                 <BsSearch />
@@ -107,19 +103,19 @@ const DataTableMD: FC<DataTableMDProps> = ({
                                 onChange={(e: any) => setSearchText(e.target.value)}
                             />
                         </div> */}
-                        <div>
+                        {/* <div>
                             <LibraryBooksIcon sx={{ color: "#4f747a" }} />
                         </div>
-                        <h5 className={styles.tableSubTitleTopLeft}> 
-                        <b>
-                        Following courses are offered
-                        </b>
-                        </h5>
+                        <h5 className={styles.tableSubTitleTopLeft}>
+                            <b>
+                                Following courses are offered
+                            </b>
+                        </h5> */}
 
                     </div>
                     <div>
                         {/* Standard */}
-                        <div className={styles.btnContainerTable}>
+                        {/* <div className={styles.btnContainerTable}>
                             <div className={styles.btnControl}>
                                 <ButtonRipples>
                                     <button className={`btn btn-light ${styles.insideBtnControl}`}>CSV</button>
@@ -135,21 +131,16 @@ const DataTableMD: FC<DataTableMDProps> = ({
                                     <button className={`btn btn-light ${styles.insideBtnControl}`}><BsPrinter style={{ marginTop: -5 }} size={20} /></button>
                                 </ButtonRipples>
                             </div>
-                        </div>
+                        </div> */}
                     </div>
                 </header>
                 {/* Body of Header Ends Here */}
 
                 {/* Body of Body Container Starts Here */}
                 <div className={styles.bodyOfBodyContainer}>
-                    <CustomTableCrud
-                        searchText={searchText}
-                        data={data}
-                        states={states}
-                        columnValues={columnValues}
-                        buttonTitle={buttonTitle}
-                        isOpen={isOpen}
-                    />
+                    <h1>
+                        Grade Comparison Graph
+                    </h1>
                 </div>
                 {/* Body of Body Container Ends Here */}
 
@@ -163,4 +154,4 @@ const DataTableMD: FC<DataTableMDProps> = ({
         </div>
     )
 }
-export default DataTableMD;
+export default GradeComparison;
