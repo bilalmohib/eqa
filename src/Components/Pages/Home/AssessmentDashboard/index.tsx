@@ -13,6 +13,7 @@ import { data, states } from '../../../../Data/Tables/CourseOfferings';
 
 import styles from "./style.module.css";
 import "./style.css";
+import GradeComparison from "../../../GradeComparison";
 
 const percentage = 30;
 
@@ -207,6 +208,17 @@ const AssessmentDashboard: React.FC<AssessmentDashboardProps> = ({
                     columnValues={"CourseOfferingTypes"}
                     buttonTitle={"Create New Course Offering"}
                     tableTitle={`<b style={{ fontWeight: "bold" }}>Offered</b> <i>Courses</i>`}
+                />
+            </div>
+
+            <div style={{ marginTop: 40 }}>
+                <GradeComparison
+                    isOpen={isOpen}
+                    data={data}
+                    states={states}
+                    columnValues={"CourseOfferingTypes"}
+                    buttonTitle={"Create New Course Offering"}
+                    tableTitle={`<b style={{ fontWeight: "bold" }}>Grade Comparison</b>`}
                 />
             </div>
 

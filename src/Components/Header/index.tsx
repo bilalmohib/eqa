@@ -78,14 +78,14 @@ const Header: FC<HeaderProps> = ({
 
     const selectLanguage = (value: any) => {
         if (value === "en") {
-            changeTheLanguage("ar");
             document.documentElement.setAttribute("lang", 'ar');
             document.documentElement.setAttribute("dir", 'rtl');
+            changeTheLanguage("ar");
             setCurrentLang("ar");
         } else if (value === "ar") {
-            changeTheLanguage("en");
             document.documentElement.setAttribute("lang", 'en');
             document.documentElement.setAttribute("dir", 'ltl');
+            changeTheLanguage("en");
             setCurrentLang("en");
         }
     }
