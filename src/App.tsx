@@ -9,6 +9,7 @@ import { useLocation } from 'react-router-dom';
 // import { Helmet } from 'react-helmet';
 
 import 'react-circular-progressbar/dist/styles.css';
+import Loader from "./Components/Loader";
 
 const App = () => {
     const [loading, setLoading] = useState<boolean>(true);
@@ -35,25 +36,25 @@ const App = () => {
     ////////////////// For loader when doing async calls //////////////////
 
     if (loading) { // if your component doesn't have to wait for async data, remove this block 
-        return null; // render null when app is not ready
-    }
-
-    return (
-        <div>
-            {(showHeader) && (
-                <Header
+        return <Loader /> // render Loader here
+    } else {
+        return (
+            <div>
+                {(showHeader) && (
+                    <Header
+                        setCurrentTab={setCurrentTab}
+                        setMobileViewContainer={setMobileViewContainer}
+                    />
+                )}
+                <AppRouter
+                    currentTab={currentTab}
                     setCurrentTab={setCurrentTab}
-                    setMobileViewContainer={setMobileViewContainer}
+                    mobileViewContainer={mobileViewContainer}
+                    showHeader={showHeader}
+                    setShowHeader={setShowHeader}
                 />
-            )}
-            <AppRouter
-                currentTab={currentTab}
-                setCurrentTab={setCurrentTab}
-                mobileViewContainer={mobileViewContainer}
-                showHeader={showHeader}
-                setShowHeader={setShowHeader}
-            />
-        </div>
-    )
+            </div>
+        )
+    }
 }
 export default App;
