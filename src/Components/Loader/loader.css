@@ -8,9 +8,6 @@
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
-#root:not(:empty)+.sk-cube-grid {
-    display: none;
-}
 
 .sk-cube-grid {
     width: 40px;
