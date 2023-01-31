@@ -135,12 +135,12 @@ html[dir=rtl] .rightContainer {
 }
 
 .dropDownLang {
-    background-color: rgba(255, 0, 0, 0) !important;
+    background-color: #395a6000 !important;
     border: 0.1px solid rgba(255, 255, 255, 0.179) !important;
 }
 
 .dropDownLang:hover {
-    background-color: rgba(255, 0, 0, 0) !important;
+    background-color: #395a6000 !important;
     color: #395a60 !important;
 }
 
@@ -215,10 +215,6 @@ html[dir=rtl] .rightContainer {
         padding-top: 10px;
     }
 
-    .langDropDown {
-        /* border: 2px solid green; */
-    }
-
     .mobileDropStyle {
         display: flex;
         flex-direction: row;
@@ -274,6 +270,17 @@ html[dir=rtl] .rightContainer {
         margin-left: 0% !important;
         width: 100% !important;
     }
+
+    .dropDownLang {
+        background-color: #395a60 !important;
+        border: 0.1px solid rgba(255, 255, 255, 0.179) !important;
+    }
+    
+    .dropDownLang:hover {
+        background-color: #395a60 !important;
+        color: #395a60 !important;
+    }
+    
 
     /* Inside Left & Right Containers */
 }

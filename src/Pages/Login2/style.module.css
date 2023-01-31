@@ -70,7 +70,7 @@ html[dir=rtl] .leftSide {
 .leftSelectedTabLogin {
     background-color: #ffffff;
     color: #436368;
-    border-radius: 25px;
+    border-radius: 25px !important;
     padding-left: -10px;
 }
 
@@ -97,8 +97,8 @@ html[dir=rtl] .leftSide {
 
 .rightSelectedTabLogin {
     background-color: white !important;
-    border-radius: 25px;
-    width: 140px;
+    border-radius: 25px !important;
+    width: 160px;
     z-index: 1 !important;
 }
 
