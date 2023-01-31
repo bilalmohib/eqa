@@ -385,9 +385,9 @@ const LoginContainer = () => {
                                     id="passwordInput"
                                 />
                                 {(!validationStatusPassword) && (password.length === 0) && (<p className={styles.infoInputs}>Please fill out the password field</p>)}
-                                <label className={`form-label ${styles.formLabelStyles}`} id="passwordLabel" htmlFor="passwordInput">
+                                {/* <label className={`form-label ${styles.formLabelStyles}`} id="passwordLabel" htmlFor="passwordInput">
                                     Enter Password
-                                </label>
+                                </label> */}
                             </div>
                         </div>
                     </div>
