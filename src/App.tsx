@@ -11,7 +11,7 @@ import { useLocation } from 'react-router-dom';
 import 'react-circular-progressbar/dist/styles.css';
 
 const App = () => {
-    // const location = useLocation();
+    const [loading, setLoading] = useState<boolean>(true);
 
     // Three Containers will be there 
     // 1) Login
@@ -23,26 +23,23 @@ const App = () => {
 
     const [showHeader, setShowHeader] = useState<boolean>(false);
 
-    // useEffect(() => {
-    //     // The current location.
-    //     // console.clear();
-    //     console.log("The current location is: ", location.pathname);
-    //     const url = location.pathname;
+    ////////////////// For loader when doing async calls //////////////////
+    function demoAsyncCall() {
+        return new Promise<void>((resolve) => setTimeout(() => resolve(), 2500));
+    }
 
-    //     if (url === "/login2" || url === "/forgetpassword") {
-    //         setShowHeader(true);
-    //     } else {
-    //         setShowHeader(false);
-    //     }
-    // }, [location]);
+    useEffect(() => {
+        // this simulates an async action, after which the component will render the content
+        demoAsyncCall().then(() => setLoading(false));
+    });
+    ////////////////// For loader when doing async calls //////////////////
+
+    if (loading) { // if your component doesn't have to wait for async data, remove this block 
+        return null; // render null when app is not ready
+    }
 
     return (
         <div>
-            {/* <Helmet>
-        <title>EQA</title>
-        <meta name="description" content="Education Quality Assurance Application" />
-        <meta name="theme-color" content="#008f68" />
-      </Helmet> */}
             {(showHeader) && (
                 <Header
                     setCurrentTab={setCurrentTab}
