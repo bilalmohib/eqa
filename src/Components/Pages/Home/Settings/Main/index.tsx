@@ -18,6 +18,8 @@ import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 
 import Ripples from 'react-ripples'
 
+// Importing i18 for language
+import i18n from "../../../../../i18n";
 
 import styles from "./style.module.css";
 // import "./style.css";
@@ -160,6 +162,7 @@ const Groups: React.FC<GroupsProps> = ({
             >
                 <Button
                     variant="contained"
+                    // dir="rtl"
                     size="large"
                     sx={{
                         backgroundColor: "#e79f43",
@@ -177,6 +180,7 @@ const Groups: React.FC<GroupsProps> = ({
                 </Button>
 
                 <Button
+                    // dir="rtl"
                     variant="outlined"
                     size="large"
                     sx={{
@@ -184,7 +188,9 @@ const Groups: React.FC<GroupsProps> = ({
                     }}
                     endIcon={<DeleteIcon />}
                     color="error"
-                >Discard</Button>
+                >
+                    Discard
+                </Button>
             </Stack>
 
             <section>
@@ -193,11 +199,15 @@ const Groups: React.FC<GroupsProps> = ({
                     settings.map((setting: any, index: number) => {
                         return (
                             <Box
+                                // dir="rtl"
                                 key={index}
-                                sx={{ mt: 5, border: 1, borderColor: "#e8ebef", borderTopLeftRadius: 4,
-                                borderTopRightRadius: 4 }}
+                                sx={{
+                                    mt: 5, border: 1, borderColor: "#e8ebef", borderTopLeftRadius: 4,
+                                    borderTopRightRadius: 4
+                                }}
                             >
                                 <Typography
+                                    // dir="rtl"
                                     variant="h4"
                                     component="div"
                                     sx={{
@@ -241,7 +251,12 @@ const Groups: React.FC<GroupsProps> = ({
                                     setting.settingsItems.map((settingsItem: any, index: number) => {
                                         return (
                                             <Box sx={{ display: "flex", mt: 3 }} key={index}>
-                                                <Box sx={{ paddingLeft: "2%", paddingRight: "1%" }}>
+                                                <Box
+                                                    sx={{
+                                                        paddingLeft: (i18n.language === "ar") ? ("1%") : ("2%"),
+                                                        paddingRight: (i18n.language === "ar") ? ("2%") : ("1%"),
+                                                    }}
+                                                >
                                                     <Checkbox
                                                         checked={checked}
                                                         onChange={handleChange}

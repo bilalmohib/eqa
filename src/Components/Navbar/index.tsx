@@ -32,6 +32,9 @@ import {
     TextField
 } from "@mui/material";
 
+// Importing i18 for language
+import i18n from "../../i18n";
+
 interface NavProps {
     setIsOpen: any,
     isOpen: Boolean,
@@ -54,6 +57,20 @@ const Navbar: React.FC<NavProps> = ({
         window.innerHeight,
     ]);
 
+    const [currentLang, setCurrentLang] = useState<string>("en");
+
+    const changeTheLanguage = (e: any) => {
+        i18n.changeLanguage(e);
+        // if (e === "en") {
+        //     // alert("Language changed english")
+        //     // navigate(`/`);
+        // }
+        // else {
+        //     // navigate(`/${e}`);            
+        //     // alert("Language Arabic")
+        // }
+    }
+
     useEffect(() => {
         const handleWindowResize = () => {
             setWindowSize([window.innerWidth, window.innerHeight]);
@@ -75,6 +92,20 @@ const Navbar: React.FC<NavProps> = ({
     const logoutUser = () => {
         if (window.confirm("Are you sure you want to logout?")) {
             alert("You have been signed out successfully");
+        }
+    }
+
+    const selectLanguage = (value: any) => {
+        if (value === "en") {
+            document.documentElement.setAttribute("lang", 'ar');
+            document.documentElement.setAttribute("dir", 'rtl');
+            changeTheLanguage("ar");
+            setCurrentLang("ar");
+        } else if (value === "ar") {
+            document.documentElement.setAttribute("lang", 'en');
+            document.documentElement.setAttribute("dir", 'ltr');
+            changeTheLanguage("en");
+            setCurrentLang("en");
         }
     }
 
@@ -189,19 +220,20 @@ const Navbar: React.FC<NavProps> = ({
                                 // Add padding of text from left side
                                 '& .MuiInputBase-input': {
                                     paddingLeft: '0.5rem',
+                                    paddingRight: (i18n.language === 'ar' ? '0.5rem' : 'initial'),
                                 },
                             }}
                             onChange={(e) => setSearchValue(e.target.value)}
                             placeholder='Search for anything'
                             InputProps={{
-                                startAdornment: <SearchIcon color="action" />, 
+                                startAdornment: <SearchIcon color="action" />,
                                 // For hiding the underline
                                 disableUnderline: true,
-                                style: { 
-                                    border: "none", 
+                                style: {
+                                    border: "none",
                                     // Add padding of text from left side
                                 },
-                           
+
                             }}
                         />
                     </Box>
@@ -434,22 +466,26 @@ const Navbar: React.FC<NavProps> = ({
                                     </li>
                                     <li>
                                         <a className="dropdown-item" href="#">
-                                            <div className="d-flex justify-content-between">
+                                            <div className={`d-flex justify-content-between ${(i18n.language === "ar") && ("flex-row-reverse")}`}>
                                                 <div>
                                                     Language
                                                 </div>
                                                 <div>
                                                     <b style={{ color: "black" }}>
-                                                        &gt;
+                                                        {i18n.language === "ar" ? (
+                                                            <span>&lt;</span>
+                                                        ) : (
+                                                            <span>&gt;</span>
+                                                        )}
                                                     </b>
                                                 </div>
                                             </div>
                                         </a>
-                                        <ul className="dropdown-menu dropdown-submenu">
-                                            <li>
+                                        <ul className="dropdown-menu dropdown-submenu" style={{left:(i18n.language==="ar")?("100%"):("-57%")}}>
+                                            <li onClick={() => selectLanguage("ar")}>
                                                 <a className="dropdown-item" href="#">English</a>
                                             </li>
-                                            <li>
+                                            <li onClick={() => selectLanguage("en")}>
                                                 <a className="dropdown-item" href="#">Arabic</a>
                                             </li>
                                             {/* 

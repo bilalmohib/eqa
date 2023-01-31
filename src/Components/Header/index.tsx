@@ -1,11 +1,12 @@
 import { useEffect, FC, useState } from "react";
 // import { useNavigate } from "react-router";
 
+// Importing i18 for language
 import i18n from "../../i18n";
-//Importing useTranslation and Trans from react-i18next
-import { useTranslation, Trans } from 'react-i18next';
 
+// importing logo
 import logo from "../../assets/Images/Navbar/logo.png";
+
 // Language Images
 import eng from "../../assets/Images/Navbar/united-kingdom.png";
 import saud from "../../assets/Images/Navbar/saudi-arabia.png";

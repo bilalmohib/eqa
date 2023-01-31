@@ -237,7 +237,12 @@ const Home = ({
                     </div>
                 </div>
 
-                <Footer />
+                <Footer 
+                    // For simple open/close sidebar
+                    isOpen={isOpen}
+                    // For minified sidebar
+                    isMinified={isMinified}
+                />
             </main>
         </div>
     )

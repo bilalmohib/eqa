@@ -6,13 +6,42 @@
     bottom: 0;
     width: 100%;
     height: 45px;
-    /* border: 1px solid red; */
+    border: 1px solid red;
     text-align: center;
     background-color: #3c6766;
+    margin-left: 0px;
 }
 
 .container p {
     margin: 0;
     padding: 0;
     line-height: 45px;
+}
+
+html[dir="rtl"] .container {
+    text-align: center;
+}
+
+.isOpen {
+    margin-left: 270px;
+    transition: 0.1s linear;
+    width: calc(100% - 270px) !important;
+}
+
+html[dir="rtl"] .isOpen {
+    margin-right: 270px;
+    transition: 0.1s linear;
+    width: calc(100% - 270px) !important;
+}
+
+.isMinified {
+    margin-left: 80px;
+    transition: 0.1s linear;
+    width: calc(100% - 80px) !important;
+}
+
+html[dir="rtl"] .isMinified {
+    margin-right: 80px;
+    transition: 0.1s linear;
+    width: calc(100% - 80px) !important;
 }
