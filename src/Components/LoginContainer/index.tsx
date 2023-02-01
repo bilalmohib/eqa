@@ -39,33 +39,6 @@ const LoginContainer = () => {
 
     const [validateNow, setValidateNow] = useState<boolean>(false);
 
-    const jsonData = [
-        {
-            email: "bilalmohib7896@gmail.com",
-            password: "123"
-        },
-        {
-            email: "bilalmohib123@gmail.com",
-            password: "bilal"
-        },
-        {
-            email: "bilalmohib789@gmail.com",
-            password: "bilal"
-        },
-        {
-            email: "bilalmohib@gmail.com",
-            password: "bilal"
-        },
-        {
-            email: "bilal@gmail.com",
-            password: "bilal"
-        },
-        {
-            email: "mohib7896@gmail.com",
-            password: "bilal"
-        }
-    ]
-
     // Validation for Email
     useEffect(() => {
         if (email.length !== 0) {
@@ -88,11 +61,23 @@ const LoginContainer = () => {
         }
     }, [password]);
 
-    const handleClickShowPassword = () => setShowPassword((show) => !show);
-
-    const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
-        event.preventDefault();
-    };
+    async function postData(url = '', data = {}) {
+        // Default options are marked with *
+        const response = await fetch(url, {
+            method: 'POST', // *GET, POST, PUT, DELETE, etc.
+            mode: 'cors', // no-cors, *cors, same-origin
+            cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+            credentials: 'same-origin', // include, *same-origin, omit
+            headers: {
+                'Content-Type': 'application/json'
+                // 'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            redirect: 'follow', // manual, *follow, error
+            referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+            body: JSON.stringify(data) // body data type must match "Content-Type" header
+        });
+        return response.json(); // parses JSON response into native JavaScript objects
+    }
 
     const validateForm = () => {
         setValidateNow(true);
@@ -100,17 +85,27 @@ const LoginContainer = () => {
             setValidationStatusEmail(false);
             setValidationStatusPassword(false);
             return;
+        } else {
+            postData('http://eqa.datadimens.com:8080/IDENTITY-SERVICE/login/permissions', {
+                "userName": email,
+                "password": password
+            }).then(data => {
+                console.log(data); // JSON data parsed by `data.json()` call
+                if (data.status === "SUCCESS") {
+                    alert("Validated Correctly");
+                    navigate("/");
+                } else {
+                    setValidationStatusEmail(false);
+                    setValidationStatusPassword(false);
+                    alert("Invalid Credentials");
+                    return;
+                }
+                if (data.error) {
+                    alert(data.error);
+                    return;
+                }
+            });
         }
-        for (let i = 0; i < jsonData.length; i++) {
-            if (email === jsonData[i].email && password === jsonData[i].password) {
-                alert("Validated Correctly");
-                // setValidationStatusEmail(true);
-                // setValidationStatusPassword(true);
-                navigate("/")
-            }
-        }
-        setValidationStatusEmail(false);
-        setValidationStatusPassword(false);
         if (email.length !== 0 && (document.getElementById("userName") !== document.activeElement)) {
             // @ts-ignore
             document.getElementById("emailLabel").style = "display:none; !important";
