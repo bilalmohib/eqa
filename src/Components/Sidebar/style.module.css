@@ -365,8 +365,9 @@ html[dir="rtl"] .SubMenuItemContainer {
 
 html[dir="rtl"] .SubMenuItemContainer li {
     /* border: 1px solid rgb(255, 0, 0); */
+    width: 270px !important;
     margin-left: initial !important;
-    margin-right: 0px !important;
+    margin-right: 10px !important;
     transition: 0.1s linear;
 }
 
