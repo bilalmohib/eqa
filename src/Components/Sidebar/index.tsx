@@ -301,9 +301,9 @@ const Sidebar: React.FC<SidebarProps> = ({
                                                     style={{
                                                         // border: ((currentSubMenuSidebarOpenItem === (index + 1)) && isMinified && i18n.language === 'ar') ? ("1px solid black") : ("1px solid red"),
                                                         marginRight: ((currentSubMenuSidebarOpenItem === (index + 1)) && isMinified && i18n.language === 'ar') ?
-                                                            (7) :
+                                                            (3) :
                                                             (isMinified && currentMenuItem === (index + 1) && i18n.language === 'ar') ?
-                                                                (7) :
+                                                                (3) :
                                                                 ("initial"),
                                                     }}
                                                 >
