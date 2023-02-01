@@ -24,6 +24,17 @@
     height: calc(100% + 90px) !important;
 }
 
+html[dir="rtl"] .minifyNavigationDropdown {
+    min-width: 63px !important;
+    border: 1px solid rgba(105, 105, 106, 0.369) !important;
+    border-radius: 3px !important;
+    margin-right: -6px;
+    margin-left: 0px;
+    margin-top: -35px !important;
+    padding-bottom: 5px;
+    height: calc(100% + 90px) !important;
+}
+
 .minifyNavigationDropdown li {
     /* border: 1px solid rgba(105, 105, 106, 0.369) !important; */
     padding-right: 0px !important;
@@ -56,6 +67,12 @@
     /* margin-bottom: 1px; */
 }
 
+html[dir="rtl"] .minifyNavigationDropdown li a button {
+    margin-right: 4px !important;
+    margin-left: 0px;
+    /* margin-bottom: 1px; */
+}
+
 .minifyNavigationDropdown li a button:hover {
     /* padding-left: 0px !important;
  padding-right: 0px !important; */
@@ -73,6 +90,15 @@
     border-radius: 0px;
     /* display: flex; */
     margin-left: 20px;
+    margin-top: -5px;
+}
+html[dir="rtl"] .searchBoxNavbar {
+    transition: 0.1s linear;
+    /* border-bottom: 0.2px solid #4f747a56; */
+    border-radius: 0px;
+    /* display: flex; */
+    margin-right: 20px;
+    margin-left: 0px;
     margin-top: -5px;
 }
 
@@ -95,9 +121,23 @@
     /* border: 2px solid red; */
     transition: 0.1s linear;
 }
+html[dir="rtl"] .isSideOpen {
+    width: calc(100% - 270px) !important;
+    margin-right: 270px;
+    margin-left: 0px;
+    /* border: 2px solid red; */
+    transition: 0.1s linear;
+}
 
 .isSideClose {
     width: 100%;
+    margin-left: 0px;
+    transition: 0.1s linear;
+    /* border: 2px solid rgb(0, 13, 255); */
+}
+html[dir="rtl"] .isSideClose {
+    width: 100%;
+    margin-right: 0px;
     margin-left: 0px;
     transition: 0.1s linear;
     /* border: 2px solid rgb(0, 13, 255); */
@@ -117,6 +157,15 @@
 
 .dropdown_nav {
     margin-left: -240px !important;
+    width: 280px !important;
+    z-index: 10 !important;
+    border-radius: 5px !important;
+    margin-top: 0px !important;
+    /* border: 1px solid red !important; */
+}
+html[dir="rtl"] .dropdown_nav {
+    margin-right: -240px !important;
+    margin-left: 0px !important;
     width: 280px !important;
     z-index: 10 !important;
     border-radius: 5px !important;
@@ -162,6 +211,13 @@
     padding-top: 11px;
     padding-left: 30px;
 }
+html[dir="rtl"] .dropdownProfileNav li a {
+    /* border: 1px solid red; */
+    height: 45px;
+    padding-top: 11px;
+    /* padding-right: 30px !important; */
+    padding-left: 30px !important;
+}
 
 .dropdownProfileNav li a:hover {
     /* border: 1px solid red; */
@@ -170,6 +226,15 @@
     height: 45px;
     padding-top: 11px;
     padding-left: 30px;
+}
+html[dir="rtl"] .dropdownProfileNav li a:hover {
+    /* border: 1px solid red; */
+    background-color: #f8f9fa;
+    color: #4f747a;
+    height: 45px;
+    padding-top: 11px;
+    /* padding-right: 30px !important; */
+    padding-left: 30px !important;
 }
 
 /* @@@@@@@@@@@@@@@@@@@@ Profile Inside Container @@@@@@@@@@@@@@@@@@@@@ */
@@ -189,6 +254,10 @@
 
 .rightInsideProfile {
     margin-left: 10px;
+}
+html[dir="rtl"] .rightInsideProfile {
+    margin-right: 10px;
+    margin-left: 0px;
 }
 
 .rightInsideProfile h3 {
@@ -210,6 +279,12 @@
     /* border: 2px solid red !important; */
     width: 350px !important;
     margin-left: -280px !important;
+}
+html[dir="rtl"] .dropdownNotificationNav {
+    /* border: 2px solid red !important; */
+    width: 350px !important;
+    margin-right: -280px !important;
+    margin-left: 0px !important;
 }
 
 .topContainerNotificationNav {
@@ -354,6 +429,10 @@
     border-bottom: 0.1px solid rgba(0, 0, 0, 0.212) !important;
     /* border: 2px solid blue; */
 }
+html[dir="rtl"] .individualNotificationList {
+    padding-right: 5%;
+    padding-left: 0%;
+}
 
 .individualNotificationList:hover {
     background-color: rgba(128, 128, 128, 0.125);
@@ -397,6 +476,10 @@
     height: 85px !important; */
     width: 350px !important;
     margin-left: -220px !important;
+}
+html[dir="rtl"] .dropdownAppNav {
+    margin-right: -220px !important;
+    margin-left: 0px !important;
 }
 
 .topContainerAppNav {
@@ -486,6 +569,10 @@
     z-index: 1;
     /* border: 1px solid blue !important; */
 }
+html[dir="rtl"] .isSideOpenMinified {
+    margin-right: 80px !important;
+    margin-left: 0px !important;
+}
 
 /* Minified Sidebar CSS */
 
@@ -499,11 +586,21 @@
         transition: 0.1s linear;
         z-index: 1;
     }
-
+    html[dir="rtl"] .isSideOpen {
+        margin-right: 0px !important;
+        margin-left: 0px !important;
+        /* border: 2px solid rgb(77, 255, 0); */
+    }
+    dropdownProfileNav
     .isSideClose {
         width: 100%;
         margin-left: 0px;
         transition: 0.1s linear;
+        /* border: 2px solid rgb(0, 13, 255); */
+    }
+    html[dir="rtl"] .isSideClose {
+        margin-right: 0px !important;
+        margin-left: 0px !important;
         /* border: 2px solid rgb(0, 13, 255); */
     }
 }

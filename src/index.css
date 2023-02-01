@@ -69,7 +69,6 @@ input[type=checkbox] {
 .dropdown-menu .dropdown-submenu {
   display: none;
   position: absolute;
-  left: -57%;
   top: 0px;
 }
 

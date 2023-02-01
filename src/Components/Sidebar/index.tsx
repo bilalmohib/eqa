@@ -9,6 +9,9 @@ import { FiChevronDown, FiSettings } from "react-icons/fi";
 import { FaRegComments } from "react-icons/fa";
 import { useNavigate } from 'react-router';
 
+// Importing i18 for language
+import i18n from "../../i18n";
+
 // Importing logo
 import logo from "../../assets/Images/Navbar/logo.png";
 
@@ -57,6 +60,20 @@ const Sidebar: React.FC<SidebarProps> = ({
         window.innerWidth,
         window.innerHeight,
     ]);
+
+    const [currentLang, setCurrentLang] = useState<string>("en");
+
+    const changeTheLanguage = (e: any) => {
+        i18n.changeLanguage(e);
+        // if (e === "en") {
+        //     // alert("Language changed english")
+        //     // navigate(`/`);
+        // }
+        // else {
+        //     // navigate(`/${e}`);            
+        //     // alert("Language Arabic")
+        // }
+    }
 
     useEffect(() => {
         const handleWindowResize = () => {
@@ -221,9 +238,12 @@ const Sidebar: React.FC<SidebarProps> = ({
                                 id='searchFilterMenu'
                                 type="text"
                             />
-                            <div className={`${styles.searchFilterIconContainer}`} onClick={() => {
-                                setShowFilterMenu(false)
-                            }}>
+                            <div
+                                className={`${styles.searchFilterIconContainer}`}
+                                onClick={() => {
+                                    setShowFilterMenu(false)
+                                }}
+                            >
                                 <IoIosArrowUp style={{ marginTop: -5 }} color="#ffffff" />
                             </div>
                         </div>
@@ -277,7 +297,21 @@ const Sidebar: React.FC<SidebarProps> = ({
                                                     }
                                                 }}
                                             >
-                                                <p> {item.icon} </p> <p className={styles.itemMenuListText}>{item.text}</p>
+                                                <p
+                                                    style={{
+                                                        // border: ((currentSubMenuSidebarOpenItem === (index + 1)) && isMinified && i18n.language === 'ar') ? ("1px solid black") : ("1px solid red"),
+                                                        marginRight: ((currentSubMenuSidebarOpenItem === (index + 1)) && isMinified && i18n.language === 'ar') ?
+                                                            (7) :
+                                                            (isMinified && currentMenuItem === (index + 1) && i18n.language === 'ar') ?
+                                                                (7) :
+                                                                ("initial"),
+                                                    }}
+                                                >
+                                                    {item.icon}
+                                                </p>
+                                                <p className={styles.itemMenuListText}>
+                                                    {item.text}
+                                                </p>
                                             </div>
                                         </li>
                                         {

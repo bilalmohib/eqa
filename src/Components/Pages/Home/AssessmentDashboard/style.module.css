@@ -5,6 +5,13 @@
     padding-right: 30px;
     padding-top: 20px;
 }
+html[dir="rtl"] .container {
+    /* border: 1px solid red; */
+    width: 100% !important;
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-top: 20px;
+}
 
 /* Top Container Starts */
 .topContainer {
@@ -31,6 +38,13 @@
     font-weight: 300;
     color: #767676;
 }
+html[dir="rtl"] .topContainerLeftText {
+    font-size: 22px;
+    margin-left: 0px;
+    margin-right: 10px;
+    font-weight: 300;
+    color: #767676;
+}
 
 /* Left Top Container */
 
@@ -40,11 +54,24 @@
     padding-top: 2px;
     margin-right: 20px;
 }
+html[dir="rtl"] .progressBarTopContainer {
+    display: flex;
+    /* border: 1px solid red; */
+    padding-top: 2px;
+    margin-left: 20px;
+    margin-right: 0px;
+}
 
 .containerRightProgress {
     /* border: 1px solid black; */
     height: 60px;
     padding-left: 10px;
+}
+html[dir="rtl"] .containerRightProgress {
+    /* border: 1px solid black; */
+    height: 60px;
+    padding-right: 10px;
+    padding-left: 0px;
 }
 
 /* Top Container Over */
@@ -64,6 +91,14 @@
     height: 97px;
     padding-left: 20px;
     padding-top: 5px;
+}
+html[dir="rtl"] .insideContainerBox {
+    /* border: 1px solid black; */
+    border-radius: 3px;
+    height: 97px;
+    padding-right: 20px;
+    padding-top: 5px;
+    padding-left: 0px;
 }
 
 .insideContainerBox:hover {
@@ -132,6 +167,14 @@
         /* border: 1px solid rgb(255, 0, 0); */
         height: 100px;
         padding-left: initial;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    html[dir="rtl"] .insideContainerBox {
+        /* border: 1px solid rgb(255, 0, 0); */
+        height: 100px;
+        padding-right: initial;
+        padding-left: 0px;
         text-align: center;
         margin-bottom: 20px;
     }
@@ -222,5 +265,9 @@
     }
     .topContainerLeftText b{
         margin-right: 10px;
+    }
+    html[dir="rtl"] .topContainerLeftText b{
+        margin-right: 0px;
+        margin-left: 10px;
     }
 }

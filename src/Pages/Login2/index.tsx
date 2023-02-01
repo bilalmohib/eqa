@@ -1,4 +1,4 @@
-import { FC, useState,useEffect } from "react";
+import { FC, useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
 import { ImFacebook2, ImGoogle2 } from "react-icons/im";
@@ -40,7 +40,6 @@ const Login2: FC<LoginProps> = ({
     const [currentIcon, setCurrentIcon] = useState<Number>(0);
 
     useEffect(() => {
-
         // The current location.
         // console.clear();
         console.log('The current location is: ', location.pathname);
@@ -133,25 +132,25 @@ const Login2: FC<LoginProps> = ({
                                             {t('login.leftSide.tabs.aboutus.findUs')}
                                         </h5>
                                         <ul className={styles.socialIconsList}>
-                                            <li onMouseOver={()=>setCurrentIcon(1)}>
+                                            <li onMouseOver={() => setCurrentIcon(1)}>
                                                 <a href="https://www.facebook.com/">
-                                                    <ImFacebook2 className={styles.socialIcons} role={"button"} size={35} color={(currentIcon===1)?("orange"):("#c7d5d5")} />
+                                                    <ImFacebook2 className={styles.socialIcons} role={"button"} size={35} color={(currentIcon === 1) ? ("orange") : ("#c7d5d5")} />
                                                 </a>
                                             </li>
-                                            <li onMouseOver={()=>setCurrentIcon(2)}>
+                                            <li onMouseOver={() => setCurrentIcon(2)}>
                                                 <a href="https://twitter.com/">
-                                                    <FaTwitterSquare className={styles.socialIcons} role={"button"} size={40} style={{ marginTop: -3,marginLeft:-3 }} color={(currentIcon===2)?("orange"):("#c7d5d5")} />
+                                                    <FaTwitterSquare className={styles.socialIcons} role={"button"} size={40} style={{ marginTop: -3, marginLeft: -3 }} color={(currentIcon === 2) ? ("orange") : ("#c7d5d5")} />
                                                 </a>
 
                                             </li>
-                                            <li onMouseOver={()=>setCurrentIcon(3)}>
+                                            <li onMouseOver={() => setCurrentIcon(3)}>
                                                 <a href="https://google.com/">
-                                                    <ImGoogle2 className={styles.socialIcons} size={35} role="button" color={(currentIcon===3)?("orange"):("#c7d5d5")} />
+                                                    <ImGoogle2 className={styles.socialIcons} size={35} role="button" color={(currentIcon === 3) ? ("orange") : ("#c7d5d5")} />
                                                 </a>
                                             </li>
-                                            <li onMouseOver={()=>setCurrentIcon(4)}>
+                                            <li onMouseOver={() => setCurrentIcon(4)}>
                                                 <a href="https://linkedin.com/">
-                                                    <GrLinkedin className={styles.socialIcons} size={35} role="button" color={(currentIcon===4)?("orange"):("#c7d5d5")} />
+                                                    <GrLinkedin className={styles.socialIcons} size={35} role="button" color={(currentIcon === 4) ? ("orange") : ("#c7d5d5")} />
                                                 </a>
                                             </li>
                                         </ul>

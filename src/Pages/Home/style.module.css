@@ -7,9 +7,25 @@
     margin-top: 67px;
     margin-bottom: 50px;
 }
+html[dir="rtl"] .Home {
+    margin-left: 0px;
+    margin-right: 270px;
+    transition: 0.1s linear;
+    width: calc(100% - 270px) !important;
+    margin-top: 67px;
+    margin-bottom: 50px;
+}
 
 .onSideClose {
     margin-left: 0px;
+    transition: 0.1s linear;
+    width: 100%;
+    margin-top: 67px;
+}
+
+html[dir="rtl"] .onSideClose {
+    margin-left: initial;
+    margin-right: 0px;
     transition: 0.1s linear;
     width: 100%;
     margin-top: 67px;
@@ -25,10 +41,24 @@
     transition: 0.1s linear;
 }
 
+html[dir="rtl"] .minifySidebarContainer .main .Home {
+    /* border: 1px solid red !important; */
+    width: calc(100% - 80px) !important;
+    margin-right: 80px;
+    transition: 0.1s linear;
+    margin-left: 0px;
+}
+
 .minifySidebarContainer .main .onSideClose {
     margin-left: calc(0px) !important;
     /* border: 1px solid rgb(0, 115, 255) !important; */
     transition: 0.1s linear;
+}
+html[dir="rtl"] .minifySidebarContainer .main .onSideClose {
+    margin-right: calc(0px) !important;
+    /* border: 1px solid rgb(0, 115, 255) !important; */
+    transition: 0.1s linear;
+    margin-left: 0px;
 }
 
 /* ///////////////////////////////////////// Minified CSS ///////////////////////////////////////// */
@@ -39,6 +69,14 @@
         display: block;
         /* border: 1px solid red; */
         margin-left: 0px;
+        transition: 0.1s linear;
+        width: 100% !important;
+        margin-top: 67px;
+        z-index: 0;
+    }
+    html[dir="rtl"] .Home {
+        margin-left: 0px;
+        margin-right: 0px;
         transition: 0.1s linear;
         width: 100% !important;
         margin-top: 67px;
