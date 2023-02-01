@@ -62,6 +62,13 @@ const AppRouter: FC<AppRouterProps> = ({
     return (
         <Router>
             <Routes>
+                <Route path={"/login2"} element={<Login2
+                    setShowHeader={setShowHeader}
+                    currentTab={currentTab}
+                    setCurrentTab={setCurrentTab}
+                    mobileViewContainer={mobileViewContainer}
+                />}
+                />
                 <Route path={"/"} element={<Home
                     setShowHeader={setShowHeader}
                     isOpen={isOpen}
@@ -206,7 +213,7 @@ const AppRouter: FC<AppRouterProps> = ({
                                 }
                             />}
                         />
-                         <Route
+                        <Route
                             path={"addrole"}
                             element={<Home
                                 setShowHeader={setShowHeader}
@@ -251,13 +258,6 @@ const AppRouter: FC<AppRouterProps> = ({
                     />
                 </Route>
                 <Route path={"/login"} element={<Login setShowHeader={setShowHeader} />} />
-                <Route path={"/login2"} element={<Login2
-                    setShowHeader={setShowHeader}
-                    currentTab={currentTab}
-                    setCurrentTab={setCurrentTab}
-                    mobileViewContainer={mobileViewContainer}
-                />}
-                />
                 <Route path={"/forgetpassword"} element={<ForgetPassWord setShowHeader={setShowHeader} />} />
                 <Route
                     path={"/*"}

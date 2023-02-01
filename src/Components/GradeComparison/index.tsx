@@ -16,6 +16,7 @@ import { Line } from 'react-chartjs-2';
 // Importing Styles
 import styles from "./style.module.css";
 import { ButtonBase } from "@mui/material";
+import Chart from "../Chart";
 
 // Creating Button Ripples
 const ButtonRipples = createRipples({
@@ -138,9 +139,7 @@ const GradeComparison: FC<GradeComparisonProps> = ({
 
                 {/* Body of Body Container Starts Here */}
                 <div className={styles.bodyOfBodyContainer}>
-                    <h1>
-                        Grade Comparison Graph
-                    </h1>
+                    <Chart />
                 </div>
                 {/* Body of Body Container Ends Here */}
 

@@ -31,6 +31,11 @@ const App = () => {
 
     useEffect(() => {
         // this simulates an async action, after which the component will render the content
+        console.log(localStorage.getItem("accessToken"));
+    });
+
+    useEffect(() => {
+        // this simulates an async action, after which the component will render the content
         demoAsyncCall().then(() => setLoading(false));
     });
     ////////////////// For loader when doing async calls //////////////////
