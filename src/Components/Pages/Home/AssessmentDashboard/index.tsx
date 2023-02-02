@@ -15,6 +15,9 @@ import styles from "./style.module.css";
 import "./style.css";
 import GradeComparison from "../../../GradeComparison";
 
+//Importing useTranslation and Trans from react-i18next
+import { useTranslation } from 'react-i18next';
+
 const percentage = 30;
 
 interface AssessmentDashboardProps {
@@ -32,6 +35,7 @@ const AssessmentDashboard: React.FC<AssessmentDashboardProps> = ({
     isMinified,
     setIsMinified
 }) => {
+    const { t } = useTranslation();
 
     const currentFormatedDate: string = new Date().toLocaleString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
 
@@ -71,7 +75,7 @@ const AssessmentDashboard: React.FC<AssessmentDashboardProps> = ({
         }}>
             <div style={{ marginTop: 5 }} className={`${(windowSize[0] > 990) ? ("d-flex justify-content-between") : ("d-flex flex-column justify-content-start")}`}>
                 <div>
-                    <span style={{ color: "#4f747a" }}>EQA</span> / Assessment / Dashboard
+                    <span style={{ color: "#4f747a" }}>{t('Home.Sidebar.list.Dashboard.subMenu.Dashboard.details.pages.eqa')}</span> / {t('Home.Sidebar.list.Dashboard.subMenu.Dashboard.details.pages.assessment')} / {t('Home.Sidebar.list.Dashboard.subMenu.Dashboard.details.pages.dashboard')}
                 </div>
                 <div>
                     <span style={{ color: "#4f747a", paddingRight: 10 }}>{currentFormatedDate}</span>
@@ -84,7 +88,7 @@ const AssessmentDashboard: React.FC<AssessmentDashboardProps> = ({
             <div className={styles.topContainer}>
                 <div className={styles.leftTopContainer}>
                     <IoSpeedometerOutline size={27} style={{ marginTop: "3px" }} color="#4f747a" />
-                    <p className={styles.topContainerLeftText}> <b style={{ fontWeight: "bold" }}>Assessment</b> Dashboard </p>
+                    <p className={styles.topContainerLeftText}> <b style={{ fontWeight: "bold" }}>{t('Home.Sidebar.list.Dashboard.subMenu.Dashboard.details.pages.assessment')}</b> {t('Home.Sidebar.list.Dashboard.subMenu.Dashboard.details.pages.dashboard')} </p>
                 </div>
                 <div className={styles.rightTopContainer}>
                     <div className={styles.progressBarTopContainer}>
@@ -115,8 +119,8 @@ const AssessmentDashboard: React.FC<AssessmentDashboardProps> = ({
                             />
                         </div>
                         <div className={styles.containerRightProgress}>
-                            <p style={{ fontSize: "15px", marginTop: 3 }}>Present Students</p>
-                            <p style={{ fontSize: 20, marginTop: -18, fontWeight: "bold" }}>200</p>
+                            <p style={{ fontSize: "15px", marginTop: 3 }}>{t('Home.Sidebar.list.Dashboard.subMenu.Dashboard.details.presentStudents.title')}</p>
+                            <p style={{ fontSize: 20, marginTop: -18, fontWeight: "bold" }}>{t('Home.Sidebar.list.Dashboard.subMenu.Dashboard.details.presentStudents.number')}</p>
                         </div>
                     </div>
                     <div className={styles.progressBarTopContainer}>
@@ -147,8 +151,8 @@ const AssessmentDashboard: React.FC<AssessmentDashboardProps> = ({
                             />
                         </div>
                         <div className={styles.containerRightProgress}>
-                            <p style={{ fontSize: "15px", marginTop: 3 }}>Total No. of Login</p>
-                            <p style={{ fontSize: 20, marginTop: -18, fontWeight: "bold" }}>45698</p>
+                            <p style={{ fontSize: "15px", marginTop: 3 }}>{t('Home.Sidebar.list.Dashboard.subMenu.Dashboard.details.total_no_of_login.title')}</p>
+                            <p style={{ fontSize: 20, marginTop: -18, fontWeight: "bold" }}>{t('Home.Sidebar.list.Dashboard.subMenu.Dashboard.details.total_no_of_login.number')}</p>
                         </div>
                     </div>
                 </div>
@@ -160,40 +164,40 @@ const AssessmentDashboard: React.FC<AssessmentDashboardProps> = ({
                 <div className="row gx-4" style={(windowSize[0] > 767) ? (styleFirstRowCB) : (styleForResponsiveFirstRowCB)}>
                     <div className={`col-md-4`}>
                         <div className={styles.insideContainerBox} style={{ backgroundColor: "#a5b3e9" }}>
-                            <div className={styles.countICB}>80</div>
-                            <p className={styles.infoICB}>Total Courses</p>
+                            <div className={styles.countICB}>{t('Home.Sidebar.list.Dashboard.subMenu.Dashboard.details.stats.courses.number')}</div>
+                            <p className={styles.infoICB}>{t('Home.Sidebar.list.Dashboard.subMenu.Dashboard.details.stats.courses.title')}</p>
                         </div>
                     </div>
                     <div className="col-md-4">
                         <div className={styles.insideContainerBox} style={{ backgroundColor: "#ffcda1" }}>
-                            <div className={styles.countICB}>20</div>
-                            <p className={styles.infoICB}>Total Campuses</p>
+                            <div className={styles.countICB}>{t('Home.Sidebar.list.Dashboard.subMenu.Dashboard.details.stats.campuses.number')}</div>
+                            <p className={styles.infoICB}>{t('Home.Sidebar.list.Dashboard.subMenu.Dashboard.details.stats.campuses.title')}</p>
                         </div>
                     </div>
                     <div className="col-md-4">
                         <div className={styles.insideContainerBox} style={{ backgroundColor: "#77d16d" }}>
-                            <div className={styles.countICB}>40000+</div>
-                            <p className={styles.infoICB}>No. of assessments created</p>
+                            <div className={styles.countICB}>{t('Home.Sidebar.list.Dashboard.subMenu.Dashboard.details.stats.assessments.number')}</div>
+                            <p className={styles.infoICB}>{t('Home.Sidebar.list.Dashboard.subMenu.Dashboard.details.stats.assessments.title')}</p>
                         </div>
                     </div>
                 </div>
                 <div className="row gx-4" style={{ marginLeft: "-36px", marginRight: "-36px" }}>
                     <div className="col-md-4">
                         <div className={styles.insideContainerBox} style={{ backgroundColor: "#83b5dd" }}>
-                            <div className={styles.countICB}>50000+</div>
-                            <p className={styles.infoICB}>Graduated</p>
+                            <div className={styles.countICB}>{t('Home.Sidebar.list.Dashboard.subMenu.Dashboard.details.stats.graduates.number')}</div>
+                            <p className={styles.infoICB}>{t('Home.Sidebar.list.Dashboard.subMenu.Dashboard.details.stats.graduates.title')}</p>
                         </div>
                     </div>
                     <div className="col-md-4">
                         <div className={styles.insideContainerBox} style={{ backgroundColor: "#eadeaa" }}>
-                            <div className={styles.countICB}>14</div>
-                            <p className={styles.infoICB}>Libraries in Campus</p>
+                            <div className={styles.countICB}>{t('Home.Sidebar.list.Dashboard.subMenu.Dashboard.details.stats.libraries.number')}</div>
+                            <p className={styles.infoICB}>{t('Home.Sidebar.list.Dashboard.subMenu.Dashboard.details.stats.libraries.title')}</p>
                         </div>
                     </div>
                     <div className="col-md-4">
                         <div className={styles.insideContainerBox} style={{ backgroundColor: "#a3c890" }}>
-                            <div className={styles.countICB}>456</div>
-                            <p className={styles.infoICB}>Faculty Members</p>
+                            <div className={styles.countICB}>{t('Home.Sidebar.list.Dashboard.subMenu.Dashboard.details.stats.faculty.number')}</div>
+                            <p className={styles.infoICB}>{t('Home.Sidebar.list.Dashboard.subMenu.Dashboard.details.stats.faculty.title')}</p>
                         </div>
                     </div>
                 </div>

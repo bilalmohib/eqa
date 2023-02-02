@@ -30,41 +30,41 @@
                     }
                 }
             },
-            "rightSide":{
-                "loginContainer":{
-                    "img":{
-                        "title":"جامعة EQA",
-                        "alt":"جامعة EQA"
+            "rightSide": {
+                "loginContainer": {
+                    "img": {
+                        "title": "جامعة EQA",
+                        "alt": "جامعة EQA"
                     },
-                    "title":"تسجيل الدخول بحسابك",
-                    "formInputs":{
-                        "userName":{
-                            "label":"اسم االمستخدم",
-                            "placeHolder":"ادخل اسم المستخدم"
+                    "title": "تسجيل الدخول بحسابك",
+                    "formInputs": {
+                        "userName": {
+                            "label": "اسم االمستخدم",
+                            "placeHolder": "ادخل اسم المستخدم"
                         },
-                        "password":{
-                            "label":"كلمة المرور",
-                            "placeHolder":"أدخل كلمة المرور"
+                        "password": {
+                            "label": "كلمة المرور",
+                            "placeHolder": "أدخل كلمة المرور"
                         },
-                        "rememberMeText":"تذكرني لمدة 30 يومًا القادمة",
-                        "btnLogin":"تسجيل الدخول",
-                        "forgetPassword":"هل نسيت كلمة السر؟",
-                        "clickHere":"انقر هنا"
+                        "rememberMeText": "تذكرني لمدة 30 يومًا القادمة",
+                        "btnLogin": "تسجيل الدخول",
+                        "forgetPassword": "هل نسيت كلمة السر؟",
+                        "clickHere": "انقر هنا"
                     }
                 }
             }
         },
         "forgetPassword": {
             "title": "هل نسيت كلمة السر؟",
-            "subTitle":"يمكنك إعادة تعيين كلمة المرور الخاصة بك هنا.",
-            "img":{
-                "img1":{
-                    "title":"جامعة EQA",
-                    "alt":"جامعة EQA"
+            "subTitle": "يمكنك إعادة تعيين كلمة المرور الخاصة بك هنا.",
+            "img": {
+                "img1": {
+                    "title": "جامعة EQA",
+                    "alt": "جامعة EQA"
                 },
-                "img2":{
-                    "title":"نسيت كلمة المرور يمكنك إعادة تعيين هنا لا تقلق",
-                    "alt":"نسيت كلمة المرور يمكنك إعادة تعيين هنا لا تقلق"
+                "img2": {
+                    "title": "نسيت كلمة المرور يمكنك إعادة تعيين هنا لا تقلق",
+                    "alt": "نسيت كلمة المرور يمكنك إعادة تعيين هنا لا تقلق"
                 }
             },
             "formInputs": {
@@ -73,6 +73,299 @@
                     "placeHolder": "example@gmail.com"
                 },
                 "btnResetPassword": "إعادة تعيين كلمة المرور"
+            }
+        },
+        "Home": {
+            "Header": {
+                "search": "ابحث عن أي شيء",
+                "DropDown": {
+                    "Apps": {
+                        "title": "تطبيقات",
+                        "subTitle": "تطبيقات المستخدم والملحقات",
+                        "settings": {
+                            "title": "إعدادات"
+                        },
+                        "genericSettings": {
+                            "title": "إعدادات عامة"
+                        },
+                        "List": {
+                            "services": "خدمات",
+                            "account": "حساب",
+                            "security": "حماية",
+                            "calender": "التقويم",
+                            "stats": "احصائيات",
+                            "messages": "رسائل",
+                            "notes": "ملاحظات",
+                            "photos": "الصور",
+                            "maps": "خرائط"
+                        },
+                        "Notifications": {
+                            "title": "إشعارات",
+                            "info": "جديد",
+                            "subTitle": "إخطارات المستخدم",
+                            "ViewAll": "عرض جميع الإخطارات",
+                            "tabs": {
+                                "Messages": {
+                                    "title": "رسائل",
+                                    "list": [
+                                        {
+                                            "name": "ميليسا اير",
+                                            "message": "إعادة: رموز الأمان الجديدة. مرحبًا مرة أخرى وشكرًا لكونك جزءًا من مجتمعنا المذهل.",
+                                            "time": "قبل 56 ثانية",
+                                            "isOnline": "success",
+                                            "profileURL": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSlqSdStWAtFfqu7ZUGwOXD4wGJZA1z8vb-WLWw1FwhGo_b-xXWM3B-J01wdL9zwUBbsAI&usqp=CAU"
+                                        },
+                                        {
+                                            "name": "أديسون لي",
+                                            "message": "ماذا تفعل الآن.",
+                                            "time": "منذ 2 دقيقة",
+                                            "isOnline": "warning",
+                                            "profileURL": "https://media.istockphoto.com/id/480286744/photo/portrait-of-a-german-businessman-with-beard.jpg?s=612x612&w=0&k=20&c=PAi9oWMV2LLkbPM14nvpWOAZUk_kb6DXvpQ4ZwyJvjs="
+                                        },
+                                        {
+                                            "name": "ديفيد لي",
+                                            "message": "مرحباً ، أعتقد أنك تبلي بلاءً حسناً.",
+                                            "time": "منذ 3 ساعات",
+                                            "isOnline": "dark",
+                                            "profileURL": "https://i.pinimg.com/originals/c3/33/27/c333273fcfc3198e93df380c0cfc0437.jpg"
+                                        },
+                                        {
+                                            "name": "أديسون لي",
+                                            "message": "نحن نعمل على رموز أمنية جديدة.",
+                                            "time": "قبل 12 دقيقة",
+                                            "isOnline": "warning",
+                                            "profileURL": "https://t3.ftcdn.net/jpg/03/31/63/82/360_F_331638217_BsSy1TcziNymxOBAMGO6Zrc4hge5yQWz.jpg"
+                                        },
+                                        {
+                                            "name": "يانغ دانغ",
+                                            "message": "لقد أكملنا التكرار الأول لتطبيق الويب.",
+                                            "time": "منذ 1 ساعة",
+                                            "isOnline": "success",
+                                            "profileURL": "https://visafoto.com/img/source355x388_ar.jpg"
+                                        },
+                                        {
+                                            "name": "روجر اونيل",
+                                            "message": "كيف حالك يانغ دانغ؟",
+                                            "time": "قبل 12 دقيقة",
+                                            "isOnline": "success",
+                                            "profileURL": "https://cdn1.sph.harvard.edu/wp-content/uploads/sites/2501/2020/12/Prof.-Alemayehu-Worku-e1607531245550.jpg"
+                                        }
+                                    ]
+                                },
+                                "Notifications": {
+                                    "title": "إشعارات",
+                                    "list": [
+                                        {
+                                            "title": "تم إنشاء تقييم جديد",
+                                            "message": "تم إنشاء تقييم جديد باسم' العمل في عملك من المنزل",
+                                            "time": "قبل 56 ثانية"
+                                        },
+                                        {
+                                            "title": "تمت إضافة المستخدم",
+                                            "message": "تم إنشاء مستخدم باسم شبير حسين",
+                                            "time": "منذ 2 دقيقة"
+                                        },
+                                        {
+                                            "title": "تم إنشاء الدورة",
+                                            "message": "تم إنشاء دورة بعنوان Learning React JS.",
+                                            "time": "1 second ago"
+                                        },
+                                        {
+                                            "title": "تم إنشاء الحدث",
+                                            "message": "تم تحديد لقائك مع محمد بلال الآن.",
+                                            "time": "قبل 46 سنة"
+                                        },
+                                        {
+                                            "title": "تم استلام رسالة جديدة",
+                                            "message": "من محمد علي: ماذا تفعل الآن؟.",
+                                            "time": "قبل 56 ثانية"
+                                        },
+                                        {
+                                            "title": "ميليسا اير",
+                                            "message": "إعادة: رموز الأمان الجديدة. مرحبًا مرة أخرى وشكرًا لكونك جزءًا من مجتمعنا المذهل.",
+                                            "time": "قبل 56 ثانية"
+                                        }
+                                    ]
+                                },
+                                "Events": {
+                                    "title": "الأحداث"
+                                }
+                            }
+                        },
+                        "Profile": {
+                            "title": "معلومات الملف الشخصي",
+                            "name": "محمد شبير علم",
+                            "location": "نيويورك ، المملكة المتحدة",
+                            "list": {
+                                "myprofile": "ملفي",
+                                "resetPassword": "إعادة تعيين كلمة المرور",
+                                "settings": "إعدادات",
+                                "Language": {
+                                    "title": "لغة",
+                                    "list": {
+                                        "English": "إنجليزي",
+                                        "Urdu": "الأردية",
+                                        "Arabic": "عربي"
+                                    }
+                                },
+                                "fullscreen": {
+                                    "title": "كامل الشاشة",
+                                    "shortcut": "F11"
+                                },
+                                "print": {
+                                    "title": "مطبعة",
+                                    "shortcut": "السيطرة + P."
+                                },
+                                "Logout": {
+                                    "title": "تسجيل خروج",
+                                    "email": "bilalmohib7896@gmail.com"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "Sidebar": {
+                "profile": {
+                    "name": "محمد شبير علم",
+                    "location": "لوس أنجلوس ، الولايات المتحدة الأمريكية"
+                },
+                "image": {
+                    "title": "تطبيق ويب EQA",
+                    "alt": "تطبيق ويب EQA"
+                },
+                "list": {
+                    "Dashboard": {
+                        "index": 1,
+                        "text": "لوحة القيادة",
+                        "subMenu": {
+                            "Dashboard": {
+                                "text": "لوحة القيادة",
+                                "link": "/dashboard/assessment",
+                                "details": {
+                                    "title": "لوحة معلومات التقييم",
+                                    "pages": {
+                                        "eqa": "EQA",
+                                        "assessment": "تقدير",
+                                        "overall": "شاملة",
+                                        "dashboard": "لوحة القيادة"
+                                    },
+                                    "presentStudents": {
+                                        "title": "الطلاب الحاليون",
+                                        "number": "مائتان"
+                                    },
+                                    "total_no_of_login": {
+                                        "title": "إجمالي عدد تسجيل الدخول",
+                                        "number": "خمسة وأربعون ألف وستة مائة وثمانية وتسعون"
+                                    },
+                                    "stats": {
+                                        "courses": {
+                                            "title": "مجموع الدورات",
+                                            "number": "ثمانون"
+                                        },
+                                        "campuses": {
+                                            "title": "مجموع الحرم الجامعية",
+                                            "number": "عشرون"
+                                        },
+                                        "assessments": {
+                                            "title": "عدد التقييمات التي تم إنشاؤها",
+                                            "number": "أربعون ألف+"
+                                        },
+                                        "graduates": {
+                                            "title": "تخرج",
+                                            "number": "خمسون ألف+"
+                                        },
+                                        "libraries": {
+                                            "title": "مكتبات في الحرم الجامعي",
+                                            "number": "أربعة عشر"
+                                        },
+                                        "faculty": {
+                                            "title": "أعضاء هيئة التدريس",
+                                            "number": "أربعة مائة وستة وخمسون+"
+                                        }
+                                    },
+                                    "table": {
+                                        "title": "الدورات المقدمة",
+                                        "subTitle": "يتم تقديم الدورات التالية",
+                                        "menuItems": [
+                                            "ملفي",
+                                            "إعدادات",
+                                            "تسجيل خروج"
+                                        ],
+                                        "cols": [
+                                            "أجراءات",
+                                            "كود الدورة",
+                                            "اسم",
+                                            "قسم",
+                                            "عدد الطلاب",
+                                            "منسق",
+                                            "مدرب",
+                                            "حرم الجامعة",
+                                            "نصف السنة"
+                                        ]
+                                    },
+                                    "chart": {
+                                        "title": "مقارنة الدرجات",
+                                        "subTitle": "مقارنة الدرجات",
+                                        "description": "مقارنة درجات الطلاب"
+                                    }
+                                }
+                            },
+                            "assessment": {
+                                "text": "إنشاء التقييم",
+                                "link": "/dashboard/createassessment"
+                            },
+                            "grade": {
+                                "text": "أدخل الدرجة",
+                                "link": "/dashboard/entergrade"
+                            },
+                            "overAllGrade": {
+                                "text": "أدخل الدرجة الكلية",
+                                "link": "/dashboard/enteroverallgrade"
+                            }
+                        }
+                    },
+                    "userManagement": {
+                        "index": 2,
+                        "text": "إدارةالمستخدم",
+                        "subMenu": {
+                            "Users": {
+                                "text": "المستخدمون",
+                                "link": "/usermanagement/users/viewusers"
+                            },
+                            "groups": {
+                                "text": "مجموعات",
+                                "link": "/usermanagement/groups/viewgroups"
+                            },
+                            "roles": {
+                                "text": "دور",
+                                "link": "/usermanagement/roles/viewroles"
+                            }
+                        }
+                    },
+                    "settings": {
+                        "index": 3,
+                        "text": "إعدادات",
+                        "subMenu": {
+                            "general": {
+                                "text": "الاعدادات العامة",
+                                "link": "/settings/general"
+                            },
+                            "create": {
+                                "text": "قم بإنشاء الإعدادات",
+                                "link": "/createsettings"
+                            },
+                            "edit": {
+                                "text": "تحرير الإعدادات",
+                                "link": "/editsettings"
+                            },
+                            "update": {
+                                "text": "إعدادات التحديث",
+                                "link": "/updatesettings"
+                            }
+                        }
+                    }
+                }
             }
         }
     }
