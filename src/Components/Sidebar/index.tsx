@@ -12,6 +12,9 @@ import { useNavigate } from 'react-router';
 // Importing i18 for language
 import i18n from "../../i18n";
 
+//Importing useTranslation and Trans from react-i18next
+import { useTranslation } from 'react-i18next';
+
 // Importing logo
 import logo from "../../assets/Images/Navbar/logo.png";
 
@@ -54,6 +57,7 @@ const Sidebar: React.FC<SidebarProps> = ({
     // Sidebar Menu Items Array
     sidebarList
 }) => {
+    const { t } = useTranslation();
 
     // For detecting the window size
     const [windowSize, setWindowSize] = useState([
@@ -189,8 +193,8 @@ const Sidebar: React.FC<SidebarProps> = ({
                         width={220}
                         height={50}
                         className={styles.LogoSidebar}
-                        title="EQA Web App"
-                        alt={"EQA Web App"}
+                        title={`${(t('Home.Sidebar.image.title'))}`}
+                        alt={`${(t('Home.Sidebar.image.alt'))}`}
                     /> <FiChevronDown color="grey" />
                 </div>
                 {(!showFilterMenu) ? (
@@ -216,12 +220,12 @@ const Sidebar: React.FC<SidebarProps> = ({
                                     width={50}
                                     height={50}
                                     src="https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8Mnx8fGVufDB8fHx8&w=1000&q=80"
-                                    alt="David Warner"
+                                    alt={`${(t('Home.Sidebar.profile.name'))}`}
                                 />
                             </div>
                             <div className={styles.rightInsideProfile}>
-                                <h3>David Warner</h3>
-                                <p>Los Angeles, USA</p>
+                                <h3>{(t('Home.Sidebar.profile.name'))}</h3>
+                                <p>{(t('Home.Sidebar.profile.location'))}</p>
                             </div>
                         </div>
                     </div>

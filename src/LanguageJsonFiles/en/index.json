@@ -44,15 +44,15 @@
         },
         "forgetPassword": {
             "title": "Forgot password?",
-            "subTitle":"You can reset your password here.",
-            "img":{
-                "img1":{
-                    "title":"EQA University",
-                    "alt":"EQA University"
+            "subTitle": "You can reset your password here.",
+            "img": {
+                "img1": {
+                    "title": "EQA University",
+                    "alt": "EQA University"
                 },
-                "img2":{
-                    "title":"Forget Password",
-                    "alt":"Reset Password"
+                "img2": {
+                    "title": "Forget Password",
+                    "alt": "Reset Password"
                 }
             },
             "formInputs": {
@@ -61,6 +61,299 @@
                     "placeHolder": "Example@gmail.com"
                 },
                 "btnResetPassword": "Reset Password"
+            }
+        },
+        "Home": {
+            "Header": {
+                "search": "Search for anything",
+                "DropDown": {
+                    "Apps": {
+                        "title": "Apps",
+                        "subTitle": "User Applications & Addons",
+                        "settings": {
+                            "title": "Settings"
+                        },
+                        "genericSettings": {
+                            "title": "Generic Settings"
+                        },
+                        "List": {
+                            "services": "Services",
+                            "account": "Account",
+                            "security": "Security",
+                            "calender": "Calender",
+                            "stats": "Stats",
+                            "messages": "Messages",
+                            "notes": "Notes",
+                            "photos": "Photos",
+                            "maps": "Maps"
+                        },
+                        "Notifications": {
+                            "title": "Notifications",
+                            "info": "New",
+                            "subTitle": "User Notifications",
+                            "ViewAll": "View All Notifications",
+                            "tabs": {
+                                "Messages": {
+                                    "title": "Messages",
+                                    "list": [
+                                        {
+                                            "name": "Melissa Ayre",
+                                            "message": "Re: New Security Codes. Hello again and thanks for being part of our amazing community.",
+                                            "time": "56 seconds ago",
+                                            "isOnline": "success",
+                                            "profileURL": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSlqSdStWAtFfqu7ZUGwOXD4wGJZA1z8vb-WLWw1FwhGo_b-xXWM3B-J01wdL9zwUBbsAI&usqp=CAU"
+                                        },
+                                        {
+                                            "name": "Adison Lee",
+                                            "message": "What are you doing right now.",
+                                            "time": "2 minutes ago",
+                                            "isOnline": "warning",
+                                            "profileURL": "https://media.istockphoto.com/id/480286744/photo/portrait-of-a-german-businessman-with-beard.jpg?s=612x612&w=0&k=20&c=PAi9oWMV2LLkbPM14nvpWOAZUk_kb6DXvpQ4ZwyJvjs="
+                                        },
+                                        {
+                                            "name": "David Lee",
+                                            "message": "Hi I think you are doing great.",
+                                            "time": "3 hours ago",
+                                            "isOnline": "dark",
+                                            "profileURL": "https://i.pinimg.com/originals/c3/33/27/c333273fcfc3198e93df380c0cfc0437.jpg"
+                                        },
+                                        {
+                                            "name": "Adison Lee",
+                                            "message": "We are working on new security codes.",
+                                            "time": "12 minutes ago",
+                                            "isOnline": "warning",
+                                            "profileURL": "https://t3.ftcdn.net/jpg/03/31/63/82/360_F_331638217_BsSy1TcziNymxOBAMGO6Zrc4hge5yQWz.jpg"
+                                        },
+                                        {
+                                            "name": "Yang Dang",
+                                            "message": "We have completed the first iteration of the web app.",
+                                            "time": "1 hour ago",
+                                            "isOnline": "success",
+                                            "profileURL": "https://visafoto.com/img/source355x388_ar.jpg"
+                                        },
+                                        {
+                                            "name": "Roger O'Neil",
+                                            "message": "How Yang Dang are you doing?",
+                                            "time": "12 minutes ago",
+                                            "isOnline": "success",
+                                            "profileURL": "https://cdn1.sph.harvard.edu/wp-content/uploads/sites/2501/2020/12/Prof.-Alemayehu-Worku-e1607531245550.jpg"
+                                        }
+                                    ]
+                                },
+                                "Notifications": {
+                                    "title": "Notifications",
+                                    "list": [
+                                        {
+                                            "title": "New Assessment Created",
+                                            "message": "New Assessment named `Work on your home work` has been created ",
+                                            "time": "56 seconds ago"
+                                        },
+                                        {
+                                            "title": "User Added",
+                                            "message": "A User with a name Shabbir Hussain has been created",
+                                            "time": "2 minutes ago"
+                                        },
+                                        {
+                                            "title": "Course Created",
+                                            "message": "A course with the title Learning React JS has been created.",
+                                            "time": "1 second ago"
+                                        },
+                                        {
+                                            "title": "Event Created",
+                                            "message": "Your meeting with Muhammad Bilal has been established now.",
+                                            "time": "46 years ago"
+                                        },
+                                        {
+                                            "title": "New Message Received",
+                                            "message": "From Muhammad Ali: What are you doing right now?.",
+                                            "time": "56 seconds ago"
+                                        },
+                                        {
+                                            "title": "Melissa Ayre",
+                                            "message": "Re: New Security Codes. Hello again and thanks for being part of our amazing community.",
+                                            "time": "56 seconds ago"
+                                        }
+                                    ]
+                                },
+                                "Events": {
+                                    "title": "Events"
+                                }
+                            }
+                        },
+                        "Profile": {
+                            "title": "Profile Information",
+                            "name": "Md Shabbir Alam",
+                            "location": "New York, Uk",
+                            "list": {
+                                "myprofile": "My Profile",
+                                "resetPassword": "Reset Password",
+                                "settings": "Settings",
+                                "Language": {
+                                    "title": "Language",
+                                    "list": {
+                                        "English": "English",
+                                        "Urdu": "Urdu",
+                                        "Arabic": "Arabic"
+                                    }
+                                },
+                                "fullscreen": {
+                                    "title": "Full Screen",
+                                    "shortcut": "F11"
+                                },
+                                "print": {
+                                    "title": "Print",
+                                    "shortcut": "Ctrl + P"
+                                },
+                                "Logout": {
+                                    "title": "Logout",
+                                    "email": "bilalmohib7896@gmail.com"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "Sidebar": {
+                "profile": {
+                    "name": "Md Shabbir Alam",
+                    "location": "Los Angeles, USA"
+                },
+                "image": {
+                    "title": "EQA Web App",
+                    "alt": "EQA Web App"
+                },
+                "list": {
+                    "Dashboard": {
+                        "index": 1,
+                        "text": "Dashboard",
+                        "subMenu": {
+                            "Dashboard": {
+                                "text": "Dashboard",
+                                "link": "/dashboard/assessment",
+                                "details": {
+                                    "title": "Assessment Dashboard",
+                                    "pages": {
+                                        "eqa": "EQA",
+                                        "assessment": "Assessment",
+                                        "overall": "Overall",
+                                        "dashboard": "Dashboard"
+                                    },
+                                    "presentStudents": {
+                                        "title": "Present Students",
+                                        "number": "200"
+                                    },
+                                    "total_no_of_login": {
+                                        "title": "Total No. of Login",
+                                        "number": "45698"
+                                    },
+                                    "stats": {
+                                        "courses": {
+                                            "title": "Total Courses",
+                                            "number": "80"
+                                        },
+                                        "campuses": {
+                                            "title": "Total Campuses",
+                                            "number": "20"
+                                        },
+                                        "assessments": {
+                                            "title": "No. of assessments created",
+                                            "number": "40000+"
+                                        },
+                                        "graduates": {
+                                            "title": "Graduated",
+                                            "number": "50000+"
+                                        },
+                                        "libraries": {
+                                            "title": "Libraries in Campus",
+                                            "number": "14"
+                                        },
+                                        "faculty": {
+                                            "title": "Faculty Members",
+                                            "number": "456+"
+                                        }
+                                    },
+                                    "table": {
+                                        "title": "Offered Courses",
+                                        "subTitle": "Following courses are offered",
+                                        "menuItems": [
+                                            "My Profile",
+                                            "Settings",
+                                            "Logout"
+                                        ],
+                                        "cols": [
+                                            "Actions",
+                                            "Course Code",
+                                            "Name",
+                                            "Section",
+                                            "No. of Students",
+                                            "Co-ordinator",
+                                            "Instructor",
+                                            "Campus",
+                                            "Semester"
+                                        ]
+                                    },
+                                    "chart": {
+                                        "title": "Grade Comparison",
+                                        "subTitle": "GRADE COMPARISON",
+                                        "description": "Grade comparison of students"
+                                    }
+                                }
+                            },
+                            "assessment": {
+                                "text": "Create Assessment",
+                                "link": "/dashboard/createassessment"
+                            },
+                            "grade": {
+                                "text": "Enter Grade",
+                                "link": "/dashboard/entergrade"
+                            },
+                            "overAllGrade": {
+                                "text": "Enter Overall Grade",
+                                "link": "/dashboard/enteroverallgrade"
+                            }
+                        }
+                    },
+                    "userManagement": {
+                        "index": 2,
+                        "text": "User Management",
+                        "subMenu": {
+                            "Users": {
+                                "text": "Users",
+                                "link": "/usermanagement/users/viewusers"
+                            },
+                            "groups": {
+                                "text": "Groups",
+                                "link": "/usermanagement/groups/viewgroups"
+                            },
+                            "roles": {
+                                "text": "Role",
+                                "link": "/usermanagement/roles/viewroles"
+                            }
+                        }
+                    },
+                    "settings": {
+                        "index": 3,
+                        "text": "Settings",
+                        "subMenu": {
+                            "general": {
+                                "text": "General Settings",
+                                "link": "/settings/general"
+                            },
+                            "create": {
+                                "text": "Create Settings",
+                                "link": "/createsettings"
+                            },
+                            "edit": {
+                                "text": "Edit Settings",
+                                "link": "/editsettings"
+                            },
+                            "update": {
+                                "text": "Update Settings",
+                                "link": "/updatesettings"
+                            }
+                        }
+                    }
+                }
             }
         }
     }

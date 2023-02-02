@@ -18,6 +18,12 @@ import { FaUserAlt } from "react-icons/fa";
 import styles from "./style.module.css";
 import Footer from "../../Components/Footer";
 
+// Importing i18 for language
+import i18n from "../../i18n";
+
+//Importing useTranslation and Trans from react-i18next
+import { useTranslation } from 'react-i18next';
+
 interface HomeProps {
     isOpen: Boolean,
     setIsOpen: any,
@@ -37,6 +43,7 @@ const Home = ({
     subComponent,
     setShowHeader
 }: HomeProps) => {
+    const { t } = useTranslation();
 
     // For routing
     const navigate = useNavigate();
@@ -44,7 +51,6 @@ const Home = ({
 
     useEffect(() => {
         // The current location.
-        // console.clear();
         console.log("The current location is: ", location.pathname);
         const url = location.pathname;
 
@@ -64,6 +70,8 @@ const Home = ({
 
     // For handling the window resize
     useEffect(() => {
+        console.log("The current language is: ", i18n.language);
+
         const handleWindowResize = () => {
             // if (window.innerWidth < 991) {
             //     setIsOpen(false);
@@ -92,31 +100,35 @@ const Home = ({
     const [currentSubMenuSidebarOpenItem, setCurrentSubMenuSidebarOpenItem] = useState<Number>(0);
 
     // ######################## Array of menu items ########################
+    let dashboard = (i18n.language === "ar") ? "لوحة القيادة" : "Dashboard";
+    let userManagement = (i18n.language === "ar") ? "لوحة القيادة" : "User Management";
+    let settings = (i18n.language === "ar") ? "لوحة القيادة" : "Settings";
+
     const SidebarMenuItemsArray = [
         {
             index: 1,
             icon: <AiFillDashboard size={20} style={{ width: 25, height: 25 }} />,
-            text: "Dashboard",
+            text: dashboard,
             // link: "/",
             subMenu: [
                 {
                     icon: <RxDot style={{ marginLeft: 2 }} />,
-                    text: "Dashboard",
+                    text: t('Home.Sidebar.list.Dashboard.subMenu.Dashboard.text'),
                     link: "/dashboard/assessment"
                 },
                 {
                     icon: <RxDot style={{ marginLeft: 2 }} />,
-                    text: "Create Assessment",
+                    text: t('Home.Sidebar.list.Dashboard.subMenu.assessment.text'),
                     link: "/dashboard/createassessment"
                 },
                 {
                     icon: <RxDot style={{ marginLeft: 2 }} />,
-                    text: "Enter Grade",
+                    text: t('Home.Sidebar.list.Dashboard.subMenu.grade.text'),
                     link: "/dashboard/entergrade"
                 },
                 {
                     icon: <RxDot style={{ marginLeft: 2 }} />,
-                    text: "Enter Overall Grade",
+                    text: t('Home.Sidebar.list.Dashboard.subMenu.overAllGrade.text'),
                     link: "/dashboard/enteroverallgrade"
                 }
             ]
@@ -124,22 +136,22 @@ const Home = ({
         {
             index: 2,
             icon: <FaUserAlt size={17} style={{ width: 23, height: 23 }} />,
-            text: "User Management",
+            text: userManagement,
             // link: "/usermanagement",
             subMenu: [
                 {
                     icon: <RxDot style={{ marginLeft: 2 }} />,
-                    text: "Users",
+                    text: t('Home.Sidebar.list.userManagement.subMenu.Users.text'),
                     link: "/usermanagement/users/viewusers"
                 },
                 {
                     icon: <RxDot style={{ marginLeft: 2 }} />,
-                    text: "Groups",
+                    text: t('Home.Sidebar.list.userManagement.subMenu.groups.text'),
                     link: "/usermanagement/groups/viewgroups"
                 },
                 {
                     icon: <RxDot style={{ marginLeft: 2 }} />,
-                    text: "Role",
+                    text: t('Home.Sidebar.list.userManagement.subMenu.roles.text'),
                     link: "/usermanagement/roles/viewroles"
                 }
             ]
@@ -147,27 +159,27 @@ const Home = ({
         {
             index: 3,
             icon: <FiSettings size={20} style={{ width: 23, height: 23 }} />,
-            text: "Settings",
+            text: settings,
             // link: "/",
             subMenu: [
                 {
                     icon: <RxDot style={{ marginLeft: 2 }} />,
-                    text: "General Settings",
+                    text: t('Home.Sidebar.list.settings.subMenu.general.text'),
                     link: "/settings/general",
                 },
                 {
                     icon: <RxDot style={{ marginLeft: 2 }} />,
-                    text: "Create Settings",
+                    text: t('Home.Sidebar.list.settings.subMenu.create.text'),
                     link: "/createsettings",
                 },
                 {
                     icon: <RxDot style={{ marginLeft: 2 }} />,
-                    text: "Edit Settings",
+                    text: t('Home.Sidebar.list.settings.subMenu.edit.text'),
                     link: "/editsettings",
                 },
                 {
                     icon: <RxDot style={{ marginLeft: 2 }} />,
-                    text: "Update Settings",
+                    text: t('Home.Sidebar.list.settings.subMenu.update.text'),
                     link: "/updatesettings",
                 }
             ]
@@ -237,7 +249,7 @@ const Home = ({
                     </div>
                 </div>
 
-                <Footer 
+                <Footer
                     // For simple open/close sidebar
                     isOpen={isOpen}
                     // For minified sidebar
