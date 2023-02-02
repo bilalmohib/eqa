@@ -62,7 +62,7 @@ const AppRouter: FC<AppRouterProps> = ({
     return (
         <Router>
             <Routes>
-                <Route path={"/login2"} element={<Login2
+                <Route index path={"/login2"} element={<Login2
                     setShowHeader={setShowHeader}
                     currentTab={currentTab}
                     setCurrentTab={setCurrentTab}
