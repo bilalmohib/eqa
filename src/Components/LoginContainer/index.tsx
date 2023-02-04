@@ -82,7 +82,7 @@ const LoginContainer = () => {
                     setValidationStatusEmail(true);
                     setValidationStatusPassword(true);
                     // alert("Validated Correctly");
-                    navigate("/");
+                    navigate("/dashboard/assessment");
                 }
             }).catch(error => {
                 console.log("Error in response : ", error);
