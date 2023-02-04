@@ -1,0 +1,36 @@
+.transition_modal_title{
+    font-size: 2rem;
+    font-weight: 500;
+    line-height: 1.6;
+    letter-spacing: 0.0075em;
+    color: #54787e;
+    margin-bottom: 0.5rem;
+    margin-top: 0;
+    text-align: center;
+    border-bottom: 1px solid #54787e;
+}
+
+.modalStyle{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px;
+    background-color: #ffffff;
+    box-shadow: 24;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+.transition_modal_reset{
+    font-size: 1.3rem;
+    font-weight: 300;
+    line-height: 1.6;
+    letter-spacing: 0.0075em;
+    color: #54787e;
+    margin-bottom: 0.5rem;
+    margin-top: 0;
+    text-align: center;
+    /* border-bottom: 1px solid #54787e; */
+}

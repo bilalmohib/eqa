@@ -40,7 +40,14 @@ interface NavProps {
     isOpen: Boolean,
     // For minified sidebar
     isMinified: Boolean,
-    setIsMinified: any
+    setIsMinified: any,
+    // For Material Modal
+    openUserInfoModal: Boolean,
+    setOpenUserInfoModal: any,
+
+    // For Reset Password Modal
+    openResetPasswordModal: Boolean,
+    setOpenResetPasswordModal: any,
 }
 
 const Navbar: React.FC<NavProps> = ({
@@ -48,7 +55,14 @@ const Navbar: React.FC<NavProps> = ({
     isOpen,
     // For minified sidebar
     isMinified,
-    setIsMinified
+    setIsMinified,
+    // For Material Modal
+    openUserInfoModal,
+    setOpenUserInfoModal,
+
+    // For Reset Password Modal
+    openResetPasswordModal,
+    setOpenResetPasswordModal,
 }) => {
     const navigate = useNavigate();
 
@@ -327,6 +341,48 @@ const Navbar: React.FC<NavProps> = ({
                                                     <p>Maps</p>
                                                 </li>
                                             </div>
+                                            <div className={`d-flex justify-content-between ${styles.insideContainerAC}`}>
+                                                <li>
+                                                    <i className="fas fa-keyboard" style={{ color: "#97c4e8", fontSize: 48, height: 50, width: 50 }}></i>
+                                                    <p>Notes</p>
+                                                </li>
+                                                <li>
+                                                    <i className="fas fa-camera-retro" style={{ color: "#777777", fontSize: 48, height: 50, width: 50 }}></i>
+                                                    <p>Photos</p>
+                                                </li>
+                                                <li>
+                                                    <i className="fas fa-globe" style={{ color: "#0F5E9C", fontSize: 48, height: 50, width: 50 }}></i>
+                                                    <p>Maps</p>
+                                                </li>
+                                            </div>
+                                            <div className={`d-flex justify-content-between ${styles.insideContainerAC}`}>
+                                                <li>
+                                                    <i className="fas fa-keyboard" style={{ color: "#97c4e8", fontSize: 48, height: 50, width: 50 }}></i>
+                                                    <p>Notes</p>
+                                                </li>
+                                                <li>
+                                                    <i className="fas fa-camera-retro" style={{ color: "#777777", fontSize: 48, height: 50, width: 50 }}></i>
+                                                    <p>Photos</p>
+                                                </li>
+                                                <li>
+                                                    <i className="fas fa-globe" style={{ color: "#0F5E9C", fontSize: 48, height: 50, width: 50 }}></i>
+                                                    <p>Maps</p>
+                                                </li>
+                                            </div>
+                                            <div className={`d-flex justify-content-between ${styles.insideContainerAC}`}>
+                                                <li>
+                                                    <i className="fas fa-keyboard" style={{ color: "#97c4e8", fontSize: 48, height: 50, width: 50 }}></i>
+                                                    <p>Notes</p>
+                                                </li>
+                                                <li>
+                                                    <i className="fas fa-camera-retro" style={{ color: "#777777", fontSize: 48, height: 50, width: 50 }}></i>
+                                                    <p>Photos</p>
+                                                </li>
+                                                <li>
+                                                    <i className="fas fa-globe" style={{ color: "#0F5E9C", fontSize: 48, height: 50, width: 50 }}></i>
+                                                    <p>Maps</p>
+                                                </li>
+                                            </div>
                                         </section>
                                     </li>
                                 </ul>
@@ -436,9 +492,9 @@ const Navbar: React.FC<NavProps> = ({
                                         loading="lazy" />
                                 </a>
                                 <ul className={`dropdown-menu ${styles.dropdown_nav} ${styles.dropdownProfileNav}`} aria-labelledby="navbarDropdownMenuLink"
-                                    onClick={(e) => {
-                                        e.stopPropagation();
-                                    }}
+                                // onClick={(e) => {
+                                //     e.stopPropagation();
+                                // }}
                                 >
                                     <li>
                                         <div className={styles.topContainerDropDownNav}>
@@ -459,9 +515,25 @@ const Navbar: React.FC<NavProps> = ({
                                             </div>
                                         </div>
                                     </li>
-                                    <li><a className="dropdown-item" href="#">My Profile</a></li>
-                                    <li><a className="dropdown-item" href="#">Reset Password</a></li>
-                                    <li>
+                                    <li
+                                        onClick={() => {
+                                            setOpenUserInfoModal(!openUserInfoModal);
+                                        }}
+                                    >
+                                        <a className="dropdown-item" href="#">My Profile</a>
+                                    </li>
+                                    <li
+                                        onClick={() => {
+                                            setOpenResetPasswordModal(!openResetPasswordModal);
+                                        }}
+                                    >
+                                        <a className="dropdown-item" href="#">Reset Password</a>
+                                    </li>
+                                    <li
+                                        onClick={() => {
+                                            navigate("/settings/general");
+                                        }}
+                                    >
                                         <a className="dropdown-item" href="#">Settings</a>
                                     </li>
                                     <li>
@@ -481,7 +553,7 @@ const Navbar: React.FC<NavProps> = ({
                                                 </div>
                                             </div>
                                         </a>
-                                        <ul className="dropdown-menu dropdown-submenu" style={{left:(i18n.language==="ar")?("100%"):("-57%")}}>
+                                        <ul className="dropdown-menu dropdown-submenu" style={{ left: (i18n.language === "ar") ? ("100%") : ("-57%") }}>
                                             <li onClick={() => selectLanguage("ar")}>
                                                 <a className="dropdown-item" href="#">English</a>
                                             </li>
@@ -511,11 +583,24 @@ const Navbar: React.FC<NavProps> = ({
                                     </li>
                                     {/* Divider */}
                                     <li><hr className="dropdown-divider" /></li>
-                                    <li>
+                                    <li
+                                        // On click make full screen
+                                        onClick={() => {
+                                            if (document.fullscreenElement) {
+                                                document.exitFullscreen();
+                                            } else {
+                                                document.documentElement.requestFullscreen();
+                                            }
+                                        }}
+                                    >
                                         <a className="dropdown-item" href="#">
                                             <div className="d-flex justify-content-between">
                                                 <div>
-                                                    Full Screen
+                                                    {document.fullscreenElement ? (
+                                                        <span>Exit Full Screen</span>
+                                                    ) : (
+                                                        <span>Full Screen</span>
+                                                    )}
                                                 </div>
                                                 <div>
                                                     <i style={{ color: "grey" }}>F 11</i>
@@ -523,7 +608,17 @@ const Navbar: React.FC<NavProps> = ({
                                             </div>
                                         </a>
                                     </li>
-                                    <li>
+                                    <li
+                                        // On click print the page
+                                        onClick={() => {
+                                            // Close the sidebar
+                                            setIsOpen(false);
+
+                                            setTimeout(() => {
+                                                window.print();
+                                            }, 1000);
+                                        }}
+                                    >
                                         <a className="dropdown-item" href="#">
                                             <div className="d-flex justify-content-between">
                                                 <div>
@@ -537,7 +632,12 @@ const Navbar: React.FC<NavProps> = ({
                                     </li>
                                     {/* Divider */}
                                     <li><hr className="dropdown-divider" /></li>
-                                    <li>
+                                    <li
+                                        // On click logout the user
+                                        onClick={() => {
+                                            logoutUser();
+                                        }}
+                                    >
                                         <a className="dropdown-item" href="#">
                                             <div className="d-flex justify-content-between" style={{ height: 30 }} onClick={logoutUser}>
                                                 <div>

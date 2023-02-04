@@ -516,6 +516,8 @@ html[dir="rtl"] .dropdownAppNav {
 .AppsContainerDropDown {
     /* border: 1px solid red; */
     width: 100%;
+    height: 370px;
+    overflow: auto;
     /* height: 20px; */
 }
 
