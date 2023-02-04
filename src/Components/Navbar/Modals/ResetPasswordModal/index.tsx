@@ -202,16 +202,16 @@ const ResetPasswordModal = ({
                             <Typography className={styles.resetPasswordPolicy} sx={{ mt: 2 }}>
                                 Reset Password Policy
                             </Typography>
-                            <Typography sx={{ mt: 0 }} className="text-left">
+                            <Typography sx={{ mt: 2 }} className="text-left">
                                 1. Password must be at least 8 characters long.
                             </Typography>
-                            <Typography sx={{ mt: 0 }} className="text-left">
+                            <Typography sx={{ mt: 2 }} className="text-left">
                                 2. Password must contain at least one uppercase letter, one lowercase letter, one number and one special character.
                             </Typography>
-                            <Typography sx={{ mt: 0 }} className="text-left">
+                            <Typography sx={{ mt: 2 }} className="text-left">
                                 3. Password must not contain any spaces.
                             </Typography>
-                            <Typography sx={{ mt: 0 }} className="text-left">
+                            <Typography sx={{ mt: 2 }} className="text-left">
                                 {/* 4. Password must not contain any of the following characters: < > & # % $ ^ * ( ) + = { } [ ] | \ : ; " ' , . ? / ~ ` ! @ */}
                             </Typography>
                         </Grid2>

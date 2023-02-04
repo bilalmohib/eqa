@@ -266,15 +266,17 @@ const Sidebar: React.FC<SidebarProps> = ({
                                             }
                                             style={{ cursor: (isMinified) ? ("default") : ("pointer") }}
                                             onClick={(e: any) => {
-                                                createRipple(e);
-                                                if (isMinified === false) {
-                                                    setCurrentMenuItem(index + 1);
-                                                    // navigate('/');
-                                                    if (currentSubMenuSidebarOpenItem === (index + 1)) {
-                                                        setCurrentSubMenuSidebarOpenItem(0);
-                                                    }
-                                                    else {
-                                                        setCurrentSubMenuSidebarOpenItem(index + 1);
+                                                if (!isMinified) {
+                                                    createRipple(e);
+                                                    if (isMinified === false) {
+                                                        setCurrentMenuItem(index + 1);
+                                                        // navigate('/');
+                                                        if (currentSubMenuSidebarOpenItem === (index + 1)) {
+                                                            setCurrentSubMenuSidebarOpenItem(0);
+                                                        }
+                                                        else {
+                                                            setCurrentSubMenuSidebarOpenItem(index + 1);
+                                                        }
                                                     }
                                                 }
                                             }}
@@ -289,6 +291,8 @@ const Sidebar: React.FC<SidebarProps> = ({
                                             <div
                                                 className={`d-flex ${(isMinified) && (styles.minifiedSidebarInsideContainer)}`}
                                                 role={"button"}
+                                                // Disable on click when is minified
+                                                onClick={(event) => { event.preventDefault(); }}
                                                 onMouseEnter={() => {
                                                     if (isMinified) {
                                                         setCurrentMenuItem(index + 1);
