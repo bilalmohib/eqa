@@ -4,11 +4,13 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 import { useLocation } from "react-router-dom";
 
-import { Outlet } from "react-router-dom";
-
 //importing navbar
 import Navbar from "../../Components/Navbar";
 import Sidebar from "../../Components/Sidebar";
+import Footer from "../../Components/Footer";
+// Importing Modals
+import UserInfoModal from "../../Components/Navbar/Modals/UserInfoModal";
+import ResetPasswordModal from "../../Components/Navbar/Modals/ResetPasswordModal";
 
 import { AiFillDashboard } from "react-icons/ai";
 import { RxDot } from "react-icons/rx";
@@ -16,7 +18,6 @@ import { FiSettings } from "react-icons/fi";
 import { FaUserAlt } from "react-icons/fa";
 
 import styles from "./style.module.css";
-import Footer from "../../Components/Footer";
 
 // Importing i18 for language
 import i18n from "../../i18n";
@@ -48,6 +49,15 @@ const Home = ({
     // For routing
     const navigate = useNavigate();
     const location = useLocation();
+
+    // For Material Modal
+    const [openUserInfoModal, setOpenUserInfoModal] = useState<boolean>(false);
+    // For Material Modal
+
+    // Reset Password Modal
+    const [openResetPasswordModal, setOpenResetPasswordModal] = useState<boolean>(false);
+    // Reset Password Modal
+
 
     useEffect(() => {
         // The current location.
@@ -221,6 +231,14 @@ const Home = ({
                     // For minified sidebar
                     isMinified={isMinified}
                     setIsMinified={setIsMinified}
+
+                    // For User Info Modal
+                    openUserInfoModal={openUserInfoModal}
+                    setOpenUserInfoModal={setOpenUserInfoModal}
+
+                    // Passing the props to the ResetPasswordModal component
+                    openResetPasswordModal={openResetPasswordModal}
+                    setOpenResetPasswordModal={setOpenResetPasswordModal}
                 />
                 <div className='d-flex'>
                     <div style={{ position: "relative", zIndex: 1 }}>
@@ -256,6 +274,18 @@ const Home = ({
                     isMinified={isMinified}
                 />
             </main>
+
+            <UserInfoModal
+                // Passing the props to the UserInfoModal component
+                openUserInfoModal={openUserInfoModal}
+                setOpenUserInfoModal={setOpenUserInfoModal}
+            />
+
+            <ResetPasswordModal
+                // Passing the props to the ResetPasswordModal component
+                openResetPasswordModal={openResetPasswordModal}
+                setOpenResetPasswordModal={setOpenResetPasswordModal}
+            />
         </div>
     )
 }

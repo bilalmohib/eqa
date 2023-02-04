@@ -62,14 +62,21 @@ const AppRouter: FC<AppRouterProps> = ({
     return (
         <Router>
             <Routes>
-                <Route path={"/login2"} element={<Login2
+                <Route index path={"/login2"} element={<Login2
                     setShowHeader={setShowHeader}
                     currentTab={currentTab}
                     setCurrentTab={setCurrentTab}
                     mobileViewContainer={mobileViewContainer}
                 />}
                 />
-                <Route path={"/"} element={<Home
+                 <Route index path={"/"} element={<Login2
+                    setShowHeader={setShowHeader}
+                    currentTab={currentTab}
+                    setCurrentTab={setCurrentTab}
+                    mobileViewContainer={mobileViewContainer}
+                />}
+                />
+                {/* <Route path={"/"} element={<Home
                     setShowHeader={setShowHeader}
                     isOpen={isOpen}
                     setIsOpen={setIsOpen}
@@ -84,7 +91,7 @@ const AppRouter: FC<AppRouterProps> = ({
                         setIsMinified={setIsMinified}
                     />
                     }
-                />} />
+                />} /> */}
                 <Route path="dashboard">
                     <Route
                         path="assessment"

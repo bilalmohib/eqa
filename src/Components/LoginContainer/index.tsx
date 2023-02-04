@@ -45,7 +45,7 @@ const LoginContainer = () => {
     // Validation for Email
     useEffect(() => {
         if (email.length !== 0) {
-            setValidateNow(false);
+            // setValidateNow(true);
             setValidationStatusEmail(true);
         }
         else {
@@ -56,7 +56,7 @@ const LoginContainer = () => {
     // Validation for Password
     useEffect(() => {
         if (password.length !== 0) {
-            setValidateNow(false);
+            // setValidateNow(true);
             setValidationStatusPassword(true);
         }
         else {
@@ -72,19 +72,37 @@ const LoginContainer = () => {
             setValidationStatusPassword(false);
             return;
         } else {
+            // console.log("Presentation Layer Response: ", email);
             validateLogin({
                 "userName": email,
                 "password": password
             }).then(response => {
                 console.log("Presetation layer response: ", response);
                 if (response === 'SUCCESS') {
+                    setValidationStatusEmail(true);
+                    setValidationStatusPassword(true);
                     // alert("Validated Correctly");
-                    navigate("/");
-                } else {
+                    navigate("/dashboard/assessment");
+                }
+            }).catch(error => {
+                console.log("Error in response : ", error);
+                // else if (response === 'FAILED') {
+                    // setValidateNow(false);
                     setValidationStatusEmail(false);
                     setValidationStatusPassword(false);
+                    // Clearing the fields
+                    setEmail("");
+                    setPassword("");
+                    return;
                     // alert("Invalid Credentials");
-                }
+                // }
+                // else {
+                //     // setValidateNow(false);
+                //     setValidationStatusEmail(false);
+                //     setValidationStatusPassword(false);
+                //     return;
+                //     // alert("Error Occured");
+                // }
             });
             // } else if (response === "ERROR") {
             //     alert("Error Occured");
