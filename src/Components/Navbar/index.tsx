@@ -613,6 +613,8 @@ const Navbar: React.FC<NavProps> = ({
                                         onClick={() => {
                                             // Close the sidebar
                                             setIsOpen(false);
+                                            // Close the minify sidebar
+                                            setIsMinified(false);
 
                                             setTimeout(() => {
                                                 window.print();
