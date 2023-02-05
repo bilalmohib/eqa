@@ -91,6 +91,23 @@ const ResetPasswordModal = ({
         }
     }
 
+    const [windowDimensions, setWindowDimensions] = useState({
+        width: window.innerWidth,
+        height: window.innerHeight
+    });
+
+    useEffect(() => {
+        function handleResize() {
+            setWindowDimensions({
+                width: window.innerWidth,
+                height: window.innerHeight
+            });
+        }
+
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
+
     return (
         <Modal
             aria-labelledby="transition-modal-title"
@@ -123,7 +140,9 @@ const ResetPasswordModal = ({
                         onChange={(e) => setOldPassword(e.target.value)}
                     /> */}
                     <Grid2
-                        sx={{ mt: 2 }}
+                        sx={{ 
+                            mt: (windowDimensions.width < 400) ? 0 : 2,
+                        }}
                         container
                         spacing={2}
                     >
