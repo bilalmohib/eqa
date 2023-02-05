@@ -3,12 +3,12 @@ import { resetData } from "../../Core/ForgetPassword";
 
 const resetPassword = (object,apiKey) => {
   return resetData(
-    "http://eqa.datadimens.com:8080/IDENTITY-SERVICE/login/updatePassword",
+    "https://eqa.datadimens.com:8443/IDENTITY-SERVICE/login/updatePassword",
     object,
     apiKey
   ).then((data) => {
     // console.log("data  ===== >", data.status);
-    window.localStorage.setItem("accessToken", data.jwtToken.accessToken);
+    // window.localStorage.setItem("accessToken", data.jwtToken.accessToken);
     return data.status;
   });
 };
