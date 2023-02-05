@@ -47,6 +47,18 @@
     /* border-bottom: 1px solid #54787e; */
 }
 
+html[dir="rtl"] .resetPasswordPolicy{
+    text-align: right;
+}
+
+.cancelButton{
+    margin-left: 15px !important;
+}
+html[dir="rtl"] .cancelButton{
+    margin-left: 0px !important;
+    margin-right: 15px !important;
+}
+
 @media all and (max-width: 900px) {
     .modalStyle {
         width: 90%;

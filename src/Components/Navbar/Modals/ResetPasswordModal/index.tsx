@@ -258,10 +258,10 @@ const ResetPasswordModal = ({
                             variant="outlined"
                             color="error"
                             size="large"
+                            className={styles.cancelButton}
                             sx={{
                                 //backgroundColor: "#e79f43",
                                 mt: 2,
-                                ml: 2,
                                 // textTransform: "none",
                                 // "&:hover": {
                                 //     backgroundColor: "#e79f43",
