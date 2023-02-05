@@ -146,12 +146,25 @@ const UserInfoModal = ({
                                 xl={12} lg={12} md={12} sm={12} xs={12}
                             >
                                 <Typography className={styles.modalBodyTitle}>
-                                    <SchoolIcon sx={{
-                                        marginRight: 2,
-                                        width: 20,
-                                        height: 20
-                                    }} /><b>College</b> :
-                                    &nbsp;{userData.college}
+                                    <Box className="d-flex">
+                                        <Box>
+                                            <ApartmentIcon sx={{
+                                                marginRight: 2, width: 20,
+                                                height: 20
+                                            }} />
+                                        </Box>
+                                        <Box sx={{
+                                            // border:"1px solid black",
+                                            width: 70
+                                        }}>
+                                            <b>College :</b>
+                                        </Box>
+                                    </Box>
+                                    <Box>
+                                        <Box sx={{ pl: 1 }}>
+                                            {userData.college}
+                                        </Box>
+                                    </Box>
                                 </Typography>
                             </Grid>
                             <Grid item
@@ -160,10 +173,115 @@ const UserInfoModal = ({
                                 } xs={12}
                             >
                                 <Typography className={styles.modalBodyTitle}>
-                                    <ApartmentIcon sx={{
-                                        marginRight: 2.2, width: 20,
-                                        height: 20
-                                    }} /><b>Campus</b> : {userData.campus}
+                                    <Box className="d-flex">
+                                        <Box>
+                                            <ApartmentIcon sx={{
+                                                marginRight: 2.2, width: 20,
+                                                height: 20
+                                            }} />
+                                        </Box>
+                                        <Box sx={{
+                                            // border:"1px solid black",
+                                            width: 75
+                                        }}>
+                                            <b>Campus :</b>
+                                        </Box>
+                                    </Box>
+                                    <Box>
+                                        <Box sx={{ pl: 1 }}>
+                                            {userData.campus}
+                                        </Box>
+                                    </Box>
+                                </Typography>
+                                <Typography className={styles.modalBodyTitle}>
+                                    <Box className="d-flex">
+                                        <Box>
+                                            <EngineeringIcon sx={{
+                                                marginRight: 2, width: 20,
+                                                height: 20
+                                            }} />
+                                        </Box>
+                                        <Box sx={{
+                                            // border:"1px solid black",
+                                            width: 100
+                                        }}>
+                                            <b>Designation :</b>
+                                        </Box>
+                                    </Box>
+                                    <Box>
+                                        <Box sx={{ pl: 1 }}>
+                                            {userData.job}
+                                        </Box>
+                                    </Box>
+                                </Typography>
+                                <Typography className={styles.modalBodyTitle}>
+                                    <Box className="d-flex">
+                                        <Box>
+                                            <PhoneAndroidIcon sx={{
+                                                marginRight: 2.2, width: 20,
+                                                height: 20
+                                            }} />
+                                        </Box>
+                                        <Box sx={{
+                                            // border:"1px solid black",
+                                            width: 60
+                                        }}>
+                                            <b>Phone :</b>
+                                        </Box>
+                                    </Box>
+                                    <Box>
+                                        <Box sx={{ pl: 1 }}>
+                                            {userData.job}
+                                        </Box>
+                                    </Box>
+                                </Typography>
+                                <Typography className={styles.modalBodyTitle}>
+                                    <Box className="d-flex">
+                                        <Box>
+                                            <HistoryIcon sx={{
+                                                marginRight: 2.2, width: 20,
+                                                height: 20
+                                            }} />
+                                        </Box>
+                                        <Box sx={{
+                                            // border:"1px solid black",
+                                            width: 90
+                                        }}>
+                                            <b>Last Login :</b>
+                                        </Box>
+                                    </Box>
+                                    <Box>
+                                        <Box sx={{ pl: 1 }}>
+                                            {userData.lastLogin}
+                                        </Box>
+                                    </Box>
+                                </Typography>
+                            </Grid>
+                            <Grid item
+                                xl={6} lg={6} md={6} sm={
+                                    windowDimensions.width > 730 ? 6 : 12
+                                } xs={12}
+                            >
+                                <Typography className={styles.modalBodyTitle}>
+                                    <Box className="d-flex">
+                                        <Box>
+                                            <AccountBalanceIcon sx={{
+                                                marginRight: 2.4, width: 20,
+                                                height: 20
+                                            }} />
+                                        </Box>
+                                        <Box sx={{
+                                            // border:"1px solid black",
+                                            width: 100
+                                        }}>
+                                            <b>Department :</b>
+                                        </Box>
+                                    </Box>
+                                    <Box>
+                                        <Box sx={{ pl: 1 }}>
+                                            {userData.department}
+                                        </Box>
+                                    </Box>
                                 </Typography>
                                 <Box
                                     sx={{
@@ -171,75 +289,58 @@ const UserInfoModal = ({
                                     }}
                                 >
                                     <Typography className={styles.modalBodySocial}>
-                                        <LinkedInIcon
-                                            sx={{
-                                                fontSize: 30,
-                                                color: "#0A66C2"
-                                            }}
-                                            color="primary"
-                                        />
-                                        &nbsp; &nbsp; &nbsp;
-                                        {userData.linked.name}
-                                    </Typography>
-                                    <Typography
-                                        className={styles.modalBodySocial}>
-                                        <TwitterIcon
-                                            sx={{
-                                                fontSize: 30,
-                                                color: "#00acee"
-                                            }}
-                                        />
-                                        &nbsp; &nbsp; &nbsp;
-                                        {userData.twitter.name}
+                                        <Box className="d-flex">
+                                            <Box>
+                                                <LinkedInIcon
+                                                    sx={{
+                                                        fontSize: 30,
+                                                        color: "#0A66C2"
+                                                    }}
+                                                    color="primary"
+                                                />
+                                            </Box>
+                                        </Box>
+                                        <Box>
+                                            <Box sx={{ pl: 2, pt: 0.5 }}>
+                                                {userData.linked.name}
+                                            </Box>
+                                        </Box>
                                     </Typography>
                                     <Typography className={styles.modalBodySocial}>
-                                        <FacebookIcon
-                                            sx={{
-                                                fontSize: 30,
-                                                color: "#3b5998"
-                                            }}
-                                        />
-                                        &nbsp; &nbsp; &nbsp;
-                                        {userData.facebook.name}
+                                        <Box className="d-flex">
+                                            <Box>
+                                                <TwitterIcon
+                                                    sx={{
+                                                        fontSize: 30,
+                                                        color: "#00acee"
+                                                    }}
+                                                />
+                                            </Box>
+                                        </Box>
+                                        <Box>
+                                            <Box sx={{ pl: 2, pt: 0.5 }}>
+                                                {userData.twitter.name}
+                                            </Box>
+                                        </Box>
+                                    </Typography>
+                                    <Typography className={styles.modalBodySocial}>
+                                        <Box className="d-flex">
+                                            <Box>
+                                                <FacebookIcon
+                                                    sx={{
+                                                        fontSize: 30,
+                                                        color: "#3b5998"
+                                                    }}
+                                                />
+                                            </Box>
+                                        </Box>
+                                        <Box>
+                                            <Box sx={{ pl: 2, pt: 0.5 }}>
+                                                {userData.facebook.name}
+                                            </Box>
+                                        </Box>
                                     </Typography>
                                 </Box>
-                            </Grid>
-                            <Grid item
-                                xl={6} lg={6} md={6} sm={
-                                    windowDimensions.width > 730 ? 6 : 12
-                                } xs={12}
-                            >
-                                <Typography className={styles.modalBodyTitle}>
-                                    <AccountBalanceIcon sx={{
-                                        marginRight: 2.4,
-                                        width: 20,
-                                        height: 20
-                                    }} />
-                                    <b>Department</b> : {userData.department}
-                                </Typography>
-                                <Typography className={styles.modalBodyTitle}>
-                                    <EngineeringIcon sx={{
-                                        marginRight: 2,
-                                        width: 20,
-                                        height: 20
-                                    }} /> <b>Designation</b> : {userData.job}
-                                </Typography>
-                                <Typography className={styles.modalBodyTitle}>
-                                    <PhoneAndroidIcon
-                                        sx={{
-                                            marginRight: 2.2,
-                                            width: 20,
-                                            height: 20
-                                        }} />  <b>Phone</b> : {userData.phone}
-                                </Typography>
-                                <Typography className={styles.modalBodyTitle}>
-                                    <HistoryIcon
-                                        sx={{
-                                            marginRight: 2.2,
-                                            width: 20,
-                                            height: 20
-                                        }} /> <b>Last Login</b> : {userData.lastLogin}
-                                </Typography>
                             </Grid>
                         </Grid>
                     </Box>

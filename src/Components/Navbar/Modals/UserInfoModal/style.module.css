@@ -47,31 +47,36 @@
     /* animation: flip-with-scale 0.5s linear;
     animation-iteration-count: infinite; */
 }
+
 .modalHeaderLeft img:hover {
     border: 1px solid #b7cfd3 !important;
     /* transform: rotate(90deg) !important; */
     cursor: pointer !important;
-    animation: flip 2s linear infinite  !important;
+    animation: flip 2s linear infinite !important;
 
 }
 
 @keyframes flip {
     0% {
-      transform: rotateY(0deg);
+        transform: rotateY(0deg);
     }
+
     25% {
-      transform: rotateY(90deg);
+        transform: rotateY(90deg);
     }
+
     50% {
-      transform: rotateY(180deg);
+        transform: rotateY(180deg);
     }
+
     75% {
-      transform: rotateY(270deg);
+        transform: rotateY(270deg);
     }
+
     100% {
-      transform: rotateY(360deg);
+        transform: rotateY(360deg);
     }
-  }
+}
 
 /* Left Header */
 /* Right Header */
@@ -94,6 +99,7 @@
     color: #2361d6 !important;
     cursor: pointer !important;
 }
+
 .headerEmail:hover {
     color: #2361d6 !important;
     text-decoration: underline !important;
@@ -109,7 +115,7 @@
 /* Header Info */
 
 /* Modal Body Styles */
-.modalBody{
+.modalBody {
     /* border: 1px solid red !important; */
     margin-top: 50px !important;
     padding-top: 20px !important;
@@ -118,7 +124,8 @@
     padding-right: 5px !important;
     border-top: 1px solid lightgray !important;
 }
-.modalBodyTitle{
+
+.modalBodyTitle {
     margin-top: 15px !important;
     /* background-color: #4f747a !important; */
     padding: 5px;
@@ -126,29 +133,36 @@
     border-bottom: 0.2px solid lightgray;
     border-width: 0.2px !important;
     /* border-radius: 5px; */
+
+    display: flex;
 }
-.modalBodySocial{
+
+.modalBodySocial {
     margin-top: 15px !important;
     cursor: pointer;
+    display: flex;
 }
+
 /* Modal Body Styles */
 
 /* Modal Footer */
-.modalFooter{
+.modalFooter {
     /* border: 1px solid red !important; */
     margin-top: 50px !important;
     padding-top: 45px !important;
     padding-bottom: 30px !important;
-    padding-left: 5px !important;   
+    padding-left: 5px !important;
     padding-right: 5px !important;
     display: flex !important;
     justify-content: center !important;
     border-top: 1px solid lightgray !important;
 }
-.modalFooterButton{
+
+.modalFooterButton {
     font-size: 1rem !important;
     /* width: 200px !important; */
 }
+
 /* Modal Footer */
 
 @media all and (max-width: 900px) {
@@ -162,5 +176,76 @@
         border-radius: 0; */
         margin-top: 0vh;
         margin-bottom: 20px;
+    }
+}
+
+@media all and (max-width:500px) {
+
+    /* Header Info */
+    .modalHeader {
+        /* border: 1px solid red !important; */
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: center !important;
+        margin-top: 30px !important;
+    }
+
+    /* Left Header */
+    .modalHeaderLeft {
+        /* border: 1px solid green !important; */
+        text-align: center !important;
+    }
+
+    .modalHeaderLeft img {
+        width: 130px !important;
+        height: 130px !important;
+        border-radius: 50% !important;
+        border: 1px solid #b7cfd3 !important;
+        /* transition: 2s linear; */
+        /* animation: flip-with-scale 0.5s linear;
+    animation-iteration-count: infinite; */
+    }
+
+    .modalHeaderLeft img:hover {
+        border: 1px solid #b7cfd3 !important;
+        /* transform: rotate(90deg) !important; */
+        cursor: pointer !important;
+        animation: flip 2s linear infinite !important;
+
+    }
+
+    /* Left Header */
+    /* Right Header */
+    .modalHeaderRight {
+        /* border: 1px solid blue; */
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: center !important;
+        align-items: center !important;
+        margin-left: 0px !important;
+        margin-right: 0px !important;
+    }
+
+    /* Name */
+    .headerName {
+        font-size: 1.8rem !important;
+    }
+
+    /* Email */
+    .headerEmail {
+        font-size: 1.2rem !important;
+        color: #2361d6 !important;
+        cursor: pointer !important;
+    }
+
+    .headerEmail:hover {
+        color: #2361d6 !important;
+        text-decoration: underline !important;
+    }
+
+    .headerSubInfo {
+        font-size: 1.2rem !important;
+        color: #000000 !important;
+        margin-top: 5px !important;
     }
 }
