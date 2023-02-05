@@ -46,3 +46,36 @@
     text-align: left;
     /* border-bottom: 1px solid #54787e; */
 }
+
+html[dir="rtl"] .resetPasswordPolicy{
+    text-align: right;
+}
+
+.cancelButton{
+    margin-left: 15px !important;
+}
+html[dir="rtl"] .cancelButton{
+    margin-left: 0px !important;
+    margin-right: 15px !important;
+}
+
+@media all and (max-width: 900px) {
+    .modalStyle {
+        width: 90%;
+        height: 90vh;
+        overflow-y: auto;
+        /* top: 0;
+        left: 0;
+        transform: none;
+        border-radius: 0; */
+        margin-top: 0vh;
+        margin-bottom: 20px;
+    }
+}
+
+@media all and (max-width:400px){
+    .transition_modal_title{
+        font-size: 1.5rem !important;
+        margin-bottom: 0rem !important;
+    }
+}
