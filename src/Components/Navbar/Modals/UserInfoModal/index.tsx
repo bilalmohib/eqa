@@ -1,3 +1,5 @@
+import React, { useState, useEffect } from "react";
+
 // importing from material ui
 import {
     Box,
@@ -70,6 +72,22 @@ const UserInfoModal = ({
         }
     };
 
+    const [windowDimensions, setWindowDimensions] = useState({
+        width: window.innerWidth,
+        height: window.innerHeight
+    });
+
+    useEffect(() => {
+        function handleResize() {
+            setWindowDimensions({
+                width: window.innerWidth,
+                height: window.innerHeight
+            });
+        }
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
+
     return (
         <Modal
             aria-labelledby="transition-modal-title"
@@ -136,7 +154,11 @@ const UserInfoModal = ({
                                     &nbsp;{userData.college}
                                 </Typography>
                             </Grid>
-                            <Grid item xs={6}>
+                            <Grid item
+                                xl={6} lg={6} md={6} sm={
+                                    windowDimensions.width > 730 ? 6 : 12
+                                } xs={12}
+                            >
                                 <Typography className={styles.modalBodyTitle}>
                                     <ApartmentIcon sx={{
                                         marginRight: 2.2, width: 20,
@@ -182,7 +204,11 @@ const UserInfoModal = ({
                                     </Typography>
                                 </Box>
                             </Grid>
-                            <Grid item xs={6}>
+                            <Grid item
+                                xl={6} lg={6} md={6} sm={
+                                    windowDimensions.width > 730 ? 6 : 12
+                                } xs={12}
+                            >
                                 <Typography className={styles.modalBodyTitle}>
                                     <AccountBalanceIcon sx={{
                                         marginRight: 2.4,
