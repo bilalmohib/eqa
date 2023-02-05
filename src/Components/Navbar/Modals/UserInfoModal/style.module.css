@@ -1,14 +1,3 @@
-.transition_modal_title {
-    font-size: 2rem;
-    font-weight: 500;
-    line-height: 1.6;
-    letter-spacing: 0.0075em;
-    color: #54787e;
-    margin-bottom: 0.5rem;
-    margin-top: 0;
-    text-align: center;
-}
-
 /* User Info Modal Style */
 .modalStyle {
     position: absolute;
@@ -21,6 +10,18 @@
     padding: 20px;
     border-radius: 10px;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+/* Title */
+.transition_modal_title {
+    font-size: 2rem;
+    font-weight: 500;
+    line-height: 1.6;
+    letter-spacing: 0.0075em;
+    color: #54787e;
+    margin-bottom: 0.5rem;
+    margin-top: 0;
+    text-align: center;
 }
 
 /* Header Info */
@@ -149,3 +150,17 @@
     /* width: 200px !important; */
 }
 /* Modal Footer */
+
+@media all and (max-width: 900px) {
+    .modalStyle {
+        width: 90%;
+        height: 100%;
+        overflow-y: auto;
+        /* top: 0;
+        left: 0;
+        transform: none;
+        border-radius: 0; */
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+}
