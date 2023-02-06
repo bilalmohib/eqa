@@ -89,7 +89,7 @@
                         },
                         "Notifications": {
                             "title": "Notifications",
-                            "info": "New",
+                            "info": "11 New",
                             "subTitle": "User Notifications",
                             "ViewAll": "View All Notifications",
                             "tabs": {
@@ -198,6 +198,7 @@
                                 },
                                 "fullscreen": {
                                     "title": "Full Screen",
+                                    "fullTitle": "Exit Full Screen",
                                     "shortcut": "F11"
                                 },
                                 "print": {

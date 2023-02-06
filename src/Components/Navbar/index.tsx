@@ -10,6 +10,8 @@ import SearchIcon from '@mui/icons-material/Search';
 import FullCalendar from '@fullcalendar/react' // must go before plugins
 import dayGridPlugin from '@fullcalendar/daygrid' // a plugin!
 
+import { useTranslation } from 'react-i18next';
+
 // Importing the Data
 import MessageList from '../../Data/Navbar/MessageList';
 import NotificationsList from '../../Data/Navbar/NotificationsList';
@@ -64,6 +66,7 @@ const Navbar: React.FC<NavProps> = ({
     openResetPasswordModal,
     setOpenResetPasswordModal,
 }) => {
+    const { t } = useTranslation();
     const navigate = useNavigate();
 
     const [windowSize, setWindowSize] = useState([
@@ -238,7 +241,7 @@ const Navbar: React.FC<NavProps> = ({
                                 },
                             }}
                             onChange={(e) => setSearchValue(e.target.value)}
-                            placeholder='Search for anything'
+                            placeholder={`${t('Home.Header.search')}`}
                             InputProps={{
                                 startAdornment: <SearchIcon color="action" />,
                                 // For hiding the underline
@@ -293,8 +296,8 @@ const Navbar: React.FC<NavProps> = ({
                                 >
                                     <li>
                                         <div className={styles.topContainerAppNav}>
-                                            <h3>Apps</h3>
-                                            <p>User Applications & Addons</p>
+                                            <h3>{t('Home.Header.DropDown.Apps.title')}</h3>
+                                            <p>{t('Home.Header.DropDown.Apps.subTitle')}</p>
                                         </div>
                                     </li>
                                     <li>
@@ -302,85 +305,85 @@ const Navbar: React.FC<NavProps> = ({
                                             <div className={`d-flex justify-content-between ${styles.insideContainerAC}`}>
                                                 <li>
                                                     <i className="fab fa-servicestack" style={{ color: "#4f747a", fontSize: 50, height: 50, width: 50 }}></i>
-                                                    <p>Services</p>
+                                                    <p>{t('Home.Header.DropDown.Apps.List.services')}</p>
                                                 </li>
                                                 <li>
                                                     <i className="fas fa-user-circle" style={{ color: "#3c6766", fontSize: 48, height: 50, width: 50 }}></i>
-                                                    <p>Account</p>
+                                                    <p>{t('Home.Header.DropDown.Apps.List.account')}</p>
                                                 </li>
                                                 <li>
                                                     <i className="fas fa-shield-alt" style={{ color: "#1dc9b7", fontSize: 48, height: 50, width: 50 }}></i>
-                                                    <p>Security</p>
+                                                    <p>{t('Home.Header.DropDown.Apps.List.security')}</p>
                                                 </li>
                                             </div>
                                             <div className={`d-flex justify-content-between ${styles.insideContainerAC}`}>
                                                 <li>
                                                     <i className="far fa-calendar-alt" style={{ color: "#0c7cd5", fontSize: 48, height: 50, width: 50 }}></i>
-                                                    <p>Calender</p>
+                                                    <p>{t('Home.Header.DropDown.Apps.List.calender')}</p>
                                                 </li>
                                                 <li>
                                                     <i className="fas fa-chart-pie" style={{ color: "#0c7cd5", fontSize: 48, height: 48, width: 50 }}></i>
-                                                    <p>Stats</p>
+                                                    <p>{t('Home.Header.DropDown.Apps.List.stats')}</p>
                                                 </li>
                                                 <li>
                                                     <i className="fas fa-envelope" style={{ color: "#fd52a3", fontSize: 48, height: 50, width: 50 }}></i>
-                                                    <p>Messages</p>
+                                                    <p>{t('Home.Header.DropDown.Apps.List.messages')}</p>
                                                 </li>
                                             </div>
                                             <div className={`d-flex justify-content-between ${styles.insideContainerAC}`}>
                                                 <li>
                                                     <i className="fas fa-keyboard" style={{ color: "#97c4e8", fontSize: 48, height: 50, width: 50 }}></i>
-                                                    <p>Notes</p>
+                                                    <p>{t('Home.Header.DropDown.Apps.List.notes')}</p>
                                                 </li>
                                                 <li>
                                                     <i className="fas fa-camera-retro" style={{ color: "#777777", fontSize: 48, height: 50, width: 50 }}></i>
-                                                    <p>Photos</p>
+                                                    <p>{t('Home.Header.DropDown.Apps.List.photos')}</p>
                                                 </li>
                                                 <li>
                                                     <i className="fas fa-globe" style={{ color: "#0F5E9C", fontSize: 48, height: 50, width: 50 }}></i>
-                                                    <p>Maps</p>
+                                                    <p>{t('Home.Header.DropDown.Apps.List.maps')}</p>
                                                 </li>
                                             </div>
                                             <div className={`d-flex justify-content-between ${styles.insideContainerAC}`}>
                                                 <li>
                                                     <i className="fas fa-keyboard" style={{ color: "#97c4e8", fontSize: 48, height: 50, width: 50 }}></i>
-                                                    <p>Notes</p>
+                                                    <p>{t('Home.Header.DropDown.Apps.List.notes')}</p>
                                                 </li>
                                                 <li>
                                                     <i className="fas fa-camera-retro" style={{ color: "#777777", fontSize: 48, height: 50, width: 50 }}></i>
-                                                    <p>Photos</p>
+                                                    <p>{t('Home.Header.DropDown.Apps.List.photos')}</p>
                                                 </li>
                                                 <li>
                                                     <i className="fas fa-globe" style={{ color: "#0F5E9C", fontSize: 48, height: 50, width: 50 }}></i>
-                                                    <p>Maps</p>
+                                                    <p>{t('Home.Header.DropDown.Apps.List.maps')}</p>
                                                 </li>
                                             </div>
                                             <div className={`d-flex justify-content-between ${styles.insideContainerAC}`}>
                                                 <li>
                                                     <i className="fas fa-keyboard" style={{ color: "#97c4e8", fontSize: 48, height: 50, width: 50 }}></i>
-                                                    <p>Notes</p>
+                                                    <p>{t('Home.Header.DropDown.Apps.List.notes')}</p>
                                                 </li>
                                                 <li>
                                                     <i className="fas fa-camera-retro" style={{ color: "#777777", fontSize: 48, height: 50, width: 50 }}></i>
-                                                    <p>Photos</p>
+                                                    <p>{t('Home.Header.DropDown.Apps.List.photos')}</p>
                                                 </li>
                                                 <li>
                                                     <i className="fas fa-globe" style={{ color: "#0F5E9C", fontSize: 48, height: 50, width: 50 }}></i>
-                                                    <p>Maps</p>
+                                                    <p>{t('Home.Header.DropDown.Apps.List.maps')}</p>
                                                 </li>
                                             </div>
                                             <div className={`d-flex justify-content-between ${styles.insideContainerAC}`}>
                                                 <li>
                                                     <i className="fas fa-keyboard" style={{ color: "#97c4e8", fontSize: 48, height: 50, width: 50 }}></i>
-                                                    <p>Notes</p>
+                                                    <p>{t('Home.Header.DropDown.Apps.List.notes')}</p>
                                                 </li>
                                                 <li>
                                                     <i className="fas fa-camera-retro" style={{ color: "#777777", fontSize: 48, height: 50, width: 50 }}></i>
-                                                    <p>Photos</p>
+                                                    <p>{t('Home.Header.DropDown.Apps.List.photos')}</p>
                                                 </li>
                                                 <li>
                                                     <i className="fas fa-globe" style={{ color: "#0F5E9C", fontSize: 48, height: 50, width: 50 }}></i>
-                                                    <p>Maps</p>
+                                                    <p>{t('Home.Header.DropDown.Apps.List.maps')}</p>
                                                 </li>
                                             </div>
                                         </section>
@@ -402,15 +405,15 @@ const Navbar: React.FC<NavProps> = ({
                                 }}>
                                     <li>
                                         <div className={styles.topContainerNotificationNav}>
-                                            <h3>11 New</h3>
-                                            <p>User Notifications</p>
+                                            <h3>{t('Home.Header.DropDown.Apps.Notifications.info')}</h3>
+                                            <p>{t('Home.Header.DropDown.Apps.Notifications.subTitle')}</p>
                                         </div>
                                     </li>
                                     <li>
                                         <div className={`${styles.TabsContainerNotificationNav}`}>
-                                            <h3 className={`${(currentNotificationActiveTab === 1) && (styles.activeDropDownTabStyle)}`} onClick={() => setCurrentNotificationActiveTab(1)}>Messages</h3>
-                                            <h3 className={`${(currentNotificationActiveTab === 2) && (styles.activeDropDownTabStyle)}`} onClick={() => setCurrentNotificationActiveTab(2)}>Notification</h3>
-                                            <h3 className={`${(currentNotificationActiveTab === 3) && (styles.activeDropDownTabStyle)}`} onClick={() => setCurrentNotificationActiveTab(3)}>Events</h3>
+                                            <h3 className={`${(currentNotificationActiveTab === 1) && (styles.activeDropDownTabStyle)}`} onClick={() => setCurrentNotificationActiveTab(1)}>{t('Home.Header.DropDown.Apps.Notifications.tabs.Messages.title')}</h3>
+                                            <h3 className={`${(currentNotificationActiveTab === 2) && (styles.activeDropDownTabStyle)}`} onClick={() => setCurrentNotificationActiveTab(2)}>{t('Home.Header.DropDown.Apps.Notifications.tabs.Notifications.title')}</h3>
+                                            <h3 className={`${(currentNotificationActiveTab === 3) && (styles.activeDropDownTabStyle)}`} onClick={() => setCurrentNotificationActiveTab(3)}>{t('Home.Header.DropDown.Apps.Notifications.tabs.Events.title')}</h3>
                                         </div>
                                     </li>
                                     <li>
@@ -425,7 +428,8 @@ const Navbar: React.FC<NavProps> = ({
                                                                     width={60}
                                                                     height={60}
                                                                     src={v.profileURL}
-                                                                    alt="Md Shabbir Alam"
+                                                                    alt={`${t('Home.Header.DropDown.Apps.Profile.name')}`}
+                                                                    title={`${t('Home.Header.DropDown.Apps.Profile.name')}`}
                                                                 />
                                                             </div>
                                                             <div className={styles.rightSideML}>
@@ -474,7 +478,7 @@ const Navbar: React.FC<NavProps> = ({
                                     {/* Divider */}
                                     <li><hr className="dropdown-divider" /></li>
                                     <li>
-                                        <a className="dropdown-item text-center" href="#">View All Notifications</a>
+                                        <a className="dropdown-item text-center" href="#">{t('Home.Header.DropDown.Apps.Notifications.ViewAll')}</a>
                                     </li>
                                 </ul>
                             </li>
@@ -505,12 +509,12 @@ const Navbar: React.FC<NavProps> = ({
                                                         width={50}
                                                         height={50}
                                                         src="https://mdbootstrap.com/img/new/avatars/22.jpg"
-                                                        alt="Md Shabbir Alam"
+                                                        alt={`${t('Home.Header.DropDown.Apps.Profile.name')}`}
                                                     />
                                                 </div>
                                                 <div className={styles.rightInsideProfile}>
-                                                    <h3>Md Shabbir Alam</h3>
-                                                    <p>New York, Uk</p>
+                                                    <h3>{t('Home.Header.DropDown.Apps.Profile.name')}</h3>
+                                                    <p>{t('Home.Header.DropDown.Apps.Profile.location')}</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -520,27 +524,27 @@ const Navbar: React.FC<NavProps> = ({
                                             setOpenUserInfoModal(!openUserInfoModal);
                                         }}
                                     >
-                                        <a className="dropdown-item" href="#">My Profile</a>
+                                        <a className="dropdown-item" href="#">{t('Home.Header.DropDown.Apps.Profile.list.myprofile')}</a>
                                     </li>
                                     <li
                                         onClick={() => {
                                             setOpenResetPasswordModal(!openResetPasswordModal);
                                         }}
                                     >
-                                        <a className="dropdown-item" href="#">Reset Password</a>
+                                        <a className="dropdown-item" href="#">{t('Home.Header.DropDown.Apps.Profile.list.resetPassword')}</a>
                                     </li>
                                     <li
                                         onClick={() => {
                                             navigate("/settings/general");
                                         }}
                                     >
-                                        <a className="dropdown-item" href="#">Settings</a>
+                                        <a className="dropdown-item" href="#">{t('Home.Header.DropDown.Apps.Profile.list.settings')}</a>
                                     </li>
                                     <li>
                                         <a className="dropdown-item" href="#">
                                             <div className={`d-flex justify-content-between ${(i18n.language === "ar") && ("flex-row-reverse")}`}>
                                                 <div>
-                                                    Language
+                                                {t('Home.Header.DropDown.Apps.Profile.list.Language.title')}
                                                 </div>
                                                 <div>
                                                     <b style={{ color: "black" }}>
@@ -555,10 +559,10 @@ const Navbar: React.FC<NavProps> = ({
                                         </a>
                                         <ul className="dropdown-menu dropdown-submenu" style={{ left: (i18n.language === "ar") ? ("100%") : ("-57%") }}>
                                             <li onClick={() => selectLanguage("ar")}>
-                                                <a className="dropdown-item" href="#">English</a>
+                                                <a className="dropdown-item" href="#">{t('Home.Header.DropDown.Apps.Profile.list.Language.list.English')}</a>
                                             </li>
                                             <li onClick={() => selectLanguage("en")}>
-                                                <a className="dropdown-item" href="#">Arabic</a>
+                                                <a className="dropdown-item" href="#">{t('Home.Header.DropDown.Apps.Profile.list.Language.list.Arabic')}</a>
                                             </li>
                                             {/* 
                                             <li>
@@ -597,13 +601,13 @@ const Navbar: React.FC<NavProps> = ({
                                             <div className="d-flex justify-content-between">
                                                 <div>
                                                     {document.fullscreenElement ? (
-                                                        <span>Exit Full Screen</span>
+                                                        <span>{t('Home.Header.DropDown.Apps.Profile.list.fullscreen.fullTitle')}</span>
                                                     ) : (
-                                                        <span>Full Screen</span>
+                                                        <span>{t('Home.Header.DropDown.Apps.Profile.list.fullscreen.title')}</span>
                                                     )}
                                                 </div>
                                                 <div>
-                                                    <i style={{ color: "grey" }}>F 11</i>
+                                                    <i style={{ color: "grey" }}>{t('Home.Header.DropDown.Apps.Profile.list.fullscreen.shortcut')}</i>
                                                 </div>
                                             </div>
                                         </a>
@@ -624,10 +628,10 @@ const Navbar: React.FC<NavProps> = ({
                                         <a className="dropdown-item" href="#">
                                             <div className="d-flex justify-content-between">
                                                 <div>
-                                                    Print
+                                                {t('Home.Header.DropDown.Apps.Profile.list.print.title')}
                                                 </div>
                                                 <div>
-                                                    <i style={{ color: "grey" }}>Ctrl + P</i>
+                                                    <i style={{ color: "grey" }}>{t('Home.Header.DropDown.Apps.Profile.list.print.shortcut')}</i>
                                                 </div>
                                             </div>
                                         </a>
@@ -643,10 +647,10 @@ const Navbar: React.FC<NavProps> = ({
                                         <a className="dropdown-item" href="#">
                                             <div className="d-flex justify-content-between" style={{ height: 30 }} onClick={logoutUser}>
                                                 <div>
-                                                    <b className='text-danger'>Logout</b>
+                                                    <b className='text-danger'>{t('Home.Header.DropDown.Apps.Profile.list.Logout.title')}</b>
                                                 </div>
                                                 <div style={{ textOverflow: "ellipsis", width: 120 }}>
-                                                    <p style={{ color: "black", textOverflow: "ellipsis", overflow: "hidden" }}>bilalmohib7896@gmail.com</p>
+                                                    <p style={{ color: "black", textOverflow: "ellipsis", overflow: "hidden" }}>{t('Home.Header.DropDown.Apps.Profile.list.Logout.email')}</p>
                                                 </div>
                                             </div>
                                         </a>

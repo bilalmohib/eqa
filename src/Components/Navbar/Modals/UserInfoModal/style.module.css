@@ -168,7 +168,7 @@
 @media all and (max-width: 900px) {
     .modalStyle {
         width: 90%;
-        height: 90vh;
+        /* height: 90vh; */
         overflow-y: auto;
         /* top: 0;
         left: 0;
@@ -179,8 +179,14 @@
     }
 }
 
-@media all and (max-width:500px) {
+@media all and (max-width: 730px) {
+    .modalStyle {
+        height: 90vh;
+        overflow-y: auto;
+    }
+}
 
+@media all and (max-width:500px) {
     /* Header Info */
     .modalHeader {
         /* border: 1px solid red !important; */

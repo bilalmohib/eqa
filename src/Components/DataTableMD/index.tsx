@@ -4,6 +4,11 @@ import { useState, FC } from "react";
 import { BsPrinter, BsSearch } from "react-icons/bs";
 import { HiDotsVertical } from "react-icons/hi";
 
+import { ExportToCsv } from 'export-to-csv';
+
+// For copying to clipboard
+import copy from 'copy-to-clipboard';
+
 // Importing Ripples
 import Ripples from 'react-ripples';
 import { createRipples } from 'react-ripples';
@@ -12,6 +17,10 @@ import { createRipples } from 'react-ripples';
 import { CourseOfferingTypes } from "../../Data/Tables/CourseOfferings/types";
 
 import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
+
+// For printing the table.
+import { jsPDF } from 'jspdf';
+import autoTable from 'jspdf-autotable';
 
 // Importing components
 // import CustomTable from "./CustomTable";
@@ -31,21 +40,114 @@ interface DataTableMDProps {
     isOpen: Boolean
     data: any
     states: any
-    columnValues: string
+    columnName: string
     buttonTitle: string,
-    tableTitle: string
+    tableTitle: string,
+    ColHeader: any
 }
 
 const DataTableMD: FC<DataTableMDProps> = ({
     isOpen,
     data,
     states,
-    columnValues,
+    columnName,
     buttonTitle,
-    tableTitle
+    tableTitle,
+    ColHeader
 }): JSX.Element => {
 
     const [searchText, setSearchText] = useState<string>("");
+
+    const printTable = () => {
+        console.clear();
+        console.log("Print Table DATA ===> ", data);
+        console.log(ColHeader);
+
+        const doc = new jsPDF()
+
+        // Converting the data into the format required by the autoTable function.
+        // Into Array of Arrays.
+        const bodyData = data.map((obj: CourseOfferingTypes) => [
+            obj.id,
+            obj.name,
+            obj.section,
+            obj.noofstudent,
+            obj.coordinator,
+            obj.instructor,
+            obj.campus,
+            obj.semester
+        ]);
+
+        autoTable(doc, {
+            head: ColHeader,
+            body: bodyData,
+        });
+
+        doc.save('CourseOffering.pdf');
+        console.log('./CourseOffering.pdf generated');
+    }
+
+    const generateCSV = () => {
+        console.clear();
+        console.log("Generate CSV DATA ===> ", data);
+        console.log(ColHeader);
+
+        // Please generate a csv where first row is the column names and the rest of the rows are the data.
+        // The data should be in the same order as the column names.
+
+        const options = {
+            fieldSeparator: ',',
+            quoteStrings: '"',
+            decimalSeparator: '.',
+            showLabels: true,
+            showTitle: true,
+            title: 'CourseOffering Table',
+            useTextFile: false,
+            useBom: true,
+            useKeysAsHeaders: true,
+            // headers: ['Column 1', 'Column 2', etc...] <-- Won't work with useKeysAsHeaders present!
+        };
+
+        const csvExporter = new ExportToCsv(options);
+
+        csvExporter.generateCsv(data);
+    }
+
+    const copyToClipboard = () => {
+        console.clear();
+        console.log("Copy to Clipboard DATA ===> ", data);
+        console.log(ColHeader);
+
+        // Please copy the data in the same format as the csv.
+        // The data should be in the same order as the column names.
+
+        const bodyData = data.map((obj: CourseOfferingTypes) => [
+            obj.id,
+            obj.name,
+            obj.section,
+            obj.noofstudent,
+            obj.coordinator,
+            obj.instructor,
+            obj.campus,
+            obj.semester
+        ]);
+
+        const csvData = ColHeader.concat(bodyData);
+
+        console.log(csvData);
+
+        copy(csvData);
+
+        // Copy with options
+        copy(csvData, {
+            debug: true,
+            message: 'CourseOffering Table copied to clipboard',
+        });
+
+        console.log("Copied to clipboard");
+    }
+
+
 
     return (
         <div className={styles.container}>
@@ -92,7 +194,7 @@ const DataTableMD: FC<DataTableMDProps> = ({
 
                 {/* Body of Header Starts Here */}
                 <header className={styles.containerbodyHeader}>
-                    <div className="d-flex" style={{marginTop:3}}>
+                    <div className="d-flex" style={{ marginTop: 3 }}>
                         {/* <div className="input-group" style={{ backgroundColor: "#f3f3f3" }}>
                             <span className="input-group-text" id="Search">
                                 <BsSearch />
@@ -110,10 +212,10 @@ const DataTableMD: FC<DataTableMDProps> = ({
                         <div>
                             <LibraryBooksIcon sx={{ color: "#4f747a" }} />
                         </div>
-                        <h5 className={styles.tableSubTitleTopLeft}> 
-                        <b>
-                        Following courses are offered
-                        </b>
+                        <h5 className={styles.tableSubTitleTopLeft}>
+                            <b>
+                                Following courses are offered
+                            </b>
                         </h5>
 
                     </div>
@@ -122,17 +224,17 @@ const DataTableMD: FC<DataTableMDProps> = ({
                         <div className={styles.btnContainerTable}>
                             <div className={styles.btnControl}>
                                 <ButtonRipples>
-                                    <button className={`btn btn-light ${styles.insideBtnControl}`}>CSV</button>
+                                    <button className={`btn btn-light ${styles.insideBtnControl}`} onClick={() => generateCSV()}>CSV</button>
                                 </ButtonRipples>
                             </div>
                             <div className={styles.btnControl}>
                                 <ButtonRipples>
-                                    <button className={`btn btn-light ${styles.insideBtnControl}`}>Copy</button>
+                                    <button className={`btn btn-light ${styles.insideBtnControl}`} onClick={() => copyToClipboard()}>Copy</button>
                                 </ButtonRipples>
                             </div>
                             <div className={styles.btnControl}>
                                 <ButtonRipples>
-                                    <button className={`btn btn-light ${styles.insideBtnControl}`}><BsPrinter style={{ marginTop: -5 }} size={20} /></button>
+                                    <button className={`btn btn-light ${styles.insideBtnControl}`} onClick={() => printTable()}><BsPrinter style={{ marginTop: -5 }} size={20} /></button>
                                 </ButtonRipples>
                             </div>
                         </div>
@@ -146,7 +248,7 @@ const DataTableMD: FC<DataTableMDProps> = ({
                         searchText={searchText}
                         data={data}
                         states={states}
-                        columnValues={columnValues}
+                        columnName={columnName}
                         buttonTitle={buttonTitle}
                         isOpen={isOpen}
                     />

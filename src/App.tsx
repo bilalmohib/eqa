@@ -1,6 +1,10 @@
 import { useEffect, useState } from "react";
 // importing App Router
 import AppRouter from "./Router";
+
+// IMPORTING REDUX PERSIST
+// IMPORTING REDUX PERSIST
+
 // importing Header
 import Header from "./Components/Header";
 

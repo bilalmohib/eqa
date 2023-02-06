@@ -101,7 +101,7 @@
                         },
                         "Notifications": {
                             "title": "إشعارات",
-                            "info": "جديد",
+                            "info": "11 جديد",
                             "subTitle": "إخطارات المستخدم",
                             "ViewAll": "عرض جميع الإخطارات",
                             "tabs": {
@@ -210,6 +210,7 @@
                                 },
                                 "fullscreen": {
                                     "title": "كامل الشاشة",
+                                    "fullTitle": "الخروج من الشاشة الكاملة",
                                     "shortcut": "F11"
                                 },
                                 "print": {

@@ -1,6 +1,8 @@
 import { useEffect, FC, useState } from "react";
 // import { useNavigate } from "react-router";
 
+import { useTranslation } from "react-i18next";
+
 // Importing i18 for language
 import i18n from "../../i18n";
 
@@ -28,6 +30,7 @@ const Header: FC<HeaderProps> = ({
     setMobileViewContainer,
     setCurrentTab
 }): JSX.Element => {
+    const { t } = useTranslation();
     // const navigate = useNavigate();
 
     const [currentLang, setCurrentLang] = useState<string>("en");
@@ -98,8 +101,8 @@ const Header: FC<HeaderProps> = ({
                     <img
                         className={styles.logo}
                         src={logo}
-                        alt="EQA University"
-                        title="EQA University"
+                        alt={`${t('forgetPassword.img.img1.title')}`}
+                        title={`${t('forgetPassword.img.img1.title')}`}
                     />
                 </div>
                 <div className={`d-flex ${styles.rightContainer} ${styles.mobileDropStyle}`}>

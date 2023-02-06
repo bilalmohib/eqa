@@ -69,6 +69,20 @@ const ViewRoles: React.FC<RolesProps> = ({
         };
     });
 
+
+    const tableColHeaders = [
+        [
+            'Course Code',
+            'name',
+            'section',
+            'noofstudent',
+            'coordinator',
+            'instructor',
+            'campus',
+            'semester',
+        ]
+    ];
+
     return (
         <div
             className={`${styles.container} ${(windowSize[0] < 991 && isOpen) ? ("bgMobileOnSideOpen") : ("")}`}
@@ -189,7 +203,8 @@ const ViewRoles: React.FC<RolesProps> = ({
                     isOpen={isOpen}
                     data={data}
                     states={states}
-                    columnValues={"CourseOfferingTypes"}
+                    ColHeader={tableColHeaders}
+                    columnName={"CourseOfferingTypes"}
                     buttonTitle={"Create New Role"}
                     tableTitle={`<b style={{ fontWeight: "bold" }}>Roles</b> <i>List</i>`}
                 />

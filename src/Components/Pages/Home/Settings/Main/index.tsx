@@ -80,6 +80,31 @@ const Groups: React.FC<GroupsProps> = ({
         setChecked(event.target.checked);
     };
 
+    const [currentLanguage, setCurrentLanguage] = useState("en");
+
+    // useEffect(() => {
+    //     if (i18n.language == "en") {
+    //         setCurrentLanguage("en");
+    //     } else if (i18n.language == "ar") {
+    //         console.log("Now the language is arabic ==> ", typeof(i18n.language));
+    //         setCurrentLanguage("ar");
+    //     }
+    //     else {
+    //         setCurrentLanguage("en");
+    //     }
+
+    //     // console.log("i18n language ==> ", currentLanguage);
+    // }, [i18n.language]);
+
+    useEffect(() => {
+        // console.clear();
+        // console.log("Current language ==> ", typeof(i18n.language));
+        console.clear();
+        if (i18n.language === 'ar') {
+            console.log("Now the language is arabic ==> ", i18n.language);
+        }
+    });
+
     const settings = [
         {
             title: "Meeting",
@@ -174,7 +199,7 @@ const Groups: React.FC<GroupsProps> = ({
                     onClick={() => {
                         // navigate("/usermanagement/users/adduser");
                     }}
-                    endIcon={<SaveIcon />}
+                    endIcon={(currentLanguage === "en") ? (<SaveIcon />) : (null)}
                 >
                     Save
                 </Button>
