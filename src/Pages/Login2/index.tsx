@@ -45,7 +45,7 @@ const Login2: FC<LoginProps> = ({
         console.log('The current location is: ', location.pathname);
         const url = location.pathname;
 
-        if (url === '/login2' || url === '/forgetpassword') {
+        if (url === '/login' || url === '/' || url === '/forgetpassword') {
             setShowHeader(true);
         } else {
             setShowHeader(false);

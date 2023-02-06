@@ -184,13 +184,16 @@ const Groups: React.FC<GroupsProps> = ({
             <Stack sx={{ mt: 3 }}
                 direction="row"
                 spacing={2}
+                // dir="ltr"
             >
                 <Button
                     variant="contained"
                     // dir="rtl"
                     size="large"
+                    dir="ltr"
                     sx={{
                         backgroundColor: "#e79f43",
+                        marginLeft: 2,
                         // textTransform: "none",
                         "&:hover": {
                             backgroundColor: "#e79f43",
@@ -199,7 +202,7 @@ const Groups: React.FC<GroupsProps> = ({
                     onClick={() => {
                         // navigate("/usermanagement/users/adduser");
                     }}
-                    endIcon={(currentLanguage === "en") ? (<SaveIcon />) : (null)}
+                    endIcon={<SaveIcon />}
                 >
                     Save
                 </Button>
@@ -207,9 +210,11 @@ const Groups: React.FC<GroupsProps> = ({
                 <Button
                     // dir="rtl"
                     variant="outlined"
+                    dir="ltr"
                     size="large"
                     sx={{
                         // textTransform: "none",
+                        marginRight: 2,
                     }}
                     endIcon={<DeleteIcon />}
                     color="error"
