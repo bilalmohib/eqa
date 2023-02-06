@@ -80,6 +80,31 @@ const Groups: React.FC<GroupsProps> = ({
         setChecked(event.target.checked);
     };
 
+    const [currentLanguage, setCurrentLanguage] = useState("en");
+
+    // useEffect(() => {
+    //     if (i18n.language == "en") {
+    //         setCurrentLanguage("en");
+    //     } else if (i18n.language == "ar") {
+    //         console.log("Now the language is arabic ==> ", typeof(i18n.language));
+    //         setCurrentLanguage("ar");
+    //     }
+    //     else {
+    //         setCurrentLanguage("en");
+    //     }
+
+    //     // console.log("i18n language ==> ", currentLanguage);
+    // }, [i18n.language]);
+
+    useEffect(() => {
+        // console.clear();
+        // console.log("Current language ==> ", typeof(i18n.language));
+        console.clear();
+        if (i18n.language === 'ar') {
+            console.log("Now the language is arabic ==> ", i18n.language);
+        }
+    });
+
     const settings = [
         {
             title: "Meeting",
@@ -159,13 +184,16 @@ const Groups: React.FC<GroupsProps> = ({
             <Stack sx={{ mt: 3 }}
                 direction="row"
                 spacing={2}
+                // dir="ltr"
             >
                 <Button
                     variant="contained"
                     // dir="rtl"
                     size="large"
+                    dir="ltr"
                     sx={{
                         backgroundColor: "#e79f43",
+                        marginLeft: 2,
                         // textTransform: "none",
                         "&:hover": {
                             backgroundColor: "#e79f43",
@@ -182,9 +210,11 @@ const Groups: React.FC<GroupsProps> = ({
                 <Button
                     // dir="rtl"
                     variant="outlined"
+                    dir="ltr"
                     size="large"
                     sx={{
                         // textTransform: "none",
+                        marginRight: 2,
                     }}
                     endIcon={<DeleteIcon />}
                     color="error"

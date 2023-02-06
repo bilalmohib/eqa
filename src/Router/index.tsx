@@ -34,7 +34,6 @@ import AddUser from '../Components/Pages/Home/UserManagement/Users/AddUser';
 import AddGroup from '../Components/Pages/Home/UserManagement/Groups/AddGroup';
 // 12) Create Role Page
 import AddRole from '../Components/Pages/Home/UserManagement/Roles/AddRole';
-
 // $$$$$$$$$$$$$$$$$$$$ Importing Components and Pages $$$$$$$$$$$$$$$$$$$$
 
 interface AppRouterProps {
@@ -62,14 +61,14 @@ const AppRouter: FC<AppRouterProps> = ({
     return (
         <Router>
             <Routes>
-                <Route index path={"/login2"} element={<Login2
+                <Route index path={"/login"} element={<Login2
                     setShowHeader={setShowHeader}
                     currentTab={currentTab}
                     setCurrentTab={setCurrentTab}
                     mobileViewContainer={mobileViewContainer}
                 />}
                 />
-                 <Route index path={"/"} element={<Login2
+                <Route index path={"/"} element={<Login2
                     setShowHeader={setShowHeader}
                     currentTab={currentTab}
                     setCurrentTab={setCurrentTab}
@@ -264,7 +263,7 @@ const AppRouter: FC<AppRouterProps> = ({
                         />}
                     />
                 </Route>
-                <Route path={"/login"} element={<Login setShowHeader={setShowHeader} />} />
+                {/* <Route path={"/login"} element={<Login setShowHeader={setShowHeader} />} /> */}
                 <Route path={"/forgetpassword"} element={<ForgetPassWord setShowHeader={setShowHeader} />} />
                 <Route
                     path={"/*"}

@@ -44,7 +44,7 @@ interface CustomTableProps {
     searchText?: string,
     data: any,
     states: string[],
-    columnValues: string,
+    columnName: string,
     buttonTitle: string,
     isOpen: Boolean
 }
@@ -53,7 +53,7 @@ const CustomTableCrud: FC<CustomTableProps> = ({
     searchText,
     data,
     states,
-    columnValues,
+    columnName,
     buttonTitle,
     isOpen
 }): JSX.Element => {
@@ -223,10 +223,10 @@ const CustomTableCrud: FC<CustomTableProps> = ({
 
 
     useMemo(() => {
-        if (columnValues === "CourseOfferingTypes") {
+        if (columnName === "CourseOfferingTypes") {
             setColumnStateValues(columnsCourseOffering);
         }
-        else if (columnValues === "CourseOfferingTypes") {
+        else if (columnName === "CourseOfferingTypes") {
             setColumnStateValues(columnsCourseOffering);
         }
         else {

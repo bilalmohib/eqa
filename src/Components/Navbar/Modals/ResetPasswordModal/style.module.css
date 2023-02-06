@@ -1,4 +1,4 @@
-.transition_modal_title{
+.transition_modal_title {
     font-size: 2rem;
     font-weight: 500;
     line-height: 1.6;
@@ -10,7 +10,7 @@
     border-bottom: 1px solid #54787e;
 }
 
-.modalStyle{
+.modalStyle {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -23,7 +23,7 @@
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
 
-.transition_modal_reset{
+.transition_modal_reset {
     font-size: 1.3rem;
     font-weight: 300;
     line-height: 1.6;
@@ -35,7 +35,7 @@
     /* border-bottom: 1px solid #54787e; */
 }
 
-.resetPasswordPolicy{
+.resetPasswordPolicy {
     font-size: 1.5rem !important;
     font-weight: 300;
     line-height: 1.6;
@@ -47,14 +47,15 @@
     /* border-bottom: 1px solid #54787e; */
 }
 
-html[dir="rtl"] .resetPasswordPolicy{
+html[dir="rtl"] .resetPasswordPolicy {
     text-align: right;
 }
 
-.cancelButton{
+.cancelButton {
     margin-left: 15px !important;
 }
-html[dir="rtl"] .cancelButton{
+
+html[dir="rtl"] .cancelButton {
     margin-left: 0px !important;
     margin-right: 15px !important;
 }
@@ -62,7 +63,7 @@ html[dir="rtl"] .cancelButton{
 @media all and (max-width: 900px) {
     .modalStyle {
         width: 90%;
-        height: 90vh;
+        /* height: 90vh; */
         overflow-y: auto;
         /* top: 0;
         left: 0;
@@ -73,8 +74,15 @@ html[dir="rtl"] .cancelButton{
     }
 }
 
-@media all and (max-width:400px){
-    .transition_modal_title{
+@media all and (max-width: 730px) {
+    .modalStyle {
+        height: 90vh;
+        overflow-y: auto;
+    }
+}
+
+@media all and (max-width:400px) {
+    .transition_modal_title {
         font-size: 1.5rem !important;
         margin-bottom: 0rem !important;
     }

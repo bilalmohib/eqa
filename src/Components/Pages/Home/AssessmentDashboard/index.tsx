@@ -56,6 +56,19 @@ const AssessmentDashboard: React.FC<AssessmentDashboardProps> = ({
         marginRight: -36,
     }
 
+    const tableColHeaders = [
+        [
+            'Course Code',
+            'name',
+            'section',
+            'noofstudent',
+            'coordinator',
+            'instructor',
+            'campus',
+            'semester',
+        ]
+    ];
+
     useEffect(() => {
         const handleWindowResize = () => {
             setWindowSize([window.innerWidth, window.innerHeight]);
@@ -209,13 +222,14 @@ const AssessmentDashboard: React.FC<AssessmentDashboardProps> = ({
                     isOpen={isOpen}
                     data={data}
                     states={states}
-                    columnValues={"CourseOfferingTypes"}
+                    ColHeader={tableColHeaders}
+                    columnName={"CourseOfferingTypes"}
                     buttonTitle={"Create New Course Offering"}
                     tableTitle={`<b style={{ fontWeight: "bold" }}>Offered</b> <i>Courses</i>`}
                 />
             </div>
 
-            <div style={{ marginTop: 40 }}>
+            {/* <div style={{ marginTop: 40 }}>
                 <GradeComparison
                     isOpen={isOpen}
                     data={data}
@@ -224,7 +238,7 @@ const AssessmentDashboard: React.FC<AssessmentDashboardProps> = ({
                     buttonTitle={"Create New Course Offering"}
                     tableTitle={`<b style={{ fontWeight: "bold" }}>Grade Comparison</b>`}
                 />
-            </div>
+            </div> */}
 
             <br /><br /> <br />
         </div>

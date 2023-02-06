@@ -71,6 +71,20 @@ const ViewGroups: React.FC<GroupsProps> = ({
         };
     });
 
+
+    const tableColHeaders = [
+        [
+            'Course Code',
+            'name',
+            'section',
+            'noofstudent',
+            'coordinator',
+            'instructor',
+            'campus',
+            'semester',
+        ]
+    ];
+
     return (
         <div className={`${styles.container} ${(windowSize[0] < 991 && isOpen) ? ("bgMobileOnSideOpen") : ("")}`} onClick={() => {
             if ((windowSize[0] < 991) && isOpen)
@@ -147,7 +161,8 @@ const ViewGroups: React.FC<GroupsProps> = ({
                     isOpen={isOpen}
                     data={data}
                     states={states}
-                    columnValues={"CourseOfferingTypes"}
+                    ColHeader={tableColHeaders}
+                    columnName={"CourseOfferingTypes"}
                     buttonTitle={"Create New Group"}
                     tableTitle={`<b style={{ fontWeight: "bold" }}>Groups</b> <i>List</i>`}
                 />

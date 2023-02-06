@@ -72,6 +72,19 @@ const ViewUsers: React.FC<UserProps> = ({
         };
     });
 
+    const tableColHeaders = [
+        [
+            'Course Code',
+            'name',
+            'section',
+            'noofstudent',
+            'coordinator',
+            'instructor',
+            'campus',
+            'semester',
+        ]
+    ];
+
     return (
         <div
             className={`${styles.container} ${(windowSize[0] < 991 && isOpen) ? ("bgMobileOnSideOpen") : ("")}`}
@@ -216,12 +229,13 @@ const ViewUsers: React.FC<UserProps> = ({
                     isOpen={isOpen}
                     data={data}
                     states={states}
-                    columnValues={"CourseOfferingTypes"}
+                    ColHeader={tableColHeaders}
+                    columnName={"CourseOfferingTypes"}
                     buttonTitle={"Create New User"}
                     tableTitle={`<b style={{ fontWeight: "bold" }}>Users</b> <i>List</i>`}
                 />
             </div>
-<br /><br />
+            <br /><br />
             <br />
         </div>
     )
