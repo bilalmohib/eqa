@@ -6,6 +6,8 @@ import { HiDotsVertical } from "react-icons/hi";
 
 import { ExportToCsv } from 'export-to-csv';
 
+import { useTranslation } from "react-i18next";
+
 // For copying to clipboard
 import copy from 'copy-to-clipboard';
 
@@ -43,7 +45,8 @@ interface DataTableMDProps {
     columnName: string
     buttonTitle: string,
     tableTitle: string,
-    ColHeader: any
+    ColHeader: any,
+    tableInfo: any
 }
 
 const DataTableMD: FC<DataTableMDProps> = ({
@@ -53,8 +56,10 @@ const DataTableMD: FC<DataTableMDProps> = ({
     columnName,
     buttonTitle,
     tableTitle,
-    ColHeader
+    ColHeader,
+    tableInfo
 }): JSX.Element => {
+    const { t } = useTranslation();
 
     const [searchText, setSearchText] = useState<string>("");
 
@@ -214,7 +219,7 @@ const DataTableMD: FC<DataTableMDProps> = ({
                         </div>
                         <h5 className={styles.tableSubTitleTopLeft}>
                             <b>
-                                Following courses are offered
+                                {tableInfo}
                             </b>
                         </h5>
 
@@ -224,17 +229,23 @@ const DataTableMD: FC<DataTableMDProps> = ({
                         <div className={styles.btnContainerTable}>
                             <div className={styles.btnControl}>
                                 <ButtonRipples>
-                                    <button className={`btn btn-light ${styles.insideBtnControl}`} onClick={() => generateCSV()}>CSV</button>
+                                    <button className={`btn btn-light ${styles.insideBtnControl}`} onClick={() => generateCSV()}>
+                                        {t('Home.Sidebar.list.userManagement.subMenu.Users.details.table.Buttons.btnCSV')}
+                                    </button>
                                 </ButtonRipples>
                             </div>
                             <div className={styles.btnControl}>
                                 <ButtonRipples>
-                                    <button className={`btn btn-light ${styles.insideBtnControl}`} onClick={() => copyToClipboard()}>Copy</button>
+                                    <button className={`btn btn-light ${styles.insideBtnControl}`} onClick={() => copyToClipboard()}>
+                                        {t('Home.Sidebar.list.userManagement.subMenu.Users.details.table.Buttons.btnCopy')}
+                                    </button>
                                 </ButtonRipples>
                             </div>
                             <div className={styles.btnControl}>
                                 <ButtonRipples>
-                                    <button className={`btn btn-light ${styles.insideBtnControl}`} onClick={() => printTable()}><BsPrinter style={{ marginTop: -5 }} size={20} /></button>
+                                    <button className={`btn btn-light ${styles.insideBtnControl}`} onClick={() => printTable()}>
+                                        <BsPrinter style={{ marginTop: -5 }} size={20} />
+                                    </button>
                                 </ButtonRipples>
                             </div>
                         </div>

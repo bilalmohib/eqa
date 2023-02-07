@@ -320,15 +320,77 @@
                         "subMenu": {
                             "Users": {
                                 "text": "Users",
-                                "link": "/usermanagement/users/viewusers"
+                                "link": "/usermanagement/users/viewusers",
+                                "details":{
+                                    "breadcrumb": {
+                                        "f1": "EQA",
+                                        "f2": "User Management",
+                                        "f3": "Users"
+                                    },
+                                    "title": "Users Management",
+                                    "addUser": "Add User",
+                                    "boards":{
+                                        "totalUsers": {
+                                            "title": "Total Users",
+                                            "number": "6800"
+                                        },
+                                        "inActiveUsers": {
+                                            "title": "Total InActive Users",
+                                            "number": "800"
+                                        },
+                                        "activeUsers": {
+                                            "title": "Total Active Users",
+                                            "number": "6000"
+                                        }
+                                    },
+                                    "table": {
+                                        "title": "<b style={{ fontWeight: 'bold' }}>Users</b> <i>List</i>",
+                                        "subTitle": "Following users are registered",
+                                        "menuItems": {
+                                            "MyProfile": "My Profile",
+                                            "Settings": "Settings",
+                                            "Logout":"Logout"
+                                        },
+                                        "Buttons": {
+                                            "btnCopy": "Copy",
+                                            "btnCSV": "CSV"
+                                        }
+                                    }
+                                }
                             },
                             "groups": {
                                 "text": "Groups",
-                                "link": "/usermanagement/groups/viewgroups"
+                                "link": "/usermanagement/groups/viewgroups",
+                                "details":{
+                                    "breadcrumb": {
+                                        "f1": "EQA",
+                                        "f2": "User Management",
+                                        "f3": "Groups"
+                                    },
+                                    "title": "Groups Management",
+                                    "addUser": "Add Group",
+                                    "table": {
+                                        "title": "<b style={{ fontWeight: 'bold' }}>Groups</b> <i>List</i>",
+                                        "subTitle": "Following is the list of groups"
+                                    }
+                                }
                             },
                             "roles": {
                                 "text": "Role",
-                                "link": "/usermanagement/roles/viewroles"
+                                "link": "/usermanagement/roles/viewroles",
+                                "details":{
+                                    "breadcrumb": {
+                                        "f1": "EQA",
+                                        "f2": "User Management",
+                                        "f3": "Roles"
+                                    },
+                                    "title": "Roles Management",
+                                    "addUser": "Add Role",
+                                    "table": {
+                                        "title": "<b style={{ fontWeight: 'bold' }}>Roles</b> <i>List</i>",
+                                        "subTitle": "Following roles are available"
+                                    }
+                                }
                             }
                         }
                     },
@@ -338,7 +400,57 @@
                         "subMenu": {
                             "general": {
                                 "text": "General Settings",
-                                "link": "/settings/general"
+                                "link": "/settings/general",
+                                "details": {
+                                    "breadcrumb": {
+                                        "f1": "EQA",
+                                        "f2": "Settings",
+                                        "f3": "General"
+                                    },
+                                    "Settings": {
+                                        "title": "Settings",
+                                        "topButtons": {
+                                            "btn1": "Save",
+                                            "btn2": "Discard"
+                                        },
+                                        "Meeting": {
+                                            "title": "Meeting",
+                                            "s1": {
+                                                "title": "Enable Email Notifications",
+                                                "subTitle": "Enable Email Notification while creating meeting. So that you can get notified via email when a new meeting is scheduled."
+                                            },
+                                            "s2": {
+                                                "title": "Microsoft Team option visible on Create Meeting Form",
+                                                "subTitle": "EIf this is Visible, then user can see this option on form. Check this option to do that."
+                                            },
+                                            "s3": {
+                                                "title": "Enable Email Notifications",
+                                                "subTitle": "Enable Email Notification while creating meeting. So that all users can be notified via email when a new meeting is scheduled."
+                                            }
+                                        },
+                                        "MinuteofMeeting": {
+                                            "title": "Minute of Meeting",
+                                            "s1": {
+                                                "title": "Enable Email Notifications",
+                                                "subTitle": "Enable Email Notification while creating meeting. So that all users can be notified via email when a new meeting is scheduled."
+                                            }
+                                        },
+                                        "TaskManagement": {
+                                            "title": "Minute of Meeting",
+                                            "s1": {
+                                                "title": "Enable Email Notifications",
+                                                "subTitle": "Enable Email Notification while creating meeting. So that all users can be notified via email when a new meeting is scheduled."
+                                            }
+                                        },
+                                        "CommitteeManagement": {
+                                            "title": "Committee Management",
+                                            "s1": {
+                                                "title": "Enable Email Notifications",
+                                                "subTitle": "Enable Email Notification while creating meeting. So that all users can be notified via email when a new meeting is scheduled."
+                                            }
+                                        }
+                                    }
+                                }
                             },
                             "create": {
                                 "text": "Create Settings",

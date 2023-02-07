@@ -21,6 +21,8 @@ import Ripples from 'react-ripples'
 // Importing i18 for language
 import i18n from "../../../../../i18n";
 
+import { useTranslation } from 'react-i18next';
+
 import styles from "./style.module.css";
 // import "./style.css";
 
@@ -41,6 +43,7 @@ const Groups: React.FC<GroupsProps> = ({
     isMinified,
     setIsMinified
 }) => {
+    const { t } = useTranslation();
 
     const currentFormatedDate: string = new Date().toLocaleString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
 
@@ -107,54 +110,54 @@ const Groups: React.FC<GroupsProps> = ({
 
     const settings = [
         {
-            title: "Meeting",
+            title: t('Home.Sidebar.list.settings.subMenu.general.details.Settings.Meeting.title'),
             icon: <IoSpeedometerOutline size={30} />,
             settingsItems: [
                 {
-                    title: "Enable Email Notifications",
-                    description: "Enable Email Notification while creating meeting. So that you can get notified via email when a new meeting is scheduled.",
+                    title: t('Home.Sidebar.list.settings.subMenu.general.details.Settings.Meeting.s1.title'),
+                    description: t('Home.Sidebar.list.settings.subMenu.general.details.Settings.Meeting.s1.subTitle'),
                     checked: true,
                     icon: <IoSpeedometerOutline size={30} />,
                 },
                 {
-                    title: "Microsoft Team option visible on Create Meeting Form",
-                    description: "If this is Visible, then user can see this option on form. Check this option to do that.",
+                    title: t('Home.Sidebar.list.settings.subMenu.general.details.Settings.Meeting.s2.title'),
+                    description: t('Home.Sidebar.list.settings.subMenu.general.details.Settings.Meeting.s2.subTitle'),
                     checked: true,
                     icon: <IoSpeedometerOutline size={30} />,
                 }
             ]
         },
         {
-            title: "Minute of Meeting",
+            title: t('Home.Sidebar.list.settings.subMenu.general.details.Settings.MinuteofMeeting.title'),
             icon: <IoSpeedometerOutline size={30} />,
             settingsItems: [
                 {
-                    title: "Enable Email Notifications",
-                    description: "Enable Email Notification while creating meeting. So that all users can be notified via email when a new meeting is scheduled.",
+                    title: t('Home.Sidebar.list.settings.subMenu.general.details.Settings.MinuteofMeeting.s1.title'),
+                    description: t('Home.Sidebar.list.settings.subMenu.general.details.Settings.MinuteofMeeting.s1.subTitle'),
                     checked: true,
                     icon: <IoSpeedometerOutline size={30} />,
                 }
             ]
         },
         {
-            title: "Task Management",
+            title: t('Home.Sidebar.list.settings.subMenu.general.details.Settings.TaskManagement.title'),
             icon: <IoSpeedometerOutline size={30} />,
             settingsItems: [
                 {
-                    title: "Enable Email Notifications",
-                    description: "Enable Email Notification while creating meeting. So that all users can be notified via email when a new meeting is scheduled.",
+                    title: t('Home.Sidebar.list.settings.subMenu.general.details.Settings.TaskManagement.s1.title'),
+                    description: t('Home.Sidebar.list.settings.subMenu.general.details.Settings.TaskManagement.s1.subTitle'),
                     checked: true,
                     icon: <IoSpeedometerOutline size={30} />,
                 }
             ]
         },
         {
-            title: "Committee Management",
+            title: t('Home.Sidebar.list.settings.subMenu.general.details.Settings.CommitteeManagement.title'),
             icon: <IoSpeedometerOutline size={30} />,
             settingsItems: [
                 {
-                    title: "Enable Email Notifications",
-                    description: "Enable Email Notification while creating meeting. So that all users can be notified via email when a new meeting is scheduled.",
+                    title: t('Home.Sidebar.list.settings.subMenu.general.details.Settings.TaskManagement.s1.title'),
+                    description: t('Home.Sidebar.list.settings.subMenu.general.details.Settings.TaskManagement.s1.subTitle'),
                     checked: true,
                     icon: <IoSpeedometerOutline size={30} />,
                 }
@@ -170,7 +173,7 @@ const Groups: React.FC<GroupsProps> = ({
             }}>
             <div style={{ marginTop: 5 }} className={`${(windowSize[0] > 990) ? ("d-flex justify-content-between") : ("d-flex flex-column justify-content-start")}`}>
                 <div>
-                    EQA / Settings /<span style={{ color: "#4f747a" }}> General </span>
+                    {t('Home.Sidebar.list.settings.subMenu.general.details.breadcrumb.f1')} / {t('Home.Sidebar.list.settings.subMenu.general.details.breadcrumb.f2')} /<span style={{ color: "#4f747a" }}> {t('Home.Sidebar.list.settings.subMenu.general.details.breadcrumb.f3')} </span>
                 </div>
                 <div>
                     <span style={{ color: "#4f747a", paddingRight: 10 }}>{currentFormatedDate}</span>
@@ -179,12 +182,12 @@ const Groups: React.FC<GroupsProps> = ({
 
             <hr />
 
-            <h2 style={{ color: "#4f747a" }}>Settings</h2>
+            <h2 style={{ color: "#4f747a" }}>{t('Home.Sidebar.list.settings.subMenu.general.details.Settings.title')}</h2>
 
             <Stack sx={{ mt: 3 }}
                 direction="row"
                 spacing={2}
-                // dir="ltr"
+            // dir="ltr"
             >
                 <Button
                     variant="contained"
@@ -193,7 +196,6 @@ const Groups: React.FC<GroupsProps> = ({
                     dir="ltr"
                     sx={{
                         backgroundColor: "#e79f43",
-                        marginLeft: 2,
                         // textTransform: "none",
                         "&:hover": {
                             backgroundColor: "#e79f43",
@@ -203,23 +205,23 @@ const Groups: React.FC<GroupsProps> = ({
                         // navigate("/usermanagement/users/adduser");
                     }}
                     endIcon={<SaveIcon />}
+                    className={styles.saveBtn}
                 >
-                    Save
+                    {t('Home.Sidebar.list.settings.subMenu.general.details.Settings.topButtons.btn1')}
                 </Button>
 
                 <Button
-                    // dir="rtl"
                     variant="outlined"
                     dir="ltr"
                     size="large"
                     sx={{
                         // textTransform: "none",
-                        marginRight: 2,
+                        // marginRight: 2,
                     }}
                     endIcon={<DeleteIcon />}
                     color="error"
                 >
-                    Discard
+                    {t('Home.Sidebar.list.settings.subMenu.general.details.Settings.topButtons.btn2')}
                 </Button>
             </Stack>
 

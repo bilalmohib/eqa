@@ -12,6 +12,8 @@ import Button from '@mui/material/Button';
 // Importing components
 import DataTableMD from "../../../../../DataTableMD";
 
+import { useTranslation } from "react-i18next";
+
 // @@@@@@@@@@@@@@ IMPORTING COURSE OFFERING TABLE DATA @@@@@@@@@@@@@@@@@
 // Importing the course offering table data
 import { data, states } from '../../../../../../Data/Tables/CourseOfferings';
@@ -36,6 +38,8 @@ const ViewRoles: React.FC<RolesProps> = ({
     isMinified,
     setIsMinified
 }) => {
+    const { t } = useTranslation();
+
     const navigate = useNavigate();
 
     const currentFormatedDate: string = new Date().toLocaleString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
@@ -95,7 +99,7 @@ const ViewRoles: React.FC<RolesProps> = ({
         >
             <div style={{ marginTop: 5 }} className={`${(windowSize[0] > 990) ? ("d-flex justify-content-between") : ("d-flex flex-column justify-content-start")}`}>
                 <div>
-                    EQA / User Management /<span style={{ color: "#4f747a" }}> Roles </span>
+                {(t('Home.Sidebar.list.userManagement.subMenu.roles.details.breadcrumb.f1'))} / {(t('Home.Sidebar.list.userManagement.subMenu.roles.details.breadcrumb.f2'))} /<span style={{ color: "#4f747a" }}> {(t('Home.Sidebar.list.userManagement.subMenu.roles.details.breadcrumb.f3'))} </span>
                 </div>
                 <div>
                     <span style={{ color: "#4f747a", paddingRight: 10 }}>{currentFormatedDate}</span>
@@ -108,73 +112,12 @@ const ViewRoles: React.FC<RolesProps> = ({
             <div className={styles.topContainer}>
                 <div className={styles.leftTopContainer}>
                     <HiUserGroup size={27} style={{ marginTop: "3px" }} color="#4f747a" />
-                    <p className={`${styles.topContainerLeftText}`}> <b style={{ fontWeight: "bold", color: "#4f747a" }}>Roles</b> Management </p>
+                    <p className={`${styles.topContainerLeftText}`}> 
+                    {/* <b style={{ fontWeight: "bold", color: "#4f747a" }}>Roles</b> Management  */}
+                    {(t('Home.Sidebar.list.userManagement.subMenu.roles.details.title'))}
+                    </p>
                 </div>
                 <div className={styles.rightTopContainer}>
-                    {/* <div className={styles.progressBarTopContainer}>
-                        <div style={{ width: "60px" }}>
-                            <CircularProgressbar
-                                value={70}
-                                strokeWidth={15}
-                                styles={buildStyles({
-                                    // Rotation of path and trail, in number of turns (0-1)
-                                    rotation: 0,
-
-                                    // Whether to use rounded or flat corners on the ends - can use 'butt' or 'round'
-                                    strokeLinecap: 'butt',
-
-                                    // Text size
-                                    textSize: '16px',
-
-                                    // How long animation takes to go from one percentage to another, in seconds
-                                    pathTransitionDuration: 0.5,
-
-                                    // Can specify path transition in more detail, or remove it entirely
-                                    // pathTransition: 'none',
-
-                                    // Colors
-                                    pathColor: `#1c4e80`,
-                                    trailColor: '#1c4e8047'
-                                })}
-                            />
-                        </div>
-                        <div className={styles.containerRightProgress}>
-                            <p style={{ fontSize: "15px", marginTop: 3 }}>Present Role Members</p>
-                            <p style={{ fontSize: 20, marginTop: -18, fontWeight: "bold" }}>743</p>
-                        </div>
-                    </div>
-                    <div className={styles.progressBarTopContainer}>
-                        <div style={{ width: "60px" }}>
-                            <CircularProgressbar
-                                value={percentage}
-                                strokeWidth={15}
-                                styles={buildStyles({
-                                    // Rotation of path and trail, in number of turns (0-1)
-                                    rotation: 0,
-
-                                    // Whether to use rounded or flat corners on the ends - can use 'butt' or 'round'
-                                    strokeLinecap: 'butt',
-
-                                    // Text size
-                                    textSize: '16px',
-
-                                    // How long animation takes to go from one percentage to another, in seconds
-                                    pathTransitionDuration: 0.5,
-
-                                    // Can specify path transition in more detail, or remove it entirely
-                                    // pathTransition: 'none',
-
-                                    // Colors
-                                    pathColor: `#dbad58e9`,
-                                    trailColor: '#dbad583e'
-                                })}
-                            />
-                        </div>
-                        <div className={styles.containerRightProgress}>
-                            <p style={{ fontSize: "15px", marginTop: 3 }}>Total No. of Login</p>
-                            <p style={{ fontSize: 20, marginTop: -18, fontWeight: "bold" }}>45698</p>
-                        </div>
-                    </div> */}
                     <Button
                         variant="contained"
                         sx={{
@@ -192,7 +135,7 @@ const ViewRoles: React.FC<RolesProps> = ({
                         }}
                         startIcon={<AddIcon />}
                     >
-                        Add Role
+                        {(t('Home.Sidebar.list.userManagement.subMenu.roles.details.addUser'))}
                     </Button>
                 </div>
             </div>
@@ -205,6 +148,7 @@ const ViewRoles: React.FC<RolesProps> = ({
                     states={states}
                     ColHeader={tableColHeaders}
                     columnName={"CourseOfferingTypes"}
+                    tableInfo={(t('Home.Sidebar.list.userManagement.subMenu.roles.details.table.subTitle'))}
                     buttonTitle={"Create New Role"}
                     tableTitle={`<b style={{ fontWeight: "bold" }}>Roles</b> <i>List</i>`}
                 />

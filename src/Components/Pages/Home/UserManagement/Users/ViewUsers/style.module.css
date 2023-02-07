@@ -31,6 +31,10 @@
     font-weight: 300;
     color: #767676;
 }
+html[dir="rtl"] .topContainerLeftText {
+    margin-left: 0px;
+    margin-right: 10px;
+}
 
 /* Left Top Container */
 
@@ -40,11 +44,19 @@
     padding-top: 2px;
     margin-right: 20px;
 }
+html[dir="rtl"] .progressBarTopContainer {
+    margin-left: 20px;
+    margin-right: 0px;
+}
 
 .containerRightProgress {
     /* border: 1px solid black; */
     height: 60px;
     padding-left: 10px;
+}
+html[dir="rtl"] .containerRightProgress {
+    padding-left: 0px;
+    padding-right: 10px;
 }
 
 /* Top Container Over */
@@ -64,6 +76,10 @@
     height: 97px;
     padding-left: 20px;
     padding-top: 5px;
+}
+html[dir="rtl"] .insideContainerBox {
+    padding-left: 0px;
+    padding-right: 20px;
 }
 
 .insideContainerBox:hover {
@@ -226,5 +242,9 @@
 
     .topContainerLeftText b {
         margin-right: 10px;
+    }
+    html[dir="rtl"] .topContainerLeftText b {
+        margin-left: 10px;
+        margin-right: 0px;
     }
 }

@@ -14,6 +14,8 @@ import Button from '@mui/material/Button';
 // Importing components
 import DataTableMD from "../../../../../DataTableMD";
 
+import { useTranslation } from "react-i18next";
+
 // @@@@@@@@@@@@@@ IMPORTING COURSE OFFERING TABLE DATA @@@@@@@@@@@@@@@@@
 // Importing the course offering table data
 import { data, states } from '../../../../../../Data/Tables/CourseOfferings';
@@ -38,6 +40,8 @@ const ViewGroups: React.FC<GroupsProps> = ({
     isMinified,
     setIsMinified
 }) => {
+    const { t } = useTranslation();
+
     const navigate = useNavigate();
 
     const currentFormatedDate: string = new Date().toLocaleString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
@@ -92,7 +96,13 @@ const ViewGroups: React.FC<GroupsProps> = ({
         }}>
             <div style={{ marginTop: 5 }} className={`${(windowSize[0] > 990) ? ("d-flex justify-content-between") : ("d-flex flex-column justify-content-start")}`}>
                 <div>
-                    EQA / User Management /<span style={{ color: "#4f747a" }}> Groups </span>
+                {(t('Home.Sidebar.list.userManagement.subMenu.groups.details.breadcrumb.f1'))} 
+                    / 
+                    {(t('Home.Sidebar.list.userManagement.subMenu.groups.details.breadcrumb.f2'))}
+                    /
+                    <span style={{ color: "#4f747a" }}> 
+                    {(t('Home.Sidebar.list.userManagement.subMenu.groups.details.breadcrumb.f3'))} 
+                    </span>
                 </div>
                 <div>
                     <span style={{ color: "#4f747a", paddingRight: 10 }}>{currentFormatedDate}</span>
@@ -105,7 +115,10 @@ const ViewGroups: React.FC<GroupsProps> = ({
             <div className={styles.topContainer}>
                 <div className={styles.leftTopContainer}>
                     <HiUserGroup size={27} style={{ marginTop: "3px" }} color="#4f747a" />
-                    <p className={styles.topContainerLeftText}> <b style={{ fontWeight: "bold" }}>Groups</b> Management </p>
+                    <p className={styles.topContainerLeftText}> 
+                    {/* <b style={{ fontWeight: "bold" }}>Groups</b> Management  */}
+                    {(t('Home.Sidebar.list.userManagement.subMenu.groups.details.title'))} 
+                    </p>
                 </div>
                 <div className={styles.rightTopContainer}>
                     <Button
@@ -125,36 +138,11 @@ const ViewGroups: React.FC<GroupsProps> = ({
                         }}
                         startIcon={<AddIcon />}
                     >
-                        Add Group
+                        {(t('Home.Sidebar.list.userManagement.subMenu.groups.details.addUser'))} 
                     </Button>
                 </div>
             </div>
             {/* Top Container */}
-
-            {/* Box Container */}
-            {/* <div className={`container-fluid ${styles.containerBoxes}`}>
-                <div className="row gx-4" style={(windowSize[0] > 767) ? (styleFirstRowCB) : (styleForResponsiveFirstRowCB)}>
-                    <div className={`col-md-4`}>
-                        <div className={styles.insideContainerBox} style={{ backgroundColor: "#6aac4c" }}>
-                            <div className={styles.countICB}>6000</div>
-                            <p className={styles.infoICB}>Total Groups</p>
-                        </div>
-                    </div>
-                    <div className={`col-md-4`}>
-                        <div className={styles.insideContainerBox} style={{ backgroundColor: "#29aaca" }}>
-                            <div className={styles.countICB}>800</div>
-                            <p className={styles.infoICB}>Staff</p>
-                        </div>
-                    </div>
-                    <div className={`col-md-4`}>
-                        <div className={styles.insideContainerBox} style={{ backgroundColor: "#23272b" }}>
-                            <div className={styles.countICB}>700</div>
-                            <p className={styles.infoICB}>Students</p>
-                        </div>
-                    </div>
-                </div>
-            </div> */}
-            {/* Box Container */}
 
             <div style={{ marginTop: 30 }}>
                 <DataTableMD
@@ -163,6 +151,7 @@ const ViewGroups: React.FC<GroupsProps> = ({
                     states={states}
                     ColHeader={tableColHeaders}
                     columnName={"CourseOfferingTypes"}
+                    tableInfo={(t('Home.Sidebar.list.userManagement.subMenu.groups.details.table.subTitle'))}
                     buttonTitle={"Create New Group"}
                     tableTitle={`<b style={{ fontWeight: "bold" }}>Groups</b> <i>List</i>`}
                 />

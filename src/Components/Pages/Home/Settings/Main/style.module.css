@@ -6,24 +6,6 @@
     padding-top: 20px;
 }
 
-/* For Responsivenesss */
-
-@media all and (max-width:870px) {
-
-}
-
-@media all and (max-width:767px) {
-    
-}
-
-@media all and (max-width:600px){
-   
-}
-
-@media all and (max-width:479px) {
-  
-}
-
-@media all and (max-width:330px){
-   
+html[dir=rtl] .saveBtn {
+    margin-left: 15px;
 }

@@ -31,6 +31,10 @@
     font-weight: 300;
     color: #767676;
 }
+html[dir="rtl"] .topContainerLeftText {
+    margin-left: 0px;
+    margin-right: 10px;
+}
 
 /* Left Top Container */
 
@@ -40,11 +44,19 @@
     padding-top: 2px;
     margin-right: 20px;
 }
+html[dir="rtl"] .progressBarTopContainer {
+    margin-left: 20px;
+    margin-right: 0px;
+}
 
 .containerRightProgress {
     /* border: 1px solid black; */
     height: 60px;
     padding-left: 10px;
+}
+html[dir="rtl"] .containerRightProgress {
+    padding-left: 0px;
+    padding-right: 10px;
 }
 
 /* Top Container Over */
@@ -64,7 +76,10 @@
     height: 97px;
     padding-left: 20px;
     padding-top: 5px;
-    width: 100% !important;
+}
+html[dir="rtl"] .insideContainerBox {
+    padding-left: 0px;
+    padding-right: 20px;
 }
 
 .insideContainerBox:hover {
@@ -92,7 +107,32 @@
 
 /* For Responsivenesss */
 
+@media all and (max-width:1400px){
+    .containerBoxes {
+        /* border: 1px solid red; */
+        width: 96% !important;
+    }
+}
+
+@media all and (max-width:1100px){
+    .containerBoxes {
+        /* border: 1px solid rgb(17, 0, 255); */
+        width: 95% !important;
+    }
+}
+
+@media all and (max-width:900px){
+    .containerBoxes {
+        /* border: 1px solid rgb(38, 255, 0); */
+        width: 94% !important;
+    }
+}
+
 @media all and (max-width:870px) {
+    .containerBoxes {
+        /* border: 1px solid rgb(38, 255, 0); */
+        width: 93.5% !important;
+    }
     .insideContainerBox {
         /* border: 1px solid black; */
         height: 170px;
@@ -100,6 +140,10 @@
 }
 
 @media all and (max-width:767px) {
+    .containerBoxes {
+        /* border: 1px solid rgb(38, 255, 0); */
+        width: 93% !important;
+    }
     .insideContainerBox {
         /* border: 1px solid rgb(255, 0, 0); */
         height: 100px;
@@ -118,8 +162,12 @@
     }
 }
 
-@media all and (max-width:600px){
-    .insideContainerBox{
+@media all and (max-width:600px) {
+    .containerBoxes {
+        /* border: 1px solid rgb(255, 0, 0); */
+        width: 92% !important;
+    }
+    .insideContainerBox {
         border-radius: 0px;
         height: 80px;
         padding-top: 4px;
@@ -131,7 +179,7 @@
         color: white;
         user-select: none;
     }
-    
+
     .infoICB {
         font-size: 18px;
         color: white;
@@ -140,27 +188,63 @@
     }
 }
 
-@media all and (max-width:479px) {
-    .containerBoxes{
-     margin-top: 20px;   
+@media all and (max-width:500px){
+    .containerBoxes {
+        /* border: 1px solid rgb(0, 136, 255); */
+        width: 89% !important;
     }
+}
+
+@media all and (max-width:479px) {
+    .containerBoxes {
+        margin-top: 20px;
+    }
+
     /* Right Top Container */
     .rightTopContainer {
         flex-direction: column;
     }
-    .progressBarTopContainer{
+
+    .progressBarTopContainer {
         margin-bottom: 20px;
     }
 }
 
-@media all and (max-width:330px){
-    .topContainerLeftText{
+
+@media all and (max-width:450px){
+    .containerBoxes {
+        /* border: 1px solid rgb(255, 0, 0); */
+        width: 88% !important;
+    }
+}
+
+@media all and (max-width:400px){
+    .containerBoxes {
+        /* border: 1px solid rgb(0, 30, 255); */
+        width: 86% !important;
+    }
+}
+
+@media all and (max-width:360px){
+    .containerBoxes {
+        /* border: 1px solid rgb(255, 0, 0); */
+        width: 84% !important;
+    }
+}
+
+@media all and (max-width:330px) {
+    .topContainerLeftText {
         font-size: 21px;
         text-align: center;
         display: flex;
         justify-content: space-between;
     }
-    .topContainerLeftText b{
+
+    .topContainerLeftText b {
         margin-right: 10px;
+    }
+    html[dir="rtl"] .topContainerLeftText b {
+        margin-left: 10px;
+        margin-right: 0px;
     }
 }

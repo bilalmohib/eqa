@@ -12,6 +12,15 @@ code {
     monospace;
 }
 
+@font-face {
+  font-family: 'Sakkal Majalla';
+  src: url('./assets/Fonts/SakkalMajjal/Sakkal\ Majalla\ Regular.ttf') format('truetype');
+}
+
+html[dir="rtl"] {
+  font-family: 'Sakkal Majalla' !important;
+}
+
 /* input[type=text]:focus:not([readonly])+label,.form-control input[type=password]:focus:not([readonly])+label {
   color: #aab9bb;
 }
@@ -182,3 +191,9 @@ input[type=checkbox] {
 /* For Ripple Effect */
 
 /* For Ripple Effect */
+
+
+/* For Table Pagination */
+.MuiBox-root {
+  direction: ltr;
+}
