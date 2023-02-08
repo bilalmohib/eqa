@@ -15,6 +15,14 @@ import { useLocation } from 'react-router-dom';
 import 'react-circular-progressbar/dist/styles.css';
 import Loader from "./Components/Loader";
 
+// For LTR and RTL Theme
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import rtlPlugin from 'stylis-plugin-rtl';
+import { prefixer } from 'stylis';
+import { CacheProvider } from '@emotion/react';
+import createCache from '@emotion/cache';
+// For LTR and RTL Theme
+
 const App = () => {
     const [loading, setLoading] = useState<boolean>(true);
 
@@ -27,6 +35,10 @@ const App = () => {
     const [currentTab, setCurrentTab] = useState<number>(1);
 
     const [showHeader, setShowHeader] = useState<boolean>(false);
+
+    // Current Language State
+    const [currentLang, setCurrentLang] = useState<string>("en");
+    // Current Language State
 
     ////////////////// For loader when doing async calls //////////////////
     function demoAsyncCall() {
@@ -44,25 +56,42 @@ const App = () => {
     });
     ////////////////// For loader when doing async calls //////////////////
 
+    // Theme for LT and RTL
+    const theme = createTheme({
+        direction: (currentLang === "ar") ? "rtl" : "ltr",
+    });
+    // Create rtl cache
+    const cacheRtl = createCache({
+        key: (currentLang === "ar") ? "muirtl" : "muiltr",
+        // stylisPlugins: [prefixer, rtlPlugin],
+        stylisPlugins: (currentLang === "ar") ? [prefixer, rtlPlugin] : [prefixer]
+    });
+
     if (loading) { // if your component doesn't have to wait for async data, remove this block 
         return <Loader /> // render Loader here
     } else {
         return (
-            <div>
-                {(showHeader) && (
-                    <Header
-                        setCurrentTab={setCurrentTab}
-                        setMobileViewContainer={setMobileViewContainer}
-                    />
-                )}
-                <AppRouter
-                    currentTab={currentTab}
-                    setCurrentTab={setCurrentTab}
-                    mobileViewContainer={mobileViewContainer}
-                    showHeader={showHeader}
-                    setShowHeader={setShowHeader}
-                />
-            </div>
+            <CacheProvider value={cacheRtl}>
+                <ThemeProvider theme={theme}>
+                    <div>
+                        {(showHeader) && (
+                            <Header
+                                setCurrentTab={setCurrentTab}
+                                setMobileViewContainer={setMobileViewContainer}
+                            />
+                        )}
+                        <AppRouter
+                            currentTab={currentTab}
+                            setCurrentTab={setCurrentTab}
+                            mobileViewContainer={mobileViewContainer}
+                            showHeader={showHeader}
+                            setShowHeader={setShowHeader}
+                            currentLang={currentLang}
+                            setCurrentLang={setCurrentLang}
+                        />
+                    </div>
+                </ThemeProvider>
+            </CacheProvider>
         )
     }
 }

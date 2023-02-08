@@ -33,6 +33,10 @@ interface HomeProps {
     setIsMinified: any,
     subComponent: any,
     setShowHeader: any,
+
+    // Language
+    currentLang: string,
+    setCurrentLang: any
 }
 
 const Home = ({
@@ -42,7 +46,11 @@ const Home = ({
     isMinified,
     setIsMinified,
     subComponent,
-    setShowHeader
+    setShowHeader,
+
+    // Language
+    currentLang,
+    setCurrentLang
 }: HomeProps) => {
     const { t } = useTranslation();
 
@@ -57,7 +65,6 @@ const Home = ({
     // Reset Password Modal
     const [openResetPasswordModal, setOpenResetPasswordModal] = useState<boolean>(false);
     // Reset Password Modal
-
 
     useEffect(() => {
         // The current location.
@@ -110,15 +117,15 @@ const Home = ({
     const [currentSubMenuSidebarOpenItem, setCurrentSubMenuSidebarOpenItem] = useState<Number>(0);
 
     // ######################## Array of menu items ########################
-    let dashboard = (i18n.language === "ar") ? "لوحة القيادة" : "Dashboard";
-    let userManagement = (i18n.language === "ar") ? "لوحة القيادة" : "User Management";
-    let settings = (i18n.language === "ar") ? "لوحة القيادة" : "Settings";
+    // let dashboard = (currentLang === "ar") ? "لوحة القيادة" : "Dashboard";
+    // let userManagement = (currentLang === "ar") ? "لوحة القيادة" : "User Management";
+    // let settings = (currentLang === "ar") ? "لوحة القيادة" : "Settings";
 
     const SidebarMenuItemsArray = [
         {
             index: 1,
             icon: <AiFillDashboard size={20} style={{ width: 25, height: 25 }} />,
-            text: dashboard,
+            text: t('Home.Sidebar.list.Dashboard.text'),
             // link: "/",
             subMenu: [
                 {
@@ -146,7 +153,7 @@ const Home = ({
         {
             index: 2,
             icon: <FaUserAlt size={17} style={{ width: 23, height: 23 }} />,
-            text: userManagement,
+            text: t('Home.Sidebar.list.userManagement.text'),
             // link: "/usermanagement",
             subMenu: [
                 {
@@ -169,7 +176,7 @@ const Home = ({
         {
             index: 3,
             icon: <FiSettings size={20} style={{ width: 23, height: 23 }} />,
-            text: settings,
+            text: t('Home.Sidebar.list.settings.text'),
             // link: "/",
             subMenu: [
                 {
@@ -239,6 +246,10 @@ const Home = ({
                     // Passing the props to the ResetPasswordModal component
                     openResetPasswordModal={openResetPasswordModal}
                     setOpenResetPasswordModal={setOpenResetPasswordModal}
+
+                    // Current language
+                    currentLang={currentLang}
+                    setCurrentLang={setCurrentLang}
                 />
                 <div className='d-flex'>
                     <div style={{ position: "relative", zIndex: 1 }}>
@@ -259,6 +270,10 @@ const Home = ({
                             isMinified={isMinified}
                             // Sidebar Menu Items Array
                             sidebarList={SidebarMenuItemsArray}
+
+                            // Current language
+                            currentLang={currentLang}
+                            setCurrentLang={setCurrentLang}
                         />
                     </div>
 
@@ -279,12 +294,20 @@ const Home = ({
                 // Passing the props to the UserInfoModal component
                 openUserInfoModal={openUserInfoModal}
                 setOpenUserInfoModal={setOpenUserInfoModal}
+
+                // Current language
+                currentLang={currentLang}
+                setCurrentLang={setCurrentLang}
             />
 
             <ResetPasswordModal
                 // Passing the props to the ResetPasswordModal component
                 openResetPasswordModal={openResetPasswordModal}
                 setOpenResetPasswordModal={setOpenResetPasswordModal}
+
+                // Current language
+                currentLang={currentLang}
+                setCurrentLang={setCurrentLang}
             />
         </div>
     )

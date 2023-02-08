@@ -37,6 +37,9 @@ import {
 // Importing i18 for language
 import i18n from "../../i18n";
 
+// Importing logout Service
+import { logoutService } from "../../Service/logoutService";
+
 interface NavProps {
     setIsOpen: any,
     isOpen: Boolean,
@@ -50,6 +53,10 @@ interface NavProps {
     // For Reset Password Modal
     openResetPasswordModal: Boolean,
     setOpenResetPasswordModal: any,
+
+    // Current Language
+    currentLang: string,
+    setCurrentLang: any
 }
 
 const Navbar: React.FC<NavProps> = ({
@@ -65,6 +72,10 @@ const Navbar: React.FC<NavProps> = ({
     // For Reset Password Modal
     openResetPasswordModal,
     setOpenResetPasswordModal,
+
+    // Current Language
+    currentLang,
+    setCurrentLang,
 }) => {
     const { t } = useTranslation();
     const navigate = useNavigate();
@@ -73,8 +84,6 @@ const Navbar: React.FC<NavProps> = ({
         window.innerWidth,
         window.innerHeight,
     ]);
-
-    const [currentLang, setCurrentLang] = useState<string>("en");
 
     const changeTheLanguage = (e: any) => {
         i18n.changeLanguage(e);
@@ -108,7 +117,23 @@ const Navbar: React.FC<NavProps> = ({
 
     const logoutUser = () => {
         if (window.confirm("Are you sure you want to logout?")) {
-            alert("You have been signed out successfully");
+            const xApiKey = localStorage.getItem("accessToken");
+            console.log("xApiKey ===> : ", xApiKey);
+            logoutService(xApiKey).then(response => {
+                console.log("Presetation layer response Code: ", response);
+                // console.log("Presetation layer response: Status", response.status);
+                // console.log("Presetation layer response: Status", response.transactionId);
+                // if (response.code === "200.200" && response.status === "OK") {
+                //     alert("Logged out successfully");
+                localStorage.removeItem("accessToken");
+                //     navigate(`/`);
+                // }
+            }).catch(error => {
+                console.log("Error in response : ", error);
+                // Clearing the fields
+                alert("Network Error");
+                return;
+            });
         }
     }
 
@@ -116,13 +141,13 @@ const Navbar: React.FC<NavProps> = ({
         if (value === "en") {
             document.documentElement.setAttribute("lang", 'ar');
             document.documentElement.setAttribute("dir", 'rtl');
-            changeTheLanguage("ar");
             setCurrentLang("ar");
+            changeTheLanguage("ar");
         } else if (value === "ar") {
             document.documentElement.setAttribute("lang", 'en');
             document.documentElement.setAttribute("dir", 'ltr');
-            changeTheLanguage("en");
             setCurrentLang("en");
+            changeTheLanguage("en");
         }
     }
 
@@ -531,7 +556,7 @@ const Navbar: React.FC<NavProps> = ({
                                             setOpenResetPasswordModal(!openResetPasswordModal);
                                         }}
                                     >
-                                        <a className="dropdown-item" href="#">{t('Home.Header.DropDown.Apps.Profile.list.resetPassword')}</a>
+                                        <a className="dropdown-item" href="#">{t('Home.Header.DropDown.Apps.Profile.list.changePassword')}</a>
                                     </li>
                                     <li
                                         onClick={() => {
@@ -544,7 +569,7 @@ const Navbar: React.FC<NavProps> = ({
                                         <a className="dropdown-item" href="#">
                                             <div className={`d-flex justify-content-between ${(i18n.language === "ar") && ("flex-row-reverse")}`}>
                                                 <div>
-                                                {t('Home.Header.DropDown.Apps.Profile.list.Language.title')}
+                                                    {t('Home.Header.DropDown.Apps.Profile.list.Language.title')}
                                                 </div>
                                                 <div>
                                                     <b style={{ color: "black" }}>
@@ -564,25 +589,6 @@ const Navbar: React.FC<NavProps> = ({
                                             <li onClick={() => selectLanguage("en")}>
                                                 <a className="dropdown-item" href="#">{t('Home.Header.DropDown.Apps.Profile.list.Language.list.Arabic')}</a>
                                             </li>
-                                            {/* 
-                                            <li>
-                                                <a className="dropdown-item" href="#">Submenu item 3 &raquo; </a>
-                                                <ul className="dropdown-menu dropdown-submenu">
-                                                    <li>
-                                                        <a className="dropdown-item" href="#">Multi level 1</a>
-                                                    </li>
-                                                    <li>
-                                                        <a className="dropdown-item" href="#">Multi level 2</a>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                            <li>
-                                                <a className="dropdown-item" href="#">Submenu item 4</a>
-                                            </li>
-                                            <li>
-                                                <a className="dropdown-item" href="#">Submenu item 5</a>
-                                            </li> 
-                                            */}
                                         </ul>
                                     </li>
                                     {/* Divider */}
@@ -628,7 +634,7 @@ const Navbar: React.FC<NavProps> = ({
                                         <a className="dropdown-item" href="#">
                                             <div className="d-flex justify-content-between">
                                                 <div>
-                                                {t('Home.Header.DropDown.Apps.Profile.list.print.title')}
+                                                    {t('Home.Header.DropDown.Apps.Profile.list.print.title')}
                                                 </div>
                                                 <div>
                                                     <i style={{ color: "grey" }}>{t('Home.Header.DropDown.Apps.Profile.list.print.shortcut')}</i>

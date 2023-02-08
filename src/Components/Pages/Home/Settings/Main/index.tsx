@@ -34,6 +34,10 @@ interface GroupsProps {
     // For minified sidebar
     isMinified: Boolean,
     setIsMinified: any,
+
+    // For Current Language
+    currentLang: string,
+    setCurrentLang: any
 }
 
 const Groups: React.FC<GroupsProps> = ({
@@ -41,14 +45,82 @@ const Groups: React.FC<GroupsProps> = ({
     isOpen,
     // For minified sidebar
     isMinified,
-    setIsMinified
+    setIsMinified,
+
+    // For Current Language
+    currentLang,
+    setCurrentLang
 }) => {
     const { t } = useTranslation();
 
     const currentFormatedDate: string = new Date().toLocaleString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
 
     // For checkbox
-    const [checked, setChecked] = useState(false);
+    const settings = [
+        {
+            id: 1,
+            title: t('Home.Sidebar.list.settings.subMenu.general.details.Settings.Meeting.title'),
+            icon: <IoSpeedometerOutline size={30} />,
+            settingsItems: [
+                {
+                    id: 1,
+                    title: t('Home.Sidebar.list.settings.subMenu.general.details.Settings.Meeting.s1.title'),
+                    description: t('Home.Sidebar.list.settings.subMenu.general.details.Settings.Meeting.s1.subTitle'),
+                    checked: false,
+                    icon: <IoSpeedometerOutline size={30} />,
+                },
+                {
+                    id: 2,
+                    title: t('Home.Sidebar.list.settings.subMenu.general.details.Settings.Meeting.s2.title'),
+                    description: t('Home.Sidebar.list.settings.subMenu.general.details.Settings.Meeting.s2.subTitle'),
+                    checked: false,
+                    icon: <IoSpeedometerOutline size={30} />,
+                }
+            ]
+        },
+        {
+            id: 2,
+            title: t('Home.Sidebar.list.settings.subMenu.general.details.Settings.MinuteofMeeting.title'),
+            icon: <IoSpeedometerOutline size={30} />,
+            settingsItems: [
+                {
+                    id: 1,
+                    title: t('Home.Sidebar.list.settings.subMenu.general.details.Settings.MinuteofMeeting.s1.title'),
+                    description: t('Home.Sidebar.list.settings.subMenu.general.details.Settings.MinuteofMeeting.s1.subTitle'),
+                    checked: false,
+                    icon: <IoSpeedometerOutline size={30} />,
+                }
+            ]
+        },
+        {
+            id: 3,
+            title: t('Home.Sidebar.list.settings.subMenu.general.details.Settings.TaskManagement.title'),
+            icon: <IoSpeedometerOutline size={30} />,
+            settingsItems: [
+                {
+                    id: 1,
+                    title: t('Home.Sidebar.list.settings.subMenu.general.details.Settings.TaskManagement.s1.title'),
+                    description: t('Home.Sidebar.list.settings.subMenu.general.details.Settings.TaskManagement.s1.subTitle'),
+                    checked: false,
+                    icon: <IoSpeedometerOutline size={30} />,
+                }
+            ]
+        },
+        {
+            id: 4,
+            title: t('Home.Sidebar.list.settings.subMenu.general.details.Settings.CommitteeManagement.title'),
+            icon: <IoSpeedometerOutline size={30} />,
+            settingsItems: [
+                {
+                    id: 1,
+                    title: t('Home.Sidebar.list.settings.subMenu.general.details.Settings.TaskManagement.s1.title'),
+                    description: t('Home.Sidebar.list.settings.subMenu.general.details.Settings.TaskManagement.s1.subTitle'),
+                    checked: false,
+                    icon: <IoSpeedometerOutline size={30} />,
+                }
+            ]
+        }
+    ];
 
     const [windowSize, setWindowSize] = useState([
         window.innerWidth,
@@ -79,91 +151,48 @@ const Groups: React.FC<GroupsProps> = ({
         };
     });
 
-    const handleChange = (event: any) => {
-        setChecked(event.target.checked);
+    //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ FOR CHECKBOX STATE @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+    const [settingsState, setSettingsState] = useState(settings);
+
+    const handleChange = (checked: boolean, parentId: number, childId: number) => {
+        // Update the settings in the dom as well as the settings array
+        const newSettings = settingsState.map((setting) => {
+            if (setting.id === parentId) {
+                setting.settingsItems.map((item) => {
+                    if (item.id === childId) {
+                        item.checked = checked;
+                    }
+                });
+            }
+            return setting;
+        });
+
+        // Update the state with the new settings
+        setSettingsState(newSettings);
+
+        // Store the updated settings in local storage
+        localStorage.setItem("settings", JSON.stringify(newSettings));
     };
 
-    const [currentLanguage, setCurrentLanguage] = useState("en");
-
-    // useEffect(() => {
-    //     if (i18n.language == "en") {
-    //         setCurrentLanguage("en");
-    //     } else if (i18n.language == "ar") {
-    //         console.log("Now the language is arabic ==> ", typeof(i18n.language));
-    //         setCurrentLanguage("ar");
-    //     }
-    //     else {
-    //         setCurrentLanguage("en");
-    //     }
-
-    //     // console.log("i18n language ==> ", currentLanguage);
-    // }, [i18n.language]);
-
     useEffect(() => {
-        // console.clear();
-        // console.log("Current language ==> ", typeof(i18n.language));
-        console.clear();
-        if (i18n.language === 'ar') {
-            console.log("Now the language is arabic ==> ", i18n.language);
-        }
-    });
+        // Re-render the component whenever the language changes
+        // setSettingsState(settings);
 
-    const settings = [
-        {
-            title: t('Home.Sidebar.list.settings.subMenu.general.details.Settings.Meeting.title'),
-            icon: <IoSpeedometerOutline size={30} />,
-            settingsItems: [
-                {
-                    title: t('Home.Sidebar.list.settings.subMenu.general.details.Settings.Meeting.s1.title'),
-                    description: t('Home.Sidebar.list.settings.subMenu.general.details.Settings.Meeting.s1.subTitle'),
-                    checked: true,
-                    icon: <IoSpeedometerOutline size={30} />,
-                },
-                {
-                    title: t('Home.Sidebar.list.settings.subMenu.general.details.Settings.Meeting.s2.title'),
-                    description: t('Home.Sidebar.list.settings.subMenu.general.details.Settings.Meeting.s2.subTitle'),
-                    checked: true,
-                    icon: <IoSpeedometerOutline size={30} />,
-                }
-            ]
-        },
-        {
-            title: t('Home.Sidebar.list.settings.subMenu.general.details.Settings.MinuteofMeeting.title'),
-            icon: <IoSpeedometerOutline size={30} />,
-            settingsItems: [
-                {
-                    title: t('Home.Sidebar.list.settings.subMenu.general.details.Settings.MinuteofMeeting.s1.title'),
-                    description: t('Home.Sidebar.list.settings.subMenu.general.details.Settings.MinuteofMeeting.s1.subTitle'),
-                    checked: true,
-                    icon: <IoSpeedometerOutline size={30} />,
-                }
-            ]
-        },
-        {
-            title: t('Home.Sidebar.list.settings.subMenu.general.details.Settings.TaskManagement.title'),
-            icon: <IoSpeedometerOutline size={30} />,
-            settingsItems: [
-                {
-                    title: t('Home.Sidebar.list.settings.subMenu.general.details.Settings.TaskManagement.s1.title'),
-                    description: t('Home.Sidebar.list.settings.subMenu.general.details.Settings.TaskManagement.s1.subTitle'),
-                    checked: true,
-                    icon: <IoSpeedometerOutline size={30} />,
-                }
-            ]
-        },
-        {
-            title: t('Home.Sidebar.list.settings.subMenu.general.details.Settings.CommitteeManagement.title'),
-            icon: <IoSpeedometerOutline size={30} />,
-            settingsItems: [
-                {
-                    title: t('Home.Sidebar.list.settings.subMenu.general.details.Settings.TaskManagement.s1.title'),
-                    description: t('Home.Sidebar.list.settings.subMenu.general.details.Settings.TaskManagement.s1.subTitle'),
-                    checked: true,
-                    icon: <IoSpeedometerOutline size={30} />,
-                }
-            ]
-        },
-    ]
+        const storedSettings = localStorage.getItem("settings");
+        if (storedSettings) {
+            setSettingsState(JSON.parse(storedSettings));
+        }
+        else {
+            setSettingsState(settings);
+        }
+    },
+    [
+        i18n.language
+    ] 
+    );
+
+    //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ FOR CHECKBOX STATE @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
 
     return (
         <div className={`${styles.container} ${(windowSize[0] < 991 && isOpen) ? ("bgMobileOnSideOpen") : ("")}`}
@@ -173,7 +202,7 @@ const Groups: React.FC<GroupsProps> = ({
             }}>
             <div style={{ marginTop: 5 }} className={`${(windowSize[0] > 990) ? ("d-flex justify-content-between") : ("d-flex flex-column justify-content-start")}`}>
                 <div>
-                    {t('Home.Sidebar.list.settings.subMenu.general.details.breadcrumb.f1')} / {t('Home.Sidebar.list.settings.subMenu.general.details.breadcrumb.f2')} /<span style={{ color: "#4f747a" }}> {t('Home.Sidebar.list.settings.subMenu.general.details.breadcrumb.f3')} </span>
+                    {t('Home.Sidebar.list.settings.subMenu.general.details.breadcrumb.f1')} / {t('Home.Sidebar.list.settings.subMenu.general.details.breadcrumb.f2')} / <span style={{ color: "#4f747a" }}> {t('Home.Sidebar.list.settings.subMenu.general.details.breadcrumb.f3')} </span>
                 </div>
                 <div>
                     <span style={{ color: "#4f747a", paddingRight: 10 }}>{currentFormatedDate}</span>
@@ -187,13 +216,12 @@ const Groups: React.FC<GroupsProps> = ({
             <Stack sx={{ mt: 3 }}
                 direction="row"
                 spacing={2}
-            // dir="ltr"
+                dir={(currentLang === "ar" ? "rtl" : "ltr")}
             >
                 <Button
                     variant="contained"
-                    // dir="rtl"
+                    dir={(currentLang === "ar" ? "rtl" : "ltr")}
                     size="large"
-                    dir="ltr"
                     sx={{
                         backgroundColor: "#e79f43",
                         // textTransform: "none",
@@ -212,7 +240,7 @@ const Groups: React.FC<GroupsProps> = ({
 
                 <Button
                     variant="outlined"
-                    dir="ltr"
+                    dir={(currentLang === "ar" ? "rtl" : "ltr")}
                     size="large"
                     sx={{
                         // textTransform: "none",
@@ -228,10 +256,10 @@ const Groups: React.FC<GroupsProps> = ({
             <section>
                 {/* Rendering settings items using map */}
                 {
-                    settings.map((setting: any, index: number) => {
+                    settingsState.map((setting: any, index: number) => {
                         return (
                             <Box
-                                // dir="rtl"
+                                dir={(currentLang === "ar" ? "rtl" : "ltr")}
                                 key={index}
                                 sx={{
                                     mt: 5, border: 1, borderColor: "#e8ebef", borderTopLeftRadius: 4,
@@ -243,13 +271,6 @@ const Groups: React.FC<GroupsProps> = ({
                                     variant="h4"
                                     component="div"
                                     sx={{
-                                        // width: {
-                                        //     xs: 100, // theme.breakpoints.up('xs')
-                                        //     sm: 200, // theme.breakpoints.up('sm')
-                                        //     md: 300, // theme.breakpoints.up('md')
-                                        //     lg: 400, // theme.breakpoints.up('lg')
-                                        //     xl: 500, // theme.breakpoints.up('xl')
-                                        // },
                                         fontSize: {
                                             xs: 22, // theme.breakpoints.up('xs')
                                             sm: 23, // theme.breakpoints.up('sm')
@@ -282,21 +303,53 @@ const Groups: React.FC<GroupsProps> = ({
                                 {
                                     setting.settingsItems.map((settingsItem: any, index: number) => {
                                         return (
-                                            <Box sx={{ display: "flex", mt: 3 }} key={index}>
+                                            <Box
+                                                dir={(currentLang === "ar" ? "rtl" : "ltr")}
+                                                sx={{
+                                                    display: "flex",
+                                                    flexDirection: (currentLang === "ar" ? "row-reverse" : "row"),
+                                                    alignItems: (currentLang === "ar" ? "flex-start" : "flex-start"),
+                                                    mt: 3
+                                                }}
+                                                key={index}
+                                            >
                                                 <Box
+                                                    dir={(currentLang === "ar" ? "rtl" : "ltr")}
                                                     sx={{
-                                                        paddingLeft: (i18n.language === "ar") ? ("1%") : ("2%"),
-                                                        paddingRight: (i18n.language === "ar") ? ("2%") : ("1%"),
+                                                        paddingLeft: (currentLang === "ar") ? ("1%") : ("1%"),
+                                                        paddingRight: (currentLang === "ar") ? ("1%") : ("1%"),
+                                                        mt: 1,
                                                     }}
                                                 >
                                                     <Checkbox
-                                                        checked={checked}
-                                                        onChange={handleChange}
+                                                        checked={settingsItem.checked}
+                                                        onChange={
+                                                            (e: any) => handleChange(
+                                                                e.target.checked,
+                                                                setting.id,
+                                                                settingsItem.id
+                                                            )
+                                                        }
                                                         color="success"
-                                                        sx={{ '& .MuiSvgIcon-root': { fontSize: 25 } }}
+                                                        sx={{
+                                                            '& .MuiSvgIcon-root': {
+                                                                fontSize: 25,
+                                                                color: "#6bb6b5",
+                                                            },
+                                                            /// CHECKBOX COLOR
+                                                            '& .Mui-checked': {
+                                                                color: "#6bb6b5",
+                                                            },
+                                                        }}
                                                     />
                                                 </Box>
-                                                <Box sx={{ borderLeft: "1px solid rgba(9, 30, 66, 0.25)", paddingLeft: "2%" }}>
+                                                <Box
+                                                    sx={{
+                                                        borderLeft: "1px solid rgba(9, 30, 66, 0.25)",
+                                                        paddingLeft: "2%"
+                                                    }}
+                                                    dir={(currentLang === "ar" ? "rtl" : "ltr")}
+                                                >
                                                     <Typography
                                                         variant="h4"
                                                         component="div"
@@ -308,15 +361,25 @@ const Groups: React.FC<GroupsProps> = ({
                                                                 lg: 22, // theme.breakpoints.up('lg')
                                                                 xl: 22, // theme.breakpoints.up('xl')
                                                             },
+                                                            textAlign: "left",
                                                             marginTop: 1
                                                         }}
                                                         className="text-dark"
                                                         role={"button"}
-                                                        onClick={() => setChecked(!checked)}
+                                                    // onClick={
+                                                    //     () => {
+                                                    //         handleChange();
+                                                    //     }
+                                                    // }
                                                     >
                                                         {settingsItem.title}
                                                     </Typography>
-                                                    <p style={{ color: "#b5b5b5" }}>{settingsItem.description}</p>
+                                                    <p style={{
+                                                        color: "#b5b5b5",
+                                                        textAlign: (currentLang === "ar") ? ("right") : ("left"),
+                                                    }}>
+                                                        {settingsItem.description}
+                                                    </p>
                                                 </Box>
                                             </Box>
                                         )
@@ -333,7 +396,7 @@ const Groups: React.FC<GroupsProps> = ({
             <br />
             <br />
             <br />
-        </div>
+        </div >
     )
 }
 export default Groups;

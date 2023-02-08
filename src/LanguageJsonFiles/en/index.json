@@ -186,7 +186,7 @@
                             "location": "New York, Uk",
                             "list": {
                                 "myprofile": "My Profile",
-                                "resetPassword": "Reset Password",
+                                "changePassword": "Change Password",
                                 "settings": "Settings",
                                 "Language": {
                                     "title": "Language",
@@ -210,6 +210,87 @@
                                     "email": "bilalmohib7896@gmail.com"
                                 }
                             }
+                        }
+                    }
+                },
+                "Modals": {
+                    "ChangePassword": {
+                        "title": "Change Password",
+                        "policy": {
+                            "title": "Change Password Policy",
+                            "Points": {
+                                "Point1": "1. Password must be at least 8 characters long.",
+                                "Point2": "2. Password must contain at least one uppercase letter, one lowercase letter, one number and one special character.",
+                                "Point3": "3. Password must not contain any spaces."
+                            },
+                            "Inputs": {
+                                "OldPassword": {
+                                    "label": "Old Password",
+                                    "placeholder": "Enter old password"
+                                },
+                                "NewPassword": {
+                                    "label": "New Password",
+                                    "placeholder": "Enter new password"
+                                },
+                                "ConfirmPassword": {
+                                    "label": "Confirm New Password",
+                                    "placeholder": "Confirm new password"
+                                }
+                            },
+                            "Buttons":{
+                                "ChangePassword": "Change Password",
+                                "Cancel": "Cancel"
+                            }
+                        }
+                    },
+                    "ProfileModal": {
+                        "Instructor": {
+                            "title": "Instructor",
+                            "value": "Steve Cohen"
+                        },
+                        "Role": {
+                            "title": "Role",
+                            "value": "Admin"
+                        },
+                        "College": {
+                            "title": "College :",
+                            "value": "College of Computers and Information Technology"
+                        },
+                        "Campus": {
+                            "title": "Campus :",
+                            "value": "Dhanmondi"
+                        },
+                        "Designation": {
+                            "title": "Designation :",
+                            "value": "Software Engineer"
+                        },
+                        "Phone": {
+                            "title": "Phone :",
+                            "value": "+1 234 567 890"
+                        },
+                        "LastLogin": {
+                            "title": "Last Login :",
+                            "value": "2021-08-01 12:00:00"
+                        },
+                        "Department": {
+                            "title": "Department :",
+                            "value": "Computer Science"
+                        },
+                        "Linkedin": {
+                            "title": "Linkedin",
+                            "value": "Steve.Cohen"
+                        },
+                        "Twitter": {
+                            "title": "Twitter",
+                            "value": "stevecohen"
+                        },
+                        "Facebook": {
+                            "title": "Facebook",
+                            "value": "steve"
+                        },
+                        "Buttons": {
+                            "Edit": "Edit",
+                            "Close": "Close"
                         }
                     }
                 }
@@ -321,7 +402,7 @@
                             "Users": {
                                 "text": "Users",
                                 "link": "/usermanagement/users/viewusers",
-                                "details":{
+                                "details": {
                                     "breadcrumb": {
                                         "f1": "EQA",
                                         "f2": "User Management",
@@ -329,7 +410,7 @@
                                     },
                                     "title": "Users Management",
                                     "addUser": "Add User",
-                                    "boards":{
+                                    "boards": {
                                         "totalUsers": {
                                             "title": "Total Users",
                                             "number": "6800"
@@ -349,7 +430,7 @@
                                         "menuItems": {
                                             "MyProfile": "My Profile",
                                             "Settings": "Settings",
-                                            "Logout":"Logout"
+                                            "Logout": "Logout"
                                         },
                                         "Buttons": {
                                             "btnCopy": "Copy",
@@ -361,7 +442,7 @@
                             "groups": {
                                 "text": "Groups",
                                 "link": "/usermanagement/groups/viewgroups",
-                                "details":{
+                                "details": {
                                     "breadcrumb": {
                                         "f1": "EQA",
                                         "f2": "User Management",
@@ -378,7 +459,7 @@
                             "roles": {
                                 "text": "Role",
                                 "link": "/usermanagement/roles/viewroles",
-                                "details":{
+                                "details": {
                                     "breadcrumb": {
                                         "f1": "EQA",
                                         "f2": "User Management",

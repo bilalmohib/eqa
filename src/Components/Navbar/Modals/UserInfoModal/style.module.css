@@ -31,6 +31,9 @@
     justify-content: center !important;
     margin-top: 30px !important;
 }
+html[dir="rtl"] .modalHeader {
+    flex-direction: row-reverse !important;
+}
 
 /* Left Header */
 .modalHeaderLeft {
@@ -87,6 +90,13 @@
     /* border-left: 1px solid #e0e0e0 !important; */
 
 }
+html[dir="rtl"] .modalHeaderRight {
+    margin-left: 0px !important;
+    margin-right: 30px !important;
+    /* border-left: 0px !important; */
+    /* border-right: 1px solid #e0e0e0 !important; */
+    text-align: right !important;
+}
 
 /* Name */
 .headerName {
@@ -136,11 +146,26 @@
 
     display: flex;
 }
+html[dir="rtl"] .modalBodyTitle {
+    /* justify-content: flex-end !important; */
+}
+
+.modalBodyTitleIcon{
+    display: flex;
+}
+html[dir="rtl"] .modalBodyTitleIcon {
+    flex-direction: row-reverse !important;
+    /* justify-content: flex-end !important; */
+    /* border: 1px solid red !important; */
+}
 
 .modalBodySocial {
     margin-top: 15px !important;
     cursor: pointer;
     display: flex;
+}
+html[dir="rtl"] .modalBodySocial {
+    flex-direction: row-reverse !important;
 }
 
 /* Modal Body Styles */

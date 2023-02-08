@@ -186,7 +186,7 @@
                             "location": "نيويورك ، المملكة المتحدة",
                             "list": {
                                 "myprofile": "ملفي",
-                                "resetPassword": "إعادة تعيين كلمة المرور",
+                                "changePassword": "تغيير كلمة المرور",
                                 "settings": "إعدادات",
                                 "Language": {
                                     "title": "لغة",
@@ -210,6 +210,87 @@
                                     "email": "bilalmohib7896@gmail.com"
                                 }
                             }
+                        }
+                    }
+                },
+                "Modals": {
+                    "ChangePassword": {
+                        "title": "تغيير كلمة المرور",
+                        "policy": {
+                            "title": "تغيير سياسة كلمة المرور",
+                            "Points": {
+                                "Point1": "1. يجب أن تتكون كلمة المرور من 8 أحرف على الأقل.",
+                                "Point2": "2. يجب أن تحتوي كلمة المرور على حرف واحد كبير على الأقل وحرف صغير واحد ورقم واحد وحرف خاص واحد.",
+                                "Point3": "3. يجب ألا تحتوي كلمة المرور على أية مسافات."
+                            },
+                            "Inputs": {
+                                "OldPassword": {
+                                    "label": "كلمة المرور القديمة",
+                                    "placeholder": "أدخل كلمة المرور القديمة"
+                                },
+                                "NewPassword": {
+                                    "label": "كلمة المرور الجديدة",
+                                    "placeholder": "أدخل كلمة مرور جديدة"
+                                },
+                                "ConfirmPassword": {
+                                    "label": "تأكيد كلمة المرور الجديدة",
+                                    "placeholder": "تأكيد كلمة المرور الجديدة"
+                                }
+                            },
+                            "Buttons": {
+                                "ChangePassword": "تغيير كلمة المرور",
+                                "Cancel": "يلغي"
+                            }
+                        }
+                    },
+                    "ProfileModal": {
+                        "Instructor": {
+                            "title": "مدرب",
+                            "value": "ستيف كوهين"
+                        },
+                        "Role": {
+                            "title": "دور",
+                            "value": "مسؤل"
+                        },
+                        "College": {
+                            "title": ": كلية",
+                            "value": "كلية الحاسبات وتقنية المعلومات"
+                        },
+                        "Campus": {
+                            "title": ": حرم الجامعة",
+                            "value": "دهانموندي"
+                        },
+                        "Designation": {
+                            "title": ": تعيين",
+                            "value": "مهندس برمجيات"
+                        },
+                        "Phone": {
+                            "title": ": هاتف",
+                            "value": "+1 234 567 890"
+                        },
+                        "LastLogin": {
+                            "title": ": آخر تسجيل دخول",
+                            "value": "2021-08-01 12:00:00"
+                        },
+                        "Department": {
+                            "title": ": قسم",
+                            "value": "علوم الكمبيوتر"
+                        },
+                        "Linkedin": {
+                            "title": "ينكدين",
+                            "value": "ستيف كوهين"
+                        },
+                        "Twitter": {
+                            "title": "تويتر",
+                            "value": "انضما معا"
+                        },
+                        "Facebook": {
+                            "title": "فيسبوك",
+                            "value": "ستيف"
+                        },
+                        "Buttons": {
+                            "Edit": "يحرر",
+                            "Close": "يغلق"
                         }
                     }
                 }
@@ -361,7 +442,7 @@
                             "groups": {
                                 "text": "مجموعات",
                                 "link": "/usermanagement/groups/viewgroups",
-                                "details":{
+                                "details": {
                                     "breadcrumb": {
                                         "f1": "EQA",
                                         "f2": "إدارةالمستخدم",
@@ -378,7 +459,7 @@
                             "roles": {
                                 "text": "دور",
                                 "link": "/usermanagement/roles/viewroles",
-                                "details":{
+                                "details": {
                                     "breadcrumb": {
                                         "f1": "EQA",
                                         "f2": "إدارةالمستخدم",
