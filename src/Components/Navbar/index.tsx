@@ -123,11 +123,15 @@ const Navbar: React.FC<NavProps> = ({
                 console.log("Presetation layer response Code: ", response);
                 // console.log("Presetation layer response: Status", response.status);
                 // console.log("Presetation layer response: Status", response.transactionId);
-                // if (response.code === "200.200" && response.status === "OK") {
-                //     alert("Logged out successfully");
-                localStorage.removeItem("accessToken");
-                //     navigate(`/`);
-                // }
+                if (response.code === "200.200" && response.status === "OK") {
+                    alert("Logged out successfully");
+                    localStorage.removeItem("accessToken");
+                    navigate(`/`);
+                }
+                else {
+                    alert("Error in logging out");
+                    return;
+                }
             }).catch(error => {
                 console.log("Error in response : ", error);
                 // Clearing the fields
