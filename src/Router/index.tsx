@@ -41,7 +41,9 @@ interface AppRouterProps {
     currentTab: any,
     setCurrentTab: any,
     showHeader: boolean,
-    setShowHeader: any
+    setShowHeader: any,
+    currentLang: string,
+    setCurrentLang: any
 }
 
 const AppRouter: FC<AppRouterProps> = ({
@@ -49,7 +51,9 @@ const AppRouter: FC<AppRouterProps> = ({
     setCurrentTab,
     mobileViewContainer,
     showHeader,
-    setShowHeader
+    setShowHeader,
+    currentLang,
+    setCurrentLang
 }): JSX.Element => {
 
     // For simple open/close sidebar
@@ -101,6 +105,8 @@ const AppRouter: FC<AppRouterProps> = ({
                             // For minified sidebar
                             isMinified={isMinified}
                             setIsMinified={setIsMinified}
+                            currentLang={currentLang}
+                            setCurrentLang={setCurrentLang}
                             subComponent={
                                 <AssessmentDashboard
                                     isOpen={isOpen}
@@ -124,6 +130,8 @@ const AppRouter: FC<AppRouterProps> = ({
                                 // For minified sidebar
                                 isMinified={isMinified}
                                 setIsMinified={setIsMinified}
+                                currentLang={currentLang}
+                                setCurrentLang={setCurrentLang}
                                 subComponent={
                                     <ViewUsers
                                         isOpen={isOpen}
@@ -144,6 +152,8 @@ const AppRouter: FC<AppRouterProps> = ({
                                 // For minified sidebar
                                 isMinified={isMinified}
                                 setIsMinified={setIsMinified}
+                                currentLang={currentLang}
+                                setCurrentLang={setCurrentLang}
                                 subComponent={
                                     <AddUser
                                         isOpen={isOpen}
@@ -166,6 +176,8 @@ const AppRouter: FC<AppRouterProps> = ({
                                 // For minified sidebar
                                 isMinified={isMinified}
                                 setIsMinified={setIsMinified}
+                                currentLang={currentLang}
+                                setCurrentLang={setCurrentLang}
                                 subComponent={
                                     <ViewGroups
                                         isOpen={isOpen}
@@ -186,6 +198,8 @@ const AppRouter: FC<AppRouterProps> = ({
                                 // For minified sidebar
                                 isMinified={isMinified}
                                 setIsMinified={setIsMinified}
+                                currentLang={currentLang}
+                                setCurrentLang={setCurrentLang}
                                 subComponent={
                                     <AddGroup
                                         isOpen={isOpen}
@@ -208,6 +222,8 @@ const AppRouter: FC<AppRouterProps> = ({
                                 // For minified sidebar
                                 isMinified={isMinified}
                                 setIsMinified={setIsMinified}
+                                currentLang={currentLang}
+                                setCurrentLang={setCurrentLang}
                                 subComponent={
                                     <ViewRoles
                                         isOpen={isOpen}
@@ -228,6 +244,8 @@ const AppRouter: FC<AppRouterProps> = ({
                                 // For minified sidebar
                                 isMinified={isMinified}
                                 setIsMinified={setIsMinified}
+                                currentLang={currentLang}
+                                setCurrentLang={setCurrentLang}
                                 subComponent={
                                     <AddRole
                                         isOpen={isOpen}
@@ -251,6 +269,8 @@ const AppRouter: FC<AppRouterProps> = ({
                             // For minified sidebar
                             isMinified={isMinified}
                             setIsMinified={setIsMinified}
+                            currentLang={currentLang}
+                            setCurrentLang={setCurrentLang}
                             subComponent={
                                 <Settings
                                     isOpen={isOpen}
@@ -258,6 +278,8 @@ const AppRouter: FC<AppRouterProps> = ({
                                     // For minified sidebar
                                     isMinified={isMinified}
                                     setIsMinified={setIsMinified}
+                                    currentLang={currentLang}
+                                    setCurrentLang={setCurrentLang}
                                 />
                             }
                         />}

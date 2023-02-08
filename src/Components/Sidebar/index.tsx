@@ -40,7 +40,11 @@ interface SidebarProps {
     setCurrentSubMenuSidebarOpenItem: any,
 
     // Sidebar Menu Items Array
-    sidebarList: any
+    sidebarList: any,
+
+    // Current Language
+    currentLang: string,
+    setCurrentLang: any
 }
 
 const Sidebar: React.FC<SidebarProps> = ({
@@ -55,7 +59,11 @@ const Sidebar: React.FC<SidebarProps> = ({
     currentSubMenuSidebarOpenItem,
     setCurrentSubMenuSidebarOpenItem,
     // Sidebar Menu Items Array
-    sidebarList
+    sidebarList,
+
+    // Current Language
+    currentLang,
+    setCurrentLang
 }) => {
     const { t } = useTranslation();
 
@@ -65,18 +73,8 @@ const Sidebar: React.FC<SidebarProps> = ({
         window.innerHeight,
     ]);
 
-    const [currentLang, setCurrentLang] = useState<string>("en");
-
     const changeTheLanguage = (e: any) => {
         i18n.changeLanguage(e);
-        // if (e === "en") {
-        //     // alert("Language changed english")
-        //     // navigate(`/`);
-        // }
-        // else {
-        //     // navigate(`/${e}`);            
-        //     // alert("Language Arabic")
-        // }
     }
 
     useEffect(() => {
@@ -149,14 +147,6 @@ const Sidebar: React.FC<SidebarProps> = ({
                 if (filteredArray[i].text.includes(searchTextSidebar)) {
                     setCurrentSubMenuSidebarOpenItem(i + 1);
                     console.log("Index of the item: ", i);
-                    // for (let j = 0; j < filteredArray[i].subMenu.length; j++) {
-                    //     if (filteredArray[i].subMenu[j].text.includes(searchTextSidebar)) {
-                    //         setCurrentSubMenuSidebarOpenItem(i + 1);
-                    //         // alert("kjhlkjhlk")
-                    //         console.log("Index of the sub item: ", j);
-                    //     }
-                    // }
-                    // setCurrentSubMenuSidebarOpenItem(i + 1);
                 }
                 else {
                     setCurrentSubMenuSidebarOpenItem(0);

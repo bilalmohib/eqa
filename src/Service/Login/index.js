@@ -6,7 +6,7 @@ const validateLogin = (object) => {
     "https://eqa.datadimens.com:8443/IDENTITY-SERVICE/login/permissions",
     object
   ).then((data) => {
-    // console.log("data  ===== >", data.status);
+    console.log("Login data  ===== >", data);
     window.localStorage.setItem("accessToken", data.jwtToken.accessToken);
     return data.status;
   });

@@ -38,6 +38,9 @@ const LoginContainer = () => {
     const [validationStatusEmail, setValidationStatusEmail] = useState<boolean>(false);
     const [validationStatusPassword, setValidationStatusPassword] = useState<boolean>(false);
 
+    const [validationMessageEmail, setValidationMessageEmail] = useState<string>("");
+    const [validationMessagePassword, setValidationMessagePassword] = useState<string>("");
+
     const [isChecked, setIsChecked] = useState<boolean>(false);
 
     const [validateNow, setValidateNow] = useState<boolean>(false);
@@ -49,6 +52,7 @@ const LoginContainer = () => {
             setValidationStatusEmail(true);
         }
         else {
+            setValidationMessageEmail("Please enter correct username");
             setValidationStatusEmail(false);
         }
     }, [email]);
@@ -60,6 +64,7 @@ const LoginContainer = () => {
             setValidationStatusPassword(true);
         }
         else {
+            setValidationMessagePassword("Please enter correct password");
             setValidationStatusPassword(false);
         }
     }, [password]);
@@ -68,10 +73,24 @@ const LoginContainer = () => {
     const validateForm = () => {
         setValidateNow(true);
         if (email === "" && password === "") {
+            setValidationMessageEmail("Please fill out the username field");
+            setValidationMessagePassword("Please fill out the password field");
+
             setValidationStatusEmail(false);
             setValidationStatusPassword(false);
             return;
-        } else {
+        }
+        else if(email === "") {
+            setValidationMessageEmail("Please fill out the username field");
+            setValidationStatusEmail(false);
+            return;
+        }
+        else if(password === "") {
+            setValidationMessagePassword("Please fill out the password field");
+            setValidationStatusPassword(false);
+            return;
+        }
+        else {
             // console.log("Presentation Layer Response: ", email);
             validateLogin({
                 "userName": email,
@@ -87,14 +106,14 @@ const LoginContainer = () => {
             }).catch(error => {
                 console.log("Error in response : ", error);
                 // else if (response === 'FAILED') {
-                    // setValidateNow(false);
-                    setValidationStatusEmail(false);
-                    setValidationStatusPassword(false);
-                    // Clearing the fields
-                    setEmail("");
-                    setPassword("");
-                    return;
-                    // alert("Invalid Credentials");
+                // setValidateNow(false);
+                setValidationStatusEmail(false);
+                setValidationStatusPassword(false);
+                // Clearing the fields
+                setEmail("");
+                setPassword("");
+                return;
+                // alert("Invalid Credentials");
                 // }
                 // else {
                 //     // setValidateNow(false);
@@ -184,59 +203,6 @@ const LoginContainer = () => {
                                     id="userName"
                                 />
                             </div>
-                            {/* <TextField
-                                dir={direction}
-                                id="username"
-                                label={t('login.rightSide.loginContainer.formInputs.userName.label')}
-                                // Change label color
-                                InputLabelProps={{
-                                    style: {
-                                        color: "#4b7579",
-                                        fontSize: 16,
-                                        fontFamily: "AppleSystemUIFont, Helvetica Neue, Helvetica, Arial, sans-serif",
-                                        fontWeight: 400,
-                                        direction: direction === "ltr" ? "ltr" : "rtl"
-                                    }
-                                }}
-                                placeholder="Enter username"
-                                variant="standard"
-                                type="text"
-                                helperText=""
-                                margin="normal"
-                                sx={{
-                                    width: '92%',
-                                    '& .MuiInput-underline:after': {
-                                        borderBottomColor: '#3E68A8',
-                                    },
-                                    '& .MuiOutlinedInput-root': {
-                                        '& fieldset': {
-                                            borderBottomColor: '#3E68A8',
-                                        },
-                                        '&:hover fieldset': {
-                                            borderBottomColor: '#3E68A8',
-                                            borderWidth: '0.15rem',
-                                        },
-                                        '&.Mui-focused fieldset': {
-                                            borderBottomColor: '#3E68A8',
-                                        },
-                                    },
-                                }}
-
-                                // Change the border color
-                                InputProps={{
-                                    style: {
-                                        color: "#4b7579",
-                                        fontSize: 16,
-                                        fontFamily: "AppleSystemUIFont, Helvetica Neue, Helvetica, Arial, sans-serif",
-                                        fontWeight: 400,
-                                        // borderBottom: "1px solid #4b7579"
-                                    }
-                                }}
-                            // fullWidth // t
-                            // InputProps={{
-
-                            // }}
-                            /> */}
                         </div>
                         <div style={{ marginTop: (!validationStatusEmail) ? (5) : (5) }}>
                             <label className={styles.label_info}>{t('login.rightSide.loginContainer.formInputs.password.label')}</label>
@@ -265,65 +231,7 @@ const LoginContainer = () => {
                                     style={{ height: 50, paddingLeft: 21, paddingBottom: 10 }}
                                     id="passwordInput"
                                 />
-                                {/* <label className={`form-label ${styles.formLabelStyles}`} id="passwordLabel"
-                                    style={{
-                                        direction: direction === "ltr" ? "ltr" : "rtl",
-                                    }}
-                                    htmlFor="passwordInput">
-                                    {t('login.rightSide.loginContainer.formInputs.password.label')}
-                                </label> */}
                             </div>
-                            {/* <TextField
-                                dir={
-                                    direction === "ltr" ? "ltr" : "rtl"
-                                }
-                                id="password"
-                                label={t('login.rightSide.loginContainer.formInputs.password.label')}
-                                // Change label color
-                                InputLabelProps={{
-                                    style: {
-                                        color: "#4b7579",
-                                        fontSize: 16,
-                                        fontFamily: "AppleSystemUIFont, Helvetica Neue, Helvetica, Arial, sans-serif",
-                                        fontWeight: 400,
-                                        direction: direction === "ltr" ? "ltr" : "rtl"
-                                    }
-                                }}
-                                placeholder={`${t('login.rightSide.loginContainer.formInputs.password.placeHolder')}`}
-                                variant="standard"
-                                type="password"
-                                helperText=""
-                                margin="normal"
-                                sx={{
-                                    width: '92%',
-                                    '& .MuiInput-underline:after': {
-                                        borderBottomColor: '#3E68A8',
-                                    },
-                                    '& .MuiOutlinedInput-root': {
-                                        '& fieldset': {
-                                            borderBottomColor: '#3E68A8',
-                                        },
-                                        '&:hover fieldset': {
-                                            borderBottomColor: '#3E68A8',
-                                            borderWidth: '0.15rem',
-                                        },
-                                        '&.Mui-focused fieldset': {
-                                            borderBottomColor: '#3E68A8',
-                                        },
-                                    },
-                                }}
-
-                                // Change the border color
-                                InputProps={{
-                                    style: {
-                                        color: "#4b7579",
-                                        fontSize: 16,
-                                        fontFamily: "AppleSystemUIFont, Helvetica Neue, Helvetica, Arial, sans-serif",
-                                        fontWeight: 400,
-                                        // borderBottom: "1px solid #4b7579"
-                                    }
-                                }}
-                            /> */}
                         </div>
                     </div>
                 ) : (
@@ -356,9 +264,6 @@ const LoginContainer = () => {
                                     id="userName"
                                 />
                                 {(!validationStatusEmail) && (email.length === 0) && (<p className={styles.infoInputs}>Please fill out the email field</p>)}
-                                {/* <label className={`form-label ${styles.formLabelStyles}`} id="emailLabel" htmlFor="userName">
-                                    Enter User Name
-                                </label> */}
                             </div>
                         </div>
                         <div style={{ marginTop: (!validationStatusEmail) ? (20) : (0) }}>
@@ -389,9 +294,6 @@ const LoginContainer = () => {
                                     id="passwordInput"
                                 />
                                 {(!validationStatusPassword) && (password.length === 0) && (<p className={styles.infoInputs}>Please fill out the password field</p>)}
-                                {/* <label className={`form-label ${styles.formLabelStyles}`} id="passwordLabel" htmlFor="passwordInput">
-                                    Enter Password
-                                </label> */}
                             </div>
                         </div>
                     </div>

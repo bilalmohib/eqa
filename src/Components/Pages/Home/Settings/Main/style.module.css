@@ -5,7 +5,3 @@
     padding-right: 30px;
     padding-top: 20px;
 }
-
-html[dir=rtl] .saveBtn {
-    margin-left: 15px;
-}

@@ -26,17 +26,29 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 // Importing Services Layer API
 import { resetPassword } from '../../../../Service/ResetPassword';
 
+import { useTranslation } from "react-i18next";
+
 import styles from "./style.module.css";
 
 interface ResetPasswordModalProps {
     openResetPasswordModal: boolean,
     setOpenResetPasswordModal: any,
+
+    // Current Language
+    currentLang: string,
+    setCurrentLang: any
 }
 
-const ResetPasswordModal = ({
+const ResetPasswordModal: React.FC<ResetPasswordModalProps> = ({
     openResetPasswordModal,
-    setOpenResetPasswordModal
-}: ResetPasswordModalProps) => {
+    setOpenResetPasswordModal,
+
+    // Current Language
+    currentLang,
+    setCurrentLang
+}) => {
+    const { t } = useTranslation();
+
     const [oldPassword, setOldPassword] = useState<string>("");
     const [newPassword, setNewPassword] = useState<string>("");
     const [confirmPassword, setConfirmPassword] = useState<string>("");
@@ -50,7 +62,6 @@ const ResetPasswordModal = ({
         event.preventDefault();
     };
     // For handling show/hide password
-
 
     const validateForm = () => {
         alert("Validating Form");
@@ -123,36 +134,23 @@ const ResetPasswordModal = ({
             <Fade in={openResetPasswordModal}>
                 <Box className={styles.modalStyle}>
                     <Typography className={styles.transition_modal_title} variant="h4" component="h2">
-                        Reset Password
+                        {t('Home.Header.Modals.ChangePassword.title')}
                     </Typography>
-                    {/* <Typography className={styles.transition_modal_reset} sx={{ mt: 2 }}>
-                        Enter your old password and new password to reset your password.
-                    </Typography> */}
-                    {/* <TextField
-                        sx={{ mt: 2 }}
-                        fullWidth
-                        id="old-password-textfield"
-                        label="Old Password"
-                        // placeholder="Enter your old password"
-                        variant="outlined"
-                        type="password"
-                        value={oldPassword}
-                        onChange={(e) => setOldPassword(e.target.value)}
-                    /> */}
                     <Grid2
-                        sx={{ 
+                        sx={{
                             mt: (windowDimensions.width < 400) ? 0 : 2,
                         }}
                         container
                         spacing={2}
                     >
                         <Grid2 xs={12} sm={12} md={6} lg={6} xl={6}>
-                            <FormControl sx={{ mt: 2.5 }} variant="outlined" fullWidth>
-                                <InputLabel htmlFor="old-password-textfield">Old Password</InputLabel>
+                            <FormControl className={styles.formControlBox} sx={{ mt: 2.5 }} variant="outlined" fullWidth>
+                                <InputLabel htmlFor="old-password-textfield">{t('Home.Header.Modals.ChangePassword.policy.Inputs.OldPassword.label')}</InputLabel>
                                 <OutlinedInput
                                     id="old-password-textfield"
                                     type={showPassword ? 'text' : 'password'}
                                     value={oldPassword}
+                                    // dir="rtl"
                                     onChange={(e) => setOldPassword(e.target.value)}
                                     endAdornment={
                                         <InputAdornment position="end">
@@ -166,16 +164,17 @@ const ResetPasswordModal = ({
                                             </IconButton>
                                         </InputAdornment>
                                     }
-                                    label="Old Password"
-                                    placeholder="Old Password"
+                                    label={`${t('Home.Header.Modals.ChangePassword.policy.Inputs.OldPassword.label')}`}
+                                    placeholder={`${t('Home.Header.Modals.ChangePassword.policy.Inputs.OldPassword.placeholder')}`}
                                 />
                             </FormControl>
-                            <FormControl sx={{ mt: 2 }} variant="outlined" fullWidth>
-                                <InputLabel htmlFor="newPassword">New Password</InputLabel>
+                            <FormControl className={styles.formControlBox} sx={{ mt: 2 }} variant="outlined" fullWidth>
+                                <InputLabel htmlFor="newPassword">{t('Home.Header.Modals.ChangePassword.policy.Inputs.NewPassword.label')}</InputLabel>
                                 <OutlinedInput
                                     id="newPassword"
                                     type={showPassword ? 'text' : 'password'}
                                     value={newPassword}
+                                    // dir="rtl"
                                     onChange={(e) => setNewPassword(e.target.value)}
                                     endAdornment={
                                         <InputAdornment position="end">
@@ -189,16 +188,17 @@ const ResetPasswordModal = ({
                                             </IconButton>
                                         </InputAdornment>
                                     }
-                                    label="New Password"
-                                    placeholder="New Password"
+                                    label={`${t('Home.Header.Modals.ChangePassword.policy.Inputs.NewPassword.label')}`}
+                                    placeholder={`${t('Home.Header.Modals.ChangePassword.policy.Inputs.NewPassword.placeholder')}`}
                                 />
                             </FormControl>
-                            <FormControl sx={{ mt: 2 }} variant="outlined" fullWidth>
-                                <InputLabel htmlFor="ConfirmPassword">Confirm New Password</InputLabel>
+                            <FormControl className={styles.formControlBox} sx={{ mt: 2 }} variant="outlined" fullWidth>
+                                <InputLabel htmlFor="ConfirmPassword">{t('Home.Header.Modals.ChangePassword.policy.Inputs.ConfirmPassword.label')}</InputLabel>
                                 <OutlinedInput
                                     id="ConfirmPassword"
                                     type={showPassword ? 'text' : 'password'}
                                     value={confirmPassword}
+                                    // dir="rtl"
                                     onChange={(e) => setConfirmPassword(e.target.value)}
                                     endAdornment={
                                         <InputAdornment position="end">
@@ -212,30 +212,27 @@ const ResetPasswordModal = ({
                                             </IconButton>
                                         </InputAdornment>
                                     }
-                                    label="Confirm New Password"
-                                    placeholder="Confirm New Password"
+                                    label={`${t('Home.Header.Modals.ChangePassword.policy.Inputs.ConfirmPassword.label')}`}
+                                    placeholder={`${t('Home.Header.Modals.ChangePassword.policy.Inputs.ConfirmPassword.placeholder')}`}
                                 />
                             </FormControl>
                         </Grid2>
                         <Grid2 xs={12} sm={12} md={6} lg={6} xl={6}>
                             <Typography className={styles.resetPasswordPolicy} sx={{ mt: 2 }}>
-                                Reset Password Policy
+                                {t('Home.Header.Modals.ChangePassword.policy.title')}
                             </Typography>
-                            <Typography sx={{ mt: 2 }} className="text-left">
-                                1. Password must be at least 8 characters long.
+                            <Typography sx={{ mt: 2 }} className={`${styles.passwordPolicyPoints}`}>
+                                {t('Home.Header.Modals.ChangePassword.policy.Points.Point1')}
                             </Typography>
-                            <Typography sx={{ mt: 2 }} className="text-left">
-                                2. Password must contain at least one uppercase letter, one lowercase letter, one number and one special character.
+                            <Typography sx={{ mt: 2 }} className={`${styles.passwordPolicyPoints}`}>
+                                {t('Home.Header.Modals.ChangePassword.policy.Points.Point2')}
                             </Typography>
-                            <Typography sx={{ mt: 2 }} className="text-left">
-                                3. Password must not contain any spaces.
-                            </Typography>
-                            <Typography sx={{ mt: 2 }} className="text-left">
-                                {/* 4. Password must not contain any of the following characters: < > & # % $ ^ * ( ) + = { } [ ] | \ : ; " ' , . ? / ~ ` ! @ */}
+                            <Typography sx={{ mt: 2 }} className={`${styles.passwordPolicyPoints}`}>
+                                {t('Home.Header.Modals.ChangePassword.policy.Points.Point3')}
                             </Typography>
                         </Grid2>
                     </Grid2>
-                    <Box className="d-flex">
+                    <Box className={styles.buttonsContainer}>
                         <Button
                             fullWidth
                             variant="contained"
@@ -251,7 +248,7 @@ const ResetPasswordModal = ({
                             }}
                             onClick={() => validateForm()}
                         >
-                            Reset Password
+                            {t('Home.Header.Modals.ChangePassword.policy.Buttons.ChangePassword')}
                         </Button>
                         <Button
                             fullWidth
@@ -269,7 +266,7 @@ const ResetPasswordModal = ({
                             }}
                             onClick={() => setOpenResetPasswordModal(false)}
                         >
-                            Cancel
+                            {t('Home.Header.Modals.ChangePassword.policy.Buttons.Cancel')}
                         </Button>
                     </Box>
                 </Box>

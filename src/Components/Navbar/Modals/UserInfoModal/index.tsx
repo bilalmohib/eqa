@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import * as React from "react";
+import { useState, useEffect, FC } from "react";
 
 // importing from material ui
 import {
@@ -26,19 +27,31 @@ import PhoneAndroidIcon from '@mui/icons-material/PhoneAndroid';
 import HistoryIcon from '@mui/icons-material/History';
 // User Icons
 
+import { useTranslation } from "react-i18next";
+
 import profileImage from "../../../../assets/Images/Navbar/Modal/ProfileInfo/logo.png";
 
 import styles from "./style.module.css";
+import { cu } from "@fullcalendar/core/internal-common";
 
 interface UserInfoModalProps {
     openUserInfoModal: boolean,
     setOpenUserInfoModal: any,
+
+    // Current Language
+    currentLang: string,
+    setCurrentLang: any
 }
 
-const UserInfoModal = ({
+const UserInfoModal: FC<UserInfoModalProps> = ({
     openUserInfoModal,
-    setOpenUserInfoModal
-}: UserInfoModalProps) => {
+    setOpenUserInfoModal,
+
+    // Current Language
+    currentLang,
+    setCurrentLang
+}) => {
+    const { t } = useTranslation();
 
     const userData = {
         name: "Md Shabbir Hossain",
@@ -88,6 +101,9 @@ const UserInfoModal = ({
         return () => window.removeEventListener('resize', handleResize);
     }, []);
 
+    const instructorTitle = t('Home.Header.Modals.ProfileModal.Instructor.title');
+    const instructorValue = t('Home.Header.Modals.ProfileModal.Instructor.value');
+
     return (
         <Modal
             aria-labelledby="transition-modal-title"
@@ -119,9 +135,15 @@ const UserInfoModal = ({
                                 <TypeAnimation
                                     // Same String at the start will only be typed once, initially
                                     sequence={[
-                                        'Steve Cohen',
+                                        {
+                                            // @ts-ignore
+                                            instructorValue
+                                        },
                                         1000,
-                                        'Instructor',
+                                        {
+                                            // @ts-ignore
+                                            instructorTitle
+                                        },
                                         1000
                                     ]}
                                     speed={10} // Custom Speed from 1-99 - Default Speed: 40
@@ -135,7 +157,7 @@ const UserInfoModal = ({
                                 steveCohan@gmail.com
                             </Typography>
                             <Typography className={styles.headerSubInfo}>
-                                Role : Admin
+                                {t('Home.Header.Modals.ProfileModal.Role.title')} : {t('Home.Header.Modals.ProfileModal.Role.value')}
                             </Typography>
                         </Box>
                     </Box>
@@ -145,24 +167,30 @@ const UserInfoModal = ({
                             <Grid item
                                 xl={12} lg={12} md={12} sm={12} xs={12}
                             >
-                                <Typography className={styles.modalBodyTitle}>
-                                    <Box className="d-flex">
+                                <Typography
+                                    className={styles.modalBodyTitle}
+                                    dir={currentLang === "ar" ? "rtl" : "ltr"}
+                                >
+                                    <Box
+                                        className={styles.modalBodyTitleIcon}
+                                        dir={currentLang === "ar" ? "rtl" : "ltr"}
+                                    >
                                         <Box>
-                                            <ApartmentIcon sx={{
+                                            <SchoolIcon sx={{
                                                 marginRight: 2, width: 20,
                                                 height: 20
                                             }} />
                                         </Box>
                                         <Box sx={{
-                                            // border:"1px solid black",
-                                            width: 70
+                                            width: (currentLang === "ar" ? 35 : 70),
+                                            // border: "1px solid red"
                                         }}>
-                                            <b>College :</b>
+                                            <b>{t('Home.Header.Modals.ProfileModal.College.title')}</b>
                                         </Box>
                                     </Box>
                                     <Box>
                                         <Box sx={{ pl: 1 }}>
-                                            {userData.college}
+                                            {t('Home.Header.Modals.ProfileModal.College.value')}
                                         </Box>
                                     </Box>
                                 </Typography>
@@ -172,29 +200,42 @@ const UserInfoModal = ({
                                     windowDimensions.width > 730 ? 6 : 12
                                 } xs={12}
                             >
-                                <Typography className={styles.modalBodyTitle}>
-                                    <Box className="d-flex">
+                                <Typography
+                                    className={styles.modalBodyTitle}
+                                    dir={currentLang === "ar" ? "rtl" : "ltr"}
+                                >
+                                    <Box
+                                        className={styles.modalBodyTitleIcon}
+                                        dir={currentLang === "ar" ? "rtl" : "ltr"}
+                                    >
                                         <Box>
                                             <ApartmentIcon sx={{
                                                 marginRight: 2.2, width: 20,
                                                 height: 20
-                                            }} />
+                                            }}
+                                            />
                                         </Box>
                                         <Box sx={{
-                                            // border:"1px solid black",
-                                            width: 75
+                                            width: (currentLang === "ar" ? (70) : (75)),
+                                            // border: "1px solid red"
                                         }}>
-                                            <b>Campus :</b>
+                                            <b>{t('Home.Header.Modals.ProfileModal.Campus.title')}</b>
                                         </Box>
                                     </Box>
                                     <Box>
                                         <Box sx={{ pl: 1 }}>
-                                            {userData.campus}
+                                            {t('Home.Header.Modals.ProfileModal.Campus.value')}
                                         </Box>
                                     </Box>
                                 </Typography>
-                                <Typography className={styles.modalBodyTitle}>
-                                    <Box className="d-flex">
+                                <Typography
+                                    className={styles.modalBodyTitle}
+                                    dir={currentLang === "ar" ? "rtl" : "ltr"}
+                                >
+                                    <Box
+                                        className={styles.modalBodyTitleIcon}
+                                        dir={currentLang === "ar" ? "rtl" : "ltr"}
+                                    >
                                         <Box>
                                             <EngineeringIcon sx={{
                                                 marginRight: 2, width: 20,
@@ -202,20 +243,26 @@ const UserInfoModal = ({
                                             }} />
                                         </Box>
                                         <Box sx={{
-                                            // border:"1px solid black",
-                                            width: 100
+                                            width: ((currentLang === "ar") ? (40) : (100)),
+                                            // border: "1px solid red"
                                         }}>
-                                            <b>Designation :</b>
+                                            <b>{t('Home.Header.Modals.ProfileModal.Designation.title')}</b>
                                         </Box>
                                     </Box>
                                     <Box>
                                         <Box sx={{ pl: 1 }}>
-                                            {userData.job}
+                                            {t('Home.Header.Modals.ProfileModal.Designation.value')}
                                         </Box>
                                     </Box>
                                 </Typography>
-                                <Typography className={styles.modalBodyTitle}>
-                                    <Box className="d-flex">
+                                <Typography
+                                    className={styles.modalBodyTitle}
+                                    dir={currentLang === "ar" ? "rtl" : "ltr"}
+                                >
+                                    <Box
+                                        className={styles.modalBodyTitleIcon}
+                                        dir={currentLang === "ar" ? "rtl" : "ltr"}
+                                    >
                                         <Box>
                                             <PhoneAndroidIcon sx={{
                                                 marginRight: 2.2, width: 20,
@@ -223,20 +270,26 @@ const UserInfoModal = ({
                                             }} />
                                         </Box>
                                         <Box sx={{
-                                            // border:"1px solid black",
-                                            width: 60
+                                            width: ((currentLang === "ar") ? (36) : (60)),
+                                            // border: "1px solid red"
                                         }}>
-                                            <b>Phone :</b>
+                                            <b>{t('Home.Header.Modals.ProfileModal.Phone.title')}</b>
                                         </Box>
                                     </Box>
                                     <Box>
                                         <Box sx={{ pl: 1 }}>
-                                            {userData.job}
+                                            {t('Home.Header.Modals.ProfileModal.Phone.value')}
                                         </Box>
                                     </Box>
                                 </Typography>
-                                <Typography className={styles.modalBodyTitle}>
-                                    <Box className="d-flex">
+                                <Typography
+                                    className={styles.modalBodyTitle}
+                                    dir={currentLang === "ar" ? "rtl" : "ltr"}
+                                >
+                                    <Box
+                                        className={styles.modalBodyTitleIcon}
+                                        dir={currentLang === "ar" ? "rtl" : "ltr"}
+                                    >
                                         <Box>
                                             <HistoryIcon sx={{
                                                 marginRight: 2.2, width: 20,
@@ -244,15 +297,15 @@ const UserInfoModal = ({
                                             }} />
                                         </Box>
                                         <Box sx={{
-                                            // border:"1px solid black",
-                                            width: 90
+                                            width: ((currentLang === "ar") ? (95) : (90)),
+                                            // border: "1px solid red"
                                         }}>
-                                            <b>Last Login :</b>
+                                            <b>{t('Home.Header.Modals.ProfileModal.LastLogin.title')}</b>
                                         </Box>
                                     </Box>
                                     <Box>
                                         <Box sx={{ pl: 1 }}>
-                                            {userData.lastLogin}
+                                            {t('Home.Header.Modals.ProfileModal.LastLogin.value')}
                                         </Box>
                                     </Box>
                                 </Typography>
@@ -262,8 +315,14 @@ const UserInfoModal = ({
                                     windowDimensions.width > 730 ? 6 : 12
                                 } xs={12}
                             >
-                                <Typography className={styles.modalBodyTitle}>
-                                    <Box className="d-flex">
+                                <Typography
+                                    className={styles.modalBodyTitle}
+                                    dir={currentLang === "ar" ? "rtl" : "ltr"}
+                                >
+                                    <Box
+                                        className={styles.modalBodyTitleIcon}
+                                        dir={currentLang === "ar" ? "rtl" : "ltr"}
+                                    >
                                         <Box>
                                             <AccountBalanceIcon sx={{
                                                 marginRight: 2.4, width: 20,
@@ -271,15 +330,15 @@ const UserInfoModal = ({
                                             }} />
                                         </Box>
                                         <Box sx={{
-                                            // border:"1px solid black",
-                                            width: 100
+                                            width: ((currentLang === "ar") ? (35) : (100)),
+                                            // border: "1px solid red"
                                         }}>
-                                            <b>Department :</b>
+                                            <b>{t('Home.Header.Modals.ProfileModal.Department.title')}</b>
                                         </Box>
                                     </Box>
                                     <Box>
                                         <Box sx={{ pl: 1 }}>
-                                            {userData.department}
+                                            {t('Home.Header.Modals.ProfileModal.Department.value')}
                                         </Box>
                                     </Box>
                                 </Typography>
@@ -302,7 +361,7 @@ const UserInfoModal = ({
                                         </Box>
                                         <Box>
                                             <Box sx={{ pl: 2, pt: 0.5 }}>
-                                                {userData.linked.name}
+                                                {t('Home.Header.Modals.ProfileModal.Linkedin.value')}
                                             </Box>
                                         </Box>
                                     </Typography>
@@ -319,7 +378,7 @@ const UserInfoModal = ({
                                         </Box>
                                         <Box>
                                             <Box sx={{ pl: 2, pt: 0.5 }}>
-                                                {userData.twitter.name}
+                                                {t('Home.Header.Modals.ProfileModal.Twitter.value')}
                                             </Box>
                                         </Box>
                                     </Typography>
@@ -336,7 +395,7 @@ const UserInfoModal = ({
                                         </Box>
                                         <Box>
                                             <Box sx={{ pl: 2, pt: 0.5 }}>
-                                                {userData.facebook.name}
+                                                {t('Home.Header.Modals.ProfileModal.Facebook.value')}
                                             </Box>
                                         </Box>
                                     </Typography>
@@ -360,26 +419,20 @@ const UserInfoModal = ({
                             }}
                             className={styles.modalFooterButton}
                         >
-                            Edit
+                            {t('Home.Header.Modals.ProfileModal.Buttons.Edit')}
                         </Button>
-                        {/* <Button
-                            variant="contained"
-                            color="error"
-                            className={styles.modalFooterButton}
-                        >
-                            Delete
-                        </Button> */}
                         <Button
                             fullWidth
                             variant="outlined"
                             color="error"
                             sx={{
-                                marginLeft: "20px",
+                                marginLeft: (currentLang === "ar" ? "0px" : "20px"),
+                                marginRight: (currentLang === "ar" ? "20px" : "0px")
                             }}
                             className={styles.modalFooterButton}
                             onClick={() => setOpenUserInfoModal(false)}
                         >
-                            Close
+                            {t('Home.Header.Modals.ProfileModal.Buttons.Close')}
                         </Button>
                     </Box>
                 </Box>
