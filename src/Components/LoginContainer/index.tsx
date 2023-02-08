@@ -113,54 +113,13 @@ const LoginContainer = () => {
                 setEmail("");
                 setPassword("");
                 return;
-                // alert("Invalid Credentials");
-                // }
-                // else {
-                //     // setValidateNow(false);
-                //     setValidationStatusEmail(false);
-                //     setValidationStatusPassword(false);
-                //     return;
-                //     // alert("Error Occured");
-                // }
             });
-            // } else if (response === "ERROR") {
-            //     alert("Error Occured");
-            //     return;
-            // }
-            // else {
-            //     setValidationStatusEmail(false);
-            //     setValidationStatusPassword(false);
-            //     alert("Invalid Credentials");
-            //     return;
-            // }
-        }
-        if (email.length !== 0 && (document.getElementById("userName") !== document.activeElement)) {
-            // @ts-ignore
-            document.getElementById("emailLabel").style = "display:none; !important";
-        }
-        // 
-        if (password.length !== 0 && (document.getElementById("passwordInput") !== document.activeElement)) {
-
-            // @ts-ignore
-            document.getElementById("passwordLabel").style = "display:none; !important";
         }
     }
 
     return (
         <form className={styles.loginContainer} action="return false" noValidate
             autoComplete='off'
-            onClick={
-                () => {
-                    if (email.length === 0 && (document.getElementById("userName") !== document.activeElement)) {
-                        // @ts-ignore
-                        document.getElementById("emailLabel").style = "display:block";
-                    }
-                    if (password.length === 0 && (document.getElementById("passwordInput") !== document.activeElement)) {
-                        // @ts-ignore
-                        document.getElementById("passwordLabel").style = "display:block";
-                    }
-                }
-            }
         >
             <div className={styles.mobileCenter}>
                 <img
@@ -180,22 +139,10 @@ const LoginContainer = () => {
                             <div className={`form-outline ${styles.email} ${(validationStatusEmail) && (styles.inputValidatedTrue)}`}>
                                 <i className={`${(validationStatusEmail) && (`fas fa-check ${styles.validatedTrue}`)} trailing`} style={{ fontSize: 22 }} />
                                 <input
-                                    onFocus={
-                                        () => {
-                                            if (email.length === 0 && (document.getElementById("userName") === document.activeElement)) {
-                                                // @ts-ignore
-                                                document.getElementById("emailLabel").style = "display:none;";
-                                            }
-                                        }
-                                    }
                                     type="text"
                                     value={email}
                                     onChange={(e: any) => {
-                                        setEmail(e.target.value)
-                                        if (email.length === 0 && (document.getElementById("userName") === document.activeElement)) {
-                                            // @ts-ignore
-                                            document.getElementById("emailLabel").style = "display:none;";
-                                        }
+                                        setEmail(e.target.value);
                                     }}
                                     placeholder={`${t('login.rightSide.loginContainer.formInputs.userName.placeHolder')}`}
                                     className="form-control form-icon-trailing"
@@ -209,22 +156,10 @@ const LoginContainer = () => {
                             <div className={`form-outline ${styles.password} ${(validationStatusPassword) && (styles.inputValidatedTrue)}`}>
                                 <i className={`${(validationStatusPassword) && (`fas fa-check ${styles.validatedTrue}`)} trailing`} style={{ fontSize: 22 }} />
                                 <input
-                                    onFocus={
-                                        () => {
-                                            if (password.length === 0 && (document.getElementById("passwordInput") === document.activeElement)) {
-                                                // @ts-ignore
-                                                document.getElementById("passwordLabel").style = "display:none;";
-                                            }
-                                        }
-                                    }
                                     type="password"
                                     value={password}
                                     onChange={(e: any) => {
-                                        setPassword(e.target.value)
-                                        if (password.length === 0 && (document.getElementById("passwordInput") === document.activeElement)) {
-                                            // @ts-ignore
-                                            document.getElementById("passwordLabel").style = "display:none;";
-                                        }
+                                        setPassword(e.target.value);
                                     }}
                                     placeholder={`${t('login.rightSide.loginContainer.formInputs.password.placeHolder')}`}
                                     className="form-control form-icon-trailing"
