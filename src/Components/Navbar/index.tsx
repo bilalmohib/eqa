@@ -123,6 +123,7 @@ const Navbar: React.FC<NavProps> = ({
                 console.log("Presetation layer response Code: ", response);
                 // console.log("Presetation layer response: Status", response.status);
                 // console.log("Presetation layer response: Status", response.transactionId);
+                // @ts-ignore
                 if (response.code === "200.200" && response.status === "OK") {
                     alert("Logged out successfully");
                     localStorage.removeItem("accessToken");
