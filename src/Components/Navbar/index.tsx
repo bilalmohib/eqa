@@ -125,18 +125,18 @@ const Navbar: React.FC<NavProps> = ({
                 // console.log("Presetation layer response: Status", response.transactionId);
                 // @ts-ignore
                 if (response.code === "200.200" && response.status === "OK") {
-                    alert("Logged out successfully");
+                    // alert("Logged out successfully");
                     localStorage.removeItem("accessToken");
                     navigate(`/`);
                 }
                 else {
-                    alert("Error in logging out");
+                    // alert("Error in logging out");
                     return;
                 }
             }).catch(error => {
                 console.log("Error in response : ", error);
                 // Clearing the fields
-                alert("Network Error");
+                // alert("Network Error");
                 return;
             });
         }
@@ -651,9 +651,7 @@ const Navbar: React.FC<NavProps> = ({
                                     <li><hr className="dropdown-divider" /></li>
                                     <li
                                         // On click logout the user
-                                        onClick={() => {
-                                            logoutUser();
-                                        }}
+                                        onClick={logoutUser}
                                     >
                                         <a className="dropdown-item" href="#">
                                             <div className="d-flex justify-content-between" style={{ height: 30 }} onClick={logoutUser}>

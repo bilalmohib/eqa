@@ -1,5 +1,5 @@
 import { FC, useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 import { ImFacebook2, ImGoogle2 } from "react-icons/im";
 import { FaTwitterSquare } from "react-icons/fa";
@@ -32,6 +32,8 @@ const Login2: FC<LoginProps> = ({
     setCurrentTab,
     setShowHeader
 }): JSX.Element => {
+    const navigate = useNavigate();
+
     const { t } = useTranslation();
 
     const location = useLocation();
@@ -67,6 +69,14 @@ const Login2: FC<LoginProps> = ({
         return () => {
             window.removeEventListener('resize', handleWindowResize);
         };
+    });
+
+    useEffect(() => {
+        const xApiKey = localStorage.getItem("accessToken");
+        if (xApiKey !== null) {
+            setShowHeader(false);
+            navigate('/dashboard/assessment');
+        }
     });
 
     return (
