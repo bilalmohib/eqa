@@ -10,8 +10,8 @@ const logoutService = async (xapiKey) => {
     console.log("Response DATA in service layer ===== >", data);
     return data;
   } catch (error) {
-    console.error("Error in logoutService:", error);
-    throw error;
+    // console.error("Error in logoutService:", error);
+    // throw error;
   }
 };
 
