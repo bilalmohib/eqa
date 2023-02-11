@@ -29,6 +29,7 @@
     "fusioncharts": "^3.19.0",
     "i18next": "^22.4.9",
     "i18next-browser-languagedetector": "^7.0.1",
+    "js-cookie": "^3.0.1",
     "jspdf-autotable": "^3.5.28",
     "material-react-table": "^1.5.10",
     "mdb-react-ui-kit": "^5.1.0",
@@ -84,6 +85,7 @@
     ]
   },
   "devDependencies": {
+    "@types/js-cookie": "^3.0.2",
     "@types/radium": "^0.24.4",
     "@types/stylis": "^4.0.2"
   }

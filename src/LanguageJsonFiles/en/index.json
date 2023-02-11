@@ -237,7 +237,7 @@
                                     "placeholder": "Confirm new password"
                                 }
                             },
-                            "Buttons":{
+                            "Buttons": {
                                 "ChangePassword": "Change Password",
                                 "Cancel": "Cancel"
                             }
@@ -355,29 +355,17 @@
                                         }
                                     },
                                     "table": {
-                                        "title": "Offered Courses",
-                                        "subTitle": "Following courses are offered",
-                                        "menuItems": [
-                                            "My Profile",
-                                            "Settings",
-                                            "Logout"
-                                        ],
-                                        "cols": [
-                                            "Actions",
-                                            "Course Code",
-                                            "Name",
-                                            "Section",
-                                            "No. of Students",
-                                            "Co-ordinator",
-                                            "Instructor",
-                                            "Campus",
-                                            "Semester"
-                                        ]
-                                    },
-                                    "chart": {
-                                        "title": "Grade Comparison",
-                                        "subTitle": "GRADE COMPARISON",
-                                        "description": "Grade comparison of students"
+                                        "title": "<b style={{ fontWeight: 'bold' }}>Users</b> <i>List</i>",
+                                        "subTitle": "Following users are registered",
+                                        "menuItems": {
+                                            "MyProfile": "My Profile",
+                                            "Settings": "Settings",
+                                            "Logout": "Logout"
+                                        },
+                                        "Buttons": {
+                                            "btnCopy": "Copy",
+                                            "btnCSV": "CSV"
+                                        }
                                     }
                                 }
                             },
@@ -397,7 +385,7 @@
                     },
                     "userManagement": {
                         "index": 2,
-                        "text": "User Management",
+                        "text": "Account",
                         "subMenu": {
                             "Users": {
                                 "text": "Users",
@@ -405,10 +393,10 @@
                                 "details": {
                                     "breadcrumb": {
                                         "f1": "EQA",
-                                        "f2": "User Management",
+                                        "f2": "Account",
                                         "f3": "Users"
                                     },
-                                    "title": "Users Management",
+                                    "title": "Account",
                                     "addUser": "Add User",
                                     "boards": {
                                         "totalUsers": {
@@ -436,6 +424,151 @@
                                             "btnCopy": "Copy",
                                             "btnCSV": "CSV"
                                         }
+                                    },
+                                    "Add": {
+                                        "Courses": {
+                                            "breadcrumb": {
+                                                "f1": "EQA",
+                                                "f2": "Account",
+                                                "f3": "Users",
+                                                "f4": "Add Users"
+                                            },
+                                            "title": "Add Users",
+                                            "description": "Add new users to the system",
+                                            "Inputs": {
+                                                "FirstName": {
+                                                    "label": "First Name",
+                                                    "placeholder": "Enter your first name"
+                                                },
+                                                "LastName": {
+                                                    "label": "Last Name",
+                                                    "placeholder": "Enter your last name"
+                                                },
+                                                "Email": {
+                                                    "label": "Email",
+                                                    "placeholder": "Enter your email address"
+                                                },
+                                                "College": {
+                                                    "label": "College",
+                                                    "placeholder": "Select your college",
+                                                    "Options": {
+                                                        "option1": "College of Computers and Information Technology",
+                                                        "option2": "College of Business",
+                                                        "option3": "College of Engineering",
+                                                        "option4": "College of Science",
+                                                        "option5": "College of Arts and Humanities",
+                                                        "option6": "College of Education",
+                                                        "option7": "College of Law",
+                                                        "option8": "College of Pharmacy",
+                                                        "option9": "College of Nursing",
+                                                        "option10": "College of Dentistry",
+                                                        "option11": "College of Medicine",
+                                                        "option12": "College of Veterinary Medicine",
+                                                        "option13": "College of Health Sciences",
+                                                        "option14": "College of Applied Medical Sciences",
+                                                        "option15": "College of Applied Medical Sciences",
+                                                        "option16": "College of Applied Medical Sciences",
+                                                        "option17": "College of Applied Medical Sciences",
+                                                        "option18": "College of Applied Medical Sciences",
+                                                        "option19": "College of Applied Medical Sciences",
+                                                        "option20": "College of Applied Medical Sciences"
+                                                    },
+                                                    "Campus": {
+                                                        "label": "Campus",
+                                                        "placeholder": "Select your campus",
+                                                        "Options": {
+                                                            "option1": "Campus Lahore",
+                                                            "option2": "Campus Karachi",
+                                                            "option3": "Campus Islamabad",
+                                                            "option4": "Campus Peshawar",
+                                                            "option5": "Campus Quetta",
+                                                            "option6": "Campus Faisalabad",
+                                                            "option7": "Campus Multan",
+                                                            "option8": "Campus Sialkot",
+                                                            "option9": "Campus Gujranwala",
+                                                            "option10": "Campus Rawalpindi",
+                                                            "option11": "Campus Bahawalpur",
+                                                            "option12": "Campus Sargodha",
+                                                            "option13": "Campus Sahiwal",
+                                                            "option14": "Campus Jhang",
+                                                            "option15": "Campus Rahim Yar Khan",
+                                                            "option16": "Campus Gujrat",
+                                                            "option17": "Campus Sadiqabad",
+                                                            "option18": "Campus Muzaffargarh",
+                                                            "option19": "Campus Dera Ghazi Khan",
+                                                            "option20": "Campus Mardan"
+                                                        }
+                                                    },
+                                                    "Department": {
+                                                        "label": "Department",
+                                                        "placeholder": "Select your department",
+                                                        "Options": {
+                                                            "option1": "Department of Computer Science",
+                                                            "option2": "Department of Information Technology",
+                                                            "option3": "Department of Software Engineering",
+                                                            "option4": "Department of Computer Engineering",
+                                                            "option5": "Department of Computer Systems Engineering",
+                                                            "option6": "Department of Computer Systems Engineering",
+                                                            "option7": "Department of Computer Systems Engineering",
+                                                            "option8": "Department of Computer Systems Engineering",
+                                                            "option9": "Department of Computer Systems Engineering",
+                                                            "option10": "Department of Computer Systems Engineering",
+                                                            "option11": "Department of Computer Systems Engineering",
+                                                            "option12": "Department of Computer Systems Engineering",
+                                                            "option13": "Department of Computer Systems Engineering",
+                                                            "option14": "Department of Computer Systems Engineering",
+                                                            "option15": "Department of Computer Systems Engineering",
+                                                            "option16": "Department of Computer Systems Engineering",
+                                                            "option17": "Department of Computer Systems Engineering",
+                                                            "option18": "Department of Computer Systems Engineering",
+                                                            "option19": "Department of Computer Systems Engineering",
+                                                            "option20": "Department of Computer Systems Engineering"
+                                                        }
+                                                    }
+                                                },
+                                                "Username":{
+                                                    "label": "Username",
+                                                    "placeholder": "Enter your username"
+                                                },
+                                                "Password":{
+                                                    "label": "Password",
+                                                    "placeholder": "Enter your password"
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "Permissions":{
+                                        "title": "Permissions",
+                                        "subTitle": "Alter the permissions of the user",
+                                        "fields":{
+                                            "staffaccess":{
+                                                "title":"Staff Access Level",
+                                                "checkbox1": {
+                                                    "label": "Staff status"
+                                                },
+                                                "checkbox2": {
+                                                    "label": "Super User"
+                                                }
+                                            },
+                                            "status":{
+                                                "title":"Status",
+                                                "checkbox1": {
+                                                    "label": "Active"
+                                                },
+                                                "checkbox2": {
+                                                    "label": "Deactive"
+                                                }
+                                            },
+                                            "assignGroups":{
+                                                "title":"Assign group(s)",
+                                                "checkbox1": {
+                                                    "label": "Group 1"
+                                                },
+                                                "checkbox2": {
+                                                    "label": "Group 2"
+                                                }
+                                            }
+                                        }
                                     }
                                 }
                             },
@@ -445,7 +578,7 @@
                                 "details": {
                                     "breadcrumb": {
                                         "f1": "EQA",
-                                        "f2": "User Management",
+                                        "f2": "Account",
                                         "f3": "Groups"
                                     },
                                     "title": "Groups Management",
@@ -462,7 +595,7 @@
                                 "details": {
                                     "breadcrumb": {
                                         "f1": "EQA",
-                                        "f2": "User Management",
+                                        "f2": "Account",
                                         "f3": "Roles"
                                     },
                                     "title": "Roles Management",

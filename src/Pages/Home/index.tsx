@@ -1,5 +1,8 @@
 import { useState, useEffect } from "react";
 
+// Importing Cookie
+import Cookies from "js-cookie";
+
 // For routing
 import { useNavigate } from "react-router";
 import { useLocation } from "react-router-dom";
@@ -74,8 +77,9 @@ const Home = ({
     const [loading, setLoading] = useState<boolean>(true);
 
     useEffect(() => {
-        const xApiKey = localStorage.getItem("accessToken");
-        if (xApiKey === null) {
+        const accessToken = Cookies.get("accessToken");
+        console.log("Access Token on Home Page is ===> ", accessToken);
+        if (accessToken === null || accessToken === undefined || accessToken === "") {
             alert("Please login first");
             navigate('/');
         }

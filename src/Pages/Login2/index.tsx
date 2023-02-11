@@ -1,6 +1,9 @@
 import { FC, useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
+// Importing Cookies
+import Cookies from "js-cookie";
+
 import { ImFacebook2, ImGoogle2 } from "react-icons/im";
 import { FaTwitterSquare } from "react-icons/fa";
 import { GrLinkedin } from "react-icons/gr";
@@ -72,8 +75,17 @@ const Login2: FC<LoginProps> = ({
     });
 
     useEffect(() => {
-        const xApiKey = localStorage.getItem("accessToken");
-        if (xApiKey !== null) {
+        // const xApiKey = localStorage.getItem("accessToken");
+
+        var accessToken:any = Cookies.get("accessToken");
+
+        if (accessToken === undefined || accessToken === null) {
+            accessToken = null;
+        }
+
+        console.log(accessToken);
+
+        if (accessToken !== null) {
             setShowHeader(false);
             navigate('/dashboard/assessment');
         }
