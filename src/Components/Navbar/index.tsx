@@ -1,5 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState, useEffect } from 'react';
+import Cookies from 'js-cookie';
 import { CgMenu } from 'react-icons/cg';
 import { MdMenuOpen } from 'react-icons/md';
 import styles from './style.module.css';
@@ -117,7 +118,8 @@ const Navbar: React.FC<NavProps> = ({
 
     const logoutUser = () => {
         if (window.confirm("Are you sure you want to logout?")) {
-            const xApiKey = localStorage.getItem("accessToken");
+            // const xApiKey = localStorage.getItem("accessToken");
+            const xApiKey = Cookies.get("accessToken");
             console.log("xApiKey ===> : ", xApiKey);
             logoutService(xApiKey).then(response => {
                 console.log("Presetation layer response Code: ", response);
@@ -126,7 +128,7 @@ const Navbar: React.FC<NavProps> = ({
                 // @ts-ignore
                 if (response.code === "200.200" && response.status === "OK") {
                     // alert("Logged out successfully");
-                    localStorage.removeItem("accessToken");
+                    Cookies.remove("accessToken");
                     navigate(`/`);
                 }
                 else {
