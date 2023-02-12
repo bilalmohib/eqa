@@ -79,22 +79,6 @@ const AppRouter: FC<AppRouterProps> = ({
                     mobileViewContainer={mobileViewContainer}
                 />}
                 />
-                {/* <Route path={"/"} element={<Home
-                    setShowHeader={setShowHeader}
-                    isOpen={isOpen}
-                    setIsOpen={setIsOpen}
-                    // For minified sidebar
-                    isMinified={isMinified}
-                    setIsMinified={setIsMinified}
-                    subComponent={<AssessmentDashboard
-                        isOpen={isOpen}
-                        setIsOpen={setIsOpen}
-                        // For minified sidebar
-                        isMinified={isMinified}
-                        setIsMinified={setIsMinified}
-                    />
-                    }
-                />} /> */}
                 <Route path="dashboard">
                     <Route
                         path="assessment"
@@ -161,6 +145,7 @@ const AppRouter: FC<AppRouterProps> = ({
                                         // For minified sidebar
                                         isMinified={isMinified}
                                         setIsMinified={setIsMinified}
+                                        currentLang={currentLang}
                                     />
                                 }
                             />}
