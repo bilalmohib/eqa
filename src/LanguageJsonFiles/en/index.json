@@ -77,13 +77,13 @@
                             "title": "Generic Settings"
                         },
                         "List": {
-                            "Assessment":"Assessment",
-                            "Form":"Form",
-                            "Alarm":"Alarm",
-                            "Report":"Report",
-                            "Portal":"Portal",
+                            "Assessment": "Assessment",
+                            "Form": "Form",
+                            "Alarm": "Alarm",
+                            "Report": "Report",
+                            "Portal": "Portal",
                             "account": "Account",
-                            "services": "Services",                            
+                            "services": "Services",
                             "security": "Security",
                             "calender": "Calender",
                             "stats": "Stats",
@@ -431,7 +431,7 @@
                                         }
                                     },
                                     "Add": {
-                                        "Courses": {
+                                        "Users": {
                                             "breadcrumb": {
                                                 "f1": "EQA",
                                                 "f2": "Account",
@@ -477,77 +477,77 @@
                                                         "option18": "College of Applied Medical Sciences",
                                                         "option19": "College of Applied Medical Sciences",
                                                         "option20": "College of Applied Medical Sciences"
-                                                    },
-                                                    "Campus": {
-                                                        "label": "Campus",
-                                                        "placeholder": "Select your campus",
-                                                        "Options": {
-                                                            "option1": "Campus Lahore",
-                                                            "option2": "Campus Karachi",
-                                                            "option3": "Campus Islamabad",
-                                                            "option4": "Campus Peshawar",
-                                                            "option5": "Campus Quetta",
-                                                            "option6": "Campus Faisalabad",
-                                                            "option7": "Campus Multan",
-                                                            "option8": "Campus Sialkot",
-                                                            "option9": "Campus Gujranwala",
-                                                            "option10": "Campus Rawalpindi",
-                                                            "option11": "Campus Bahawalpur",
-                                                            "option12": "Campus Sargodha",
-                                                            "option13": "Campus Sahiwal",
-                                                            "option14": "Campus Jhang",
-                                                            "option15": "Campus Rahim Yar Khan",
-                                                            "option16": "Campus Gujrat",
-                                                            "option17": "Campus Sadiqabad",
-                                                            "option18": "Campus Muzaffargarh",
-                                                            "option19": "Campus Dera Ghazi Khan",
-                                                            "option20": "Campus Mardan"
-                                                        }
-                                                    },
-                                                    "Department": {
-                                                        "label": "Department",
-                                                        "placeholder": "Select your department",
-                                                        "Options": {
-                                                            "option1": "Department of Computer Science",
-                                                            "option2": "Department of Information Technology",
-                                                            "option3": "Department of Software Engineering",
-                                                            "option4": "Department of Computer Engineering",
-                                                            "option5": "Department of Computer Systems Engineering",
-                                                            "option6": "Department of Computer Systems Engineering",
-                                                            "option7": "Department of Computer Systems Engineering",
-                                                            "option8": "Department of Computer Systems Engineering",
-                                                            "option9": "Department of Computer Systems Engineering",
-                                                            "option10": "Department of Computer Systems Engineering",
-                                                            "option11": "Department of Computer Systems Engineering",
-                                                            "option12": "Department of Computer Systems Engineering",
-                                                            "option13": "Department of Computer Systems Engineering",
-                                                            "option14": "Department of Computer Systems Engineering",
-                                                            "option15": "Department of Computer Systems Engineering",
-                                                            "option16": "Department of Computer Systems Engineering",
-                                                            "option17": "Department of Computer Systems Engineering",
-                                                            "option18": "Department of Computer Systems Engineering",
-                                                            "option19": "Department of Computer Systems Engineering",
-                                                            "option20": "Department of Computer Systems Engineering"
-                                                        }
                                                     }
                                                 },
-                                                "Username":{
+                                                "Campus": {
+                                                    "label": "Campus",
+                                                    "placeholder": "Select your campus",
+                                                    "Options": {
+                                                        "option1": "Campus Lahore",
+                                                        "option2": "Campus Karachi",
+                                                        "option3": "Campus Islamabad",
+                                                        "option4": "Campus Peshawar",
+                                                        "option5": "Campus Quetta",
+                                                        "option6": "Campus Faisalabad",
+                                                        "option7": "Campus Multan",
+                                                        "option8": "Campus Sialkot",
+                                                        "option9": "Campus Gujranwala",
+                                                        "option10": "Campus Rawalpindi",
+                                                        "option11": "Campus Bahawalpur",
+                                                        "option12": "Campus Sargodha",
+                                                        "option13": "Campus Sahiwal",
+                                                        "option14": "Campus Jhang",
+                                                        "option15": "Campus Rahim Yar Khan",
+                                                        "option16": "Campus Gujrat",
+                                                        "option17": "Campus Sadiqabad",
+                                                        "option18": "Campus Muzaffargarh",
+                                                        "option19": "Campus Dera Ghazi Khan",
+                                                        "option20": "Campus Mardan"
+                                                    }
+                                                },
+                                                "Department": {
+                                                    "label": "Department",
+                                                    "placeholder": "Select your department",
+                                                    "Options": {
+                                                        "option1": "Department of Computer Science",
+                                                        "option2": "Department of Information Technology",
+                                                        "option3": "Department of Software Engineering",
+                                                        "option4": "Department of Computer Engineering",
+                                                        "option5": "Department of Computer Systems Engineering",
+                                                        "option6": "Department of Computer Systems Engineering",
+                                                        "option7": "Department of Computer Systems Engineering",
+                                                        "option8": "Department of Computer Systems Engineering",
+                                                        "option9": "Department of Computer Systems Engineering",
+                                                        "option10": "Department of Computer Systems Engineering",
+                                                        "option11": "Department of Computer Systems Engineering",
+                                                        "option12": "Department of Computer Systems Engineering",
+                                                        "option13": "Department of Computer Systems Engineering",
+                                                        "option14": "Department of Computer Systems Engineering",
+                                                        "option15": "Department of Computer Systems Engineering",
+                                                        "option16": "Department of Computer Systems Engineering",
+                                                        "option17": "Department of Computer Systems Engineering",
+                                                        "option18": "Department of Computer Systems Engineering",
+                                                        "option19": "Department of Computer Systems Engineering",
+                                                        "option20": "Department of Computer Systems Engineering"
+                                                    }
+                                                },
+                                                "Username": {
                                                     "label": "Username",
                                                     "placeholder": "Enter your username"
                                                 },
-                                                "Password":{
+                                                "Password": {
                                                     "label": "Password",
                                                     "placeholder": "Enter your password"
                                                 }
                                             }
                                         }
                                     },
-                                    "Permissions":{
+                                    "Permissions": {
                                         "title": "Permissions",
                                         "subTitle": "Alter the permissions of the user",
-                                        "fields":{
-                                            "staffaccess":{
-                                                "title":"Staff Access Level",
+                                        "fields": {
+                                            "staffaccess": {
+                                                "title": "Staff Access Level",
                                                 "checkbox1": {
                                                     "label": "Staff status"
                                                 },
@@ -555,8 +555,8 @@
                                                     "label": "Super User"
                                                 }
                                             },
-                                            "status":{
-                                                "title":"Status",
+                                            "status": {
+                                                "title": "Status",
                                                 "checkbox1": {
                                                     "label": "Active"
                                                 },
@@ -564,8 +564,8 @@
                                                     "label": "Deactive"
                                                 }
                                             },
-                                            "assignGroups":{
-                                                "title":"Assign group(s)",
+                                            "assignGroups": {
+                                                "title": "Assign group(s)",
                                                 "checkbox1": {
                                                     "label": "Group 1"
                                                 },
@@ -574,7 +574,8 @@
                                                 }
                                             }
                                         }
-                                    }
+                                    },
+                                    "submit": "Submit"
                                 }
                             },
                             "groups": {

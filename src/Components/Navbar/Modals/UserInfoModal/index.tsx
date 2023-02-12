@@ -146,7 +146,6 @@ const UserInfoModal: FC<UserInfoModalProps> = ({
                                     repeat={Infinity} // Repeat this Animation Sequence infinitely
                                 />
 
-
                             </Typography>
                             <Typography className={styles.headerEmail}>
                                 steveCohan@gmail.com
