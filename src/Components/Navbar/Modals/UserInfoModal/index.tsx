@@ -135,15 +135,10 @@ const UserInfoModal: FC<UserInfoModalProps> = ({
                                 <TypeAnimation
                                     // Same String at the start will only be typed once, initially
                                     sequence={[
-                                        {
-                                            // @ts-ignore
-                                            instructorValue
-                                        },
+                                            instructorValue,
                                         1000,
-                                        {
-                                            // @ts-ignore
                                             instructorTitle
-                                        },
+                                            ,
                                         1000
                                     ]}
                                     speed={10} // Custom Speed from 1-99 - Default Speed: 40
