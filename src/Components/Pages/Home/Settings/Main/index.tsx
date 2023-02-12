@@ -5,6 +5,8 @@ import { HiUserGroup } from "react-icons/hi2";
 import SaveIcon from '@mui/icons-material/Save';
 import DeleteIcon from '@mui/icons-material/Delete';
 
+import { FiSettings } from "react-icons/fi";
+
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
@@ -185,11 +187,8 @@ const Groups: React.FC<GroupsProps> = ({
         else {
             setSettingsState(settings);
         }
-    },
-    [
-        i18n.language
-    ] 
-    );
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [i18n.language]);
 
     //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ FOR CHECKBOX STATE @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
@@ -211,7 +210,13 @@ const Groups: React.FC<GroupsProps> = ({
 
             <hr />
 
-            <h2 style={{ color: "#4f747a" }}>{t('Home.Sidebar.list.settings.subMenu.general.details.Settings.title')}</h2>
+            {/* <h2 style={{ color: "#4f747a" }}>{t('Home.Sidebar.list.settings.subMenu.general.details.Settings.title')}</h2> */}
+            <div className={styles.leftTopContainer}>
+                <FiSettings size={27} style={{ marginTop: "3px" }} color="#4f747a" />
+                <p className={styles.topContainerLeftText}>
+                    <b>{t('Home.Sidebar.list.settings.subMenu.general.details.Settings.title')}</b>
+                </p>
+            </div>
 
             <Stack sx={{ mt: 3 }}
                 direction="row"
@@ -272,17 +277,18 @@ const Groups: React.FC<GroupsProps> = ({
                                     component="div"
                                     sx={{
                                         fontSize: {
-                                            xs: 22, // theme.breakpoints.up('xs')
-                                            sm: 23, // theme.breakpoints.up('sm')
-                                            md: 24, // theme.breakpoints.up('md')
-                                            lg: 26, // theme.breakpoints.up('lg')
-                                            xl: 26, // theme.breakpoints.up('xl')
+                                            xs: "18px", // theme.breakpoints.up('xs')
+                                            sm: "18px", // theme.breakpoints.up('sm')
+                                            md: "18px", // theme.breakpoints.up('md')
+                                            lg: "18px", // theme.breakpoints.up('lg')
+                                            xl: "18px", // theme.breakpoints.up('xl')
                                         },
                                         color: '#fff',
                                         padding: 0.5,
                                         borderTopLeftRadius: 4,
                                         borderTopRightRadius: 4,
                                         paddingLeft: 3,
+                                        fontFamily:"-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif",
                                         textAlign: "left",
                                         backgroundColor: "#4f7679",
                                         cursor: "default",
@@ -353,6 +359,13 @@ const Groups: React.FC<GroupsProps> = ({
                                                     <Typography
                                                         variant="h4"
                                                         component="div"
+                                                        onClick={
+                                                            () => handleChange(
+                                                                !setting.checked,
+                                                                setting.id,
+                                                                settingsItem.id
+                                                            )
+                                                        }
                                                         sx={{
                                                             fontSize: {
                                                                 xs: 20, // theme.breakpoints.up('xs')
@@ -366,11 +379,6 @@ const Groups: React.FC<GroupsProps> = ({
                                                         }}
                                                         className="text-dark"
                                                         role={"button"}
-                                                    // onClick={
-                                                    //     () => {
-                                                    //         handleChange();
-                                                    //     }
-                                                    // }
                                                     >
                                                         {settingsItem.title}
                                                     </Typography>

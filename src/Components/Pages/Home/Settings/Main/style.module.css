@@ -5,3 +5,20 @@
     padding-right: 30px;
     padding-top: 20px;
 }
+
+/* Left Top Container */
+.leftTopContainer {
+    display: flex;
+    padding-top: 16px;
+}
+
+.topContainerLeftText {
+    font-size: 22px;
+    margin-left: 10px;
+    font-weight: 300;
+    color: #767676;
+}
+html[dir="rtl"] .topContainerLeftText {
+    margin-left: 0px;
+    margin-right: 10px;
+}

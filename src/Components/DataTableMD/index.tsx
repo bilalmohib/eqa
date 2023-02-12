@@ -156,7 +156,6 @@ const DataTableMD: FC<DataTableMDProps> = ({
 
     return (
         <div className={styles.container}>
-
             {/* Header Starts here */}
             <header className={styles.headerContainer}>
                 <section className={styles.headerLeft}>

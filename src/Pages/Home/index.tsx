@@ -17,6 +17,7 @@ import UserInfoModal from "../../Components/Navbar/Modals/UserInfoModal";
 import ResetPasswordModal from "../../Components/Navbar/Modals/ResetPasswordModal";
 
 import { AiFillDashboard } from "react-icons/ai";
+import { MdOutlineFactCheck } from "react-icons/md";
 import { RxDot } from "react-icons/rx";
 import { FiSettings } from "react-icons/fi";
 import { FaUserAlt } from "react-icons/fa";
@@ -97,7 +98,6 @@ const Home = ({
     const [openResetPasswordModal, setOpenResetPasswordModal] = useState<boolean>(false);
     // Reset Password Modal
 
-
     // For getting the window size
     const [windowSize, setWindowSize] = useState([
         window.innerWidth,
@@ -143,7 +143,7 @@ const Home = ({
     const SidebarMenuItemsArray = [
         {
             index: 1,
-            icon: <AiFillDashboard size={20} style={{ width: 25, height: 25 }} />,
+            icon: <MdOutlineFactCheck size={25} style={{ width: 28, height: 28 }} />,
             text: t('Home.Sidebar.list.Dashboard.text'),
             // link: "/",
             subMenu: [

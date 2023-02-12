@@ -6,10 +6,17 @@ import { MdMenuOpen } from 'react-icons/md';
 import styles from './style.module.css';
 import { useNavigate } from 'react-router';
 import { AiTwotoneLock } from 'react-icons/ai';
-import SearchIcon from '@mui/icons-material/Search';
+import { MdOutlineFactCheck } from "react-icons/md";
+import SchoolIcon from '@mui/icons-material/School';
+import ImportExportIcon from '@mui/icons-material/ImportExport';
+import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
+import { BsAlarmFill } from "react-icons/bs";
+import { TfiAlarmClock } from "react-icons/tfi";
+import PieChartIcon from '@mui/icons-material/PieChart';
 
 import FullCalendar from '@fullcalendar/react' // must go before plugins
 import dayGridPlugin from '@fullcalendar/daygrid' // a plugin!
+import SearchIcon from '@mui/icons-material/Search';
 
 import { useTranslation } from 'react-i18next';
 
@@ -336,16 +343,30 @@ const Navbar: React.FC<NavProps> = ({
                                         <section className={styles.AppsContainerDropDown}>
                                             <div className={`d-flex justify-content-between ${styles.insideContainerAC}`}>
                                                 <li>
-                                                    <i className="fab fa-servicestack" style={{ color: "#4f747a", fontSize: 50, height: 50, width: 50 }}></i>
-                                                    <p>{t('Home.Header.DropDown.Apps.List.services')}</p>
+                                                    <MdOutlineFactCheck style={{ color: "#4f747a", fontSize: 50, height: 50, width: 50 }} />
+                                                    <p>{t('Home.Header.DropDown.Apps.List.Assessment')}</p>
                                                 </li>
                                                 <li>
-                                                    <i className="fas fa-user-circle" style={{ color: "#3c6766", fontSize: 48, height: 50, width: 50 }}></i>
+                                                    <i className="fab fa-wpforms" style={{ color: "#777777", fontSize: 48, height: 50, width: 50 }}></i>
+                                                    <p>{t('Home.Header.DropDown.Apps.List.Form')}</p>
+                                                </li>
+                                                <li>
+                                                    <TfiAlarmClock style={{ color: "red", fontSize: 48, height: 48, width: 48, marginBottom: 2 }} />
+                                                    <p>{t('Home.Header.DropDown.Apps.List.Alarm')}</p>
+                                                </li>
+                                            </div>
+                                            <div className={`d-flex justify-content-between ${styles.insideContainerAC}`}>
+                                                <li>
+                                                    <PieChartIcon sx={{ color: "orange", fontSize: 50, height: 50, width: 50 }} />
+                                                    <p>{t('Home.Header.DropDown.Apps.List.Report')}</p>
+                                                </li>
+                                                <li>
+                                                    <ImportExportIcon style={{ color: "grey", fontSize: 50, height: 50, width: 50 }} />
+                                                    <p>{t('Home.Header.DropDown.Apps.List.Portal')}</p>
+                                                </li>
+                                                <li>
+                                                    <ManageAccountsIcon style={{ color: "blue", fontSize: 50, height: 50, width: 50 }} />
                                                     <p>{t('Home.Header.DropDown.Apps.List.account')}</p>
-                                                </li>
-                                                <li>
-                                                    <i className="fas fa-shield-alt" style={{ color: "#1dc9b7", fontSize: 48, height: 50, width: 50 }}></i>
-                                                    <p>{t('Home.Header.DropDown.Apps.List.security')}</p>
                                                 </li>
                                             </div>
                                             <div className={`d-flex justify-content-between ${styles.insideContainerAC}`}>
