@@ -77,8 +77,13 @@
                             "title": "Generic Settings"
                         },
                         "List": {
-                            "services": "Services",
+                            "Assessment":"Assessment",
+                            "Form":"Form",
+                            "Alarm":"Alarm",
+                            "Report":"Report",
+                            "Portal":"Portal",
                             "account": "Account",
+                            "services": "Services",                            
                             "security": "Security",
                             "calender": "Calender",
                             "stats": "Stats",
@@ -307,10 +312,10 @@
                 "list": {
                     "Dashboard": {
                         "index": 1,
-                        "text": "Dashboard",
+                        "text": "Assessment",
                         "subMenu": {
                             "Dashboard": {
-                                "text": "Dashboard",
+                                "text": "Assessment Dashboard",
                                 "link": "/dashboard/assessment",
                                 "details": {
                                     "title": "Assessment Dashboard",

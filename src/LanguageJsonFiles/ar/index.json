@@ -77,8 +77,13 @@
                             "title": "إعدادات عامة"
                         },
                         "List": {
-                            "services": "خدمات",
+                            "Assessment":"Assessment",
+                            "Form":"Form",
+                            "Alarm":"Alarm",
+                            "Report":"Report",
+                            "Portal":"Portal",
                             "account": "حساب",
+                            "services": "خدمات",
                             "security": "حماية",
                             "calender": "التقويم",
                             "stats": "احصائيات",
@@ -307,10 +312,10 @@
                 "list": {
                     "Dashboard": {
                         "index": 1,
-                        "text": "لوحة القيادة",
+                        "text": "تقدير",
                         "subMenu": {
                             "Dashboard": {
-                                "text": "لوحة القيادة",
+                                "text": "لوحة معلومات التقييم",
                                 "link": "/dashboard/assessment",
                                 "details": {
                                     "title": "لوحة معلومات التقييم",
