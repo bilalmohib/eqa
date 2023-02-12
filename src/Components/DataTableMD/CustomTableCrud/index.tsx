@@ -74,6 +74,7 @@ const CustomTableCrud: FC<CustomTableProps> = ({
 
     const handleSaveRowEdits: MaterialReactTableProps<any>['onEditingRowSave'] =
         async ({ exitEditingMode, row, values }) => {
+            console.log("Row ======================> ", row);
             if (!Object.keys(validationErrors).length) {
                 tableData[row.index] = values;
                 //send/receive api updates here, then refetch or update local table data for re-render
@@ -135,235 +136,241 @@ const CustomTableCrud: FC<CustomTableProps> = ({
     );
 
     // Column definitions for CourseOffering
-    const columnsCourseOffering = useMemo<MRT_ColumnDef<any>[]>(
-        () => [
-            {
-                accessorKey: 'id',
-                header: 'Course Code',
-                enableColumnOrdering: false,
-                enableEditing: false, //disable editing on this column
-                enableSorting: false,
-                size: 120,
-            },
-            {
-                accessorKey: 'name',
-                header: 'Name',
-                size: 200,
-                // enableClickToCopy: true,
-                muiTableBodyCellEditTextFieldProps: ({ cell }) => ({
-                    ...getCommonEditTextFieldProps(cell),
-                }),
-            },
-            {
-                accessorKey: 'section',
-                header: 'Section',
-                size: 40,
-                // enableClickToCopy: true,
-                muiTableBodyCellEditTextFieldProps: ({ cell }) => ({
-                    ...getCommonEditTextFieldProps(cell),
-                }),
-            },
-            {
-                accessorKey: 'noofstudent',
-                header: 'No. of Students',
-                size: 40,
-                // enableClickToCopy: true,
-                muiTableBodyCellEditTextFieldProps: ({ cell }) => ({
-                    ...getCommonEditTextFieldProps(cell),
-                    type: 'email',
-                }),
-            },
-            {
-                accessorKey: 'coordinator',
-                header: 'Co-ordinator',
-                size: 40,
-                // enableClickToCopy: true,
-                muiTableBodyCellEditTextFieldProps: ({ cell }) => ({
-                    ...getCommonEditTextFieldProps(cell),
-                    type: 'number',
-                }),
-            },
-            {
-                accessorKey: 'instructor',
-                header: 'Instructor',
-                size: 40,
-                // enableClickToCopy: true,
-                muiTableBodyCellEditTextFieldProps: {
-                    select: true, //change to select for a dropdown
-                    children: states.map((state) => (
-                        <MenuItem key={state} value={state}>
-                            {state}
-                        </MenuItem>
-                    )),
-                },
-            },
-            {
-                accessorKey: 'campus',
-                header: 'Campus',
-                size: 40,
-                // enableClickToCopy: true,
-                muiTableBodyCellEditTextFieldProps: ({ cell }) => ({
-                    ...getCommonEditTextFieldProps(cell),
-                    type: 'number',
-                }),
-            },
-            {
-                accessorKey: 'semester',
-                header: 'Semester',
-                size: 40,
-                // enableClickToCopy: true,
-                muiTableBodyCellEditTextFieldProps: ({ cell }) => ({
-                    ...getCommonEditTextFieldProps(cell),
-                    type: 'number',
-                }),
+    // const columnsCourseOffering = useMemo<MRT_ColumnDef<any>[]>(
+    //     () => [
+    //         {
+    //             accessorKey: 'id',
+    //             header: 'Course Code',
+    //             enableColumnOrdering: false,
+    //             enableEditing: false, //disable editing on this column
+    //             enableSorting: false,
+    //             size: 120,
+    //         },
+    //         {
+    //             accessorKey: 'name',
+    //             header: 'Name',
+    //             size: 200,
+    //             // enableClickToCopy: true,
+    //             muiTableBodyCellEditTextFieldProps: ({ cell }) => ({
+    //                 ...getCommonEditTextFieldProps(cell),
+    //             }),
+    //         },
+    //         {
+    //             accessorKey: 'section',
+    //             header: 'Section',
+    //             size: 40,
+    //             // enableClickToCopy: true,
+    //             muiTableBodyCellEditTextFieldProps: ({ cell }) => ({
+    //                 ...getCommonEditTextFieldProps(cell),
+    //             }),
+    //         },
+    //         {
+    //             accessorKey: 'noofstudent',
+    //             header: 'No. of Students',
+    //             size: 40,
+    //             // enableClickToCopy: true,
+    //             muiTableBodyCellEditTextFieldProps: ({ cell }) => ({
+    //                 ...getCommonEditTextFieldProps(cell),
+    //                 type: 'email',
+    //             }),
+    //         },
+    //         {
+    //             accessorKey: 'coordinator',
+    //             header: 'Co-ordinator',
+    //             size: 40,
+    //             // enableClickToCopy: true,
+    //             muiTableBodyCellEditTextFieldProps: ({ cell }) => ({
+    //                 ...getCommonEditTextFieldProps(cell),
+    //                 type: 'number',
+    //             }),
+    //         },
+    //         {
+    //             accessorKey: 'instructor',
+    //             header: 'Instructor',
+    //             size: 40,
+    //             // enableClickToCopy: true,
+    //             muiTableBodyCellEditTextFieldProps: {
+    //                 select: true, //change to select for a dropdown
+    //                 children: states.map((state) => (
+    //                     <MenuItem key={state} value={state}>
+    //                         {state}
+    //                     </MenuItem>
+    //                 )),
+    //             },
+    //         },
+    //         {
+    //             accessorKey: 'campus',
+    //             header: 'Campus',
+    //             size: 40,
+    //             // enableClickToCopy: true,
+    //             muiTableBodyCellEditTextFieldProps: ({ cell }) => ({
+    //                 ...getCommonEditTextFieldProps(cell),
+    //                 type: 'number',
+    //             }),
+    //         },
+    //         {
+    //             accessorKey: 'semester',
+    //             header: 'Semester',
+    //             size: 40,
+    //             // enableClickToCopy: true,
+    //             muiTableBodyCellEditTextFieldProps: ({ cell }) => ({
+    //                 ...getCommonEditTextFieldProps(cell),
+    //                 type: 'number',
+    //             }),
+    //         }
+    //     ],
+    //     [getCommonEditTextFieldProps],
+    // );
+
+
+    // useMemo(() => {
+    //     if (columnName === "CourseOfferingTypes") {
+    //         setColumnStateValues(columnsCourseOffering);
+    //     }
+    //     else if (columnName === "CourseOfferingTypes") {
+    //         setColumnStateValues(columnsCourseOffering);
+    //     }
+    //     else {
+    //         setColumnStateValues(columnsCourseOffering);
+    //     }
+    // }, [data]);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+
+    // Function to generate columns
+    function generateColumns(data: any) {
+        if (!data || !data.length) return [];
+
+        const keys = Object.keys(data[0]);
+
+        // console.log(keys);
+
+        const generate = keys.map(key => ({
+            accessorKey: key.toString(),
+            header: key.toString(),
+            size: 150,
+            // @ts-ignore
+            muiTableBodyCellEditTextFieldProps: ({ cell }) => ({
+                ...getCommonEditTextFieldProps(cell),
+            }),
+        }));
+        return generate;
+    }
+    const columnsNew = useMemo(() => generateColumns(data), [data]);
+
+    // Function to generate rows
+    const generateRows = (data: any) => {
+        if (!data || !data.length) return [];
+
+        const keys = Object.keys(data[0]);
+
+        // console.log(keys);
+
+        let BigRow = [];
+
+        for (let i = 0; i < data.length; i++) {
+            // @ts-ignore
+            let newRow: any = {};
+            for (const prop in data[i]) {
+                switch (prop) {
+                    case 'creationDateAndTime':
+                        newRow[prop] = new Date(
+                            data[i][prop][0],
+                            data[i][prop][1] - 1,
+                            data[i][prop][2],
+                            data[i][prop][3],
+                            data[i][prop][4],
+                            data[i][prop][5]
+                        ).toString();
+                        break;
+                    default:
+                        newRow[prop] = data[i][prop] || 'null';
+                }
             }
-        ],
-        [getCommonEditTextFieldProps],
-    );
 
-
-    useMemo(() => {
-        if (columnName === "CourseOfferingTypes") {
-            setColumnStateValues(columnsCourseOffering);
+            // Push the new row to the big row
+            BigRow.push(newRow);
         }
-        else if (columnName === "CourseOfferingTypes") {
-            setColumnStateValues(columnsCourseOffering);
-        }
-        else {
-            setColumnStateValues(columnsCourseOffering);
-        }
-    }, [data]);
 
-    // const csvOptions = {
-    //     fieldSeparator: ',',
-    //     quoteStrings: '"',
-    //     decimalSeparator: '.',
-    //     showLabels: true,
-    //     useBom: true,
-    //     useKeysAsHeaders: false,
-    //     headers: columnStateValues.map((c:any) => c.header),
-    // };
+        // console.log("Generate Big Row ===> ", BigRow);
+        return BigRow;
+    }
 
-    //const csvExporter = new ExportToCsv(csvOptions);
+    const rowsNew = useMemo(() => generateRows(data), [data]);
 
-    const handleExportRows = (rows: MRT_Row<any>[]) => {
+    // console.log("Columns New ===> ", columnsNew);
 
-    };
-
-    const handleExportData = () => {
-
-    };
+    // console.log("Rows New ===> ", rowsNew);
 
     return (
         <div className={styles.container}>
             <div className={styles.insideTableContainer}>
-                {(false) ? (
-                    <MaterialReactTable
-                        displayColumnDefOptions={{
-                            'mrt-row-actions': {
-                                muiTableHeadCellProps: {
-                                    align: 'center',
-                                },
-                                size: 120,
+                <MaterialReactTable
+                    displayColumnDefOptions={{
+                        'mrt-row-actions': {
+                            muiTableHeadCellProps: {
+                                align: 'center',
                             },
-                        }}
-                        enableColumnVirtualization
-                        columns={columnStateValues}
-                        data={tableData}
-                        editingMode="modal" //default
-                        enableColumnOrdering
-                        enableEditing
-                        //enableClickToCopy
-                        onEditingRowSave={handleSaveRowEdits}
-                        onEditingRowCancel={handleCancelRowEdits}
-                        renderRowActions={({ row, table }) => (
-                            <Box sx={{ display: 'flex', gap: '1rem' }}>
-                                <Tooltip arrow placement="left" title="Edit">
-                                    <IconButton onClick={() => table.setEditingRow(row)}>
-                                        <Edit />
-                                    </IconButton>
-                                </Tooltip>
-                                <Tooltip arrow placement="right" title="Delete">
-                                    <IconButton color="error" onClick={() => handleDeleteRow(row)}>
-                                        <Delete />
-                                    </IconButton>
-                                </Tooltip>
-                            </Box>
-                        )}
-                        renderTopToolbarCustomActions={() => (
-                            <Button
-                                color="primary"
-                                onClick={() => setCreateModalOpen(true)}
-                                variant="outlined"
-                            >
-                                +
-                            </Button>
-                        )}
-                    />
-                ) : (
-                    <MaterialReactTable
-                        displayColumnDefOptions={{
-                            'mrt-row-actions': {
-                                muiTableHeadCellProps: {
-                                    align: 'center',
-                                },
-                                size: 120,
-                            },
-                        }}
-                        columns={columnStateValues}
-                        data={tableData}
-                        editingMode="modal" //default
-                        enableColumnOrdering
-                        enableEditing
-                        // enableClickToCopy
-                        onEditingRowSave={handleSaveRowEdits}
-                        onEditingRowCancel={handleCancelRowEdits}
-                        renderRowActions={({ row, table }) => (
-                            <Box sx={{ display: 'flex', gap: '1rem' }}>
-                                <Tooltip arrow placement="left" title="Edit">
-                                    <IconButton onClick={() => table.setEditingRow(row)}>
-                                        <Edit />
-                                    </IconButton>
-                                </Tooltip>
-                                <Tooltip arrow placement="right" title="Delete">
-                                    <IconButton color="error" onClick={() => handleDeleteRow(row)}>
-                                        <Delete />
-                                    </IconButton>
-                                </Tooltip>
-                            </Box>
-                        )}
-                        // renderTopToolbarCustomActions={() => (
-                        //     <Button
-                        //         color="primary"
-                        //         onClick={() => setCreateModalOpen(true)}
-                        //         variant="outlined"
-                        //         sx={{
-                        //             backgroundColor: "#e79f43",
-                        //             border: "1px solid #e79f43",
-                        //             color:"white",
-                        //             // textTransform: "none",
-                        //             fontWeight: "bold",
-                        //             height: 40,
-                        //             mt: 1,
-                        //             "&:hover": {
-                        //                 backgroundColor: "#e79f43",
-                        //                 border: "1px solid #e79f43",
-                        //                 color:"white"
-                        //             }
-                        //         }}
-                        //     >
-                        //         {buttonTitle}
-                        //     </Button>
-                        // )}
-                    />
-                )}
-                <CreateNewAccountModal
-                    columns={columnStateValues}
+                            size: 120,
+                        },
+                    }}
+                    columns={columnsNew}
+                    data={rowsNew}
+                    editingMode="modal" //default
+                    enableColumnOrdering
+                    enableEditing
+                    enableClickToCopy
+                    onEditingRowSave={handleSaveRowEdits}
+                    onEditingRowCancel={handleCancelRowEdits}
+                    renderRowActions={({ row, table }) => (
+                        <Box sx={{ display: 'flex', gap: '1rem' }}>
+                            <Tooltip arrow placement="left" title="Edit">
+                                <IconButton onClick={() =>{ 
+                                    table.setEditingRow(row)
+                                    alert("Edit")
+                                }
+                                }>
+                                    <Edit />
+                                </IconButton>
+                            </Tooltip>
+                            <Tooltip arrow placement="right" title="Delete">
+                                <IconButton color="error" onClick={() => handleDeleteRow(row)}>
+                                    <Delete />
+                                </IconButton>
+                            </Tooltip>
+                        </Box>
+                    )}
+                // renderTopToolbarCustomActions={() => (
+                //     <Button
+                //         color="primary"
+                //         onClick={() => setCreateModalOpen(true)}
+                //         variant="outlined"
+                //         sx={{
+                //             backgroundColor: "#e79f43",
+                //             border: "1px solid #e79f43",
+                //             color:"white",
+                //             // textTransform: "none",
+                //             fontWeight: "bold",
+                //             height: 40,
+                //             mt: 1,
+                //             "&:hover": {
+                //                 backgroundColor: "#e79f43",
+                //                 border: "1px solid #e79f43",
+                //                 color:"white"
+                //             }
+                //         }}
+                //     >
+                //         {buttonTitle}
+                //     </Button>
+                // )}
+                />
+                {/* <CreateNewAccountModal
+                    columns={columnsNew}
                     open={createModalOpen}
                     onClose={() => setCreateModalOpen(false)}
                     onSubmit={handleCreateNewRow}
                     buttonTitle={buttonTitle}
-                />
+                /> */}
             </div>
         </div>
     );
