@@ -5,6 +5,8 @@ import { useNavigate } from "react-router";
 import { IoSpeedometerOutline } from "react-icons/io5";
 import { FaUserAlt } from "react-icons/fa";
 
+import axios from "axios";
+
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 
 // Importing components
@@ -19,6 +21,8 @@ import Button from '@mui/material/Button';
 import { data, states } from '../../../../../../Data/Tables/CourseOfferings';
 
 import { useTranslation } from "react-i18next";
+
+import Cookies from "js-cookie";
 
 import styles from "./style.module.css";
 // import "./style.css";
@@ -76,6 +80,40 @@ const ViewUsers: React.FC<UserProps> = ({
         };
     });
 
+    // Fetching data using axios
+    const [viewAllUsersData, setViewAllUsersData] = useState(null);
+
+    useEffect(() => {
+        console.log("View All Users Data ===> ", viewAllUsersData);
+    });
+
+    useEffect(() => {
+
+        let accessToken: any = Cookies.get("accessToken");
+
+        if (accessToken === undefined || accessToken === null) {
+            accessToken = null;
+        }
+
+        console.log("Access Token in View Users ===> ", accessToken);
+
+        if (accessToken !== null) {
+            // Fetching data using axios and also pass the header x-api-key for auth
+            axios.get("https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/fetchUsers", {
+                headers: {
+                    "x-api-key": accessToken
+                }
+            })
+                .then((res) => {
+                    setViewAllUsersData(res.data);
+                }
+                )
+                .catch((err) => {
+                    console.log(err);
+                });
+        }
+    }, []);
+
     const tableColHeaders = [
         [
             'Course Code',
@@ -113,7 +151,7 @@ const ViewUsers: React.FC<UserProps> = ({
                 <div className={styles.leftTopContainer}>
                     <FaUserAlt size={27} style={{ marginTop: "3px" }} color="#4f747a" />
                     <p className={styles.topContainerLeftText}>
-                       <b>{(t('Home.Sidebar.list.userManagement.subMenu.Users.details.title'))} </b>
+                        <b>{(t('Home.Sidebar.list.userManagement.subMenu.Users.details.title'))} </b>
                     </p>
                 </div>
                 <div className={styles.rightTopContainer}>
