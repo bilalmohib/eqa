@@ -206,7 +206,12 @@ const ViewUsers: React.FC<UserProps> = ({
             <div style={{ marginTop: 30 }}>
                 <DataTableMD
                     isOpen={isOpen}
-                    data={data}
+                    data={(
+                        viewAllUsersData !== null 
+                    )?(
+                        // @ts-ignore
+                        viewAllUsersData.obj
+                        ):([])}
                     states={states}
                     ColHeader={tableColHeaders}
                     columnName={"CourseOfferingTypes"}
