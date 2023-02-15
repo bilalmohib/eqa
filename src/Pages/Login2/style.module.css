@@ -14,7 +14,7 @@
 }
 
 /******************************************** Left Side ***************************************/
-.leftSide {
+/* .leftSide { */
     /* border: 5px solid rgb(0, 255, 13); */
     /* width: 55%; */
     /* height: 100vh; */
@@ -25,11 +25,11 @@
     /* padding-left: 13%; */
     /* padding-top: 14%; */
     /* border: 1px solid red; */
-}
+/* } */
 
-html[dir=rtl] .leftSide {
+/* html[dir=rtl] .leftSide { */
     /* padding-right: 7%; */
-}
+/* } */
 
 .topContainerLeftLogin {
     display: flex;
@@ -110,9 +110,9 @@ html[dir=rtl] .leftSide {
     /* margin-right: 50px; */
 }
 
-html[dir='rtl'] .announcementListContainer {
+/* html[dir='rtl'] .announcementListContainer { */
     /* margin-right: 15%; */
-}
+/* } */
 
 /* Works on Chrome, Edge, and Safari */
 .announcementListContainer::-webkit-scrollbar {
@@ -189,10 +189,10 @@ html[dir=rtl] .leftAnnouncementSubContainer {
     width: 75%;
     color: #ffffff;
 }
-
+/* 
 html[dir=rtl] .rightAnnouncementSubContainer {
-    /* border: 1px solid red; */
-}
+    border: 1px solid red;
+} */
 
 .descHAnnouncementSC {
     /* border: 1px solid red; */
@@ -231,10 +231,10 @@ html[dir=rtl] .rightAnnouncementSubContainer {
     /* border: 1px solid red; */
     margin-top: 15px;
 }
-
+/* 
 .bottomContainerTopContainer {
-    /* padding-right: 15%; */
-}
+    padding-right: 15%;
+} */
 
 .btn_learn_more {
     margin-top: 10px;
@@ -287,7 +287,7 @@ html[dir=rtl] .rightAnnouncementSubContainer {
     flex-direction: row;
     align-items: right;
     align-items: flex-end;
-    justify-content: end;
+    justify-content: flex-end;
     /* border: 2px solid white; */
 }
 
@@ -303,15 +303,15 @@ html[dir=rtl] .rightSide {
         padding-top: 20vh;
     }
 
-    .leftSide {
+    /* .leftSide { */
         /* border: 2px solid rgb(128, 0, 0); */
         /* padding-left: 5%; */
         /* padding-top: 15%; */
-    }
+    /* } */
 
-    .rightSide {
+    /* .rightSide { */
         /* border: 2px solid rgb(255, 255, 255); */
-    }
+    /* } */
 }
 
 @media all and (max-width:1399px) {
@@ -337,17 +337,17 @@ html[dir=rtl] .rightSide {
 }
 
 @media screen and (max-width: 1330px) {
-    .leftSide {
+    /* .leftSide { */
         /* border: 2px solid rgb(128, 0, 0); */
         /* padding-left: 2%;
         padding-top: 15%; */
         /* padding-top: 18%; */
-    }
+    /* } */
 
-    .rightSide {
+    /* .rightSide { */
         /* border: 3px solid rgb(255, 255, 255); */
         /* padding-left: 2%; */
-    }
+    /* } */
 }
 
 @media screen and (max-width: 1250px) {

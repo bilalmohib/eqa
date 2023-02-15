@@ -1,10 +1,6 @@
 import * as React from 'react';
 import { useState, useEffect } from "react";
 
-import { useNavigate } from "react-router";
-
-import { styled } from '@mui/material/styles';
-
 // Importing Icons
 import PeopleOutlineIcon from '@mui/icons-material/PeopleOutline';
 import SendIcon from '@mui/icons-material/Send';
@@ -14,11 +10,8 @@ import {
     Button,
     Box,
     Typography,
-    Paper,
     Grid,
     TextField,
-    Autocomplete,
-    Checkbox,
     FormControl,
     FormControlLabel,
     FormLabel,
@@ -27,8 +20,6 @@ import {
 } from '@mui/material';
 
 import styles from "./style.module.css";
-
-const percentage = 30;
 
 interface UserProps {
     setIsOpen: any,
@@ -45,16 +36,6 @@ const AddGroup: React.FC<UserProps> = ({
     isMinified,
     setIsMinified
 }) => {
-
-    const Item = styled(Paper)(({ theme }) => ({
-        backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-        // ...theme.typography.body2,
-        // padding: theme.spacing(1),
-        // textAlign: 'center',
-        // color: theme.palette.text.secondary,
-    }));
-
-    const navigate = useNavigate();
 
     const currentFormatedDate: string = new Date().toLocaleString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
 
@@ -74,53 +55,6 @@ const AddGroup: React.FC<UserProps> = ({
             window.removeEventListener('resize', handleWindowResize);
         };
     });
-
-    interface FilmOptionType {
-        title: string;
-        year: number;
-    }
-
-    const top100Films: FilmOptionType[] = [
-        { title: 'The Shawshank Redemption', year: 1994 },
-        { title: 'The Godfather', year: 1972 },
-        { title: 'The Godfather: Part II', year: 1974 },
-        { title: 'The Dark Knight', year: 2008 }
-    ];
-
-    // For autocomplete component
-    const defaultProps = {
-        options: top100Films,
-        getOptionLabel: (option: FilmOptionType) => option.title,
-    };
-    const flatProps = {
-        options: top100Films.map((option) => option.title),
-    };
-    const [value, setValue] = useState<FilmOptionType | null>(null);
-    // For autocomplete component
-
-    // For checkbox
-    const [checked, setChecked] = useState(true);
-    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setChecked(event.target.checked);
-    };
-    // For checkbox
-
-    // Assign group checkboxes
-    const [assignGroupState, setAssignGroupState] = useState({
-        group1: true,
-        group2: false
-    });
-
-    const handleChangeAssignGroup = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setAssignGroupState({
-            ...assignGroupState,
-            [event.target.name]: event.target.checked,
-        });
-    };
-
-    const { group1, group2 } = assignGroupState;
-    const error = [group1, group2].filter((v) => v).length !== 2;
-    // Assign group checkboxes
 
     return (
         <Box
@@ -155,9 +89,6 @@ const AddGroup: React.FC<UserProps> = ({
                     marginBottom: 2,
                 }}>
                     <Box sx={{
-                        // border: "1px solid black",
-                        // boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;",
-                        // boxShadow: "rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;",
                         boxShadow: "rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;",
                         width: 60,
                         height: 60,
@@ -170,8 +101,7 @@ const AddGroup: React.FC<UserProps> = ({
                         <PeopleOutlineIcon
                             sx={{
                                 color: "#4f747a",
-                                fontSize: 35,
-                                // boxShadow: "rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;", 
+                                fontSize: 35
                             }} />
                     </Box>
                     <Box sx={{ ml: 3 }}>

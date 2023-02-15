@@ -97,12 +97,15 @@ const UserInfoModal: FC<UserInfoModalProps> = ({
                 height: window.innerHeight
             });
         }
+
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
     }, []);
 
     const instructorTitle = t('Home.Header.Modals.ProfileModal.Instructor.title');
     const instructorValue = t('Home.Header.Modals.ProfileModal.Instructor.value');
+
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
 
     return (
         <Modal
@@ -135,10 +138,9 @@ const UserInfoModal: FC<UserInfoModalProps> = ({
                                 <TypeAnimation
                                     // Same String at the start will only be typed once, initially
                                     sequence={[
-                                            instructorValue,
+                                        user.fullName,
                                         1000,
-                                            instructorTitle
-                                            ,
+                                        user.Designataion,
                                         1000
                                     ]}
                                     speed={10} // Custom Speed from 1-99 - Default Speed: 40
@@ -148,10 +150,11 @@ const UserInfoModal: FC<UserInfoModalProps> = ({
 
                             </Typography>
                             <Typography className={styles.headerEmail}>
-                                steveCohan@gmail.com
+                                {user.Email}
                             </Typography>
                             <Typography className={styles.headerSubInfo}>
-                                {t('Home.Header.Modals.ProfileModal.Role.title')} : {t('Home.Header.Modals.ProfileModal.Role.value')}
+                                {t('Home.Header.Modals.ProfileModal.Designation.title')}&nbsp;{user.Designataion}
+                                {/* {t('Home.Header.Modals.ProfileModal.Role.value')} */}
                             </Typography>
                         </Box>
                     </Box>
@@ -184,7 +187,8 @@ const UserInfoModal: FC<UserInfoModalProps> = ({
                                     </Box>
                                     <Box>
                                         <Box sx={{ pl: 1 }}>
-                                            {t('Home.Header.Modals.ProfileModal.College.value')}
+                                            {/* {t('Home.Header.Modals.ProfileModal.College.value')} */}
+                                            {user.College}
                                         </Box>
                                     </Box>
                                 </Typography>
@@ -218,7 +222,8 @@ const UserInfoModal: FC<UserInfoModalProps> = ({
                                     </Box>
                                     <Box>
                                         <Box sx={{ pl: 1 }}>
-                                            {t('Home.Header.Modals.ProfileModal.Campus.value')}
+                                            {/* {t('Home.Header.Modals.ProfileModal.Campus.value')} */}
+                                            {user.Campus}
                                         </Box>
                                     </Box>
                                 </Typography>
@@ -245,7 +250,8 @@ const UserInfoModal: FC<UserInfoModalProps> = ({
                                     </Box>
                                     <Box>
                                         <Box sx={{ pl: 1 }}>
-                                            {t('Home.Header.Modals.ProfileModal.Designation.value')}
+                                            {/* {t('Home.Header.Modals.ProfileModal.Designation.value')} */}
+                                            {user.Designataion}
                                         </Box>
                                     </Box>
                                 </Typography>
@@ -272,7 +278,8 @@ const UserInfoModal: FC<UserInfoModalProps> = ({
                                     </Box>
                                     <Box>
                                         <Box sx={{ pl: 1 }}>
-                                            {t('Home.Header.Modals.ProfileModal.Phone.value')}
+                                            {/* {t('Home.Header.Modals.ProfileModal.Phone.value')} */}
+                                            {user.Phone}
                                         </Box>
                                     </Box>
                                 </Typography>
@@ -299,7 +306,8 @@ const UserInfoModal: FC<UserInfoModalProps> = ({
                                     </Box>
                                     <Box>
                                         <Box sx={{ pl: 1 }}>
-                                            {t('Home.Header.Modals.ProfileModal.LastLogin.value')}
+                                            {/* {t('Home.Header.Modals.ProfileModal.LastLogin.value')} */}
+                                            {user.LastLogin}
                                         </Box>
                                     </Box>
                                 </Typography>
@@ -332,7 +340,8 @@ const UserInfoModal: FC<UserInfoModalProps> = ({
                                     </Box>
                                     <Box>
                                         <Box sx={{ pl: 1 }}>
-                                            {t('Home.Header.Modals.ProfileModal.Department.value')}
+                                            {/* {t('Home.Header.Modals.ProfileModal.Department.value')} */}
+                                            {user.Department}
                                         </Box>
                                     </Box>
                                 </Typography>

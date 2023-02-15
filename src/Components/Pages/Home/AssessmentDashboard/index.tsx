@@ -13,7 +13,7 @@ import { data, states } from '../../../../Data/Tables/CourseOfferings';
 
 import styles from "./style.module.css";
 import "./style.css";
-import GradeComparison from "../../../GradeComparison";
+// import GradeComparison from "../../../GradeComparison";
 
 //Importing useTranslation and Trans from react-i18next
 import { useTranslation } from 'react-i18next';
@@ -26,6 +26,7 @@ interface AssessmentDashboardProps {
     // For minified sidebar
     isMinified: Boolean,
     setIsMinified: any,
+    currentLang: string
 }
 
 const AssessmentDashboard: React.FC<AssessmentDashboardProps> = ({
@@ -33,7 +34,8 @@ const AssessmentDashboard: React.FC<AssessmentDashboardProps> = ({
     isOpen,
     // For minified sidebar
     isMinified,
-    setIsMinified
+    setIsMinified,
+    currentLang
 }) => {
     const { t } = useTranslation();
 
@@ -227,6 +229,7 @@ const AssessmentDashboard: React.FC<AssessmentDashboardProps> = ({
                     tableInfo={`${t('Home.Sidebar.list.Dashboard.subMenu.Dashboard.details.table.subTitle')}`}
                     buttonTitle={"Create New Course Offering"}
                     tableTitle={"<b style={{ fontWeight: 'bold' }}>Offered</b> <i>Courses</i>"}
+                    currentLang={currentLang}
                 />
             </div>
 

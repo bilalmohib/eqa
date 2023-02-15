@@ -1,13 +1,9 @@
 import { useState, useEffect } from "react";
 
 import { useNavigate } from "react-router";
-
-import { IoSpeedometerOutline } from "react-icons/io5";
 import { FaUserAlt } from "react-icons/fa";
 
 import axios from "axios";
-
-import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 
 // Importing components
 import DataTableMD from "../../../../../DataTableMD";
@@ -18,16 +14,13 @@ import Button from '@mui/material/Button';
 
 // @@@@@@@@@@@@@@ IMPORTING COURSE OFFERING TABLE DATA @@@@@@@@@@@@@@@@@
 // Importing the course offering table data
-import { data, states } from '../../../../../../Data/Tables/CourseOfferings';
+import { states } from '../../../../../../Data/Tables/CourseOfferings';
 
 import { useTranslation } from "react-i18next";
 
 import Cookies from "js-cookie";
 
 import styles from "./style.module.css";
-// import "./style.css";
-
-const percentage = 30;
 
 interface UserProps {
     setIsOpen: any,
@@ -35,6 +28,7 @@ interface UserProps {
     // For minified sidebar
     isMinified: Boolean,
     setIsMinified: any,
+    currentLang: string
 }
 
 const ViewUsers: React.FC<UserProps> = ({
@@ -42,7 +36,8 @@ const ViewUsers: React.FC<UserProps> = ({
     isOpen,
     // For minified sidebar
     isMinified,
-    setIsMinified
+    setIsMinified,
+    currentLang
 }) => {
 
     const { t } = useTranslation();
@@ -106,8 +101,7 @@ const ViewUsers: React.FC<UserProps> = ({
             })
                 .then((res) => {
                     setViewAllUsersData(res.data);
-                }
-                )
+                })
                 .catch((err) => {
                     console.log(err);
                 });
@@ -116,14 +110,23 @@ const ViewUsers: React.FC<UserProps> = ({
 
     const tableColHeaders = [
         [
-            'Course Code',
-            'name',
-            'section',
-            'noofstudent',
-            'coordinator',
-            'instructor',
-            'campus',
-            'semester',
+            'userId',
+            'firstName',
+            'lastName',
+            'userName',
+            'emailId',
+            'createdBy',
+            'creationDateAndTime',
+            'updatedBy',
+            'updateDateAndTime',
+            'password',
+            'collegeId',
+            'campusId',
+            'departmentId',
+            'emailStatus',
+            'staff',
+            'superUser',
+            'active'
         ]
     ];
 
@@ -207,17 +210,18 @@ const ViewUsers: React.FC<UserProps> = ({
                 <DataTableMD
                     isOpen={isOpen}
                     data={(
-                        viewAllUsersData !== null 
-                    )?(
+                        viewAllUsersData !== null
+                    ) ? (
                         // @ts-ignore
                         viewAllUsersData.obj
-                        ):([])}
+                    ) : ([])}
                     states={states}
                     ColHeader={tableColHeaders}
-                    columnName={"CourseOfferingTypes"}
+                    columnName={"ViewUsers"}
                     tableInfo={(t('Home.Sidebar.list.userManagement.subMenu.Users.details.table.subTitle'))}
                     buttonTitle={"Create New User"}
                     tableTitle={`<b style={{ fontWeight: "bold" }}>Users</b> <i>List</i>`}
+                    currentLang={currentLang}
                 />
             </div>
             <br /><br />

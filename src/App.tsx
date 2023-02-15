@@ -8,8 +8,6 @@ import AppRouter from "./Router";
 // importing Header
 import Header from "./Components/Header";
 
-import { useLocation } from 'react-router-dom';
-
 // import { Helmet } from 'react-helmet';
 
 import 'react-circular-progressbar/dist/styles.css';
