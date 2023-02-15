@@ -1,6 +1,4 @@
-import React from 'react';
-import { useState, useEffect, FC } from "react";
-import { useLocation } from 'react-router-dom';
+import { useState,FC } from "react";
 // This is a React Router v6 app
 import {
     BrowserRouter as Router,
@@ -13,7 +11,7 @@ import {
 // 1) Home Page
 import Home from "../Pages/Home";
 // 2) Login Page
-import Login from "../Pages/Login";
+// import Login from "../Pages/Login";
 // 3) Login2 Page
 import Login2 from "../Pages/Login2";
 // 4) Forgot Password Page
@@ -98,6 +96,7 @@ const AppRouter: FC<AppRouterProps> = ({
                                     // For minified sidebar
                                     isMinified={isMinified}
                                     setIsMinified={setIsMinified}
+                                    currentLang={currentLang}
                                 />
                             }
                         />}
@@ -123,6 +122,7 @@ const AppRouter: FC<AppRouterProps> = ({
                                         // For minified sidebar
                                         isMinified={isMinified}
                                         setIsMinified={setIsMinified}
+                                        currentLang={currentLang}
                                     />
                                 }
                             />}
@@ -170,6 +170,7 @@ const AppRouter: FC<AppRouterProps> = ({
                                         // For minified sidebar
                                         isMinified={isMinified}
                                         setIsMinified={setIsMinified}
+                                        currentLang={currentLang}
                                     />
                                 }
                             />}
@@ -216,6 +217,7 @@ const AppRouter: FC<AppRouterProps> = ({
                                         // For minified sidebar
                                         isMinified={isMinified}
                                         setIsMinified={setIsMinified}
+                                        currentLang={currentLang}
                                     />
                                 }
                             />}

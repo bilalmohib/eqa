@@ -533,7 +533,8 @@
                                                 },
                                                 "Username": {
                                                     "label": "Username",
-                                                    "placeholder": "Enter your username"
+                                                    "placeholder": "Enter your username",
+                                                    "error": "Username already exists"
                                                 },
                                                 "Password": {
                                                     "label": "Password",

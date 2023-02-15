@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useMemo, useState } from 'react';
+import React, { FC, useCallback, useMemo, useState, useEffect } from 'react';
 import MaterialReactTable, {
     MaterialReactTableProps,
     MRT_Cell,
@@ -13,17 +13,15 @@ import {
     DialogContent,
     DialogTitle,
     IconButton,
-    MenuItem,
     Stack,
     TextField,
     Tooltip,
 } from '@mui/material';
-import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import { Delete, Edit } from '@mui/icons-material';
 // import { ExportToCsv } from 'export-to-csv'; //or use your library of choice here
 
 // Importing @@@@@@@@@@@@@@@@@@@ any @@@@@@@@@@@@@@@@@@@@@
-import { CourseOfferingTypes } from '../../../Data/Tables/CourseOfferings/types';
+// import { CourseOfferingTypes } from '../../../Data/Tables/CourseOfferings/types';
 
 // importing modular css
 import styles from './style.module.css';
@@ -46,7 +44,9 @@ interface CustomTableProps {
     states: string[],
     columnName: string,
     buttonTitle: string,
-    isOpen: Boolean
+    isOpen: Boolean,
+    currentLang: string,
+    ColHeader: any,
 }
 
 const CustomTableCrud: FC<CustomTableProps> = ({
@@ -55,26 +55,32 @@ const CustomTableCrud: FC<CustomTableProps> = ({
     states,
     columnName,
     buttonTitle,
-    isOpen
+    isOpen,
+    currentLang,
+    ColHeader
 }): JSX.Element => {
 
-    const [columnStateValues, setColumnStateValues] = useState<any>(null);
+    // const [columnStateValues, setColumnStateValues] = useState<any>(null);
 
-    const [createModalOpen, setCreateModalOpen] = useState(false);
+    // const [createModalOpen, setCreateModalOpen] = useState(false);
 
     const [tableData, setTableData] = useState<any>(() => data);
     const [validationErrors, setValidationErrors] = useState<{
         [cellId: string]: string;
     }>({});
 
-    const handleCreateNewRow = (values: any) => {
-        tableData.push(values);
-        setTableData([...tableData]);
-    };
+    useEffect(() => {
+        console.log("data", data);
+    }, [data]);
+
+    // const handleCreateNewRow = (values: any) => {
+    //     tableData.push(values);
+    //     setTableData([...tableData]);
+    // };
 
     const handleSaveRowEdits: MaterialReactTableProps<any>['onEditingRowSave'] =
         async ({ exitEditingMode, row, values }) => {
-            console.log("Row ======================> ", row);
+            // console.log("Row ======================> ", row);
             if (!Object.keys(validationErrors).length) {
                 tableData[row.index] = values;
                 //send/receive api updates here, then refetch or update local table data for re-render
@@ -238,33 +244,34 @@ const CustomTableCrud: FC<CustomTableProps> = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
 
     // Function to generate columns
-    function generateColumns(data: any) {
+    const generateColumns = useCallback((data: any) => {
         if (!data || !data.length) return [];
 
-        const keys = Object.keys(data[0]);
+        const keyOrder = ColHeader.flat();
 
-        // console.log(keys);
+        const keys = Object.keys(data[0]).sort((a, b) => {
+            const indexA = keyOrder.indexOf(a);
+            const indexB = keyOrder.indexOf(b);
+            return indexA - indexB;
+        });
 
-        const generate = keys.map(key => ({
+        const generate = keys.map((key) => ({
             accessorKey: key.toString(),
             header: key.toString(),
             size: 150,
-            // @ts-ignore
-            muiTableBodyCellEditTextFieldProps: ({ cell }) => ({
+            muiTableBodyCellEditTextFieldProps: ({ cell }: any) => ({
                 ...getCommonEditTextFieldProps(cell),
             }),
         }));
         return generate;
-    }
-    const columnsNew = useMemo(() => generateColumns(data), [data]);
+    }, [ColHeader, getCommonEditTextFieldProps]);
+
+    // Usage:
+    const columnsNew = useMemo(() => generateColumns(data), [data, generateColumns]);
 
     // Function to generate rows
-    const generateRows = (data: any) => {
+    const generateRows = useCallback((data: any) => {
         if (!data || !data.length) return [];
-
-        const keys = Object.keys(data[0]);
-
-        // console.log(keys);
 
         let BigRow = [];
 
@@ -274,14 +281,32 @@ const CustomTableCrud: FC<CustomTableProps> = ({
             for (const prop in data[i]) {
                 switch (prop) {
                     case 'creationDateAndTime':
-                        newRow[prop] = new Date(
-                            data[i][prop][0],
-                            data[i][prop][1] - 1,
-                            data[i][prop][2],
-                            data[i][prop][3],
-                            data[i][prop][4],
-                            data[i][prop][5]
-                        ).toString();
+                        if (currentLang === 'ar') {
+                            // Date in Arabic
+                            newRow[prop] = new Date(
+                                data[i][prop][0],
+                                data[i][prop][1] - 1,
+                                data[i][prop][2],
+                                data[i][prop][3],
+                                data[i][prop][4],
+                                data[i][prop][5]
+                            ).toLocaleString('ar-EG');
+                        }
+                        else {
+                            // Date in English
+                            newRow[prop] = new Date(
+                                data[i][prop][0],
+                                data[i][prop][1] - 1,
+                                data[i][prop][2],
+                                data[i][prop][3],
+                                data[i][prop][4],
+                                data[i][prop][5]
+                            ).toLocaleString();
+
+                        }
+                        break;
+                    case 'active':
+                        newRow[prop] = data[i][prop] ? 'true' : 'false';
                         break;
                     default:
                         newRow[prop] = data[i][prop] || 'null';
@@ -294,13 +319,13 @@ const CustomTableCrud: FC<CustomTableProps> = ({
 
         // console.log("Generate Big Row ===> ", BigRow);
         return BigRow;
-    }
+    }, [currentLang]);
 
-    const rowsNew = useMemo(() => generateRows(data), [data]);
+    const rowsNew = useMemo(() => generateRows(data), [data, generateRows]);
 
     // console.log("Columns New ===> ", columnsNew);
 
-    // console.log("Rows New ===> ", rowsNew);
+    console.log("Rows New ===> ", rowsNew);
 
     return (
         <div className={styles.container}>
@@ -325,9 +350,9 @@ const CustomTableCrud: FC<CustomTableProps> = ({
                     renderRowActions={({ row, table }) => (
                         <Box sx={{ display: 'flex', gap: '1rem' }}>
                             <Tooltip arrow placement="left" title="Edit">
-                                <IconButton onClick={() =>{ 
+                                <IconButton onClick={() => {
                                     table.setEditingRow(row)
-                                    alert("Edit")
+                                    // alert("Edit")
                                 }
                                 }>
                                     <Edit />
@@ -340,37 +365,7 @@ const CustomTableCrud: FC<CustomTableProps> = ({
                             </Tooltip>
                         </Box>
                     )}
-                // renderTopToolbarCustomActions={() => (
-                //     <Button
-                //         color="primary"
-                //         onClick={() => setCreateModalOpen(true)}
-                //         variant="outlined"
-                //         sx={{
-                //             backgroundColor: "#e79f43",
-                //             border: "1px solid #e79f43",
-                //             color:"white",
-                //             // textTransform: "none",
-                //             fontWeight: "bold",
-                //             height: 40,
-                //             mt: 1,
-                //             "&:hover": {
-                //                 backgroundColor: "#e79f43",
-                //                 border: "1px solid #e79f43",
-                //                 color:"white"
-                //             }
-                //         }}
-                //     >
-                //         {buttonTitle}
-                //     </Button>
-                // )}
                 />
-                {/* <CreateNewAccountModal
-                    columns={columnsNew}
-                    open={createModalOpen}
-                    onClose={() => setCreateModalOpen(false)}
-                    onSubmit={handleCreateNewRow}
-                    buttonTitle={buttonTitle}
-                /> */}
             </div>
         </div>
     );

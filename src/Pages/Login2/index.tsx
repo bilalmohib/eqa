@@ -57,6 +57,7 @@ const Login2: FC<LoginProps> = ({
         }
     }, [location, setShowHeader]);
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [windowSize, setWindowSize] = useState([
         window.innerWidth,
         window.innerHeight,

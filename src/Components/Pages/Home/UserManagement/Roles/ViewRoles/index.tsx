@@ -2,12 +2,14 @@ import { useState, useEffect } from "react";
 
 import { useNavigate } from "react-router";
 
-import { IoSpeedometerOutline } from "react-icons/io5";
 import { HiUserGroup } from "react-icons/hi2";
 
 import AddIcon from '@mui/icons-material/Add';
 // Importing material ui components
 import Button from '@mui/material/Button';
+
+import axios from "axios";
+import Cookies from "js-cookie";
 
 // Importing components
 import DataTableMD from "../../../../../DataTableMD";
@@ -19,16 +21,13 @@ import { useTranslation } from "react-i18next";
 import { data, states } from '../../../../../../Data/Tables/CourseOfferings';
 
 import styles from "./style.module.css";
-// import "./style.css";
-
-const percentage = 30;
-
 interface RolesProps {
     setIsOpen: any,
     isOpen: Boolean,
     // For minified sidebar
     isMinified: Boolean,
     setIsMinified: any,
+    currentLang: string
 }
 
 const ViewRoles: React.FC<RolesProps> = ({
@@ -36,7 +35,8 @@ const ViewRoles: React.FC<RolesProps> = ({
     isOpen,
     // For minified sidebar
     isMinified,
-    setIsMinified
+    setIsMinified,
+    currentLang
 }) => {
     const { t } = useTranslation();
 
@@ -48,18 +48,6 @@ const ViewRoles: React.FC<RolesProps> = ({
         window.innerWidth,
         window.innerHeight,
     ]);
-
-    const styleFirstRowCB = {
-        marginBottom: 24,
-        marginLeft: -36,
-        marginRight: -36,
-    };
-
-    const styleForResponsiveFirstRowCB = {
-        marginBottom: 0,
-        marginLeft: -36,
-        marginRight: -36,
-    }
 
     useEffect(() => {
         const handleWindowResize = () => {
@@ -73,17 +61,49 @@ const ViewRoles: React.FC<RolesProps> = ({
         };
     });
 
+    // Fetching data using axios
+    const [viewAllUsersData, setViewAllUsersData] = useState(null);
+
+    useEffect(() => {
+        console.log("View All Users Data ===> ", viewAllUsersData);
+    });
+
+    useEffect(() => {
+
+        let accessToken: any = Cookies.get("accessToken");
+
+        if (accessToken === undefined || accessToken === null) {
+            accessToken = null;
+        }
+
+        console.log("Access Token in View Users ===> ", accessToken);
+
+        if (accessToken !== null) {
+            // Fetching data using axios and also pass the header x-api-key for auth
+            axios.get("https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/fetchRoles", {
+                headers: {
+                    "x-api-key": accessToken
+                }
+            })
+                .then((res) => {
+                    setViewAllUsersData(res.data);
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+        }
+    }, []);
 
     const tableColHeaders = [
         [
-            'Course Code',
-            'name',
-            'section',
-            'noofstudent',
-            'coordinator',
-            'instructor',
-            'campus',
-            'semester',
+            'roleId',
+            'roleName',
+            'roleDescription',
+            'active',
+            'createdBy',
+            'creationDateAndTime',
+            'updatedBy',
+            'updateDateAndTime'
         ]
     ];
 
@@ -99,7 +119,7 @@ const ViewRoles: React.FC<RolesProps> = ({
         >
             <div style={{ marginTop: 5 }} className={`${(windowSize[0] > 990) ? ("d-flex justify-content-between") : ("d-flex flex-column justify-content-start")}`}>
                 <div>
-                {(t('Home.Sidebar.list.userManagement.subMenu.roles.details.breadcrumb.f1'))} / {(t('Home.Sidebar.list.userManagement.subMenu.roles.details.breadcrumb.f2'))} /<span style={{ color: "#4f747a" }}> {(t('Home.Sidebar.list.userManagement.subMenu.roles.details.breadcrumb.f3'))} </span>
+                    {(t('Home.Sidebar.list.userManagement.subMenu.roles.details.breadcrumb.f1'))} / {(t('Home.Sidebar.list.userManagement.subMenu.roles.details.breadcrumb.f2'))} /<span style={{ color: "#4f747a" }}> {(t('Home.Sidebar.list.userManagement.subMenu.roles.details.breadcrumb.f3'))} </span>
                 </div>
                 <div>
                     <span style={{ color: "#4f747a", paddingRight: 10 }}>{currentFormatedDate}</span>
@@ -112,9 +132,9 @@ const ViewRoles: React.FC<RolesProps> = ({
             <div className={styles.topContainer}>
                 <div className={styles.leftTopContainer}>
                     <HiUserGroup size={27} style={{ marginTop: "3px" }} color="#4f747a" />
-                    <p className={`${styles.topContainerLeftText}`}> 
-                    {/* <b style={{ fontWeight: "bold", color: "#4f747a" }}>Roles</b> Management  */}
-                    {(t('Home.Sidebar.list.userManagement.subMenu.roles.details.title'))}
+                    <p className={`${styles.topContainerLeftText}`}>
+                        {/* <b style={{ fontWeight: "bold", color: "#4f747a" }}>Roles</b> Management  */}
+                        {(t('Home.Sidebar.list.userManagement.subMenu.roles.details.title'))}
                     </p>
                 </div>
                 <div className={styles.rightTopContainer}>
@@ -144,13 +164,19 @@ const ViewRoles: React.FC<RolesProps> = ({
             <div style={{ marginTop: 30 }}>
                 <DataTableMD
                     isOpen={isOpen}
-                    data={data}
+                    data={(
+                        viewAllUsersData !== null
+                    ) ? (
+                        // @ts-ignore
+                        viewAllUsersData.obj
+                    ) : ([])}
                     states={states}
                     ColHeader={tableColHeaders}
                     columnName={"CourseOfferingTypes"}
                     tableInfo={(t('Home.Sidebar.list.userManagement.subMenu.roles.details.table.subTitle'))}
                     buttonTitle={"Create New Role"}
                     tableTitle={`<b style={{ fontWeight: "bold" }}>Roles</b> <i>List</i>`}
+                    currentLang={currentLang}
                 />
             </div>
 

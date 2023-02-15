@@ -1,11 +1,10 @@
 import { useState, useEffect } from "react";
 
 import { useNavigate } from "react-router";
-
-import { IoSpeedometerOutline } from "react-icons/io5";
 import { HiUserGroup } from "react-icons/hi2";
 
-import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
+import axios from "axios";
+import Cookies from "js-cookie";
 
 import AddIcon from '@mui/icons-material/Add';
 // Importing material ui components
@@ -21,9 +20,6 @@ import { useTranslation } from "react-i18next";
 import { data, states } from '../../../../../../Data/Tables/CourseOfferings';
 
 import styles from "./style.module.css";
-// import "./style.css";
-
-const percentage = 30;
 
 interface GroupsProps {
     setIsOpen: any,
@@ -31,6 +27,7 @@ interface GroupsProps {
     // For minified sidebar
     isMinified: Boolean,
     setIsMinified: any,
+    currentLang: string
 }
 
 const ViewGroups: React.FC<GroupsProps> = ({
@@ -38,7 +35,8 @@ const ViewGroups: React.FC<GroupsProps> = ({
     isOpen,
     // For minified sidebar
     isMinified,
-    setIsMinified
+    setIsMinified,
+    currentLang
 }) => {
     const { t } = useTranslation();
 
@@ -50,18 +48,6 @@ const ViewGroups: React.FC<GroupsProps> = ({
         window.innerWidth,
         window.innerHeight,
     ]);
-
-    const styleFirstRowCB = {
-        marginBottom: 24,
-        marginLeft: -36,
-        marginRight: -36,
-    };
-
-    const styleForResponsiveFirstRowCB = {
-        marginBottom: 0,
-        marginLeft: -36,
-        marginRight: -36,
-    }
 
     useEffect(() => {
         const handleWindowResize = () => {
@@ -76,16 +62,49 @@ const ViewGroups: React.FC<GroupsProps> = ({
     });
 
 
+    // Fetching data using axios
+    const [viewAllData, setViewAllData] = useState(null);
+
+    useEffect(() => {
+        console.log("View All Data ===> ", viewAllData);
+    });
+
+    useEffect(() => {
+
+        let accessToken: any = Cookies.get("accessToken");
+
+        if (accessToken === undefined || accessToken === null) {
+            accessToken = null;
+        }
+
+        console.log("Access Token in View Users ===> ", accessToken);
+
+        if (accessToken !== null) {
+            // Fetching data using axios and also pass the header x-api-key for auth
+            axios.get("https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/fetchGroups", {
+                headers: {
+                    "x-api-key": accessToken
+                }
+            })
+                .then((res) => {
+                    setViewAllData(res.data);
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+        }
+    }, []);
+
     const tableColHeaders = [
         [
-            'Course Code',
-            'name',
-            'section',
-            'noofstudent',
-            'coordinator',
-            'instructor',
-            'campus',
-            'semester',
+            'grpId',
+            'grpName',
+            'grpDescription',
+            'active',
+            'createdBy',
+            'creationDateAndTime',
+            'updatedBy',
+            'updateDateAndTime'
         ]
     ];
 
@@ -96,12 +115,12 @@ const ViewGroups: React.FC<GroupsProps> = ({
         }}>
             <div style={{ marginTop: 5 }} className={`${(windowSize[0] > 990) ? ("d-flex justify-content-between") : ("d-flex flex-column justify-content-start")}`}>
                 <div>
-                {(t('Home.Sidebar.list.userManagement.subMenu.groups.details.breadcrumb.f1'))} 
-                    / 
+                    {(t('Home.Sidebar.list.userManagement.subMenu.groups.details.breadcrumb.f1'))}
+                    /
                     {(t('Home.Sidebar.list.userManagement.subMenu.groups.details.breadcrumb.f2'))}
                     /
-                    <span style={{ color: "#4f747a" }}> 
-                    {(t('Home.Sidebar.list.userManagement.subMenu.groups.details.breadcrumb.f3'))} 
+                    <span style={{ color: "#4f747a" }}>
+                        {(t('Home.Sidebar.list.userManagement.subMenu.groups.details.breadcrumb.f3'))}
                     </span>
                 </div>
                 <div>
@@ -115,9 +134,9 @@ const ViewGroups: React.FC<GroupsProps> = ({
             <div className={styles.topContainer}>
                 <div className={styles.leftTopContainer}>
                     <HiUserGroup size={27} style={{ marginTop: "3px" }} color="#4f747a" />
-                    <p className={styles.topContainerLeftText}> 
-                    {/* <b style={{ fontWeight: "bold" }}>Groups</b> Management  */}
-                    {(t('Home.Sidebar.list.userManagement.subMenu.groups.details.title'))} 
+                    <p className={styles.topContainerLeftText}>
+                        {/* <b style={{ fontWeight: "bold" }}>Groups</b> Management  */}
+                        {(t('Home.Sidebar.list.userManagement.subMenu.groups.details.title'))}
                     </p>
                 </div>
                 <div className={styles.rightTopContainer}>
@@ -138,7 +157,7 @@ const ViewGroups: React.FC<GroupsProps> = ({
                         }}
                         startIcon={<AddIcon />}
                     >
-                        {(t('Home.Sidebar.list.userManagement.subMenu.groups.details.addUser'))} 
+                        {(t('Home.Sidebar.list.userManagement.subMenu.groups.details.addUser'))}
                     </Button>
                 </div>
             </div>
@@ -147,13 +166,19 @@ const ViewGroups: React.FC<GroupsProps> = ({
             <div style={{ marginTop: 30 }}>
                 <DataTableMD
                     isOpen={isOpen}
-                    data={data}
+                    data={(
+                        viewAllData !== null
+                    ) ? (
+                        // @ts-ignore
+                        viewAllData.obj
+                    ) : ([])}
                     states={states}
                     ColHeader={tableColHeaders}
                     columnName={"CourseOfferingTypes"}
                     tableInfo={(t('Home.Sidebar.list.userManagement.subMenu.groups.details.table.subTitle'))}
                     buttonTitle={"Create New Group"}
                     tableTitle={`<b style={{ fontWeight: "bold" }}>Groups</b> <i>List</i>`}
+                    currentLang={currentLang}
                 />
             </div>
 
