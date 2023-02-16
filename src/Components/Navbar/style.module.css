@@ -529,6 +529,11 @@ html[dir="rtl"] .dropdownAppNav {
     margin-left: 5%;
     margin-right: 5%;
     transition: 0.3s ease-in-out;
+    /* Display such that I can display all the items in a grid each row containing three items and proper space so that they are properly aligned */
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 10px;
+    /* border: 1px solid red; */
 }
 
 .insideContainerAC li {
@@ -537,6 +542,14 @@ html[dir="rtl"] .dropdownAppNav {
     border-radius: 5px;
     /* border: 1px solid rgb(100, 100, 100); */
     cursor: pointer;
+    transition: 0.2s ease-in-out;
+    text-align: center;
+    padding-top: 10px;
+}
+html[dir="rtl"] .insideContainerAC li {
+    width: auto;
+    height: 95px;
+    border-radius: 5px;
     transition: 0.2s ease-in-out;
     text-align: center;
     padding-top: 10px;

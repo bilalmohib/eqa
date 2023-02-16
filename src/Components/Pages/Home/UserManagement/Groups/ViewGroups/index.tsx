@@ -153,7 +153,7 @@ const ViewGroups: React.FC<GroupsProps> = ({
                             }
                         }}
                         onClick={() => {
-                            navigate("/usermanagement/groups/addgroup");
+                            navigate("/account/groups/addgroup");
                         }}
                         startIcon={<AddIcon />}
                     >

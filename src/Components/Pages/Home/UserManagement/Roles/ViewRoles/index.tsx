@@ -151,7 +151,7 @@ const ViewRoles: React.FC<RolesProps> = ({
                             }
                         }}
                         onClick={() => {
-                            navigate("/usermanagement/roles/addrole");
+                            navigate("/account/roles/addrole");
                         }}
                         startIcon={<AddIcon />}
                     >
