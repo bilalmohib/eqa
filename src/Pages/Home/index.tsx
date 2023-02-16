@@ -178,17 +178,17 @@ const Home = ({
                 {
                     icon: <RxDot style={{ marginLeft: 2 }} />,
                     text: t('Home.Sidebar.list.userManagement.subMenu.Users.text'),
-                    link: "/usermanagement/users/viewusers"
+                    link: "/account/users/viewusers"
                 },
                 {
                     icon: <RxDot style={{ marginLeft: 2 }} />,
                     text: t('Home.Sidebar.list.userManagement.subMenu.groups.text'),
-                    link: "/usermanagement/groups/viewgroups"
+                    link: "/account/groups/viewgroups"
                 },
                 {
                     icon: <RxDot style={{ marginLeft: 2 }} />,
                     text: t('Home.Sidebar.list.userManagement.subMenu.roles.text'),
-                    link: "/usermanagement/roles/viewroles"
+                    link: "/account/roles/viewroles"
                 }
             ]
         },

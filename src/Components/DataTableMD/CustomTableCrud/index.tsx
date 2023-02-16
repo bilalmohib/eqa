@@ -1,4 +1,7 @@
 import React, { FC, useCallback, useMemo, useState, useEffect } from 'react';
+
+import "./loader.css";
+
 import MaterialReactTable, {
     MaterialReactTableProps,
     MRT_Cell,
@@ -16,6 +19,7 @@ import {
     Stack,
     TextField,
     Tooltip,
+    CircularProgress
 } from '@mui/material';
 import { Delete, Edit } from '@mui/icons-material';
 // import { ExportToCsv } from 'export-to-csv'; //or use your library of choice here
@@ -330,42 +334,89 @@ const CustomTableCrud: FC<CustomTableProps> = ({
     return (
         <div className={styles.container}>
             <div className={styles.insideTableContainer}>
-                <MaterialReactTable
-                    displayColumnDefOptions={{
-                        'mrt-row-actions': {
-                            muiTableHeadCellProps: {
-                                align: 'center',
+                {(
+                    data && data.length > 0
+                ) ? (
+                    <MaterialReactTable
+                        displayColumnDefOptions={{
+                            'mrt-row-actions': {
+                                muiTableHeadCellProps: {
+                                    align: 'center',
+                                },
+                                size: 120,
                             },
-                            size: 120,
-                        },
-                    }}
-                    columns={columnsNew}
-                    data={rowsNew}
-                    editingMode="modal" //default
-                    enableColumnOrdering
-                    enableEditing
-                    enableClickToCopy
-                    onEditingRowSave={handleSaveRowEdits}
-                    onEditingRowCancel={handleCancelRowEdits}
-                    renderRowActions={({ row, table }) => (
-                        <Box sx={{ display: 'flex', gap: '1rem' }}>
-                            <Tooltip arrow placement="left" title="Edit">
-                                <IconButton onClick={() => {
-                                    table.setEditingRow(row)
-                                    // alert("Edit")
-                                }
-                                }>
-                                    <Edit />
-                                </IconButton>
-                            </Tooltip>
-                            <Tooltip arrow placement="right" title="Delete">
-                                <IconButton color="error" onClick={() => handleDeleteRow(row)}>
-                                    <Delete />
-                                </IconButton>
-                            </Tooltip>
+                        }}
+                        columns={columnsNew}
+                        data={rowsNew}
+                        editingMode="modal" //default
+                        enableColumnOrdering
+                        enableEditing
+                        enableClickToCopy
+                        onEditingRowSave={handleSaveRowEdits}
+                        onEditingRowCancel={handleCancelRowEdits}
+                        renderRowActions={({ row, table }) => (
+                            <Box sx={{ display: 'flex', gap: '1rem' }}>
+                                <Tooltip arrow placement="left" title="Edit">
+                                    <IconButton onClick={() => {
+                                        table.setEditingRow(row)
+                                        // alert("Edit")
+                                    }
+                                    }>
+                                        <Edit />
+                                    </IconButton>
+                                </Tooltip>
+                                <Tooltip arrow placement="right" title="Delete">
+                                    <IconButton color="error" onClick={() => handleDeleteRow(row)}>
+                                        <Delete />
+                                    </IconButton>
+                                </Tooltip>
+                            </Box>
+                        )}
+                    />
+                ) : (
+                    <Box
+                        sx={{
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+                            height: "100%",
+                        }}
+                    >
+                        <Box sx={{
+                            height: "300px",
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+                            flexDirection: "column"
+                        }}>
+                            {/* <CircularProgress
+                            sx={{
+                                width: "150px",
+                                height: "150px",
+                            }}
+                             /> */}
+                            <div className="lds-roller">
+                                <div>
+                                </div>
+                                <div>
+                                </div>
+                                <div>
+                                </div>
+                                <div>
+                                </div>
+                                <div>
+                                </div>
+                                <div>
+                                </div>
+                                <div>
+                                </div>
+                                <div>
+                                </div>
+                            </div>
+
                         </Box>
-                    )}
-                />
+                    </Box>
+                )}
             </div>
         </div>
     );

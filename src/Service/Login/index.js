@@ -7,7 +7,7 @@ const validateLogin = (object) => {
   return postData(
     "https://eqa.datadimens.com:8443/IDENTITY-SERVICE/login/permissions",
     object
-  ).then((data) => {;
+  ).then((data) => {
     // window.localStorage.setItem("accessToken", data.jwtToken.accessToken);
     // Setting a cookie
     // We are setting the cookie for 60 days
@@ -15,9 +15,14 @@ const validateLogin = (object) => {
 
     const userDetails = data.privilege.user;
 
+    let str = userDetails.emailId;
+    let nameReplace = str.replace(/@.*$/, "");
+    let userName = nameReplace !== str ? nameReplace : null;
+
     const user = {
       Designataion: "Instructor",
       fullName: userDetails.firstName + " " + userDetails.lastName,
+      userName: userName,
       College: userDetails.collegeId,
       Campus: userDetails.campusId,
       Phone: userDetails.phoneNo ? userDetails.phoneNo : "N/A",
@@ -26,7 +31,7 @@ const validateLogin = (object) => {
       Department: userDetails.departmentId,
     };
 
-    console.log("Login data  ===== >", user)
+    console.log("Login data  ===== >", user);
 
     localStorage.setItem("user", JSON.stringify(user));
 
