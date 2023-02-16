@@ -331,9 +331,33 @@ const CustomTableCrud: FC<CustomTableProps> = ({
 
     console.log("Rows New ===> ", rowsNew);
 
+    // Get width and height current window
+
+    const [windowSize, setWindowSize] = useState([
+        window.innerWidth,
+        window.innerHeight,
+    ]);
+
+    useEffect(() => {
+        const handleWindowResize = () => {
+            setWindowSize([window.innerWidth, window.innerHeight]);
+        };
+
+        window.addEventListener('resize', handleWindowResize);
+
+        return () => {
+            window.removeEventListener('resize', handleWindowResize);
+        };
+    });
+
     return (
         <div className={styles.container}>
-            <div className={styles.insideTableContainer}>
+            <div className={styles.insideTableContainer}
+                style={{
+                    height: (windowSize[0] < 600) ? ('400px') : ('100%'),
+                    overflowY: (windowSize[0] < 600) ? ('auto') : ('unset'),
+                }}
+            >
                 {(
                     data && data.length > 0
                 ) ? (
@@ -346,6 +370,12 @@ const CustomTableCrud: FC<CustomTableProps> = ({
                                 size: 120,
                             },
                         }}
+                        // sx={{
+                        //     '& .MuiTableBody-root': {
+                        //         height: 'calc(300px)',
+                        //         overflowY: 'auto',
+                        //     },
+                        // }}
                         columns={columnsNew}
                         data={rowsNew}
                         editingMode="modal" //default

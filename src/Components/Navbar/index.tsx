@@ -42,11 +42,14 @@ import {
     TextField
 } from "@mui/material";
 
+import axios from 'axios';
+
 // Importing i18 for language
 import i18n from "../../i18n";
 
 // Importing logout Service
 import { logoutService } from "../../Service/logoutService";
+import { useMemo } from 'preact/hooks';
 
 interface NavProps {
     setIsOpen: any,
@@ -96,18 +99,6 @@ const Navbar: React.FC<NavProps> = ({
         window.innerHeight,
     ]);
 
-    const changeTheLanguage = (e: any) => {
-        i18n.changeLanguage(e);
-        // if (e === "en") {
-        //     // alert("Language changed english")
-        //     // navigate(`/`);
-        // }
-        // else {
-        //     // navigate(`/${e}`);            
-        //     // alert("Language Arabic")
-        // }
-    }
-
     useEffect(() => {
         const handleWindowResize = () => {
             setWindowSize([window.innerWidth, window.innerHeight]);
@@ -119,6 +110,18 @@ const Navbar: React.FC<NavProps> = ({
             window.removeEventListener('resize', handleWindowResize);
         };
     });
+
+    const changeTheLanguage = (e: any) => {
+        i18n.changeLanguage(e);
+        // if (e === "en") {
+        //     // alert("Language changed english")
+        //     // navigate(`/`);
+        // }
+        // else {
+        //     // navigate(`/${e}`);            
+        //     // alert("Language Arabic")
+        // }
+    }
 
     const [selectedDay, setSelectedDay] = useState<any>(null);
 
@@ -167,6 +170,146 @@ const Navbar: React.FC<NavProps> = ({
             changeTheLanguage("en");
         }
     }
+
+    interface AppsListProps {
+        appUrl: string,
+        icon: any,
+        text: string
+    }
+
+    // Fetching the Apps List
+    // const [viewAllAppsData, setViewAllAppsData] = useState(null);
+
+    // User use memo to avoid the infinite loop to define the appsList
+    // eslint-disable-next-line no-empty-pattern
+    const appsList: AppsListProps[] = [
+        {
+            appUrl: "/assessment",
+            icon: <MdOutlineFactCheck style={{ color: "#4f747a", fontSize: 50, height: 50, width: 50 }} />,
+            text: t('Home.Header.DropDown.Apps.List.Assessment')
+        },
+        {
+            appUrl: "/form",
+            icon: <i className="fab fa-wpforms" style={{ color: "#777777", fontSize: 48, height: 50, width: 50 }}></i>,
+            text: t('Home.Header.DropDown.Apps.List.Form')
+        },
+        {
+            appUrl: "/alarm",
+            icon: <TfiAlarmClock style={{ color: "red", fontSize: 48, height: 48, width: 48, marginBottom: 2 }} />,
+            text: t('Home.Header.DropDown.Apps.List.Alarm')
+        },
+        {
+            appUrl: "/report",
+            icon: <PieChartIcon sx={{ color: "orange", fontSize: 50, height: 50, width: 50 }} />,
+            text: t('Home.Header.DropDown.Apps.List.Report')
+        },
+        {
+            appUrl: "/portal",
+            icon: <ImportExportIcon style={{ color: "grey", fontSize: 50, height: 50, width: 50 }} />,
+            text: t('Home.Header.DropDown.Apps.List.Portal')
+        },
+        {
+            appUrl: "/account",
+            icon: <ManageAccountsIcon style={{ color: "blue", fontSize: 50, height: 50, width: 50 }} />,
+            text: t('Home.Header.DropDown.Apps.List.account')
+        },
+        {
+            appUrl: "/calender",
+            icon: <i className="far fa-calendar-alt" style={{ color: "#0c7cd5", fontSize: 48, height: 50, width: 50 }}></i>,
+            text: t('Home.Header.DropDown.Apps.List.calender')
+        },
+        {
+            appUrl: "/stats",
+            icon: <i className="fas fa-chart-pie" style={{ color: "#0c7cd5", fontSize: 48, height: 48, width: 50 }}></i>,
+            text: t('Home.Header.DropDown.Apps.List.stats')
+        },
+        {
+            appUrl: "/messages",
+            icon: <i className="fas fa-envelope" style={{ color: "#fd52a3", fontSize: 48, height: 50, width: 50 }}></i>,
+            text: t('Home.Header.DropDown.Apps.List.messages')
+        },
+        {
+            appUrl: "/notes",
+            icon: <i className="fas fa-keyboard" style={{ color: "#97c4e8", fontSize: 48, height: 50, width: 50 }}></i>,
+            text: t('Home.Header.DropDown.Apps.List.notes')
+        },
+        {
+            appUrl: "/photos",
+            icon: <i className="fas fa-camera-retro" style={{ color: "#777777", fontSize: 48, height: 50, width: 50 }}></i>,
+            text: t('Home.Header.DropDown.Apps.List.photos')
+        },
+        {
+            appUrl: "/maps",
+            icon: <i className="fas fa-globe" style={{ color: "#0F5E9C", fontSize: 48, height: 50, width: 50 }}></i>,
+            text: t('Home.Header.DropDown.Apps.List.maps')
+        },
+    ];
+
+    const [finalAppsList, setFinalAppsList] = useState<any>([]);
+
+    useEffect(() => {
+
+        let accessToken: any = Cookies.get("accessToken");
+
+        if (accessToken === undefined || accessToken === null) {
+            accessToken = null;
+        }
+
+        console.log("Access Token in View All Apps Data ===> ", accessToken);
+
+        if (accessToken !== null) {
+            // Fetching data using axios and also pass the header x-api-key for auth
+            axios.get("https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/fetchAppDetails", {
+                headers: {
+                    "x-api-key": accessToken
+                }
+            })
+                .then((res: any) => {
+                    //setViewAllAppsData(res.data);
+                    const viewAllAppsData = res.data.obj;
+                    if (viewAllAppsData !== null && viewAllAppsData !== undefined) {
+                        // Check if the appurl of viewAppAppsData maches with the appUrl of appsList
+                        // If it matches then push the appUrl to finalAppsList
+                        let finalAppsList: any = [];
+
+                        for (let i = 0; i < appsList.length; i++) {
+                            console.log("Final Apps List ===> ", appsList[i]);
+                            for (let j = 0; j < viewAllAppsData.length; j++) {
+                                if (appsList[i].appUrl === viewAllAppsData[j].appUrl) {
+                                    finalAppsList.push(appsList[i]);
+                                    console.log("Final Apps List ===> ", appsList[i]);
+                                }
+                            }
+                        }
+                        setFinalAppsList(finalAppsList);
+                    }
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+        }
+    }, []);
+    // Fetching the Apps List
+
+    // useEffect(() => {
+    //     // console.log("View All Apps Data ===> ", viewAllAppsData);
+    //     if (viewAllAppsData !== null && viewAllAppsData !== undefined) {
+    //         // Check if the appurl of viewAppAppsData maches with the appUrl of appsList
+    //         // If it matches then push the appUrl to finalAppsList
+    //         let finalAppsList: any = [];
+    //         // @ts-ignore
+    //         for (let i = 0; i < viewAllAppsData.length; i++) {
+    //             // @ts-ignore
+    //             for (let j = 0; j < appsList.length; j++) {
+    //                 // @ts-ignore
+    //                 if (viewAllAppsData[i].appUrl === appsList[j].appUrl) {
+    //                     finalAppsList.push(appsList[j]);
+    //                 }
+    //             }
+    //         }
+    //         setFinalAppsList(finalAppsList);
+    //     }
+    // }, [viewAllAppsData, appsList]);
 
     return (
         <nav className={`navbar navbar-expand-lg navbar-light ${styles.nav_bar} ${(isOpen === true) ? (`${(!isMinified) ? (styles.isSideOpen) : (styles.isSideOpenMinified)}`) : (styles.isSideClose)} ${(windowSize[0] < 991 && isOpen) ? ("") : ("")}`}
@@ -344,7 +487,7 @@ const Navbar: React.FC<NavProps> = ({
                                     </li>
                                     <li>
                                         <section className={styles.AppsContainerDropDown}>
-                                            <div className={`d-flex justify-content-between ${styles.insideContainerAC}`}>
+                                            {/* <div className={`d-flex justify-content-between ${styles.insideContainerAC}`}>
                                                 <li>
                                                     <MdOutlineFactCheck style={{ color: "#4f747a", fontSize: 50, height: 50, width: 50 }} />
                                                     <p>{t('Home.Header.DropDown.Apps.List.Assessment')}</p>
@@ -441,6 +584,21 @@ const Navbar: React.FC<NavProps> = ({
                                                     <i className="fas fa-globe" style={{ color: "#0F5E9C", fontSize: 48, height: 50, width: 50 }}></i>
                                                     <p>{t('Home.Header.DropDown.Apps.List.maps')}</p>
                                                 </li>
+                                            </div> */}
+                                            <div className={`${styles.insideContainerAC}`}>
+                                                {(finalAppsList.length > 0) ? (
+                                                    finalAppsList.map((app: any, index: number) => (
+                                                        <div key={index}>
+                                                            <li>
+                                                                {app.icon}
+                                                                <p>{app.text}</p>
+                                                            </li>
+                                                        </div>
+                                                    ))
+                                                ) : (
+                                                    <div>
+                                                    </div>
+                                                )}
                                             </div>
                                         </section>
                                     </li>
