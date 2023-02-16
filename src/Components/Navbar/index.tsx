@@ -311,6 +311,18 @@ const Navbar: React.FC<NavProps> = ({
     //     }
     // }, [viewAllAppsData, appsList]);
 
+    const [checkedList, setCheckedList] = useState<boolean[]>(
+        new Array<boolean>(finalAppsList.length).fill(false)
+    );
+
+    const handleCheckboxChange = (index: number): void => {
+        setCheckedList((prevList: boolean[]) => {
+            const newList: boolean[] = [...prevList];
+            newList[index] = !newList[index];
+            return newList;
+        });
+    };
+
     return (
         <nav className={`navbar navbar-expand-lg navbar-light ${styles.nav_bar} ${(isOpen === true) ? (`${(!isMinified) ? (styles.isSideOpen) : (styles.isSideOpenMinified)}`) : (styles.isSideClose)} ${(windowSize[0] < 991 && isOpen) ? ("") : ("")}`}
             onClick={() => {
@@ -588,11 +600,54 @@ const Navbar: React.FC<NavProps> = ({
                                             <div className={`${styles.insideContainerAC}`}>
                                                 {(finalAppsList.length > 0) ? (
                                                     finalAppsList.map((app: any, index: number) => (
-                                                        <div key={index}>
-                                                            <li>
+                                                        <div
+                                                            key={index}
+                                                            style={{ position: "relative",cursor:"pointer" }}
+                                                            onClick={() => handleCheckboxChange(index)}
+                                                        >
+                                                             <li>
                                                                 {app.icon}
                                                                 <p>{app.text}</p>
                                                             </li>
+                                                            <div
+                                                                style={{
+                                                                    position: "absolute",
+                                                                    top: "0",
+                                                                    right: "0",
+                                                                    display: "flex",
+                                                                    alignItems: "center",
+                                                                    justifyContent: "center",
+                                                                    backgroundColor: "green", // custom green color
+                                                                    width: "24px",
+                                                                    height: "24px",
+                                                                    borderRadius: "50%",
+                                                                    cursor: "pointer",
+                                                                }}
+                                                            >
+                                                                {checkedList[index] && (
+                                                                    <span
+                                                                        style={{
+                                                                            display: "flex",
+                                                                            alignItems: "center",
+                                                                            justifyContent: "center",
+                                                                            width: "12px",
+                                                                            height: "12px",
+                                                                            borderRadius: "50%",
+                                                                            backgroundColor: "#fff",
+                                                                        }}
+                                                                    >
+                                                                        <span
+                                                                            style={{
+                                                                                display: "block",
+                                                                                width: "6px",
+                                                                                height: "6px",
+                                                                                borderRadius: "50%",
+                                                                                backgroundColor: "green",
+                                                                            }}
+                                                                        />
+                                                                    </span>
+                                                                )}
+                                                            </div>
                                                         </div>
                                                     ))
                                                 ) : (
