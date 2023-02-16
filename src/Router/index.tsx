@@ -102,7 +102,7 @@ const AppRouter: FC<AppRouterProps> = ({
                         />}
                     />
                 </Route>
-                <Route path="usermanagement">
+                <Route path="account">
                     <Route path={"users"}>
                         <Route
                             path={"viewusers"}

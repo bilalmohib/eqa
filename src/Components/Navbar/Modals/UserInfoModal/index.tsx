@@ -105,6 +105,7 @@ const UserInfoModal: FC<UserInfoModalProps> = ({
     const instructorTitle = t('Home.Header.Modals.ProfileModal.Instructor.title');
     const instructorValue = t('Home.Header.Modals.ProfileModal.Instructor.value');
 
+    // Data from Local Storage for logged in user
     const user = JSON.parse(localStorage.getItem('user') || '{}');
 
     return (
@@ -364,7 +365,8 @@ const UserInfoModal: FC<UserInfoModalProps> = ({
                                         </Box>
                                         <Box>
                                             <Box sx={{ pl: 2, pt: 0.5 }}>
-                                                {t('Home.Header.Modals.ProfileModal.Linkedin.value')}
+                                                {/* {t('Home.Header.Modals.ProfileModal.Linkedin.value')} */}
+                                                {user.userName}
                                             </Box>
                                         </Box>
                                     </Typography>
@@ -381,7 +383,8 @@ const UserInfoModal: FC<UserInfoModalProps> = ({
                                         </Box>
                                         <Box>
                                             <Box sx={{ pl: 2, pt: 0.5 }}>
-                                                {t('Home.Header.Modals.ProfileModal.Twitter.value')}
+                                                {/* {t('Home.Header.Modals.ProfileModal.Twitter.value')} */}
+                                                {user.userName}
                                             </Box>
                                         </Box>
                                     </Typography>
@@ -398,7 +401,8 @@ const UserInfoModal: FC<UserInfoModalProps> = ({
                                         </Box>
                                         <Box>
                                             <Box sx={{ pl: 2, pt: 0.5 }}>
-                                                {t('Home.Header.Modals.ProfileModal.Facebook.value')}
+                                                {/* {t('Home.Header.Modals.ProfileModal.Facebook.value')} */}
+                                                {user.userName}
                                             </Box>
                                         </Box>
                                     </Typography>

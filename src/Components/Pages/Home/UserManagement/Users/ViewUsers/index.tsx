@@ -171,7 +171,7 @@ const ViewUsers: React.FC<UserProps> = ({
                             }
                         }}
                         onClick={() => {
-                            navigate("/usermanagement/users/adduser");
+                            navigate("/account/users/adduser");
                         }}
                         startIcon={<AddIcon />}
                     >

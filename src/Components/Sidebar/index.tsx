@@ -165,6 +165,9 @@ const Sidebar: React.FC<SidebarProps> = ({
 
     const [showFilterMenu, setShowFilterMenu] = useState<boolean>(false);
 
+    // Data from Local Storage for logged in user
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
+
     return (
         <section className={`${styles.sidebar} ${(!isOpen) && (styles.hideSidebar)} ${(isMinified) && (styles.minifySidebar)}`}
             onMouseLeave={() => {
@@ -210,12 +213,19 @@ const Sidebar: React.FC<SidebarProps> = ({
                                     width={50}
                                     height={50}
                                     src="https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8Mnx8fGVufDB8fHx8&w=1000&q=80"
-                                    alt={`${(t('Home.Sidebar.profile.name'))}`}
+                                    alt={user.fullName}
+                                    title={user.fullName}
                                 />
                             </div>
                             <div className={styles.rightInsideProfile}>
-                                <h3>{(t('Home.Sidebar.profile.name'))}</h3>
-                                <p>{(t('Home.Sidebar.profile.location'))}</p>
+                                <h3>
+                                    {/* {(t('Home.Sidebar.profile.name'))} */}
+                                    {user.fullName}
+                                </h3>
+                                <p>
+                                    {/* {(t('Home.Sidebar.profile.location'))} */}
+                                    {user.Campus}
+                                </p>
                             </div>
                         </div>
                     </div>

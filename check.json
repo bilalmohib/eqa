@@ -1,0 +1,90 @@
+{
+    "timestamp": "15/02/2023 20:33:13",
+    "transactionId": "IACNJMOXJQ7649319319",
+    "status": "OK",
+    "code": "200.200",
+    "message": [
+        "App details has been fetched successfully, RecordCount: 4"
+    ],
+    "obj": [
+        {
+            "createdBy": "shahnawaz.hassan",
+            "creationDateAndTime": [
+                2022,
+                12,
+                17,
+                8,
+                19,
+                22
+            ],
+            "updatedBy": null,
+            "updateDateAndTime": null,
+            "appId": "OA0001",
+            "appName": "EQA-CORE",
+            "appDescription": "This is a Core Service of EQA",
+            "appUrl": "/eqaCore",
+            "active": true
+        },
+        {
+            "createdBy": "shahnawaz.hassan",
+            "creationDateAndTime": [
+                2022,
+                12,
+                17,
+                8,
+                20,
+                22
+            ],
+            "updatedBy": "muntaha",
+            "updateDateAndTime": [
+                2023,
+                2,
+                1,
+                9,
+                41,
+                10
+            ],
+            "appId": "OA0002",
+            "appName": "Assessment Application",
+            "appDescription": "Assessment Application will be available for all the instructors",
+            "appUrl": "/assessment",
+            "active": true
+        },
+        {
+            "createdBy": "muntaha",
+            "creationDateAndTime": [
+                2023,
+                2,
+                1,
+                11,
+                39,
+                18
+            ],
+            "updatedBy": null,
+            "updateDateAndTime": null,
+            "appId": "OA03",
+            "appName": "Account",
+            "appDescription": "Account app is used to manage user authentication and authorization.",
+            "appUrl": "/account",
+            "active": true
+        },
+        {
+            "createdBy": "muntaha",
+            "creationDateAndTime": [
+                2023,
+                2,
+                8,
+                9,
+                37,
+                13
+            ],
+            "updatedBy": null,
+            "updateDateAndTime": null,
+            "appId": "OA04",
+            "appName": "EQA FORM",
+            "appDescription": "Generate Dynamic Form",
+            "appUrl": "/form",
+            "active": true
+        }
+    ]
+}

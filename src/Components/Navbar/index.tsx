@@ -88,6 +88,9 @@ const Navbar: React.FC<NavProps> = ({
     const { t } = useTranslation();
     const navigate = useNavigate();
 
+    // Data from Local Storage for logged in user
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
+
     const [windowSize, setWindowSize] = useState([
         window.innerWidth,
         window.innerHeight,
@@ -566,8 +569,14 @@ const Navbar: React.FC<NavProps> = ({
                                                     />
                                                 </div>
                                                 <div className={styles.rightInsideProfile}>
-                                                    <h3>{t('Home.Header.DropDown.Apps.Profile.name')}</h3>
-                                                    <p>{t('Home.Header.DropDown.Apps.Profile.location')}</p>
+                                                    <h3>
+                                                        {/* {t('Home.Header.DropDown.Apps.Profile.name')} */}
+                                                        {user.fullName}
+                                                    </h3>
+                                                    <p>
+                                                        {/* {t('Home.Header.DropDown.Apps.Profile.location')} */}
+                                                        {user.Campus}
+                                                    </p>
                                                 </div>
                                             </div>
                                         </div>
@@ -682,7 +691,7 @@ const Navbar: React.FC<NavProps> = ({
                                                     <b className='text-danger'>{t('Home.Header.DropDown.Apps.Profile.list.Logout.title')}</b>
                                                 </div>
                                                 <div style={{ textOverflow: "ellipsis", width: 120 }}>
-                                                    <p style={{ color: "black", textOverflow: "ellipsis", overflow: "hidden" }}>{t('Home.Header.DropDown.Apps.Profile.list.Logout.email')}</p>
+                                                    <p style={{ color: "black", textOverflow: "ellipsis", overflow: "hidden" }}>{user.Email}</p>
                                                 </div>
                                             </div>
                                         </a>
