@@ -126,7 +126,7 @@ html[dir="rtl"] .btnControl{
    margin-left: 1%;
    margin-right: 1%; */
    /* border: 1px solid red; */
-   min-height: 100% !important;
+   min-height: 100px !important;
 }
 /* Body Ends Here */
 
@@ -176,6 +176,8 @@ html[dir="rtl"] .btnControl{
     .bodyOfBodyContainer{
         width: 97%;
         margin-left: 1.5%;
+        min-height: 400px !important;
+        /* border:2px solid red !important; */
     }
     html[dir="rtl"] .bodyOfBodyContainer{
         width: 97%;

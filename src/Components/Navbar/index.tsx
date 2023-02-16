@@ -96,18 +96,6 @@ const Navbar: React.FC<NavProps> = ({
         window.innerHeight,
     ]);
 
-    const changeTheLanguage = (e: any) => {
-        i18n.changeLanguage(e);
-        // if (e === "en") {
-        //     // alert("Language changed english")
-        //     // navigate(`/`);
-        // }
-        // else {
-        //     // navigate(`/${e}`);            
-        //     // alert("Language Arabic")
-        // }
-    }
-
     useEffect(() => {
         const handleWindowResize = () => {
             setWindowSize([window.innerWidth, window.innerHeight]);
@@ -119,6 +107,18 @@ const Navbar: React.FC<NavProps> = ({
             window.removeEventListener('resize', handleWindowResize);
         };
     });
+
+    const changeTheLanguage = (e: any) => {
+        i18n.changeLanguage(e);
+        // if (e === "en") {
+        //     // alert("Language changed english")
+        //     // navigate(`/`);
+        // }
+        // else {
+        //     // navigate(`/${e}`);            
+        //     // alert("Language Arabic")
+        // }
+    }
 
     const [selectedDay, setSelectedDay] = useState<any>(null);
 
