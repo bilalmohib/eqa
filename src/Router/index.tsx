@@ -1,4 +1,4 @@
-import { useState,FC } from "react";
+import { useState, FC } from "react";
 // This is a React Router v6 app
 import {
     BrowserRouter as Router,
@@ -60,6 +60,8 @@ const AppRouter: FC<AppRouterProps> = ({
     // For minified sidebar
     const [isMinified, setIsMinified] = useState<Boolean>(false);
 
+    const [sidebarAppsListArray, setSidebarAppsListArray] = useState<any>([]);
+
     return (
         <Router>
             <Routes>
@@ -68,6 +70,10 @@ const AppRouter: FC<AppRouterProps> = ({
                     currentTab={currentTab}
                     setCurrentTab={setCurrentTab}
                     mobileViewContainer={mobileViewContainer}
+
+                    // Sidebar Apps List
+                    sidebarAppsListArray={sidebarAppsListArray}
+                    setSidebarAppsListArray={setSidebarAppsListArray}
                 />}
                 />
                 <Route index path={"/"} element={<Login2
@@ -75,6 +81,10 @@ const AppRouter: FC<AppRouterProps> = ({
                     currentTab={currentTab}
                     setCurrentTab={setCurrentTab}
                     mobileViewContainer={mobileViewContainer}
+
+                    // Sidebar Apps List
+                    sidebarAppsListArray={sidebarAppsListArray}
+                    setSidebarAppsListArray={setSidebarAppsListArray}
                 />}
                 />
                 <Route path="dashboard">
@@ -89,6 +99,12 @@ const AppRouter: FC<AppRouterProps> = ({
                             setIsMinified={setIsMinified}
                             currentLang={currentLang}
                             setCurrentLang={setCurrentLang}
+
+                            // Sidebar Apps List
+                            sidebarAppsListArray={sidebarAppsListArray}
+                            setSidebarAppsListArray={setSidebarAppsListArray}
+
+                            // @subComponent
                             subComponent={
                                 <AssessmentDashboard
                                     isOpen={isOpen}
@@ -115,6 +131,12 @@ const AppRouter: FC<AppRouterProps> = ({
                                 setIsMinified={setIsMinified}
                                 currentLang={currentLang}
                                 setCurrentLang={setCurrentLang}
+
+                                // Sidebar Apps List
+                                sidebarAppsListArray={sidebarAppsListArray}
+                                setSidebarAppsListArray={setSidebarAppsListArray}
+
+                                // @subComponent
                                 subComponent={
                                     <ViewUsers
                                         isOpen={isOpen}
@@ -138,6 +160,12 @@ const AppRouter: FC<AppRouterProps> = ({
                                 setIsMinified={setIsMinified}
                                 currentLang={currentLang}
                                 setCurrentLang={setCurrentLang}
+
+                                // Sidebar Apps List
+                                sidebarAppsListArray={sidebarAppsListArray}
+                                setSidebarAppsListArray={setSidebarAppsListArray}
+
+                                // @subComponent
                                 subComponent={
                                     <AddUser
                                         isOpen={isOpen}
@@ -163,6 +191,12 @@ const AppRouter: FC<AppRouterProps> = ({
                                 setIsMinified={setIsMinified}
                                 currentLang={currentLang}
                                 setCurrentLang={setCurrentLang}
+
+                                // Sidebar Apps List
+                                sidebarAppsListArray={sidebarAppsListArray}
+                                setSidebarAppsListArray={setSidebarAppsListArray}
+
+                                // @subComponent
                                 subComponent={
                                     <ViewGroups
                                         isOpen={isOpen}
@@ -186,6 +220,12 @@ const AppRouter: FC<AppRouterProps> = ({
                                 setIsMinified={setIsMinified}
                                 currentLang={currentLang}
                                 setCurrentLang={setCurrentLang}
+
+                                // Sidebar Apps List
+                                sidebarAppsListArray={sidebarAppsListArray}
+                                setSidebarAppsListArray={setSidebarAppsListArray}
+
+                                // @subComponent
                                 subComponent={
                                     <AddGroup
                                         isOpen={isOpen}
@@ -210,6 +250,12 @@ const AppRouter: FC<AppRouterProps> = ({
                                 setIsMinified={setIsMinified}
                                 currentLang={currentLang}
                                 setCurrentLang={setCurrentLang}
+
+                                // Sidebar Apps List
+                                sidebarAppsListArray={sidebarAppsListArray}
+                                setSidebarAppsListArray={setSidebarAppsListArray}
+
+                                // @subComponent
                                 subComponent={
                                     <ViewRoles
                                         isOpen={isOpen}
@@ -233,6 +279,12 @@ const AppRouter: FC<AppRouterProps> = ({
                                 setIsMinified={setIsMinified}
                                 currentLang={currentLang}
                                 setCurrentLang={setCurrentLang}
+
+                                // Sidebar Apps List
+                                sidebarAppsListArray={sidebarAppsListArray}
+                                setSidebarAppsListArray={setSidebarAppsListArray}
+
+                                // @subComponent
                                 subComponent={
                                     <AddRole
                                         isOpen={isOpen}
@@ -258,6 +310,12 @@ const AppRouter: FC<AppRouterProps> = ({
                             setIsMinified={setIsMinified}
                             currentLang={currentLang}
                             setCurrentLang={setCurrentLang}
+
+                            // Sidebar Apps List
+                            sidebarAppsListArray={sidebarAppsListArray}
+                            setSidebarAppsListArray={setSidebarAppsListArray}
+
+                            // @subComponent
                             subComponent={
                                 <Settings
                                     isOpen={isOpen}

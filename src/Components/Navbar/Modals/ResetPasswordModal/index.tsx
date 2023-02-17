@@ -1,5 +1,8 @@
 import * as React from "react";
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+
+import Cookies from "js-cookie";
 
 // importing from material ui
 import {
@@ -13,29 +16,29 @@ import {
     InputLabel,
     InputAdornment,
     OutlinedInput,
-    IconButton
+    IconButton,
 } from "@mui/material";
 
-import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
+import Grid2 from "@mui/material/Unstable_Grid2";
 
-// Importing icons 
-import Visibility from '@mui/icons-material/Visibility';
-import VisibilityOff from '@mui/icons-material/VisibilityOff';
+// Importing icons
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
 
 // Importing Services Layer API
-import { resetPassword } from '../../../../Service/ResetPassword';
+import { resetPassword } from "../../../../Service/ResetPassword";
 
 import { useTranslation } from "react-i18next";
 
 import styles from "./style.module.css";
 
 interface ResetPasswordModalProps {
-    openResetPasswordModal: boolean,
-    setOpenResetPasswordModal: any,
+    openResetPasswordModal: boolean;
+    setOpenResetPasswordModal: React.Dispatch<React.SetStateAction<boolean>>;
 
     // Current Language
-    currentLang: string,
-    setCurrentLang: any
+    currentLang: string;
+    setCurrentLang: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const ResetPasswordModal: React.FC<ResetPasswordModalProps> = ({
@@ -44,60 +47,95 @@ const ResetPasswordModal: React.FC<ResetPasswordModalProps> = ({
 
     // Current Language
     currentLang,
-    setCurrentLang
+    setCurrentLang,
 }) => {
     const { t } = useTranslation();
+
+    const navigate = useNavigate();
 
     const [oldPassword, setOldPassword] = useState<string>("");
     const [newPassword, setNewPassword] = useState<string>("");
     const [confirmPassword, setConfirmPassword] = useState<string>("");
 
     // For handling show/hide password
-    const [showPassword, setShowPassword] = useState(false);
+    const [showOldPassword, setShowOldPassword] = useState(false);
+    const [showNewPassword, setShowNewPassword] = useState(false);
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
-    const handleClickShowPassword = () => setShowPassword((show) => !show);
+    const handleClickShowOldPassword = () =>
+        setShowOldPassword((show) => !show);
+    const handleClickShowNewPassword = () =>
+        setShowNewPassword((show) => !show);
+    const handleClickShowConfirmPassword = () =>
+        setShowConfirmPassword((show) => !show);
 
-    const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
+    const handleMouseDownPassword = (
+        event: React.MouseEvent<HTMLButtonElement>
+    ) => {
         event.preventDefault();
     };
     // For handling show/hide password
 
     const validateForm = () => {
-        alert("Validating Form");
+        // alert("Validating Form");
         //   setValidateNow(true);
         if (oldPassword === "" || newPassword === "" || confirmPassword === "") {
             // setValidationStatusEmail(false);
             // setValidationStatusPassword(false);
             alert("Please enter all the fields");
             return;
-        } else {
-            const apiKey = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzaGFiYmlyIiwiZXhwIjoxNjc1NTk5MDg3LCJpYXQiOjE2NzU1MTI2ODd9.ju77mMNz7aupL4ZP-YGj5_D0mH_UlGhVj2K1uf8St2H3uUtUxIGMRsy-2-JbRV494GTxauirsQDopLYRmytXPA";
-            // console.log("Presentation Layer Response: ", email);
-            resetPassword({
-                "oldPassword": oldPassword,
-                "newPassword": newPassword,
-            }, apiKey).then(response => {
-                console.log("Presetation layer response: ", response);
-                if (response === 'SUCCESS') {
-                    alert("Password Reset Successfully");
-                    // setValidationStatusEmail(true);
-                    // setValidationStatusPassword(true);
-                    // alert("Validated Correctly");
-                    // navigate("/dashboard/assessment");
-                }
-            }).catch(error => {
-                console.log("Error in response : ", error);
-                // else if (response === 'FAILED') {
-                // setValidateNow(false);
-                // setValidationStatusEmail(false);
-                // setValidationStatusPassword(false);
-                // Clearing the fields
-                setOldPassword("");
-                setNewPassword("");
-                setConfirmPassword("");
-                alert("Invalid Credentials");
-                return;
-            });
+        } else if (newPassword !== confirmPassword) {
+            alert("New Password and Confirm Password should be same");
+            return;
+        }
+        else {
+            let accessToken: any = Cookies.get("accessToken");
+
+            if (accessToken === undefined || accessToken === null) {
+                accessToken = null;
+            }
+
+            console.log(
+                "Access Token in View All Apps Data ===> ",
+                accessToken
+            );
+
+            if (accessToken !== null) {
+                resetPassword(
+                    {
+                        oldPassword: oldPassword,
+                        newPassword: newPassword,
+                    },
+                    accessToken
+                )
+                    .then((response) => {
+                        console.log("Presetation layer response: ", response);
+                        if (response === "SUCCESS") {
+                            alert("Password Reset Successfully");
+                            // setValidationStatusEmail(true);
+                            // setValidationStatusPassword(true);
+                            // alert("Validated Correctly");
+                            // navigate("/dashboard/assessment");
+                        }
+                    })
+                    .catch((error) => {
+                        console.log("Error in response : ", error);
+                        // else if (response === 'FAILED') {
+                        // setValidateNow(false);
+                        // setValidationStatusEmail(false);
+                        // setValidationStatusPassword(false);
+                        // Clearing the fields
+                        setOldPassword("");
+                        setNewPassword("");
+                        setConfirmPassword("");
+                        alert("Invalid Credentials");
+                        return;
+                    });
+            }
+            else {
+                alert("Please login to change password");
+                navigate("/login");
+            }
         }
     }
 
@@ -147,7 +185,7 @@ const ResetPasswordModal: React.FC<ResetPasswordModalProps> = ({
                                 <InputLabel htmlFor="old-password-textfield">{t('Home.Header.Modals.ChangePassword.policy.Inputs.OldPassword.label')}</InputLabel>
                                 <OutlinedInput
                                     id="old-password-textfield"
-                                    type={showPassword ? 'text' : 'password'}
+                                    type={showOldPassword ? 'text' : 'password'}
                                     value={oldPassword}
                                     // dir="rtl"
                                     onChange={(e) => setOldPassword(e.target.value)}
@@ -155,11 +193,11 @@ const ResetPasswordModal: React.FC<ResetPasswordModalProps> = ({
                                         <InputAdornment position="end">
                                             <IconButton
                                                 aria-label="toggle password visibility"
-                                                onClick={handleClickShowPassword}
+                                                onClick={handleClickShowOldPassword}
                                                 onMouseDown={handleMouseDownPassword}
                                                 edge="end"
                                             >
-                                                {showPassword ? <VisibilityOff /> : <Visibility />}
+                                                {showOldPassword ? <VisibilityOff /> : <Visibility />}
                                             </IconButton>
                                         </InputAdornment>
                                     }
@@ -171,7 +209,7 @@ const ResetPasswordModal: React.FC<ResetPasswordModalProps> = ({
                                 <InputLabel htmlFor="newPassword">{t('Home.Header.Modals.ChangePassword.policy.Inputs.NewPassword.label')}</InputLabel>
                                 <OutlinedInput
                                     id="newPassword"
-                                    type={showPassword ? 'text' : 'password'}
+                                    type={showNewPassword ? 'text' : 'password'}
                                     value={newPassword}
                                     // dir="rtl"
                                     onChange={(e) => setNewPassword(e.target.value)}
@@ -179,11 +217,11 @@ const ResetPasswordModal: React.FC<ResetPasswordModalProps> = ({
                                         <InputAdornment position="end">
                                             <IconButton
                                                 aria-label="toggle password visibility"
-                                                onClick={handleClickShowPassword}
+                                                onClick={handleClickShowNewPassword}
                                                 onMouseDown={handleMouseDownPassword}
                                                 edge="end"
                                             >
-                                                {showPassword ? <VisibilityOff /> : <Visibility />}
+                                                {showNewPassword ? <VisibilityOff /> : <Visibility />}
                                             </IconButton>
                                         </InputAdornment>
                                     }
@@ -195,7 +233,7 @@ const ResetPasswordModal: React.FC<ResetPasswordModalProps> = ({
                                 <InputLabel htmlFor="ConfirmPassword">{t('Home.Header.Modals.ChangePassword.policy.Inputs.ConfirmPassword.label')}</InputLabel>
                                 <OutlinedInput
                                     id="ConfirmPassword"
-                                    type={showPassword ? 'text' : 'password'}
+                                    type={showConfirmPassword ? 'text' : 'password'}
                                     value={confirmPassword}
                                     // dir="rtl"
                                     onChange={(e) => setConfirmPassword(e.target.value)}
@@ -203,11 +241,11 @@ const ResetPasswordModal: React.FC<ResetPasswordModalProps> = ({
                                         <InputAdornment position="end">
                                             <IconButton
                                                 aria-label="toggle password visibility"
-                                                onClick={handleClickShowPassword}
+                                                onClick={handleClickShowConfirmPassword}
                                                 onMouseDown={handleMouseDownPassword}
                                                 edge="end"
                                             >
-                                                {showPassword ? <VisibilityOff /> : <Visibility />}
+                                                {showConfirmPassword ? <VisibilityOff /> : <Visibility />}
                                             </IconButton>
                                         </InputAdornment>
                                     }

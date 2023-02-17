@@ -13,9 +13,9 @@ async function resetData(url = "", data = {}, apiKey) {
     throw new Error(`Error ${response.status}: ${response.statusText}`);
   }
 
-  const responseClone = response.clone();
-  console.log("responseClone", responseClone)
-  return responseClone.json();
+  console.log("response reset password := ", response);
+
+  return await response.json();
 }
 
 export { resetData };

@@ -1,13 +1,18 @@
 import * as React from 'react';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, FC } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+
+// Importing Cookies
+import Cookies from 'js-cookie';
 
 // Importing Logo
 import logo from '../../assets/Images/Login/login_logo.png';
 
 //Importing useTranslation and Trans from react-i18next
 import { useTranslation } from 'react-i18next';
+
+import axios from 'axios';
 
 import {
     TextField,
@@ -19,9 +24,23 @@ import {
 import styles from './style.module.css';
 
 // Importing Services Layer API
-import { validateLogin } from '../../Service/Login';
+// import { validateLogin } from '../../Service/Login';
 
-const LoginContainer = () => {
+interface LoginContainerProps {
+    setShowHeader: any,
+
+    // Sidebar Apps List
+    sidebarAppsListArray: any,
+    setSidebarAppsListArray: any
+}
+
+const LoginContainer: FC<LoginContainerProps> = ({
+    setShowHeader,
+
+    // Sidebar Apps List
+    sidebarAppsListArray,
+    setSidebarAppsListArray
+}): JSX.Element => {
     const navigate = useNavigate();
 
     // Check if direction is rtl or not
@@ -48,24 +67,14 @@ const LoginContainer = () => {
     // Validation for Email
     useEffect(() => {
         if (email.length !== 0) {
-            // setValidateNow(true);
             setValidationStatusEmail(true);
-        }
-        else {
-            setValidationMessageEmail("Please enter correct username");
-            setValidationStatusEmail(false);
         }
     }, [email]);
 
     // Validation for Password
     useEffect(() => {
         if (password.length !== 0) {
-            // setValidateNow(true);
             setValidationStatusPassword(true);
-        }
-        else {
-            setValidationMessagePassword("Please enter correct password");
-            setValidationStatusPassword(false);
         }
     }, [password]);
 
@@ -80,40 +89,133 @@ const LoginContainer = () => {
             setValidationStatusPassword(false);
             return;
         }
-        else if(email === "") {
+        else if (email === "") {
             setValidationMessageEmail("Please fill out the username field");
             setValidationStatusEmail(false);
             return;
         }
-        else if(password === "") {
+        else if (password === "") {
             setValidationMessagePassword("Please fill out the password field");
             setValidationStatusPassword(false);
             return;
         }
         else {
-            // console.log("Presentation Layer Response: ", email);
-            validateLogin({
+            const postData = {
                 "userName": email,
                 "password": password
-            }).then(response => {
-                console.log("Presetation layer response: ", response);
-                if (response === 'SUCCESS') {
-                    setValidationStatusEmail(true);
-                    setValidationStatusPassword(true);
-                    // alert("Validated Correctly");
-                    navigate("/dashboard/assessment");
+            }
+
+            const config = {
+                headers: {
+                    'Content-Type': 'application/json',
                 }
-            }).catch(error => {
-                console.log("Error in response : ", error);
-                // else if (response === 'FAILED') {
-                // setValidateNow(false);
-                setValidationStatusEmail(false);
-                setValidationStatusPassword(false);
-                // Clearing the fields
-                setEmail("");
-                setPassword("");
-                return;
-            });
+            };
+
+            axios.post('https://eqa.datadimens.com:8443/IDENTITY-SERVICE/login/permissions', JSON.stringify(postData), config)
+                .then((response: any) => {
+                    console.log(response.data);
+
+                    //@@@@@@@@@@@@@@@@@ Now the most important thing @@@@@@@@@@@@@@@@@
+                    //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+                    //@@@@@@@@@@@@@@@@@ Now the most important thing @@@@@@@@@@@@@@@@@
+
+                    let responseStatus = response.data.status;
+
+                    if (responseStatus === 'SUCCESS') {
+                        // alert("Validated Correctly");
+
+                        setValidationStatusEmail(true);
+                        setValidationStatusPassword(true);
+
+                        let data = response.data;
+
+                        // We are setting the cookie for 60 days
+                        Cookies.set("accessToken", data.jwtToken.accessToken, { expires: 60 });
+
+                        if (data.privilege.user !== null && data.privilege.user !== undefined && data.privilege.user !== "") {
+                            const userDetails = data.privilege.user;
+
+                            let str = userDetails.emailId;
+                            let nameReplace = str.replace(/@.*$/, "");
+                            let userName = nameReplace !== str ? nameReplace : null;
+
+                            // Setting the user details in the local storage
+                            const user = {
+                                Designataion: "Instructor",
+                                fullName: userDetails.firstName + " " + userDetails.lastName,
+                                userName: userName,
+                                College: userDetails.collegeId,
+                                Campus: userDetails.campusId,
+                                Phone: userDetails.phoneNo ? userDetails.phoneNo : "N/A",
+                                LastLogin: userDetails.lastLogin ? userDetails.lastLogin : "N/A",
+                                Email: userDetails.emailId,
+                                Department: userDetails.departmentId,
+                            };
+
+                            // Setting the user details in the local storage
+                            localStorage.setItem("user", JSON.stringify(user));
+                        }
+
+                        if (data.privilege.apps !== null && data.privilege.apps !== undefined && data.privilege.apps !== "") {
+                            const AppsListArray: any = Object.values(data.privilege.apps);
+                            // console.log("Apps List: ", AppsListArray);
+                            for (let i = 0; i < AppsListArray.length; i++) {
+                                AppsListArray[i].icon = `${i} icon`;
+                                AppsListArray[i].text = AppsListArray[i].appName;
+                                AppsListArray[i].subMenu = AppsListArray[i].forms;
+                                delete AppsListArray[i].forms;
+
+                                const subMenu = AppsListArray[i].subMenu;
+                                for (let j = 0; j < subMenu.length; j++) {
+                                    subMenu[j].icon = `${i} icon`;
+                                    subMenu[j].text = subMenu[j].formName;
+                                    if (subMenu[j].formUrl === "/account/user") {
+                                        subMenu[j].formUrl = "account/users/viewusers";
+                                    }
+                                    else if (subMenu[j].formUrl === "/account/role") {
+                                        subMenu[j].formUrl = "account/roles/viewroles";
+                                    }
+                                    else if (subMenu[j].formUrl === "/account/group") {
+                                        subMenu[j].formUrl = "account/groups/viewgroups";
+                                    }
+                                }
+                            }
+
+                            // console.log("Response Apps List: ", AppsListArray);
+                            setSidebarAppsListArray(AppsListArray);
+
+                            // Please save the response in the local storage
+                            localStorage.setItem("sidebarAppsListArray", JSON.stringify(AppsListArray));
+                        }
+
+                        setShowHeader(false);
+                        // Now we will redirect to the dashboard
+                        navigate("/dashboard/assessment");
+                    }
+                    else if (responseStatus === 'FAILED') {
+                        alert("Validation Failed");
+                        // else if (response === 'FAILED') {
+                        // setValidateNow(false);
+                        setValidationMessageEmail("Incorrect username or password");
+                        setValidationMessagePassword("Incorrect username or password");
+
+                        setValidationStatusEmail(false);
+                        setValidationStatusPassword(false);
+                        // // Clearing the fields
+                        // setEmail("");
+                        // setPassword("");
+                        return;
+                    } else {
+                        alert("Something went wrong");
+                    }
+                    //@@@@@@@@@@@@@@@@@ Now the most important thing @@@@@@@@@@@@@@@@@
+                    //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+                    //@@@@@@@@@@@@@@@@@ Now the most important thing @@@@@@@@@@@@@@@@@
+                })
+                .catch(error => {
+                    console.error("Error logging in using post api ==>", error);
+                    // handle the error
+                });
         }
     }
 
@@ -176,29 +278,18 @@ const LoginContainer = () => {
                             <div className={`form-outline ${styles.email} ${(validationStatusEmail) && (styles.inputValidatedTrue)} ${(!validationStatusEmail) && (styles.inputValidatedFalse)}`}>
                                 <i className={`${(!validationStatusEmail) && (`fas fa-exclamation-circle ${styles.validatedFalse}`)}  ${(validationStatusEmail) && (`fas fa-check ${styles.validatedTrue}`)} trailing`} style={{ fontSize: 22 }} />
                                 <input
-                                    onFocus={
-                                        () => {
-                                            if (email.length === 0 && (document.getElementById("userName") === document.activeElement)) {
-                                                // @ts-ignore
-                                                document.getElementById("emailLabel").style = "display:none;";
-                                            }
-                                        }
-                                    }
                                     type="text"
                                     value={email}
                                     onChange={(e: any) => {
-                                        setEmail(e.target.value)
-                                        if (email.length === 0 && (document.getElementById("userName") === document.activeElement)) {
-                                            // @ts-ignore
-                                            document.getElementById("emailLabel").style = "display:none;";
-                                        }
+                                        setValidateNow(false);
+                                        setEmail(e.target.value);
                                     }}
                                     placeholder={`${t('login.rightSide.loginContainer.formInputs.userName.placeHolder')}`}
                                     className="form-control form-icon-trailing"
                                     style={{ height: 50, paddingLeft: 21, paddingBottom: 10 }}
                                     id="userName"
                                 />
-                                {(!validationStatusEmail) && (email.length === 0) && (<p className={styles.infoInputs}>Please fill out the email field</p>)}
+                                {(!validationStatusEmail) && (<p className={styles.infoInputs}>{validationMessageEmail}</p>)}
                             </div>
                         </div>
                         <div style={{ marginTop: (!validationStatusEmail) ? (20) : (0) }}>
@@ -206,29 +297,18 @@ const LoginContainer = () => {
                             <div className={`form-outline ${styles.password} ${(validationStatusPassword) && (styles.inputValidatedTrue)} ${(!validationStatusPassword) && (styles.inputValidatedFalse)}`}>
                                 <i className={`${(!validationStatusPassword) && (`fas fa-exclamation-circle ${styles.validatedFalse}`)}  ${(validationStatusPassword) && (`fas fa-check ${styles.validatedTrue}`)} trailing`} style={{ fontSize: 22 }} />
                                 <input
-                                    onFocus={
-                                        () => {
-                                            if (password.length === 0 && (document.getElementById("passwordInput") === document.activeElement)) {
-                                                // @ts-ignore
-                                                document.getElementById("passwordLabel").style = "display:none;";
-                                            }
-                                        }
-                                    }
                                     type="password"
                                     value={password}
                                     onChange={(e: any) => {
-                                        setPassword(e.target.value)
-                                        if (password.length === 0 && (document.getElementById("passwordInput") === document.activeElement)) {
-                                            // @ts-ignore
-                                            document.getElementById("passwordLabel").style = "display:none;";
-                                        }
+                                        setValidateNow(false);
+                                        setPassword(e.target.value);
                                     }}
                                     placeholder={`${t('login.rightSide.loginContainer.formInputs.password.placeHolder')}`}
                                     className="form-control form-icon-trailing"
                                     style={{ height: 50, paddingLeft: 21, paddingBottom: 10 }}
                                     id="passwordInput"
                                 />
-                                {(!validationStatusPassword) && (password.length === 0) && (<p className={styles.infoInputs}>Please fill out the password field</p>)}
+                                {(!validationStatusPassword) && (<p className={styles.infoInputs}>{validationMessagePassword}</p>)}
                             </div>
                         </div>
                     </div>
