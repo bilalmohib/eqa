@@ -41,7 +41,11 @@ interface HomeProps {
 
     // Language
     currentLang: string,
-    setCurrentLang: any
+    setCurrentLang: any,
+
+    // Sidebar Apps List
+    sidebarAppsListArray: any,
+    setSidebarAppsListArray: any
 }
 
 const Home = ({
@@ -55,7 +59,11 @@ const Home = ({
 
     // Language
     currentLang,
-    setCurrentLang
+    setCurrentLang,
+
+    // Sidebar Apps List
+    sidebarAppsListArray,
+    setSidebarAppsListArray
 }: HomeProps) => {
     const { t } = useTranslation();
 
@@ -81,7 +89,7 @@ const Home = ({
         const accessToken = Cookies.get("accessToken");
         console.log("Access Token on Home Page is ===> ", accessToken);
         if (accessToken === null || accessToken === undefined || accessToken === "") {
-            alert("Please login first");
+            // alert("Please login first");
             navigate('/');
         }
         // else {
@@ -136,10 +144,6 @@ const Home = ({
     const [currentSubMenuSidebarOpenItem, setCurrentSubMenuSidebarOpenItem] = useState<Number>(0);
 
     // ######################## Array of menu items ########################
-    // let dashboard = (currentLang === "ar") ? "لوحة القيادة" : "Dashboard";
-    // let userManagement = (currentLang === "ar") ? "لوحة القيادة" : "User Management";
-    // let settings = (currentLang === "ar") ? "لوحة القيادة" : "Settings";
-
     const SidebarMenuItemsArray = [
         {
             index: 1,
@@ -239,6 +243,20 @@ const Home = ({
         }
     }, []);
 
+    let FinalsidebarAppsListArray = JSON.parse(localStorage.getItem("sidebarAppsListArray") || '[]');
+
+    useEffect(() => {
+        if (sidebarAppsListArray.length > 0) {
+            console.clear();
+            console.log("************************* Final Apps List *************************");
+            // console.log("The Final Apps List is below: ", sidebarAppsListArray);
+            // Please get the response from the local storage
+            let sidebarAppsListArray = JSON.parse(localStorage.getItem("sidebarAppsListArray") || '{}');
+            console.log("The Final Apps List is below: ", sidebarAppsListArray);
+            console.log("************************* Final Apps List *************************");
+        }
+    }, [sidebarAppsListArray]);
+
     if (loading) { // if your component doesn't have to wait for async data, remove this block 
         return <Loader /> // render Loader here
     } else {
@@ -291,7 +309,7 @@ const Home = ({
                                 // For minified sidebar
                                 isMinified={isMinified}
                                 // Sidebar Menu Items Array
-                                sidebarList={SidebarMenuItemsArray}
+                                sidebarList={FinalsidebarAppsListArray}
 
                                 // Current language
                                 currentLang={currentLang}

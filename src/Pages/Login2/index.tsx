@@ -26,14 +26,22 @@ interface LoginProps {
     mobileViewContainer: any,
     currentTab: any,
     setCurrentTab: any,
-    setShowHeader: any
+    setShowHeader: any,
+
+    // Sidebar Apps List
+    sidebarAppsListArray: any,
+    setSidebarAppsListArray: any
 }
 
 const Login2: FC<LoginProps> = ({
     mobileViewContainer,
     currentTab,
     setCurrentTab,
-    setShowHeader
+    setShowHeader,
+
+    // Sidebar Apps List
+    sidebarAppsListArray,
+    setSidebarAppsListArray
 }): JSX.Element => {
     const navigate = useNavigate();
 
@@ -78,7 +86,7 @@ const Login2: FC<LoginProps> = ({
     useEffect(() => {
         // const xApiKey = localStorage.getItem("accessToken");
 
-        var accessToken:any = Cookies.get("accessToken");
+        var accessToken: any = Cookies.get("accessToken");
 
         if (accessToken === undefined || accessToken === null) {
             accessToken = null;
@@ -86,7 +94,7 @@ const Login2: FC<LoginProps> = ({
 
         console.log(accessToken);
 
-        if (accessToken !== null) {
+        if (accessToken !== null && sidebarAppsListArray.length !== 0) {
             setShowHeader(false);
             navigate('/dashboard/assessment');
         }
@@ -212,7 +220,13 @@ const Login2: FC<LoginProps> = ({
                         ${(mobileViewContainer !== "Login") ?
                                 (styles.hideForMobile) :
                                 ("")}`}>
-                        <LoginContainer />
+                        <LoginContainer
+                            setShowHeader={setShowHeader}
+
+                            // Sidebar Apps List
+                            sidebarAppsListArray={sidebarAppsListArray}
+                            setSidebarAppsListArray={setSidebarAppsListArray}
+                        />
                     </div>
                 </div>
                 <div className="row">

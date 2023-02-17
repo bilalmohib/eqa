@@ -561,6 +561,12 @@ html[dir="rtl"] .insideContainerAC li {
     color: #4f747a;
     transform: scale(1.1);
 }
+.selectedAppStyle{
+    background-color: #f7f7f7;
+    transition: 0.2s linear;
+    color: #4f747a;
+    /* transform: scale(1.1); */
+}
 
 /* Inside Apps List Container DropDown */
 

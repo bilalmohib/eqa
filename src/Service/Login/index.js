@@ -11,7 +11,7 @@ const validateLogin = (object) => {
     // window.localStorage.setItem("accessToken", data.jwtToken.accessToken);
     // Setting a cookie
     // We are setting the cookie for 60 days
-    Cookies.set("accessToken", data.jwtToken.accessToken, { expires: 60 });
+    // Cookies.set("accessToken", data.jwtToken.accessToken, { expires: 60 });
 
     const userDetails = data.privilege.user;
 
@@ -31,11 +31,13 @@ const validateLogin = (object) => {
       Department: userDetails.departmentId,
     };
 
-    console.log("Login data  ===== >", user);
+    const userApps = data.privilege;
+
+    console.log("userApps ===> ", data.privilege);
 
     localStorage.setItem("user", JSON.stringify(user));
 
-    return data.status;
+    return data;
   });
 };
 export { validateLogin };

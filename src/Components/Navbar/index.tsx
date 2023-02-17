@@ -39,8 +39,10 @@ import {
     Box,
     Typography,
     Link,
-    TextField
+    TextField,
+    Slide
 } from "@mui/material";
+import Snackbar, { SnackbarOrigin } from '@mui/material/Snackbar';
 
 import axios from 'axios';
 
@@ -68,6 +70,11 @@ interface NavProps {
     // Current Language
     currentLang: string,
     setCurrentLang: any
+}
+
+export interface State extends SnackbarOrigin {
+    open: boolean;
+    message: string;
 }
 
 const Navbar: React.FC<NavProps> = ({
@@ -99,6 +106,31 @@ const Navbar: React.FC<NavProps> = ({
         window.innerHeight,
     ]);
 
+    const [state, setState] = React.useState<State>({
+        open: false,
+        message: '',
+        vertical: 'top',
+        horizontal: 'center'
+    });
+    const { vertical, horizontal, open, message } = state;
+
+    const handleClick = (newState: SnackbarOrigin, index: any, useCase: string) => () => {
+        if (useCase === "menu") {
+            const m = `${(finalAppsList.length > 0) && finalAppsList[currentSelectedAppIndex].text} Menu fetched successfully`;
+            setCurrentSelectedAppIndex(index);
+            setState({ open: true, message: m, ...newState });
+        } else if (useCase === "logout") {
+            const m = `You have been logged out successfully`;
+            setCurrentSelectedAppIndex(index);
+            setState({ open: true, message: m, ...newState });
+        }
+    };
+
+    const handleClose = () => {
+        setState({ ...state, open: false });
+    };
+
+
     useEffect(() => {
         const handleWindowResize = () => {
             setWindowSize([window.innerWidth, window.innerHeight]);
@@ -113,14 +145,6 @@ const Navbar: React.FC<NavProps> = ({
 
     const changeTheLanguage = (e: any) => {
         i18n.changeLanguage(e);
-        // if (e === "en") {
-        //     // alert("Language changed english")
-        //     // navigate(`/`);
-        // }
-        // else {
-        //     // navigate(`/${e}`);            
-        //     // alert("Language Arabic")
-        // }
     }
 
     const [selectedDay, setSelectedDay] = useState<any>(null);
@@ -130,31 +154,39 @@ const Navbar: React.FC<NavProps> = ({
     const [currentNotificationActiveTab, setCurrentNotificationActiveTab] = useState<Number>(1);
 
     const logoutUser = () => {
-        if (window.confirm("Are you sure you want to logout?")) {
-            // const xApiKey = localStorage.getItem("accessToken");
-            const xApiKey = Cookies.get("accessToken");
-            console.log("xApiKey ===> : ", xApiKey);
-            logoutService(xApiKey).then(response => {
-                console.log("Presetation layer response Code: ", response);
-                // console.log("Presetation layer response: Status", response.status);
-                // console.log("Presetation layer response: Status", response.transactionId);
-                // @ts-ignore
-                if (response.code === "200.200" && response.status === "OK") {
-                    // alert("Logged out successfully");
-                    Cookies.remove("accessToken");
-                    navigate(`/`);
-                }
-                else {
-                    // alert("Error in logging out");
-                    return;
-                }
-            }).catch(error => {
-                console.log("Error in response : ", error);
-                // Clearing the fields
-                // alert("Network Error");
+        // if (window.confirm("Are you sure you want to logout?")) {
+        // const xApiKey = localStorage.getItem("accessToken");
+        const xApiKey = Cookies.get("accessToken");
+        console.log("xApiKey ===> : ", xApiKey);
+        logoutService(xApiKey).then(response => {
+            console.log("Presetation layer response Code: ", response);
+            // console.log("Presetation layer response: Status", response.status);
+            // console.log("Presetation layer response: Status", response.transactionId);
+            // @ts-ignore
+            if (response.code === "200.200" && response.status === "OK") {
+                // alert("Logged out successfully");
+                handleClick({
+                    vertical: 'bottom',
+                    horizontal: 'right'
+                },
+                    0,
+                    "logout"
+                )
+                Cookies.remove("accessToken");
+                navigate(`/`);
                 return;
-            });
-        }
+            }
+            else {
+                // alert("Error in logging out");
+                return;
+            }
+        }).catch(error => {
+            console.log("Error in response : ", error);
+            // Clearing the fields
+            // alert("Network Error");
+            return;
+        });
+        // }
     }
 
     const selectLanguage = (value: any) => {
@@ -176,9 +208,6 @@ const Navbar: React.FC<NavProps> = ({
         icon: any,
         text: string
     }
-
-    // Fetching the Apps List
-    // const [viewAllAppsData, setViewAllAppsData] = useState(null);
 
     // User use memo to avoid the infinite loop to define the appsList
     // eslint-disable-next-line no-empty-pattern
@@ -236,16 +265,18 @@ const Navbar: React.FC<NavProps> = ({
         {
             appUrl: "/photos",
             icon: <i className="fas fa-camera-retro" style={{ color: "#777777", fontSize: 48, height: 50, width: 50 }}></i>,
-            text: t('Home.Header.DropDown.Apps.List.photos')
+            text: t('Home.Header.DropDown.Apps.List.photos'),
         },
         {
             appUrl: "/maps",
             icon: <i className="fas fa-globe" style={{ color: "#0F5E9C", fontSize: 48, height: 50, width: 50 }}></i>,
-            text: t('Home.Header.DropDown.Apps.List.maps')
+            text: t('Home.Header.DropDown.Apps.List.maps'),
         },
     ];
 
     const [finalAppsList, setFinalAppsList] = useState<any>([]);
+
+    const [currentSelectedAppIndex, setCurrentSelectedAppIndex] = useState<any>(0);
 
     useEffect(() => {
 
@@ -291,37 +322,9 @@ const Navbar: React.FC<NavProps> = ({
     }, []);
     // Fetching the Apps List
 
-    // useEffect(() => {
-    //     // console.log("View All Apps Data ===> ", viewAllAppsData);
-    //     if (viewAllAppsData !== null && viewAllAppsData !== undefined) {
-    //         // Check if the appurl of viewAppAppsData maches with the appUrl of appsList
-    //         // If it matches then push the appUrl to finalAppsList
-    //         let finalAppsList: any = [];
-    //         // @ts-ignore
-    //         for (let i = 0; i < viewAllAppsData.length; i++) {
-    //             // @ts-ignore
-    //             for (let j = 0; j < appsList.length; j++) {
-    //                 // @ts-ignore
-    //                 if (viewAllAppsData[i].appUrl === appsList[j].appUrl) {
-    //                     finalAppsList.push(appsList[j]);
-    //                 }
-    //             }
-    //         }
-    //         setFinalAppsList(finalAppsList);
-    //     }
-    // }, [viewAllAppsData, appsList]);
-
-    const [checkedList, setCheckedList] = useState<boolean[]>(
-        new Array<boolean>(finalAppsList.length).fill(false)
-    );
-
-    const handleCheckboxChange = (index: number): void => {
-        setCheckedList((prevList: boolean[]) => {
-            const newList: boolean[] = [...prevList];
-            newList[index] = !newList[index];
-            return newList;
-        });
-    };
+    function TransitionLeft(props: any) {
+        return <Slide {...props} direction="left" />;
+    }
 
     return (
         <nav className={`navbar navbar-expand-lg navbar-light ${styles.nav_bar} ${(isOpen === true) ? (`${(!isMinified) ? (styles.isSideOpen) : (styles.isSideOpenMinified)}`) : (styles.isSideClose)} ${(windowSize[0] < 991 && isOpen) ? ("") : ("")}`}
@@ -408,15 +411,6 @@ const Navbar: React.FC<NavProps> = ({
                     )}
                     &nbsp; &nbsp;
                     <Box className={`${styles.searchBoxNavbar}`}>
-                        {/* <Box>
-                            <SearchIcon color="action" />
-                        </Box>
-                        <input
-                            type="text"
-                            className='form-control'
-                            style={{ border: "none" }}
-                            placeholder='Search for anything'
-                        /> */}
                         <TextField
                             variant="standard" // <== changed this
                             margin="normal"
@@ -499,155 +493,24 @@ const Navbar: React.FC<NavProps> = ({
                                     </li>
                                     <li>
                                         <section className={styles.AppsContainerDropDown}>
-                                            {/* <div className={`d-flex justify-content-between ${styles.insideContainerAC}`}>
-                                                <li>
-                                                    <MdOutlineFactCheck style={{ color: "#4f747a", fontSize: 50, height: 50, width: 50 }} />
-                                                    <p>{t('Home.Header.DropDown.Apps.List.Assessment')}</p>
-                                                </li>
-                                                <li>
-                                                    <i className="fab fa-wpforms" style={{ color: "#777777", fontSize: 48, height: 50, width: 50 }}></i>
-                                                    <p>{t('Home.Header.DropDown.Apps.List.Form')}</p>
-                                                </li>
-                                                <li>
-                                                    <TfiAlarmClock style={{ color: "red", fontSize: 48, height: 48, width: 48, marginBottom: 2 }} />
-                                                    <p>{t('Home.Header.DropDown.Apps.List.Alarm')}</p>
-                                                </li>
-                                            </div>
-                                            <div className={`d-flex justify-content-between ${styles.insideContainerAC}`}>
-                                                <li>
-                                                    <PieChartIcon sx={{ color: "orange", fontSize: 50, height: 50, width: 50 }} />
-                                                    <p>{t('Home.Header.DropDown.Apps.List.Report')}</p>
-                                                </li>
-                                                <li>
-                                                    <ImportExportIcon style={{ color: "grey", fontSize: 50, height: 50, width: 50 }} />
-                                                    <p>{t('Home.Header.DropDown.Apps.List.Portal')}</p>
-                                                </li>
-                                                <li>
-                                                    <ManageAccountsIcon style={{ color: "blue", fontSize: 50, height: 50, width: 50 }} />
-                                                    <p>{t('Home.Header.DropDown.Apps.List.account')}</p>
-                                                </li>
-                                            </div>
-                                            <div className={`d-flex justify-content-between ${styles.insideContainerAC}`}>
-                                                <li>
-                                                    <i className="far fa-calendar-alt" style={{ color: "#0c7cd5", fontSize: 48, height: 50, width: 50 }}></i>
-                                                    <p>{t('Home.Header.DropDown.Apps.List.calender')}</p>
-                                                </li>
-                                                <li>
-                                                    <i className="fas fa-chart-pie" style={{ color: "#0c7cd5", fontSize: 48, height: 48, width: 50 }}></i>
-                                                    <p>{t('Home.Header.DropDown.Apps.List.stats')}</p>
-                                                </li>
-                                                <li>
-                                                    <i className="fas fa-envelope" style={{ color: "#fd52a3", fontSize: 48, height: 50, width: 50 }}></i>
-                                                    <p>{t('Home.Header.DropDown.Apps.List.messages')}</p>
-                                                </li>
-                                            </div>
-                                            <div className={`d-flex justify-content-between ${styles.insideContainerAC}`}>
-                                                <li>
-                                                    <i className="fas fa-keyboard" style={{ color: "#97c4e8", fontSize: 48, height: 50, width: 50 }}></i>
-                                                    <p>{t('Home.Header.DropDown.Apps.List.notes')}</p>
-                                                </li>
-                                                <li>
-                                                    <i className="fas fa-camera-retro" style={{ color: "#777777", fontSize: 48, height: 50, width: 50 }}></i>
-                                                    <p>{t('Home.Header.DropDown.Apps.List.photos')}</p>
-                                                </li>
-                                                <li>
-                                                    <i className="fas fa-globe" style={{ color: "#0F5E9C", fontSize: 48, height: 50, width: 50 }}></i>
-                                                    <p>{t('Home.Header.DropDown.Apps.List.maps')}</p>
-                                                </li>
-                                            </div>
-                                            <div className={`d-flex justify-content-between ${styles.insideContainerAC}`}>
-                                                <li>
-                                                    <i className="fas fa-keyboard" style={{ color: "#97c4e8", fontSize: 48, height: 50, width: 50 }}></i>
-                                                    <p>{t('Home.Header.DropDown.Apps.List.notes')}</p>
-                                                </li>
-                                                <li>
-                                                    <i className="fas fa-camera-retro" style={{ color: "#777777", fontSize: 48, height: 50, width: 50 }}></i>
-                                                    <p>{t('Home.Header.DropDown.Apps.List.photos')}</p>
-                                                </li>
-                                                <li>
-                                                    <i className="fas fa-globe" style={{ color: "#0F5E9C", fontSize: 48, height: 50, width: 50 }}></i>
-                                                    <p>{t('Home.Header.DropDown.Apps.List.maps')}</p>
-                                                </li>
-                                            </div>
-                                            <div className={`d-flex justify-content-between ${styles.insideContainerAC}`}>
-                                                <li>
-                                                    <i className="fas fa-keyboard" style={{ color: "#97c4e8", fontSize: 48, height: 50, width: 50 }}></i>
-                                                    <p>{t('Home.Header.DropDown.Apps.List.notes')}</p>
-                                                </li>
-                                                <li>
-                                                    <i className="fas fa-camera-retro" style={{ color: "#777777", fontSize: 48, height: 50, width: 50 }}></i>
-                                                    <p>{t('Home.Header.DropDown.Apps.List.photos')}</p>
-                                                </li>
-                                                <li>
-                                                    <i className="fas fa-globe" style={{ color: "#0F5E9C", fontSize: 48, height: 50, width: 50 }}></i>
-                                                    <p>{t('Home.Header.DropDown.Apps.List.maps')}</p>
-                                                </li>
-                                            </div>
-                                            <div className={`d-flex justify-content-between ${styles.insideContainerAC}`}>
-                                                <li>
-                                                    <i className="fas fa-keyboard" style={{ color: "#97c4e8", fontSize: 48, height: 50, width: 50 }}></i>
-                                                    <p>{t('Home.Header.DropDown.Apps.List.notes')}</p>
-                                                </li>
-                                                <li>
-                                                    <i className="fas fa-camera-retro" style={{ color: "#777777", fontSize: 48, height: 50, width: 50 }}></i>
-                                                    <p>{t('Home.Header.DropDown.Apps.List.photos')}</p>
-                                                </li>
-                                                <li>
-                                                    <i className="fas fa-globe" style={{ color: "#0F5E9C", fontSize: 48, height: 50, width: 50 }}></i>
-                                                    <p>{t('Home.Header.DropDown.Apps.List.maps')}</p>
-                                                </li>
-                                            </div> */}
                                             <div className={`${styles.insideContainerAC}`}>
                                                 {(finalAppsList.length > 0) ? (
                                                     finalAppsList.map((app: any, index: number) => (
                                                         <div
                                                             key={index}
-                                                            style={{ position: "relative",cursor:"pointer" }}
-                                                            onClick={() => handleCheckboxChange(index)}
+                                                            style={{ position: "relative", cursor: "pointer" }}
+                                                            onClick={handleClick({
+                                                                vertical: 'bottom',
+                                                                horizontal: 'right'
+                                                            },
+                                                                index,
+                                                                "menu"
+                                                            )}
                                                         >
-                                                             <li>
+                                                            <li className={(index === currentSelectedAppIndex) ? (styles.selectedAppStyle) : ("")}>
                                                                 {app.icon}
                                                                 <p>{app.text}</p>
                                                             </li>
-                                                            <div
-                                                                style={{
-                                                                    position: "absolute",
-                                                                    top: "0",
-                                                                    right: "0",
-                                                                    display: "flex",
-                                                                    alignItems: "center",
-                                                                    justifyContent: "center",
-                                                                    backgroundColor: "green", // custom green color
-                                                                    width: "24px",
-                                                                    height: "24px",
-                                                                    borderRadius: "50%",
-                                                                    cursor: "pointer",
-                                                                }}
-                                                            >
-                                                                {checkedList[index] && (
-                                                                    <span
-                                                                        style={{
-                                                                            display: "flex",
-                                                                            alignItems: "center",
-                                                                            justifyContent: "center",
-                                                                            width: "12px",
-                                                                            height: "12px",
-                                                                            borderRadius: "50%",
-                                                                            backgroundColor: "#fff",
-                                                                        }}
-                                                                    >
-                                                                        <span
-                                                                            style={{
-                                                                                display: "block",
-                                                                                width: "6px",
-                                                                                height: "6px",
-                                                                                borderRadius: "50%",
-                                                                                backgroundColor: "green",
-                                                                            }}
-                                                                        />
-                                                                    </span>
-                                                                )}
-                                                            </div>
                                                         </div>
                                                     ))
                                                 ) : (
@@ -725,19 +588,10 @@ const Navbar: React.FC<NavProps> = ({
                                         ) : (currentNotificationActiveTab === 3 ? (
                                             <div className={styles.eventContainer}>
                                                 <div style={{ display: "flex", flexDirection: "row", justifyContent: "center", marginTop: 20 }}>
-                                                    {/* <Calendar
-                                                        value={selectedDay}
-                                                        // // @ ts-ignore
-                                                        // onChange={setSelectedDay}
-                                                        calendarClassName="responsive-calendar" // added this
-                                                        shouldHighlightWeekends
-                                                    /> */}
-
                                                     <FullCalendar
                                                         plugins={[dayGridPlugin]}
                                                         initialView="dayGridMonth"
                                                     />
-
                                                 </div>
                                             </div>
                                         ) : (
@@ -912,6 +766,19 @@ const Navbar: React.FC<NavProps> = ({
                                 </ul>
                             </li>
                             {/* Profile DropDown */}
+                            <Snackbar
+                                anchorOrigin={{ vertical, horizontal }}
+                                open={open}
+                                autoHideDuration={6000}
+                                TransitionComponent={TransitionLeft}
+                                onClose={handleClose}
+                                message={message}
+                                key={vertical + horizontal}
+                                sx={{
+                                    // lift over from below to few pixels up
+                                    transform: "translateY(-30px)",
+                                }}
+                            />
                         </div>
                     ) : (
                         <Box

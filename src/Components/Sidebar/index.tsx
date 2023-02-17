@@ -344,7 +344,7 @@ const Sidebar: React.FC<SidebarProps> = ({
                                                                     key={subIndex}
                                                                     onClick={() => {
                                                                         // Navigate to the link
-                                                                        navigate(subItem.link);
+                                                                        navigate(subItem.formUrl);
 
                                                                         if (
                                                                             windowSize[0] <= 990
