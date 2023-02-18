@@ -263,6 +263,7 @@ const LoginContainer: FC<LoginContainerProps> = ({
                                     type="text"
                                     value={email}
                                     onChange={(e: any) => {
+                                        setValidateNow(false);
                                         setEmail(e.target.value);
                                     }}
                                     placeholder={`${t('login.rightSide.loginContainer.formInputs.userName.placeHolder')}`}
@@ -280,6 +281,7 @@ const LoginContainer: FC<LoginContainerProps> = ({
                                     type="password"
                                     value={password}
                                     onChange={(e: any) => {
+                                        setValidateNow(false);
                                         setPassword(e.target.value);
                                     }}
                                     placeholder={`${t('login.rightSide.loginContainer.formInputs.password.placeHolder')}`}
@@ -300,7 +302,9 @@ const LoginContainer: FC<LoginContainerProps> = ({
                                     type="text"
                                     value={email}
                                     onChange={(e: any) => {
-                                        setValidateNow(false);
+                                        // setValidateNow(false);
+                                        setValidationStatusEmail(true);
+                                        setValidationStatusPassword(true);
                                         setEmail(e.target.value);
                                     }}
                                     placeholder={`${t('login.rightSide.loginContainer.formInputs.userName.placeHolder')}`}
@@ -319,7 +323,9 @@ const LoginContainer: FC<LoginContainerProps> = ({
                                     type="password"
                                     value={password}
                                     onChange={(e: any) => {
-                                        setValidateNow(false);
+                                        // setValidateNow(false);
+                                        setValidationStatusEmail(true);
+                                        setValidationStatusPassword(true);
                                         setPassword(e.target.value);
                                     }}
                                     placeholder={`${t('login.rightSide.loginContainer.formInputs.password.placeHolder')}`}
