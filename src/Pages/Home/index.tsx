@@ -138,94 +138,100 @@ const Home = ({
     }, [windowSize]);
 
     // Current Sidebar menu item
-    const [currentMenuItem, setCurrentMenuItem] = useState<number>(1);
+    const [currentMenuItem, setCurrentMenuItem] = useState<any>(1);
 
     // Current Sidebar Sub menu item
     const [currentSubMenuSidebarOpenItem, setCurrentSubMenuSidebarOpenItem] = useState<Number>(0);
 
+    // Active Tab for Notification
+    const [currentNotificationActiveTab, setCurrentNotificationActiveTab] = useState<Number>(0);
+    // Active Tab for Notification
+
     // ######################## Array of menu items ########################
-    const SidebarMenuItemsArray = [
-        {
-            index: 1,
-            icon: <MdOutlineFactCheck size={25} style={{ width: 28, height: 28 }} />,
-            text: t('Home.Sidebar.list.Dashboard.text'),
-            // link: "/",
-            subMenu: [
-                {
-                    icon: <RxDot style={{ marginLeft: 2 }} />,
-                    text: t('Home.Sidebar.list.Dashboard.subMenu.Dashboard.text'),
-                    link: "/dashboard/assessment"
-                },
-                {
-                    icon: <RxDot style={{ marginLeft: 2 }} />,
-                    text: t('Home.Sidebar.list.Dashboard.subMenu.assessment.text'),
-                    link: "/dashboard/createassessment"
-                },
-                {
-                    icon: <RxDot style={{ marginLeft: 2 }} />,
-                    text: t('Home.Sidebar.list.Dashboard.subMenu.grade.text'),
-                    link: "/dashboard/entergrade"
-                },
-                {
-                    icon: <RxDot style={{ marginLeft: 2 }} />,
-                    text: t('Home.Sidebar.list.Dashboard.subMenu.overAllGrade.text'),
-                    link: "/dashboard/enteroverallgrade"
-                }
-            ]
-        },
-        {
-            index: 2,
-            icon: <FaUserAlt size={17} style={{ width: 23, height: 23 }} />,
-            text: t('Home.Sidebar.list.userManagement.text'),
-            // link: "/usermanagement",
-            subMenu: [
-                {
-                    icon: <RxDot style={{ marginLeft: 2 }} />,
-                    text: t('Home.Sidebar.list.userManagement.subMenu.Users.text'),
-                    link: "/account/users/viewusers"
-                },
-                {
-                    icon: <RxDot style={{ marginLeft: 2 }} />,
-                    text: t('Home.Sidebar.list.userManagement.subMenu.groups.text'),
-                    link: "/account/groups/viewgroups"
-                },
-                {
-                    icon: <RxDot style={{ marginLeft: 2 }} />,
-                    text: t('Home.Sidebar.list.userManagement.subMenu.roles.text'),
-                    link: "/account/roles/viewroles"
-                }
-            ]
-        },
-        {
-            index: 3,
-            icon: <FiSettings size={20} style={{ width: 23, height: 23 }} />,
-            text: t('Home.Sidebar.list.settings.text'),
-            // link: "/",
-            subMenu: [
-                {
-                    icon: <RxDot style={{ marginLeft: 2 }} />,
-                    text: t('Home.Sidebar.list.settings.subMenu.general.text'),
-                    link: "/settings/general",
-                },
-                {
-                    icon: <RxDot style={{ marginLeft: 2 }} />,
-                    text: t('Home.Sidebar.list.settings.subMenu.create.text'),
-                    link: "/createsettings",
-                },
-                {
-                    icon: <RxDot style={{ marginLeft: 2 }} />,
-                    text: t('Home.Sidebar.list.settings.subMenu.edit.text'),
-                    link: "/editsettings",
-                },
-                {
-                    icon: <RxDot style={{ marginLeft: 2 }} />,
-                    text: t('Home.Sidebar.list.settings.subMenu.update.text'),
-                    link: "/updatesettings",
-                }
-            ]
-        }
-    ];
+    // const SidebarMenuItemsArray = [
+    //     {
+    //         index: 1,
+    //         icon: <MdOutlineFactCheck size={25} style={{ width: 28, height: 28 }} />,
+    //         text: t('Home.Sidebar.list.Dashboard.text'),
+    //         // link: "/",
+    //         subMenu: [
+    //             {
+    //                 icon: <RxDot style={{ marginLeft: 2 }} />,
+    //                 text: t('Home.Sidebar.list.Dashboard.subMenu.Dashboard.text'),
+    //                 link: "/dashboard/assessment"
+    //             },
+    //             {
+    //                 icon: <RxDot style={{ marginLeft: 2 }} />,
+    //                 text: t('Home.Sidebar.list.Dashboard.subMenu.assessment.text'),
+    //                 link: "/dashboard/createassessment"
+    //             },
+    //             {
+    //                 icon: <RxDot style={{ marginLeft: 2 }} />,
+    //                 text: t('Home.Sidebar.list.Dashboard.subMenu.grade.text'),
+    //                 link: "/dashboard/entergrade"
+    //             },
+    //             {
+    //                 icon: <RxDot style={{ marginLeft: 2 }} />,
+    //                 text: t('Home.Sidebar.list.Dashboard.subMenu.overAllGrade.text'),
+    //                 link: "/dashboard/enteroverallgrade"
+    //             }
+    //         ]
+    //     },
+    //     {
+    //         index: 2,
+    //         icon: <FaUserAlt size={17} style={{ width: 23, height: 23 }} />,
+    //         text: t('Home.Sidebar.list.userManagement.text'),
+    //         // link: "/usermanagement",
+    //         subMenu: [
+    //             {
+    //                 icon: <RxDot style={{ marginLeft: 2 }} />,
+    //                 text: t('Home.Sidebar.list.userManagement.subMenu.Users.text'),
+    //                 link: "/account/users/viewusers"
+    //             },
+    //             {
+    //                 icon: <RxDot style={{ marginLeft: 2 }} />,
+    //                 text: t('Home.Sidebar.list.userManagement.subMenu.groups.text'),
+    //                 link: "/account/groups/viewgroups"
+    //             },
+    //             {
+    //                 icon: <RxDot style={{ marginLeft: 2 }} />,
+    //                 text: t('Home.Sidebar.list.userManagement.subMenu.roles.text'),
+    //                 link: "/account/roles/viewroles"
+    //             }
+    //         ]
+    //     },
+    //     {
+    //         index: 3,
+    //         icon: <FiSettings size={20} style={{ width: 23, height: 23 }} />,
+    //         text: t('Home.Sidebar.list.settings.text'),
+    //         // link: "/",
+    //         subMenu: [
+    //             {
+    //                 icon: <RxDot style={{ marginLeft: 2 }} />,
+    //                 text: t('Home.Sidebar.list.settings.subMenu.general.text'),
+    //                 link: "/settings/general",
+    //             },
+    //             {
+    //                 icon: <RxDot style={{ marginLeft: 2 }} />,
+    //                 text: t('Home.Sidebar.list.settings.subMenu.create.text'),
+    //                 link: "/createsettings",
+    //             },
+    //             {
+    //                 icon: <RxDot style={{ marginLeft: 2 }} />,
+    //                 text: t('Home.Sidebar.list.settings.subMenu.edit.text'),
+    //                 link: "/editsettings",
+    //             },
+    //             {
+    //                 icon: <RxDot style={{ marginLeft: 2 }} />,
+    //                 text: t('Home.Sidebar.list.settings.subMenu.update.text'),
+    //                 link: "/updatesettings",
+    //             }
+    //         ]
+    //     }
+    // ];
     // ######################## Array of menu items ########################
+
+    let FinalsidebarAppsListArray = JSON.parse(localStorage.getItem("sidebarAppsListArray") || '[]');
 
     // Automatically open the sub menu if the current location path is in the sub menu
     useEffect(() => {
@@ -233,29 +239,27 @@ const Home = ({
         const currentLocationPath = window.location.pathname;
 
         // Do it using for loop
-        for (let i = 0; i < SidebarMenuItemsArray.length; i++) {
-            for (let j = 0; j < SidebarMenuItemsArray[i].subMenu.length; j++) {
-                if (SidebarMenuItemsArray[i].subMenu[j].link === currentLocationPath) {
-                    setCurrentMenuItem(i + 1);
-                    setCurrentSubMenuSidebarOpenItem(i + 1);
-                }
-            }
-        }
+        // for (let i = 0; i < FinalsidebarAppsListArray.length; i++) {
+        //     for (let j = 0; j < FinalsidebarAppsListArray[i].subMenu.length; j++) {
+                //if (currentMenuItem === currentLocationPath) {
+                setCurrentMenuItem(1);
+                setCurrentSubMenuSidebarOpenItem(1);
+                // }
+        //     }
+        // }
     }, []);
 
-    let FinalsidebarAppsListArray = JSON.parse(localStorage.getItem("sidebarAppsListArray") || '[]');
-
-    useEffect(() => {
-        if (sidebarAppsListArray.length > 0) {
-            console.clear();
-            console.log("************************* Final Apps List *************************");
-            // console.log("The Final Apps List is below: ", sidebarAppsListArray);
-            // Please get the response from the local storage
-            let sidebarAppsListArray = JSON.parse(localStorage.getItem("sidebarAppsListArray") || '{}');
-            console.log("The Final Apps List is below: ", sidebarAppsListArray);
-            console.log("************************* Final Apps List *************************");
-        }
-    }, [sidebarAppsListArray]);
+    // useEffect(() => {
+    //     if (sidebarAppsListArray.length > 0) {
+    //         console.clear();
+    //         console.log("************************* Final Apps List *************************");
+    //         // console.log("The Final Apps List is below: ", sidebarAppsListArray);
+    //         // Please get the response from the local storage
+    //         let sidebarAppsListArray = JSON.parse(localStorage.getItem("sidebarAppsListArray") || '{}');
+    //         console.log("The Final Apps List is below: ", sidebarAppsListArray);
+    //         console.log("************************* Final Apps List *************************");
+    //     }
+    // }, [sidebarAppsListArray]);
 
     if (loading) { // if your component doesn't have to wait for async data, remove this block 
         return <Loader /> // render Loader here
@@ -290,6 +294,17 @@ const Home = ({
                         // Current language
                         currentLang={currentLang}
                         setCurrentLang={setCurrentLang}
+
+                        // Current Notification Active Tab
+                        currentNotificationActiveTab={currentNotificationActiveTab}
+                        setCurrentNotificationActiveTab={setCurrentNotificationActiveTab}
+
+                        // Current Menu Item
+                        currentMenuItem={currentMenuItem}
+                        setCurrentMenuItem={setCurrentMenuItem}
+
+                        // Current Sub Menu Item
+                        setCurrentSubMenuSidebarOpenItem={setCurrentSubMenuSidebarOpenItem}
                     />
                     <div className='d-flex'>
                         <div style={{ position: "relative", zIndex: 1 }}>
@@ -314,6 +329,10 @@ const Home = ({
                                 // Current language
                                 currentLang={currentLang}
                                 setCurrentLang={setCurrentLang}
+
+                                // Current Notification Active Tab
+                                currentNotificationActiveTab={currentNotificationActiveTab}
+                                setCurrentNotificationActiveTab={setCurrentNotificationActiveTab}
                             />
                         </div>
 

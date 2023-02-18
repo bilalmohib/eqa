@@ -37,7 +37,7 @@ interface SidebarProps {
     isMinified: Boolean,
 
     // Current Menu Item
-    currentMenuItem: Number,
+    currentMenuItem: any,
     setCurrentMenuItem: any,
 
     // Current Sub Menu Item
@@ -49,7 +49,11 @@ interface SidebarProps {
 
     // Current Language
     currentLang: string,
-    setCurrentLang: any
+    setCurrentLang: any,
+
+    // Current Notification Active Tab
+    currentNotificationActiveTab: Number,
+    setCurrentNotificationActiveTab: any
 }
 
 const Sidebar: React.FC<SidebarProps> = ({
@@ -68,7 +72,11 @@ const Sidebar: React.FC<SidebarProps> = ({
 
     // Current Language
     currentLang,
-    setCurrentLang
+    setCurrentLang,
+
+    // Current Notification Active Tab
+    currentNotificationActiveTab,
+    setCurrentNotificationActiveTab
 }) => {
     const { t } = useTranslation();
 
@@ -100,7 +108,10 @@ const Sidebar: React.FC<SidebarProps> = ({
     const [searchTextSidebar, setSearchTextSidebar] = useState<string>("");
 
     useEffect(() => {
-        console.log("Sub menu item: ", menuItemsArrayState);
+        // console.log("Sub menu item: ", menuItemsArrayState);
+        // Render a conditional menu item
+        console.clear();
+        console.log("Current Notification Active tab: ", currentMenuItem);
 
         if (showFilterMenu) {
             let searchFilterInput = document.getElementById('searchFilterMenu') as HTMLInputElement;
@@ -262,174 +273,177 @@ const Sidebar: React.FC<SidebarProps> = ({
                 <div className={styles.sidebarItemsContainer}>
                     <ul className={styles.SidebarMenuList}>
                         {
-                            menuItemsArrayState.map((item: any, index: any) => {
-                                return (
-                                    <li key={index}>
-                                        <li
-                                            className={
-                                                `${(currentMenuItem === index + 1) ? (`ripple ${styles.selected_Menu_Item}`) : ("")} ${(isMinified) && (styles.listItemMinified)}`
-                                            }
-                                            style={{ cursor: (isMinified) ? ("default") : ("pointer") }}
-                                            onClick={(e: any) => {
-                                                if (!isMinified) {
-                                                    createRipple(e);
-                                                    if (isMinified === false) {
-                                                        setCurrentMenuItem(index + 1);
-                                                        // navigate('/');
-                                                        if (currentSubMenuSidebarOpenItem === (index + 1)) {
-                                                            setCurrentSubMenuSidebarOpenItem(0);
-                                                        }
-                                                        else {
-                                                            setCurrentSubMenuSidebarOpenItem(index + 1);
+                            // eslint-disable-next-line array-callback-return
+                            menuItemsArrayState.map((item: any, index: number) => {
+                                if (currentMenuItem === (index+1)) {
+                                    return (
+                                        <li key={index}>
+                                            <li
+                                                className={
+                                                    `${(currentMenuItem === index + 1) ? (`ripple ${styles.selected_Menu_Item}`) : ("")} ${(isMinified) && (styles.listItemMinified)}`
+                                                }
+                                                style={{ cursor: (isMinified) ? ("default") : ("pointer") }}
+                                                onClick={(e: any) => {
+                                                    if (!isMinified) {
+                                                        createRipple(e);
+                                                        if (isMinified === false) {
+                                                            setCurrentMenuItem(index + 1);
+                                                            // navigate('/');
+                                                            if (currentSubMenuSidebarOpenItem === (index + 1)) {
+                                                                setCurrentSubMenuSidebarOpenItem(0);
+                                                            }
+                                                            else {
+                                                                setCurrentSubMenuSidebarOpenItem(index + 1);
+                                                            }
                                                         }
                                                     }
-                                                }
-                                            }}
+                                                }}
 
-                                            onMouseLeave={() => {
-                                                if (isMinified) {
-                                                    // setCurrentMenuItem(0);
-                                                    // setCurrentSubMenuSidebarOpenItem(0);
-                                                }
-                                            }}
-                                        >
-                                            <div
-                                                className={`d-flex ${(isMinified) && (styles.minifiedSidebarInsideContainer)}`}
-                                                role={"button"}
-                                                // Disable on click when is minified
-                                                onClick={(event) => { event.preventDefault(); }}
-                                                onMouseEnter={() => {
+                                                onMouseLeave={() => {
                                                     if (isMinified) {
-                                                        setCurrentMenuItem(index + 1);
-                                                        //if (currentSubMenuSidebarOpenItem === (index + 1)) {
+                                                        // setCurrentMenuItem(0);
                                                         // setCurrentSubMenuSidebarOpenItem(0);
-                                                        //}
-                                                        //else {
-                                                        setCurrentSubMenuSidebarOpenItem(index + 1);
-                                                        //}
                                                     }
                                                 }}
                                             >
-                                                <p
-                                                    style={{
-                                                        // border: ((currentSubMenuSidebarOpenItem === (index + 1)) && isMinified && i18n.language === 'ar') ? ("1px solid black") : ("1px solid red"),
-                                                        marginRight: ((currentSubMenuSidebarOpenItem === (index + 1)) && isMinified && i18n.language === 'ar') ?
-                                                            (3) :
-                                                            (isMinified && currentMenuItem === (index + 1) && i18n.language === 'ar') ?
-                                                                (3) :
-                                                                ("initial"),
-                                                    }}
-                                                >
-                                                    <span dangerouslySetInnerHTML={{ __html: item.icon }} />
-                                                </p>
-                                                <p className={styles.itemMenuListText}>
-                                                    {item.text}
-                                                </p>
-                                            </div>
-                                        </li>
-                                        {
-                                            (currentSubMenuSidebarOpenItem === index + 1) && (
-                                                <ul
-                                                    onMouseLeave={() => {
-                                                        if (isMinified) {
-                                                            // setCurrentMenuItem(0);
-                                                            /// setCurrentSubMenuSidebarOpenItem(0);
-                                                        }
-                                                    }}
+                                                <div
+                                                    className={`d-flex ${(isMinified) && (styles.minifiedSidebarInsideContainer)}`}
+                                                    role={"button"}
+                                                    // Disable on click when is minified
+                                                    onClick={(event) => { event.preventDefault(); }}
                                                     onMouseEnter={() => {
                                                         if (isMinified) {
+                                                            setCurrentMenuItem(index + 1);
+                                                            //if (currentSubMenuSidebarOpenItem === (index + 1)) {
+                                                            // setCurrentSubMenuSidebarOpenItem(0);
+                                                            //}
+                                                            //else {
                                                             setCurrentSubMenuSidebarOpenItem(index + 1);
+                                                            //}
                                                         }
                                                     }}
-                                                    className={`${(isMinified) ? (styles.SubMenuItemContainerMinifiedVersion) : (styles.SubMenuItemContainer)}`}>
-                                                    {
-                                                        sidebarList[index].subMenu.map((subItem: any, subIndex: number) => {
-                                                            return (
-                                                                <li
-                                                                    key={subIndex}
-                                                                    onClick={() => {
-                                                                        // Navigate to the link
-                                                                        navigate(subItem.formUrl);
+                                                >
+                                                    <p
+                                                        style={{
+                                                            // border: ((currentSubMenuSidebarOpenItem === (index + 1)) && isMinified && i18n.language === 'ar') ? ("1px solid black") : ("1px solid red"),
+                                                            marginRight: ((currentSubMenuSidebarOpenItem === (index + 1)) && isMinified && i18n.language === 'ar') ?
+                                                                (3) :
+                                                                (isMinified && currentMenuItem === (index + 1) && i18n.language === 'ar') ?
+                                                                    (3) :
+                                                                    ("initial"),
+                                                        }}
+                                                    >
+                                                        <span dangerouslySetInnerHTML={{ __html: item.icon }} />
+                                                    </p>
+                                                    <p className={styles.itemMenuListText}>
+                                                        {item.text}
+                                                    </p>
+                                                </div>
+                                            </li>
+                                            {
+                                                (currentSubMenuSidebarOpenItem === index + 1) && (
+                                                    <ul
+                                                        onMouseLeave={() => {
+                                                            if (isMinified) {
+                                                                // setCurrentMenuItem(0);
+                                                                /// setCurrentSubMenuSidebarOpenItem(0);
+                                                            }
+                                                        }}
+                                                        onMouseEnter={() => {
+                                                            if (isMinified) {
+                                                                setCurrentSubMenuSidebarOpenItem(index + 1);
+                                                            }
+                                                        }}
+                                                        className={`${(isMinified) ? (styles.SubMenuItemContainerMinifiedVersion) : (styles.SubMenuItemContainer)}`}>
+                                                        {
+                                                            sidebarList[index].subMenu.map((subItem: any, subIndex: number) => {
+                                                                return (
+                                                                    <li
+                                                                        key={subIndex}
+                                                                        onClick={() => {
+                                                                            // Navigate to the link
+                                                                            navigate(subItem.formUrl);
 
-                                                                        if (
-                                                                            windowSize[0] <= 990
-                                                                        ) {
-                                                                            setIsOpen(false);
-                                                                        }
+                                                                            if (
+                                                                                windowSize[0] <= 990
+                                                                            ) {
+                                                                                setIsOpen(false);
+                                                                            }
 
-                                                                        // Set the current menu item
-                                                                        if (isMinified) {
-                                                                            // setCurrentMenuItem(0);
-                                                                            setCurrentSubMenuSidebarOpenItem(0);
-                                                                        }
-                                                                    }}
-                                                                    style={{
-                                                                        borderTopLeftRadius:
-                                                                            (subIndex === 0 && isMinified) ?
-                                                                                (5) :
-                                                                                (0),
-                                                                        borderTopRightRadius:
-                                                                            (subIndex === 0 && isMinified) ?
-                                                                                (5) :
-                                                                                (0),
-                                                                        borderBottomLeftRadius:
-                                                                            ((subIndex === sidebarList[index].subMenu.length - 1)
+                                                                            // Set the current menu item
+                                                                            if (isMinified) {
+                                                                                // setCurrentMenuItem(0);
+                                                                                setCurrentSubMenuSidebarOpenItem(0);
+                                                                            }
+                                                                        }}
+                                                                        style={{
+                                                                            borderTopLeftRadius:
+                                                                                (subIndex === 0 && isMinified) ?
+                                                                                    (5) :
+                                                                                    (0),
+                                                                            borderTopRightRadius:
+                                                                                (subIndex === 0 && isMinified) ?
+                                                                                    (5) :
+                                                                                    (0),
+                                                                            borderBottomLeftRadius:
+                                                                                ((subIndex === sidebarList[index].subMenu.length - 1)
+                                                                                    &&
+                                                                                    isMinified) ?
+                                                                                    (5) :
+                                                                                    (0),
+                                                                            borderBottomRightRadius: ((subIndex === sidebarList[index].subMenu.length - 1)
                                                                                 &&
                                                                                 isMinified) ?
                                                                                 (5) :
-                                                                                (0),
-                                                                        borderBottomRightRadius: ((subIndex === sidebarList[index].subMenu.length - 1)
-                                                                            &&
-                                                                            isMinified) ?
-                                                                            (5) :
-                                                                            (0)
-                                                                    }}
-                                                                    className={`${(isMinified) && (styles.SubMenuItemContainerMinifiedVersionli)}`}
-                                                                >
-                                                                    {(!isMinified) ? (
-                                                                        <div>
-                                                                            {/* {subItem.icon} */}
-                                                                            <span dangerouslySetInnerHTML={{ __html: subItem.icon }} />
-                                                                            &nbsp;
-                                                                            &nbsp;
-                                                                            &nbsp;
-                                                                            <span
-                                                                                className={styles.textSidebarSubMenuList}
-                                                                            >
-                                                                                {subItem.text}
-                                                                            </span>
-                                                                        </div>
-                                                                    ) : (
-                                                                        <div className='d-flex'>
-                                                                            {/* <p>
+                                                                                (0)
+                                                                        }}
+                                                                        className={`${(isMinified) && (styles.SubMenuItemContainerMinifiedVersionli)}`}
+                                                                    >
+                                                                        {(!isMinified) ? (
+                                                                            <div>
+                                                                                {/* {subItem.icon} */}
+                                                                                <span dangerouslySetInnerHTML={{ __html: subItem.icon }} />
+                                                                                &nbsp;
+                                                                                &nbsp;
+                                                                                &nbsp;
+                                                                                <span
+                                                                                    className={styles.textSidebarSubMenuList}
+                                                                                >
+                                                                                    {subItem.text}
+                                                                                </span>
+                                                                            </div>
+                                                                        ) : (
+                                                                            <div className='d-flex'>
+                                                                                {/* <p>
                                                                                 {subItem.icons[0].icon} */}
-                                                                            {/* {subItem.icons.map((icon: any, iconIndex: number) => (
+                                                                                {/* {subItem.icons.map((icon: any, iconIndex: number) => (
                                                                                     <React.Fragment key={iconIndex}>{icon.icon}</React.Fragment>
                                                                                 ))} */}
-                                                                            {/* </p> */}
-                                                                            {/* <p dangerouslySetInnerHTML={{ __html: subItem.icon }} /> */}
-                                                                            <p>
-                                                                                <RxDot style={{ marginLeft: 2 }} />
-                                                                            </p>
-                                                                            &nbsp;
-                                                                            &nbsp;
-                                                                            &nbsp;
-                                                                            <p
-                                                                                className={styles.textSidebarSubMenuList}
-                                                                            >
-                                                                                {subItem.text}
-                                                                            </p>
-                                                                        </div>
-                                                                    )}
-                                                                </li>
-                                                            )
-                                                        })
-                                                    }
-                                                </ul>
-                                            )
-                                        }
-                                    </li>
-                                )
+                                                                                {/* </p> */}
+                                                                                {/* <p dangerouslySetInnerHTML={{ __html: subItem.icon }} /> */}
+                                                                                <p>
+                                                                                    <RxDot style={{ marginLeft: 2 }} />
+                                                                                </p>
+                                                                                &nbsp;
+                                                                                &nbsp;
+                                                                                &nbsp;
+                                                                                <p
+                                                                                    className={styles.textSidebarSubMenuList}
+                                                                                >
+                                                                                    {subItem.text}
+                                                                                </p>
+                                                                            </div>
+                                                                        )}
+                                                                    </li>
+                                                                )
+                                                            })
+                                                        }
+                                                    </ul>
+                                                )
+                                            }
+                                        </li>
+                                    )
+                                }
                             })
                         }
                     </ul>

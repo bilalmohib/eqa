@@ -71,7 +71,18 @@ interface NavProps {
 
     // Current Language
     currentLang: string,
-    setCurrentLang: any
+    setCurrentLang: any,
+
+    // Current Notification Active Tab
+    currentNotificationActiveTab: Number,
+    setCurrentNotificationActiveTab: any,
+
+    // Current Menu Item
+    currentMenuItem: any,
+    setCurrentMenuItem: any,
+
+    // Current Sub Menu Item
+    setCurrentSubMenuSidebarOpenItem: any
 }
 
 export interface State extends SnackbarOrigin {
@@ -96,6 +107,17 @@ const Navbar: React.FC<NavProps> = ({
     // Current Language
     currentLang,
     setCurrentLang,
+
+    // Current Notification Active Tab
+    currentNotificationActiveTab,
+    setCurrentNotificationActiveTab,
+
+    // Current Menu Item
+    currentMenuItem,
+    setCurrentMenuItem,
+
+    // Current Sub Menu Item
+    setCurrentSubMenuSidebarOpenItem
 }) => {
     const { t } = useTranslation();
     const navigate = useNavigate();
@@ -134,8 +156,6 @@ const Navbar: React.FC<NavProps> = ({
         }
     }
 
-    const [currentSelectedAppIndex, setCurrentSelectedAppIndex] = useState<number>(0);
-
     // useEffect(() => {
     //     if (FinalsidebarAppsListArray.length > 0) {
     //         for (let i = 0; i < FinalsidebarAppsListArray.length; i++) {
@@ -157,12 +177,12 @@ const Navbar: React.FC<NavProps> = ({
 
     const handleClick = (newState: SnackbarOrigin, index: any, useCase: string) => () => {
         if (useCase === "menu") {
+            setCurrentMenuItem(index + 1);
+            setCurrentSubMenuSidebarOpenItem(index + 1);
             const m = `${(FinalsidebarAppsListArray.length > 0) && FinalsidebarAppsListArray[index].text} Menu fetched successfully`;
-            setCurrentSelectedAppIndex(index);
             setState({ open: true, message: m, ...newState });
         } else if (useCase === "logout") {
             const m = `You have been logged out successfully`;
-            setCurrentSelectedAppIndex(index);
             setState({ open: true, message: m, ...newState });
         }
     };
@@ -170,7 +190,6 @@ const Navbar: React.FC<NavProps> = ({
     const handleClose = () => {
         setState({ ...state, open: false });
     };
-
 
     useEffect(() => {
         const handleWindowResize = () => {
@@ -191,8 +210,6 @@ const Navbar: React.FC<NavProps> = ({
     const [selectedDay, setSelectedDay] = useState<any>(null);
 
     const [searchValue, setSearchValue] = useState<string>("");
-
-    const [currentNotificationActiveTab, setCurrentNotificationActiveTab] = useState<Number>(1);
 
     const logoutUser = () => {
         // if (window.confirm("Are you sure you want to logout?")) {
@@ -314,6 +331,52 @@ const Navbar: React.FC<NavProps> = ({
     //         text: t('Home.Header.DropDown.Apps.List.maps'),
     //     },
     // ];
+
+    // const [finalAppsList, setFinalAppsList] = useState<any>([]);
+
+    // useEffect(() => {
+
+    //     let accessToken: any = Cookies.get("accessToken");
+
+    //     if (accessToken === undefined || accessToken === null) {
+    //         accessToken = null;
+    //     }
+
+    //     console.log("Access Token in View All Apps Data ===> ", accessToken);
+
+    //     if (accessToken !== null) {
+    //         // Fetching data using axios and also pass the header x-api-key for auth
+    //         axios.get("https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/fetchAppDetails", {
+    //             headers: {
+    //                 "x-api-key": accessToken
+    //             }
+    //         })
+    //             .then((res: any) => {
+    //                 //setViewAllAppsData(res.data);
+    //                 const viewAllAppsData = res.data.obj;
+    //                 if (viewAllAppsData !== null && viewAllAppsData !== undefined) {
+    //                     // Check if the appurl of viewAppAppsData maches with the appUrl of appsList
+    //                     // If it matches then push the appUrl to finalAppsList
+    //                     let finalAppsList: any = [];
+
+    //                     for (let i = 0; i < appsList.length; i++) {
+    //                         console.log("Final Apps List ===> ", appsList[i]);
+    //                         for (let j = 0; j < viewAllAppsData.length; j++) {
+    //                             if (appsList[i].appUrl === viewAllAppsData[j].appUrl) {
+    //                                 finalAppsList.push(appsList[i]);
+    //                                 console.log("Final Apps List ===> ", appsList[i]);
+    //                             }
+    //                         }
+    //                     }
+    //                     setFinalAppsList(finalAppsList);
+    //                 }
+    //             })
+    //             .catch((err) => {
+    //                 console.log(err);
+    //             });
+    //     }
+    // }, []);
+    // Fetching the Apps List
 
     function TransitionLeft(props: any) {
         return <Slide {...props} direction="left" />;
@@ -488,7 +551,7 @@ const Navbar: React.FC<NavProps> = ({
                                         <section className={styles.AppsContainerDropDown}>
                                             <div className={`${styles.insideContainerAC}`}>
                                                 {(FinalsidebarAppsListArray.length > 0) ? (
-                                                    FinalsidebarAppsListArray.map((app: any, index: number) => (
+                                                    FinalsidebarAppsListArray.map((app: any, index: any) => (
                                                         <div
                                                             key={index}
                                                             style={{ position: "relative", cursor: "pointer" }}
@@ -500,7 +563,7 @@ const Navbar: React.FC<NavProps> = ({
                                                                 "menu"
                                                             )}
                                                         >
-                                                            <li className={(index === currentSelectedAppIndex) ? (styles.selectedAppStyle) : ("")}>
+                                                            <li className={(index === (currentMenuItem - 1)) ? (styles.selectedAppStyle) : ("")}>
                                                                 {/* {app.icon} */}
                                                                 <span dangerouslySetInnerHTML={{ __html: app.icon }} />
                                                                 <p>{app.text}</p>

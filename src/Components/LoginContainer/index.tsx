@@ -189,13 +189,13 @@ const LoginContainer: FC<LoginContainerProps> = ({
 
                                     subMenu[j].text = subMenu[j].formName;
                                     if (subMenu[j].formUrl === "/account/user") {
-                                        subMenu[j].formUrl = "account/users/viewusers";
+                                        subMenu[j].formUrl = "/account/users/viewusers";
                                     }
                                     else if (subMenu[j].formUrl === "/account/role") {
-                                        subMenu[j].formUrl = "account/roles/viewroles";
+                                        subMenu[j].formUrl = "/account/roles/viewroles";
                                     }
                                     else if (subMenu[j].formUrl === "/account/group") {
-                                        subMenu[j].formUrl = "account/groups/viewgroups";
+                                        subMenu[j].formUrl = "/account/groups/viewgroups";
                                     }
                                 }
                             }
