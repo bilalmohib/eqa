@@ -222,7 +222,6 @@ const Login2: FC<LoginProps> = ({
                                 ("")}`}>
                         <LoginContainer
                             setShowHeader={setShowHeader}
-
                             // Sidebar Apps List
                             sidebarAppsListArray={sidebarAppsListArray}
                             setSidebarAppsListArray={setSidebarAppsListArray}
