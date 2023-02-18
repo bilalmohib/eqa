@@ -315,52 +315,6 @@ const Navbar: React.FC<NavProps> = ({
     //     },
     // ];
 
-    // const [finalAppsList, setFinalAppsList] = useState<any>([]);
-
-    // useEffect(() => {
-
-    //     let accessToken: any = Cookies.get("accessToken");
-
-    //     if (accessToken === undefined || accessToken === null) {
-    //         accessToken = null;
-    //     }
-
-    //     console.log("Access Token in View All Apps Data ===> ", accessToken);
-
-    //     if (accessToken !== null) {
-    //         // Fetching data using axios and also pass the header x-api-key for auth
-    //         axios.get("https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/fetchAppDetails", {
-    //             headers: {
-    //                 "x-api-key": accessToken
-    //             }
-    //         })
-    //             .then((res: any) => {
-    //                 //setViewAllAppsData(res.data);
-    //                 const viewAllAppsData = res.data.obj;
-    //                 if (viewAllAppsData !== null && viewAllAppsData !== undefined) {
-    //                     // Check if the appurl of viewAppAppsData maches with the appUrl of appsList
-    //                     // If it matches then push the appUrl to finalAppsList
-    //                     let finalAppsList: any = [];
-
-    //                     for (let i = 0; i < appsList.length; i++) {
-    //                         console.log("Final Apps List ===> ", appsList[i]);
-    //                         for (let j = 0; j < viewAllAppsData.length; j++) {
-    //                             if (appsList[i].appUrl === viewAllAppsData[j].appUrl) {
-    //                                 finalAppsList.push(appsList[i]);
-    //                                 console.log("Final Apps List ===> ", appsList[i]);
-    //                             }
-    //                         }
-    //                     }
-    //                     setFinalAppsList(finalAppsList);
-    //                 }
-    //             })
-    //             .catch((err) => {
-    //                 console.log(err);
-    //             });
-    //     }
-    // }, []);
-    // Fetching the Apps List
-
     function TransitionLeft(props: any) {
         return <Slide {...props} direction="left" />;
     }
