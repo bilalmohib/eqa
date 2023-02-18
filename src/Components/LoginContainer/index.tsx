@@ -212,7 +212,7 @@ const LoginContainer: FC<LoginContainerProps> = ({
                         navigate("/dashboard/assessment");
                     }
                     else if (responseStatus === 'FAILED') {
-                        alert("Validation Failed");
+                        // alert("Validation Failed");
                         // else if (response === 'FAILED') {
                         // setValidateNow(false);
                         setValidationMessageEmail("Incorrect username or password");
