@@ -3,8 +3,17 @@ import * as React from 'react';
 import { useEffect, useState, FC } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
+import { renderToString } from 'react-dom/server';
+
 // Importing Cookies
 import Cookies from 'js-cookie';
+
+// Importing Sidebar Icons
+import { AiFillDashboard } from "react-icons/ai";
+import { MdOutlineFactCheck } from "react-icons/md";
+import { RxDot } from "react-icons/rx";
+import { FiSettings } from "react-icons/fi";
+import { FaUserAlt } from "react-icons/fa";
 
 // Importing Logo
 import logo from '../../assets/Images/Login/login_logo.png';
@@ -160,14 +169,24 @@ const LoginContainer: FC<LoginContainerProps> = ({
                             const AppsListArray: any = Object.values(data.privilege.apps);
                             // console.log("Apps List: ", AppsListArray);
                             for (let i = 0; i < AppsListArray.length; i++) {
-                                AppsListArray[i].icon = `${i} icon`;
+                                if (AppsListArray[i].appName === "Account") {
+                                    AppsListArray[i].icon = renderToString(<FaUserAlt size={17} style={{ width: 23, height: 23 }} />);
+                                } else if (AppsListArray[i].appName === "Assessment Application") {
+                                    AppsListArray[i].icon = renderToString(<MdOutlineFactCheck size={25} style={{ width: 28, height: 28 }} />);
+                                } else if (AppsListArray[i].appName === "Settings") {
+                                    AppsListArray[i].icon = renderToString(<FiSettings style={{ marginLeft: 2 }} />);
+                                } else {
+                                    AppsListArray[i].icon = `${i} icon`;
+                                }
                                 AppsListArray[i].text = AppsListArray[i].appName;
                                 AppsListArray[i].subMenu = AppsListArray[i].forms;
                                 delete AppsListArray[i].forms;
 
+
                                 const subMenu = AppsListArray[i].subMenu;
                                 for (let j = 0; j < subMenu.length; j++) {
-                                    subMenu[j].icon = `${i} icon`;
+                                    subMenu[j].icon = renderToString(<RxDot style={{ marginLeft: 2 }} />);
+
                                     subMenu[j].text = subMenu[j].formName;
                                     if (subMenu[j].formUrl === "/account/user") {
                                         subMenu[j].formUrl = "account/users/viewusers";
