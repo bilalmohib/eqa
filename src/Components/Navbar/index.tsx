@@ -6,13 +6,15 @@ import { MdMenuOpen } from 'react-icons/md';
 import styles from './style.module.css';
 import { useNavigate } from 'react-router';
 import { AiTwotoneLock } from 'react-icons/ai';
-import { MdOutlineFactCheck } from "react-icons/md";
+import { MdOutlineFactCheck, MdManageAccounts } from "react-icons/md";
 import SchoolIcon from '@mui/icons-material/School';
 import ImportExportIcon from '@mui/icons-material/ImportExport';
 import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 import { BsAlarmFill } from "react-icons/bs";
 import { TfiAlarmClock } from "react-icons/tfi";
 import PieChartIcon from '@mui/icons-material/PieChart';
+
+import { renderToString } from 'react-dom/server';
 
 import FullCalendar from '@fullcalendar/react' // must go before plugins
 import dayGridPlugin from '@fullcalendar/daygrid' // a plugin!
@@ -114,9 +116,48 @@ const Navbar: React.FC<NavProps> = ({
     });
     const { vertical, horizontal, open, message } = state;
 
+    // The Sidebar List
+    let FinalsidebarAppsListArray = JSON.parse(localStorage.getItem("sidebarAppsListArray") || '[]');
+
+    for (let i = 0; i < FinalsidebarAppsListArray.length; i++) {
+        if (FinalsidebarAppsListArray[i].appName === "Account") {
+            FinalsidebarAppsListArray[i].icon = renderToString(<MdManageAccounts color='#3B71CA' style={{ color: "#3B71CA", fontSize: 50, height: 50, width: 50 }} />);
+            FinalsidebarAppsListArray[i].text = t('Home.Header.DropDown.Apps.List.account');
+        } else if (FinalsidebarAppsListArray[i].appName === "Assessment Application") {
+            FinalsidebarAppsListArray[i].icon = renderToString(<MdOutlineFactCheck color="#4f747a" style={{ color: "#4f747a", fontSize: 50, height: 50, width: 50 }} />);
+            FinalsidebarAppsListArray[i].text = t('Home.Header.DropDown.Apps.List.Assessment');
+        } else if (FinalsidebarAppsListArray[i].appName === "Settings") {
+            FinalsidebarAppsListArray[i].icon = renderToString(<IoSettingsOutline size={25} style={{ color: "#000000", fontSize: 50, height: 50, width: 50 }} />);
+            FinalsidebarAppsListArray[i].text = "Settings";
+        } else {
+            FinalsidebarAppsListArray[i].icon = `${i} icon`;
+        }
+    }
+
+    const [currentSelectedAppIndex, setCurrentSelectedAppIndex] = useState<number>(0);
+
+    // useEffect(() => {
+    //     if (FinalsidebarAppsListArray.length > 0) {
+    //         for (let i = 0; i < FinalsidebarAppsListArray.length; i++) {
+    //             if (FinalsidebarAppsListArray[i].appName === "Account") {
+    //                 FinalsidebarAppsListArray[i].icon = renderToString(<ManageAccountsIcon style={{ color: "blue", fontSize: 50, height: 50, width: 50 }} />);
+    //                 FinalsidebarAppsListArray[i].text = t('Home.Header.DropDown.Apps.List.account');
+    //             } else if (FinalsidebarAppsListArray[i].appName === "Assessment Application") {
+    //                 FinalsidebarAppsListArray[i].icon = renderToString(<MdOutlineFactCheck style={{ color: "#4f747a", fontSize: 50, height: 50, width: 50 }} />);
+    //                 FinalsidebarAppsListArray[i].text = t('Home.Header.DropDown.Apps.List.Assessment');
+    //             } else if (FinalsidebarAppsListArray[i].appName === "Settings") {
+    //                 FinalsidebarAppsListArray[i].icon = renderToString(<IoSettingsOutline size={25} style={{ color: "#000000", fontSize: 50, height: 50, width: 50 }} />);
+    //                 FinalsidebarAppsListArray[i].text = "Settings";
+    //             } else {
+    //                 FinalsidebarAppsListArray[i].icon = `${i} icon`;
+    //             }
+    //         }
+    //     }
+    // });
+
     const handleClick = (newState: SnackbarOrigin, index: any, useCase: string) => () => {
         if (useCase === "menu") {
-            const m = `${(finalAppsList.length > 0) && finalAppsList[currentSelectedAppIndex].text} Menu fetched successfully`;
+            const m = `${(FinalsidebarAppsListArray.length > 0) && FinalsidebarAppsListArray[index].text} Menu fetched successfully`;
             setCurrentSelectedAppIndex(index);
             setState({ open: true, message: m, ...newState });
         } else if (useCase === "logout") {
@@ -203,123 +244,121 @@ const Navbar: React.FC<NavProps> = ({
         }
     }
 
-    interface AppsListProps {
-        appUrl: string,
-        icon: any,
-        text: string
-    }
+    // interface AppsListProps {
+    //     appUrl: string,
+    //     icon: any,
+    //     text: string
+    // }
 
     // User use memo to avoid the infinite loop to define the appsList
     // eslint-disable-next-line no-empty-pattern
-    const appsList: AppsListProps[] = [
-        {
-            appUrl: "/assessment",
-            icon: <MdOutlineFactCheck style={{ color: "#4f747a", fontSize: 50, height: 50, width: 50 }} />,
-            text: t('Home.Header.DropDown.Apps.List.Assessment')
-        },
-        {
-            appUrl: "/form",
-            icon: <i className="fab fa-wpforms" style={{ color: "#777777", fontSize: 48, height: 50, width: 50 }}></i>,
-            text: t('Home.Header.DropDown.Apps.List.Form')
-        },
-        {
-            appUrl: "/alarm",
-            icon: <TfiAlarmClock style={{ color: "red", fontSize: 48, height: 48, width: 48, marginBottom: 2 }} />,
-            text: t('Home.Header.DropDown.Apps.List.Alarm')
-        },
-        {
-            appUrl: "/report",
-            icon: <PieChartIcon sx={{ color: "orange", fontSize: 50, height: 50, width: 50 }} />,
-            text: t('Home.Header.DropDown.Apps.List.Report')
-        },
-        {
-            appUrl: "/portal",
-            icon: <ImportExportIcon style={{ color: "grey", fontSize: 50, height: 50, width: 50 }} />,
-            text: t('Home.Header.DropDown.Apps.List.Portal')
-        },
-        {
-            appUrl: "/account",
-            icon: <ManageAccountsIcon style={{ color: "blue", fontSize: 50, height: 50, width: 50 }} />,
-            text: t('Home.Header.DropDown.Apps.List.account')
-        },
-        {
-            appUrl: "/calender",
-            icon: <i className="far fa-calendar-alt" style={{ color: "#0c7cd5", fontSize: 48, height: 50, width: 50 }}></i>,
-            text: t('Home.Header.DropDown.Apps.List.calender')
-        },
-        {
-            appUrl: "/stats",
-            icon: <i className="fas fa-chart-pie" style={{ color: "#0c7cd5", fontSize: 48, height: 48, width: 50 }}></i>,
-            text: t('Home.Header.DropDown.Apps.List.stats')
-        },
-        {
-            appUrl: "/messages",
-            icon: <i className="fas fa-envelope" style={{ color: "#fd52a3", fontSize: 48, height: 50, width: 50 }}></i>,
-            text: t('Home.Header.DropDown.Apps.List.messages')
-        },
-        {
-            appUrl: "/notes",
-            icon: <i className="fas fa-keyboard" style={{ color: "#97c4e8", fontSize: 48, height: 50, width: 50 }}></i>,
-            text: t('Home.Header.DropDown.Apps.List.notes')
-        },
-        {
-            appUrl: "/photos",
-            icon: <i className="fas fa-camera-retro" style={{ color: "#777777", fontSize: 48, height: 50, width: 50 }}></i>,
-            text: t('Home.Header.DropDown.Apps.List.photos'),
-        },
-        {
-            appUrl: "/maps",
-            icon: <i className="fas fa-globe" style={{ color: "#0F5E9C", fontSize: 48, height: 50, width: 50 }}></i>,
-            text: t('Home.Header.DropDown.Apps.List.maps'),
-        },
-    ];
+    // const appsList: AppsListProps[] = [
+    //     {
+    //         appUrl: "/assessment",
+    //         icon: <MdOutlineFactCheck style={{ color: "#4f747a", fontSize: 50, height: 50, width: 50 }} />,
+    //         text: t('Home.Header.DropDown.Apps.List.Assessment')
+    //     },
+    //     {
+    //         appUrl: "/form",
+    //         icon: <i className="fab fa-wpforms" style={{ color: "#777777", fontSize: 48, height: 50, width: 50 }}></i>,
+    //         text: t('Home.Header.DropDown.Apps.List.Form')
+    //     },
+    //     {
+    //         appUrl: "/alarm",
+    //         icon: <TfiAlarmClock style={{ color: "red", fontSize: 48, height: 48, width: 48, marginBottom: 2 }} />,
+    //         text: t('Home.Header.DropDown.Apps.List.Alarm')
+    //     },
+    //     {
+    //         appUrl: "/report",
+    //         icon: <PieChartIcon sx={{ color: "orange", fontSize: 50, height: 50, width: 50 }} />,
+    //         text: t('Home.Header.DropDown.Apps.List.Report')
+    //     },
+    //     {
+    //         appUrl: "/portal",
+    //         icon: <ImportExportIcon style={{ color: "grey", fontSize: 50, height: 50, width: 50 }} />,
+    //         text: t('Home.Header.DropDown.Apps.List.Portal')
+    //     },
+    //     {
+    //         appUrl: "/account",
+    //         icon: <ManageAccountsIcon style={{ color: "blue", fontSize: 50, height: 50, width: 50 }} />,
+    //         text: t('Home.Header.DropDown.Apps.List.account')
+    //     },
+    //     {
+    //         appUrl: "/calender",
+    //         icon: <i className="far fa-calendar-alt" style={{ color: "#0c7cd5", fontSize: 48, height: 50, width: 50 }}></i>,
+    //         text: t('Home.Header.DropDown.Apps.List.calender')
+    //     },
+    //     {
+    //         appUrl: "/stats",
+    //         icon: <i className="fas fa-chart-pie" style={{ color: "#0c7cd5", fontSize: 48, height: 48, width: 50 }}></i>,
+    //         text: t('Home.Header.DropDown.Apps.List.stats')
+    //     },
+    //     {
+    //         appUrl: "/messages",
+    //         icon: <i className="fas fa-envelope" style={{ color: "#fd52a3", fontSize: 48, height: 50, width: 50 }}></i>,
+    //         text: t('Home.Header.DropDown.Apps.List.messages')
+    //     },
+    //     {
+    //         appUrl: "/notes",
+    //         icon: <i className="fas fa-keyboard" style={{ color: "#97c4e8", fontSize: 48, height: 50, width: 50 }}></i>,
+    //         text: t('Home.Header.DropDown.Apps.List.notes')
+    //     },
+    //     {
+    //         appUrl: "/photos",
+    //         icon: <i className="fas fa-camera-retro" style={{ color: "#777777", fontSize: 48, height: 50, width: 50 }}></i>,
+    //         text: t('Home.Header.DropDown.Apps.List.photos'),
+    //     },
+    //     {
+    //         appUrl: "/maps",
+    //         icon: <i className="fas fa-globe" style={{ color: "#0F5E9C", fontSize: 48, height: 50, width: 50 }}></i>,
+    //         text: t('Home.Header.DropDown.Apps.List.maps'),
+    //     },
+    // ];
 
-    const [finalAppsList, setFinalAppsList] = useState<any>([]);
+    // const [finalAppsList, setFinalAppsList] = useState<any>([]);
 
-    const [currentSelectedAppIndex, setCurrentSelectedAppIndex] = useState<any>(0);
+    // useEffect(() => {
 
-    useEffect(() => {
+    //     let accessToken: any = Cookies.get("accessToken");
 
-        let accessToken: any = Cookies.get("accessToken");
+    //     if (accessToken === undefined || accessToken === null) {
+    //         accessToken = null;
+    //     }
 
-        if (accessToken === undefined || accessToken === null) {
-            accessToken = null;
-        }
+    //     console.log("Access Token in View All Apps Data ===> ", accessToken);
 
-        console.log("Access Token in View All Apps Data ===> ", accessToken);
+    //     if (accessToken !== null) {
+    //         // Fetching data using axios and also pass the header x-api-key for auth
+    //         axios.get("https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/fetchAppDetails", {
+    //             headers: {
+    //                 "x-api-key": accessToken
+    //             }
+    //         })
+    //             .then((res: any) => {
+    //                 //setViewAllAppsData(res.data);
+    //                 const viewAllAppsData = res.data.obj;
+    //                 if (viewAllAppsData !== null && viewAllAppsData !== undefined) {
+    //                     // Check if the appurl of viewAppAppsData maches with the appUrl of appsList
+    //                     // If it matches then push the appUrl to finalAppsList
+    //                     let finalAppsList: any = [];
 
-        if (accessToken !== null) {
-            // Fetching data using axios and also pass the header x-api-key for auth
-            axios.get("https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/fetchAppDetails", {
-                headers: {
-                    "x-api-key": accessToken
-                }
-            })
-                .then((res: any) => {
-                    //setViewAllAppsData(res.data);
-                    const viewAllAppsData = res.data.obj;
-                    if (viewAllAppsData !== null && viewAllAppsData !== undefined) {
-                        // Check if the appurl of viewAppAppsData maches with the appUrl of appsList
-                        // If it matches then push the appUrl to finalAppsList
-                        let finalAppsList: any = [];
-
-                        for (let i = 0; i < appsList.length; i++) {
-                            console.log("Final Apps List ===> ", appsList[i]);
-                            for (let j = 0; j < viewAllAppsData.length; j++) {
-                                if (appsList[i].appUrl === viewAllAppsData[j].appUrl) {
-                                    finalAppsList.push(appsList[i]);
-                                    console.log("Final Apps List ===> ", appsList[i]);
-                                }
-                            }
-                        }
-                        setFinalAppsList(finalAppsList);
-                    }
-                })
-                .catch((err) => {
-                    console.log(err);
-                });
-        }
-    }, []);
+    //                     for (let i = 0; i < appsList.length; i++) {
+    //                         console.log("Final Apps List ===> ", appsList[i]);
+    //                         for (let j = 0; j < viewAllAppsData.length; j++) {
+    //                             if (appsList[i].appUrl === viewAllAppsData[j].appUrl) {
+    //                                 finalAppsList.push(appsList[i]);
+    //                                 console.log("Final Apps List ===> ", appsList[i]);
+    //                             }
+    //                         }
+    //                     }
+    //                     setFinalAppsList(finalAppsList);
+    //                 }
+    //             })
+    //             .catch((err) => {
+    //                 console.log(err);
+    //             });
+    //     }
+    // }, []);
     // Fetching the Apps List
 
     function TransitionLeft(props: any) {
@@ -494,8 +533,8 @@ const Navbar: React.FC<NavProps> = ({
                                     <li>
                                         <section className={styles.AppsContainerDropDown}>
                                             <div className={`${styles.insideContainerAC}`}>
-                                                {(finalAppsList.length > 0) ? (
-                                                    finalAppsList.map((app: any, index: number) => (
+                                                {(FinalsidebarAppsListArray.length > 0) ? (
+                                                    FinalsidebarAppsListArray.map((app: any, index: number) => (
                                                         <div
                                                             key={index}
                                                             style={{ position: "relative", cursor: "pointer" }}
@@ -508,7 +547,8 @@ const Navbar: React.FC<NavProps> = ({
                                                             )}
                                                         >
                                                             <li className={(index === currentSelectedAppIndex) ? (styles.selectedAppStyle) : ("")}>
-                                                                {app.icon}
+                                                                {/* {app.icon} */}
+                                                                <span dangerouslySetInnerHTML={{ __html: app.icon }} />
                                                                 <p>{app.text}</p>
                                                             </li>
                                                         </div>

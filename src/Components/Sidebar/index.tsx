@@ -9,6 +9,11 @@ import { FiChevronDown, FiSettings } from "react-icons/fi";
 import { FaRegComments } from "react-icons/fa";
 import { useNavigate } from 'react-router';
 
+import { AiFillDashboard } from "react-icons/ai";
+import { MdOutlineFactCheck } from "react-icons/md";
+import { RxDot } from "react-icons/rx";
+import { FaUserAlt } from "react-icons/fa";
+
 // Importing i18 for language
 import i18n from "../../i18n";
 
@@ -315,7 +320,7 @@ const Sidebar: React.FC<SidebarProps> = ({
                                                                 ("initial"),
                                                     }}
                                                 >
-                                                    {item.icon}
+                                                    <span dangerouslySetInnerHTML={{ __html: item.icon }} />
                                                 </p>
                                                 <p className={styles.itemMenuListText}>
                                                     {item.text}
@@ -383,7 +388,8 @@ const Sidebar: React.FC<SidebarProps> = ({
                                                                 >
                                                                     {(!isMinified) ? (
                                                                         <div>
-                                                                            {subItem.icon}
+                                                                            {/* {subItem.icon} */}
+                                                                            <span dangerouslySetInnerHTML={{ __html: subItem.icon }} />
                                                                             &nbsp;
                                                                             &nbsp;
                                                                             &nbsp;
@@ -395,8 +401,15 @@ const Sidebar: React.FC<SidebarProps> = ({
                                                                         </div>
                                                                     ) : (
                                                                         <div className='d-flex'>
+                                                                            {/* <p>
+                                                                                {subItem.icons[0].icon} */}
+                                                                            {/* {subItem.icons.map((icon: any, iconIndex: number) => (
+                                                                                    <React.Fragment key={iconIndex}>{icon.icon}</React.Fragment>
+                                                                                ))} */}
+                                                                            {/* </p> */}
+                                                                            {/* <p dangerouslySetInnerHTML={{ __html: subItem.icon }} /> */}
                                                                             <p>
-                                                                                {subItem.icon}
+                                                                                <RxDot style={{ marginLeft: 2 }} />
                                                                             </p>
                                                                             &nbsp;
                                                                             &nbsp;
