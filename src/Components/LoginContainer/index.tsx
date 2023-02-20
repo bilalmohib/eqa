@@ -212,7 +212,7 @@ const LoginContainer: FC<LoginContainerProps> = ({
                         navigate("/dashboard/assessment");
                     }
                     else if (responseStatus === 'FAILED') {
-                        alert("Validation Failed");
+                        // alert("Validation Failed");
                         // else if (response === 'FAILED') {
                         // setValidateNow(false);
                         setValidationMessageEmail("Incorrect username or password");
@@ -233,6 +233,11 @@ const LoginContainer: FC<LoginContainerProps> = ({
                 })
                 .catch(error => {
                     console.error("Error logging in using post api ==>", error);
+                    setValidationMessageEmail("Network Error In backend ...");
+                    setValidationMessagePassword("Network Error In backend ...");
+
+                    setValidationStatusEmail(false);
+                    setValidationStatusPassword(false);
                     // handle the error
                 });
         }

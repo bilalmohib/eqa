@@ -144,7 +144,7 @@ const Home = ({
     const [currentSubMenuSidebarOpenItem, setCurrentSubMenuSidebarOpenItem] = useState<Number>(0);
 
     // Active Tab for Notification
-    const [currentNotificationActiveTab, setCurrentNotificationActiveTab] = useState<Number>(0);
+    const [currentNotificationActiveTab, setCurrentNotificationActiveTab] = useState<Number>(1);
     // Active Tab for Notification
 
     // ######################## Array of menu items ########################

@@ -5,6 +5,12 @@ import { useState, useEffect } from "react";
 import PeopleOutlineIcon from '@mui/icons-material/PeopleOutline';
 import SendIcon from '@mui/icons-material/Send';
 
+import { useNavigate } from 'react-router';
+
+import axios from 'axios';
+
+import Cookies from 'js-cookie';
+
 // Importing material ui components
 import {
     Button,
@@ -16,8 +22,10 @@ import {
     FormControlLabel,
     FormLabel,
     RadioGroup,
-    Radio
+    Radio,
+    Snackbar
 } from '@mui/material';
+import Slide, { SlideProps } from '@mui/material/Slide';
 
 import styles from "./style.module.css";
 
@@ -36,6 +44,29 @@ const AddGroup: React.FC<UserProps> = ({
     isMinified,
     setIsMinified
 }) => {
+    const navigate = useNavigate();
+
+    ///////////////////////////////// Snackbar State /////////////////////////////////
+    type TransitionProps = Omit<SlideProps, 'direction'>;
+
+    function TransitionRight(props: TransitionProps) {
+        return <Slide {...props} direction="right" />;
+    }
+
+    const [snackbarMessage, setSnackbarMessage] = useState('');
+
+    const vertical = 'bottom';
+    const horizontal = 'right';
+
+    const [open, setOpen] = React.useState(false);
+    const [transition, setTransition] = React.useState<
+        React.ComponentType<TransitionProps> | undefined
+    >(undefined);
+
+    const handleClose = () => {
+        setOpen(false);
+    };
+    ///////////////////////////////// Snackbar State /////////////////////////////////
 
     const currentFormatedDate: string = new Date().toLocaleString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
 
@@ -55,6 +86,110 @@ const AddGroup: React.FC<UserProps> = ({
             window.removeEventListener('resize', handleWindowResize);
         };
     });
+
+    // For field validation
+    const [groupName, setGroupName] = useState("");
+    const [groupDescription, setGroupDescription] = useState("");
+
+    // Error messages
+    const [groupNameErrorMessage, setGroupNameErrorMessage] = useState("");
+    const [groupDescriptionErrorMessage, setGroupDescriptionErrorMessage] = useState("");
+
+    // For field validation
+    const [groupNameError, setGroupNameError] = useState(false);
+    const [groupDescriptionError, setGroupDescriptionError] = useState(false);
+
+    // Status radio buttons
+    const [status, setStatus] = useState("Active");
+
+    const handleChangeStatus = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setStatus((event.target as HTMLInputElement).value);
+    };
+    // Status radio buttons
+
+    const submitForm = (e: any) => {
+        e.preventDefault();
+
+        // Get the user from local storage
+        // Add validation also 
+        const userLocalStorage = JSON.parse(localStorage.getItem('user') || '{}');
+        if (userLocalStorage !== null && userLocalStorage !== undefined) {
+            const loggedInUser = userLocalStorage.userName;
+            console.log("Logged In UserName ===> ", loggedInUser);
+
+            let accessToken: any = Cookies.get("accessToken");
+
+            if (accessToken === undefined || accessToken === null) {
+                accessToken = null;
+            }
+
+            if (accessToken !== null) {
+                // Set the validation errors
+                if (groupName === "") {
+                    setGroupNameErrorMessage("Group Name is required");
+                    setGroupNameError(true);
+                }
+                if (groupDescription === "") {
+                    setGroupDescriptionErrorMessage("Group Description is required");
+                    setGroupDescriptionError(true);
+                }
+                // Set the validation errors
+
+                if (
+                    groupName !== "" &&
+                    groupDescription !== ""
+                ) {
+                    const formState = {
+                        "groupIds" : ["OG0002","OG0001"],
+                        "userId" : groupName,
+                        // "groupName": groupName,
+                        // "groupDescription": groupDescription,
+                        "description": groupDescription,
+                        "loggedInUser": loggedInUser,
+                        "active": (status === "Active") ? true : false
+                    };
+
+                    console.log("User Form Data ===> ", formState);
+
+                    axios.post('https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/createUserGroup',
+                        formState
+                        , {
+                            headers: {
+                                'x-api-key': accessToken
+                            }
+                        })
+                        .then(function (response) {
+                            console.log("Response ===> ", response);
+                            if (response.status === 200) {
+                                setSnackbarMessage(`Group ${groupName} has been created successfully`);
+                                setTransition(() => TransitionRight);
+                                setOpen(true);
+                                const m = response.data.message;
+                                // navigate("/usermanagement/users/viewusers");
+                                console.log(m);
+                            }
+                        })
+                        .catch(function (error) {
+                            console.log(error);
+                        });
+                } else {
+                    // alert("Please fill All fields");
+                    // set the errors
+                    setGroupNameError(true);
+                    setGroupDescriptionError(true);
+                    setSnackbarMessage(`Please fill out all the fields`);
+                    setTransition(() => TransitionRight);
+                    setOpen(true);
+                }
+            } else {
+                alert("Please login first");
+                navigate("/login");
+            }
+        } else {
+            alert("Please login first");
+            navigate("/login");
+        }
+    }
 
     return (
         <Box
@@ -135,11 +270,18 @@ const AddGroup: React.FC<UserProps> = ({
                                 label="Group Name"
                                 placeholder="Enter group name"
                                 variant="standard"
-                                helperText=""
                                 margin="normal"
                                 fullWidth // t
-                            // InputProps={{
-                            // }}
+                                error={groupNameError}
+                                helperText={groupNameErrorMessage}
+                                value={groupName}
+                                onChange={(e) => {
+                                    setGroupName(e.target.value);
+                                    if (groupNameError) {
+                                        setGroupNameError(false);
+                                        setGroupNameErrorMessage("");
+                                    }
+                                }}
                             />
                         </Grid>
                         <Grid item xs={12}>
@@ -148,11 +290,18 @@ const AddGroup: React.FC<UserProps> = ({
                                 label="Description"
                                 placeholder="Enter group description"
                                 variant="standard"
-                                helperText=""
                                 margin="normal"
                                 fullWidth // t
-                            // InputProps={{
-                            // }}
+                                error={groupDescriptionError}
+                                helperText={groupDescriptionErrorMessage}
+                                value={groupDescription}
+                                onChange={(e) => {
+                                    setGroupDescription(e.target.value);
+                                    if (groupDescriptionError) {
+                                        setGroupDescriptionError(false);
+                                        setGroupDescriptionErrorMessage("");
+                                    }
+                                }}
                             />
                         </Grid>
                         <Grid item xs={12}>
@@ -184,14 +333,16 @@ const AddGroup: React.FC<UserProps> = ({
                                         },
                                         mt: 1
                                     }}
+                                    value={status}
+                                    onChange={handleChangeStatus}
                                 >
                                     <FormControlLabel
-                                        value="active"
+                                        value="Active"
                                         control={<Radio />}
                                         label="Active"
                                     />
                                     <FormControlLabel
-                                        value="deactive"
+                                        value="DeActive"
                                         control={<Radio />}
                                         label="Deactive"
                                     />
@@ -232,9 +383,24 @@ const AddGroup: React.FC<UserProps> = ({
                 //     navigate("/");
                 // }}
                 startIcon={<SendIcon style={{ display: "block" }} />}
+                onClick={submitForm}
             >
                 <Typography style={{ display: "block" }}>Submit</Typography>
             </Button>
+
+            <Snackbar
+                anchorOrigin={{ vertical, horizontal }}
+                open={open}
+                onClose={handleClose}
+                TransitionComponent={transition}
+                autoHideDuration={3000}
+                message={snackbarMessage}
+                key={vertical + horizontal}
+                sx={{
+                    // lift over from below to few pixels up
+                    transform: "translateY(-30px)",
+                }}
+            />
 
             <br /><br /> <br />
         </Box>

@@ -23,8 +23,15 @@ import {
     FormControlLabel,
     FormLabel,
     RadioGroup,
-    Radio
+    Radio,
+    Snackbar
 } from '@mui/material';
+import { SnackbarOrigin } from '@mui/material/Snackbar';
+import Slide, { SlideProps } from '@mui/material/Slide';
+
+import Cookies from 'js-cookie';
+
+import axios from 'axios';
 
 import styles from "./style.module.css";
 
@@ -45,16 +52,29 @@ const AddRole: React.FC<UserProps> = ({
     isMinified,
     setIsMinified
 }) => {
-
-    const Item = styled(Paper)(({ theme }) => ({
-        backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-        // ...theme.typography.body2,
-        // padding: theme.spacing(1),
-        // textAlign: 'center',
-        // color: theme.palette.text.secondary,
-    }));
-
     const navigate = useNavigate();
+
+    ///////////////////////////////// Snackbar State /////////////////////////////////
+    type TransitionProps = Omit<SlideProps, 'direction'>;
+
+    function TransitionRight(props: TransitionProps) {
+        return <Slide {...props} direction="right" />;
+    }
+
+    const [snackbarMessage, setSnackbarMessage] = useState('');
+
+    const vertical = 'bottom';
+    const horizontal = 'right';
+
+    const [open, setOpen] = React.useState(false);
+    const [transition, setTransition] = React.useState<
+        React.ComponentType<TransitionProps> | undefined
+    >(undefined);
+
+    const handleClose = () => {
+        setOpen(false);
+    };
+    ///////////////////////////////// Snackbar State /////////////////////////////////
 
     const currentFormatedDate: string = new Date().toLocaleString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
 
@@ -62,53 +82,6 @@ const AddRole: React.FC<UserProps> = ({
         window.innerWidth,
         window.innerHeight,
     ]);
-
-    interface FilmOptionType {
-        title: string;
-        year: number;
-    }
-
-    const top100Films: FilmOptionType[] = [
-        { title: 'The Shawshank Redemption', year: 1994 },
-        { title: 'The Godfather', year: 1972 },
-        { title: 'The Godfather: Part II', year: 1974 },
-        { title: 'The Dark Knight', year: 2008 }
-    ];
-
-    // For autocomplete component
-    const defaultProps = {
-        options: top100Films,
-        getOptionLabel: (option: FilmOptionType) => option.title,
-    };
-    const flatProps = {
-        options: top100Films.map((option) => option.title),
-    };
-    const [value, setValue] = useState<FilmOptionType | null>(null);
-    // For autocomplete component
-
-    // For checkbox
-    const [checked, setChecked] = useState(true);
-    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setChecked(event.target.checked);
-    };
-    // For checkbox
-
-    // Assign group checkboxes
-    const [assignGroupState, setAssignGroupState] = useState({
-        group1: true,
-        group2: false
-    });
-
-    const handleChangeAssignGroup = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setAssignGroupState({
-            ...assignGroupState,
-            [event.target.name]: event.target.checked,
-        });
-    };
-
-    const { group1, group2 } = assignGroupState;
-    const error = [group1, group2].filter((v) => v).length !== 2;
-    // Assign group checkboxes
 
     useEffect(() => {
         const handleWindowResize = () => {
@@ -121,6 +94,108 @@ const AddRole: React.FC<UserProps> = ({
             window.removeEventListener('resize', handleWindowResize);
         };
     });
+
+    /// Handling the data of the form
+    // For field validation
+    const [roleName, setRoleName] = useState<string>("");
+    const [roleDescription, setRoleDescription] = useState<string>("");
+
+    // Error messages
+    const [roleNameErrorMessage, setRoleNameErrorMessage] = useState<string>("");
+    const [roleDescriptionErrorMessage, setRoleDescriptionErrorMessage] = useState<string>("");
+
+    // For field validation
+    const [roleNameError, setRoleNameError] = useState<boolean>(false);
+    const [roleDescriptionError, setRoleDescriptionError] = useState<boolean>(false);
+
+    // Status radio buttons
+    const [status, setStatus] = useState("Active");
+
+    const handleChangeStatus = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setStatus((event.target as HTMLInputElement).value);
+    };
+    // Status radio buttons
+
+    const submitForm = (e: any) => {
+        e.preventDefault();
+
+        // Get the user from local storage
+        // Add validation also 
+        const userLocalStorage = JSON.parse(localStorage.getItem('user') || '{}');
+        if (userLocalStorage !== null && userLocalStorage !== undefined) {
+            const loggedInUser = userLocalStorage.userName;
+            console.log("Logged In UserName ===> ", loggedInUser);
+
+            let accessToken: any = Cookies.get("accessToken");
+
+            if (accessToken === undefined || accessToken === null) {
+                accessToken = null;
+            }
+
+            if (accessToken !== null) {
+                // Set the validation errors
+                if (roleName === "") {
+                    setRoleNameErrorMessage("Role Name is required");
+                    setRoleNameError(true);
+                }
+                if (roleDescription === "") {
+                    setRoleDescriptionErrorMessage("Role Description is required");
+                    setRoleDescriptionError(true);
+                }
+                // Set the validation errors
+
+                if (
+                    roleName !== "" &&
+                    roleDescription !== ""
+                ) {
+                    const formState = {
+                        "roleName": roleName,
+                        "roleDescription": roleDescription,
+                        "loggedInUser": loggedInUser,
+                        "active": (status === "Active") ? true : false
+                    };
+
+                    console.log("User Form Data ===> ", formState);
+
+                    axios.post('https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/createRole',
+                        formState
+                        , {
+                            headers: {
+                                'x-api-key': accessToken
+                            }
+                        })
+                        .then(function (response) {
+                            console.log("Response ===> ", response);
+                            if (response.status === 200) {
+                                setSnackbarMessage(`Role ${roleName} has been created successfully`);
+                                setTransition(() => TransitionRight);
+                                setOpen(true);
+                                const m = response.data.message;
+                                // navigate("/usermanagement/users/viewusers");
+                                console.log(m);
+                            }
+                        })
+                        .catch(function (error) {
+                            console.log(error);
+                        });
+                } else {
+                    // set the errors
+                    setRoleNameError(true);
+                    setRoleDescriptionError(true);
+                    setSnackbarMessage(`Please fill out all the fields`);
+                    setTransition(() => TransitionRight);
+                    setOpen(true);
+                }
+            } else {
+                alert("Please login first");
+                navigate("/login");
+            }
+        } else {
+            alert("Please login first");
+            navigate("/login");
+        }
+    }
+    /// Handling the data of the form
 
     return (
         <Box
@@ -205,11 +280,17 @@ const AddRole: React.FC<UserProps> = ({
                                 label="Role Name"
                                 placeholder="Enter role name"
                                 variant="standard"
-                                helperText=""
                                 margin="normal"
                                 fullWidth // t
-                            // InputProps={{
-                            // }}
+                                value={roleName}
+                                onChange={(e) => {
+                                    setRoleName(e.target.value);
+                                    if(roleNameError){
+                                        setRoleNameError(false);
+                                    }
+                                }}
+                                error={roleNameError}
+                                helperText={roleNameError ? roleNameErrorMessage : ""}
                             />
                         </Grid>
                         <Grid item xs={12}>
@@ -218,11 +299,17 @@ const AddRole: React.FC<UserProps> = ({
                                 label="Description"
                                 placeholder="Enter role description"
                                 variant="standard"
-                                helperText=""
                                 margin="normal"
                                 fullWidth // t
-                            // InputProps={{
-                            // }}
+                                value={roleDescription}
+                                onChange={(e) => {
+                                    setRoleDescription(e.target.value);
+                                    if(roleDescriptionError){
+                                        setRoleDescriptionError(false);
+                                    }
+                                }}
+                                error={roleDescriptionError}
+                                helperText={roleDescriptionError ? roleDescriptionErrorMessage : ""}
                             />
                         </Grid>
                         <Grid item xs={12}>
@@ -254,14 +341,16 @@ const AddRole: React.FC<UserProps> = ({
                                         },
                                         mt: 1
                                     }}
+                                    value={status}
+                                    onChange={handleChangeStatus}
                                 >
                                     <FormControlLabel
-                                        value="active"
+                                        value="Active"
                                         control={<Radio />}
                                         label="Active"
                                     />
                                     <FormControlLabel
-                                        value="deactive"
+                                        value="DeActive"
                                         control={<Radio />}
                                         label="Deactive"
                                     />
@@ -276,7 +365,6 @@ const AddRole: React.FC<UserProps> = ({
                 variant="contained"
                 sx={{
                     backgroundColor: "#e79f43",
-                    // textTransform: "none",
                     fontWeight: "bold",
                     height: 40,
                     mt:
@@ -298,13 +386,25 @@ const AddRole: React.FC<UserProps> = ({
                 fullWidth={(
                     windowSize[0] < 600
                 ) ? true : false}
-                // onClick={() => {
-                //     navigate("/");
-                // }}
                 startIcon={<SendIcon style={{ display: "block" }} />}
+                onClick={submitForm}
             >
                 <Typography style={{ display: "block" }}>Submit</Typography>
             </Button>
+
+            <Snackbar
+                anchorOrigin={{ vertical, horizontal }}
+                open={open}
+                onClose={handleClose}
+                TransitionComponent={transition}
+                autoHideDuration={3000}
+                message={snackbarMessage}
+                key={vertical + horizontal}
+                sx={{
+                    // lift over from below to few pixels up
+                    transform: "translateY(-30px)",
+                }}
+            />
 
             <br /><br />
         </Box>

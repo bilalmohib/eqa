@@ -31,6 +31,7 @@ import {
     Snackbar
 } from '@mui/material';
 import { SnackbarOrigin } from '@mui/material/Snackbar';
+import Slide, { SlideProps } from '@mui/material/Slide';
 
 import Loader from '../../../../../Loader';
 
@@ -40,10 +41,6 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { useTranslation } from "react-i18next";
 
 import styles from "./style.module.css";
-
-export interface State extends SnackbarOrigin {
-    open: boolean;
-}
 
 interface UserProps {
     setIsOpen: any,
@@ -108,14 +105,37 @@ const AddUser: React.FC<UserProps> = ({
     const { t } = useTranslation();
     const navigate = useNavigate();
 
+    ///////////////////////////////// Snackbar State /////////////////////////////////
+    type TransitionProps = Omit<SlideProps, 'direction'>;
+
+    function TransitionRight(props: TransitionProps) {
+        return <Slide {...props} direction="right" />;
+    }
+
+    const [snackbarMessage, setSnackbarMessage] = useState('');
+
+    const vertical = 'bottom';
+    const horizontal = 'right';
+
+    const [open, setOpen] = React.useState(false);
+    const [transition, setTransition] = React.useState<
+        React.ComponentType<TransitionProps> | undefined
+    >(undefined);
+
+    const handleClose = () => {
+        setOpen(false);
+    };
+    ///////////////////////////////// Snackbar State /////////////////////////////////
+
     const currentFormatedDate: string = new Date().toLocaleString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
 
     const [windowSize, setWindowSize] = useState([
         window.innerWidth,
-        window.innerHeight,
+        window.innerHeight
     ]);
 
     interface OptionType {
+        id: string;
         title: string;
         value: string;
     }
@@ -123,21 +143,70 @@ const AddUser: React.FC<UserProps> = ({
     // For College autocomplete component
     const collegeList: OptionType[] = [
         {
-            title: 'College of Arts and Sciences',
-            value: 'adsf;lkjdasf',
+            id: '0C01',
+            title: 'College of Computers & Information Technology',
+            value: 'College of Computers & Information Technology'
+        },
+        {
+            id: '0C02',
+            title: 'College of Science',
+            value: 'College of Science'
         }
     ];
 
     // For autocomplete component
     const collegeDefaultProps = {
         options: collegeList,
+        getOptionLabel: (option: any) => option.title
+    };
+    // For College autocomplete component
+
+    // For Campus autocomplete component
+    const campusList: OptionType[] = [
+        {
+            id: '0CP01',
+            title: 'Boy',
+            value: 'Boy'
+        },
+        {
+            id: '0CP02',
+            title: 'Girl',
+            value: 'Girl'
+        }
+    ];
+
+    // For autocomplete component
+    const campusDefaultProps = {
+        options: campusList,
         getOptionLabel: (option: any) => option.title,
     };
-    // const flatProps = {
-    //     options: top100Films.map((option) => option.title),
-    // };
-    // const [value, setValue] = useState<FilmOptionType | null>(null);
+    // For Campus autocomplete component
+
+    // For Department autocomplete component
+    const departmentList: OptionType[] = [
+        {
+            id: '0D01',
+            title: 'Computer Science',
+            value: 'Computer Science'
+        },
+        {
+            id: '0D02',
+            title: 'Computer Engineering',
+            value: 'Computer Engineering'
+        },
+        {
+            id: '0D03',
+            title: 'Information Technology',
+            value: 'Information Technology'
+        }
+    ];
+
     // For autocomplete component
+    const departmentDefaultProps = {
+        options: departmentList,
+        getOptionLabel: (option: any) => option.title,
+    };
+    // For Department autocomplete component
 
     // Assign group checkboxes
     const [assignGroupState, setAssignGroupState] = useState({
@@ -153,8 +222,31 @@ const AddUser: React.FC<UserProps> = ({
     };
 
     const { group1, group2 } = assignGroupState;
-    // const error = [group1, group2].filter((v) => v).length !== 2;
     // Assign group checkboxes
+
+    // Staff access level checkboxes
+    const [staffAccessLevelState, setStaffAccessLevelState] = useState({
+        staffStatus: true,
+        isSuperUser: false
+    });
+
+    const handleChangeStaffAccessLevel = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setStaffAccessLevelState({
+            ...staffAccessLevelState,
+            [event.target.name]: event.target.checked,
+        });
+    };
+
+    const { staffStatus, isSuperUser } = staffAccessLevelState;
+    // Staff access level checkboxes
+
+    // Status radio buttons
+    const [statusState, setStatusState] = useState("Active");
+
+    const handleChangeStatus = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setStatusState((event.target as HTMLInputElement).value);
+    };
+    // Status radio buttons
 
     const [showPassword, setShowPassword] = React.useState(false);
 
@@ -182,7 +274,6 @@ const AddUser: React.FC<UserProps> = ({
     const [loading, setLoading] = useState(true)
 
     useEffect(() => {
-
         let accessToken: any = Cookies.get("accessToken");
 
         if (accessToken === undefined || accessToken === null) {
@@ -213,101 +304,136 @@ const AddUser: React.FC<UserProps> = ({
         }
     }, []);
 
-    // All the states for the form
-    const [formState, setFormState] = useState<FormState>({
-        firstName: "",
-        lastName: "",
-        userName: "",
-        password: "",
-        confirmPassword: "sadf",
-        emailId: "",
-        collegeId: "adsf",
-        campusId: "adsf",
-        departmentId: "asddsaf",
-        loggedInUser: "lkajsdf",
-        active: false,
-        staff: false,
-        superUser: false
-    });
-
-
-    useEffect(() => {
-        console.log("User Form Data ===> ", formState);
-    });
+    // Form States
+    const [firstName, setFirstName] = useState("");
+    const [lastName, setLastName] = useState("");
+    const [password, setPassword] = useState("");
+    const [emailId, setEmailId] = useState("");
+    const [collegeId, setCollegeId] = useState<any>(null);
+    const [campusId, setCampusId] = useState<any>(null);
+    const [departmentId, setDepartmentId] = useState<any>(null);
 
     const [userNameError, setUserNameError] = useState(false);
+
+    const [firstNameError, setFirstNameError] = useState(false);
+    const [lastNameError, setLastNameError] = useState(false);
+    const [passwordError, setPasswordError] = useState(false);
+    const [emailIdError, setEmailIdError] = useState(false);
+    const [collegeIdError, setCollegeIdError] = useState(false);
+    const [campusIdError, setCampusIdError] = useState(false);
+    const [departmentIdError, setDepartmentIdError] = useState(false);
+
 
     const submitForm = (e: any) => {
         e.preventDefault();
 
-        let accessToken: any = Cookies.get("accessToken");
+        // Get the user from local storage
+        // Add validation also 
+        const userLocalStorage = JSON.parse(localStorage.getItem('user') || '{}');
+        if (userLocalStorage !== null && userLocalStorage !== undefined) {
+            const loggedInUser = userLocalStorage.userName;
+            console.log("Logged In UserName ===> ", loggedInUser);
 
-        if (accessToken === undefined || accessToken === null) {
-            accessToken = null;
-        }
+            let accessToken: any = Cookies.get("accessToken");
 
-        if (viewAllUsersData !== null && accessToken !== null) {
-            // if (formState.firstName !== "" && formState.lastName !== "" && formState.userName !== "" && formState.password !== "" && formState.emailId !== "" && formState.collegeId !== "" && formState.campusId !== "" && formState.departmentId !== "") {
-            if (
-                true
-                //formState.userName !== "" &&
-                // formState.password !== "" &&
-                // formState.emailId !== "" &&
-                // formState.firstName !== "" &&
-                // formState.lastName !== ""
-                // &&
-                // formState.collegeId !== "" &&
-                // formState.campusId !== "" &&
-                // formState.departmentId !== "" &&
-                // formState.loggedInUser !== ""
-                // &&
-                // formState.active !== null &&
-                // formState.staff !== null &&
-                // formState.superUser !== null
-            ) {
-                axios.post('https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/createUser', {
-                    // "firstName": formState.firstName,
-                    // "lastName": formState.lastName,
-                    // "userName": formState.userName,
-                    // "password": formState.password,
-                    // "emailId": formState.emailId,
-                    // "collegeId": formState.collegeId,
-                    // "campusId": formState.campusId,
-                    // "departmentId": formState.departmentId,
-                    // "loggedInUser": formState.loggedInUser,
-                    // "active": formState.active,
-                    // "staff": formState.staff,
-                    // "superUser": formState.superUser
-                    "firstName" : "Ali",
-                    "lastName" : "Moen",
-                    "userName" : "moen",
-                    "password" : "123456",
-                    "emailId" : "bilalmohib78964567@gmail.com",
-                    "collegeId" : "CL001",
-                    "campusId" : "CP001",
-                    "departmentId" : "DM003",
-                    "loggedInUser" : "shabbir",
-                    "active" : true,
-                    "staff" : false,
-                    "superUser" : false
-                }, {
-                    headers: {
-                        'x-api-key': accessToken
-                    }
-                })
-                    .then(function (response) {
-                        console.log("Response ===> ", response);
-                        if (response.status === 200) {
-                            // setState({ open: true, vertical: 'top', horizontal: 'center' });
-                            // navigate("/usermanagement/users/viewusers");
-                            console.log("Form submitted");
-                        }
-                    })
-                    .catch(function (error) {
-                        console.log(error);
-                    });
+            if (accessToken === undefined || accessToken === null) {
+                accessToken = null;
+            }
+
+            if (viewAllUsersData !== null && accessToken !== null) {
+                // Set the validation errors
+                if (firstName === "") {
+                    setFirstNameError(true);
+                }
+                if (lastName === "") {
+                    setLastNameError(true);
+                }
+                if (password === "") {
+                    setPasswordError(true);
+                }
+                if (emailId === "") {
+                    setEmailIdError(true);
+                }
+                if (collegeId === null) {
+                    setCollegeIdError(true);
+                }
+                if (campusId === null) {
+                    setCampusIdError(true);
+                }
+                if (departmentId === null) {
+                    setDepartmentIdError(true);
+                }
+                if (emailId.split('@')[0] === "") {
+                    setUserNameError(true);
+                }
+                // Set the validation errors
+
+                if (
+                    firstName !== "" &&
+                    lastName !== "" &&
+                    password !== "" &&
+                    emailId !== "" &&
+                    emailId.includes("@") &&
+                    collegeId !== null &&
+                    campusId !== null &&
+                    departmentId !== null
+                ) {
+                    const formState = {
+                        "firstName": firstName,
+                        "lastName": lastName,
+                        "userName": emailId.split('@')[0],
+                        "password": password,
+                        "emailId": emailId,
+                        "collegeId": collegeId.id,
+                        "campusId": campusId.id,
+                        "departmentId": departmentId.id,
+                        "loggedInUser": loggedInUser,
+                        "active": (statusState === "Active") ? true : false,
+                        "staff": staffStatus,
+                        "superUser": isSuperUser
+                    };
+
+                    console.log("User Form Data ===> ", formState);
+
+                    axios.post('https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/createUser',
+                        formState
+                        , {
+                            headers: {
+                                'x-api-key': accessToken
+                            }
+                        })
+                        .then(function (response) {
+                            console.log("Response ===> ", response);
+                            if (response.status === 200) {
+                                setSnackbarMessage(`User ${emailId.split('@')[0]} has been created successfully`);
+                                setTransition(() => TransitionRight);
+                                setOpen(true);
+                                const m = response.data.message;
+                                // navigate("/usermanagement/users/viewusers");
+                                console.log(m);
+                            }
+                        })
+                        .catch(function (error) {
+                            console.log(error);
+                        });
+                } else {
+                    // alert("Please fill All fields");
+                    // set the errors
+                    setFirstNameError(true);
+                    setLastNameError(true);
+                    setPasswordError(true);
+                    setEmailIdError(true);
+                    setCollegeIdError(true);
+                    setCampusIdError(true);
+                    setDepartmentIdError(true);
+                    setUserNameError(true);
+                    setSnackbarMessage(`Please fill out all the fields`);
+                    setTransition(() => TransitionRight);
+                    setOpen(true);
+                }
             } else {
-                alert("Please enter user name");
+                alert("Please login first");
+                navigate("/login");
             }
         } else {
             alert("Please login first");
@@ -316,13 +442,14 @@ const AddUser: React.FC<UserProps> = ({
     }
 
     useEffect(() => {
-        console.log("User Name ===> ", formState.userName);
+        let userName = emailId.split('@')[0];
+        console.log("User Name ===> ", userName);
 
         if (viewAllUsersData !== null && viewAllUsersData !== undefined)
             // Loop through all the users and check if the user name is already taken or not
             if (viewAllUsersData.obj.length > 0 && viewAllUsersData) {
                 for (let i = 0; i < viewAllUsersData.obj.length; i++) {
-                    if (viewAllUsersData.obj[i].userName === formState.userName) {
+                    if (viewAllUsersData.obj[i].userName === userName) {
                         setUserNameError(true);
                         break;
                     } else {
@@ -330,7 +457,19 @@ const AddUser: React.FC<UserProps> = ({
                     }
                 }
             }
-    }, [formState, viewAllUsersData]);
+    }, [emailId, viewAllUsersData]);
+
+    // useEffect(() => {
+    //     if (firstName !== "" || lastName !== "" || password !== "" || emailId !== "" || collegeId !== null || campusId !== null || departmentId !== null) {
+    //         setFirstNameError(false);
+    //         setLastNameError(false);
+    //         setPasswordError(false);
+    //         setEmailIdError(false);
+    //         setCollegeIdError(false);
+    //         setCampusIdError(false);
+    //         setDepartmentIdError(false);
+    //     }
+    // }, [firstName, lastName, password, emailId, collegeId, campusId, departmentId]);
 
     if (loading) { // if your component doesn't have to wait for async data, remove this block 
         return <Loader /> // render Loader here
@@ -421,14 +560,15 @@ const AddUser: React.FC<UserProps> = ({
                                     label={t('Home.Sidebar.list.userManagement.subMenu.Users.details.Add.Users.Inputs.FirstName.label')}
                                     placeholder={`${t('Home.Sidebar.list.userManagement.subMenu.Users.details.Add.Users.Inputs.FirstName.placeholder')}`}
                                     variant="standard"
-                                    helperText=""
+                                    helperText={(firstNameError) ? ("Please fill out the first Name field") : ("")}
+                                    error={firstNameError}
                                     margin="normal"
-                                    value={formState.firstName}
+                                    value={firstName}
                                     onChange={(e) => {
-                                        setFormState({
-                                            ...formState,
-                                            firstName: e.target.value,
-                                        });
+                                        setFirstName(e.target.value);  // set the value of the input
+                                        if(firstNameError){
+                                            setFirstNameError(false);
+                                        }
                                     }}
                                     fullWidth // t
                                     dir={(currentLang === "ar") ? "rtl" : "ltr"}
@@ -446,16 +586,17 @@ const AddUser: React.FC<UserProps> = ({
                                     label={t('Home.Sidebar.list.userManagement.subMenu.Users.details.Add.Users.Inputs.LastName.label')}
                                     placeholder={`${t('Home.Sidebar.list.userManagement.subMenu.Users.details.Add.Users.Inputs.LastName.placeholder')}`}
                                     variant="standard"
-                                    helperText=""
+                                    helperText={(lastNameError) ? ("Please fill out the Last Name field") : ("")}
+                                    error={lastNameError}
                                     margin="normal"
                                     fullWidth // t
                                     dir={(currentLang === "ar") ? "rtl" : "ltr"}
-                                    value={formState.lastName}
+                                    value={lastName}
                                     onChange={(e) => {
-                                        setFormState({
-                                            ...formState,
-                                            lastName: e.target.value,
-                                        });
+                                        setLastName(e.target.value);  // set the value of the input
+                                        if(lastNameError){
+                                            setLastNameError(false);
+                                        }
                                     }}
                                 />
                             </Grid>
@@ -465,16 +606,17 @@ const AddUser: React.FC<UserProps> = ({
                                     label={t('Home.Sidebar.list.userManagement.subMenu.Users.details.Add.Users.Inputs.Email.label')}
                                     placeholder={`${t('Home.Sidebar.list.userManagement.subMenu.Users.details.Add.Users.Inputs.Email.placeholder')}`}
                                     variant="standard"
-                                    helperText=""
+                                    helperText={(emailIdError) ? ("* Email field Required") : ("")}
+                                    error={emailIdError}
                                     margin="normal"
                                     fullWidth // t
                                     dir={(currentLang === "ar") ? "rtl" : "ltr"}
-                                    value={formState.emailId}
+                                    value={emailId}
                                     onChange={(e) => {
-                                        setFormState({
-                                            ...formState,
-                                            emailId: e.target.value,
-                                        });
+                                        setEmailId(e.target.value);  // set the value of the input
+                                        if(emailIdError){
+                                            setEmailIdError(false);
+                                        }
                                     }}
                                 />
                             </Grid>
@@ -483,19 +625,23 @@ const AddUser: React.FC<UserProps> = ({
                                     {...collegeDefaultProps}
                                     id="collegeAutoComplete"
                                     autoHighlight
-                                    // value={formState.collegeId}
-                                    // onChange={(event, newValue) => {
-                                    //     setFormState({
-                                    //         ...formState,
-                                    //         collegeId: newValue
-                                    //     });
-                                    // }}
+                                    // helperText={(collegeIdError) ? ("* Please select any College.") : ("")}
+                                    // error={collegeIdError}
+                                    value={collegeId}
+                                    onChange={(event, newValue: string) => {
+                                        setCollegeId(newValue);
+                                        if(collegeIdError){
+                                            setCollegeIdError(false);
+                                        }
+                                    }}
                                     dir={(currentLang === "ar") ? "rtl" : "ltr"}
                                     renderInput={(params) => (
                                         <TextField
                                             {...params}
                                             label={t('Home.Sidebar.list.userManagement.subMenu.Users.details.Add.Users.Inputs.College.label')}
                                             variant="standard"
+                                            helperText={(collegeIdError) ? ("* Please select any College.") : ("")}
+                                            error={collegeIdError}
                                             dir={(currentLang === "ar") ? "rtl" : "ltr"}
                                         />
                                     )}
@@ -503,15 +649,26 @@ const AddUser: React.FC<UserProps> = ({
                             </Grid>
                             <Grid item xs={6}>
                                 <Autocomplete
-                                    {...collegeDefaultProps}
+                                    {...campusDefaultProps}
                                     id="campusAutoComplete"
                                     autoHighlight
+                                    // helperText={(campusIdError) ? ("* Please select any Campus.") : ("")}
+                                    // error={campusIdError}
+                                    value={campusId}
+                                    onChange={(event, newValue) => {
+                                        setCampusId(newValue);
+                                        if(campusIdError){
+                                            setCampusIdError(false);
+                                        }
+                                    }}
                                     dir={(currentLang === "ar") ? "rtl" : "ltr"}
                                     renderInput={(params) => (
                                         <TextField
                                             {...params}
                                             label={t('Home.Sidebar.list.userManagement.subMenu.Users.details.Add.Users.Inputs.Campus.label')}
                                             variant="standard"
+                                            helperText={(campusIdError) ? ("* Please select any College.") : ("")}
+                                            error={campusIdError}
                                             dir={(currentLang === "ar") ? "rtl" : "ltr"}
                                         />
                                     )}
@@ -519,15 +676,26 @@ const AddUser: React.FC<UserProps> = ({
                             </Grid>
                             <Grid item xs={6}>
                                 <Autocomplete
-                                    {...collegeDefaultProps}
+                                    {...departmentDefaultProps}
                                     id="departmentAutoComplete"
                                     autoHighlight
+                                    // helperText={(departmentIdError) ? ("* Please select any Department.") : ("")}
+                                    // error={departmentIdError}
+                                    value={departmentId}
+                                    onChange={(event, newValue) => {
+                                        setDepartmentId(newValue);
+                                        if(departmentIdError){
+                                            setDepartmentIdError(false);
+                                        }
+                                    }}
                                     dir={(currentLang === "ar") ? "rtl" : "ltr"}
                                     renderInput={(params) => (
                                         <TextField
                                             {...params}
                                             label={t('Home.Sidebar.list.userManagement.subMenu.Users.details.Add.Users.Inputs.Department.label')}
                                             variant="standard"
+                                            helperText={(departmentIdError) ? ("* Please select any College.") : ("")}
+                                            error={departmentIdError}
                                             dir={(currentLang === "ar") ? "rtl" : "ltr"}
                                         />
                                     )}
@@ -539,22 +707,19 @@ const AddUser: React.FC<UserProps> = ({
                                     label={t('Home.Sidebar.list.userManagement.subMenu.Users.details.Add.Users.Inputs.Username.label')}
                                     placeholder={`${t('Home.Sidebar.list.userManagement.subMenu.Users.details.Add.Users.Inputs.Username.placeholder')}`}
                                     variant="standard"
-                                    helperText={userNameError ? t('Home.Sidebar.list.userManagement.subMenu.Users.details.Add.Users.Inputs.Username.error') : ""}
+                                    helperText={userNameError ? (`${(emailId === "") ? ("Please fill out the user Name field") : (`${t('Home.Sidebar.list.userManagement.subMenu.Users.details.Add.Users.Inputs.Username.error')}`)}`) : ""}
                                     type="text"
                                     margin="normal"
                                     fullWidth // t
                                     dir={(currentLang === "ar") ? "rtl" : "ltr"}
-                                    // InputProps={{
-                                    //     readOnly: true,
-                                    // }}
-                                    value={formState.userName}
-                                    error={userNameError}
-                                    onChange={(e) => {
-                                        setFormState({
-                                            ...formState,
-                                            userName: e.target.value
-                                        })
+                                    InputProps={{
+                                        readOnly: true,
                                     }}
+                                    value={
+                                        //Extract username from email
+                                        emailId.split('@')[0]
+                                    }
+                                    error={userNameError}
                                 />
                             </Grid>
                             <Grid item xs={12}>
@@ -566,6 +731,8 @@ const AddUser: React.FC<UserProps> = ({
                                     <Input
                                         id="standard-adornment-password"
                                         type={showPassword ? 'text' : 'password'}
+                                        // helperText={passwordError ? t("* Please fill out the password field") : ""}
+                                        error={passwordError}
                                         endAdornment={
                                             <InputAdornment position="end">
                                                 <IconButton
@@ -577,7 +744,10 @@ const AddUser: React.FC<UserProps> = ({
                                                 </IconButton>
                                             </InputAdornment>
                                         }
-                                        value="123456"
+                                        value={password}
+                                        onChange={(e) => {
+                                            setPassword(e.target.value);  // set the value of the input
+                                        }}
                                     />
                                 </FormControl>
                             </Grid>
@@ -712,8 +882,8 @@ const AddUser: React.FC<UserProps> = ({
                                             dir={(currentLang === "ar") ? ('rtl') : ('ltr')}
                                             control={<Checkbox
                                                 name="staffStatus"
-                                                checked={group1}
-                                                onChange={handleChangeAssignGroup}
+                                                checked={staffStatus}
+                                                onChange={handleChangeStaffAccessLevel}
                                                 color="success"
                                                 dir={(currentLang === "ar") ? ('rtl') : ('ltr')}
                                                 sx={{ '& .MuiSvgIcon-root': { fontSize: 25 } }}
@@ -724,9 +894,9 @@ const AddUser: React.FC<UserProps> = ({
                                             value={t('Home.Sidebar.list.userManagement.subMenu.Users.details.Permissions.fields.staffaccess.checkbox2.label')}
                                             dir={(currentLang === "ar") ? ('rtl') : ('ltr')}
                                             control={<Checkbox
-                                                name="Super User"
-                                                checked={group2}
-                                                onChange={handleChangeAssignGroup}
+                                                name="isSuperUser"
+                                                checked={isSuperUser}
+                                                onChange={handleChangeStaffAccessLevel}
                                                 color="success"
                                                 dir={(currentLang === "ar") ? ('rtl') : ('ltr')}
                                                 sx={{ '& .MuiSvgIcon-root': { fontSize: 25 } }}
@@ -770,16 +940,18 @@ const AddUser: React.FC<UserProps> = ({
                                             mt: 1
                                         }}
                                         dir={(currentLang === "ar") ? ('rtl') : ('ltr')}
+                                        value={statusState}
+                                        onChange={handleChangeStatus}
                                     >
                                         <FormControlLabel
-                                            value="active"
                                             control={<Radio />}
+                                            value={"Active"}
                                             label={t('Home.Sidebar.list.userManagement.subMenu.Users.details.Permissions.fields.status.checkbox1.label')}
                                             dir={(currentLang === "ar") ? ('rtl') : ('ltr')}
                                         />
                                         <FormControlLabel
-                                            value="deactive"
                                             control={<Radio />}
+                                            value={"DeActive"}
                                             label={t('Home.Sidebar.list.userManagement.subMenu.Users.details.Permissions.fields.status.checkbox2.label')}
                                             dir={(currentLang === "ar") ? ('rtl') : ('ltr')}
                                         />
@@ -918,6 +1090,20 @@ const AddUser: React.FC<UserProps> = ({
                         </Typography>
                     </Button>
                 </Box>
+
+                <Snackbar
+                    anchorOrigin={{ vertical, horizontal }}
+                    open={open}
+                    onClose={handleClose}
+                    TransitionComponent={transition}
+                    autoHideDuration={3000}
+                    message={snackbarMessage}
+                    key={vertical + horizontal}
+                    sx={{
+                        // lift over from below to few pixels up
+                        transform: "translateY(-30px)",
+                    }}
+                />
 
                 <br /><br /><br />
             </Box>
