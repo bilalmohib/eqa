@@ -233,6 +233,11 @@ const LoginContainer: FC<LoginContainerProps> = ({
                 })
                 .catch(error => {
                     console.error("Error logging in using post api ==>", error);
+                    setValidationMessageEmail("Network Error In backend ...");
+                    setValidationMessagePassword("Network Error In backend ...");
+
+                    setValidationStatusEmail(false);
+                    setValidationStatusPassword(false);
                     // handle the error
                 });
         }
