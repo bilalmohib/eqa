@@ -274,7 +274,6 @@ const AddUser: React.FC<UserProps> = ({
     const [loading, setLoading] = useState(true)
 
     useEffect(() => {
-
         let accessToken: any = Cookies.get("accessToken");
 
         if (accessToken === undefined || accessToken === null) {
@@ -460,39 +459,17 @@ const AddUser: React.FC<UserProps> = ({
             }
     }, [emailId, viewAllUsersData]);
 
-    useEffect(() => {
-        // Remove the error message when the user starts typing
-        // if (firstName !== "") {
-        //     setFirstNameError(false);
-        // }
-        // if (lastName !== "") {
-        //     setLastNameError(false);
-        // }
-        // if (password !== "") {
-        //     setPasswordError(false);
-        // }
-        // if (emailId !== "") {
-        //     setEmailIdError(false);
-        // }
-        // if (collegeId !== null) {
-        //     setCollegeIdError(false);
-        // }
-        // if (campusId !== null) {
-        //     setCampusIdError(false);
-        // }
-        // if (departmentId !== null) {
-        //     setDepartmentIdError(false);
-        // }
-        if (firstName !== "" || lastName !== "" || password !== "" || emailId !== "" || collegeId !== null || campusId !== null || departmentId !== null) {
-            setFirstNameError(false);
-            setLastNameError(false);
-            setPasswordError(false);
-            setEmailIdError(false);
-            setCollegeIdError(false);
-            setCampusIdError(false);
-            setDepartmentIdError(false);
-        }
-    }, [firstName, lastName, password, emailId, collegeId, campusId, departmentId]);
+    // useEffect(() => {
+    //     if (firstName !== "" || lastName !== "" || password !== "" || emailId !== "" || collegeId !== null || campusId !== null || departmentId !== null) {
+    //         setFirstNameError(false);
+    //         setLastNameError(false);
+    //         setPasswordError(false);
+    //         setEmailIdError(false);
+    //         setCollegeIdError(false);
+    //         setCampusIdError(false);
+    //         setDepartmentIdError(false);
+    //     }
+    // }, [firstName, lastName, password, emailId, collegeId, campusId, departmentId]);
 
     if (loading) { // if your component doesn't have to wait for async data, remove this block 
         return <Loader /> // render Loader here
@@ -589,6 +566,9 @@ const AddUser: React.FC<UserProps> = ({
                                     value={firstName}
                                     onChange={(e) => {
                                         setFirstName(e.target.value);  // set the value of the input
+                                        if(firstNameError){
+                                            setFirstNameError(false);
+                                        }
                                     }}
                                     fullWidth // t
                                     dir={(currentLang === "ar") ? "rtl" : "ltr"}
@@ -614,6 +594,9 @@ const AddUser: React.FC<UserProps> = ({
                                     value={lastName}
                                     onChange={(e) => {
                                         setLastName(e.target.value);  // set the value of the input
+                                        if(lastNameError){
+                                            setLastNameError(false);
+                                        }
                                     }}
                                 />
                             </Grid>
@@ -631,6 +614,9 @@ const AddUser: React.FC<UserProps> = ({
                                     value={emailId}
                                     onChange={(e) => {
                                         setEmailId(e.target.value);  // set the value of the input
+                                        if(emailIdError){
+                                            setEmailIdError(false);
+                                        }
                                     }}
                                 />
                             </Grid>
@@ -644,6 +630,9 @@ const AddUser: React.FC<UserProps> = ({
                                     value={collegeId}
                                     onChange={(event, newValue: string) => {
                                         setCollegeId(newValue);
+                                        if(collegeIdError){
+                                            setCollegeIdError(false);
+                                        }
                                     }}
                                     dir={(currentLang === "ar") ? "rtl" : "ltr"}
                                     renderInput={(params) => (
@@ -668,6 +657,9 @@ const AddUser: React.FC<UserProps> = ({
                                     value={campusId}
                                     onChange={(event, newValue) => {
                                         setCampusId(newValue);
+                                        if(campusIdError){
+                                            setCampusIdError(false);
+                                        }
                                     }}
                                     dir={(currentLang === "ar") ? "rtl" : "ltr"}
                                     renderInput={(params) => (
@@ -692,6 +684,9 @@ const AddUser: React.FC<UserProps> = ({
                                     value={departmentId}
                                     onChange={(event, newValue) => {
                                         setDepartmentId(newValue);
+                                        if(departmentIdError){
+                                            setDepartmentIdError(false);
+                                        }
                                     }}
                                     dir={(currentLang === "ar") ? "rtl" : "ltr"}
                                     renderInput={(params) => (
