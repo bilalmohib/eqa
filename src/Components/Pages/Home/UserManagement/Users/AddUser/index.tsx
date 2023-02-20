@@ -460,6 +460,40 @@ const AddUser: React.FC<UserProps> = ({
             }
     }, [emailId, viewAllUsersData]);
 
+    useEffect(() => {
+        // Remove the error message when the user starts typing
+        // if (firstName !== "") {
+        //     setFirstNameError(false);
+        // }
+        // if (lastName !== "") {
+        //     setLastNameError(false);
+        // }
+        // if (password !== "") {
+        //     setPasswordError(false);
+        // }
+        // if (emailId !== "") {
+        //     setEmailIdError(false);
+        // }
+        // if (collegeId !== null) {
+        //     setCollegeIdError(false);
+        // }
+        // if (campusId !== null) {
+        //     setCampusIdError(false);
+        // }
+        // if (departmentId !== null) {
+        //     setDepartmentIdError(false);
+        // }
+        if (firstName !== "" || lastName !== "" || password !== "" || emailId !== "" || collegeId !== null || campusId !== null || departmentId !== null) {
+            setFirstNameError(false);
+            setLastNameError(false);
+            setPasswordError(false);
+            setEmailIdError(false);
+            setCollegeIdError(false);
+            setCampusIdError(false);
+            setDepartmentIdError(false);
+        }
+    }, [firstName, lastName, password, emailId, collegeId, campusId, departmentId]);
+
     if (loading) { // if your component doesn't have to wait for async data, remove this block 
         return <Loader /> // render Loader here
     } else {
