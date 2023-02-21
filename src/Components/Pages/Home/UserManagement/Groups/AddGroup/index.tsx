@@ -140,18 +140,15 @@ const AddGroup: React.FC<UserProps> = ({
                     groupDescription !== ""
                 ) {
                     const formState = {
-                        "groupIds" : ["OG0002","OG0001"],
-                        "userId" : groupName,
-                        // "groupName": groupName,
-                        // "groupDescription": groupDescription,
-                        "description": groupDescription,
+                        "grpName": groupName,
+                        "grpDescription": groupDescription,
                         "loggedInUser": loggedInUser,
                         "active": (status === "Active") ? true : false
                     };
 
                     console.log("User Form Data ===> ", formState);
 
-                    axios.post('https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/createUserGroup',
+                    axios.post('https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/saveGroup',
                         formState
                         , {
                             headers: {

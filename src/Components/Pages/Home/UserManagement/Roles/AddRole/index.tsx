@@ -149,6 +149,7 @@ const AddRole: React.FC<UserProps> = ({
                     roleDescription !== ""
                 ) {
                     const formState = {
+                        "roleId":"OR05",
                         "roleName": roleName,
                         "roleDescription": roleDescription,
                         "loggedInUser": loggedInUser,
