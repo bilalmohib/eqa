@@ -566,7 +566,7 @@ const AddUser: React.FC<UserProps> = ({
                                     value={firstName}
                                     onChange={(e) => {
                                         setFirstName(e.target.value);  // set the value of the input
-                                        if(firstNameError){
+                                        if (firstNameError) {
                                             setFirstNameError(false);
                                         }
                                     }}
@@ -594,7 +594,7 @@ const AddUser: React.FC<UserProps> = ({
                                     value={lastName}
                                     onChange={(e) => {
                                         setLastName(e.target.value);  // set the value of the input
-                                        if(lastNameError){
+                                        if (lastNameError) {
                                             setLastNameError(false);
                                         }
                                     }}
@@ -614,7 +614,7 @@ const AddUser: React.FC<UserProps> = ({
                                     value={emailId}
                                     onChange={(e) => {
                                         setEmailId(e.target.value);  // set the value of the input
-                                        if(emailIdError){
+                                        if (emailIdError) {
                                             setEmailIdError(false);
                                         }
                                     }}
@@ -630,7 +630,7 @@ const AddUser: React.FC<UserProps> = ({
                                     value={collegeId}
                                     onChange={(event, newValue: string) => {
                                         setCollegeId(newValue);
-                                        if(collegeIdError){
+                                        if (collegeIdError) {
                                             setCollegeIdError(false);
                                         }
                                     }}
@@ -657,7 +657,7 @@ const AddUser: React.FC<UserProps> = ({
                                     value={campusId}
                                     onChange={(event, newValue) => {
                                         setCampusId(newValue);
-                                        if(campusIdError){
+                                        if (campusIdError) {
                                             setCampusIdError(false);
                                         }
                                     }}
@@ -684,7 +684,7 @@ const AddUser: React.FC<UserProps> = ({
                                     value={departmentId}
                                     onChange={(event, newValue) => {
                                         setDepartmentId(newValue);
-                                        if(departmentIdError){
+                                        if (departmentIdError) {
                                             setDepartmentIdError(false);
                                         }
                                     }}
@@ -747,6 +747,9 @@ const AddUser: React.FC<UserProps> = ({
                                         value={password}
                                         onChange={(e) => {
                                             setPassword(e.target.value);  // set the value of the input
+                                            if (passwordError) {
+                                                setPasswordError(false);
+                                            }
                                         }}
                                     />
                                 </FormControl>
