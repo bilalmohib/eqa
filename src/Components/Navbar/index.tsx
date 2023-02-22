@@ -151,7 +151,11 @@ const Navbar: React.FC<NavProps> = ({
         } else if (FinalsidebarAppsListArray[i].appName === "Settings") {
             FinalsidebarAppsListArray[i].icon = renderToString(<IoSettingsOutline size={25} style={{ color: "#000000", fontSize: 50, height: 50, width: 50 }} />);
             FinalsidebarAppsListArray[i].text = "Settings";
-        } else {
+        } else if(FinalsidebarAppsListArray[i].appName === "EQA FORM") {
+            FinalsidebarAppsListArray[i].icon = renderToString(<i className="fab fa-wpforms" style={{ color: "#000000", fontSize: 50, height: 40, width: 40 }} />);
+            FinalsidebarAppsListArray[i].text = "Forms";
+        }
+        else {
             FinalsidebarAppsListArray[i].icon = `${i} icon`;
         }
     }
@@ -177,6 +181,7 @@ const Navbar: React.FC<NavProps> = ({
 
     const handleClick = (newState: SnackbarOrigin, index: any, useCase: string) => () => {
         if (useCase === "menu") {
+            navigate(FinalsidebarAppsListArray[index].appUrl);
             setCurrentMenuItem(index + 1);
             setCurrentSubMenuSidebarOpenItem(index + 1);
             const m = `${(FinalsidebarAppsListArray.length > 0) && FinalsidebarAppsListArray[index].text} Menu fetched successfully`;
