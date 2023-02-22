@@ -64,7 +64,7 @@ const ViewRoles: React.FC<RolesProps> = ({
     // Fetching data using axios
     const [viewAllUsersData, setViewAllUsersData] = useState(null);
 
-    const [fetchUpdate, setFetchUpdate] = useState(false);
+    const [fetchUpdate, setFetchUpdate] = useState(true);
 
     useEffect(() => {
         console.log("View All Users Data ===> ", viewAllUsersData);

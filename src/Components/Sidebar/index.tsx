@@ -110,7 +110,7 @@ const Sidebar: React.FC<SidebarProps> = ({
     useEffect(() => {
         // console.log("Sub menu item: ", menuItemsArrayState);
         // Render a conditional menu item
-        console.clear();
+        // console.clear();
         console.log("Current Notification Active tab: ", currentMenuItem);
 
         if (showFilterMenu) {

@@ -266,6 +266,9 @@ const CustomTableCrud: FC<CustomTableProps> = ({
     // Usage:
     const columnsNew = useMemo(() => generateColumns(data), [data, generateColumns]);
 
+    // State to Store rows 
+    const [tableData, setTableData] = useState<any>(null);
+
     // Function to generate rows
     const generateRows = useCallback((data: any) => {
         if (!data || !data.length) return [];
@@ -314,18 +317,18 @@ const CustomTableCrud: FC<CustomTableProps> = ({
             BigRow.push(newRow);
         }
 
+        setTableData(BigRow);
+
         // console.log("Generate Big Row ===> ", BigRow);
         return BigRow;
     }, [currentLang]);
 
     const rowsNew = useMemo(() => generateRows(data), [data, generateRows]);
 
-    // State to Store rows 
-    // const [rowsState, setRowsState] = useState<any>(rowsNew);
-
     // console.log("Columns New ===> ", columnsNew);
 
-    console.log("Rows New ===> ", rowsNew);
+    console.log("Columns New ===> ", columnsNew);
+    console.log("Rows New ===> ", tableData);
 
     // Get width and height current window
 
@@ -350,7 +353,7 @@ const CustomTableCrud: FC<CustomTableProps> = ({
         (row: MRT_Row<any>) => {
             if (
                 // eslint-disable-next-line no-restricted-globals
-                !confirm(`Are you sure you want to delete ${row.getValue('firstName')}`)
+                !confirm(`Are you sure you want to delete ${row.getValue(Object.keys(row)[0])}`)
             ) {
                 return;
             }
@@ -364,48 +367,56 @@ const CustomTableCrud: FC<CustomTableProps> = ({
 
             if (accessToken !== null) {
 
-                const userId = row.getValue('userId');
+                if (columnName === "ViewUsers") {
+                    const userId = row.getValue('userId');
 
-                // Get the user id from the row values
-                console.log("Row Values ===> ", userId);
+                    // Get the user id from the row values
+                    console.log("Row Values ===> ", userId);
 
-                // Send a DELETE request to delete the row in the server also pass the header of access token as x-access-token
-                axios.delete(`https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/deleteUser/${userId}`, {
-                    headers: {
-                        'x-api-key': accessToken
-                    }
-                })
-                    .then(res => {
-                        console.log("Delete User Response ===> ", res.data);
-                        if (res.data.status === "OK") {
-
-                            // Fetching data using axios and also pass the header x-api-key for auth
-                            axios.get("https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/fetchUsers", {
-                                headers: {
-                                    "x-api-key": accessToken
-                                }
-                            })
-                                .then((res) => {
-                                    // const rowsNew = generateRows(res.data);
-                                    // setTableData(rowsNew);
-                                    setFetchUpdate(true);
-                                    alert("User Deleted Successfully");
-                                })
-                                .catch((err) => {
-                                    console.log(err);
-                                });
+                    // Send a DELETE request to delete the row in the server also pass the header of access token as x-access-token
+                    axios.delete(`https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/deleteUser/${userId}`, {
+                        headers: {
+                            'x-api-key': accessToken
                         }
                     })
-                    .catch(err => {
-                        console.log("Error Deleting User ===> ", err);
-                    })
+                        .then(res => {
+                            console.log("Delete User Response ===> ", res.data);
+                            if (res.data.status === "OK") {
+
+                                // Fetching data using axios and also pass the header x-api-key for auth
+                                axios.get("https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/fetchUsers", {
+                                    headers: {
+                                        "x-api-key": accessToken
+                                    }
+                                })
+                                    .then((res) => {
+                                        // const rowsNew = generateRows(res.data);
+                                        // setTableData(rowsNew);
+                                        // setFetchUpdate(true);
+                                        tableData.splice(row.index, 1);
+                                        setTableData([...tableData]);
+                                        alert("User Deleted Successfully");
+                                    })
+                                    .catch((err) => {
+                                        console.log(err);
+                                    });
+                            }
+                        })
+                        .catch(err => {
+                            console.log("Error Deleting User ===> ", err);
+                        });
+                }
+                else {
+                    tableData.splice(row.index, 1);
+                    setTableData([...tableData]);
+                }
             }
             else {
                 alert("Please login first");
                 navigate('/login');
             }
         },
-        [navigate, setFetchUpdate],
+        [columnName, navigate, tableData],
     );
 
     const handleSaveRowEdits = async ({
@@ -483,6 +494,10 @@ const CustomTableCrud: FC<CustomTableProps> = ({
                         "superUser": values.superUser === "true" ? true : false
                     };
 
+                    tableData[row.index] = values;
+                    //send/receive api updates here, then refetch or update local table data for re-render
+                    setTableData([...tableData]);
+
                 } else if (columnName === "ViewPrivileges") {
                     url = "https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/updatePrivilege";
 
@@ -503,9 +518,16 @@ const CustomTableCrud: FC<CustomTableProps> = ({
                         "superUser": values.superUser === "true" ? true : false
                     };
 
+                    tableData[row.index] = values;
+                    //send/receive api updates here, then refetch or update local table data for re-render
+                    setTableData([...tableData]);
+
                 } else {
                     url = "";
                     newValues = null;
+                    tableData[row.index] = values;
+                    //send/receive api updates here, then refetch or update local table data for re-render
+                    setTableData([...tableData]);
                 }
 
                 if (url !== "" && newValues !== null) {
@@ -522,7 +544,10 @@ const CustomTableCrud: FC<CustomTableProps> = ({
                         );
                         console.log("Response Data ==> ", response.data);
                         if (response.data.status === "OK") {
-                            setFetchUpdate(true);
+                            // setFetchUpdate(true);
+                            tableData[row.index] = values;
+                            //send/receive api updates here, then refetch or update local table data for re-render
+                            setTableData([...tableData]);
                             alert("User Updated Successfully");
                         }
                     } catch (err) {
@@ -544,7 +569,7 @@ const CustomTableCrud: FC<CustomTableProps> = ({
             alert("Please login first");
             navigate('/login');
         }
-        
+
         // Exit editing mode
         exitEditingMode();
     }
@@ -578,7 +603,7 @@ const CustomTableCrud: FC<CustomTableProps> = ({
                         //     },
                         // }}
                         columns={columnsNew}
-                        data={rowsNew}
+                        data={tableData}
                         editingMode="modal" //default
                         enableColumnOrdering
                         enableEditing

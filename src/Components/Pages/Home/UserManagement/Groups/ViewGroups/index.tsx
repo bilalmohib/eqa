@@ -65,7 +65,7 @@ const ViewGroups: React.FC<GroupsProps> = ({
     // Fetching data using axios
     const [viewAllData, setViewAllData] = useState(null);
 
-    const [fetchUpdate, setFetchUpdate] = useState(false);
+    const [fetchUpdate, setFetchUpdate] = useState(true);
 
     useEffect(() => {
         console.log("View All Data ===> ", viewAllData);

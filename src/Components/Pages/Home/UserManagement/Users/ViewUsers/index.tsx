@@ -103,11 +103,11 @@ const ViewUsers: React.FC<UserProps> = ({
             })
                 .then((res) => {
                     setViewAllUsersData(res.data);
-                    setFetchUpdate(false);
                 })
                 .catch((err) => {
                     console.log(err);
                 });
+            setFetchUpdate(false);
         }
     }, [fetchUpdate]);
 

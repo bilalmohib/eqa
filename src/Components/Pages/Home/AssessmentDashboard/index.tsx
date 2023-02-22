@@ -57,10 +57,10 @@ const AssessmentDashboard: React.FC<AssessmentDashboardProps> = ({
         marginLeft: -36,
         marginRight: -36,
     }
-
+    
     const tableColHeaders = [
         [
-            'Course Code',
+            'id',
             'name',
             'section',
             'noofstudent',
