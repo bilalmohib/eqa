@@ -71,6 +71,8 @@ const AssessmentDashboard: React.FC<AssessmentDashboardProps> = ({
         ]
     ];
 
+    const [fetchUpdate, setFetchUpdate] = useState(true);
+
     useEffect(() => {
         const handleWindowResize = () => {
             setWindowSize([window.innerWidth, window.innerHeight]);
@@ -230,6 +232,7 @@ const AssessmentDashboard: React.FC<AssessmentDashboardProps> = ({
                     buttonTitle={"Create New Course Offering"}
                     tableTitle={"<b style={{ fontWeight: 'bold' }}>Offered</b> <i>Courses</i>"}
                     currentLang={currentLang}
+                    setFetchUpdate={setFetchUpdate}
                 />
             </div>
 

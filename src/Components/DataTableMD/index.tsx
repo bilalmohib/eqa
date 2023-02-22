@@ -46,7 +46,8 @@ interface DataTableMDProps {
     tableTitle: string,
     ColHeader: any,
     tableInfo: any,
-    currentLang: string
+    currentLang: string,
+    setFetchUpdate: any
 }
 
 const DataTableMD: FC<DataTableMDProps> = ({
@@ -58,7 +59,8 @@ const DataTableMD: FC<DataTableMDProps> = ({
     tableTitle,
     ColHeader,
     tableInfo,
-    currentLang
+    currentLang,
+    setFetchUpdate
 }): JSX.Element => {
     const { t } = useTranslation();
 
@@ -236,6 +238,7 @@ const DataTableMD: FC<DataTableMDProps> = ({
                         isOpen={isOpen}
                         currentLang={currentLang}
                         ColHeader={ColHeader}
+                        setFetchUpdate={setFetchUpdate}
                     />
                 </div>
                 {/* Body of Body Container Ends Here */}
