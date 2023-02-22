@@ -169,14 +169,21 @@ const LoginContainer: FC<LoginContainerProps> = ({
                             const AppsListArray: any = Object.values(data.privilege.apps);
                             // console.log("Apps List: ", AppsListArray);
                             for (let i = 0; i < AppsListArray.length; i++) {
+                                AppsListArray[i].appUrl = (AppsListArray[i].appUrl) + "/view";
                                 if (AppsListArray[i].appName === "Account") {
+                                    // AppsListArray[i].appUrl = "/account/users/view";
                                     AppsListArray[i].icon = renderToString(<FaUserAlt size={17} style={{ width: 23, height: 23 }} />);
                                 } else if (AppsListArray[i].appName === "Assessment Application") {
                                     AppsListArray[i].icon = renderToString(<MdOutlineFactCheck size={25} style={{ width: 28, height: 28 }} />);
+                                    // AppsListArray[i].appUrl = "/dashboard/assessment";
                                 } else if (AppsListArray[i].appName === "Settings") {
                                     AppsListArray[i].icon = renderToString(<FiSettings style={{ marginLeft: 2 }} />);
-                                } else {
-                                    AppsListArray[i].icon = `${i} icon`;
+                                    // AppsListArray[i].appUrl = "/account/users/settings";
+                                } else if (AppsListArray[i].appName === "EQA FORM") {
+                                    AppsListArray[i].icon = renderToString(<i className="fab fa-wpforms" style={{ color: "#ffffff", fontSize: 30, height: 23, width: 23 }} />);
+                                }
+                                else {
+                                    // AppsListArray[i].icon = `${i} icon`;
                                 }
                                 AppsListArray[i].text = AppsListArray[i].appName;
                                 AppsListArray[i].subMenu = AppsListArray[i].forms;
@@ -188,15 +195,19 @@ const LoginContainer: FC<LoginContainerProps> = ({
                                     subMenu[j].icon = renderToString(<RxDot style={{ marginLeft: 2 }} />);
 
                                     subMenu[j].text = subMenu[j].formName;
-                                    if (subMenu[j].formUrl === "/account/user") {
-                                        subMenu[j].formUrl = "/account/users/viewusers";
-                                    }
-                                    else if (subMenu[j].formUrl === "/account/role") {
-                                        subMenu[j].formUrl = "/account/roles/viewroles";
-                                    }
-                                    else if (subMenu[j].formUrl === "/account/group") {
-                                        subMenu[j].formUrl = "/account/groups/viewgroups";
-                                    }
+                                    // if (subMenu[j].formUrl === "/account/users") {
+                                    // subMenu[j].formUrl = "/account/users/viewusers";
+                                    subMenu[j].formUrl = (subMenu[j].formUrl) + "/view";
+                                    // alert(subMenu[j].formUrl);
+                                    // }
+                                    // else if (subMenu[j].formUrl === "/account/roles") {
+                                    //     // subMenu[j].formUrl = "/account/roles/viewroles";
+                                    //     subMenu[j].formUrl = subMenu[j].formUrl + "/viewroles"
+                                    // }
+                                    // else if (subMenu[j].formUrl === "/account/groups") {
+                                    //     // subMenu[j].formUrl = "/account/groups/viewgroups";
+                                    //     subMenu[j].formUrl = subMenu[j].formUrl + "/viewgroups";
+                                    // }
                                 }
                             }
 
@@ -209,7 +220,7 @@ const LoginContainer: FC<LoginContainerProps> = ({
 
                         setShowHeader(false);
                         // Now we will redirect to the dashboard
-                        navigate("/dashboard/assessment");
+                        navigate("/assessment/view");
                     }
                     else if (responseStatus === 'FAILED') {
                         // alert("Validation Failed");

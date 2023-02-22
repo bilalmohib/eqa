@@ -96,7 +96,7 @@ const Login2: FC<LoginProps> = ({
 
         if (accessToken !== null && sidebarAppsListArray.length !== 0) {
             setShowHeader(false);
-            navigate('/dashboard/assessment');
+            navigate('/assessment/view');
         }
     });
 

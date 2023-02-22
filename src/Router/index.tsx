@@ -87,9 +87,11 @@ const AppRouter: FC<AppRouterProps> = ({
                     setSidebarAppsListArray={setSidebarAppsListArray}
                 />}
                 />
-                <Route path="dashboard">
+                {/* (((((((((((((((((((((( For Viewing )))))))))))))))))))))) */}
+                {/* 1) */}
+                <Route path="assessment">
                     <Route
-                        path="assessment"
+                        path="view"
                         element={<Home
                             setShowHeader={setShowHeader}
                             isOpen={isOpen}
@@ -118,10 +120,108 @@ const AppRouter: FC<AppRouterProps> = ({
                         />}
                     />
                 </Route>
+                {/* 2) */}
+                <Route path="account">
+                    <Route
+                        path={"view"}
+                        element={<Home
+                            setShowHeader={setShowHeader}
+                            isOpen={isOpen}
+                            setIsOpen={setIsOpen}
+                            // For minified sidebar
+                            isMinified={isMinified}
+                            setIsMinified={setIsMinified}
+                            currentLang={currentLang}
+                            setCurrentLang={setCurrentLang}
+
+                            // Sidebar Apps List
+                            sidebarAppsListArray={sidebarAppsListArray}
+                            setSidebarAppsListArray={setSidebarAppsListArray}
+
+                            // @subComponent
+                            subComponent={
+                                <ViewUsers
+                                    isOpen={isOpen}
+                                    setIsOpen={setIsOpen}
+                                    // For minified sidebar
+                                    isMinified={isMinified}
+                                    setIsMinified={setIsMinified}
+                                    currentLang={currentLang}
+                                />
+                            }
+                        />}
+                    />
+                </Route>
+                {/* 3) */}
+                <Route path="groups">
+                    <Route
+                        path={"view"}
+                        element={<Home
+                            setShowHeader={setShowHeader}
+                            isOpen={isOpen}
+                            setIsOpen={setIsOpen}
+                            // For minified sidebar
+                            isMinified={isMinified}
+                            setIsMinified={setIsMinified}
+                            currentLang={currentLang}
+                            setCurrentLang={setCurrentLang}
+
+                            // Sidebar Apps List
+                            sidebarAppsListArray={sidebarAppsListArray}
+                            setSidebarAppsListArray={setSidebarAppsListArray}
+
+                            // @subComponent
+                            subComponent={
+                                <ViewGroups
+                                    isOpen={isOpen}
+                                    setIsOpen={setIsOpen}
+                                    // For minified sidebar
+                                    isMinified={isMinified}
+                                    setIsMinified={setIsMinified}
+                                    currentLang={currentLang}
+                                />
+                            }
+                        />}
+                    />
+                </Route>
+                {/* 4) */}
+                <Route path="roles">
+                    <Route
+                        path={"view"}
+                        element={<Home
+                            setShowHeader={setShowHeader}
+                            isOpen={isOpen}
+                            setIsOpen={setIsOpen}
+                            // For minified sidebar
+                            isMinified={isMinified}
+                            setIsMinified={setIsMinified}
+                            currentLang={currentLang}
+                            setCurrentLang={setCurrentLang}
+
+                            // Sidebar Apps List
+                            sidebarAppsListArray={sidebarAppsListArray}
+                            setSidebarAppsListArray={setSidebarAppsListArray}
+
+                            // @subComponent
+                            subComponent={
+                                <ViewRoles
+                                    isOpen={isOpen}
+                                    setIsOpen={setIsOpen}
+                                    // For minified sidebar
+                                    isMinified={isMinified}
+                                    setIsMinified={setIsMinified}
+                                    currentLang={currentLang}
+                                />
+                            }
+                        />}
+                    />
+                </Route>
+                {/* (((((((((((((((((((((( For Viewing )))))))))))))))))))))) */}
+
                 <Route path="account">
                     <Route path={"users"}>
                         <Route
-                            path={"viewusers"}
+                            path={"view"}
                             element={<Home
                                 setShowHeader={setShowHeader}
                                 isOpen={isOpen}
@@ -181,7 +281,7 @@ const AppRouter: FC<AppRouterProps> = ({
                     </Route>
                     <Route path={"groups"}>
                         <Route
-                            path={"viewgroups"}
+                            path={"view"}
                             element={<Home
                                 setShowHeader={setShowHeader}
                                 isOpen={isOpen}
@@ -240,7 +340,7 @@ const AppRouter: FC<AppRouterProps> = ({
                     </Route>
                     <Route path={"roles"}>
                         <Route
-                            path={"viewroles"}
+                            path={"view"}
                             element={<Home
                                 setShowHeader={setShowHeader}
                                 isOpen={isOpen}
