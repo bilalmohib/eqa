@@ -78,6 +78,8 @@ const ViewUsers: React.FC<UserProps> = ({
     // Fetching data using axios
     const [viewAllUsersData, setViewAllUsersData] = useState(null);
 
+    const [fetchUpdate, setFetchUpdate] = useState(true);
+
     useEffect(() => {
         console.log("View All Users Data ===> ", viewAllUsersData);
     });
@@ -92,7 +94,7 @@ const ViewUsers: React.FC<UserProps> = ({
 
         console.log("Access Token in View Users ===> ", accessToken);
 
-        if (accessToken !== null) {
+        if (accessToken !== null && fetchUpdate === true) {
             // Fetching data using axios and also pass the header x-api-key for auth
             axios.get("https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/fetchUsers", {
                 headers: {
@@ -105,8 +107,9 @@ const ViewUsers: React.FC<UserProps> = ({
                 .catch((err) => {
                     console.log(err);
                 });
+            setFetchUpdate(false);
         }
-    }, []);
+    }, [fetchUpdate]);
 
     const tableColHeaders = [
         [
@@ -222,6 +225,7 @@ const ViewUsers: React.FC<UserProps> = ({
                     buttonTitle={"Create New User"}
                     tableTitle={`<b style={{ fontWeight: "bold" }}>Users</b> <i>List</i>`}
                     currentLang={currentLang}
+                    setFetchUpdate={setFetchUpdate}
                 />
             </div>
             <br /><br />

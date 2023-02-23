@@ -65,6 +65,8 @@ const ViewGroups: React.FC<GroupsProps> = ({
     // Fetching data using axios
     const [viewAllData, setViewAllData] = useState(null);
 
+    const [fetchUpdate, setFetchUpdate] = useState(true);
+
     useEffect(() => {
         console.log("View All Data ===> ", viewAllData);
     });
@@ -79,7 +81,7 @@ const ViewGroups: React.FC<GroupsProps> = ({
 
         console.log("Access Token in View Users ===> ", accessToken);
 
-        if (accessToken !== null) {
+        if (accessToken !== null && fetchUpdate === true) {
             // Fetching data using axios and also pass the header x-api-key for auth
             axios.get("https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/fetchGroups", {
                 headers: {
@@ -92,8 +94,9 @@ const ViewGroups: React.FC<GroupsProps> = ({
                 .catch((err) => {
                     console.log(err);
                 });
+            setFetchUpdate(false);
         }
-    }, []);
+    }, [fetchUpdate]);
 
     const tableColHeaders = [
         [
@@ -179,6 +182,7 @@ const ViewGroups: React.FC<GroupsProps> = ({
                     buttonTitle={"Create New Group"}
                     tableTitle={`<b style={{ fontWeight: "bold" }}>Groups</b> <i>List</i>`}
                     currentLang={currentLang}
+                    setFetchUpdate={setFetchUpdate}
                 />
             </div>
 

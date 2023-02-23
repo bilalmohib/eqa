@@ -56,6 +56,7 @@ interface CustomTableProps {
     isOpen: Boolean,
     currentLang: string,
     ColHeader: any,
+    setFetchUpdate: any
 }
 
 const CustomTableCrud: FC<CustomTableProps> = ({
@@ -66,7 +67,8 @@ const CustomTableCrud: FC<CustomTableProps> = ({
     buttonTitle,
     isOpen,
     currentLang,
-    ColHeader
+    ColHeader,
+    setFetchUpdate
 }): JSX.Element => {
     const navigate = useNavigate();
 
@@ -264,6 +266,9 @@ const CustomTableCrud: FC<CustomTableProps> = ({
     // Usage:
     const columnsNew = useMemo(() => generateColumns(data), [data, generateColumns]);
 
+    // State to Store rows 
+    const [tableData, setTableData] = useState<any>(null);
+
     // Function to generate rows
     const generateRows = useCallback((data: any) => {
         if (!data || !data.length) return [];
@@ -312,18 +317,18 @@ const CustomTableCrud: FC<CustomTableProps> = ({
             BigRow.push(newRow);
         }
 
+        setTableData(BigRow);
+
         // console.log("Generate Big Row ===> ", BigRow);
         return BigRow;
     }, [currentLang]);
 
     const rowsNew = useMemo(() => generateRows(data), [data, generateRows]);
 
-    // State to Store rows 
-    // const [rowsState, setRowsState] = useState<any>(rowsNew);
-
     // console.log("Columns New ===> ", columnsNew);
 
-    console.log("Rows New ===> ", rowsNew);
+    console.log("Columns New ===> ", columnsNew);
+    console.log("Rows New ===> ", tableData);
 
     // Get width and height current window
 
@@ -344,13 +349,13 @@ const CustomTableCrud: FC<CustomTableProps> = ({
         };
     });
 
-    const [tableData, setTableData] = useState<any>(() => rowsNew);
-
     const handleDeleteRow = useCallback(
         (row: MRT_Row<any>) => {
+            let colName = columnsNew[0].accessorKey;
+            let getFirstRow = row.getValue(colName);
             if (
                 // eslint-disable-next-line no-restricted-globals
-                !confirm(`Are you sure you want to delete ${row.getValue('firstName')}`)
+                !confirm(`Are you sure you want to delete ${getFirstRow}`)
             ) {
                 return;
             }
@@ -363,48 +368,43 @@ const CustomTableCrud: FC<CustomTableProps> = ({
             }
 
             if (accessToken !== null) {
+                console.log("Column Name ===> ", columnName);
+                if (columnName === "ViewUsers") {
+                    const userId = row.getValue('userId');
 
-                const userId = row.getValue('userId');
+                    // Get the user id from the row values
+                    console.log("Row Values ===> ", userId);
 
-                // Get the user id from the row values
-                console.log("Row Values ===> ", userId);
-
-                // Send a DELETE request to delete the row in the server also pass the header of access token as x-access-token
-                axios.delete(`https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/deleteUser/${userId}`, {
-                    headers: {
-                        'x-api-key': accessToken
-                    }
-                })
-                    .then(res => {
-                        console.log("Delete User Response ===> ", res.data);
-                        if (res.data.status === "OK") {
-
-                            // Fetching data using axios and also pass the header x-api-key for auth
-                            axios.get("https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/fetchUsers", {
-                                headers: {
-                                    "x-api-key": accessToken
-                                }
-                            })
-                                .then((res) => {
-                                    const rowsNew = generateRows(res.data);
-                                    setTableData(rowsNew);
-                                    alert("User Deleted Successfully");
-                                })
-                                .catch((err) => {
-                                    console.log(err);
-                                });
+                    // Send a DELETE request to delete the row in the server also pass the header of access token as x-access-token
+                    axios.delete(`https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/deleteUser/${userId}`, {
+                        headers: {
+                            'x-api-key': accessToken
                         }
                     })
-                    .catch(err => {
-                        console.log("Error Deleting User ===> ", err);
-                    })
+                        .then(res => {
+                            console.log("Delete User Response ===> ", res.data);
+                            if (res.data.status === "OK") {
+                                tableData.splice(row.index, 1);
+                                setTableData([...tableData]);
+                                alert("User Deleted Successfully");
+                            }
+                        })
+                        .catch(err => {
+                            console.log("Error Deleting User ===> ", err);
+                        });
+                }
+                else {
+                    alert("Delete api not worked")
+                    // tableData.splice(row.index, 1);
+                    // setTableData([...tableData]);
+                }
             }
             else {
                 alert("Please login first");
                 navigate('/login');
             }
         },
-        [generateRows, navigate],
+        [columnsNew, navigate, tableData],
     );
 
     const handleSaveRowEdits = async ({
@@ -441,271 +441,128 @@ const CustomTableCrud: FC<CustomTableProps> = ({
             if (accessToken !== null) {
                 //////////////////////////////////////////@
                 let url = "";
-                let newValues = {};
+                let newValues: any = null;
 
                 if (columnName === "ViewUsers") {
                     url = "https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/updateUser";
 
-                    // values.active = values.active === "true" ? true : false;
-                    if (values.userId !== undefined && values.userId !== null &&
-                        values.firstName !== undefined && values.firstName !== null &&
-                        values.lastName !== undefined && values.lastName !== null &&
-                        values.userName !== undefined && values.userName !== null &&
-                        values.password !== undefined && values.password !== null &&
-                        values.emailId !== undefined && values.emailId !== null &&
-                        values.collegeId !== undefined && values.collegeId !== null &&
-                        values.campusId !== undefined && values.campusId !== null &&
-                        values.departmentId !== undefined && values.departmentId !== null &&
-                        values.active !== undefined && values.active !== null &&
-                        values.staff !== undefined && values.staff !== null &&
-                        values.superUser !== undefined && values.superUser !== null
-                    ) {
-                        // alert("I reached here");
+                    // Fetch all the properties of the object [...tableData]
+                    newValues = {
+                        "userId": values.userId,
+                        "firstName": values.firstName,
+                        "lastName": values.lastName,
+                        "userName": values.userName,
+                        "password": "123456",
+                        "emailId": values.emailId,
+                        "collegeId": values.collegeId,
+                        "campusId": values.campusId,
+                        "departmentId": values.departmentId,
+                        "loggedInUser": loggedInUser,
+                        "active": values.active === "true" ? true : false,
+                        "staff": values.staff === "true" ? true : false,
+                        "superUser": values.superUser === "true" ? true : false
+                    };
 
-                        tableData[row.index] = values;
-
-                        console.log("Updated Table Data ===> ", [...tableData]);
-
-                        // Fetch all the properties of the object [...tableData]
-                        newValues = {
-                            "userId": [...tableData][row.index].userId,
-                            "firstName": [...tableData][row.index].firstName,
-                            "lastName": [...tableData][row.index].lastName,
-                            "userName": [...tableData][row.index].userName,
-                            "password": [...tableData][row.index].password,
-                            "emailId": [...tableData][row.index].emailId,
-                            "collegeId": [...tableData][row.index].collegeId,
-                            "campusId": [...tableData][row.index].campusId,
-                            "departmentId": [...tableData][row.index].departmentId,
-                            "loggedInUser": loggedInUser,
-                            "active": [...tableData][row.index].active === "true" ? true : false,
-                            "staff": [...tableData][row.index].staff === "true" ? true : false,
-                            "superUser": [...tableData][row.index].superUser === "true" ? true : false
-                        };
-
-                        // newValues = {
-                        //     "userId": values.userId,
-                        //     "firstName": values.firstName,
-                        //     "lastName": values.lastName,
-                        //     "userName": values.userName,
-                        //     "password": values.password,
-                        //     "emailId": values.emailId,
-                        //     "collegeId": values.collegeId,
-                        //     "campusId": values.campusId,
-                        //     "departmentId": values.departmentId,
-                        //     "loggedInUser": loggedInUser,
-                        //     "active": values.active === "true" ? true : false,
-                        //     "staff": values.staff === "true" ? true : false,
-                        //     "superUser": values.superUser === "true" ? true : false
-                        // };
-                        // console.log("New Values ==> ", newValues);
-
-                        // tableData[row.index] = values;
-
-                        // console.log("Updated Table Data ===> ", [...tableData]);
-
-                        //send/receive api updates here, then refetch or update local table data for re-render
-                        // setTableData([...tableData]);
-
-
-                    }
-                    else {
-                        // alert("On Else")
-                        newValues = {
-                            "userId": "default",
-                            "firstName": "default",
-                            "lastName": "default",
-                            "userName": "default",
-                            "password": "default",
-                            "emailId": "default",
-                            "collegeId": "default",
-                            "campusId": "default",
-                            "departmentId": "default",
-                            "loggedInUser": "shabbir",
-                            "active": "default",
-                            "staff": "default",
-                            "superUser": "default"
-                        };
-                    }
                 } else if (columnName === "ViewRoles") {
                     url = "https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/updateRole";
+
+                    newValues = {
+                        "userId": values.userId,
+                        "firstName": values.firstName,
+                        "lastName": values.lastName,
+                        "userName": values.userName,
+                        "password": values.password,
+                        "emailId": values.emailId,
+                        "collegeId": values.collegeId,
+                        "campusId": values.campusId,
+                        "departmentId": values.departmentId,
+                        "loggedInUser": loggedInUser,
+                        "active": values.active === "true" ? true : false,
+                        "staff": values.staff === "true" ? true : false,
+                        "superUser": values.superUser === "true" ? true : false
+                    };
+
+                    tableData[row.index] = values;
+                    //send/receive api updates here, then refetch or update local table data for re-render
+                    setTableData([...tableData]);
+
                 } else if (columnName === "ViewPrivileges") {
                     url = "https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/updatePrivilege";
+
+                    // Fetch all the properties of the object [...tableData]
+                    newValues = {
+                        "userId": values.userId,
+                        "firstName": values.firstName,
+                        "lastName": values.lastName,
+                        "userName": values.userName,
+                        "password": values.password,
+                        "emailId": values.emailId,
+                        "collegeId": values.collegeId,
+                        "campusId": values.campusId,
+                        "departmentId": values.departmentId,
+                        "loggedInUser": loggedInUser,
+                        "active": values.active === "true" ? true : false,
+                        "staff": values.staff === "true" ? true : false,
+                        "superUser": values.superUser === "true" ? true : false
+                    };
+
+                    tableData[row.index] = values;
+                    //send/receive api updates here, then refetch or update local table data for re-render
+                    setTableData([...tableData]);
+
                 } else {
                     url = "";
-                    newValues = {};
+                    newValues = null;
+                    tableData[row.index] = values;
+                    //send/receive api updates here, then refetch or update local table data for re-render
+                    setTableData([...tableData]);
                 }
 
-                if (url !== "") {
-                    // const response = await axios.put(
-                    //     url,
-                    //     newValues,
-                    //     {
-                    //         headers: {
-                    //             "Content-Type": "application/json",
-                    //             "x-api-key": xApiKey,
-                    //         },
-                    //     }
-                    // );
-                    // console.log("Response Data ==> ", response.data);
-
+                if (url !== "" && newValues !== null) {
+                    try {
+                        const response = await axios.put(
+                            url,
+                            newValues,
+                            {
+                                headers: {
+                                    "Content-Type": "application/json",
+                                    "x-api-key": accessToken,
+                                },
+                            }
+                        );
+                        console.log("Response Data ==> ", response.data);
+                        if (response.data.status === "OK") {
+                            // setFetchUpdate(true);
+                            tableData[row.index] = values;
+                            //send/receive api updates here, then refetch or update local table data for re-render
+                            setTableData([...tableData]);
+                            alert("User Updated Successfully");
+                        }
+                    } catch (err) {
+                        console.log("Error Updating User ===> ", err);
+                        alert("Error Updating User : " + err);
+                    }
                 }
                 else {
                     console.log("URL is empty");
+                    alert("URL is empty");
                 }
-
-                // Update local data
-                // const updatedRows = [...data];
-                // const rowIndex = updatedRows.findIndex((r) => r.userId === row.userId);
-                // if (rowIndex >= 0) {
-                //     updatedRows[rowIndex] = { ...row, ...values };
-                //     // setData(updatedRows);
-                //     console.log("Updated Rows ===> ", updatedRows);
-                // }
-
-                // console.log("Updated Rows ===> ", updatedRows);
-
-                if (!Object.keys(validationErrors).length) {
-                    tableData[row.index] = values;
-
-                    console.log("Updated Table Data ===> ", [...tableData]);
-
-                    //send/receive api updates here, then refetch or update local table data for re-render
-                    // setTableData([...tableData]);
-
-                    let firstName = values.firstName;
-
-                    console.log("Updated User Name ===> ", firstName);
-
-                    // Fetch all the properties of the object [...tableData]
-                    //  const newObj = {
-                    //     "userId": values.userId,
-                    //     "firstName": firstName,
-                    //     "lastName": values.lastName,
-                    //     "userName": values.userName,
-                    //     "password": values.password,
-                    //     "emailId": values.emailId,
-                    //     "collegeId": values.collegeId,
-                    //     "campusId": values.campusId,
-                    //     "departmentId": values.departmentId,
-                    //     "loggedInUser": loggedInUser,
-                    //     "active": values.active === "true" ? true : false,
-                    //     "staff": values.staff === "true" ? true : false,
-                    //     "superUser": values.superUser === "true" ? true : false
-                    // };
-
-                    //exitEditingMode(); //required to exit editing mode and close modal
-                }
-
-                // Exit editing mode after successfully saving changes
-                //         exitEditingMode();
-                // } catch (error: unknown) {
-                //     if (axios.isAxiosError(error)) {
-                //         console.error(`Failed to update row: ${error}`);
-                //     } else {
-                //         console.error(`Failed to update row: ${error}`);
-                //     }
-                // }
-                //////////////////////////////////////////@   
-
-                // const newObj = {
-                //     "userId": values.userId,
-                //     "firstName": "shahnawaz",
-                //     "lastName": "bbbbbbbbbb",
-                //     "userName": "bilalmohib",
-                //     "password": "bilalmohib@gmail.com",
-                //     "emailId": "shassan8617@gmail.com",
-                //     "collegeId": "CL001",
-                //     "campusId": "CP003",
-                //     "departmentId": "DM003",
-                //     "loggedInUser": "shabbir.hassan",
-                //     "active": true,
-                //     "staff": false,
-                //     "superUser": false
-                // }
-
-                // // console.log("New Object ==> ", newObj);
-
-                try {
-
-                    const response = await axios.put(
-                        "https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/updateUser",
-                        {
-                            "userId": values.userId,
-                            "firstName": values.firstName,
-                            "lastName": values.lastName,
-                            "userName": values.userName,
-                            "password": values.password,
-                            "emailId": values.emailId,
-                            "collegeId": values.collegeId,
-                            "campusId": values.campusId,
-                            "departmentId": values.departmentId,
-                            "loggedInUser": loggedInUser,
-                            "active": values.active === "true" ? true : false,
-                            "staff": values.staff === "true" ? true : false,
-                            "superUser": values.superUser === "true" ? true : false
-                        },
-                        {
-                            headers: {
-                                "x-api-key": accessToken,
-                                "Content-Type": "application/json"
-                            }
-                        }
-                    )
-                    if (response.data.status === "OK") {
-                        alert("User Updated Successfully");
-                        console.log("Response Data ==> ", response.data);
-
-                        // Fetching data using axios and also pass the header x-api-key for auth
-                        axios.get("https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/fetchUsers", {
-                            headers: {
-                                "x-api-key": accessToken
-                            }
-                        })
-                            .then((res) => {
-                                const rowsNew = generateRows(res.data);
-                                rowsNew.forEach((row, index) => {
-// Update each row with the new index
-                                    row.index = index;
-                                });
-                            })
-                            .catch((err) => {
-                                console.log(err);
-                            });
-
-                        exitEditingMode(); //required to exit editing mode and close modal
-                    }
-
-                    console.log("Response Data ==> ", response.data);
-
-
-                    setTableData([...tableData]);
-
-                } catch (error) {
-                    console.log("Error ==> ", error);
-                    alert("Error in updating user ==> " + error);
-                    return;
-                }
-
-                // exitEditingMode(); //required to exit editing mode and close modal
-
-            } else {
-                alert("Please login first");
-                navigate("/login");
             }
-        } else {
-            alert("Please login first");
-            navigate("/login");
+            else {
+                alert("Please login first");
+                navigate('/login');
+            }
         }
-        ////////////////////////  API CALL  //////////////////////////
-        //////////////////////////////////////////////////////////////
-        //////////////////////////////////////////////////////////////
-        //////////////////////////////////////////////////////////////
-        //////////////////////////////////////////////////////////////
-        //////////////////////////////////////////////////////////////
-        //////////////////////////////////////////////////////////////
-        //////////////////////////////////////////////////////////////
-    };
+        else {
+            alert("Please login first");
+            navigate('/login');
+        }
+
+        // Exit editing mode
+        exitEditingMode();
+    }
+
+
 
     return (
         <div className={styles.container}>
@@ -734,7 +591,7 @@ const CustomTableCrud: FC<CustomTableProps> = ({
                         //     },
                         // }}
                         columns={columnsNew}
-                        data={rowsNew}
+                        data={tableData}
                         editingMode="modal" //default
                         enableColumnOrdering
                         enableEditing

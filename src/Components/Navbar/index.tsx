@@ -390,9 +390,9 @@ const Navbar: React.FC<NavProps> = ({
     return (
         <nav className={`navbar navbar-expand-lg navbar-light ${styles.nav_bar} ${(isOpen === true) ? (`${(!isMinified) ? (styles.isSideOpen) : (styles.isSideOpenMinified)}`) : (styles.isSideClose)} ${(windowSize[0] < 991 && isOpen) ? ("") : ("")}`}
             onClick={() => {
-                if (windowSize[0] < 991 && isOpen) {
-                    setIsOpen(!isOpen);
-                }
+                // if (windowSize[0] < 991 && isOpen) {
+                //     setIsOpen(!isOpen);
+                // }
             }}
         >
             <div className="container-fluid">
@@ -543,7 +543,7 @@ const Navbar: React.FC<NavProps> = ({
                                 <ul className={`dropdown-menu ${styles.dropdown_nav} ${styles.dropdownAppNav}`} aria-labelledby="navbarDropdownMenuLink"
                                     onClick={(e) => {
                                         // This will prevent the dropdown from closing when clicked from inside
-                                        e.stopPropagation();
+                                        // e.stopPropagation();
                                     }}
                                 >
                                     <li>

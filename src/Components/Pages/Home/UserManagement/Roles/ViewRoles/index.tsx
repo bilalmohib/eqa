@@ -64,6 +64,8 @@ const ViewRoles: React.FC<RolesProps> = ({
     // Fetching data using axios
     const [viewAllUsersData, setViewAllUsersData] = useState(null);
 
+    const [fetchUpdate, setFetchUpdate] = useState(true);
+
     useEffect(() => {
         console.log("View All Users Data ===> ", viewAllUsersData);
     });
@@ -78,7 +80,7 @@ const ViewRoles: React.FC<RolesProps> = ({
 
         console.log("Access Token in View Users ===> ", accessToken);
 
-        if (accessToken !== null) {
+        if (accessToken !== null && fetchUpdate === true) {
             // Fetching data using axios and also pass the header x-api-key for auth
             axios.get("https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/fetchRoles", {
                 headers: {
@@ -91,8 +93,9 @@ const ViewRoles: React.FC<RolesProps> = ({
                 .catch((err) => {
                     console.log(err);
                 });
+            setFetchUpdate(false);
         }
-    }, []);
+    }, [fetchUpdate]);
 
     const tableColHeaders = [
         [
@@ -177,6 +180,7 @@ const ViewRoles: React.FC<RolesProps> = ({
                     buttonTitle={"Create New Role"}
                     tableTitle={`<b style={{ fontWeight: "bold" }}>Roles</b> <i>List</i>`}
                     currentLang={currentLang}
+                    setFetchUpdate={setFetchUpdate}
                 />
             </div>
 

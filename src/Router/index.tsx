@@ -153,7 +153,7 @@ const AppRouter: FC<AppRouterProps> = ({
                     />
                 </Route>
                 {/* 3) */}
-                <Route path="groups">
+                <Route path="group">
                     <Route
                         path={"view"}
                         element={<Home
@@ -185,7 +185,7 @@ const AppRouter: FC<AppRouterProps> = ({
                     />
                 </Route>
                 {/* 4) */}
-                <Route path="roles">
+                <Route path="role">
                     <Route
                         path={"view"}
                         element={<Home

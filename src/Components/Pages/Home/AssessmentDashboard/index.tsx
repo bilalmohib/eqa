@@ -57,10 +57,10 @@ const AssessmentDashboard: React.FC<AssessmentDashboardProps> = ({
         marginLeft: -36,
         marginRight: -36,
     }
-
+    
     const tableColHeaders = [
         [
-            'Course Code',
+            'id',
             'name',
             'section',
             'noofstudent',
@@ -70,6 +70,8 @@ const AssessmentDashboard: React.FC<AssessmentDashboardProps> = ({
             'semester',
         ]
     ];
+
+    const [fetchUpdate, setFetchUpdate] = useState(true);
 
     useEffect(() => {
         const handleWindowResize = () => {
@@ -230,6 +232,7 @@ const AssessmentDashboard: React.FC<AssessmentDashboardProps> = ({
                     buttonTitle={"Create New Course Offering"}
                     tableTitle={"<b style={{ fontWeight: 'bold' }}>Offered</b> <i>Courses</i>"}
                     currentLang={currentLang}
+                    setFetchUpdate={setFetchUpdate}
                 />
             </div>
 
