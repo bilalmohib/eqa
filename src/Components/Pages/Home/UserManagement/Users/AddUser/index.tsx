@@ -411,6 +411,9 @@ const AddUser: React.FC<UserProps> = ({
                                 const m = response.data.message;
                                 // navigate("/usermanagement/users/viewusers");
                                 console.log(m);
+                                setTimeout(() => {
+                                    navigate("/account/view");
+                                }, 2000);
                             }
                         })
                         .catch(function (error) {

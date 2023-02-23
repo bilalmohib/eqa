@@ -236,18 +236,30 @@ const Home = ({
     // Automatically open the sub menu if the current location path is in the sub menu
     useEffect(() => {
         // For getting the current location path
-        const currentLocationPath = window.location.pathname;
+        const currentLocationPath = location.pathname;
+
+        console.log("Current Location Path is: ", currentLocationPath);
 
         // Do it using for loop
-        // for (let i = 0; i < FinalsidebarAppsListArray.length; i++) {
-        //     for (let j = 0; j < FinalsidebarAppsListArray[i].subMenu.length; j++) {
-                //if (currentMenuItem === currentLocationPath) {
-                setCurrentMenuItem(1);
-                setCurrentSubMenuSidebarOpenItem(1);
-                // }
-        //     }
-        // }
-    }, []);
+        for (let i = 0; i < FinalsidebarAppsListArray.length; i++) {
+            let subMenu = FinalsidebarAppsListArray[i].subMenu;
+            for (let j = 0; j < subMenu.length; j++) {
+                // alert("Current Location Path is: " + currentLocationPath + " and the subMenu[j].formUrl is: " + subMenu[j].formUrl + " and the i is: " + i + " and the Menu URL is: " + FinalsidebarAppsListArray[i].appUrl);
+                if (subMenu[j].formUrl === currentLocationPath || FinalsidebarAppsListArray[i].appUrl === currentLocationPath) {
+                    if (FinalsidebarAppsListArray[i].appUrl === currentLocationPath) {
+                        // alert("Equal" + FinalsidebarAppsListArray[i].appUrl)
+                        setCurrentMenuItem(i + 1);
+                        setCurrentSubMenuSidebarOpenItem(i + 1);
+                    }
+                    else {
+                        // alert("Equal" + subMenu[j].formUrl)
+                        setCurrentMenuItem(j + 1);
+                        setCurrentSubMenuSidebarOpenItem(i + 1);
+                    }
+                }
+            }
+        }
+    }, [FinalsidebarAppsListArray, location.pathname]);
 
     // useEffect(() => {
     //     if (sidebarAppsListArray.length > 0) {

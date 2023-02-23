@@ -351,9 +351,11 @@ const CustomTableCrud: FC<CustomTableProps> = ({
 
     const handleDeleteRow = useCallback(
         (row: MRT_Row<any>) => {
+            let colName = columnsNew[0].accessorKey;
+            let getFirstRow = row.getValue(colName);
             if (
                 // eslint-disable-next-line no-restricted-globals
-                !confirm(`Are you sure you want to delete ${row.getValue(Object.keys(row)[0])}`)
+                !confirm(`Are you sure you want to delete ${getFirstRow}`)
             ) {
                 return;
             }
@@ -366,7 +368,7 @@ const CustomTableCrud: FC<CustomTableProps> = ({
             }
 
             if (accessToken !== null) {
-
+                console.log("Column Name ===> ", columnName);
                 if (columnName === "ViewUsers") {
                     const userId = row.getValue('userId');
 
@@ -382,24 +384,9 @@ const CustomTableCrud: FC<CustomTableProps> = ({
                         .then(res => {
                             console.log("Delete User Response ===> ", res.data);
                             if (res.data.status === "OK") {
-
-                                // Fetching data using axios and also pass the header x-api-key for auth
-                                axios.get("https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/fetchUsers", {
-                                    headers: {
-                                        "x-api-key": accessToken
-                                    }
-                                })
-                                    .then((res) => {
-                                        // const rowsNew = generateRows(res.data);
-                                        // setTableData(rowsNew);
-                                        // setFetchUpdate(true);
-                                        tableData.splice(row.index, 1);
-                                        setTableData([...tableData]);
-                                        alert("User Deleted Successfully");
-                                    })
-                                    .catch((err) => {
-                                        console.log(err);
-                                    });
+                                tableData.splice(row.index, 1);
+                                setTableData([...tableData]);
+                                alert("User Deleted Successfully");
                             }
                         })
                         .catch(err => {
@@ -407,8 +394,9 @@ const CustomTableCrud: FC<CustomTableProps> = ({
                         });
                 }
                 else {
-                    tableData.splice(row.index, 1);
-                    setTableData([...tableData]);
+                    alert("Delete api not worked")
+                    // tableData.splice(row.index, 1);
+                    // setTableData([...tableData]);
                 }
             }
             else {
@@ -416,7 +404,7 @@ const CustomTableCrud: FC<CustomTableProps> = ({
                 navigate('/login');
             }
         },
-        [columnName, navigate, tableData],
+        [columnsNew, navigate, tableData],
     );
 
     const handleSaveRowEdits = async ({
