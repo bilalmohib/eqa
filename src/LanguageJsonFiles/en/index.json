@@ -596,6 +596,23 @@
                                     }
                                 }
                             },
+                            "apps": {
+                                "text": "Apps",
+                                "link": "/usermanagement/groups/apps",
+                                "details": {
+                                    "breadcrumb": {
+                                        "f1": "EQA",
+                                        "f2": "Account",
+                                        "f3": "Apps"
+                                    },
+                                    "title": "App Management",
+                                    "addUser": "Add Apps",
+                                    "table": {
+                                        "title": "<b style={{ fontWeight: 'bold' }}>Apps</b> <i>List</i>",
+                                        "subTitle": "Following is the list of Apps"
+                                    }
+                                }
+                            },
                             "roles": {
                                 "text": "Role",
                                 "link": "/usermanagement/roles/viewroles",

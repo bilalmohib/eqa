@@ -582,6 +582,23 @@
                                     }
                                 }
                             },
+                            "apps": {
+                                "text": "تطبيقات",
+                                "link": "/usermanagement/groups/apps",
+                                "details": {
+                                    "breadcrumb": {
+                                        "f1": "EQA",
+                                        "f2": "حساب",
+                                        "f3": "تطبيقات"
+                                    },
+                                    "title": "إدارة التطبيقات",
+                                    "addUser": "أضف تطبيقات",
+                                    "table": {
+                                        "title": "<b style={{ fontWeight: 'bold' }}>تطبيقات</b> <i>List</i>",
+                                        "subTitle": "فيما يلي قائمة التطبيقات"
+                                    }
+                                }
+                            },
                             "roles": {
                                 "text": "دور",
                                 "link": "/usermanagement/roles/viewroles",
