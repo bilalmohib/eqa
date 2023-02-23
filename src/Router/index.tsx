@@ -32,6 +32,10 @@ import AddUser from '../Components/Pages/Home/UserManagement/Users/AddUser';
 import AddGroup from '../Components/Pages/Home/UserManagement/Groups/AddGroup';
 // 12) Create Role Page
 import AddRole from '../Components/Pages/Home/UserManagement/Roles/AddRole';
+// 13 ) View Apps Page
+import ViewApps from '../Components/Pages/Home/UserManagement/Application/ViewApps';
+// 14) Create App Page
+import AddApp from '../Components/Pages/Home/UserManagement/Application/AddApp';
 // $$$$$$$$$$$$$$$$$$$$ Importing Components and Pages $$$$$$$$$$$$$$$$$$$$
 
 interface AppRouterProps {
@@ -328,6 +332,65 @@ const AppRouter: FC<AppRouterProps> = ({
                                 // @subComponent
                                 subComponent={
                                     <AddGroup
+                                        isOpen={isOpen}
+                                        setIsOpen={setIsOpen}
+                                        // For minified sidebar
+                                        isMinified={isMinified}
+                                        setIsMinified={setIsMinified}
+                                    />
+                                }
+                            />}
+                        />
+                    </Route>
+                    <Route path={"apps"}>
+                        <Route
+                            path={"view"}
+                            element={<Home
+                                setShowHeader={setShowHeader}
+                                isOpen={isOpen}
+                                setIsOpen={setIsOpen}
+                                // For minified sidebar
+                                isMinified={isMinified}
+                                setIsMinified={setIsMinified}
+                                currentLang={currentLang}
+                                setCurrentLang={setCurrentLang}
+
+                                // Sidebar Apps List
+                                sidebarAppsListArray={sidebarAppsListArray}
+                                setSidebarAppsListArray={setSidebarAppsListArray}
+
+                                // @subComponent
+                                subComponent={
+                                    <ViewApps
+                                        isOpen={isOpen}
+                                        setIsOpen={setIsOpen}
+                                        // For minified sidebar
+                                        isMinified={isMinified}
+                                        setIsMinified={setIsMinified}
+                                        currentLang={currentLang}
+                                    />
+                                }
+                            />}
+                        />
+                        <Route
+                            path={"addapp"}
+                            element={<Home
+                                setShowHeader={setShowHeader}
+                                isOpen={isOpen}
+                                setIsOpen={setIsOpen}
+                                // For minified sidebar
+                                isMinified={isMinified}
+                                setIsMinified={setIsMinified}
+                                currentLang={currentLang}
+                                setCurrentLang={setCurrentLang}
+
+                                // Sidebar Apps List
+                                sidebarAppsListArray={sidebarAppsListArray}
+                                setSidebarAppsListArray={setSidebarAppsListArray}
+
+                                // @subComponent
+                                subComponent={
+                                    <AddApp
                                         isOpen={isOpen}
                                         setIsOpen={setIsOpen}
                                         // For minified sidebar

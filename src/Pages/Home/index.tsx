@@ -247,19 +247,21 @@ const Home = ({
                 // alert("Current Location Path is: " + currentLocationPath + " and the subMenu[j].formUrl is: " + subMenu[j].formUrl + " and the i is: " + i + " and the Menu URL is: " + FinalsidebarAppsListArray[i].appUrl);
                 if (subMenu[j].formUrl === currentLocationPath || FinalsidebarAppsListArray[i].appUrl === currentLocationPath) {
                     if (FinalsidebarAppsListArray[i].appUrl === currentLocationPath) {
-                        // alert("Equal" + FinalsidebarAppsListArray[i].appUrl)
+                        // alert("Equal" + FinalsidebarAppsListArray[i].appName)
                         setCurrentMenuItem(i + 1);
                         setCurrentSubMenuSidebarOpenItem(i + 1);
                     }
-                    else {
-                        // alert("Equal" + subMenu[j].formUrl)
-                        setCurrentMenuItem(j + 1);
+                    else if (subMenu[j].formUrl === currentLocationPath) {
+                        // alert("Equal" + subMenu[j].formName)
+                        setCurrentMenuItem(i + 1);
                         setCurrentSubMenuSidebarOpenItem(i + 1);
+                    }else{
+                        //alert("Not Equal")
                     }
                 }
             }
         }
-    }, [FinalsidebarAppsListArray, location.pathname]);
+    }, []);
 
     // useEffect(() => {
     //     if (sidebarAppsListArray.length > 0) {
