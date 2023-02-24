@@ -353,12 +353,6 @@ const CustomTableCrud: FC<CustomTableProps> = ({
         (row: MRT_Row<any>) => {
             let colName = columnsNew[0].accessorKey;
             let getFirstRow = row.getValue(colName);
-            if (
-                // eslint-disable-next-line no-restricted-globals
-                !confirm(`Are you sure you want to delete ${getFirstRow}`)
-            ) {
-                return;
-            }
             //send api delete request here, then refetch or update local table data for re-render
 
             let accessToken: any = Cookies.get("accessToken");
@@ -369,34 +363,92 @@ const CustomTableCrud: FC<CustomTableProps> = ({
 
             if (accessToken !== null) {
                 console.log("Column Name ===> ", columnName);
+
+                let url = "";
+                let message = "";
+                let deleteMessage = "";
+
                 if (columnName === "ViewUsers") {
                     const userId = row.getValue('userId');
+                    const userName = row.getValue('userName');
 
                     // Get the user id from the row values
-                    console.log("Row Values ===> ", userId);
+                    // console.log("User ID ===> ", userId);
+                    // console.log("User Name ===> ", userName);
 
                     // Send a DELETE request to delete the row in the server also pass the header of access token as x-access-token
-                    axios.delete(`https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/deleteUser/${userId}`, {
+                    url = `https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/deleteUser/${userId}`;
+                    message = `Are you sure you want to delete user: ${userName} ?`;
+                    deleteMessage = `User: ${userName} deleted successfully`;
+                }
+                else if (columnName === "ViewApps") {
+                    const appId = row.getValue('appId');
+                    const appName = row.getValue('appName');
+
+                    // Get the user id from the row values
+                    // console.log("User ID ===> ", appId);
+                    // console.log("User Name ===> ", appName);
+
+                    url = `https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/deleteAppDetails/${appId}`;
+                    message = "Are you sure you want to delete App " + appName + " ?";
+                    deleteMessage = `App ${appName} Deleted Successfully`;
+                }
+                else if (columnName === "ViewGroups") {
+                    const grpId = row.getValue('grpId');
+                    const grpName = row.getValue('grpName');
+
+                    // Get the user id from the row values
+                    // console.log("Group ID ===> ", grpId);
+                    // console.log("Group Name ===> ", grpName);
+
+                    url = `https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/deleteGroup/${grpId}`;
+                    message = "Are you sure you want to delete Group " + grpName + " ?";
+                    deleteMessage = `Group ${grpName} Deleted Successfully`;
+                }
+                else if (columnName === "ViewRoles") {
+                    const roleId = row.getValue('roleId');
+                    const roleName = row.getValue('roleName');
+
+                    // Get the user id from the row values
+                    // console.log("Role ID ===> ", roleId);
+                    // console.log("Role Name ===> ", roleName);
+
+                    url = `https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/deleteRole/${roleId}`;
+                    message = "Are you sure you want to delete Group " + roleName + " ?";
+                    deleteMessage = `Group ${roleName} Deleted Successfully`;
+                }
+                else {
+                    alert("Wrong Column Name");
+                    // tableData.splice(row.index, 1);
+                    // setTableData([...tableData]);
+                }
+
+                if (url !== "" && message !== "" && deleteMessage !== "") {
+                    if (
+                        // eslint-disable-next-line no-restricted-globals
+                        !confirm(`${message}`)
+                    ) {
+                        return;
+                    }
+
+                    // Send a DELETE request to delete the row in the server also pass the header of access token as x-access-token
+                    axios.delete(`${url}`, {
                         headers: {
                             'x-api-key': accessToken
                         }
                     })
                         .then(res => {
-                            console.log("Delete User Response ===> ", res.data);
+                            console.log(`Delete ${columnName} Response ===> `, res.data);
                             if (res.data.status === "OK") {
                                 tableData.splice(row.index, 1);
                                 setTableData([...tableData]);
-                                alert("User Deleted Successfully");
+                                alert(deleteMessage);
                             }
                         })
                         .catch(err => {
-                            console.log("Error Deleting User ===> ", err);
+                            console.log(`Error Deleting ${columnName} ===> `, err);
                         });
-                }
-                else {
-                    alert("Delete api not worked")
-                    // tableData.splice(row.index, 1);
-                    // setTableData([...tableData]);
+                    // Send a DELETE request to delete the row in the server also pass the header of access token as x-access-token
                 }
             }
             else {
@@ -404,7 +456,7 @@ const CustomTableCrud: FC<CustomTableProps> = ({
                 navigate('/login');
             }
         },
-        [columnsNew, navigate, tableData],
+        [columnName, columnsNew, navigate, tableData],
     );
 
     const handleSaveRowEdits = async ({

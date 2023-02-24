@@ -175,7 +175,7 @@ const ViewRoles: React.FC<RolesProps> = ({
                     ) : ([])}
                     states={states}
                     ColHeader={tableColHeaders}
-                    columnName={"CourseOfferingTypes"}
+                    columnName={"ViewRoles"}
                     tableInfo={(t('Home.Sidebar.list.userManagement.subMenu.roles.details.table.subTitle'))}
                     buttonTitle={"Create New Role"}
                     tableTitle={`<b style={{ fontWeight: "bold" }}>Roles</b> <i>List</i>`}

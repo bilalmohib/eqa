@@ -83,7 +83,7 @@ const ViewApps: React.FC<AppsProps> = ({
 
         if (accessToken !== null && fetchUpdate === true) {
             // Fetching data using axios and also pass the header x-api-key for auth
-            axios.get("https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/fetchGroups", {
+            axios.get("https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/fetchAppDetails", {
                 headers: {
                     "x-api-key": accessToken
                 }
@@ -100,14 +100,15 @@ const ViewApps: React.FC<AppsProps> = ({
 
     const tableColHeaders = [
         [
-            'grpId',
-            'grpName',
-            'grpDescription',
+            'appId',
+            'appName',
+            'appDescription',
             'active',
+            'appUrl',
             'createdBy',
             'creationDateAndTime',
-            'updatedBy',
-            'updateDateAndTime'
+            'updateDateAndTime',
+            'updatedBy'
         ]
     ];
 
@@ -176,7 +177,7 @@ const ViewApps: React.FC<AppsProps> = ({
                     ) : ([])}
                     states={states}
                     ColHeader={tableColHeaders}
-                    columnName={"Apps"}
+                    columnName={"ViewApps"}
                     tableInfo={(t('Home.Sidebar.list.userManagement.subMenu.apps.details.table.subTitle'))}
                     buttonTitle={"Create New App"}
                     tableTitle={`<b style={{ fontWeight: "bold" }}>Apps</b> <i>List</i>`}
