@@ -599,6 +599,23 @@
                                     }
                                 }
                             },
+                            "appForm": {
+                                "text": "نموذج التطبيق",
+                                "link": "/usermanagement/groups/appForm",
+                                "details": {
+                                    "breadcrumb": {
+                                        "f1": "EQA",
+                                        "f2": "حساب",
+                                        "f3": "نموذج التطبيق"
+                                    },
+                                    "title": "إدارة AppForm",
+                                    "addUser": "إضافة AppForm",
+                                    "table": {
+                                        "title": "<b style={{ fontWeight: 'bold' }}>نموذج التطبيق</b> <i>List</i>",
+                                        "subTitle": "فيما يلي قائمة نماذج التطبيقات"
+                                    }
+                                }
+                            },
                             "roles": {
                                 "text": "دور",
                                 "link": "/usermanagement/roles/viewroles",

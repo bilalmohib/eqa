@@ -105,6 +105,9 @@ const Sidebar: React.FC<SidebarProps> = ({
 
     const [menuItemsArrayState, setMenuItemsArrayState] = useState<any>(sidebarList);
 
+    // Current Sub Menu Item
+    const [currentSelectedSubMenu, setCurrentSelectedSubMenu] = useState<any>(null);
+
     const [searchTextSidebar, setSearchTextSidebar] = useState<string>("");
 
     useEffect(() => {
@@ -275,7 +278,7 @@ const Sidebar: React.FC<SidebarProps> = ({
                         {
                             // eslint-disable-next-line array-callback-return
                             menuItemsArrayState.map((item: any, index: number) => {
-                                if (currentMenuItem === (index+1)) {
+                                if (currentMenuItem === (index + 1)) {
                                     return (
                                         <li key={index}>
                                             <li
@@ -375,6 +378,9 @@ const Sidebar: React.FC<SidebarProps> = ({
                                                                                 // setCurrentMenuItem(0);
                                                                                 setCurrentSubMenuSidebarOpenItem(0);
                                                                             }
+
+                                                                            // Set the current selected sub menu item
+                                                                            setCurrentSelectedSubMenu(subIndex);
                                                                         }}
                                                                         style={{
                                                                             borderTopLeftRadius:
@@ -397,7 +403,7 @@ const Sidebar: React.FC<SidebarProps> = ({
                                                                                 (5) :
                                                                                 (0)
                                                                         }}
-                                                                        className={`${(isMinified) && (styles.SubMenuItemContainerMinifiedVersionli)}`}
+                                                                        className={`${(isMinified) && (styles.SubMenuItemContainerMinifiedVersionli)} ${(currentSelectedSubMenu === (subIndex)) ? (styles.selectedSubMenuItemContainerli) : (null)}`}
                                                                     >
                                                                         {(!isMinified) ? (
                                                                             <div>

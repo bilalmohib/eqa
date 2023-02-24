@@ -613,6 +613,23 @@
                                     }
                                 }
                             },
+                            "appForm": {
+                                "text": "App Form",
+                                "link": "/usermanagement/groups/appForm",
+                                "details": {
+                                    "breadcrumb": {
+                                        "f1": "EQA",
+                                        "f2": "Account",
+                                        "f3": "App Form"
+                                    },
+                                    "title": "AppForm Management",
+                                    "addUser": "Add AppForm",
+                                    "table": {
+                                        "title": "<b style={{ fontWeight: 'bold' }}>AppForm</b> <i>List</i>",
+                                        "subTitle": "Following is the list of AppForms"
+                                    }
+                                }
+                            },
                             "roles": {
                                 "text": "Role",
                                 "link": "/usermanagement/roles/viewroles",
