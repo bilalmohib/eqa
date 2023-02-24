@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 import { HiUserGroup } from "react-icons/hi2";
 import AppsIcon from '@mui/icons-material/Apps';
-import {AiOutlineAppstore} from "react-icons/ai";
+import { AiOutlineAppstore } from "react-icons/ai";
 
 import axios from "axios";
 import Cookies from "js-cookie";
@@ -23,7 +23,7 @@ import { data, states } from '../../../../../../Data/Tables/CourseOfferings';
 
 import styles from "./style.module.css";
 
-interface AppsProps {
+interface ViewAppFormProps {
     setIsOpen: any,
     isOpen: Boolean,
     // For minified sidebar
@@ -32,7 +32,7 @@ interface AppsProps {
     currentLang: string
 }
 
-const ViewApps: React.FC<AppsProps> = ({
+const ViewAppForm: React.FC<ViewAppFormProps> = ({
     setIsOpen,
     isOpen,
     // For minified sidebar
@@ -85,13 +85,21 @@ const ViewApps: React.FC<AppsProps> = ({
 
         if (accessToken !== null && fetchUpdate === true) {
             // Fetching data using axios and also pass the header x-api-key for auth
-            axios.get("https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/fetchAppDetails", {
+            axios.get("https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/fetchAppForm", {
                 headers: {
                     "x-api-key": accessToken
                 }
             })
                 .then((res) => {
-                    setViewAllData(res.data);
+                    // console.log("View App Form Data ===> ", res.data.obj);
+                    const arr = res.data.obj;
+
+                    // Adding a new property appId in the array
+                    arr.forEach((element:any) => {
+                        element.appId = element.appDetails.appId;
+                    });
+                    // console.log("View App Form Data ===> ", arr);
+                    setViewAllData(arr);
                 })
                 .catch((err) => {
                     console.log(err);
@@ -121,12 +129,12 @@ const ViewApps: React.FC<AppsProps> = ({
         }}>
             <div style={{ marginTop: 5 }} className={`${(windowSize[0] > 990) ? ("d-flex justify-content-between") : ("d-flex flex-column justify-content-start")}`}>
                 <div>
-                    {(t('Home.Sidebar.list.userManagement.subMenu.apps.details.breadcrumb.f1'))}
+                    {(t('Home.Sidebar.list.userManagement.subMenu.appForm.details.breadcrumb.f1'))}
                     /
-                    {(t('Home.Sidebar.list.userManagement.subMenu.apps.details.breadcrumb.f2'))}
+                    {(t('Home.Sidebar.list.userManagement.subMenu.appForm.details.breadcrumb.f2'))}
                     /
                     <span style={{ color: "#4f747a" }}>
-                        {(t('Home.Sidebar.list.userManagement.subMenu.apps.details.breadcrumb.f3'))}
+                        {(t('Home.Sidebar.list.userManagement.subMenu.appForm.details.breadcrumb.f3'))}
                     </span>
                 </div>
                 <div>
@@ -139,9 +147,9 @@ const ViewApps: React.FC<AppsProps> = ({
             {/* Top Container */}
             <div className={styles.topContainer}>
                 <div className={styles.leftTopContainer}>
-                    <AppsIcon sx={{ marginTop: "3px",color:"#4f747a",fontSize:27 }} />
+                    <AppsIcon sx={{ marginTop: "3px", color: "#4f747a", fontSize: 27 }} />
                     <p className={styles.topContainerLeftText}>
-                        {(t('Home.Sidebar.list.userManagement.subMenu.apps.details.title'))}
+                        {(t('Home.Sidebar.list.userManagement.subMenu.appForm.details.title'))}
                     </p>
                 </div>
                 <div className={styles.rightTopContainer}>
@@ -158,11 +166,11 @@ const ViewApps: React.FC<AppsProps> = ({
                             }
                         }}
                         onClick={() => {
-                            navigate("/account/apps/addapp");
+                            navigate("/account/appForm/addAppForm");
                         }}
                         startIcon={<AddIcon />}
                     >
-                        {(t('Home.Sidebar.list.userManagement.subMenu.apps.details.addUser'))}
+                        {(t('Home.Sidebar.list.userManagement.subMenu.appForm.details.addUser'))}
                     </Button>
                 </div>
             </div>
@@ -175,14 +183,14 @@ const ViewApps: React.FC<AppsProps> = ({
                         viewAllData !== null
                     ) ? (
                         // @ts-ignore
-                        viewAllData.obj
+                        viewAllData
                     ) : ([])}
                     states={states}
                     ColHeader={tableColHeaders}
-                    columnName={"ViewApps"}
-                    tableInfo={(t('Home.Sidebar.list.userManagement.subMenu.apps.details.table.subTitle'))}
-                    buttonTitle={"Create New App"}
-                    tableTitle={`<b style={{ fontWeight: "bold" }}>Apps</b> <i>List</i>`}
+                    columnName={"ViewAppForm"}
+                    tableInfo={(t('Home.Sidebar.list.userManagement.subMenu.appForm.details.table.subTitle'))}
+                    buttonTitle={"Create New AppForm"}
+                    tableTitle={`<b style={{ fontWeight: "bold" }}>AppForm</b> <i>List</i>`}
                     currentLang={currentLang}
                     setFetchUpdate={setFetchUpdate}
                 />
@@ -192,4 +200,4 @@ const ViewApps: React.FC<AppsProps> = ({
         </div>
     )
 }
-export default ViewApps;
+export default ViewAppForm;

@@ -119,6 +119,9 @@ html[dir="rtl"] .btnControl{
 .insideBtnControl{
     text-transform: none !important;
     color: #4a7174 !important;
+    width: 100% !important;
+    height: 45px !important;
+    /* border:1px solid red; */
 }
 /* Body Header Starts Here */
 .bodyOfBodyContainer{

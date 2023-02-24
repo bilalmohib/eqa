@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import { useState, FC } from "react";
+import { useState, useEffect, FC } from "react";
 
 // Importing Icons
 import { BsPrinter } from "react-icons/bs";
@@ -17,7 +17,14 @@ import { createRipples } from 'react-ripples';
 // Importing types
 import { CourseOfferingTypes } from "../../Data/Tables/CourseOfferings/types";
 
+// Importing material ui components
+import {
+    Button,
+    Typography
+} from '@mui/material';
+
 import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
+import RefreshIcon from '@mui/icons-material/Refresh';
 
 // For printing the table.
 import { jsPDF } from 'jspdf';
@@ -142,6 +149,23 @@ const DataTableMD: FC<DataTableMDProps> = ({
         // console.log("Copied to clipboard");
     }
 
+    const [windowSize, setWindowSize] = useState([
+        window.innerWidth,
+        window.innerHeight,
+    ]);
+
+    useEffect(() => {
+        const handleWindowResize = () => {
+            setWindowSize([window.innerWidth, window.innerHeight]);
+        };
+
+        window.addEventListener('resize', handleWindowResize);
+
+        return () => {
+            window.removeEventListener('resize', handleWindowResize);
+        };
+    });
+
     return (
         <div className={styles.container}>
             {/* Header Starts here */}
@@ -171,7 +195,7 @@ const DataTableMD: FC<DataTableMDProps> = ({
                                 </ButtonRipples>
                             </a>
                             <ul className="dropdown-menu" aria-labelledby="dropdownMenuicon">
-                                {/* // eslint-disable-next-line jsx-a11y/anchor-is-valid */}, jsx-a11y/anchor-is-valid
+                                {/* // eslint-disable-next-line jsx-a11y/anchor-is-valid */}
                                 <li><a className="dropdown-item" href="#"> <i className="fas fa-user-alt pe-2" />My Profile</a></li>
                                 <li><a className="dropdown-item" href="#"> <i className="fas fa-cog pe-2" />Settings</a></li>
                                 <li><a className="dropdown-item" href="#"> <i className="fas fa-door-open pe-2" />Logout</a></li>
@@ -184,7 +208,6 @@ const DataTableMD: FC<DataTableMDProps> = ({
 
             {/* Body Starts here */}
             <section className={styles.bodyContainer}>
-
                 {/* Body of Header Starts Here */}
                 <header className={styles.containerbodyHeader}>
                     <div className="d-flex" style={{ marginTop: 3 }}>
@@ -196,9 +219,8 @@ const DataTableMD: FC<DataTableMDProps> = ({
                                 {tableInfo}
                             </b>
                         </h5>
-
                     </div>
-                    <div>
+                    <div className="d-flex justify-content-between">
                         {/* Standard */}
                         <div className={styles.btnContainerTable}>
                             <div className={styles.btnControl}>
@@ -218,7 +240,15 @@ const DataTableMD: FC<DataTableMDProps> = ({
                             <div className={styles.btnControl}>
                                 <ButtonRipples>
                                     <button className={`btn btn-light ${styles.insideBtnControl}`} onClick={() => printTable()}>
-                                        <BsPrinter style={{ marginTop: -5 }} size={20} />
+                                        <BsPrinter style={{ marginTop: -2 }} size={20} />
+                                    </button>
+                                </ButtonRipples>
+                            </div>
+                            <div className={styles.btnControl}>
+                                <ButtonRipples>
+                                    <button className={`btn btn-light ${styles.insideBtnControl}`} onClick={() => setFetchUpdate(true)}>
+                                        {/* <BsPrinter style={{ marginTop: -5 }} size={20} /> */}
+                                        <RefreshIcon style={{ display: "block",color:"blue" }} />
                                     </button>
                                 </ButtonRipples>
                             </div>

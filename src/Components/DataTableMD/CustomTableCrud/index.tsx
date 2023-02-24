@@ -255,7 +255,7 @@ const CustomTableCrud: FC<CustomTableProps> = ({
         const generate = keys.map((key) => ({
             accessorKey: key.toString(),
             header: key.toString(),
-            size: 150,
+            size: (key.toString() === 'appDetails' || key.toString() === 'formUrl') ? 280 : 120,
             muiTableBodyCellEditTextFieldProps: ({ cell }: any) => ({
                 ...getCommonEditTextFieldProps(cell),
             }),
@@ -304,6 +304,44 @@ const CustomTableCrud: FC<CustomTableProps> = ({
                             ).toLocaleString();
 
                         }
+                        break;
+                    case 'updateDateAndTime':
+                        if (data[i][prop] !== null) {
+                            console.log('updateDateAndTime', data[i][prop]);
+                            if (currentLang === 'ar') {
+                                // Date in Arabic
+                                newRow[prop] = new Date(
+                                    data[i][prop][0],
+                                    data[i][prop][1] - 1,
+                                    data[i][prop][2],
+                                    data[i][prop][3],
+                                    data[i][prop][4],
+                                    data[i][prop][5]
+                                ).toLocaleString('ar-EG');
+                            }
+                            else {
+                                // Date in English
+                                newRow[prop] = new Date(
+                                    data[i][prop][0],
+                                    data[i][prop][1] - 1,
+                                    data[i][prop][2],
+                                    data[i][prop][3],
+                                    data[i][prop][4],
+                                    data[i][prop][5]
+                                ).toLocaleString();
+
+                            }
+                        }
+                        else {
+                            newRow[prop] = 'null';
+                            // console.log('updateDateAndTime Null --> ', data[i][prop]);
+                        }
+                        break;
+                    case 'appDetails':
+                        //newRow[prop] = data[i][prop] ? 'true' : 'false';
+                        // newRow[prop] = data[i][prop]."appName";
+                        newRow[prop] = data[i][prop].appId + ": " + data[i][prop].appName;
+                        // newRow['appId'] = data[i][prop].appId;
                         break;
                     case 'active':
                         newRow[prop] = data[i][prop] ? 'true' : 'false';
@@ -417,6 +455,18 @@ const CustomTableCrud: FC<CustomTableProps> = ({
                     message = "Are you sure you want to delete Group " + roleName + " ?";
                     deleteMessage = `Group ${roleName} Deleted Successfully`;
                 }
+                else if (columnName === "ViewAppForm") {
+                    const formId = row.getValue('formId');
+                    const formName = row.getValue('formName');
+
+                    // Get the user id from the row values
+                    // console.log("form ID ===> ", formId);
+                    // console.log("form Name ===> ", formName);
+
+                    url = `https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/deleteAppForm/${formId}`;
+                    message = "Are you sure you want to delete AppForm " + formName + " ?";
+                    deleteMessage = `AppForm ${formName} Deleted Successfully`;
+                }
                 else {
                     alert("Wrong Column Name");
                     // tableData.splice(row.index, 1);
@@ -519,48 +569,52 @@ const CustomTableCrud: FC<CustomTableProps> = ({
                     url = "https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/updateRole";
 
                     newValues = {
-                        "userId": values.userId,
-                        "firstName": values.firstName,
-                        "lastName": values.lastName,
-                        "userName": values.userName,
-                        "password": values.password,
-                        "emailId": values.emailId,
-                        "collegeId": values.collegeId,
-                        "campusId": values.campusId,
-                        "departmentId": values.departmentId,
+                        "roleId": values.roleId,
+                        "roleName": values.roleName,
+                        "roleDescription": values.roleDescription,
                         "loggedInUser": loggedInUser,
-                        "active": values.active === "true" ? true : false,
-                        "staff": values.staff === "true" ? true : false,
-                        "superUser": values.superUser === "true" ? true : false
+                        "active": values.active === "true" ? true : false
                     };
 
-                    tableData[row.index] = values;
-                    //send/receive api updates here, then refetch or update local table data for re-render
-                    setTableData([...tableData]);
-
-                } else if (columnName === "ViewPrivileges") {
-                    url = "https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/updatePrivilege";
+                } else if (columnName === "ViewGroups") {
+                    url = "https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/updateGroup";
 
                     // Fetch all the properties of the object [...tableData]
                     newValues = {
-                        "userId": values.userId,
-                        "firstName": values.firstName,
-                        "lastName": values.lastName,
-                        "userName": values.userName,
-                        "password": values.password,
-                        "emailId": values.emailId,
-                        "collegeId": values.collegeId,
-                        "campusId": values.campusId,
-                        "departmentId": values.departmentId,
-                        "loggedInUser": loggedInUser,
+                        "grpId": values.grpId,
+                        "grpName": values.grpName,
+                        "grpDescription": values.grpDescription,
                         "active": values.active === "true" ? true : false,
-                        "staff": values.staff === "true" ? true : false,
-                        "superUser": values.superUser === "true" ? true : false
-                    };
+                        "loggedInUser": loggedInUser
+                    }
 
-                    tableData[row.index] = values;
-                    //send/receive api updates here, then refetch or update local table data for re-render
-                    setTableData([...tableData]);
+                } else if (columnName === "ViewApps") {
+                    url = "https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/saveAppDetails";
+
+                    // Fetch all the properties of the object [...tableData]
+                    newValues = {
+                        "appId": values.appId,
+                        "appName": values.appName,
+                        "appDescription": values.appDescription,
+                        "appUrl": values.appUrl,
+                        "appOrder": values.appOrder,
+                        "active": values.active === "true" ? true : false,
+                        "loggedInUser": loggedInUser
+                    }
+
+                } else if (columnName === "ViewAppForm") {
+                    url = "https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/updateAppForm";
+
+                    // Fetch all the properties of the object [...tableData]
+                    newValues = {
+                        "formId": values.formId,
+                        "appId": values.appId,
+                        "moduleName": values.moduleName,
+                        "formName": values.formName,
+                        "formUrl": values.formUrl,
+                        "active": values.active === "true" ? true : false,
+                        "loggedInUser": loggedInUser
+                    }
 
                 } else {
                     url = "";
@@ -572,23 +626,45 @@ const CustomTableCrud: FC<CustomTableProps> = ({
 
                 if (url !== "" && newValues !== null) {
                     try {
-                        const response = await axios.put(
-                            url,
-                            newValues,
-                            {
-                                headers: {
-                                    "Content-Type": "application/json",
-                                    "x-api-key": accessToken,
-                                },
+                        if (columnName === "ViewApps") {
+                            const response = await axios.post(
+                                url,
+                                newValues,
+                                {
+                                    headers: {
+                                        "x-api-key": accessToken,
+                                    },
+                                }
+                            );
+
+                            console.log("Response Data ==> ", response.data);
+                            if (response.data.status === "OK") {
+                                // setFetchUpdate(true);
+                                tableData[row.index] = values;
+                                //send/receive api updates here, then refetch or update local table data for re-render
+                                setTableData([...tableData]);
+                                alert("App Updated Successfully");
                             }
-                        );
-                        console.log("Response Data ==> ", response.data);
-                        if (response.data.status === "OK") {
-                            // setFetchUpdate(true);
-                            tableData[row.index] = values;
-                            //send/receive api updates here, then refetch or update local table data for re-render
-                            setTableData([...tableData]);
-                            alert("User Updated Successfully");
+                        } else {
+                            const response = await axios.put(
+                                url,
+                                newValues,
+                                {
+                                    headers: {
+                                        "Content-Type": "application/json",
+                                        "x-api-key": accessToken,
+                                    },
+                                }
+                            );
+
+                            console.log("Response Data ==> ", response.data);
+                            if (response.data.status === "OK") {
+                                // setFetchUpdate(true);
+                                tableData[row.index] = values;
+                                //send/receive api updates here, then refetch or update local table data for re-render
+                                setTableData([...tableData]);
+                                alert("Updated Successfully");
+                            }
                         }
                     } catch (err) {
                         console.log("Error Updating User ===> ", err);
@@ -633,7 +709,7 @@ const CustomTableCrud: FC<CustomTableProps> = ({
                                 muiTableHeadCellProps: {
                                     align: 'center',
                                 },
-                                size: 120,
+                                size: 170,
                             },
                         }}
                         // sx={{

@@ -36,6 +36,10 @@ import AddRole from '../Components/Pages/Home/UserManagement/Roles/AddRole';
 import ViewApps from '../Components/Pages/Home/UserManagement/Application/ViewApps';
 // 14) Create App Page
 import AddApp from '../Components/Pages/Home/UserManagement/Application/AddApp';
+// 15) View AppForm Page
+import ViewAppForm from '../Components/Pages/Home/UserManagement/AppForm/ViewAppForm';
+// 16) Create AppForm Page
+import AddAppForm from '../Components/Pages/Home/UserManagement/AppForm/AddAppForm';
 // $$$$$$$$$$$$$$$$$$$$ Importing Components and Pages $$$$$$$$$$$$$$$$$$$$
 
 interface AppRouterProps {
@@ -450,6 +454,65 @@ const AppRouter: FC<AppRouterProps> = ({
                                 // @subComponent
                                 subComponent={
                                     <AddRole
+                                        isOpen={isOpen}
+                                        setIsOpen={setIsOpen}
+                                        // For minified sidebar
+                                        isMinified={isMinified}
+                                        setIsMinified={setIsMinified}
+                                    />
+                                }
+                            />}
+                        />
+                    </Route>
+                    <Route path={"appForm"}>
+                        <Route
+                            path={"view"}
+                            element={<Home
+                                setShowHeader={setShowHeader}
+                                isOpen={isOpen}
+                                setIsOpen={setIsOpen}
+                                // For minified sidebar
+                                isMinified={isMinified}
+                                setIsMinified={setIsMinified}
+                                currentLang={currentLang}
+                                setCurrentLang={setCurrentLang}
+
+                                // Sidebar Apps List
+                                sidebarAppsListArray={sidebarAppsListArray}
+                                setSidebarAppsListArray={setSidebarAppsListArray}
+
+                                // @subComponent
+                                subComponent={
+                                    <ViewAppForm
+                                        isOpen={isOpen}
+                                        setIsOpen={setIsOpen}
+                                        // For minified sidebar
+                                        isMinified={isMinified}
+                                        setIsMinified={setIsMinified}
+                                        currentLang={currentLang}
+                                    />
+                                }
+                            />}
+                        />
+                        <Route 
+                            path={"addAppForm"}
+                            element={<Home
+                                setShowHeader={setShowHeader}
+                                isOpen={isOpen}
+                                setIsOpen={setIsOpen}
+                                // For minified sidebar
+                                isMinified={isMinified}
+                                setIsMinified={setIsMinified}
+                                currentLang={currentLang}
+                                setCurrentLang={setCurrentLang}
+
+                                // Sidebar Apps List
+                                sidebarAppsListArray={sidebarAppsListArray}
+                                setSidebarAppsListArray={setSidebarAppsListArray}
+
+                                // @subComponent
+                                subComponent={
+                                    <AddAppForm
                                         isOpen={isOpen}
                                         setIsOpen={setIsOpen}
                                         // For minified sidebar

@@ -29,7 +29,7 @@ import Slide, { SlideProps } from '@mui/material/Slide';
 
 import styles from "./style.module.css";
 
-interface AppProps {
+interface AddAppFormProps {
     setIsOpen: any,
     isOpen: Boolean,
     // For minified sidebar
@@ -37,7 +37,7 @@ interface AppProps {
     setIsMinified: any,
 }
 
-const AddApp: React.FC<AppProps> = ({
+const AddAppForm: React.FC<AddAppFormProps> = ({
     setIsOpen,
     isOpen,
     // For minified sidebar
@@ -218,7 +218,7 @@ const AddApp: React.FC<AppProps> = ({
         >
             <div style={{ marginTop: 5 }} className={`${(windowSize[0] > 990) ? ("d-flex justify-content-between") : ("d-flex flex-column justify-content-start")}`}>
                 <div>
-                    EQA / Account / Apps / <span style={{ color: "#4f747a" }}> Add Apps </span>
+                    EQA / Account / AppForm / <span style={{ color: "#4f747a" }}> Add AppForm </span>
                 </div>
                 <div>
                     <span style={{ color: "#4f747a", paddingRight: 10 }}>{currentFormatedDate}</span>
@@ -263,7 +263,7 @@ const AddApp: React.FC<AppProps> = ({
                             fontWeight: 500,
                             marginTop: (windowSize[0] < 600) ? (0) : (0.5),
                         }}>
-                            Add App
+                            Add App Form
                         </Typography>
                         <Typography variant="body1" sx={{
                             // color: "#4f747a" 
@@ -271,7 +271,7 @@ const AddApp: React.FC<AppProps> = ({
                             color: "#696969",
                             fontWeight: 300
                         }}>
-                            Add a new app to the system
+                            Add a new AppForm to the system
                         </Typography>
                     </Box>
                 </Box>
@@ -467,4 +467,4 @@ const AddApp: React.FC<AppProps> = ({
         </Box>
     )
 }
-export default AddApp;
+export default AddAppForm;
