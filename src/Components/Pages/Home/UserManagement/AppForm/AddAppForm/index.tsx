@@ -23,7 +23,8 @@ import {
     FormLabel,
     RadioGroup,
     Radio,
-    Snackbar
+    Snackbar,
+    Autocomplete
 } from '@mui/material';
 import Slide, { SlideProps } from '@mui/material/Slide';
 
@@ -88,25 +89,71 @@ const AddAppForm: React.FC<AddAppFormProps> = ({
     });
 
     // For field validation
-    const [appName, setAppName] = useState("");
-    const [appDescription, setAppDescription] = useState("");
-    const [appUrl, setAppUrl] = useState("");
-    const [appOrder, setAppOrder] = useState("");
+    const [moduleName, setModuleName] = useState("");
+    const [formName, setFormName] = useState("");
+    const [formUrl, setFormUrl] = useState("");
+    const [appId, setAppId] = useState<any>(null);
 
     // Error messages
-    const [appNameErrorMessage, setAppNameErrorMessage] = useState("");
-    const [appDescriptionErrorMessage, setAppDescriptionErrorMessage] = useState("");
-    const [appUrlErrorMessage, setAppUrlErrorMessage] = useState("");
-    const [appOrderErrorMessage, setAppOrderErrorMessage] = useState("");
+    const [moduleNameErrorMessage, setModuleNameErrorMessage] = useState("");
+    const [formNameErrorMessage, setFormNameErrorMessage] = useState("");
+    const [formUrlErrorMessage, setFormUrlErrorMessage] = useState("");
+    const [appIdErrorMessage, setAppIdErrorMessage] = useState("");
 
     // For field validation
-    const [appNameError, setAppNameError] = useState(false);
-    const [appDescriptionError, setAppDescriptionError] = useState(false);
-    const [appUrlError, setAppUrlError] = useState(false);
-    const [appOrderError, setAppOrderError] = useState(false);
+    const [moduleNameError, setModuleNameError] = useState(false);
+    const [formNameError, setFormNameError] = useState(false);
+    const [formUrlError, setFormUrlError] = useState(false);
+    const [appIdError, setAppIdError] = useState(false);
 
     // Status radio buttons
     const [status, setStatus] = useState("Active");
+
+    // FOR APP ID AUTO COMPLETE
+
+    // For College autocomplete component
+    const [appIdList, setAppIdList] = useState<any>([]);
+    const [loadData, setLoadData] = useState(true);
+
+    useEffect(() => {
+        let accessToken: any = Cookies.get("accessToken");
+
+        if (accessToken === undefined || accessToken === null) {
+            accessToken = null;
+        }
+
+        console.log("Access Token in View Users ===> ", accessToken);
+
+        if (accessToken !== null && loadData === true) {
+            // Fetching data using axios and also pass the header x-api-key for auth
+            axios.get("https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/fetchAppDetails", {
+                headers: {
+                    "x-api-key": accessToken
+                }
+            })
+                .then((res) => {
+                    setAppIdList(res.data.obj);
+                    setLoadData(false);
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+        }
+    }, [appIdList, loadData]);
+
+    useEffect(() => {
+        if (appId !== null) {
+            console.log("Current App Id ===> ", appId.appId);
+        }
+    }, [appId, appIdList]);
+
+    // For autocomplete component
+    const appIdDefaultProps = {
+        options: appIdList,
+        getOptionLabel: (option: any) => option.appName
+    };
+    // For College autocomplete component
+    // FOR APP ID AUTO COMPLETE
 
     const handleChangeStatus = (event: React.ChangeEvent<HTMLInputElement>) => {
         setStatus((event.target as HTMLInputElement).value);
@@ -131,35 +178,35 @@ const AddAppForm: React.FC<AddAppFormProps> = ({
 
             if (accessToken !== null) {
                 // Set the validation errors
-                if (appName === "") {
-                    setAppNameErrorMessage("App Name is required");
-                    setAppNameError(true);
+                if (moduleName === "") {
+                    setModuleNameErrorMessage("Module Name is required");
+                    setModuleNameError(true);
                 }
-                if (appDescription === "") {
-                    setAppDescriptionErrorMessage("App Description is required");
-                    setAppDescriptionError(true);
+                if (formName === "") {
+                    setFormNameErrorMessage("Form Name is required");
+                    setFormNameError(true);
                 }
-                if (appUrl === "") {
-                    setAppUrlErrorMessage("App URL is required");
-                    setAppUrlError(true);
+                if (formUrl === "") {
+                    setFormUrlErrorMessage("Form URL is required");
+                    setFormUrlError(true);
                 }
-                if (appOrder === "") {
-                    setAppOrderErrorMessage("App Order is required");
-                    setAppOrderError(true);
+                if (appId === null) {
+                    setAppIdErrorMessage("* Please select any AppId from the list.");
+                    setAppIdError(true);
                 }
                 // Set the validation errors
 
                 if (
-                    appName !== "" &&
-                    appDescription !== "" &&
-                    appUrl !== "" &&
-                    appOrder !== ""
+                    moduleName !== "" &&
+                    formName !== "" &&
+                    formUrl !== "" &&
+                    appId !== null
                 ) {
                     const formState = {
-                        "appName": appName,
-                        "appDescription": appDescription,
-                        "appUrl": appUrl,
-                        "appOrder": appOrder,
+                        "moduleName": moduleName,
+                        "formName": formName,
+                        "formUrl": formUrl,
+                        "appId": (appId !== null) ? appId.appId : null,
                         "loggedInUser": loggedInUser,
                         "active": (status === "Active") ? true : false
                     };
@@ -176,7 +223,7 @@ const AddAppForm: React.FC<AddAppFormProps> = ({
                         .then(function (response) {
                             console.log("Response ===> ", response);
                             if (response.status === 200) {
-                                setSnackbarMessage(`App ${appName} has been created successfully`);
+                                setSnackbarMessage(`App ${moduleName} has been created successfully`);
                                 setTransition(() => TransitionRight);
                                 setOpen(true);
                                 const m = response.data.message;
@@ -190,10 +237,10 @@ const AddAppForm: React.FC<AddAppFormProps> = ({
                 } else {
                     // alert("Please fill All fields");
                     // set the errors
-                    setAppNameError(true);
-                    setAppDescriptionError(true);
-                    setAppUrlError(true);
-                    setAppOrderError(true);
+                    setModuleNameError(true);
+                    setFormNameError(true);
+                    setFormUrlError(true);
+                    setAppIdError(true);
                     setSnackbarMessage(`Please fill out all the fields`);
                     setTransition(() => TransitionRight);
                     setOpen(true);
@@ -283,86 +330,87 @@ const AddAppForm: React.FC<AddAppFormProps> = ({
                     }>
                         <Grid item xs={12}>
                             <TextField
-                                id="appNameTextField"
-                                label="App Name"
-                                placeholder="Enter App name"
+                                id="moduleNameTextField"
+                                label="Module Name"
+                                placeholder="Enter Module name"
                                 variant="standard"
                                 margin="normal"
                                 fullWidth // t
-                                error={appNameError}
-                                helperText={appNameErrorMessage}
-                                value={appName}
+                                error={moduleNameError}
+                                helperText={moduleNameErrorMessage}
+                                value={moduleName}
                                 onChange={(e) => {
-                                    setAppName(e.target.value);
-                                    if (appNameError) {
-                                        setAppNameError(false);
-                                        setAppNameErrorMessage("");
+                                    setModuleName(e.target.value);
+                                    if (moduleNameError) {
+                                        setModuleNameError(false);
+                                        setModuleNameErrorMessage("");
                                     }
                                 }}
                             />
                         </Grid>
                         <Grid item xs={12}>
                             <TextField
-                                id="appDescriptionTextField"
-                                label="Description"
-                                placeholder="Enter app description"
+                                id="formNameTextField"
+                                label="Form Name"
+                                placeholder="Enter form name"
                                 variant="standard"
                                 margin="normal"
                                 fullWidth // t
-                                error={appDescriptionError}
-                                helperText={appDescriptionErrorMessage}
-                                value={appDescription}
+                                error={formNameError}
+                                helperText={formNameErrorMessage}
+                                value={formName}
                                 onChange={(e) => {
-                                    setAppDescription(e.target.value);
-                                    if (appDescriptionError) {
-                                        setAppDescriptionError(false);
-                                        setAppDescriptionErrorMessage("");
+                                    setFormName(e.target.value);
+                                    if (formNameError) {
+                                        setFormNameError(false);
+                                        setFormNameErrorMessage("");
                                     }
                                 }}
                             />
                         </Grid>
                         <Grid item xs={12}>
                             <TextField
-                                id="appUrlTextField"
-                                label="App URL"
-                                placeholder="Enter app url"
+                                id="formUrlTextField"
+                                label="Form URL"
+                                placeholder="Enter form url"
                                 variant="standard"
                                 margin="normal"
                                 fullWidth // t
-                                error={appUrlError}
-                                helperText={appUrlErrorMessage}
-                                value={appUrl}
+                                error={formUrlError}
+                                helperText={formUrlErrorMessage}
+                                value={formUrl}
                                 onChange={(e) => {
-                                    setAppUrl(e.target.value);
-                                    if (appUrlError) {
-                                        setAppUrlError(false);
-                                        setAppUrlErrorMessage("");
+                                    setFormUrl(e.target.value);
+                                    if (formUrlError) {
+                                        setFormUrlError(false);
+                                        setFormUrlErrorMessage("");
                                     }
                                 }}
                             />
                         </Grid>
                         <Grid item xs={12}>
-                            <TextField
-                                id="appOrderTextField"
-                                label="App Order"
-                                placeholder="Enter app order"
-                                variant="standard"
-                                margin="normal"
-                                fullWidth // t
-                                error={appOrderError}
-                                helperText={appOrderErrorMessage}
-                                value={appOrder}
-                                InputLabelProps={{
-                                    shrink: true,
-                                }}
-                                onChange={(e) => {
-                                    setAppOrder(e.target.value);
-                                    if (appOrderError) {
-                                        setAppOrderError(false);
-                                        setAppOrderErrorMessage("");
+                            <Autocomplete
+                                {...appIdDefaultProps}
+                                id="appIdAutoComplete"
+                                autoHighlight
+                                value={appId}
+                                onChange={(event, newValue) => {
+                                    setAppId(newValue);
+                                    if (appIdError) {
+                                        setAppIdError(false);
                                     }
                                 }}
-                                type="number"
+                                // dir={(currentLang === "ar") ? "rtl" : "ltr"}
+                                renderInput={(params) => (
+                                    <TextField
+                                        {...params}
+                                        label={"Select App Id"}
+                                        variant="standard"
+                                        helperText={(appIdError) ? (appIdErrorMessage) : ("")}
+                                        error={appIdError}
+                                    // dir={(currentLang === "ar") ? "rtl" : "ltr"}
+                                    />
+                                )}
                             />
                         </Grid>
                         <Grid item xs={12}>
