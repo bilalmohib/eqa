@@ -213,7 +213,7 @@ const AddAppForm: React.FC<AddAppFormProps> = ({
 
                     console.log("User Form Data ===> ", formState);
 
-                    axios.post('https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/saveAppDetails',
+                    axios.post('https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/saveAppForm',
                         formState
                         , {
                             headers: {
