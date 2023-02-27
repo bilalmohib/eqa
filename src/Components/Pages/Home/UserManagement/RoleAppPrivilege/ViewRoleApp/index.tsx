@@ -97,12 +97,9 @@ const ViewRoleApp: React.FC<ViewRoleAppProps> = ({
                     // Adding a new property appId in the array
                     arr.forEach((element:any) => {
                         element.role = element.role.roleId + " " + element.role.roleName;
-                        element.roleId = element.role.roleId;
-                        element.roleName = element.role.roleName;
                         // element.appDetails = element.appDetails.appId + " " + element.appDetails.appName;
-                        element.appDetails = "element.appDetails.appName";
+                        // element.appDetails = "nothing";
                         // element.appId = element.appDetails.appId;
-                        element.formId = element.appForms.formId;
                         element.appForms = element.appForms.formId + " " + element.appForms.formName;
                         element.createPermission = element.createPermission === true ? "true" : "false";
                         element.readPermission = element.readPermission === true ? "true" : "false";
