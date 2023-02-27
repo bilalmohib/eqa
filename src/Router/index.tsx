@@ -40,6 +40,10 @@ import AddApp from '../Components/Pages/Home/UserManagement/Application/AddApp';
 import ViewAppForm from '../Components/Pages/Home/UserManagement/AppForm/ViewAppForm';
 // 16) Create AppForm Page
 import AddAppForm from '../Components/Pages/Home/UserManagement/AppForm/AddAppForm';
+// 17) Create RoleAppPrivilege Page
+import AddRoleApp from '../Components/Pages/Home/UserManagement/RoleAppPrivilege/AddRoleApp';
+// 18) View RoleAppPrivilege Page
+import ViewRoleApp from '../Components/Pages/Home/UserManagement/RoleAppPrivilege/ViewRoleApp';
 // $$$$$$$$$$$$$$$$$$$$ Importing Components and Pages $$$$$$$$$$$$$$$$$$$$
 
 interface AppRouterProps {
@@ -494,7 +498,7 @@ const AppRouter: FC<AppRouterProps> = ({
                                 }
                             />}
                         />
-                        <Route 
+                        <Route
                             path={"addAppForm"}
                             element={<Home
                                 setShowHeader={setShowHeader}
@@ -513,6 +517,65 @@ const AppRouter: FC<AppRouterProps> = ({
                                 // @subComponent
                                 subComponent={
                                     <AddAppForm
+                                        isOpen={isOpen}
+                                        setIsOpen={setIsOpen}
+                                        // For minified sidebar
+                                        isMinified={isMinified}
+                                        setIsMinified={setIsMinified}
+                                    />
+                                }
+                            />}
+                        />
+                    </Route>
+                    <Route path={"role-app"}>
+                        <Route
+                            path={"view"}
+                            element={<Home
+                                setShowHeader={setShowHeader}
+                                isOpen={isOpen}
+                                setIsOpen={setIsOpen}
+                                // For minified sidebar
+                                isMinified={isMinified}
+                                setIsMinified={setIsMinified}
+                                currentLang={currentLang}
+                                setCurrentLang={setCurrentLang}
+
+                                // Sidebar Apps List
+                                sidebarAppsListArray={sidebarAppsListArray}
+                                setSidebarAppsListArray={setSidebarAppsListArray}
+
+                                // @subComponent
+                                subComponent={
+                                    <ViewRoleApp
+                                        isOpen={isOpen}
+                                        setIsOpen={setIsOpen}
+                                        // For minified sidebar
+                                        isMinified={isMinified}
+                                        setIsMinified={setIsMinified}
+                                        currentLang={currentLang}
+                                    />
+                                }
+                            />}
+                        />
+                        <Route
+                            path={"addRoleApp"}
+                            element={<Home
+                                setShowHeader={setShowHeader}
+                                isOpen={isOpen}
+                                setIsOpen={setIsOpen}
+                                // For minified sidebar
+                                isMinified={isMinified}
+                                setIsMinified={setIsMinified}
+                                currentLang={currentLang}
+                                setCurrentLang={setCurrentLang}
+
+                                // Sidebar Apps List
+                                sidebarAppsListArray={sidebarAppsListArray}
+                                setSidebarAppsListArray={setSidebarAppsListArray}
+
+                                // @subComponent
+                                subComponent={
+                                    <AddRoleApp
                                         isOpen={isOpen}
                                         setIsOpen={setIsOpen}
                                         // For minified sidebar

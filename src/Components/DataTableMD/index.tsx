@@ -11,6 +11,8 @@ import { useTranslation } from "react-i18next";
 // For copying to clipboard
 import copy from 'copy-to-clipboard';
 
+import SnackBar from "../../Components/SnackBar";
+
 // Importing Ripples
 import { createRipples } from 'react-ripples';
 
@@ -23,7 +25,8 @@ import {
     Typography
 } from '@mui/material';
 
-import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
+import { BsCardChecklist } from "react-icons/bs";
+
 import RefreshIcon from '@mui/icons-material/Refresh';
 
 // For printing the table.
@@ -70,6 +73,10 @@ const DataTableMD: FC<DataTableMDProps> = ({
     setFetchUpdate
 }): JSX.Element => {
     const { t } = useTranslation();
+
+    const [isSnackBarOpen, setIsSnackBarOpen] = useState(false);
+
+    const [message, setMessage] = useState("Table Refreshed");
 
     // For search
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -212,7 +219,7 @@ const DataTableMD: FC<DataTableMDProps> = ({
                 <header className={styles.containerbodyHeader}>
                     <div className="d-flex" style={{ marginTop: 3 }}>
                         <div>
-                            <LibraryBooksIcon sx={{ color: "#4f747a" }} />
+                            <BsCardChecklist style={{ color: "#4f747a",fontSize:28 }} />
                         </div>
                         <h5 className={styles.tableSubTitleTopLeft}>
                             <b>
@@ -246,9 +253,12 @@ const DataTableMD: FC<DataTableMDProps> = ({
                             </div>
                             <div className={styles.btnControl}>
                                 <ButtonRipples>
-                                    <button className={`btn btn-light ${styles.insideBtnControl}`} onClick={() => setFetchUpdate(true)}>
+                                    <button className={`btn btn-light ${styles.insideBtnControl}`} onClick={() => {
+                                        setIsSnackBarOpen(true);
+                                        setFetchUpdate(true)
+                                    }}>
                                         {/* <BsPrinter style={{ marginTop: -5 }} size={20} /> */}
-                                        <RefreshIcon style={{ display: "block",color:"blue" }} />
+                                        <RefreshIcon style={{ display: "block", color: "blue" }} />
                                     </button>
                                 </ButtonRipples>
                             </div>
@@ -272,6 +282,12 @@ const DataTableMD: FC<DataTableMDProps> = ({
                     />
                 </div>
                 {/* Body of Body Container Ends Here */}
+
+                <SnackBar
+                    isOpen={isSnackBarOpen}
+                    setIsOpen={setIsSnackBarOpen}
+                    message={message}
+                />
 
             </section>
             {/* Body Ends here */}
