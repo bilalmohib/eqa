@@ -630,6 +630,23 @@
                                     }
                                 }
                             },
+                            "roleApp": {
+                                "text": "Role App",
+                                "link": "/usermanagement/groups/appForm",
+                                "details": {
+                                    "breadcrumb": {
+                                        "f1": "EQA",
+                                        "f2": "Account",
+                                        "f3": "RoleApps"
+                                    },
+                                    "title": "RoleApp Prvilage Magement",
+                                    "addUser": "Add RoleApp",
+                                    "table": {
+                                        "title": "<b style={{ fontWeight: 'bold' }}>AppRole</b> <i>List</i>",
+                                        "subTitle": "Following is the list of AppRolePrvilages"
+                                    }
+                                }
+                            },
                             "roles": {
                                 "text": "Role",
                                 "link": "/usermanagement/roles/viewroles",

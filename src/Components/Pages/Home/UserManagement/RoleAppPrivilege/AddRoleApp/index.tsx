@@ -30,7 +30,7 @@ import Slide, { SlideProps } from '@mui/material/Slide';
 
 import styles from "./style.module.css";
 
-interface AddAppFormProps {
+interface AddRoleAppProps {
     setIsOpen: any,
     isOpen: Boolean,
     // For minified sidebar
@@ -38,7 +38,7 @@ interface AddAppFormProps {
     setIsMinified: any,
 }
 
-const AddAppForm: React.FC<AddAppFormProps> = ({
+const AddRoleApp: React.FC<AddRoleAppProps> = ({
     setIsOpen,
     isOpen,
     // For minified sidebar
@@ -267,7 +267,7 @@ const AddAppForm: React.FC<AddAppFormProps> = ({
         >
             <div style={{ marginTop: 5 }} className={`${(windowSize[0] > 990) ? ("d-flex justify-content-between") : ("d-flex flex-column justify-content-start")}`}>
                 <div>
-                    EQA / Account / AppForm / <span style={{ color: "#4f747a" }}> Add AppForm </span>
+                    EQA / Account / RoleApp / <span style={{ color: "#4f747a" }}> Add RoleApp </span>
                 </div>
                 <div>
                     <span style={{ color: "#4f747a", paddingRight: 10 }}>{currentFormatedDate}</span>
@@ -312,7 +312,7 @@ const AddAppForm: React.FC<AddAppFormProps> = ({
                             fontWeight: 500,
                             marginTop: (windowSize[0] < 600) ? (0) : (0.5),
                         }}>
-                            Add App Form
+                            Add RoleApp Privilege
                         </Typography>
                         <Typography variant="body1" sx={{
                             // color: "#4f747a" 
@@ -320,7 +320,7 @@ const AddAppForm: React.FC<AddAppFormProps> = ({
                             color: "#696969",
                             fontWeight: 300
                         }}>
-                            Add a new AppForm to the system
+                            Add a new RoleApp Privilege to the system
                         </Typography>
                     </Box>
                 </Box>
@@ -517,4 +517,4 @@ const AddAppForm: React.FC<AddAppFormProps> = ({
         </Box>
     )
 }
-export default AddAppForm;
+export default AddRoleApp;
