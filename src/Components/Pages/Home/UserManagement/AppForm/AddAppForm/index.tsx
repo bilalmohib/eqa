@@ -223,7 +223,7 @@ const AddAppForm: React.FC<AddAppFormProps> = ({
                         .then(function (response) {
                             console.log("Response ===> ", response);
                             if (response.status === 200) {
-                                setSnackbarMessage(`App ${moduleName} has been created successfully`);
+                                setSnackbarMessage(`AppForm ${moduleName} has been created successfully`);
                                 setTransition(() => TransitionRight);
                                 setOpen(true);
                                 const m = response.data.message;
