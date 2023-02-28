@@ -47,8 +47,7 @@ html[dir="rtl"] input[type=checkbox],
 html[dir="rtl"] .dropdown-menu li,
 html[dir="rtl"] .dropdown-menu .dropdown-submenu,
 html[dir="rtl"] .dropdown-menu .dropdown-submenu-left,
-html[dir="rtl"] .dropdown-menu>li:hover>.dropdown-submenu
-{
+html[dir="rtl"] .dropdown-menu>li:hover>.dropdown-submenu {
   font-family: 'Sakkal Majalla' !important;
 }
 

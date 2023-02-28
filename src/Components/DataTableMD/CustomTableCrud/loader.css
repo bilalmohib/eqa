@@ -22,7 +22,8 @@
 }
 
 .lds-roller div:nth-child(1) {
-    animation-delay: -0.036s;
+    /* animation-delay: -0.036s; */
+    animation-delay: -0.0001s;
 }
 
 .lds-roller div:nth-child(1):after {
@@ -31,7 +32,8 @@
 }
 
 .lds-roller div:nth-child(2) {
-    animation-delay: -0.072s;
+    /* animation-delay: -0.072s; */
+    animation-delay: -0.0001s;
 }
 
 .lds-roller div:nth-child(2):after {
@@ -40,7 +42,8 @@
 }
 
 .lds-roller div:nth-child(3) {
-    animation-delay: -0.108s;
+    /* animation-delay: -0.108s; */
+    animation-delay: -0.0001s;
 }
 
 .lds-roller div:nth-child(3):after {
@@ -49,7 +52,8 @@
 }
 
 .lds-roller div:nth-child(4) {
-    animation-delay: -0.144s;
+    /* animation-delay: -0.144s; */
+    animation-delay: -0.0001s;
 }
 
 .lds-roller div:nth-child(4):after {
@@ -58,7 +62,8 @@
 }
 
 .lds-roller div:nth-child(5) {
-    animation-delay: -0.18s;
+    /* animation-delay: -0.18s; */
+    animation-delay: -0.0001s;
 }
 
 .lds-roller div:nth-child(5):after {
@@ -67,7 +72,8 @@
 }
 
 .lds-roller div:nth-child(6) {
-    animation-delay: -0.216s;
+    /* animation-delay: -0.216s; */
+    animation-delay: -0.0001s;
 }
 
 .lds-roller div:nth-child(6):after {
@@ -76,7 +82,8 @@
 }
 
 .lds-roller div:nth-child(7) {
-    animation-delay: -0.252s;
+    /* animation-delay: -0.252s; */
+    animation-delay: -0.0001s;
 }
 
 .lds-roller div:nth-child(7):after {
@@ -85,7 +92,8 @@
 }
 
 .lds-roller div:nth-child(8) {
-    animation-delay: -0.288s;
+    /* animation-delay: -0.288s; */
+    animation-delay: -0.0001s;
 }
 
 .lds-roller div:nth-child(8):after {

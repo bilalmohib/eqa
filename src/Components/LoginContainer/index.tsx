@@ -14,6 +14,8 @@ import { MdOutlineFactCheck } from "react-icons/md";
 import { RxDot } from "react-icons/rx";
 import { FiSettings } from "react-icons/fi";
 import { FaUserAlt } from "react-icons/fa";
+import {FaRegChartBar} from "react-icons/fa";
+import BarChartIcon from '@mui/icons-material/BarChart';
 
 // Importing Logo
 import logo from '../../assets/Images/Login/login_logo.png';
@@ -181,6 +183,8 @@ const LoginContainer: FC<LoginContainerProps> = ({
                                     // AppsListArray[i].appUrl = "/account/users/settings";
                                 } else if (AppsListArray[i].appName === "EQA FORM") {
                                     AppsListArray[i].icon = renderToString(<i className="fab fa-wpforms" style={{ color: "#ffffff", fontSize: 30, height: 23, width: 23 }} />);
+                                } else if (AppsListArray[i].appName === "Report") {
+                                    AppsListArray[i].icon = renderToString(<FaRegChartBar size={17} style={{ width: 23, height: 23 }} />);
                                 }
                                 else {
                                     // AppsListArray[i].icon = `${i} icon`;

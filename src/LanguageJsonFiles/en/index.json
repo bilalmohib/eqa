@@ -647,6 +647,23 @@
                                     }
                                 }
                             },
+                            "userGroup": {
+                                "text": "UserGroup App",
+                                "link": "/usermanagement/groups/appForm",
+                                "details": {
+                                    "breadcrumb": {
+                                        "f1": "EQA",
+                                        "f2": "Account",
+                                        "f3": "UserGroup"
+                                    },
+                                    "title": "User Group Magement",
+                                    "addUser": "Add UserGroup",
+                                    "table": {
+                                        "title": "<b style={{ fontWeight: 'bold' }}>UserGroup</b> <i>List</i>",
+                                        "subTitle": "Following is the list of UserGroup"
+                                    }
+                                }
+                            },
                             "roles": {
                                 "text": "Role",
                                 "link": "/usermanagement/roles/viewroles",
