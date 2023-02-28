@@ -616,6 +616,40 @@
                                     }
                                 }
                             },
+                            "roleApp": {
+                                "text": "تطبيق الدور",
+                                "link": "/usermanagement/groups/appForm",
+                                "details": {
+                                    "breadcrumb": {
+                                        "f1": "EQA",
+                                        "f2": "حساب",
+                                        "f3": "الدور"
+                                    },
+                                    "title": "دور التطبيق Prvilage الزواج",
+                                    "addUser": "إضافة دور",
+                                    "table": {
+                                        "title": "<b style={{ fontWeight: 'bold' }}>دور التطبيق</b> <i>قائمة</i>",
+                                        "subTitle": "فيما يلي قائمة دور التطبيق الامتيازات"
+                                    }
+                                }
+                            },
+                            "userGroup": {
+                                "text": "تطبيق مجموعة المستخدم",
+                                "link": "/usermanagement/groups/appForm",
+                                "details": {
+                                    "breadcrumb": {
+                                        "f1": "EQA",
+                                        "f2": "حساب",
+                                        "f3": "مجموعة المستخدمين"
+                                    },
+                                    "title": "إدارة مجموعة المستخدمين",
+                                    "addUser": "أضف مجموعة مستخدمين",
+                                    "table": {
+                                        "title": "<b style={{ fontWeight: 'bold' }}>مجموعة المستخدمين</b> <i>قائمة</i>",
+                                        "subTitle": "فيما يلي قائمة مجموعة المستخدمين"
+                                    }
+                                }
+                            },
                             "roles": {
                                 "text": "دور",
                                 "link": "/usermanagement/roles/viewroles",

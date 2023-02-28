@@ -6,7 +6,7 @@ import { MdMenuOpen } from 'react-icons/md';
 import styles from './style.module.css';
 import { useNavigate } from 'react-router';
 import { AiTwotoneLock } from 'react-icons/ai';
-import { MdOutlineFactCheck, MdManageAccounts } from "react-icons/md";
+import { MdOutlineFactCheck, MdManageAccounts, MdPieChart } from "react-icons/md";
 import SchoolIcon from '@mui/icons-material/School';
 import ImportExportIcon from '@mui/icons-material/ImportExport';
 import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
@@ -151,9 +151,12 @@ const Navbar: React.FC<NavProps> = ({
         } else if (FinalsidebarAppsListArray[i].appName === "Settings") {
             FinalsidebarAppsListArray[i].icon = renderToString(<IoSettingsOutline size={25} style={{ color: "#000000", fontSize: 50, height: 50, width: 50 }} />);
             FinalsidebarAppsListArray[i].text = "Settings";
-        } else if(FinalsidebarAppsListArray[i].appName === "EQA FORM") {
+        } else if (FinalsidebarAppsListArray[i].appName === "EQA FORM") {
             FinalsidebarAppsListArray[i].icon = renderToString(<i className="fab fa-wpforms" style={{ color: "#000000", fontSize: 50, height: 40, width: 40 }} />);
             FinalsidebarAppsListArray[i].text = "Forms";
+        } else if (FinalsidebarAppsListArray[i].appName === "Report") {
+            FinalsidebarAppsListArray[i].icon = renderToString(<MdPieChart style={{ color: "orange", fontSize: 50, height: 50, width: 50 }} />);
+            FinalsidebarAppsListArray[i].text = "Reports";
         }
         else {
             FinalsidebarAppsListArray[i].icon = `${i} icon`;
@@ -336,52 +339,6 @@ const Navbar: React.FC<NavProps> = ({
     //         text: t('Home.Header.DropDown.Apps.List.maps'),
     //     },
     // ];
-
-    // const [finalAppsList, setFinalAppsList] = useState<any>([]);
-
-    // useEffect(() => {
-
-    //     let accessToken: any = Cookies.get("accessToken");
-
-    //     if (accessToken === undefined || accessToken === null) {
-    //         accessToken = null;
-    //     }
-
-    //     console.log("Access Token in View All Apps Data ===> ", accessToken);
-
-    //     if (accessToken !== null) {
-    //         // Fetching data using axios and also pass the header x-api-key for auth
-    //         axios.get("https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/fetchAppDetails", {
-    //             headers: {
-    //                 "x-api-key": accessToken
-    //             }
-    //         })
-    //             .then((res: any) => {
-    //                 //setViewAllAppsData(res.data);
-    //                 const viewAllAppsData = res.data.obj;
-    //                 if (viewAllAppsData !== null && viewAllAppsData !== undefined) {
-    //                     // Check if the appurl of viewAppAppsData maches with the appUrl of appsList
-    //                     // If it matches then push the appUrl to finalAppsList
-    //                     let finalAppsList: any = [];
-
-    //                     for (let i = 0; i < appsList.length; i++) {
-    //                         console.log("Final Apps List ===> ", appsList[i]);
-    //                         for (let j = 0; j < viewAllAppsData.length; j++) {
-    //                             if (appsList[i].appUrl === viewAllAppsData[j].appUrl) {
-    //                                 finalAppsList.push(appsList[i]);
-    //                                 console.log("Final Apps List ===> ", appsList[i]);
-    //                             }
-    //                         }
-    //                     }
-    //                     setFinalAppsList(finalAppsList);
-    //                 }
-    //             })
-    //             .catch((err) => {
-    //                 console.log(err);
-    //             });
-    //     }
-    // }, []);
-    // Fetching the Apps List
 
     function TransitionLeft(props: any) {
         return <Slide {...props} direction="left" />;

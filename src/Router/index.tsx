@@ -44,6 +44,10 @@ import AddAppForm from '../Components/Pages/Home/UserManagement/AppForm/AddAppFo
 import AddRoleApp from '../Components/Pages/Home/UserManagement/RoleAppPrivilege/AddRoleApp';
 // 18) View RoleAppPrivilege Page
 import ViewRoleApp from '../Components/Pages/Home/UserManagement/RoleAppPrivilege/ViewRoleApp';
+// 19) View UserGroup Page
+import ViewUserGroup from '../Components/Pages/Home/UserManagement/UserGroup/ViewUserGroup';
+// 20) Create UserGroup Page
+import AddUserGroup from '../Components/Pages/Home/UserManagement/UserGroup/AddUserGroup';
 // $$$$$$$$$$$$$$$$$$$$ Importing Components and Pages $$$$$$$$$$$$$$$$$$$$
 
 interface AppRouterProps {
@@ -576,6 +580,65 @@ const AppRouter: FC<AppRouterProps> = ({
                                 // @subComponent
                                 subComponent={
                                     <AddRoleApp
+                                        isOpen={isOpen}
+                                        setIsOpen={setIsOpen}
+                                        // For minified sidebar
+                                        isMinified={isMinified}
+                                        setIsMinified={setIsMinified}
+                                    />
+                                }
+                            />}
+                        />
+                    </Route>
+                    <Route path={"user-group"}>
+                        <Route
+                            path={"view"}
+                            element={<Home
+                                setShowHeader={setShowHeader}
+                                isOpen={isOpen}
+                                setIsOpen={setIsOpen}
+                                // For minified sidebar
+                                isMinified={isMinified}
+                                setIsMinified={setIsMinified}
+                                currentLang={currentLang}
+                                setCurrentLang={setCurrentLang}
+
+                                // Sidebar Apps List
+                                sidebarAppsListArray={sidebarAppsListArray}
+                                setSidebarAppsListArray={setSidebarAppsListArray}
+
+                                // @subComponent
+                                subComponent={
+                                    <ViewUserGroup
+                                        isOpen={isOpen}
+                                        setIsOpen={setIsOpen}
+                                        // For minified sidebar
+                                        isMinified={isMinified}
+                                        setIsMinified={setIsMinified}
+                                        currentLang={currentLang}
+                                    />
+                                }
+                            />}
+                        />
+                        <Route
+                            path={"addUserGroup"}
+                            element={<Home
+                                setShowHeader={setShowHeader}
+                                isOpen={isOpen}
+                                setIsOpen={setIsOpen}
+                                // For minified sidebar
+                                isMinified={isMinified}
+                                setIsMinified={setIsMinified}
+                                currentLang={currentLang}
+                                setCurrentLang={setCurrentLang}
+
+                                // Sidebar Apps List
+                                sidebarAppsListArray={sidebarAppsListArray}
+                                setSidebarAppsListArray={setSidebarAppsListArray}
+
+                                // @subComponent
+                                subComponent={
+                                    <AddUserGroup
                                         isOpen={isOpen}
                                         setIsOpen={setIsOpen}
                                         // For minified sidebar

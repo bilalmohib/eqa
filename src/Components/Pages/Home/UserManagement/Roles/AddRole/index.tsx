@@ -3,8 +3,6 @@ import { useState, useEffect } from "react";
 
 import { useNavigate } from "react-router";
 
-import { styled } from '@mui/material/styles';
-
 // Importing Icons
 import PeopleOutlineIcon from '@mui/icons-material/PeopleOutline';
 import SendIcon from '@mui/icons-material/Send';
@@ -14,28 +12,21 @@ import {
     Button,
     Box,
     Typography,
-    Paper,
     Grid,
     TextField,
-    Autocomplete,
-    Checkbox,
     FormControl,
     FormControlLabel,
     FormLabel,
     RadioGroup,
-    Radio,
-    Snackbar
+    Radio
 } from '@mui/material';
-import { SnackbarOrigin } from '@mui/material/Snackbar';
-import Slide, { SlideProps } from '@mui/material/Slide';
+import SnackBar from '../../../../../SnackBar';
 
 import Cookies from 'js-cookie';
 
 import axios from 'axios';
 
 import styles from "./style.module.css";
-
-const percentage = 30;
 
 interface UserProps {
     setIsOpen: any,
@@ -55,25 +46,11 @@ const AddRole: React.FC<UserProps> = ({
     const navigate = useNavigate();
 
     ///////////////////////////////// Snackbar State /////////////////////////////////
-    type TransitionProps = Omit<SlideProps, 'direction'>;
-
-    function TransitionRight(props: TransitionProps) {
-        return <Slide {...props} direction="right" />;
-    }
-
-    const [snackbarMessage, setSnackbarMessage] = useState('');
-
-    const vertical = 'bottom';
-    const horizontal = 'right';
-
-    const [open, setOpen] = React.useState(false);
-    const [transition, setTransition] = React.useState<
-        React.ComponentType<TransitionProps> | undefined
-    >(undefined);
-
-    const handleClose = () => {
-        setOpen(false);
-    };
+    const [snackBarHandler, setSnackBarHandler] = useState({
+        open: false,
+        message: '',
+        severity: 'success'
+    });
     ///////////////////////////////// Snackbar State /////////////////////////////////
 
     const currentFormatedDate: string = new Date().toLocaleString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
@@ -149,7 +126,7 @@ const AddRole: React.FC<UserProps> = ({
                     roleDescription !== ""
                 ) {
                     const formState = {
-                        "roleId":"OR05",
+                        "roleId": "OR05",
                         "roleName": roleName,
                         "roleDescription": roleDescription,
                         "loggedInUser": loggedInUser,
@@ -168,9 +145,11 @@ const AddRole: React.FC<UserProps> = ({
                         .then(function (response) {
                             console.log("Response ===> ", response);
                             if (response.status === 200) {
-                                setSnackbarMessage(`Role ${roleName} has been created successfully`);
-                                setTransition(() => TransitionRight);
-                                setOpen(true);
+                                setSnackBarHandler({
+                                    open: true,
+                                    message: `Role ${roleName} has been created successfully`,
+                                    severity: 'success'
+                                });
                                 const m = response.data.message;
                                 // navigate("/usermanagement/users/viewusers");
                                 console.log(m);
@@ -183,9 +162,11 @@ const AddRole: React.FC<UserProps> = ({
                     // set the errors
                     setRoleNameError(true);
                     setRoleDescriptionError(true);
-                    setSnackbarMessage(`Please fill out all the fields`);
-                    setTransition(() => TransitionRight);
-                    setOpen(true);
+                    setSnackBarHandler({
+                        open: true,
+                        message: "Please fill all the required fields",
+                        severity: 'error'
+                    });
                 }
             } else {
                 alert("Please login first");
@@ -286,7 +267,7 @@ const AddRole: React.FC<UserProps> = ({
                                 value={roleName}
                                 onChange={(e) => {
                                     setRoleName(e.target.value);
-                                    if(roleNameError){
+                                    if (roleNameError) {
                                         setRoleNameError(false);
                                     }
                                 }}
@@ -305,7 +286,7 @@ const AddRole: React.FC<UserProps> = ({
                                 value={roleDescription}
                                 onChange={(e) => {
                                     setRoleDescription(e.target.value);
-                                    if(roleDescriptionError){
+                                    if (roleDescriptionError) {
                                         setRoleDescriptionError(false);
                                     }
                                 }}
@@ -393,18 +374,15 @@ const AddRole: React.FC<UserProps> = ({
                 <Typography style={{ display: "block" }}>Submit</Typography>
             </Button>
 
-            <Snackbar
-                anchorOrigin={{ vertical, horizontal }}
-                open={open}
-                onClose={handleClose}
-                TransitionComponent={transition}
-                autoHideDuration={3000}
-                message={snackbarMessage}
-                key={vertical + horizontal}
-                sx={{
-                    // lift over from below to few pixels up
-                    transform: "translateY(-30px)",
-                }}
+            <SnackBar
+                isOpen={snackBarHandler.open}
+                message={snackBarHandler.message}
+                severity={snackBarHandler.severity}
+                setIsOpen={
+                    // Only pass the setIsOpen function to the SnackBar component
+                    // and not the whole state object
+                    (isOpen: boolean) => setSnackBarHandler({ ...snackBarHandler, open: isOpen })
+                }
             />
 
             <br /><br />

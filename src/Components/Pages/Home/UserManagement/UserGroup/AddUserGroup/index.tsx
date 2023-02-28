@@ -25,12 +25,11 @@ import {
     Radio,
     Autocomplete
 } from '@mui/material';
-
 import SnackBar from '../../../../../SnackBar';
 
 import styles from "./style.module.css";
 
-interface AddRoleAppProps {
+interface AddUserGroupProps {
     setIsOpen: any,
     isOpen: Boolean,
     // For minified sidebar
@@ -38,7 +37,7 @@ interface AddRoleAppProps {
     setIsMinified: any,
 }
 
-const AddRoleApp: React.FC<AddRoleAppProps> = ({
+const AddUserGroup: React.FC<AddUserGroupProps> = ({
     setIsOpen,
     isOpen,
     // For minified sidebar
@@ -285,12 +284,10 @@ const AddRoleApp: React.FC<AddRoleAppProps> = ({
                         .then(function (response) {
                             console.log("Response ===> ", response);
                             if (response.status === 200) {
-                                // setSnackbarMessage(`AppRole Privilege for App : ${appId.appName} , Form : ${formId.formName} and Role : ${roleId.roleName} has been created successfully.`);
-                                // setOpen(true);
                                 setSnackBarHandler({
-                                    open: true,
+                                    ...snackBarHandler,
                                     message: `AppRole Privilege for App : ${appId.appName} , Form : ${formId.formName} and Role : ${roleId.roleName} has been created successfully.`,
-                                    severity: "success"
+                                    open: true
                                 })
                                 const m = response.data.message;
                                 setTimeout(() => {
@@ -307,8 +304,8 @@ const AddRoleApp: React.FC<AddRoleAppProps> = ({
                     // set the errors
                     setAppIdError(true);
                     setSnackBarHandler({
+                        message: `Please fill out all the fields.`,
                         open: true,
-                        message: "Please fill all the required fields.",
                         severity: "error"
                     })
                 }
@@ -332,7 +329,7 @@ const AddRoleApp: React.FC<AddRoleAppProps> = ({
         >
             <div style={{ marginTop: 5 }} className={`${(windowSize[0] > 990) ? ("d-flex justify-content-between") : ("d-flex flex-column justify-content-start")}`}>
                 <div>
-                    EQA / Account / RoleApp / <span style={{ color: "#4f747a" }}> Add RoleApp </span>
+                    EQA / Account / UserGroup / <span style={{ color: "#4f747a" }}> Add UserGroup </span>
                 </div>
                 <div>
                     <span style={{ color: "#4f747a", paddingRight: 10 }}>{currentFormatedDate}</span>
@@ -377,7 +374,7 @@ const AddRoleApp: React.FC<AddRoleAppProps> = ({
                             fontWeight: 500,
                             marginTop: (windowSize[0] < 600) ? (0) : (0.5),
                         }}>
-                            Add RoleApp Privilege
+                            Add UserGroup
                         </Typography>
                         <Typography variant="body1" sx={{
                             // color: "#4f747a" 
@@ -385,7 +382,7 @@ const AddRoleApp: React.FC<AddRoleAppProps> = ({
                             color: "#696969",
                             fontWeight: 300
                         }}>
-                            Add a new RoleApp Privilege to the system
+                            Add a new UserGroup to the system
                         </Typography>
                     </Box>
                 </Box>
@@ -759,4 +756,4 @@ const AddRoleApp: React.FC<AddRoleAppProps> = ({
         </Box>
     )
 }
-export default AddRoleApp;
+export default AddUserGroup;

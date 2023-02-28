@@ -21,7 +21,7 @@ import { states } from '../../../../../../Data/Tables/CourseOfferings';
 
 import styles from "./style.module.css";
 
-interface ViewRoleAppProps {
+interface ViewUserGroupProps {
     setIsOpen: any,
     isOpen: Boolean,
     // For minified sidebar
@@ -30,7 +30,7 @@ interface ViewRoleAppProps {
     currentLang: string
 }
 
-const ViewRoleApp: React.FC<ViewRoleAppProps> = ({
+const ViewUserGroup: React.FC<ViewUserGroupProps> = ({
     setIsOpen,
     isOpen,
     // For minified sidebar
@@ -67,10 +67,6 @@ const ViewRoleApp: React.FC<ViewRoleAppProps> = ({
 
     const [fetchUpdate, setFetchUpdate] = useState(true);
 
-    // useEffect(() => {
-    //     setIsOpen(false);
-    // }, []);
-
     useEffect(() => {
         console.log("View All Data ===> ", viewAllData);
     });
@@ -87,7 +83,7 @@ const ViewRoleApp: React.FC<ViewRoleAppProps> = ({
 
         if (accessToken !== null && fetchUpdate === true) {
             // Fetching data using axios and also pass the header x-api-key for auth
-            axios.get("https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/fetchPrivileges", {
+            axios.get("https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/fetchUserGroups", {
                 headers: {
                     "x-api-key": accessToken
                 }
@@ -98,15 +94,8 @@ const ViewRoleApp: React.FC<ViewRoleAppProps> = ({
 
                     // Adding a new property appId in the array
                     arr.forEach((element: any) => {
-                        element.role = element.role.roleId + " " + element.role.roleName;
-                        // element.appDetails = element.appDetails.appId + " " + element.appDetails.appName;
-                        // element.appDetails = "nothing";
-                        // element.appId = element.appDetails.appId;
-                        element.appForms = element.appForms.formId + " " + element.appForms.formName;
-                        element.createPermission = element.createPermission === true ? "true" : "false";
-                        element.readPermission = element.readPermission === true ? "true" : "false";
-                        element.updatePermission = element.updatePermission === true ? "true" : "false";
-                        element.deletePermission = element.deletePermission === true ? "true" : "false";
+                        element.user = element.user.userId + " " + element.user.userName;
+                        element.group = element.group.grpId + " " + element.group.grpName;
                         element.active = element.active === true ? "true" : "false";
                     });
                     // console.log("View App Form Data ===> ", arr);
@@ -116,18 +105,16 @@ const ViewRoleApp: React.FC<ViewRoleAppProps> = ({
                     console.log(err);
                 });
             setFetchUpdate(false);
-            // setIsOpen(true);
-            
         }
     }, [fetchUpdate]);
 
     const tableColHeaders = [
         [
-            'appId',
-            'appName',
-            'appDescription',
+            'userGroupId',
+            'user',
+            'group',
             'active',
-            'appUrl',
+            'description',
             'createdBy',
             'creationDateAndTime',
             'updateDateAndTime',
@@ -142,12 +129,12 @@ const ViewRoleApp: React.FC<ViewRoleAppProps> = ({
         }}>
             <div style={{ marginTop: 5 }} className={`${(windowSize[0] > 990) ? ("d-flex justify-content-between") : ("d-flex flex-column justify-content-start")}`}>
                 <div>
-                    {(t('Home.Sidebar.list.userManagement.subMenu.roleApp.details.breadcrumb.f1'))}
+                    {(t('Home.Sidebar.list.userManagement.subMenu.userGroup.details.breadcrumb.f1'))}
                     /
-                    {(t('Home.Sidebar.list.userManagement.subMenu.roleApp.details.breadcrumb.f2'))}
+                    {(t('Home.Sidebar.list.userManagement.subMenu.userGroup.details.breadcrumb.f2'))}
                     /
                     <span style={{ color: "#4f747a" }}>
-                        {(t('Home.Sidebar.list.userManagement.subMenu.roleApp.details.breadcrumb.f3'))}
+                        {(t('Home.Sidebar.list.userManagement.subMenu.userGroup.details.breadcrumb.f3'))}
                     </span>
                 </div>
                 <div>
@@ -162,7 +149,7 @@ const ViewRoleApp: React.FC<ViewRoleAppProps> = ({
                 <div className={styles.leftTopContainer}>
                     <AppsIcon sx={{ marginTop: "3px", color: "#4f747a", fontSize: 27 }} />
                     <p className={styles.topContainerLeftText}>
-                        {(t('Home.Sidebar.list.userManagement.subMenu.roleApp.details.title'))}
+                        {(t('Home.Sidebar.list.userManagement.subMenu.userGroup.details.title'))}
                     </p>
                 </div>
                 <div className={styles.rightTopContainer}>
@@ -179,11 +166,11 @@ const ViewRoleApp: React.FC<ViewRoleAppProps> = ({
                             }
                         }}
                         onClick={() => {
-                            navigate("/account/role-app/addRoleApp");
+                            navigate("/account/user-group/addUserGroup");
                         }}
                         startIcon={<AddIcon />}
                     >
-                        {(t('Home.Sidebar.list.userManagement.subMenu.roleApp.details.addUser'))}
+                        {(t('Home.Sidebar.list.userManagement.subMenu.userGroup.details.addUser'))}
                     </Button>
                 </div>
             </div>
@@ -193,17 +180,17 @@ const ViewRoleApp: React.FC<ViewRoleAppProps> = ({
                 <DataTableMD
                     isOpen={isOpen}
                     data={(
-                        fetchUpdate === false
+                        viewAllData !== null
                     ) ? (
                         // @ts-ignore
                         viewAllData
                     ) : ([])}
                     states={states}
                     ColHeader={tableColHeaders}
-                    columnName={"ViewRoleApp"}
-                    tableInfo={(t('Home.Sidebar.list.userManagement.subMenu.roleApp.details.table.subTitle'))}
-                    buttonTitle={"Create New RoleApp"}
-                    tableTitle={`<b style={{ fontWeight: "bold" }}>RoleApp Privilege</b> <i>List</i>`}
+                    columnName={"ViewUserGroup"}
+                    tableInfo={(t('Home.Sidebar.list.userManagement.subMenu.userGroup.details.table.subTitle'))}
+                    buttonTitle={"Create New User Group"}
+                    tableTitle={`<b style={{ fontWeight: "bold" }}>User Group Privilege</b> <i>List</i>`}
                     currentLang={currentLang}
                     setFetchUpdate={setFetchUpdate}
                 />
@@ -213,4 +200,4 @@ const ViewRoleApp: React.FC<ViewRoleAppProps> = ({
         </div>
     )
 }
-export default ViewRoleApp;
+export default ViewUserGroup;

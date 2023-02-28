@@ -16,15 +16,6 @@ import SnackBar from "../../Components/SnackBar";
 // Importing Ripples
 import { createRipples } from 'react-ripples';
 
-// Importing types
-import { CourseOfferingTypes } from "../../Data/Tables/CourseOfferings/types";
-
-// Importing material ui components
-import {
-    Button,
-    Typography
-} from '@mui/material';
-
 import { BsCardChecklist } from "react-icons/bs";
 
 import RefreshIcon from '@mui/icons-material/Refresh';
@@ -74,13 +65,13 @@ const DataTableMD: FC<DataTableMDProps> = ({
 }): JSX.Element => {
     const { t } = useTranslation();
 
-    const [isSnackBarOpen, setIsSnackBarOpen] = useState(false);
-
-    const [message, setMessage] = useState("Table Refreshed");
-
-    // For search
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const [searchText, setSearchText] = useState<string>("");
+    ///////////////////////////////// Snackbar State /////////////////////////////////
+    const [snackBarHandler, setSnackBarHandler] = useState({
+        open: false,
+        message: '',
+        severity: 'success'
+    });
+    ///////////////////////////////// Snackbar State /////////////////////////////////
 
     const printTable = () => {
         // console.clear();
@@ -103,6 +94,15 @@ const DataTableMD: FC<DataTableMDProps> = ({
 
         doc.save(tableTitle);
         console.log(`./${tableTitle}.pdf generated`);
+    }
+
+    const refreshTable = () => {
+        setSnackBarHandler({
+            open: true,
+            message: "Table Refreshed Successfully",
+            severity: 'success'
+        });
+        setFetchUpdate(true);
     }
 
     const generateCSV = () => {
@@ -139,6 +139,12 @@ const DataTableMD: FC<DataTableMDProps> = ({
         // Please copy the data in the same format as the csv.
         // The data should be in the same order as the column names.
 
+        setSnackBarHandler({
+            open: true,
+            message: `Copied to clipboard`,
+            severity: 'info'
+        });
+
         const bodyData = data.map((obj: any) => Object.keys(obj).map(key => obj[key]));
 
         const csvData = ColHeader.concat(bodyData);
@@ -152,26 +158,8 @@ const DataTableMD: FC<DataTableMDProps> = ({
             debug: true,
             message: `${tableTitle} copied to clipboard`,
         });
-
         // console.log("Copied to clipboard");
     }
-
-    const [windowSize, setWindowSize] = useState([
-        window.innerWidth,
-        window.innerHeight,
-    ]);
-
-    useEffect(() => {
-        const handleWindowResize = () => {
-            setWindowSize([window.innerWidth, window.innerHeight]);
-        };
-
-        window.addEventListener('resize', handleWindowResize);
-
-        return () => {
-            window.removeEventListener('resize', handleWindowResize);
-        };
-    });
 
     return (
         <div className={styles.container}>
@@ -219,7 +207,7 @@ const DataTableMD: FC<DataTableMDProps> = ({
                 <header className={styles.containerbodyHeader}>
                     <div className="d-flex" style={{ marginTop: 3 }}>
                         <div>
-                            <BsCardChecklist style={{ color: "#4f747a",fontSize:28 }} />
+                            <BsCardChecklist style={{ color: "#4f747a", fontSize: 28 }} />
                         </div>
                         <h5 className={styles.tableSubTitleTopLeft}>
                             <b>
@@ -253,10 +241,7 @@ const DataTableMD: FC<DataTableMDProps> = ({
                             </div>
                             <div className={styles.btnControl}>
                                 <ButtonRipples>
-                                    <button className={`btn btn-light ${styles.insideBtnControl}`} onClick={() => {
-                                        setIsSnackBarOpen(true);
-                                        setFetchUpdate(true)
-                                    }}>
+                                    <button className={`btn btn-light ${styles.insideBtnControl}`} onClick={() => refreshTable()}>
                                         {/* <BsPrinter style={{ marginTop: -5 }} size={20} /> */}
                                         <RefreshIcon style={{ display: "block", color: "blue" }} />
                                     </button>
@@ -270,7 +255,6 @@ const DataTableMD: FC<DataTableMDProps> = ({
                 {/* Body of Body Container Starts Here */}
                 <div className={styles.bodyOfBodyContainer}>
                     <CustomTableCrud
-                        searchText={searchText}
                         data={data}
                         states={states}
                         columnName={columnName}
@@ -284,9 +268,14 @@ const DataTableMD: FC<DataTableMDProps> = ({
                 {/* Body of Body Container Ends Here */}
 
                 <SnackBar
-                    isOpen={isSnackBarOpen}
-                    setIsOpen={setIsSnackBarOpen}
-                    message={message}
+                    isOpen={snackBarHandler.open}
+                    message={snackBarHandler.message}
+                    severity={snackBarHandler.severity}
+                    setIsOpen={
+                        // Only pass the setIsOpen function to the SnackBar component
+                        // and not the whole state object
+                        (isOpen: boolean) => setSnackBarHandler({ ...snackBarHandler, open: isOpen })
+                    }
                 />
 
             </section>

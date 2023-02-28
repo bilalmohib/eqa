@@ -22,10 +22,9 @@ import {
     FormControlLabel,
     FormLabel,
     RadioGroup,
-    Radio,
-    Snackbar
+    Radio
 } from '@mui/material';
-import Slide, { SlideProps } from '@mui/material/Slide';
+import SnackBar from '../../../../../SnackBar';
 
 import styles from "./style.module.css";
 
@@ -47,25 +46,11 @@ const AddGroup: React.FC<UserProps> = ({
     const navigate = useNavigate();
 
     ///////////////////////////////// Snackbar State /////////////////////////////////
-    type TransitionProps = Omit<SlideProps, 'direction'>;
-
-    function TransitionRight(props: TransitionProps) {
-        return <Slide {...props} direction="right" />;
-    }
-
-    const [snackbarMessage, setSnackbarMessage] = useState('');
-
-    const vertical = 'bottom';
-    const horizontal = 'right';
-
-    const [open, setOpen] = React.useState(false);
-    const [transition, setTransition] = React.useState<
-        React.ComponentType<TransitionProps> | undefined
-    >(undefined);
-
-    const handleClose = () => {
-        setOpen(false);
-    };
+    const [snackBarHandler, setSnackBarHandler] = useState({
+        open: false,
+        message: '',
+        severity: 'success'
+    });
     ///////////////////////////////// Snackbar State /////////////////////////////////
 
     const currentFormatedDate: string = new Date().toLocaleString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
@@ -158,9 +143,11 @@ const AddGroup: React.FC<UserProps> = ({
                         .then(function (response) {
                             console.log("Response ===> ", response);
                             if (response.status === 200) {
-                                setSnackbarMessage(`Group ${groupName} has been created successfully`);
-                                setTransition(() => TransitionRight);
-                                setOpen(true);
+                                setSnackBarHandler({
+                                    ...snackBarHandler,
+                                    open: true,
+                                    message: `Group ${groupName} has been created successfully`,
+                                });
                                 const m = response.data.message;
                                 // navigate("/usermanagement/users/viewusers");
                                 console.log(m);
@@ -170,13 +157,14 @@ const AddGroup: React.FC<UserProps> = ({
                             console.log(error);
                         });
                 } else {
-                    // alert("Please fill All fields");
+                    setSnackBarHandler({
+                        severity: 'error',
+                        open: true,
+                        message: "Please fill all fields",
+                    });
                     // set the errors
                     setGroupNameError(true);
                     setGroupDescriptionError(true);
-                    setSnackbarMessage(`Please fill out all the fields`);
-                    setTransition(() => TransitionRight);
-                    setOpen(true);
                 }
             } else {
                 alert("Please login first");
@@ -385,18 +373,15 @@ const AddGroup: React.FC<UserProps> = ({
                 <Typography style={{ display: "block" }}>Submit</Typography>
             </Button>
 
-            <Snackbar
-                anchorOrigin={{ vertical, horizontal }}
-                open={open}
-                onClose={handleClose}
-                TransitionComponent={transition}
-                autoHideDuration={3000}
-                message={snackbarMessage}
-                key={vertical + horizontal}
-                sx={{
-                    // lift over from below to few pixels up
-                    transform: "translateY(-30px)",
-                }}
+            <SnackBar
+                isOpen={snackBarHandler.open}
+                message={snackBarHandler.message}
+                severity={snackBarHandler.severity}
+                setIsOpen={
+                    // Only pass the setIsOpen function to the SnackBar component
+                    // and not the whole state object
+                    (isOpen: boolean) => setSnackBarHandler({ ...snackBarHandler, open: isOpen })
+                }
             />
 
             <br /><br /> <br />

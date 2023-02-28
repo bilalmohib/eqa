@@ -27,11 +27,9 @@ import {
     InputAdornment,
     IconButton,
     InputLabel,
-    Input,
-    Snackbar
+    Input
 } from '@mui/material';
-import { SnackbarOrigin } from '@mui/material/Snackbar';
-import Slide, { SlideProps } from '@mui/material/Slide';
+import SnackBar from '../../../../../SnackBar';
 
 import Loader from '../../../../../Loader';
 
@@ -78,22 +76,6 @@ interface ViewAllUsersData {
     }[];
 }
 
-interface FormState {
-    firstName: string;
-    lastName: string;
-    userName: string;
-    password: string;
-    confirmPassword: string;
-    emailId: string;
-    collegeId: string;
-    campusId: string;
-    departmentId: string;
-    loggedInUser: string;
-    active: boolean;
-    staff: boolean;
-    superUser: boolean;
-}
-
 const AddUser: React.FC<UserProps> = ({
     setIsOpen,
     isOpen,
@@ -106,25 +88,11 @@ const AddUser: React.FC<UserProps> = ({
     const navigate = useNavigate();
 
     ///////////////////////////////// Snackbar State /////////////////////////////////
-    type TransitionProps = Omit<SlideProps, 'direction'>;
-
-    function TransitionRight(props: TransitionProps) {
-        return <Slide {...props} direction="right" />;
-    }
-
-    const [snackbarMessage, setSnackbarMessage] = useState('');
-
-    const vertical = 'bottom';
-    const horizontal = 'right';
-
-    const [open, setOpen] = React.useState(false);
-    const [transition, setTransition] = React.useState<
-        React.ComponentType<TransitionProps> | undefined
-    >(undefined);
-
-    const handleClose = () => {
-        setOpen(false);
-    };
+    const [snackBarHandler, setSnackBarHandler] = useState({
+        open: false,
+        message: '',
+        severity: 'success'
+    });
     ///////////////////////////////// Snackbar State /////////////////////////////////
 
     const currentFormatedDate: string = new Date().toLocaleString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
@@ -405,9 +373,11 @@ const AddUser: React.FC<UserProps> = ({
                         .then(function (response) {
                             console.log("Response ===> ", response);
                             if (response.status === 200) {
-                                setSnackbarMessage(`User ${emailId.split('@')[0]} has been created successfully`);
-                                setTransition(() => TransitionRight);
-                                setOpen(true);
+                                setSnackBarHandler({
+                                    open: true,
+                                    message: `User ${emailId.split('@')[0]} has been created successfully`,
+                                    severity: "success"
+                                })
                                 const m = response.data.message;
                                 // navigate("/usermanagement/users/viewusers");
                                 console.log(m);
@@ -430,9 +400,11 @@ const AddUser: React.FC<UserProps> = ({
                     setCampusIdError(true);
                     setDepartmentIdError(true);
                     setUserNameError(true);
-                    setSnackbarMessage(`Please fill out all the fields`);
-                    setTransition(() => TransitionRight);
-                    setOpen(true);
+                    setSnackBarHandler({
+                        open: true,
+                        message: "Please fill all the fields",
+                        severity: "error"
+                    })
                 }
             } else {
                 alert("Please login first");
@@ -1097,18 +1069,15 @@ const AddUser: React.FC<UserProps> = ({
                     </Button>
                 </Box>
 
-                <Snackbar
-                    anchorOrigin={{ vertical, horizontal }}
-                    open={open}
-                    onClose={handleClose}
-                    TransitionComponent={transition}
-                    autoHideDuration={3000}
-                    message={snackbarMessage}
-                    key={vertical + horizontal}
-                    sx={{
-                        // lift over from below to few pixels up
-                        transform: "translateY(-30px)",
-                    }}
+                <SnackBar
+                    isOpen={snackBarHandler.open}
+                    message={snackBarHandler.message}
+                    severity={snackBarHandler.severity}
+                    setIsOpen={
+                        // Only pass the setIsOpen function to the SnackBar component
+                        // and not the whole state object
+                        (isOpen: boolean) => setSnackBarHandler({ ...snackBarHandler, open: isOpen })
+                    }
                 />
 
                 <br /><br /><br />

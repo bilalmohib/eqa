@@ -1,8 +1,8 @@
 import * as React from 'react';
 import Stack from '@mui/material/Stack';
-import Button from '@mui/material/Button';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert, { AlertProps } from '@mui/material/Alert';
+import Slide, { SlideProps } from '@mui/material/Slide';
 
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
   props,
@@ -12,16 +12,27 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
 });
 
 interface SnackBarProps {
-  setIsOpen: any,
   isOpen: boolean,
   message: string,
+  severity: any,
+  setIsOpen: any
 }
 
 const SnackBar: React.FC<SnackBarProps> = ({
-  setIsOpen,
   isOpen,
-  message
+  message,
+  severity,
+  setIsOpen
 }) => {
+
+  const vertical = 'bottom';
+  const horizontal = 'right';
+
+  type TransitionProps = Omit<SlideProps, 'direction'>;
+
+  function TransitionRight(props: TransitionProps) {
+    return <Slide {...props} direction="right" />;
+  }
 
   const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
     if (reason === 'clickaway') {
@@ -35,9 +46,11 @@ const SnackBar: React.FC<SnackBarProps> = ({
     <Stack spacing={2} sx={{ width: '100%' }}>
       <Snackbar
         open={isOpen}
-        autoHideDuration={6000}
+        autoHideDuration={3000}
         onClose={handleClose}
-        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+        TransitionComponent={TransitionRight}
+        anchorOrigin={{ vertical, horizontal }}
+        key={vertical + horizontal}
         sx={{
           // Lift it up a bit
           transform: "translateY(-30px)",
@@ -45,9 +58,16 @@ const SnackBar: React.FC<SnackBarProps> = ({
       >
         <Alert
           onClose={handleClose}
-          severity="success"
+          severity={severity}
+          // Change the color of the alert to #4f747a
           sx={{
             width: '100%',
+            backgroundColor: (
+              severity === 'success' ? '#4f747a' :
+                severity === 'error' ? '#d32f2f' :
+                  severity === 'warning' ? '#ed6c02' :
+                    severity === 'info' ? '#0288d1' : 'black'
+            ),
           }}
         >
           {message}

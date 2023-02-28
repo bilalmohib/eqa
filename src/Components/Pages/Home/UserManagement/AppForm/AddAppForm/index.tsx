@@ -23,10 +23,9 @@ import {
     FormLabel,
     RadioGroup,
     Radio,
-    Snackbar,
     Autocomplete
 } from '@mui/material';
-import Slide, { SlideProps } from '@mui/material/Slide';
+import SnackBar from '../../../../../SnackBar';
 
 import styles from "./style.module.css";
 
@@ -48,25 +47,11 @@ const AddAppForm: React.FC<AddAppFormProps> = ({
     const navigate = useNavigate();
 
     ///////////////////////////////// Snackbar State /////////////////////////////////
-    type TransitionProps = Omit<SlideProps, 'direction'>;
-
-    function TransitionRight(props: TransitionProps) {
-        return <Slide {...props} direction="right" />;
-    }
-
-    const [snackbarMessage, setSnackbarMessage] = useState('');
-
-    const vertical = 'bottom';
-    const horizontal = 'right';
-
-    const [open, setOpen] = React.useState(false);
-    const [transition, setTransition] = React.useState<
-        React.ComponentType<TransitionProps> | undefined
-    >(undefined);
-
-    const handleClose = () => {
-        setOpen(false);
-    };
+    const [snackBarHandler, setSnackBarHandler] = useState({
+        open: false,
+        message: '',
+        severity: 'success'
+    });
     ///////////////////////////////// Snackbar State /////////////////////////////////
 
     const currentFormatedDate: string = new Date().toLocaleString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
@@ -223,9 +208,11 @@ const AddAppForm: React.FC<AddAppFormProps> = ({
                         .then(function (response) {
                             console.log("Response ===> ", response);
                             if (response.status === 200) {
-                                setSnackbarMessage(`AppForm ${formName} has been created successfully`);
-                                setTransition(() => TransitionRight);
-                                setOpen(true);
+                                setSnackBarHandler({
+                                    ...snackBarHandler,
+                                    open: true,
+                                    message: `AppForm ${formName} has been created successfully`
+                                });
                                 const m = response.data.message;
                                 setTimeout(() => {
                                     navigate("/account/appForm/view");
@@ -243,9 +230,11 @@ const AddAppForm: React.FC<AddAppFormProps> = ({
                     setFormNameError(true);
                     setFormUrlError(true);
                     setAppIdError(true);
-                    setSnackbarMessage(`Please fill out all the fields`);
-                    setTransition(() => TransitionRight);
-                    setOpen(true);
+                    setSnackBarHandler({
+                        open: true,
+                        message: "Please fill all the fields",
+                        severity: "error"
+                    })
                 }
             } else {
                 alert("Please login first");
@@ -499,18 +488,15 @@ const AddAppForm: React.FC<AddAppFormProps> = ({
                 <Typography style={{ display: "block" }}>Submit</Typography>
             </Button>
 
-            <Snackbar
-                anchorOrigin={{ vertical, horizontal }}
-                open={open}
-                onClose={handleClose}
-                TransitionComponent={transition}
-                autoHideDuration={3000}
-                message={snackbarMessage}
-                key={vertical + horizontal}
-                sx={{
-                    // lift over from below to few pixels up
-                    transform: "translateY(-30px)",
-                }}
+            <SnackBar
+                isOpen={snackBarHandler.open}
+                message={snackBarHandler.message}
+                severity={snackBarHandler.severity}
+                setIsOpen={
+                    // Only pass the setIsOpen function to the SnackBar component
+                    // and not the whole state object
+                    (isOpen: boolean) => setSnackBarHandler({ ...snackBarHandler, open: isOpen })
+                }
             />
 
             <br /><br /> <br />
