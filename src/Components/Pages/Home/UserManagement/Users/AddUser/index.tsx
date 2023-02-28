@@ -575,7 +575,7 @@ const AddUser: React.FC<UserProps> = ({
                                     }}
                                 />
                             </Grid>
-                            <Grid item xs={12}>
+                            <Grid item xs={6}>
                                 <TextField
                                     id="email"
                                     label={t('Home.Sidebar.list.userManagement.subMenu.Users.details.Add.Users.Inputs.Email.label')}
@@ -593,6 +593,27 @@ const AddUser: React.FC<UserProps> = ({
                                             setEmailIdError(false);
                                         }
                                     }}
+                                />
+                            </Grid>
+                            <Grid item xs={6}>
+                                <TextField
+                                    id="username"
+                                    label={t('Home.Sidebar.list.userManagement.subMenu.Users.details.Add.Users.Inputs.Username.label')}
+                                    placeholder={`${t('Home.Sidebar.list.userManagement.subMenu.Users.details.Add.Users.Inputs.Username.placeholder')}`}
+                                    variant="standard"
+                                    helperText={userNameError ? (`${(emailId === "") ? ("Please fill out the user Name field") : (`${t('Home.Sidebar.list.userManagement.subMenu.Users.details.Add.Users.Inputs.Username.error')}`)}`) : ""}
+                                    type="text"
+                                    margin="normal"
+                                    fullWidth // t
+                                    dir={(currentLang === "ar") ? "rtl" : "ltr"}
+                                    InputProps={{
+                                        readOnly: true,
+                                    }}
+                                    value={
+                                        //Extract username from email
+                                        emailId.split('@')[0]
+                                    }
+                                    error={userNameError}
                                 />
                             </Grid>
                             <Grid item xs={12}>
@@ -674,27 +695,6 @@ const AddUser: React.FC<UserProps> = ({
                                             dir={(currentLang === "ar") ? "rtl" : "ltr"}
                                         />
                                     )}
-                                />
-                            </Grid>
-                            <Grid item xs={12}>
-                                <TextField
-                                    id="username"
-                                    label={t('Home.Sidebar.list.userManagement.subMenu.Users.details.Add.Users.Inputs.Username.label')}
-                                    placeholder={`${t('Home.Sidebar.list.userManagement.subMenu.Users.details.Add.Users.Inputs.Username.placeholder')}`}
-                                    variant="standard"
-                                    helperText={userNameError ? (`${(emailId === "") ? ("Please fill out the user Name field") : (`${t('Home.Sidebar.list.userManagement.subMenu.Users.details.Add.Users.Inputs.Username.error')}`)}`) : ""}
-                                    type="text"
-                                    margin="normal"
-                                    fullWidth // t
-                                    dir={(currentLang === "ar") ? "rtl" : "ltr"}
-                                    InputProps={{
-                                        readOnly: true,
-                                    }}
-                                    value={
-                                        //Extract username from email
-                                        emailId.split('@')[0]
-                                    }
-                                    error={userNameError}
                                 />
                             </Grid>
                             <Grid item xs={12}>

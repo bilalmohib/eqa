@@ -5,6 +5,8 @@ import { useState, useEffect } from "react";
 import AppsIcon from '@mui/icons-material/Apps';
 import SendIcon from '@mui/icons-material/Send';
 
+import { Theme, useTheme } from '@mui/material/styles';
+
 import { useNavigate } from 'react-router';
 
 import axios from 'axios';
@@ -23,9 +25,15 @@ import {
     FormLabel,
     RadioGroup,
     Radio,
-    Autocomplete
+    Autocomplete,
+    Chip,
+    MenuItem,
+    InputLabel,
+    OutlinedInput
 } from '@mui/material';
 import SnackBar from '../../../../../SnackBar';
+
+import Select, { SelectChangeEvent } from '@mui/material/Select';
 
 import styles from "./style.module.css";
 
@@ -37,6 +45,39 @@ interface AddUserGroupProps {
     setIsMinified: any,
 }
 
+const ITEM_HEIGHT = 48;
+const ITEM_PADDING_TOP = 8;
+const MenuProps = {
+    PaperProps: {
+        style: {
+            maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+            width: 250,
+        },
+    },
+};
+
+const names = [
+    'Oliver Hansen',
+    'Van Henry',
+    'April Tucker',
+    'Ralph Hubbard',
+    'Omar Alexander',
+    'Carlos Abbott',
+    'Miriam Wagner',
+    'Bradley Wilkerson',
+    'Virginia Andrews',
+    'Kelly Snyder',
+];
+
+function getStyles(name: string, personName: readonly string[], theme: Theme) {
+    return {
+        fontWeight:
+            personName.indexOf(name) === -1
+                ? theme.typography.fontWeightRegular
+                : theme.typography.fontWeightMedium,
+    };
+}
+
 const AddUserGroup: React.FC<AddUserGroupProps> = ({
     setIsOpen,
     isOpen,
@@ -45,6 +86,9 @@ const AddUserGroup: React.FC<AddUserGroupProps> = ({
     setIsMinified
 }) => {
     const navigate = useNavigate();
+    const theme = useTheme();
+
+    const [personName, setPersonName] = React.useState<string[]>([]);
 
     ///////////////////////////////// Snackbar State /////////////////////////////////
     const [snackBarHandler, setSnackBarHandler] = useState({
@@ -61,6 +105,16 @@ const AddUserGroup: React.FC<AddUserGroupProps> = ({
         window.innerHeight,
     ]);
 
+    const handleChange = (event: SelectChangeEvent<typeof personName>) => {
+        const {
+            target: { value },
+        } = event;
+        setPersonName(
+            // On autofill we get a stringified value.
+            typeof value === 'string' ? value.split(',') : value,
+        );
+    };
+
     useEffect(() => {
         const handleWindowResize = () => {
             setWindowSize([window.innerWidth, window.innerHeight]);
@@ -74,17 +128,15 @@ const AddUserGroup: React.FC<AddUserGroupProps> = ({
     });
 
     // For field validation
-    const [roleId, setRoleId] = useState<any>(null);
+    const [selectedGroups, setSelectedGroups] = useState<any>([]);
     const [appId, setAppId] = useState<any>(null);
     const [formId, setFormId] = useState<any>(null);
 
     // Error messages
-    const [roleIdErrorMessage, setRoleIdErrorMessage] = useState("");
     const [appIdErrorMessage, setAppIdErrorMessage] = useState("");
     const [formIdErrorMessage, setFormIdErrorMessage] = useState("");
 
     // For field validation
-    const [roleIdError, setRoleIdError] = useState(false);
     const [appIdError, setAppIdError] = useState(false);
     const [formIdError, setFormIdError] = useState(false);
 
@@ -106,9 +158,16 @@ const AddUserGroup: React.FC<AddUserGroupProps> = ({
     // FOR APP ID AUTO COMPLETE
 
     // For AppId autocomplete component
+    const [groupsList, setGroupsList] = useState<any>([]);
     const [appIdList, setAppIdList] = useState<any>([]);
-    const [formIdList, setFormIdList] = useState<any>([]);
-    const [roleIdList, setRoleIdList] = useState<any>([]);
+    const [formIdList, setFormIdList] = useState<any>([
+        { formId: 1, formName: "Form 1" },
+        { formId: 2, formName: "Form 2" }
+    ]);
+    const [roleIdList, setRoleIdList] = useState<any>([
+        { roleId: 1, roleName: "Role 1" },
+        { roleId: 2, roleName: "Role 2" }
+    ]);
 
     const [loadData, setLoadData] = useState(true);
 
@@ -122,14 +181,14 @@ const AddUserGroup: React.FC<AddUserGroupProps> = ({
         console.log("Access Token in View Users ===> ", accessToken);
 
         if (accessToken !== null && loadData === true) {
-            // Fetching APP DETAILS
-            axios.get("https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/fetchAppDetails", {
+            // Fetching Group
+            axios.get("https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/fetchGroups", {
                 headers: {
                     "x-api-key": accessToken
                 }
             })
                 .then((res) => {
-                    setAppIdList(res.data.obj);
+                    setGroupsList(res.data.obj);
                 })
                 .catch((err) => {
                     console.log(err);
@@ -169,12 +228,12 @@ const AddUserGroup: React.FC<AddUserGroupProps> = ({
     }, [appIdList, loadData]);
 
     useEffect(() => {
-        if (roleId !== null && appId !== null && formId !== null) {
-            console.log("Current Role Id ===> ", roleId.roleId);
+        if ( appId !== null && formId !== null) {
+            // console.log("Current Role Id ===> ", roleId.roleId);
             console.log("Current App Id ===> ", appId.appId);
             console.log("Current Form Id ===> ", formId.formId);
         }
-    }, [appId, appIdList, formId, roleId]);
+    }, [appId, appIdList, formId]);
 
 
     // --------------------- AUTO COMPLETE DEFAULT PROPS ---------------------
@@ -241,10 +300,6 @@ const AddUserGroup: React.FC<AddUserGroupProps> = ({
 
             if (accessToken !== null) {
                 // Set the validation errors
-                if (roleId === null) {
-                    setRoleIdErrorMessage("* Please select any RoleId from the list.");
-                    setRoleIdError(true);
-                }
                 if (appId === null) {
                     setAppIdErrorMessage("* Please select any AppId from the list.");
                     setAppIdError(true);
@@ -256,12 +311,12 @@ const AddUserGroup: React.FC<AddUserGroupProps> = ({
                 // Set the validation errors
 
                 if (
-                    roleId !== null &&
+                    // roleId !== null &&
                     appId !== null &&
                     formId !== null
                 ) {
                     const formState = {
-                        "roleId": (roleId !== null) ? roleId.roleId : null,
+                        // "roleId": (roleId !== null) ? roleId.roleId : null,
                         "appId": (appId !== null) ? appId.appId : null,
                         "formId": (formId !== null) ? formId.formId : null,
                         "loggedInUser": loggedInUser,
@@ -284,11 +339,11 @@ const AddUserGroup: React.FC<AddUserGroupProps> = ({
                         .then(function (response) {
                             console.log("Response ===> ", response);
                             if (response.status === 200) {
-                                setSnackBarHandler({
-                                    ...snackBarHandler,
-                                    message: `AppRole Privilege for App : ${appId.appName} , Form : ${formId.formName} and Role : ${roleId.roleName} has been created successfully.`,
-                                    open: true
-                                })
+                                // setSnackBarHandler({
+                                //     ...snackBarHandler,
+                                //     message: `AppRole Privilege for App : ${appId.appName} , Form : ${formId.formName} and Role : ${roleId.roleName} has been created successfully.`,
+                                //     open: true
+                                // })
                                 const m = response.data.message;
                                 setTimeout(() => {
                                     navigate("/account/role-app/view");
@@ -374,7 +429,7 @@ const AddUserGroup: React.FC<AddUserGroupProps> = ({
                             fontWeight: 500,
                             marginTop: (windowSize[0] < 600) ? (0) : (0.5),
                         }}>
-                            Add UserGroup
+                            Add User Group
                         </Typography>
                         <Typography variant="body1" sx={{
                             // color: "#4f747a" 
@@ -394,30 +449,42 @@ const AddUserGroup: React.FC<AddUserGroupProps> = ({
                     }>
                         {/* ROLE ID */}
                         <Grid item xs={12}>
-                            <Autocomplete
-                                {...roleIdDefaultProps}
-                                id="roleIdAutoComplete"
-                                autoHighlight
-                                value={roleId}
-                                onChange={(event, newValue) => {
-                                    setRoleId(newValue);
-                                    if (roleIdError) {
-                                        setRoleIdError(false);
-                                    }
-                                }}
-                                // dir={(currentLang === "ar") ? "rtl" : "ltr"}
-                                renderInput={(params) => (
-                                    <TextField
-                                        {...params}
-                                        label={"Select Role"}
-                                        placeholder="Please select a Role from the list"
-                                        variant="standard"
-                                        helperText={(roleIdError) ? (roleIdErrorMessage) : ("")}
-                                        error={roleIdError}
-                                    // dir={(currentLang === "ar") ? "rtl" : "ltr"}
-                                    />
-                                )}
-                            />
+                            <FormControl sx={{ width: "100%", mt: 2 }}>
+                                <Select
+                                    id="demo-multiple-chip"
+                                    displayEmpty
+                                    multiple
+                                    variant='standard'
+                                    value={personName}
+                                    onChange={handleChange}
+                                    input={<OutlinedInput />}
+                                    renderValue={(selected) => {
+                                        if (selected.length === 0) {
+                                            return <em>Select the Groups From the List Below</em>;
+                                        } else {
+                                            return (
+                                                <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
+                                                    {selected.map((value) => (
+                                                        <Chip key={value} label={value} />
+                                                    ))}
+                                                </Box>
+                                            )
+                                        }
+                                    }}
+                                    MenuProps={MenuProps}
+                                    inputProps={{ 'aria-label': 'Without label' }}
+                                >
+                                    {names.map((name) => (
+                                        <MenuItem
+                                            key={name}
+                                            value={name}
+                                            style={getStyles(name, personName, theme)}
+                                        >
+                                            {name}
+                                        </MenuItem>
+                                    ))}
+                                </Select>
+                            </FormControl>
                         </Grid>
 
                         {/* APP ID */}
