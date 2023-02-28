@@ -374,7 +374,7 @@ const AddUserGroup: React.FC<AddUserGroupProps> = ({
                             fontWeight: 500,
                             marginTop: (windowSize[0] < 600) ? (0) : (0.5),
                         }}>
-                            Add AddUserGroup
+                            Add UserGroup
                         </Typography>
                         <Typography variant="body1" sx={{
                             // color: "#4f747a" 

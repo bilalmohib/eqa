@@ -83,7 +83,7 @@ const ViewUserGroup: React.FC<ViewUserGroupProps> = ({
 
         if (accessToken !== null && fetchUpdate === true) {
             // Fetching data using axios and also pass the header x-api-key for auth
-            axios.get("https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/fetchPrivileges", {
+            axios.get("https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/fetchUserGroups", {
                 headers: {
                     "x-api-key": accessToken
                 }
@@ -93,16 +93,9 @@ const ViewUserGroup: React.FC<ViewUserGroupProps> = ({
                     const arr = res.data.obj;
 
                     // Adding a new property appId in the array
-                    arr.forEach((element:any) => {
-                        element.role = element.role.roleId + " " + element.role.roleName;
-                        // element.appDetails = element.appDetails.appId + " " + element.appDetails.appName;
-                        // element.appDetails = "nothing";
-                        // element.appId = element.appDetails.appId;
-                        element.appForms = element.appForms.formId + " " + element.appForms.formName;
-                        element.createPermission = element.createPermission === true ? "true" : "false";
-                        element.readPermission = element.readPermission === true ? "true" : "false";
-                        element.updatePermission = element.updatePermission === true ? "true" : "false";
-                        element.deletePermission = element.deletePermission === true ? "true" : "false";
+                    arr.forEach((element: any) => {
+                        element.user = element.user.userId + " " + element.user.userName;
+                        element.group = element.group.grpId + " " + element.group.grpName;
                         element.active = element.active === true ? "true" : "false";
                     });
                     // console.log("View App Form Data ===> ", arr);
@@ -117,11 +110,11 @@ const ViewUserGroup: React.FC<ViewUserGroupProps> = ({
 
     const tableColHeaders = [
         [
-            'appId',
-            'appName',
-            'appDescription',
+            'userGroupId',
+            'user',
+            'group',
             'active',
-            'appUrl',
+            'description',
             'createdBy',
             'creationDateAndTime',
             'updateDateAndTime',
@@ -173,7 +166,7 @@ const ViewUserGroup: React.FC<ViewUserGroupProps> = ({
                             }
                         }}
                         onClick={() => {
-                            navigate("/account/role-app/addUserGroup");
+                            navigate("/account/user-group/addUserGroup");
                         }}
                         startIcon={<AddIcon />}
                     >
