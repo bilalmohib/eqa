@@ -28,7 +28,8 @@ interface UserProps {
     // For minified sidebar
     isMinified: Boolean,
     setIsMinified: any,
-    currentLang: string
+    currentLang: string,
+    creatable: boolean,
 }
 
 const ViewUsers: React.FC<UserProps> = ({
@@ -37,7 +38,8 @@ const ViewUsers: React.FC<UserProps> = ({
     // For minified sidebar
     isMinified,
     setIsMinified,
-    currentLang
+    currentLang,
+    creatable
 }) => {
 
     const { t } = useTranslation();
@@ -176,6 +178,7 @@ const ViewUsers: React.FC<UserProps> = ({
                         onClick={() => {
                             navigate("/account/users/adduser");
                         }}
+                        disabled={!creatable}
                         startIcon={<AddIcon />}
                     >
                         {(t('Home.Sidebar.list.userManagement.subMenu.Users.details.addUser'))}

@@ -18,7 +18,7 @@ import { useTranslation } from "react-i18next";
 
 // @@@@@@@@@@@@@@ IMPORTING COURSE OFFERING TABLE DATA @@@@@@@@@@@@@@@@@
 // Importing the course offering table data
-import { data, states } from '../../../../../../Data/Tables/CourseOfferings';
+import { states } from '../../../../../../Data/Tables/CourseOfferings';
 
 import styles from "./style.module.css";
 interface RolesProps {
@@ -27,7 +27,8 @@ interface RolesProps {
     // For minified sidebar
     isMinified: Boolean,
     setIsMinified: any,
-    currentLang: string
+    currentLang: string,
+    creatable: boolean
 }
 
 const ViewRoles: React.FC<RolesProps> = ({
@@ -36,7 +37,8 @@ const ViewRoles: React.FC<RolesProps> = ({
     // For minified sidebar
     isMinified,
     setIsMinified,
-    currentLang
+    currentLang,
+    creatable
 }) => {
     const { t } = useTranslation();
 
@@ -157,6 +159,7 @@ const ViewRoles: React.FC<RolesProps> = ({
                             navigate("/account/roles/addrole");
                         }}
                         startIcon={<AddIcon />}
+                        disabled={!creatable}
                     >
                         {(t('Home.Sidebar.list.userManagement.subMenu.roles.details.addUser'))}
                     </Button>

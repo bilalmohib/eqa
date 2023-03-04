@@ -27,8 +27,14 @@ import {
     InputAdornment,
     IconButton,
     InputLabel,
-    Input
+    Input,
+    ListItemText,
+    MenuItem,
+    OutlinedInput
 } from '@mui/material';
+
+import Select, { SelectChangeEvent } from '@mui/material/Select';
+
 import SnackBar from '../../../../../SnackBar';
 
 import Loader from '../../../../../Loader';
@@ -39,6 +45,17 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { useTranslation } from "react-i18next";
 
 import styles from "./style.module.css";
+
+const ITEM_HEIGHT = 48;
+const ITEM_PADDING_TOP = 8;
+const MenuProps = {
+    PaperProps: {
+        style: {
+            maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+            width: 250,
+        },
+    },
+};
 
 interface UserProps {
     setIsOpen: any,
@@ -86,6 +103,20 @@ const AddUser: React.FC<UserProps> = ({
 }) => {
     const { t } = useTranslation();
     const navigate = useNavigate();
+
+    // FOR REACT MULTI SELECT
+    const [groupName, setGroupName] = useState<any>([]);
+
+    const handleChangeGroups = (event: SelectChangeEvent<typeof groupName>) => {
+        const {
+            target: { value },
+        } = event;
+        setGroupName(
+            // On autofill we get a stringified value.
+            typeof value === 'string' ? value.split(',') : value,
+        );
+    };
+    // FOR REACT MULTI SELECT
 
     ///////////////////////////////// Snackbar State /////////////////////////////////
     const [snackBarHandler, setSnackBarHandler] = useState({
@@ -177,27 +208,14 @@ const AddUser: React.FC<UserProps> = ({
     // For Department autocomplete component
 
     // Assign group checkboxes
-    const [assignGroupState, setAssignGroupState] = useState({
-        group1: true,
-        group2: false
-    });
-
-    const handleChangeAssignGroup = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setAssignGroupState({
-            ...assignGroupState,
-            [event.target.name]: event.target.checked,
-        });
-    };
-
-    const { group1, group2 } = assignGroupState;
     // Assign group checkboxes
 
     // Staff access level checkboxes
     const [staffAccessLevelState, setStaffAccessLevelState] = useState({
-        staffStatus: true,
+        staffStatus: false,
         isSuperUser: false
     });
-
+    
     const handleChangeStaffAccessLevel = (event: React.ChangeEvent<HTMLInputElement>) => {
         setStaffAccessLevelState({
             ...staffAccessLevelState,
@@ -238,6 +256,8 @@ const AddUser: React.FC<UserProps> = ({
 
     // Fetching data using axios
     const [viewAllUsersData, setViewAllUsersData] = useState<ViewAllUsersData | null>(null);
+
+    const [viewAllGroupsData, setViewAllGroupsData] = useState<any>(null);
     // Loading state
     const [loading, setLoading] = useState(true)
 
@@ -251,7 +271,7 @@ const AddUser: React.FC<UserProps> = ({
         console.log("Access Token in View Users ===> ", accessToken);
 
         if (accessToken !== null) {
-            // Fetching data using axios and also pass the header x-api-key for auth
+            // @1) Fetching Users
             axios.get("https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/fetchUsers", {
                 headers: {
                     "x-api-key": accessToken
@@ -266,11 +286,27 @@ const AddUser: React.FC<UserProps> = ({
                 .catch((err) => {
                     console.log(err);
                 });
+
+            // @2) Fetching Groups
+            axios.get("https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/fetchGroups", {
+                headers: {
+                    "x-api-key": accessToken
+                }
+            })
+                .then((res) => {
+                    if (res.data.code === "200.200") {
+                        setViewAllGroupsData(res.data.obj);
+                        setLoading(false);
+                    }
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
         }
         else {
             navigate("/login");
         }
-    }, []);
+    }, [navigate]);
 
     // Form States
     const [firstName, setFirstName] = useState("");
@@ -944,7 +980,7 @@ const AddUser: React.FC<UserProps> = ({
                                     dir={(currentLang === "ar") ? ('rtl') : ('ltr')}
                                 >
                                     <FormLabel
-                                        id="demo-row-radio-buttons-group-label"
+                                        id="multipleGroupsSelect"
                                         sx={{
                                             fontSize: {
                                                 xs: 20, // theme.breakpoints.up('xs')
@@ -959,46 +995,52 @@ const AddUser: React.FC<UserProps> = ({
                                     >
                                         {t('Home.Sidebar.list.userManagement.subMenu.Users.details.Permissions.fields.assignGroups.title')}
                                     </FormLabel>
-                                    <RadioGroup
-                                        row
-                                        aria-labelledby="demo-row-radio-buttons-group-label"
-                                        name="row-radio-buttons-group"
-                                        // Add spacing between radio buttons
-                                        sx={{
-                                            '& .MuiFormControlLabel-root': {
-                                                marginRight: 8.5
-                                            },
-                                            mt: 1
+                                    <div>
+                                        <FormControl sx={{
+                                            mt: 2,
+                                            width: {
+                                                xs: 210, // theme.breakpoints.up('xs')
+                                                sm: 300, // theme.breakpoints.up('sm')
+                                                md: 340, // theme.breakpoints.up('md')
+                                                lg: 340, // theme.breakpoints.up('lg')
+                                                xl: 340, // theme.breakpoints.up('xl')
+                                            }
                                         }}
-                                        dir={(currentLang === "ar") ? ('rtl') : ('ltr')}
-                                    >
-                                        <FormControlLabel
-                                            label={t('Home.Sidebar.list.userManagement.subMenu.Users.details.Permissions.fields.assignGroups.checkbox1.label')}
-                                            value="Group 1"
-                                            control={<Checkbox
-                                                name="group1"
-                                                checked={group1}
-                                                onChange={handleChangeAssignGroup}
-                                                color="success"
-                                                sx={{ '& .MuiSvgIcon-root': { fontSize: 25 } }}
-                                                dir={(currentLang === "ar") ? ('rtl') : ('ltr')}
-                                            />}
-                                            dir={(currentLang === "ar") ? ('rtl') : ('ltr')}
-                                        />
-                                        <FormControlLabel
-                                            label={t('Home.Sidebar.list.userManagement.subMenu.Users.details.Permissions.fields.assignGroups.checkbox2.label')}
-                                            value="Group 2"
-                                            control={<Checkbox
-                                                name="group2"
-                                                checked={group2}
-                                                onChange={handleChangeAssignGroup}
-                                                color="success"
-                                                sx={{ '& .MuiSvgIcon-root': { fontSize: 25 } }}
-                                                dir={(currentLang === "ar") ? ('rtl') : ('ltr')}
-                                            />}
-                                            dir={(currentLang === "ar") ? ('rtl') : ('ltr')}
-                                        />
-                                    </RadioGroup>
+                                        >
+                                            <Select
+                                                id="multipleGroupsSelect"
+                                                displayEmpty
+                                                multiple
+                                                value={groupName}
+                                                onChange={handleChangeGroups}
+                                                input={<OutlinedInput />}
+                                                renderValue={(selected) => {
+                                                    if (selected.length === 0) {
+                                                        return <span>Select groups from the list below</span>;
+                                                    }
+
+                                                    return selected.join(', ');
+                                                }}
+                                                MenuProps={MenuProps}
+                                                inputProps={{ 'aria-label': 'Without label' }}
+                                            >
+                                                {
+                                                    (viewAllGroupsData !== null) ? (
+                                                        viewAllGroupsData.map((groups: any, index: number) => (
+                                                            <MenuItem key={index} value={groups.grpId}>
+                                                                <Checkbox checked={groupName.indexOf(groups.grpId) > -1} />
+                                                                <ListItemText primary={groups.grpName} />
+                                                            </MenuItem>
+                                                        ))
+                                                    ) : (
+                                                        <MenuItem key="No Groups" value="No Groups">
+                                                            No Groups
+                                                        </MenuItem>
+                                                    )
+                                                }
+                                            </Select>
+                                        </FormControl>
+                                    </div>
                                 </FormControl>
                             </Grid>
                         </Grid>

@@ -71,6 +71,7 @@ const AssessmentDashboard: React.FC<AssessmentDashboardProps> = ({
         ]
     ];
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [fetchUpdate, setFetchUpdate] = useState(true);
 
     useEffect(() => {

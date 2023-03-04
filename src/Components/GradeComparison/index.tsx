@@ -1,15 +1,15 @@
-import { useState, FC } from "react";
+import { FC } from "react";
 
 // Importing Icons
-import { BsPrinter, BsSearch } from "react-icons/bs";
-import { HiDotsVertical } from "react-icons/hi";
+// import { BsPrinter, BsSearch } from "react-icons/bs";
+// import { HiDotsVertical } from "react-icons/hi";
 
 // Importing Ripples
 import { createRipples } from 'react-ripples';
 
-import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
+// import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
 
-import { Line } from 'react-chartjs-2';
+// import { Line } from 'react-chartjs-2';
 
 // Importing components
 
@@ -42,7 +42,7 @@ const GradeComparison: FC<GradeComparisonProps> = ({
     tableTitle
 }): JSX.Element => {
 
-    const [searchText, setSearchText] = useState<string>("");
+    // const [searchText, setSearchText] = useState<string>("");
 
     return (
         <div className={styles.container}>
@@ -66,6 +66,8 @@ const GradeComparison: FC<GradeComparisonProps> = ({
                     </div>
                     <div className={styles.btnDropDownTableBtn}>
                         <div className="dropdown">
+                            {/* // eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+                            {/* jsx-a11y/anchor-is-valid */}
                             <a className="dropdown-toggle hidden-arrow" type="button" id="dropdownMenuicon" data-mdb-toggle="dropdown" aria-expanded="false" style={{}}>
                                 <ButtonRipples>
                                     <div style={{ width: "30px", display: "flex", justifyContent: "center", height: "48px" }}>
@@ -74,6 +76,7 @@ const GradeComparison: FC<GradeComparisonProps> = ({
                                 </ButtonRipples>
                             </a>
                             <ul className="dropdown-menu" aria-labelledby="dropdownMenuicon">
+                                {/* // eslint-disable-next-line jsx-a11y/anchor-is-valid */}
                                 <li><a className="dropdown-item" href="#"> <i className="fas fa-user-alt pe-2" />My Profile</a></li>
                                 <li><a className="dropdown-item" href="#"> <i className="fas fa-cog pe-2" />Settings</a></li>
                                 <li><a className="dropdown-item" href="#"> <i className="fas fa-door-open pe-2" />Logout</a></li>

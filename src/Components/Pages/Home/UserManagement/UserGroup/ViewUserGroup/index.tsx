@@ -27,7 +27,8 @@ interface ViewUserGroupProps {
     // For minified sidebar
     isMinified: Boolean,
     setIsMinified: any,
-    currentLang: string
+    currentLang: string,
+    creatable: boolean
 }
 
 const ViewUserGroup: React.FC<ViewUserGroupProps> = ({
@@ -36,7 +37,8 @@ const ViewUserGroup: React.FC<ViewUserGroupProps> = ({
     // For minified sidebar
     isMinified,
     setIsMinified,
-    currentLang
+    currentLang,
+    creatable
 }) => {
     const { t } = useTranslation();
 
@@ -169,6 +171,7 @@ const ViewUserGroup: React.FC<ViewUserGroupProps> = ({
                             navigate("/account/user-group/addUserGroup");
                         }}
                         startIcon={<AddIcon />}
+                        disabled={creatable === false ? true : false}
                     >
                         {(t('Home.Sidebar.list.userManagement.subMenu.userGroup.details.addUser'))}
                     </Button>
@@ -190,7 +193,7 @@ const ViewUserGroup: React.FC<ViewUserGroupProps> = ({
                     columnName={"ViewUserGroup"}
                     tableInfo={(t('Home.Sidebar.list.userManagement.subMenu.userGroup.details.table.subTitle'))}
                     buttonTitle={"Create New User Group"}
-                    tableTitle={`<b style={{ fontWeight: "bold" }}>User Group Privilege</b> <i>List</i>`}
+                    tableTitle={`<b style={{ fontWeight: "bold" }}>User Group</b> <i>List</i>`}
                     currentLang={currentLang}
                     setFetchUpdate={setFetchUpdate}
                 />

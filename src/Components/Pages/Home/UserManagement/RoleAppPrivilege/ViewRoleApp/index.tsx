@@ -27,7 +27,8 @@ interface ViewRoleAppProps {
     // For minified sidebar
     isMinified: Boolean,
     setIsMinified: any,
-    currentLang: string
+    currentLang: string,
+    creatable: boolean
 }
 
 const ViewRoleApp: React.FC<ViewRoleAppProps> = ({
@@ -36,7 +37,8 @@ const ViewRoleApp: React.FC<ViewRoleAppProps> = ({
     // For minified sidebar
     isMinified,
     setIsMinified,
-    currentLang
+    currentLang,
+    creatable
 }) => {
     const { t } = useTranslation();
 
@@ -182,6 +184,7 @@ const ViewRoleApp: React.FC<ViewRoleAppProps> = ({
                             navigate("/account/role-app/addRoleApp");
                         }}
                         startIcon={<AddIcon />}
+                        disabled={!creatable}
                     >
                         {(t('Home.Sidebar.list.userManagement.subMenu.roleApp.details.addUser'))}
                     </Button>

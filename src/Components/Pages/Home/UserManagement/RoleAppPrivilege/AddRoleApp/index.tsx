@@ -23,7 +23,9 @@ import {
     FormLabel,
     RadioGroup,
     Radio,
-    Autocomplete
+    Autocomplete,
+    Switch,
+    FormGroup
 } from '@mui/material';
 
 import SnackBar from '../../../../../SnackBar';
@@ -90,16 +92,16 @@ const AddRoleApp: React.FC<AddRoleAppProps> = ({
     const [formIdError, setFormIdError] = useState(false);
 
     // Create Permission radio buttons
-    const [createPermission, setCreatePermission] = useState("Yes");
+    // const [createPermission, setCreatePermission] = useState("Yes");
 
-    // Read Permission radio buttons
-    const [readPermission, setReadPermission] = useState("Yes");
+    // // Read Permission radio buttons
+    // const [readPermission, setReadPermission] = useState("Yes");
 
-    // Update Permission radio buttons
-    const [updatePermission, setUpdatePermission] = useState("Yes");
+    // // Update Permission radio buttons
+    // const [updatePermission, setUpdatePermission] = useState("Yes");
 
-    // Delete Permission radio buttons
-    const [deletePermission, setDeletePermission] = useState("Yes");
+    // // Delete Permission radio buttons
+    // const [deletePermission, setDeletePermission] = useState("Yes");
 
     // Status radio buttons
     const [status, setStatus] = useState("Active");
@@ -206,22 +208,38 @@ const AddRoleApp: React.FC<AddRoleAppProps> = ({
     // Status radio buttons
 
     // Handling Permissions
-    const handleChangeCreatePermission = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setCreatePermission((event.target as HTMLInputElement).value);
-    };
+    // const handleChangeCreatePermission = (event: React.ChangeEvent<HTMLInputElement>) => {
+    //     setCreatePermission((event.target as HTMLInputElement).value);
+    // };
 
-    const handleChangeReadPermission = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setReadPermission((event.target as HTMLInputElement).value);
-    };
+    // const handleChangeReadPermission = (event: React.ChangeEvent<HTMLInputElement>) => {
+    //     setReadPermission((event.target as HTMLInputElement).value);
+    // };
 
-    const handleChangeUpdatePermission = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setUpdatePermission((event.target as HTMLInputElement).value);
-    };
+    // const handleChangeUpdatePermission = (event: React.ChangeEvent<HTMLInputElement>) => {
+    //     setUpdatePermission((event.target as HTMLInputElement).value);
+    // };
 
-    const handleChangeDeletePermission = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setDeletePermission((event.target as HTMLInputElement).value);
-    };
+    // const handleChangeDeletePermission = (event: React.ChangeEvent<HTMLInputElement>) => {
+    //     setDeletePermission((event.target as HTMLInputElement).value);
+    // };
     // Handling Permissions
+
+    // Handling Permission Status
+    const [permissionState, setPermissionState] = React.useState({
+        create: true,
+        read: true,
+        update: true,
+        delete: true,
+    });
+
+    const handleChangePermission = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setPermissionState({
+            ...permissionState,
+            [event.target.name]: event.target.checked,
+        });
+    };
+    // Handling Permissions Status
 
 
     const submitForm = (e: any) => {
@@ -266,10 +284,10 @@ const AddRoleApp: React.FC<AddRoleAppProps> = ({
                         "appId": (appId !== null) ? appId.appId : null,
                         "formId": (formId !== null) ? formId.formId : null,
                         "loggedInUser": loggedInUser,
-                        "createPermission": (createPermission === "Yes") ? true : false,
-                        "readPermission": (readPermission === "Yes") ? true : false,
-                        "updatePermission": (updatePermission === "Yes") ? true : false,
-                        "deletePermission": (deletePermission === "Yes") ? true : false,
+                        "createPermission": permissionState.create,
+                        "readPermission": permissionState.read,
+                        "updatePermission": permissionState.update,
+                        "deletePermission": permissionState.delete,
                         "active": (status === "Active") ? true : false
                     };
 
@@ -479,11 +497,11 @@ const AddRoleApp: React.FC<AddRoleAppProps> = ({
                             />
                         </Grid>
 
-                        {/* Create Permision Status */}
+                        {/* Permisson Status List : Create, Read, Update, Delete */}
                         <Grid item xs={12}>
-                            <FormControl>
+                            <FormControl component="fieldset" variant="standard">
                                 <FormLabel
-                                    id="createPermissionStatusLabel"
+                                    component="legend"
                                     sx={{
                                         fontSize: {
                                             xs: 20, // theme.breakpoints.up('xs')
@@ -492,182 +510,97 @@ const AddRoleApp: React.FC<AddRoleAppProps> = ({
                                             lg: 22, // theme.breakpoints.up('lg')
                                             xl: 22, // theme.breakpoints.up('xl')
                                         },
-                                        marginTop: 0
-                                    }}
-                                >
-                                    Create Permission
+                                        marginTop: 2
+                                    }}>
+                                    Permission Status
                                 </FormLabel>
-                                <RadioGroup
-                                    row
-                                    aria-labelledby="createPermissionStatusLabel"
-                                    name="createPermissionStatusLabel"
-                                    // Add spacing between radio buttons
-                                    sx={{
-                                        '& .MuiFormControlLabel-root': {
-                                            marginRight: 10,
-                                        },
-                                        mt: 1
-                                    }}
-                                    value={createPermission}
-                                    onChange={handleChangeCreatePermission}
-                                >
+                                <FormGroup>
                                     <FormControlLabel
-                                        value="Yes"
-                                        control={<Radio />}
-                                        label="Yes"
+                                        control={
+                                            <Switch
+                                                checked={permissionState.create}
+                                                onChange={handleChangePermission}
+                                                name="create"
+                                                sx={{
+                                                    color: "#4f747a",
+                                                    "& .MuiSwitch-switchBase.Mui-checked": {
+                                                        color: "#3c6766"
+                                                    },
+                                                    "& .MuiSwitch-switchBase.Mui-checked+.MuiSwitch-track": {
+                                                        backgroundColor: '#4f747a'
+                                                    }
+                                                }}
+                                            />
+                                        }
+                                        label="Create"
                                     />
                                     <FormControlLabel
-                                        value="No"
-                                        control={<Radio />}
-                                        label="No"
+                                        control={
+                                            <Switch
+                                                checked={permissionState.read}
+                                                onChange={handleChangePermission}
+                                                name="read"
+                                                sx={{
+                                                    color: "#4f747a",
+                                                    "& .MuiSwitch-switchBase.Mui-checked": {
+                                                        color: "#3c6766"
+                                                    },
+                                                    "& .MuiSwitch-switchBase.Mui-checked+.MuiSwitch-track": {
+                                                        backgroundColor: '#4f747a'
+                                                    }
+                                                }}
+                                            />
+                                        }
+                                        label="Read"
                                     />
-                                </RadioGroup>
+                                    <FormControlLabel
+                                        control={
+                                            <Switch
+                                                checked={permissionState.update}
+                                                onChange={handleChangePermission}
+                                                name="update"
+                                                sx={{
+                                                    color: "#4f747a",
+                                                    "& .MuiSwitch-switchBase.Mui-checked": {
+                                                        color: "#3c6766"
+                                                    },
+                                                    "& .MuiSwitch-switchBase.Mui-checked+.MuiSwitch-track": {
+                                                        backgroundColor: '#4f747a'
+                                                    }
+                                                }}
+                                            />
+                                        }
+                                        label="Update"
+                                    />
+                                    <FormControlLabel
+                                        control={
+                                            <Switch
+                                                checked={permissionState.delete}
+                                                onChange={handleChangePermission}
+                                                name="delete"
+                                                sx={{
+                                                    color: "#4f747a",
+                                                    "& .MuiSwitch-switchBase.Mui-checked": {
+                                                        color: "#3c6766"
+                                                    },
+                                                    "& .MuiSwitch-switchBase.Mui-checked+.MuiSwitch-track": {
+                                                        backgroundColor: '#4f747a'
+                                                    }
+                                                }}
+                                            />
+                                        }
+                                        label="Delete"
+                                    />
+                                </FormGroup>
                             </FormControl>
                         </Grid>
-
-                        {/* Read Permision Status */}
-                        <Grid item xs={12}>
-                            <FormControl>
-                                <FormLabel
-                                    id="readPermissionStatusLabel"
-                                    sx={{
-                                        fontSize: {
-                                            xs: 20, // theme.breakpoints.up('xs')
-                                            sm: 20, // theme.breakpoints.up('sm')
-                                            md: 22, // theme.breakpoints.up('md')
-                                            lg: 22, // theme.breakpoints.up('lg')
-                                            xl: 22, // theme.breakpoints.up('xl')
-                                        },
-                                        marginTop: 0
-                                    }}
-                                >
-                                    Read Permission
-                                </FormLabel>
-                                <RadioGroup
-                                    row
-                                    aria-labelledby="readPermissionStatusLabel"
-                                    name="readPermissionStatusLabel"
-                                    // Add spacing between radio buttons
-                                    sx={{
-                                        '& .MuiFormControlLabel-root': {
-                                            marginRight: 10,
-                                        },
-                                        mt: 1
-                                    }}
-                                    value={readPermission}
-                                    onChange={handleChangeReadPermission}
-                                >
-                                    <FormControlLabel
-                                        value="Yes"
-                                        control={<Radio />}
-                                        label="Yes"
-                                    />
-                                    <FormControlLabel
-                                        value="No"
-                                        control={<Radio />}
-                                        label="No"
-                                    />
-                                </RadioGroup>
-                            </FormControl>
-                        </Grid>
-
-                        {/* Update Permision Status */}
-                        <Grid item xs={12}>
-                            <FormControl>
-                                <FormLabel
-                                    id="updatePermissionStatusLabel"
-                                    sx={{
-                                        fontSize: {
-                                            xs: 20, // theme.breakpoints.up('xs')
-                                            sm: 20, // theme.breakpoints.up('sm')
-                                            md: 22, // theme.breakpoints.up('md')
-                                            lg: 22, // theme.breakpoints.up('lg')
-                                            xl: 22, // theme.breakpoints.up('xl')
-                                        },
-                                        marginTop: 0
-                                    }}
-                                >
-                                    Update Permission
-                                </FormLabel>
-                                <RadioGroup
-                                    row
-                                    aria-labelledby="updatePermissionStatusLabel"
-                                    name="updatePermissionStatusLabel"
-                                    // Add spacing between radio buttons
-                                    sx={{
-                                        '& .MuiFormControlLabel-root': {
-                                            marginRight: 10,
-                                        },
-                                        mt: 1
-                                    }}
-                                    value={updatePermission}
-                                    onChange={handleChangeUpdatePermission}
-                                >
-                                    <FormControlLabel
-                                        value="Yes"
-                                        control={<Radio />}
-                                        label="Yes"
-                                    />
-                                    <FormControlLabel
-                                        value="No"
-                                        control={<Radio />}
-                                        label="No"
-                                    />
-                                </RadioGroup>
-                            </FormControl>
-                        </Grid>
-
-                        {/* Delete Permision Status */}
-                        <Grid item xs={12}>
-                            <FormControl>
-                                <FormLabel
-                                    id="updatePermissionStatusLabel"
-                                    sx={{
-                                        fontSize: {
-                                            xs: 20, // theme.breakpoints.up('xs')
-                                            sm: 20, // theme.breakpoints.up('sm')
-                                            md: 22, // theme.breakpoints.up('md')
-                                            lg: 22, // theme.breakpoints.up('lg')
-                                            xl: 22, // theme.breakpoints.up('xl')
-                                        },
-                                        marginTop: 0
-                                    }}
-                                >
-                                    Delete Permission
-                                </FormLabel>
-                                <RadioGroup
-                                    row
-                                    aria-labelledby="deletePermissionStatusLabel"
-                                    name="deletePermissionStatusLabel"
-                                    // Add spacing between radio buttons
-                                    sx={{
-                                        '& .MuiFormControlLabel-root': {
-                                            marginRight: 10,
-                                        },
-                                        mt: 1
-                                    }}
-                                    value={deletePermission}
-                                    onChange={handleChangeDeletePermission}
-                                >
-                                    <FormControlLabel
-                                        value="Yes"
-                                        control={<Radio />}
-                                        label="Yes"
-                                    />
-                                    <FormControlLabel
-                                        value="No"
-                                        control={<Radio />}
-                                        label="No"
-                                    />
-                                </RadioGroup>
-                            </FormControl>
-                        </Grid>
+                        {/* Permisson Status List : Create, Read, Update, Delete */}
 
                         {/* Status */}
                         <Grid item xs={12}>
                             <FormControl>
                                 <FormLabel
-                                    id="demo-row-radio-buttons-app-label"
+                                    id="statusAppButtonsLabel"
                                     sx={{
                                         fontSize: {
                                             xs: 20, // theme.breakpoints.up('xs')
@@ -683,8 +616,8 @@ const AddRoleApp: React.FC<AddRoleAppProps> = ({
                                 </FormLabel>
                                 <RadioGroup
                                     row
-                                    aria-labelledby="demo-row-radio-buttons-app-label"
-                                    name="row-radio-buttons-app"
+                                    aria-labelledby="statusAppButtonsLabel"
+                                    name="statusAppButtons"
                                     // Add spacing between radio buttons
                                     sx={{
                                         '& .MuiFormControlLabel-root': {

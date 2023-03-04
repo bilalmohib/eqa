@@ -7,12 +7,12 @@ import styles from './style.module.css';
 import { useNavigate } from 'react-router';
 import { AiTwotoneLock } from 'react-icons/ai';
 import { MdOutlineFactCheck, MdManageAccounts, MdPieChart } from "react-icons/md";
-import SchoolIcon from '@mui/icons-material/School';
-import ImportExportIcon from '@mui/icons-material/ImportExport';
-import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
-import { BsAlarmFill } from "react-icons/bs";
-import { TfiAlarmClock } from "react-icons/tfi";
-import PieChartIcon from '@mui/icons-material/PieChart';
+// import SchoolIcon from '@mui/icons-material/School';
+// import ImportExportIcon from '@mui/icons-material/ImportExport';
+// import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
+// import { BsAlarmFill } from "react-icons/bs";
+// import { TfiAlarmClock } from "react-icons/tfi";
+// import PieChartIcon from '@mui/icons-material/PieChart';
 
 import { renderToString } from 'react-dom/server';
 
@@ -31,29 +31,24 @@ import {
     IoIosNotificationsOutline
 } from "react-icons/io";
 import {
-    IoColorPaletteOutline, IoColorPaletteSharp
+    IoColorPaletteOutline
 } from "react-icons/io5";
 import { IoSettingsOutline } from "react-icons/io5";
 import { RxCube } from "react-icons/rx";
 
 import {
-    CircularProgress,
     Box,
-    Typography,
     Link,
     TextField,
     Slide
 } from "@mui/material";
 import Snackbar, { SnackbarOrigin } from '@mui/material/Snackbar';
 
-import axios from 'axios';
-
 // Importing i18 for language
 import i18n from "../../i18n";
 
 // Importing logout Service
 import { logoutService } from "../../Service/logoutService";
-import { useMemo } from 'preact/hooks';
 
 interface NavProps {
     setIsOpen: any,
@@ -215,7 +210,7 @@ const Navbar: React.FC<NavProps> = ({
         i18n.changeLanguage(e);
     }
 
-    const [selectedDay, setSelectedDay] = useState<any>(null);
+    // const [selectedDay, setSelectedDay] = useState<any>(null);
 
     const [searchValue, setSearchValue] = useState<string>("");
 

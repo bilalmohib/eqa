@@ -17,7 +17,7 @@ import { useTranslation } from "react-i18next";
 
 // @@@@@@@@@@@@@@ IMPORTING COURSE OFFERING TABLE DATA @@@@@@@@@@@@@@@@@
 // Importing the course offering table data
-import { data, states } from '../../../../../../Data/Tables/CourseOfferings';
+import { states } from '../../../../../../Data/Tables/CourseOfferings';
 
 import styles from "./style.module.css";
 
@@ -27,7 +27,8 @@ interface GroupsProps {
     // For minified sidebar
     isMinified: Boolean,
     setIsMinified: any,
-    currentLang: string
+    currentLang: string,
+    creatable: boolean
 }
 
 const ViewGroups: React.FC<GroupsProps> = ({
@@ -36,7 +37,8 @@ const ViewGroups: React.FC<GroupsProps> = ({
     // For minified sidebar
     isMinified,
     setIsMinified,
-    currentLang
+    currentLang,
+    creatable
 }) => {
     const { t } = useTranslation();
 
@@ -159,6 +161,7 @@ const ViewGroups: React.FC<GroupsProps> = ({
                             navigate("/account/groups/addgroup");
                         }}
                         startIcon={<AddIcon />}
+                        disabled={!creatable}
                     >
                         {(t('Home.Sidebar.list.userManagement.subMenu.groups.details.addUser'))}
                     </Button>

@@ -1,0 +1,40 @@
+<RadioGroup
+                                        row
+                                        aria-labelledby="demo-row-radio-buttons-group-label"
+                                        name="row-radio-buttons-group"
+                                        // Add spacing between radio buttons
+                                        sx={{
+                                            '& .MuiFormControlLabel-root': {
+                                                marginRight: 8.5
+                                            },
+                                            mt: 1
+                                        }}
+                                        dir={(currentLang === "ar") ? ('rtl') : ('ltr')}
+                                    >
+                                        <FormControlLabel
+                                            label={t('Home.Sidebar.list.userManagement.subMenu.Users.details.Permissions.fields.assignGroups.checkbox1.label')}
+                                            value="Group 1"
+                                            control={<Checkbox
+                                                name="group1"
+                                                checked={group1}
+                                                onChange={handleChangeAssignGroup}
+                                                color="success"
+                                                sx={{ '& .MuiSvgIcon-root': { fontSize: 25 } }}
+                                                dir={(currentLang === "ar") ? ('rtl') : ('ltr')}
+                                            />}
+                                            dir={(currentLang === "ar") ? ('rtl') : ('ltr')}
+                                        />
+                                        <FormControlLabel
+                                            label={t('Home.Sidebar.list.userManagement.subMenu.Users.details.Permissions.fields.assignGroups.checkbox2.label')}
+                                            value="Group 2"
+                                            control={<Checkbox
+                                                name="group2"
+                                                checked={group2}
+                                                onChange={handleChangeAssignGroup}
+                                                color="success"
+                                                sx={{ '& .MuiSvgIcon-root': { fontSize: 25 } }}
+                                                dir={(currentLang === "ar") ? ('rtl') : ('ltr')}
+                                            />}
+                                            dir={(currentLang === "ar") ? ('rtl') : ('ltr')}
+                                        />
+                                    </RadioGroup>

@@ -1,9 +1,7 @@
 import { useState, useEffect } from "react";
 
 import { useNavigate } from "react-router";
-import { HiUserGroup } from "react-icons/hi2";
 import AppsIcon from '@mui/icons-material/Apps';
-import {AiOutlineAppstore} from "react-icons/ai";
 
 import axios from "axios";
 import Cookies from "js-cookie";
@@ -19,7 +17,7 @@ import { useTranslation } from "react-i18next";
 
 // @@@@@@@@@@@@@@ IMPORTING COURSE OFFERING TABLE DATA @@@@@@@@@@@@@@@@@
 // Importing the course offering table data
-import { data, states } from '../../../../../../Data/Tables/CourseOfferings';
+import { states } from '../../../../../../Data/Tables/CourseOfferings';
 
 import styles from "./style.module.css";
 
@@ -29,7 +27,8 @@ interface AppsProps {
     // For minified sidebar
     isMinified: Boolean,
     setIsMinified: any,
-    currentLang: string
+    currentLang: string,
+    creatable: boolean
 }
 
 const ViewApps: React.FC<AppsProps> = ({
@@ -38,7 +37,8 @@ const ViewApps: React.FC<AppsProps> = ({
     // For minified sidebar
     isMinified,
     setIsMinified,
-    currentLang
+    currentLang,
+    creatable
 }) => {
     const { t } = useTranslation();
 
@@ -161,6 +161,7 @@ const ViewApps: React.FC<AppsProps> = ({
                             navigate("/account/apps/addapp");
                         }}
                         startIcon={<AddIcon />}
+                        disabled={!creatable}
                     >
                         {(t('Home.Sidebar.list.userManagement.subMenu.apps.details.addUser'))}
                     </Button>
