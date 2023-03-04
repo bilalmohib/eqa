@@ -5,6 +5,8 @@ import { useState, useEffect } from "react";
 import AppsIcon from '@mui/icons-material/Apps';
 import SendIcon from '@mui/icons-material/Send';
 
+import { Theme, useTheme } from '@mui/material/styles';
+
 import { useNavigate } from 'react-router';
 
 import axios from 'axios';
@@ -23,9 +25,19 @@ import {
     FormLabel,
     RadioGroup,
     Radio,
-    Autocomplete
+    Autocomplete,
+    Chip,
+    MenuItem,
+    InputLabel,
+    OutlinedInput,
+    Checkbox,
+    FormGroup,
+    FormHelperText,
+    ListItemText
 } from '@mui/material';
 import SnackBar from '../../../../../SnackBar';
+
+import Select, { SelectChangeEvent } from '@mui/material/Select';
 
 import styles from "./style.module.css";
 
@@ -36,6 +48,17 @@ interface AddUserGroupProps {
     isMinified: Boolean,
     setIsMinified: any,
 }
+
+const ITEM_HEIGHT = 48;
+const ITEM_PADDING_TOP = 8;
+const MenuProps = {
+    PaperProps: {
+        style: {
+            maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+            width: 250,
+        },
+    },
+};
 
 const AddUserGroup: React.FC<AddUserGroupProps> = ({
     setIsOpen,
@@ -74,43 +97,56 @@ const AddUserGroup: React.FC<AddUserGroupProps> = ({
     });
 
     // For field validation
-    const [roleId, setRoleId] = useState<any>(null);
-    const [appId, setAppId] = useState<any>(null);
-    const [formId, setFormId] = useState<any>(null);
+
+    // For Selecting one user
+    const [userId, setUserId] = useState<any>(null);
 
     // Error messages
-    const [roleIdErrorMessage, setRoleIdErrorMessage] = useState("");
-    const [appIdErrorMessage, setAppIdErrorMessage] = useState("");
-    const [formIdErrorMessage, setFormIdErrorMessage] = useState("");
+    const [userIdErrorMessage, setUserIdErrorMessage] = useState("");
 
     // For field validation
-    const [roleIdError, setRoleIdError] = useState(false);
-    const [appIdError, setAppIdError] = useState(false);
-    const [formIdError, setFormIdError] = useState(false);
-
-    // Create Permission radio buttons
-    const [createPermission, setCreatePermission] = useState("Yes");
-
-    // Read Permission radio buttons
-    const [readPermission, setReadPermission] = useState("Yes");
-
-    // Update Permission radio buttons
-    const [updatePermission, setUpdatePermission] = useState("Yes");
-
-    // Delete Permission radio buttons
-    const [deletePermission, setDeletePermission] = useState("Yes");
+    const [userIdError, setUserIdError] = useState(false);
 
     // Status radio buttons
     const [status, setStatus] = useState("Active");
 
-    // FOR APP ID AUTO COMPLETE
+    const [description, setDescription] = useState("");
 
-    // For AppId autocomplete component
-    const [appIdList, setAppIdList] = useState<any>([]);
-    const [formIdList, setFormIdList] = useState<any>([]);
-    const [roleIdList, setRoleIdList] = useState<any>([]);
+    const [descriptionError, setDescriptionError] = useState(false);
 
+    const [descriptionErrorMessage, setDescriptionErrorMessage] = useState("");
+
+
+    // For fetching data from API
+    const [groupsList, setGroupsList] = useState<any>([]);
+    const [userList, setUserList] = useState<any>([]);
+    // For fetching data from API
+
+    // For checking loading state of API
     const [loadData, setLoadData] = useState(true);
+
+    // FOR REACT MULTI SELECT
+
+    // @1) groupName
+    const [groupName, setGroupName] = useState<any>([]);
+
+    const [groupNameError, setGroupNameError] = useState(false);
+    const [groupNameErrorMessage, setGroupNameErrorMessage] = useState("");
+
+    const handleChangeGroups = (event: SelectChangeEvent<typeof groupName>) => {
+        const {
+            target: { value },
+        } = event;
+        if (groupNameError === true) {
+            setGroupNameError(false);
+            setGroupNameErrorMessage("");
+        }
+        setGroupName(
+            // On autofill we get a stringified value.
+            typeof value === 'string' ? value.split(',') : value,
+        );
+    };
+    // FOR REACT MULTI SELECT
 
     useEffect(() => {
         let accessToken: any = Cookies.get("accessToken");
@@ -122,40 +158,27 @@ const AddUserGroup: React.FC<AddUserGroupProps> = ({
         console.log("Access Token in View Users ===> ", accessToken);
 
         if (accessToken !== null && loadData === true) {
-            // Fetching APP DETAILS
-            axios.get("https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/fetchAppDetails", {
+            // Fetching Users
+            axios.get("https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/fetchUsers", {
                 headers: {
                     "x-api-key": accessToken
                 }
             })
                 .then((res) => {
-                    setAppIdList(res.data.obj);
+                    setUserList(res.data.obj);
                 })
                 .catch((err) => {
                     console.log(err);
                 });
 
-            // Fetching FORM DETAILS
-            axios.get("https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/fetchAppForm", {
+            // Fetching Group
+            axios.get("https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/fetchGroups", {
                 headers: {
                     "x-api-key": accessToken
                 }
             })
                 .then((res) => {
-                    setFormIdList(res.data.obj);
-                })
-                .catch((err) => {
-                    console.log(err);
-                });
-
-            // Fetching ROLE DETAILS
-            axios.get("https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/fetchRoles", {
-                headers: {
-                    "x-api-key": accessToken
-                }
-            })
-                .then((res) => {
-                    setRoleIdList(res.data.obj);
+                    setGroupsList(res.data.obj);
                 })
                 .catch((err) => {
                     console.log(err);
@@ -166,62 +189,22 @@ const AddUserGroup: React.FC<AddUserGroupProps> = ({
         }
 
 
-    }, [appIdList, loadData]);
-
-    useEffect(() => {
-        if (roleId !== null && appId !== null && formId !== null) {
-            console.log("Current Role Id ===> ", roleId.roleId);
-            console.log("Current App Id ===> ", appId.appId);
-            console.log("Current Form Id ===> ", formId.formId);
-        }
-    }, [appId, appIdList, formId, roleId]);
-
+    }, [loadData]);
 
     // --------------------- AUTO COMPLETE DEFAULT PROPS ---------------------
 
-    // @1 FOR APP ID AUTO COMPLETE
-    const appIdDefaultProps = {
-        options: appIdList,
-        getOptionLabel: (option: any) => option.appName
+    // @1 FOR USER ID AUTO COMPLETE
+    const userIdDefaultProps = {
+        options: userList,
+        getOptionLabel: (option: any) => option.userName
     };
-    // FOR APP ID AUTO COMPLETE
-
-    // @2 FOR FORM ID AUTO COMPLETE
-    const formIdDefaultProps = {
-        options: formIdList,
-        getOptionLabel: (option: any) => option.formName
-    };
-
-    // @3 FOR ROLE ID AUTO COMPLETE
-    const roleIdDefaultProps = {
-        options: roleIdList,
-        getOptionLabel: (option: any) => option.roleName
-    };
+    // FOR USER ID AUTO COMPLETE
     // --------------------- AUTO COMPLETE DEFAULT PROPS ---------------------
 
     const handleChangeStatus = (event: React.ChangeEvent<HTMLInputElement>) => {
         setStatus((event.target as HTMLInputElement).value);
     };
     // Status radio buttons
-
-    // Handling Permissions
-    const handleChangeCreatePermission = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setCreatePermission((event.target as HTMLInputElement).value);
-    };
-
-    const handleChangeReadPermission = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setReadPermission((event.target as HTMLInputElement).value);
-    };
-
-    const handleChangeUpdatePermission = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setUpdatePermission((event.target as HTMLInputElement).value);
-    };
-
-    const handleChangeDeletePermission = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setDeletePermission((event.target as HTMLInputElement).value);
-    };
-    // Handling Permissions
-
 
     const submitForm = (e: any) => {
         e.preventDefault();
@@ -241,40 +224,36 @@ const AddUserGroup: React.FC<AddUserGroupProps> = ({
 
             if (accessToken !== null) {
                 // Set the validation errors
-                if (roleId === null) {
-                    setRoleIdErrorMessage("* Please select any RoleId from the list.");
-                    setRoleIdError(true);
+                if (userId === null) {
+                    setUserIdErrorMessage("* Please select any User from the list.");
+                    setUserIdError(true);
                 }
-                if (appId === null) {
-                    setAppIdErrorMessage("* Please select any AppId from the list.");
-                    setAppIdError(true);
+                if (description === "") {
+                    setDescriptionErrorMessage("* Please enter the Description.");
+                    setDescriptionError(true);
                 }
-                if (formId === null) {
-                    setFormIdErrorMessage("* Please select any FormId from the list.");
-                    setFormIdError(true);
+                if (groupName.length < 1) {
+                    setGroupNameErrorMessage("* Please select atleast one group.");
+                    setGroupNameError(true);
                 }
                 // Set the validation errors
 
                 if (
-                    roleId !== null &&
-                    appId !== null &&
-                    formId !== null
+                    userId !== null &&
+                    description !== "" &&
+                    groupName.length > 0
                 ) {
                     const formState = {
-                        "roleId": (roleId !== null) ? roleId.roleId : null,
-                        "appId": (appId !== null) ? appId.appId : null,
-                        "formId": (formId !== null) ? formId.formId : null,
-                        "loggedInUser": loggedInUser,
-                        "createPermission": (createPermission === "Yes") ? true : false,
-                        "readPermission": (readPermission === "Yes") ? true : false,
-                        "updatePermission": (updatePermission === "Yes") ? true : false,
-                        "deletePermission": (deletePermission === "Yes") ? true : false,
-                        "active": (status === "Active") ? true : false
+                        "groupIds": groupName,
+                        "userId": userId.userId,
+                        "description": description,
+                        "active": (status === "Active") ? true : false,
+                        "loggedInUser": loggedInUser
                     };
 
                     console.log("User Form Data ===> ", formState);
 
-                    axios.post('https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/savePrivilege',
+                    axios.post('https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/createUserGroup',
                         formState
                         , {
                             headers: {
@@ -285,14 +264,16 @@ const AddUserGroup: React.FC<AddUserGroupProps> = ({
                             console.log("Response ===> ", response);
                             if (response.status === 200) {
                                 setSnackBarHandler({
-                                    ...snackBarHandler,
-                                    message: `AppRole Privilege for App : ${appId.appName} , Form : ${formId.formName} and Role : ${roleId.roleName} has been created successfully.`,
+                                    severity: (response.data.code === "200.200") ? "success" : "error",
+                                    message: (response.data.code === "200.200") ? "User Group Created Successfully." : (response.data.message),
                                     open: true
                                 })
                                 const m = response.data.message;
-                                setTimeout(() => {
-                                    navigate("/account/role-app/view");
-                                }, 2000);
+                                if (response.data.code === "200.200") {
+                                    setTimeout(() => {
+                                        navigate("/account/role-app/view");
+                                    }, 2000);
+                                }
                                 console.log(m);
                             }
                         })
@@ -300,9 +281,24 @@ const AddUserGroup: React.FC<AddUserGroupProps> = ({
                             console.log(error);
                         });
                 } else {
-                    // alert("Please fill All fields");
                     // set the errors
-                    setAppIdError(true);
+                    // setUserIdError(true);
+                    // setDescriptionError(true);
+                    // setGroupNameError(true);
+                    // if (userId === null) {
+                    //     setUserIdErrorMessage("* Please select any User from the list.");
+                    //     setUserIdError(true);
+                    // }
+                    // if (description === "") {
+                    //     setDescriptionErrorMessage("* Please enter the Description.");
+                    //     setDescriptionError(true);
+                    // }
+                    // if (groupName.length < 1) {
+                    //     setGroupNameErrorMessage("* Please select atleast one group.");
+                    //     setGroupNameError(true);
+                    // }
+                    // set the errors
+
                     setSnackBarHandler({
                         message: `Please fill out all the fields.`,
                         open: true,
@@ -374,7 +370,7 @@ const AddUserGroup: React.FC<AddUserGroupProps> = ({
                             fontWeight: 500,
                             marginTop: (windowSize[0] < 600) ? (0) : (0.5),
                         }}>
-                            Add UserGroup
+                            Add User Group
                         </Typography>
                         <Typography variant="body1" sx={{
                             // color: "#4f747a" 
@@ -387,100 +383,62 @@ const AddUserGroup: React.FC<AddUserGroupProps> = ({
                     </Box>
                 </Box>
 
-                <Box sx={{ flexGrow: 1, mt: 2 }}>
+                <Box sx={{ flexGrow: 1, mt: 4 }}>
                     <Grid container spacing={
                         // Categorize according to small, medium, large screen
                         (windowSize[0] < 576) ? (0) : ((windowSize[0] < 768) ? (1) : ((windowSize[0] < 992) ? (2) : (3)))
                     }>
-                        {/* ROLE ID */}
-                        <Grid item xs={12}>
+
+                        {/* Select one USER ID */}
+                        <Grid
+                            item
+                            xs={12}
+                            sm={6}
+                            md={6}
+                            lg={6}
+                            xl={6}
+                        >
                             <Autocomplete
-                                {...roleIdDefaultProps}
-                                id="roleIdAutoComplete"
+                                {...userIdDefaultProps}
+                                id="userIdAutoComplete"
                                 autoHighlight
-                                value={roleId}
+                                value={userId}
                                 onChange={(event, newValue) => {
-                                    setRoleId(newValue);
-                                    if (roleIdError) {
-                                        setRoleIdError(false);
+                                    setUserId(newValue);
+                                    if (userIdError) {
+                                        setUserIdError(false);
                                     }
                                 }}
-                                // dir={(currentLang === "ar") ? "rtl" : "ltr"}
                                 renderInput={(params) => (
                                     <TextField
                                         {...params}
-                                        label={"Select Role"}
-                                        placeholder="Please select a Role from the list"
-                                        variant="standard"
-                                        helperText={(roleIdError) ? (roleIdErrorMessage) : ("")}
-                                        error={roleIdError}
-                                    // dir={(currentLang === "ar") ? "rtl" : "ltr"}
+                                        label={"Select User"}
+                                        placeholder="Please select a User from the list"
+                                        variant="outlined"
+                                        helperText={(userIdError) ? (userIdErrorMessage) : ("")}
+                                        error={userIdError}
                                     />
                                 )}
                             />
                         </Grid>
+                        {/* Select one USER ID */}
 
-                        {/* APP ID */}
-                        <Grid item xs={12}>
-                            <Autocomplete
-                                {...appIdDefaultProps}
-                                id="appIdAutoComplete"
-                                autoHighlight
-                                value={appId}
-                                onChange={(event, newValue) => {
-                                    setAppId(newValue);
-                                    if (appIdError) {
-                                        setAppIdError(false);
-                                    }
+                        {/* Select one or more groups from the list */}
+                        <Grid
+                            item
+                            xs={12}
+                            sm={6}
+                            md={6}
+                            lg={6}
+                            xl={6}
+                        >
+                            <FormControl
+                                sx={{
+                                    width: "100%",
                                 }}
-                                // dir={(currentLang === "ar") ? "rtl" : "ltr"}
-                                renderInput={(params) => (
-                                    <TextField
-                                        {...params}
-                                        label={"Select App"}
-                                        placeholder="Please select an App from the list"
-                                        variant="standard"
-                                        helperText={(appIdError) ? (appIdErrorMessage) : ("")}
-                                        error={appIdError}
-                                    // dir={(currentLang === "ar") ? "rtl" : "ltr"}
-                                    />
-                                )}
-                            />
-                        </Grid>
-
-                        {/* FORM ID */}
-                        <Grid item xs={12}>
-                            <Autocomplete
-                                {...formIdDefaultProps}
-                                id="formIdAutoComplete"
-                                autoHighlight
-                                value={formId}
-                                onChange={(event, newValue) => {
-                                    setFormId(newValue);
-                                    if (formIdError) {
-                                        setFormIdError(false);
-                                    }
-                                }}
-                                // dir={(currentLang === "ar") ? "rtl" : "ltr"}
-                                renderInput={(params) => (
-                                    <TextField
-                                        {...params}
-                                        label={"Select Form"}
-                                        placeholder="Please select a Form from the list"
-                                        variant="standard"
-                                        helperText={(formIdError) ? (formIdErrorMessage) : ("")}
-                                        error={formIdError}
-                                    // dir={(currentLang === "ar") ? "rtl" : "ltr"}
-                                    />
-                                )}
-                            />
-                        </Grid>
-
-                        {/* Create Permision Status */}
-                        <Grid item xs={12}>
-                            <FormControl>
-                                <FormLabel
-                                    id="createPermissionStatusLabel"
+                            >
+                                {/* <FormLabel
+                                    id="multipleGroupsSelect"
                                     sx={{
                                         fontSize: {
                                             xs: 20, // theme.breakpoints.up('xs')
@@ -492,173 +450,77 @@ const AddUserGroup: React.FC<AddUserGroupProps> = ({
                                         marginTop: 0
                                     }}
                                 >
-                                    Create Permission
-                                </FormLabel>
-                                <RadioGroup
-                                    row
-                                    aria-labelledby="createPermissionStatusLabel"
-                                    name="createPermissionStatusLabel"
-                                    // Add spacing between radio buttons
-                                    sx={{
-                                        '& .MuiFormControlLabel-root': {
-                                            marginRight: 10,
-                                        },
-                                        mt: 1
+                                    User Groups
+                                </FormLabel> */}
+                                <div>
+                                    <FormControl sx={{
+                                        // mt: 2,
+                                        // width: {
+                                        //     xs: 210, // theme.breakpoints.up('xs')
+                                        //     sm: 300, // theme.breakpoints.up('sm')
+                                        //     md: 340, // theme.breakpoints.up('md')
+                                        //     lg: 340, // theme.breakpoints.up('lg')
+                                        //     xl: 340, // theme.breakpoints.up('xl')
+                                        // }
+                                        width: "100%",
                                     }}
-                                    value={createPermission}
-                                    onChange={handleChangeCreatePermission}
-                                >
-                                    <FormControlLabel
-                                        value="Yes"
-                                        control={<Radio />}
-                                        label="Yes"
-                                    />
-                                    <FormControlLabel
-                                        value="No"
-                                        control={<Radio />}
-                                        label="No"
-                                    />
-                                </RadioGroup>
-                            </FormControl>
-                        </Grid>
+                                    >
+                                        <Select
+                                            id="multipleGroupsSelect"
+                                            displayEmpty
+                                            multiple
+                                            value={groupName}
+                                            onChange={handleChangeGroups}
+                                            input={<OutlinedInput />}
+                                            error={groupNameError}
+                                            renderValue={(selected) => {
+                                                if (selected.length === 0) {
+                                                    return <span
+                                                        style={{
+                                                            color: (groupNameError) ? ("red") : ("#818181")
+                                                        }}
+                                                    >Select groups</span>;
+                                                }
 
-                        {/* Read Permision Status */}
-                        <Grid item xs={12}>
-                            <FormControl>
-                                <FormLabel
-                                    id="readPermissionStatusLabel"
-                                    sx={{
-                                        fontSize: {
-                                            xs: 20, // theme.breakpoints.up('xs')
-                                            sm: 20, // theme.breakpoints.up('sm')
-                                            md: 22, // theme.breakpoints.up('md')
-                                            lg: 22, // theme.breakpoints.up('lg')
-                                            xl: 22, // theme.breakpoints.up('xl')
-                                        },
-                                        marginTop: 0
-                                    }}
-                                >
-                                    Read Permission
-                                </FormLabel>
-                                <RadioGroup
-                                    row
-                                    aria-labelledby="readPermissionStatusLabel"
-                                    name="readPermissionStatusLabel"
-                                    // Add spacing between radio buttons
-                                    sx={{
-                                        '& .MuiFormControlLabel-root': {
-                                            marginRight: 10,
-                                        },
-                                        mt: 1
-                                    }}
-                                    value={readPermission}
-                                    onChange={handleChangeReadPermission}
-                                >
-                                    <FormControlLabel
-                                        value="Yes"
-                                        control={<Radio />}
-                                        label="Yes"
-                                    />
-                                    <FormControlLabel
-                                        value="No"
-                                        control={<Radio />}
-                                        label="No"
-                                    />
-                                </RadioGroup>
+                                                return selected.join(', ');
+                                            }}
+                                            MenuProps={MenuProps}
+                                            inputProps={{ 'aria-label': 'Without label' }}
+                                        >
+                                            {
+                                                (groupsList !== null) ? (
+                                                    groupsList.map((groups: any, index: number) => (
+                                                        <MenuItem key={index} value={groups.grpId}>
+                                                            <Checkbox checked={groupName.indexOf(groups.grpId) > -1} />
+                                                            <ListItemText primary={groups.grpName} />
+                                                        </MenuItem>
+                                                    ))
+                                                ) : (
+                                                    <MenuItem key="No Groups" value="No Groups">
+                                                        No Groups
+                                                    </MenuItem>
+                                                )
+                                            }
+                                        </Select>
+                                        <FormHelperText
+                                            sx={{
+                                                color: "#f44336",
+                                                // fontSize: {
+                                                //     xs: 12, // theme.breakpoints.up('xs')
+                                                //     sm: 12, // theme.breakpoints.up('sm')
+                                                //     md: 14, // theme.breakpoints.up('md')
+                                                //     lg: 14, // theme.breakpoints.up('lg')
+                                                //     xl: 14, // theme.breakpoints.up('xl')
+                                                // },
+                                            }}
+                                        >
+                                            {(groupNameError) ? (groupNameErrorMessage) : ("")}
+                                        </FormHelperText>
+                                    </FormControl>
+                                </div>
                             </FormControl>
                         </Grid>
-
-                        {/* Update Permision Status */}
-                        <Grid item xs={12}>
-                            <FormControl>
-                                <FormLabel
-                                    id="updatePermissionStatusLabel"
-                                    sx={{
-                                        fontSize: {
-                                            xs: 20, // theme.breakpoints.up('xs')
-                                            sm: 20, // theme.breakpoints.up('sm')
-                                            md: 22, // theme.breakpoints.up('md')
-                                            lg: 22, // theme.breakpoints.up('lg')
-                                            xl: 22, // theme.breakpoints.up('xl')
-                                        },
-                                        marginTop: 0
-                                    }}
-                                >
-                                    Update Permission
-                                </FormLabel>
-                                <RadioGroup
-                                    row
-                                    aria-labelledby="updatePermissionStatusLabel"
-                                    name="updatePermissionStatusLabel"
-                                    // Add spacing between radio buttons
-                                    sx={{
-                                        '& .MuiFormControlLabel-root': {
-                                            marginRight: 10,
-                                        },
-                                        mt: 1
-                                    }}
-                                    value={updatePermission}
-                                    onChange={handleChangeUpdatePermission}
-                                >
-                                    <FormControlLabel
-                                        value="Yes"
-                                        control={<Radio />}
-                                        label="Yes"
-                                    />
-                                    <FormControlLabel
-                                        value="No"
-                                        control={<Radio />}
-                                        label="No"
-                                    />
-                                </RadioGroup>
-                            </FormControl>
-                        </Grid>
-
-                        {/* Delete Permision Status */}
-                        <Grid item xs={12}>
-                            <FormControl>
-                                <FormLabel
-                                    id="updatePermissionStatusLabel"
-                                    sx={{
-                                        fontSize: {
-                                            xs: 20, // theme.breakpoints.up('xs')
-                                            sm: 20, // theme.breakpoints.up('sm')
-                                            md: 22, // theme.breakpoints.up('md')
-                                            lg: 22, // theme.breakpoints.up('lg')
-                                            xl: 22, // theme.breakpoints.up('xl')
-                                        },
-                                        marginTop: 0
-                                    }}
-                                >
-                                    Delete Permission
-                                </FormLabel>
-                                <RadioGroup
-                                    row
-                                    aria-labelledby="deletePermissionStatusLabel"
-                                    name="deletePermissionStatusLabel"
-                                    // Add spacing between radio buttons
-                                    sx={{
-                                        '& .MuiFormControlLabel-root': {
-                                            marginRight: 10,
-                                        },
-                                        mt: 1
-                                    }}
-                                    value={deletePermission}
-                                    onChange={handleChangeDeletePermission}
-                                >
-                                    <FormControlLabel
-                                        value="Yes"
-                                        control={<Radio />}
-                                        label="Yes"
-                                    />
-                                    <FormControlLabel
-                                        value="No"
-                                        control={<Radio />}
-                                        label="No"
-                                    />
-                                </RadioGroup>
-                            </FormControl>
-                        </Grid>
+                        {/* Select one or more groups from the list */}
 
                         {/* Status */}
                         <Grid item xs={12}>
@@ -703,6 +565,53 @@ const AddUserGroup: React.FC<AddUserGroupProps> = ({
                                         label="Deactive"
                                     />
                                 </RadioGroup>
+                            </FormControl>
+                        </Grid>
+
+                        {/* Description */}
+                        <Grid item xs={12}>
+                            <FormControl
+                                sx={{
+                                    width: "100%",
+                                }}
+                            >
+                                <FormLabel
+                                    id="description"
+                                    sx={{
+                                        fontSize: {
+                                            xs: 20, // theme.breakpoints.up('xs')
+                                            sm: 20, // theme.breakpoints.up('sm')
+                                            md: 22, // theme.breakpoints.up('md')
+                                            lg: 22, // theme.breakpoints.up('lg')
+                                            xl: 22, // theme.breakpoints.up('xl')
+                                        },
+                                        marginTop: 0
+                                    }}
+                                >
+                                    Description
+                                </FormLabel>
+                                <TextField
+                                    id="description"
+                                    label="Description"
+                                    placeholder='Enter Description'
+                                    multiline
+                                    rows={4}
+                                    defaultValue=""
+                                    error={descriptionError}
+                                    helperText={(descriptionError) ? (descriptionErrorMessage) : ("")}
+                                    variant="outlined"
+                                    value={description}
+                                    onChange={(event) => {
+                                        setDescription(event.target.value);
+                                        if (descriptionError) {
+                                            setDescriptionError(false);
+                                        }
+                                    }}
+                                    sx={{
+                                        width: "100%",
+                                        mt: 2
+                                    }}
+                                />
                             </FormControl>
                         </Grid>
                     </Grid>

@@ -9,13 +9,13 @@ import { renderToString } from 'react-dom/server';
 import Cookies from 'js-cookie';
 
 // Importing Sidebar Icons
-import { AiFillDashboard } from "react-icons/ai";
+// import { AiFillDashboard } from "react-icons/ai";
 import { MdOutlineFactCheck } from "react-icons/md";
 import { RxDot } from "react-icons/rx";
 import { FiSettings } from "react-icons/fi";
 import { FaUserAlt } from "react-icons/fa";
 import {FaRegChartBar} from "react-icons/fa";
-import BarChartIcon from '@mui/icons-material/BarChart';
+// import BarChartIcon from '@mui/icons-material/BarChart';
 
 // Importing Logo
 import logo from '../../assets/Images/Login/login_logo.png';
@@ -26,7 +26,6 @@ import { useTranslation } from 'react-i18next';
 import axios from 'axios';
 
 import {
-    TextField,
     Checkbox,
     FormControlLabel
 } from '@mui/material';
@@ -62,8 +61,6 @@ const LoginContainer: FC<LoginContainerProps> = ({
 
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
-
-    const [showPassword, setShowPassword] = useState<boolean>(false);
 
     const [validationStatusEmail, setValidationStatusEmail] = useState<boolean>(false);
     const [validationStatusPassword, setValidationStatusPassword] = useState<boolean>(false);
@@ -161,6 +158,7 @@ const LoginContainer: FC<LoginContainerProps> = ({
                                 LastLogin: userDetails.lastLogin ? userDetails.lastLogin : "N/A",
                                 Email: userDetails.emailId,
                                 Department: userDetails.departmentId,
+                                superUser: userDetails.superUser,
                             };
 
                             // Setting the user details in the local storage

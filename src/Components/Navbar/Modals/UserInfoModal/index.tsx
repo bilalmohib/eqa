@@ -32,7 +32,6 @@ import { useTranslation } from "react-i18next";
 import profileImage from "../../../../assets/Images/Navbar/Modal/ProfileInfo/logo.png";
 
 import styles from "./style.module.css";
-import { cu } from "@fullcalendar/core/internal-common";
 
 interface UserInfoModalProps {
     openUserInfoModal: boolean,
@@ -52,39 +51,7 @@ const UserInfoModal: FC<UserInfoModalProps> = ({
     setCurrentLang
 }) => {
     const { t } = useTranslation();
-
-    const userData = {
-        name: "Md Shabbir Hossain",
-        email: "shabbirHussain@gmail.com",
-        phone: "+880 1711 111 111",
-        address: `
-            House # 1, Road # 1, Block # A,
-            Banani, Dhaka, Bangladesh
-            `,
-        college: "College of Computers and Information Technology",
-        department: "Computer Science",
-        campus: "Dhanmondi",
-        image: "https://i.pravatar.cc/150?img=32",
-        role: "Admin",
-        status: "Active",
-        lastLogin: "2021-08-01 12:00:00",
-        createdAt: "2021-08-01 12:00:00",
-        updatedAt: "2021-08-01 12:00:00",
-        job: "Software Engineer",
-        linked: {
-            link: "https://www.linkedin.com/in/md-shabbir-hossain-0b1b8b1b3/",
-            name: "Steve.Cohen"
-        },
-        twitter: {
-            link: "https://twitter.com/SteveCohen",
-            name: "stevecohen"
-        },
-        facebook: {
-            link: "https://www.skype.com/en/",
-            name: "steve"
-        }
-    };
-
+    
     const [windowDimensions, setWindowDimensions] = useState({
         width: window.innerWidth,
         height: window.innerHeight
@@ -101,9 +68,6 @@ const UserInfoModal: FC<UserInfoModalProps> = ({
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
     }, []);
-
-    const instructorTitle = t('Home.Header.Modals.ProfileModal.Instructor.title');
-    const instructorValue = t('Home.Header.Modals.ProfileModal.Instructor.value');
 
     // Data from Local Storage for logged in user
     const user = JSON.parse(localStorage.getItem('user') || '{}');

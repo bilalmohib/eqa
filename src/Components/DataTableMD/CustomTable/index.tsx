@@ -45,6 +45,7 @@ const StripedDataGrid = styled(DataGrid)(({ theme }) => ({
 //     searchText: string,
 // }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const columns: GridColDef[] = [
     { field: 'id', headerName: 'ID', width: 70 },
     { field: 'firstName', headerName: 'First name', width: 130 },
@@ -66,6 +67,7 @@ const columns: GridColDef[] = [
     },
 ];
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const rows = [
     { id: 1, lastName: 'Snow', firstName: 'Jon', age: 35 },
     { id: 2, lastName: 'Lannister', firstName: 'Cersei', age: 42 },
@@ -78,6 +80,7 @@ const rows = [
     { id: 9, lastName: 'Roxie', firstName: 'Harvey', age: 65 },
 ];
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const rows2 = [
     {
         "field": "id",

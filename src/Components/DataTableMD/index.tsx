@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import { useState, useEffect, FC } from "react";
+import { useState, FC } from "react";
 
 // Importing Icons
 import { BsPrinter } from "react-icons/bs";

@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 
 import { IoSpeedometerOutline } from "react-icons/io5";
-import { HiUserGroup } from "react-icons/hi2";
 import SaveIcon from '@mui/icons-material/Save';
 import DeleteIcon from '@mui/icons-material/Delete';
 
@@ -12,13 +11,9 @@ import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 
-import FormGroup from '@mui/material/FormGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
+// import FormGroup from '@mui/material/FormGroup';
+// import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
-
-import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
-
-import Ripples from 'react-ripples'
 
 // Importing i18 for language
 import i18n from "../../../../../i18n";
@@ -26,9 +21,6 @@ import i18n from "../../../../../i18n";
 import { useTranslation } from 'react-i18next';
 
 import styles from "./style.module.css";
-// import "./style.css";
-
-const percentage = 30;
 
 interface GroupsProps {
     setIsOpen: any,
@@ -129,18 +121,6 @@ const Groups: React.FC<GroupsProps> = ({
         window.innerHeight,
     ]);
 
-    const styleFirstRowCB = {
-        marginBottom: 24,
-        marginLeft: -36,
-        marginRight: -36,
-    };
-
-    const styleForResponsiveFirstRowCB = {
-        marginBottom: 0,
-        marginLeft: -36,
-        marginRight: -36,
-    }
-
     useEffect(() => {
         const handleWindowResize = () => {
             setWindowSize([window.innerWidth, window.innerHeight]);
@@ -160,6 +140,7 @@ const Groups: React.FC<GroupsProps> = ({
         // Update the settings in the dom as well as the settings array
         const newSettings = settingsState.map((setting) => {
             if (setting.id === parentId) {
+                // eslint-disable-next-line array-callback-return
                 setting.settingsItems.map((item) => {
                     if (item.id === childId) {
                         item.checked = checked;

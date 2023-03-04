@@ -14,13 +14,6 @@ import eng from "../../assets/Images/Navbar/united-kingdom.png";
 import saud from "../../assets/Images/Navbar/saudi-arabia.png";
 import styles from './style.module.css';
 
-const lngs = {
-    en: { nativeName: 'English' },
-    de: { nativeName: 'Deutsch' },
-    chi: { nativeName: 'Chinese' },
-    ar: { nativeName: 'Arabic' }
-};
-
 interface HeaderProps {
     setMobileViewContainer: any,
     setCurrentTab: any
