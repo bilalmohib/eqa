@@ -93,14 +93,14 @@ const AddGroupRole: React.FC<AddGroupRoleProps> = ({
 
     // For field validation
 
-    // For Selecting one user
-    const [userId, setUserId] = useState<any>(null);
+    // For Selecting one Role
+    const [roleId, setRoleId] = useState<any>(null);
 
     // Error messages
-    const [userIdErrorMessage, setUserIdErrorMessage] = useState("");
+    const [roleIdErrorMessage, setRoleIdErrorMessage] = useState("");
 
     // For field validation
-    const [userIdError, setUserIdError] = useState(false);
+    const [roleIdError, setRoleIdError] = useState(false);
 
     // Status radio buttons
     const [status, setStatus] = useState("Active");
@@ -114,7 +114,7 @@ const AddGroupRole: React.FC<AddGroupRoleProps> = ({
 
     // For fetching data from API
     const [groupsList, setGroupsList] = useState<any>([]);
-    const [userList, setUserList] = useState<any>([]);
+    const [roleList, setRoleList] = useState<any>([]);
     // For fetching data from API
 
     // For checking loading state of API
@@ -153,14 +153,14 @@ const AddGroupRole: React.FC<AddGroupRoleProps> = ({
         console.log("Access Token in View Users ===> ", accessToken);
 
         if (accessToken !== null && loadData === true) {
-            // Fetching Users
-            axios.get("https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/fetchUsers", {
+            // Fetching Roles
+            axios.get("https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/fetchRoles", {
                 headers: {
                     "x-api-key": accessToken
                 }
             })
                 .then((res) => {
-                    setUserList(res.data.obj);
+                    setRoleList(res.data.obj);
                 })
                 .catch((err) => {
                     console.log(err);
@@ -189,9 +189,9 @@ const AddGroupRole: React.FC<AddGroupRoleProps> = ({
     // --------------------- AUTO COMPLETE DEFAULT PROPS ---------------------
 
     // @1 FOR USER ID AUTO COMPLETE
-    const userIdDefaultProps = {
-        options: userList,
-        getOptionLabel: (option: any) => option.userName
+    const roleIdDefaultProps = {
+        options: roleList,
+        getOptionLabel: (option: any) => option.roleName
     };
     // FOR USER ID AUTO COMPLETE
     // --------------------- AUTO COMPLETE DEFAULT PROPS ---------------------
@@ -219,9 +219,9 @@ const AddGroupRole: React.FC<AddGroupRoleProps> = ({
 
             if (accessToken !== null) {
                 // Set the validation errors
-                if (userId === null) {
-                    setUserIdErrorMessage("* Please select any User from the list.");
-                    setUserIdError(true);
+                if (roleId === null) {
+                    setRoleIdErrorMessage("* Please select any User from the list.");
+                    setRoleIdError(true);
                 }
                 if (description === "") {
                     setDescriptionErrorMessage("* Please enter the Description.");
@@ -234,13 +234,13 @@ const AddGroupRole: React.FC<AddGroupRoleProps> = ({
                 // Set the validation errors
 
                 if (
-                    userId !== null &&
+                    roleId !== null &&
                     description !== "" &&
                     groupName.length > 0
                 ) {
                     const formState = {
                         "groupIds": groupName,
-                        "userId": userId.userId,
+                        "roleId": roleId.roleId,
                         "grpRoleDescription": description,
                         "active": (status === "Active") ? true : false,
                         "loggedInUser": loggedInUser
@@ -376,24 +376,24 @@ const AddGroupRole: React.FC<AddGroupRoleProps> = ({
                             xl={6}
                         >
                             <Autocomplete
-                                {...userIdDefaultProps}
-                                id="userIdAutoComplete"
+                                {...roleIdDefaultProps}
+                                id="roleIdAutoComplete"
                                 autoHighlight
-                                value={userId}
+                                value={roleId}
                                 onChange={(event, newValue) => {
-                                    setUserId(newValue);
-                                    if (userIdError) {
-                                        setUserIdError(false);
+                                    setRoleId(newValue);
+                                    if (roleIdError) {
+                                        setRoleIdError(false);
                                     }
                                 }}
                                 renderInput={(params) => (
                                     <TextField
                                         {...params}
-                                        label={"Select User"}
-                                        placeholder="Please select a User from the list"
+                                        label={"Select Role"}
+                                        placeholder="Please select a Role from the list"
                                         variant="outlined"
-                                        helperText={(userIdError) ? (userIdErrorMessage) : ("")}
-                                        error={userIdError}
+                                        helperText={(roleIdError) ? (roleIdErrorMessage) : ("")}
+                                        error={roleIdError}
                                     />
                                 )}
                             />
