@@ -36,7 +36,7 @@ import Select, { SelectChangeEvent } from '@mui/material/Select';
 
 import styles from "./style.module.css";
 
-interface AddUserGroupProps {
+interface AddGroupRoleProps {
     setIsOpen: any,
     isOpen: Boolean,
     // For minified sidebar
@@ -55,7 +55,7 @@ const MenuProps = {
     },
 };
 
-const AddUserGroup: React.FC<AddUserGroupProps> = ({
+const AddGroupRole: React.FC<AddGroupRoleProps> = ({
     setIsOpen,
     isOpen,
     // For minified sidebar
@@ -241,7 +241,7 @@ const AddUserGroup: React.FC<AddUserGroupProps> = ({
                     const formState = {
                         "groupIds": groupName,
                         "userId": userId.userId,
-                        "description": description,
+                        "grpRoleDescription": description,
                         "active": (status === "Active") ? true : false,
                         "loggedInUser": loggedInUser
                     };
@@ -276,29 +276,11 @@ const AddUserGroup: React.FC<AddUserGroupProps> = ({
                             console.log(error);
                         });
                 } else {
-                    // set the errors
-                    // setUserIdError(true);
-                    // setDescriptionError(true);
-                    // setGroupNameError(true);
-                    // if (userId === null) {
-                    //     setUserIdErrorMessage("* Please select any User from the list.");
-                    //     setUserIdError(true);
-                    // }
-                    // if (description === "") {
-                    //     setDescriptionErrorMessage("* Please enter the Description.");
-                    //     setDescriptionError(true);
-                    // }
-                    // if (groupName.length < 1) {
-                    //     setGroupNameErrorMessage("* Please select atleast one group.");
-                    //     setGroupNameError(true);
-                    // }
-                    // set the errors
-
                     setSnackBarHandler({
                         message: `Please fill out all the fields.`,
                         open: true,
                         severity: "error"
-                    })
+                    });
                 }
             } else {
                 alert("Please login first");
@@ -320,7 +302,7 @@ const AddUserGroup: React.FC<AddUserGroupProps> = ({
         >
             <div style={{ marginTop: 5 }} className={`${(windowSize[0] > 990) ? ("d-flex justify-content-between") : ("d-flex flex-column justify-content-start")}`}>
                 <div>
-                    EQA / Account / UserGroup / <span style={{ color: "#4f747a" }}> Add UserGroup </span>
+                    EQA / Account / GroupRole / <span style={{ color: "#4f747a" }}> Add GroupRole </span>
                 </div>
                 <div>
                     <span style={{ color: "#4f747a", paddingRight: 10 }}>{currentFormatedDate}</span>
@@ -365,7 +347,7 @@ const AddUserGroup: React.FC<AddUserGroupProps> = ({
                             fontWeight: 500,
                             marginTop: (windowSize[0] < 600) ? (0) : (0.5),
                         }}>
-                            Add User Group
+                            Add Group Role
                         </Typography>
                         <Typography variant="body1" sx={{
                             // color: "#4f747a" 
@@ -373,7 +355,7 @@ const AddUserGroup: React.FC<AddUserGroupProps> = ({
                             color: "#696969",
                             fontWeight: 300
                         }}>
-                            Add a new UserGroup to the system
+                            Add a new GroupRole to the system
                         </Typography>
                     </Box>
                 </Box>
@@ -660,4 +642,4 @@ const AddUserGroup: React.FC<AddUserGroupProps> = ({
         </Box>
     )
 }
-export default AddUserGroup;
+export default AddGroupRole;

@@ -1,4 +1,4 @@
-import { useState,useEffect, FC } from "react";
+import { useState, useEffect, FC } from "react";
 // This is a React Router v6 app
 import {
     BrowserRouter as Router,
@@ -48,6 +48,10 @@ import ViewRoleApp from '../Components/Pages/Home/UserManagement/RoleAppPrivileg
 import ViewUserGroup from '../Components/Pages/Home/UserManagement/UserGroup/ViewUserGroup';
 // 20) Create UserGroup Page
 import AddUserGroup from '../Components/Pages/Home/UserManagement/UserGroup/AddUserGroup';
+// 21) View GroupRole Page
+import ViewGroupRole from '../Components/Pages/Home/UserManagement/GroupRole/ViewGroupRole';
+// 22) Create UserGroupRole Page
+import AddGroupRole from '../Components/Pages/Home/UserManagement/GroupRole/AddGroupRole';
 // $$$$$$$$$$$$$$$$$$$$ Importing Components and Pages $$$$$$$$$$$$$$$$$$$$
 
 interface AppRouterProps {
@@ -688,6 +692,66 @@ const AppRouter: FC<AppRouterProps> = ({
                             />}
                         />
                     </Route>
+                    <Route path={"group-role"}>
+                        <Route
+                            path={"view"}
+                            element={<Home
+                                setShowHeader={setShowHeader}
+                                isOpen={isOpen}
+                                setIsOpen={setIsOpen}
+                                // For minified sidebar
+                                isMinified={isMinified}
+                                setIsMinified={setIsMinified}
+                                currentLang={currentLang}
+                                setCurrentLang={setCurrentLang}
+
+                                // Sidebar Apps List
+                                sidebarAppsListArray={sidebarAppsListArray}
+                                setSidebarAppsListArray={setSidebarAppsListArray}
+
+                                // @subComponent
+                                subComponent={
+                                    <ViewGroupRole
+                                        isOpen={isOpen}
+                                        setIsOpen={setIsOpen}
+                                        // For minified sidebar
+                                        isMinified={isMinified}
+                                        setIsMinified={setIsMinified}
+                                        currentLang={currentLang}
+                                        creatable={creatable}
+                                    />
+                                }
+                            />}
+                        />
+                        <Route
+                            path={"addGroupRole"}
+                            element={<Home
+                                setShowHeader={setShowHeader}
+                                isOpen={isOpen}
+                                setIsOpen={setIsOpen}
+                                // For minified sidebar
+                                isMinified={isMinified}
+                                setIsMinified={setIsMinified}
+                                currentLang={currentLang}
+                                setCurrentLang={setCurrentLang}
+
+                                // Sidebar Apps List
+                                sidebarAppsListArray={sidebarAppsListArray}
+                                setSidebarAppsListArray={setSidebarAppsListArray}
+
+                                // @subComponent
+                                subComponent={
+                                    <AddGroupRole
+                                        isOpen={isOpen}
+                                        setIsOpen={setIsOpen}
+                                        // For minified sidebar
+                                        isMinified={isMinified}
+                                        setIsMinified={setIsMinified}
+                                    />
+                                }
+                            />}
+                        />
+                    </Route>
                 </Route>
                 <Route path="settings">
                     <Route
@@ -734,7 +798,7 @@ const AppRouter: FC<AppRouterProps> = ({
                     }
                 />
             </Routes>
-        </Router>
+        </Router >
     )
 }
 export default AppRouter;

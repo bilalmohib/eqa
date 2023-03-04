@@ -664,6 +664,23 @@
                                     }
                                 }
                             },
+                            "groupRole": {
+                                "text": "GroupRole App",
+                                "link": "/usermanagement/groups/appForm",
+                                "details": {
+                                    "breadcrumb": {
+                                        "f1": "EQA",
+                                        "f2": "Account",
+                                        "f3": "GroupRole"
+                                    },
+                                    "title": "Group Role Magement",
+                                    "addUser": "Add GroupRole",
+                                    "table": {
+                                        "title": "<b style={{ fontWeight: 'bold' }}>GroupRole</b> <i>List</i>",
+                                        "subTitle": "Following is the list of GroupRole"
+                                    }
+                                }
+                            },
                             "roles": {
                                 "text": "Role",
                                 "link": "/usermanagement/roles/viewroles",

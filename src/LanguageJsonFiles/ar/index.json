@@ -650,6 +650,23 @@
                                     }
                                 }
                             },
+                            "groupRole": {
+                                "text": "تطبيق دور المجموعة",
+                                "link": "/usermanagement/groups/appForm",
+                                "details": {
+                                    "breadcrumb": {
+                                        "f1": "EQA",
+                                        "f2": "حساب",
+                                        "f3": "المجموعة"
+                                    },
+                                    "title": "إدارة دور المجموعة",
+                                    "addUser": "أضف دور المجموعة",
+                                    "table": {
+                                        "title": "<b style={{ fontWeight: 'bold' }}>المجموعة</b> <i>List</i>",
+                                        "subTitle": "فيما يلي قائمة دور المجموعة"
+                                    }
+                                }
+                            },
                             "roles": {
                                 "text": "دور",
                                 "link": "/usermanagement/roles/viewroles",
