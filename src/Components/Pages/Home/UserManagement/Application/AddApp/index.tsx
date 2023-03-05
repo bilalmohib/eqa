@@ -162,12 +162,17 @@ const AddApp: React.FC<AppProps> = ({
                             console.log("Response ===> ", response);
                             if (response.status === 200) {
                                 setSnackBarHandler({
-                                    ...snackBarHandler,
+                                    severity: (response.data.code === "200.200") ? "success" : "error",
                                     open: true,
-                                    message: `App ${appName} has been created successfully`
+                                    message: (response.data.code === "200.200") ? `App ${appName} has been created successfully` : response.data.message
                                 });
                                 const m = response.data.message;
                                 // navigate("/usermanagement/users/viewusers");
+                                if (response.data.code === "200.200") {
+                                    setTimeout(() => {
+                                        navigate("/account/role-app/view");
+                                    }, 2000);
+                                }
                                 console.log(m);
                             }
                         })

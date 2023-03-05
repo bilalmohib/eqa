@@ -243,6 +243,27 @@ const CustomTableCrud: FC<CustomTableProps> = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
 
     // Function to generate columns
+    // const generateColumns = useCallback((data: any) => {
+    //     if (!data || !data.length) return [];
+
+    //     const keyOrder = ColHeader.flat();
+
+    //     const keys = Object.keys(data[0]).sort((a, b) => {
+    //         const indexA = keyOrder.indexOf(a);
+    //         const indexB = keyOrder.indexOf(b);
+    //         return indexA - indexB;
+    //     });
+
+    //     const generate = keys.map((key) => ({
+    //         accessorKey: key.toString(),
+    //         header: key.toString(),
+    //         size: (key.toString() === 'appDetails' || key.toString() === 'formUrl') ? 280 : 120,
+    //         muiTableBodyCellEditTextFieldProps: ({ cell }: any) => ({
+    //             ...getCommonEditTextFieldProps(cell),
+    //         }),
+    //     }));
+    //     return generate;
+    // }, [ColHeader, getCommonEditTextFieldProps]);
     const generateColumns = useCallback((data: any) => {
         if (!data || !data.length) return [];
 
@@ -254,14 +275,22 @@ const CustomTableCrud: FC<CustomTableProps> = ({
             return indexA - indexB;
         });
 
-        const generate = keys.map((key) => ({
-            accessorKey: key.toString(),
-            header: key.toString(),
-            size: (key.toString() === 'appDetails' || key.toString() === 'formUrl') ? 280 : 120,
-            muiTableBodyCellEditTextFieldProps: ({ cell }: any) => ({
-                ...getCommonEditTextFieldProps(cell),
-            }),
-        }));
+        const generate = keys.map((key) => {
+            const header = key
+                .toString()
+                .replace(/([a-z])([A-Z])/g, '$1 $2') // add space between camelCase words
+                .replace(/([A-Z])([A-Z][a-z])/g, '$1 $2') // add space between consecutive capital letters
+                .replace(/^./, (str) => str.toUpperCase()); // capitalize first letter
+
+            return {
+                accessorKey: key.toString(),
+                header,
+                size: (key.toString() === 'appDetails' || key.toString() === 'formUrl') ? 280 : 120,
+                muiTableBodyCellEditTextFieldProps: ({ cell }: any) => ({
+                    ...getCommonEditTextFieldProps(cell),
+                }),
+            };
+        });
         return generate;
     }, [ColHeader, getCommonEditTextFieldProps]);
 

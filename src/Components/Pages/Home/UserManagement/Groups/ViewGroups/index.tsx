@@ -161,7 +161,7 @@ const ViewGroups: React.FC<GroupsProps> = ({
                             navigate("/account/groups/addgroup");
                         }}
                         startIcon={<AddIcon />}
-                        disabled={!creatable}
+                        disabled={(creatable === true) ? (false) : (true)}
                     >
                         {(t('Home.Sidebar.list.userManagement.subMenu.groups.details.addUser'))}
                     </Button>

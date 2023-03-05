@@ -149,7 +149,9 @@ const AddGroup: React.FC<UserProps> = ({
                                     message: `Group ${groupName} has been created successfully`,
                                 });
                                 const m = response.data.message;
-                                // navigate("/usermanagement/users/viewusers");
+                                // setTimeout(() => {
+                                //     navigate("/account/groups/view");
+                                // }, 3000);
                                 console.log(m);
                             }
                         })
