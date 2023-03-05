@@ -93,14 +93,14 @@ const AddGroupRole: React.FC<AddGroupRoleProps> = ({
 
     // For field validation
 
-    // For Selecting one Role
-    const [roleId, setRoleId] = useState<any>(null);
+    // For Selecting one Group
+    const [groupId, setGroupId] = useState<any>(null);
 
     // Error messages
-    const [roleIdErrorMessage, setRoleIdErrorMessage] = useState("");
+    const [groupIdErrorMessage, setGroupIdErrorMessage] = useState("");
 
     // For field validation
-    const [roleIdError, setRoleIdError] = useState(false);
+    const [groupIdError, setGroupIdError] = useState(false);
 
     // Status radio buttons
     const [status, setStatus] = useState("Active");
@@ -113,8 +113,8 @@ const AddGroupRole: React.FC<AddGroupRoleProps> = ({
 
 
     // For fetching data from API
-    const [groupsList, setGroupsList] = useState<any>([]);
-    const [roleList, setRoleList] = useState<any>([]);
+    const [rolesList, setRolesList] = useState<any>([]);
+    const [groupList, setGroupList] = useState<any>([]);
     // For fetching data from API
 
     // For checking loading state of API
@@ -122,21 +122,21 @@ const AddGroupRole: React.FC<AddGroupRoleProps> = ({
 
     // FOR REACT MULTI SELECT
 
-    // @1) groupName
-    const [groupName, setGroupName] = useState<any>([]);
+    // @1) roleName
+    const [roleName, setRoleName] = useState<any>([]);
 
-    const [groupNameError, setGroupNameError] = useState(false);
-    const [groupNameErrorMessage, setGroupNameErrorMessage] = useState("");
+    const [roleNameError, setRoleNameError] = useState(false);
+    const [roleNameErrorMessage, setRoleNameErrorMessage] = useState("");
 
-    const handleChangeGroups = (event: SelectChangeEvent<typeof groupName>) => {
+    const handleChangeRoles = (event: SelectChangeEvent<typeof roleName>) => {
         const {
             target: { value },
         } = event;
-        if (groupNameError === true) {
-            setGroupNameError(false);
-            setGroupNameErrorMessage("");
+        if (roleNameError === true) {
+            setRoleNameError(false);
+            setRoleNameErrorMessage("");
         }
-        setGroupName(
+        setRoleName(
             // On autofill we get a stringified value.
             typeof value === 'string' ? value.split(',') : value,
         );
@@ -153,27 +153,27 @@ const AddGroupRole: React.FC<AddGroupRoleProps> = ({
         console.log("Access Token in View Users ===> ", accessToken);
 
         if (accessToken !== null && loadData === true) {
-            // Fetching Roles
-            axios.get("https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/fetchRoles", {
-                headers: {
-                    "x-api-key": accessToken
-                }
-            })
-                .then((res) => {
-                    setRoleList(res.data.obj);
-                })
-                .catch((err) => {
-                    console.log(err);
-                });
-
-            // Fetching Group
+            // Fetching Roles 
             axios.get("https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/fetchGroups", {
                 headers: {
                     "x-api-key": accessToken
                 }
             })
                 .then((res) => {
-                    setGroupsList(res.data.obj);
+                    setGroupList(res.data.obj);
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+
+            // Fetching Group
+            axios.get("https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/fetchRoles", {
+                headers: {
+                    "x-api-key": accessToken
+                }
+            })
+                .then((res) => {
+                    setRolesList(res.data.obj);
                 })
                 .catch((err) => {
                     console.log(err);
@@ -188,12 +188,12 @@ const AddGroupRole: React.FC<AddGroupRoleProps> = ({
 
     // --------------------- AUTO COMPLETE DEFAULT PROPS ---------------------
 
-    // @1 FOR USER ID AUTO COMPLETE
-    const roleIdDefaultProps = {
-        options: roleList,
-        getOptionLabel: (option: any) => option.roleName
+    // @1 FOR GROUP ID AUTO COMPLETE
+    const groupIdDefaultProps = {
+        options: groupList,
+        getOptionLabel: (option: any) => option.grpName
     };
-    // FOR USER ID AUTO COMPLETE
+    // FOR GROUP ID AUTO COMPLETE
     // --------------------- AUTO COMPLETE DEFAULT PROPS ---------------------
 
     const handleChangeStatus = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -219,36 +219,36 @@ const AddGroupRole: React.FC<AddGroupRoleProps> = ({
 
             if (accessToken !== null) {
                 // Set the validation errors
-                if (roleId === null) {
-                    setRoleIdErrorMessage("* Please select any User from the list.");
-                    setRoleIdError(true);
+                if (groupId === null) {
+                    setGroupIdErrorMessage("* Please select any User from the list.");
+                    setGroupIdError(true);
                 }
                 if (description === "") {
                     setDescriptionErrorMessage("* Please enter the Description.");
                     setDescriptionError(true);
                 }
-                if (groupName.length < 1) {
-                    setGroupNameErrorMessage("* Please select atleast one group.");
-                    setGroupNameError(true);
+                if (roleName.length < 1) {
+                    setRoleNameErrorMessage("* Please select atleast one group.");
+                    setRoleNameError(true);
                 }
                 // Set the validation errors
 
                 if (
-                    roleId !== null &&
+                    groupId !== null &&
                     description !== "" &&
-                    groupName.length > 0
+                    roleName.length > 0
                 ) {
                     const formState = {
-                        "groupIds": groupName,
-                        "roleId": roleId.roleId,
+                        "roleId": roleName,
+                        "grpId": groupId.grpId,
                         "grpRoleDescription": description,
-                        "active": (status === "Active") ? true : false,
-                        "loggedInUser": loggedInUser
+                        "loggedInUser": loggedInUser,
+                        "active": (status === "Active") ? true : false
                     };
 
                     console.log("User Form Data ===> ", formState);
 
-                    axios.post('https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/createUserGroup',
+                    axios.post('https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/saveGroupRole',
                         formState
                         , {
                             headers: {
@@ -260,19 +260,24 @@ const AddGroupRole: React.FC<AddGroupRoleProps> = ({
                             if (response.status === 200) {
                                 setSnackBarHandler({
                                     severity: (response.data.code === "200.200") ? "success" : "error",
-                                    message: (response.data.code === "200.200") ? "User Group Created Successfully." : (response.data.message),
+                                    message: (response.data.code === "200.200") ? response.data.message : (response.data.message),
                                     open: true
                                 })
                                 const m = response.data.message;
                                 if (response.data.code === "200.200") {
                                     setTimeout(() => {
-                                        navigate("/account/role-app/view");
+                                        navigate("/account/group-role/view");
                                     }, 2000);
                                 }
                                 console.log(m);
                             }
                         })
                         .catch(function (error) {
+                            setSnackBarHandler({
+                                severity: "error",
+                                message: error.message,
+                                open: true
+                            })
                             console.log(error);
                         });
                 } else {
@@ -376,24 +381,24 @@ const AddGroupRole: React.FC<AddGroupRoleProps> = ({
                             xl={6}
                         >
                             <Autocomplete
-                                {...roleIdDefaultProps}
-                                id="roleIdAutoComplete"
+                                {...groupIdDefaultProps}
+                                id="groupIdAutoComplete"
                                 autoHighlight
-                                value={roleId}
+                                value={groupId}
                                 onChange={(event, newValue) => {
-                                    setRoleId(newValue);
-                                    if (roleIdError) {
-                                        setRoleIdError(false);
+                                    setGroupId(newValue);
+                                    if (groupIdError) {
+                                        setGroupIdError(false);
                                     }
                                 }}
                                 renderInput={(params) => (
                                     <TextField
                                         {...params}
-                                        label={"Select Role"}
-                                        placeholder="Please select a Role from the list"
+                                        label={"Select Group"}
+                                        placeholder="Please select a Group from the list"
                                         variant="outlined"
-                                        helperText={(roleIdError) ? (roleIdErrorMessage) : ("")}
-                                        error={roleIdError}
+                                        helperText={(groupIdError) ? (groupIdErrorMessage) : ("")}
+                                        error={groupIdError}
                                     />
                                 )}
                             />
@@ -446,17 +451,17 @@ const AddGroupRole: React.FC<AddGroupRoleProps> = ({
                                             id="multipleGroupsSelect"
                                             displayEmpty
                                             multiple
-                                            value={groupName}
-                                            onChange={handleChangeGroups}
+                                            value={roleName}
+                                            onChange={handleChangeRoles}
                                             input={<OutlinedInput />}
-                                            error={groupNameError}
+                                            error={roleNameError}
                                             renderValue={(selected) => {
                                                 if (selected.length === 0) {
                                                     return <span
                                                         style={{
-                                                            color: (groupNameError) ? ("red") : ("#818181")
+                                                            color: (roleNameError) ? ("red") : ("#818181")
                                                         }}
-                                                    >Select groups</span>;
+                                                    >Select roles</span>;
                                                 }
 
                                                 return selected.join(', ');
@@ -465,16 +470,16 @@ const AddGroupRole: React.FC<AddGroupRoleProps> = ({
                                             inputProps={{ 'aria-label': 'Without label' }}
                                         >
                                             {
-                                                (groupsList !== null) ? (
-                                                    groupsList.map((groups: any, index: number) => (
-                                                        <MenuItem key={index} value={groups.grpId}>
-                                                            <Checkbox checked={groupName.indexOf(groups.grpId) > -1} />
-                                                            <ListItemText primary={groups.grpName} />
+                                                (rolesList !== null) ? (
+                                                    rolesList.map((roles: any, index: number) => (
+                                                        <MenuItem key={index} value={roles.roleId}>
+                                                            <Checkbox checked={roleName.indexOf(roles.roleId) > -1} />
+                                                            <ListItemText primary={roles.roleName} />
                                                         </MenuItem>
                                                     ))
                                                 ) : (
-                                                    <MenuItem key="No Groups" value="No Groups">
-                                                        No Groups
+                                                    <MenuItem key="No Roles" value="No Roles">
+                                                        No Roles
                                                     </MenuItem>
                                                 )
                                             }
@@ -491,7 +496,7 @@ const AddGroupRole: React.FC<AddGroupRoleProps> = ({
                                                 // },
                                             }}
                                         >
-                                            {(groupNameError) ? (groupNameErrorMessage) : ("")}
+                                            {(roleNameError) ? (roleNameErrorMessage) : ("")}
                                         </FormHelperText>
                                     </FormControl>
                                 </div>

@@ -30,7 +30,8 @@ import {
     Input,
     ListItemText,
     MenuItem,
-    OutlinedInput
+    OutlinedInput,
+    FormHelperText
 } from '@mui/material';
 
 import Select, { SelectChangeEvent } from '@mui/material/Select';
@@ -111,6 +112,9 @@ const AddUser: React.FC<UserProps> = ({
         const {
             target: { value },
         } = event;
+        if (groupNameError) {
+            setGroupNameError(false);
+        }
         setGroupName(
             // On autofill we get a stringified value.
             typeof value === 'string' ? value.split(',') : value,
@@ -215,7 +219,7 @@ const AddUser: React.FC<UserProps> = ({
         staffStatus: false,
         isSuperUser: false
     });
-    
+
     const handleChangeStaffAccessLevel = (event: React.ChangeEvent<HTMLInputElement>) => {
         setStaffAccessLevelState({
             ...staffAccessLevelState,
@@ -326,6 +330,7 @@ const AddUser: React.FC<UserProps> = ({
     const [collegeIdError, setCollegeIdError] = useState(false);
     const [campusIdError, setCampusIdError] = useState(false);
     const [departmentIdError, setDepartmentIdError] = useState(false);
+    const [groupNameError, setGroupNameError] = useState(false);
 
 
     const submitForm = (e: any) => {
@@ -370,6 +375,9 @@ const AddUser: React.FC<UserProps> = ({
                 if (emailId.split('@')[0] === "") {
                     setUserNameError(true);
                 }
+                if (groupName.length === 0) {
+                    setGroupNameError(true);
+                }
                 // Set the validation errors
 
                 if (
@@ -380,7 +388,8 @@ const AddUser: React.FC<UserProps> = ({
                     emailId.includes("@") &&
                     collegeId !== null &&
                     campusId !== null &&
-                    departmentId !== null
+                    departmentId !== null &&
+                    groupName.length !== 0
                 ) {
                     const formState = {
                         "firstName": firstName,
@@ -394,7 +403,8 @@ const AddUser: React.FC<UserProps> = ({
                         "loggedInUser": loggedInUser,
                         "active": (statusState === "Active") ? true : false,
                         "staff": staffStatus,
-                        "superUser": isSuperUser
+                        "superUser": isSuperUser,
+                        "groupIds": groupName
                     };
 
                     console.log("User Form Data ===> ", formState);
@@ -411,15 +421,16 @@ const AddUser: React.FC<UserProps> = ({
                             if (response.status === 200) {
                                 setSnackBarHandler({
                                     open: true,
-                                    message: `User ${emailId.split('@')[0]} has been created successfully`,
-                                    severity: "success"
+                                    message: (response.data.code === "200.200")?(`User ${emailId.split('@')[0]} has been created successfully`):(response.data.message),
+                                    severity: (response.data.code === "200.200")?("success"):("error")
                                 })
                                 const m = response.data.message;
-                                // navigate("/usermanagement/users/viewusers");
                                 console.log(m);
-                                setTimeout(() => {
-                                    navigate("/account/view");
-                                }, 2000);
+                                if (response.data.code === "200.200") {
+                                    setTimeout(() => {
+                                        navigate("/account/view");
+                                    }, 2000);
+                                }
                             }
                         })
                         .catch(function (error) {
@@ -435,6 +446,7 @@ const AddUser: React.FC<UserProps> = ({
                     setCollegeIdError(true);
                     setCampusIdError(true);
                     setDepartmentIdError(true);
+                    setGroupNameError(true);
                     setUserNameError(true);
                     setSnackBarHandler({
                         open: true,
@@ -672,6 +684,7 @@ const AddUser: React.FC<UserProps> = ({
                                             {...params}
                                             label={t('Home.Sidebar.list.userManagement.subMenu.Users.details.Add.Users.Inputs.College.label')}
                                             variant="standard"
+                                            placeholder='Select College ...'
                                             helperText={(collegeIdError) ? ("* Please select any College.") : ("")}
                                             error={collegeIdError}
                                             dir={(currentLang === "ar") ? "rtl" : "ltr"}
@@ -699,6 +712,7 @@ const AddUser: React.FC<UserProps> = ({
                                             {...params}
                                             label={t('Home.Sidebar.list.userManagement.subMenu.Users.details.Add.Users.Inputs.Campus.label')}
                                             variant="standard"
+                                            placeholder='Select Campus ...'
                                             helperText={(campusIdError) ? ("* Please select any College.") : ("")}
                                             error={campusIdError}
                                             dir={(currentLang === "ar") ? "rtl" : "ltr"}
@@ -711,8 +725,6 @@ const AddUser: React.FC<UserProps> = ({
                                     {...departmentDefaultProps}
                                     id="departmentAutoComplete"
                                     autoHighlight
-                                    // helperText={(departmentIdError) ? ("* Please select any Department.") : ("")}
-                                    // error={departmentIdError}
                                     value={departmentId}
                                     onChange={(event, newValue) => {
                                         setDepartmentId(newValue);
@@ -726,6 +738,7 @@ const AddUser: React.FC<UserProps> = ({
                                             {...params}
                                             label={t('Home.Sidebar.list.userManagement.subMenu.Users.details.Add.Users.Inputs.Department.label')}
                                             variant="standard"
+                                            placeholder='Select Department ...'
                                             helperText={(departmentIdError) ? ("* Please select any College.") : ("")}
                                             error={departmentIdError}
                                             dir={(currentLang === "ar") ? "rtl" : "ltr"}
@@ -1014,6 +1027,7 @@ const AddUser: React.FC<UserProps> = ({
                                                 value={groupName}
                                                 onChange={handleChangeGroups}
                                                 input={<OutlinedInput />}
+                                                error={groupNameError}
                                                 renderValue={(selected) => {
                                                     if (selected.length === 0) {
                                                         return <span>Select groups from the list below</span>;
@@ -1039,6 +1053,7 @@ const AddUser: React.FC<UserProps> = ({
                                                     )
                                                 }
                                             </Select>
+                                            <FormHelperText sx={{ color: "red" }}>{(groupNameError) ? ("* Please select any group from the list") : ("")}</FormHelperText>
                                         </FormControl>
                                     </div>
                                 </FormControl>
