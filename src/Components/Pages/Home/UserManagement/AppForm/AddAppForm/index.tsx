@@ -6,6 +6,7 @@ import AppsIcon from '@mui/icons-material/Apps';
 import SendIcon from '@mui/icons-material/Send';
 
 import { useNavigate } from 'react-router';
+import { useTranslation } from "react-i18next";
 
 import axios from 'axios';
 
@@ -35,6 +36,7 @@ interface AddAppFormProps {
     // For minified sidebar
     isMinified: Boolean,
     setIsMinified: any,
+    currentLang: string
 }
 
 const AddAppForm: React.FC<AddAppFormProps> = ({
@@ -42,8 +44,10 @@ const AddAppForm: React.FC<AddAppFormProps> = ({
     isOpen,
     // For minified sidebar
     isMinified,
-    setIsMinified
+    setIsMinified,
+    currentLang
 }) => {
+    const { t } = useTranslation();
     const navigate = useNavigate();
 
     ///////////////////////////////// Snackbar State /////////////////////////////////
@@ -209,14 +213,16 @@ const AddAppForm: React.FC<AddAppFormProps> = ({
                             console.log("Response ===> ", response);
                             if (response.status === 200) {
                                 setSnackBarHandler({
-                                    ...snackBarHandler,
+                                    severity: (response.data.code === "200.200") ? "success" : "error",
                                     open: true,
-                                    message: `AppForm ${formName} has been created successfully`
+                                    message: (response.data.code === "200.200") ? `AppForm ${formName} has been created successfully` : response.data.message
                                 });
                                 const m = response.data.message;
-                                setTimeout(() => {
-                                    navigate("/account/appForm/view");
-                                }, 2000);
+                                if (response.data.code === "200.200") {
+                                    setTimeout(() => {
+                                        navigate("/account/appForm/view");
+                                    }, 3000);
+                                }
                                 console.log(m);
                             }
                         })
@@ -254,9 +260,17 @@ const AddAppForm: React.FC<AddAppFormProps> = ({
                     setIsOpen(false);
             }}
         >
-            <div style={{ marginTop: 5 }} className={`${(windowSize[0] > 990) ? ("d-flex justify-content-between") : ("d-flex flex-column justify-content-start")}`}>
+            <div style={{ marginTop: 5, flexDirection: (currentLang === "ar") ? ("row-reverse") : ("row") }} className={`${(windowSize[0] > 990) ? ("d-flex justify-content-between") : ("d-flex flex-column justify-content-start")}`}>
                 <div>
-                    EQA / Account / AppForm / <span style={{ color: "#4f747a" }}> Add AppForm </span>
+                    {(currentLang === "ar") ? (
+                        <>
+                            <span style={{ color: "#4f747a" }}> Add AppForm </span> / AppForm / Account / EQA
+                        </>
+                    ) : (
+                        <>
+                            EQA / Account / AppForm / <span style={{ color: "#4f747a" }}> Add AppForm </span>
+                        </>
+                    )}
                 </div>
                 <div>
                     <span style={{ color: "#4f747a", paddingRight: 10 }}>{currentFormatedDate}</span>
@@ -453,40 +467,69 @@ const AddAppForm: React.FC<AddAppFormProps> = ({
                 </Box>
             </Box>
 
-            <Button
-                variant="contained"
+            <Box
                 sx={{
-                    backgroundColor: "#e79f43",
-                    // textTransform: "none",
-                    fontWeight: "bold",
-                    height: 40,
-                    mt:
-                    // Give margins based on screen size
-                    {
-                        xs: 3, // theme.breakpoints.up('xs')
-                        sm: 2, // theme.breakpoints.up('sm')
-                        md: 2, // theme.breakpoints.up('md')
-                        lg: 3, // theme.breakpoints.up('lg')
-                        xl: 3, // theme.breakpoints.up('xl')
-                    },
                     display: "flex",
-                    justifyContent: "center",
-                    "&:hover": {
-                        backgroundColor: "#e79f43",
-                    }
+                    flexDirection: (currentLang === "ar") ? ('row-reverse') : ('row')
                 }}
-                // Give full width if screen size if less than 600px otherwise give auto width
-                fullWidth={(
-                    windowSize[0] < 600
-                ) ? true : false}
-                // onClick={() => {
-                //     navigate("/");
-                // }}
-                startIcon={<SendIcon style={{ display: "block" }} />}
-                onClick={submitForm}
+                dir={(currentLang === "ar") ? ('rtl') : ('ltr')}
             >
-                <Typography style={{ display: "block" }}>Submit</Typography>
-            </Button>
+                <Button
+                    dir={(currentLang === "ar") ? ('rtl') : ('ltr')}
+                    variant="contained"
+                    sx={{
+                        backgroundColor: "#e79f43",
+                        // textTransform: "none",
+                        fontWeight: "bold",
+                        height: 40,
+                        mt:
+                        // Give margins based on screen size
+                        {
+                            xs: 3, // theme.breakpoints.up('xs')
+                            sm: 2, // theme.breakpoints.up('sm')
+                            md: 2, // theme.breakpoints.up('md')
+                            lg: 3, // theme.breakpoints.up('lg')
+                            xl: 3, // theme.breakpoints.up('xl')
+                        },
+                        display: "flex",
+                        // justifyContent: (currentLang === "ar") ? ('flex-start') : ('center'),
+                        // alignItems:(currentLang === "ar") ? ('flex-end') : ('center'),
+                        "&:hover": {
+                            backgroundColor: "#e79f43",
+                        },
+                        // border:"1px solid red"
+                    }}
+                    // Give full width if screen size if less than 600px otherwise give auto width
+                    fullWidth={(
+                        windowSize[0] < 600
+                    ) ? true : false}
+                    // onClick={() => {
+                    //     navigate("/");
+                    // }}
+                    startIcon={
+                        (currentLang === "ar") ? (
+                            null
+                        ) : (
+                            <SendIcon />
+                        )
+                    }
+                    endIcon={
+                        (currentLang === "ar") ? (
+                            <SendIcon />
+                        ) : (
+                            null
+                        )
+                    }
+                    onClick={submitForm}
+                >
+                    <Typography
+                        style={{ display: "block" }}
+                        dir={(currentLang === "ar") ? ('rtl') : ('ltr')}
+                    >
+                        {t('Home.Sidebar.list.userManagement.subMenu.Users.details.submit')}
+                    </Typography>
+                </Button>
+            </Box>
 
             <SnackBar
                 isOpen={snackBarHandler.open}

@@ -6,6 +6,7 @@ import AppsIcon from '@mui/icons-material/Apps';
 import SendIcon from '@mui/icons-material/Send';
 
 import { useNavigate } from 'react-router';
+import { useTranslation } from "react-i18next";
 
 import axios from 'axios';
 
@@ -38,6 +39,7 @@ interface AddRoleAppProps {
     // For minified sidebar
     isMinified: Boolean,
     setIsMinified: any,
+    currentLang: string
 }
 
 const AddRoleApp: React.FC<AddRoleAppProps> = ({
@@ -45,8 +47,10 @@ const AddRoleApp: React.FC<AddRoleAppProps> = ({
     isOpen,
     // For minified sidebar
     isMinified,
-    setIsMinified
+    setIsMinified,
+    currentLang
 }) => {
+    const { t } = useTranslation();
     const navigate = useNavigate();
 
     ///////////////////////////////// Snackbar State /////////////////////////////////
@@ -207,24 +211,6 @@ const AddRoleApp: React.FC<AddRoleAppProps> = ({
     };
     // Status radio buttons
 
-    // Handling Permissions
-    // const handleChangeCreatePermission = (event: React.ChangeEvent<HTMLInputElement>) => {
-    //     setCreatePermission((event.target as HTMLInputElement).value);
-    // };
-
-    // const handleChangeReadPermission = (event: React.ChangeEvent<HTMLInputElement>) => {
-    //     setReadPermission((event.target as HTMLInputElement).value);
-    // };
-
-    // const handleChangeUpdatePermission = (event: React.ChangeEvent<HTMLInputElement>) => {
-    //     setUpdatePermission((event.target as HTMLInputElement).value);
-    // };
-
-    // const handleChangeDeletePermission = (event: React.ChangeEvent<HTMLInputElement>) => {
-    //     setDeletePermission((event.target as HTMLInputElement).value);
-    // };
-    // Handling Permissions
-
     // Handling Permission Status
     const [permissionState, setPermissionState] = React.useState({
         create: true,
@@ -307,13 +293,15 @@ const AddRoleApp: React.FC<AddRoleAppProps> = ({
                                 // setOpen(true);
                                 setSnackBarHandler({
                                     open: true,
-                                    message: `AppRole Privilege for App : ${appId.appName} , Form : ${formId.formName} and Role : ${roleId.roleName} has been created successfully.`,
-                                    severity: "success"
-                                })
+                                    message: (response.data.code === "200.200") ? `AppRole Privilege for App : ${appId.appName} , Form : ${formId.formName} and Role : ${roleId.roleName} has been created successfully.` : (response.data.message),
+                                    severity: (response.data.code === "200.200") ? "success" : "error"
+                                });
                                 const m = response.data.message;
-                                setTimeout(() => {
-                                    navigate("/account/role-app/view");
-                                }, 2000);
+                                if (response.data.code === "200.200") {
+                                    setTimeout(() => {
+                                        navigate("/account/role-app/view");
+                                    }, 2000);
+                                }
                                 console.log(m);
                             }
                         })
@@ -348,9 +336,23 @@ const AddRoleApp: React.FC<AddRoleAppProps> = ({
                     setIsOpen(false);
             }}
         >
-            <div style={{ marginTop: 5 }} className={`${(windowSize[0] > 990) ? ("d-flex justify-content-between") : ("d-flex flex-column justify-content-start")}`}>
+            <div
+                className={`${(windowSize[0] > 990) ? ("d-flex justify-content-between") : ("d-flex flex-column justify-content-start")}`}
+                style={{
+                    marginTop: 5,
+                    flexDirection: (currentLang === "ar") ? ("row-reverse") : ("row")
+                }}
+            >
                 <div>
-                    EQA / Account / RoleApp / <span style={{ color: "#4f747a" }}> Add RoleApp </span>
+                    {(currentLang === "ar") ? (
+                        <>
+                            <span style={{ color: "#4f747a" }}> Add RoleApp </span> / RoleApp / Account / EQA
+                        </>
+                    ) : (
+                        <>
+                            EQA / Account / RoleApp / <span style={{ color: "#4f747a" }}> Add RoleApp </span>
+                        </>
+                    )}
                 </div>
                 <div>
                     <span style={{ color: "#4f747a", paddingRight: 10 }}>{currentFormatedDate}</span>
@@ -371,6 +373,8 @@ const AddRoleApp: React.FC<AddRoleAppProps> = ({
                     // border: "1px solid red",
                     display: "flex",
                     marginBottom: 2,
+                    alignItems: (currentLang === "ar") ? ("flex-end") : ("flex-start"),
+                    flexDirection: (currentLang === "ar") ? ("row-reverse") : ("row")
                 }}>
                     <Box sx={{
                         boxShadow: "rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;",
@@ -394,6 +398,8 @@ const AddRoleApp: React.FC<AddRoleAppProps> = ({
                             color: "#3c6766",
                             fontWeight: 500,
                             marginTop: (windowSize[0] < 600) ? (0) : (0.5),
+                            display: "flex",
+                            flexDirection: (currentLang === "ar") ? ("row-reverse") : ("row")
                         }}>
                             Add RoleApp Privilege
                         </Typography>
@@ -419,6 +425,7 @@ const AddRoleApp: React.FC<AddRoleAppProps> = ({
                                 {...roleIdDefaultProps}
                                 id="roleIdAutoComplete"
                                 autoHighlight
+                                dir={(currentLang === "ar") ? "rtl" : "ltr"}
                                 value={roleId}
                                 onChange={(event, newValue) => {
                                     setRoleId(newValue);
@@ -433,6 +440,7 @@ const AddRoleApp: React.FC<AddRoleAppProps> = ({
                                         label={"Select Role"}
                                         placeholder="Please select a Role from the list"
                                         variant="standard"
+                                        dir={(currentLang === "ar") ? "rtl" : "ltr"}
                                         helperText={(roleIdError) ? (roleIdErrorMessage) : ("")}
                                         error={roleIdError}
                                     // dir={(currentLang === "ar") ? "rtl" : "ltr"}
@@ -447,6 +455,7 @@ const AddRoleApp: React.FC<AddRoleAppProps> = ({
                                 {...appIdDefaultProps}
                                 id="appIdAutoComplete"
                                 autoHighlight
+                                dir={(currentLang === "ar") ? "rtl" : "ltr"}
                                 value={appId}
                                 onChange={(event, newValue) => {
                                     setAppId(newValue);
@@ -461,6 +470,7 @@ const AddRoleApp: React.FC<AddRoleAppProps> = ({
                                         label={"Select App"}
                                         placeholder="Please select an App from the list"
                                         variant="standard"
+                                        dir={(currentLang === "ar") ? "rtl" : "ltr"}
                                         helperText={(appIdError) ? (appIdErrorMessage) : ("")}
                                         error={appIdError}
                                     // dir={(currentLang === "ar") ? "rtl" : "ltr"}
@@ -476,6 +486,7 @@ const AddRoleApp: React.FC<AddRoleAppProps> = ({
                                 id="formIdAutoComplete"
                                 autoHighlight
                                 value={formId}
+                                dir={(currentLang === "ar") ? "rtl" : "ltr"}
                                 onChange={(event, newValue) => {
                                     setFormId(newValue);
                                     if (formIdError) {
@@ -489,6 +500,7 @@ const AddRoleApp: React.FC<AddRoleAppProps> = ({
                                         label={"Select Form"}
                                         placeholder="Please select a Form from the list"
                                         variant="standard"
+                                        dir={(currentLang === "ar") ? "rtl" : "ltr"}
                                         helperText={(formIdError) ? (formIdErrorMessage) : ("")}
                                         error={formIdError}
                                     // dir={(currentLang === "ar") ? "rtl" : "ltr"}
@@ -499,7 +511,14 @@ const AddRoleApp: React.FC<AddRoleAppProps> = ({
 
                         {/* Permisson Status List : Create, Read, Update, Delete */}
                         <Grid item xs={12}>
-                            <FormControl component="fieldset" variant="standard">
+                            <FormControl
+                                component="fieldset"
+                                variant="standard"
+                                dir={(currentLang === "ar") ? "rtl" : "ltr"}
+                                sx={{
+                                    width: "100%"
+                                }}
+                            >
                                 <FormLabel
                                     component="legend"
                                     sx={{
@@ -511,10 +530,14 @@ const AddRoleApp: React.FC<AddRoleAppProps> = ({
                                             xl: 22, // theme.breakpoints.up('xl')
                                         },
                                         marginTop: 2
-                                    }}>
+                                    }}
+                                    dir={(currentLang === "ar") ? "rtl" : "ltr"}
+                                >
                                     Permission Status
                                 </FormLabel>
-                                <FormGroup>
+                                <FormGroup
+                                    dir={(currentLang === "ar") ? "rtl" : "ltr"}
+                                >
                                     <FormControlLabel
                                         control={
                                             <Switch
@@ -530,9 +553,11 @@ const AddRoleApp: React.FC<AddRoleAppProps> = ({
                                                         backgroundColor: '#4f747a'
                                                     }
                                                 }}
+                                                dir={(currentLang === "ar") ? "rtl" : "ltr"}
                                             />
                                         }
                                         label="Create"
+                                        dir={(currentLang === "ar") ? "rtl" : "ltr"}
                                     />
                                     <FormControlLabel
                                         control={
@@ -549,9 +574,11 @@ const AddRoleApp: React.FC<AddRoleAppProps> = ({
                                                         backgroundColor: '#4f747a'
                                                     }
                                                 }}
+                                                dir={(currentLang === "ar") ? "rtl" : "ltr"}
                                             />
                                         }
                                         label="Read"
+                                        dir={(currentLang === "ar") ? "rtl" : "ltr"}
                                     />
                                     <FormControlLabel
                                         control={
@@ -568,9 +595,11 @@ const AddRoleApp: React.FC<AddRoleAppProps> = ({
                                                         backgroundColor: '#4f747a'
                                                     }
                                                 }}
+                                                dir={(currentLang === "ar") ? "rtl" : "ltr"}
                                             />
                                         }
                                         label="Update"
+                                        dir={(currentLang === "ar") ? "rtl" : "ltr"}
                                     />
                                     <FormControlLabel
                                         control={
@@ -587,9 +616,11 @@ const AddRoleApp: React.FC<AddRoleAppProps> = ({
                                                         backgroundColor: '#4f747a'
                                                     }
                                                 }}
+                                                dir={(currentLang === "ar") ? "rtl" : "ltr"}
                                             />
                                         }
                                         label="Delete"
+                                        dir={(currentLang === "ar") ? "rtl" : "ltr"}
                                     />
                                 </FormGroup>
                             </FormControl>
@@ -598,8 +629,13 @@ const AddRoleApp: React.FC<AddRoleAppProps> = ({
 
                         {/* Status */}
                         <Grid item xs={12}>
-                            <FormControl>
+                            <FormControl
+                                sx={{
+                                    width: "100%"
+                                }}
+                            >
                                 <FormLabel
+                                    dir={(currentLang === "ar") ? "rtl" : "ltr"}
                                     id="statusAppButtonsLabel"
                                     sx={{
                                         fontSize: {
@@ -627,16 +663,23 @@ const AddRoleApp: React.FC<AddRoleAppProps> = ({
                                     }}
                                     value={status}
                                     onChange={handleChangeStatus}
+                                    dir={(currentLang === "ar") ? "rtl" : "ltr"}
                                 >
                                     <FormControlLabel
                                         value="Active"
-                                        control={<Radio />}
+                                        control={<Radio
+                                            dir={(currentLang === "ar") ? "rtl" : "ltr"}
+                                        />}
                                         label="Active"
+                                        dir={(currentLang === "ar") ? "rtl" : "ltr"}
                                     />
                                     <FormControlLabel
                                         value="DeActive"
-                                        control={<Radio />}
+                                        control={<Radio
+                                            dir={(currentLang === "ar") ? "rtl" : "ltr"}
+                                        />}
                                         label="Deactive"
+                                        dir={(currentLang === "ar") ? "rtl" : "ltr"}
                                     />
                                 </RadioGroup>
                             </FormControl>
@@ -645,37 +688,69 @@ const AddRoleApp: React.FC<AddRoleAppProps> = ({
                 </Box>
             </Box>
 
-            <Button
-                variant="contained"
+            <Box
                 sx={{
-                    backgroundColor: "#e79f43",
-                    // textTransform: "none",
-                    fontWeight: "bold",
-                    height: 40,
-                    mt:
-                    // Give margins based on screen size
-                    {
-                        xs: 3, // theme.breakpoints.up('xs')
-                        sm: 2, // theme.breakpoints.up('sm')
-                        md: 2, // theme.breakpoints.up('md')
-                        lg: 3, // theme.breakpoints.up('lg')
-                        xl: 3, // theme.breakpoints.up('xl')
-                    },
                     display: "flex",
-                    justifyContent: "center",
-                    "&:hover": {
-                        backgroundColor: "#e79f43",
-                    }
+                    flexDirection: (currentLang === "ar") ? ('row-reverse') : ('row')
                 }}
-                // Give full width if screen size if less than 600px otherwise give auto width
-                fullWidth={(
-                    windowSize[0] < 600
-                ) ? true : false}
-                startIcon={<SendIcon style={{ display: "block" }} />}
-                onClick={submitForm}
+                dir={(currentLang === "ar") ? ('rtl') : ('ltr')}
             >
-                <Typography style={{ display: "block" }}>Submit</Typography>
-            </Button>
+                <Button
+                    dir={(currentLang === "ar") ? ('rtl') : ('ltr')}
+                    variant="contained"
+                    sx={{
+                        backgroundColor: "#e79f43",
+                        // textTransform: "none",
+                        fontWeight: "bold",
+                        height: 40,
+                        mt:
+                        // Give margins based on screen size
+                        {
+                            xs: 3, // theme.breakpoints.up('xs')
+                            sm: 2, // theme.breakpoints.up('sm')
+                            md: 2, // theme.breakpoints.up('md')
+                            lg: 3, // theme.breakpoints.up('lg')
+                            xl: 3, // theme.breakpoints.up('xl')
+                        },
+                        display: "flex",
+                        // justifyContent: (currentLang === "ar") ? ('flex-start') : ('center'),
+                        // alignItems:(currentLang === "ar") ? ('flex-end') : ('center'),
+                        "&:hover": {
+                            backgroundColor: "#e79f43",
+                        },
+                        // border:"1px solid red"
+                    }}
+                    // Give full width if screen size if less than 600px otherwise give auto width
+                    fullWidth={(
+                        windowSize[0] < 600
+                    ) ? true : false}
+                    // onClick={() => {
+                    //     navigate("/");
+                    // }}
+                    startIcon={
+                        (currentLang === "ar") ? (
+                            null
+                        ) : (
+                            <SendIcon />
+                        )
+                    }
+                    endIcon={
+                        (currentLang === "ar") ? (
+                            <SendIcon />
+                        ) : (
+                            null
+                        )
+                    }
+                    onClick={submitForm}
+                >
+                    <Typography
+                        style={{ display: "block" }}
+                        dir={(currentLang === "ar") ? ('rtl') : ('ltr')}
+                    >
+                        {t('Home.Sidebar.list.userManagement.subMenu.Users.details.submit')}
+                    </Typography>
+                </Button>
+            </Box>
 
             <SnackBar
                 isOpen={snackBarHandler.open}

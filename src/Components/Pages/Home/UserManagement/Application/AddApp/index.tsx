@@ -6,6 +6,7 @@ import AppsIcon from '@mui/icons-material/Apps';
 import SendIcon from '@mui/icons-material/Send';
 
 import { useNavigate } from 'react-router';
+import { useTranslation } from "react-i18next";
 
 import axios from 'axios';
 
@@ -34,6 +35,7 @@ interface AppProps {
     // For minified sidebar
     isMinified: Boolean,
     setIsMinified: any,
+    currentLang: string
 }
 
 const AddApp: React.FC<AppProps> = ({
@@ -41,8 +43,10 @@ const AddApp: React.FC<AppProps> = ({
     isOpen,
     // For minified sidebar
     isMinified,
-    setIsMinified
+    setIsMinified,
+    currentLang
 }) => {
+    const { t } = useTranslation();
     const navigate = useNavigate();
 
     ///////////////////////////////// Snackbar State /////////////////////////////////
@@ -167,11 +171,10 @@ const AddApp: React.FC<AppProps> = ({
                                     message: (response.data.code === "200.200") ? `App ${appName} has been created successfully` : response.data.message
                                 });
                                 const m = response.data.message;
-                                // navigate("/usermanagement/users/viewusers");
                                 if (response.data.code === "200.200") {
                                     setTimeout(() => {
-                                        navigate("/account/role-app/view");
-                                    }, 2000);
+                                        navigate("/account/apps/view");
+                                    }, 3000);
                                 }
                                 console.log(m);
                             }
@@ -210,9 +213,17 @@ const AddApp: React.FC<AppProps> = ({
                     setIsOpen(false);
             }}
         >
-            <div style={{ marginTop: 5 }} className={`${(windowSize[0] > 990) ? ("d-flex justify-content-between") : ("d-flex flex-column justify-content-start")}`}>
+            <div style={{ marginTop: 5, flexDirection: (currentLang === "ar") ? ("row-reverse") : ("row") }} className={`${(windowSize[0] > 990) ? ("d-flex justify-content-between") : ("d-flex flex-column justify-content-start")}`}>
                 <div>
-                    EQA / Account / Apps / <span style={{ color: "#4f747a" }}> Add Apps </span>
+                    {(currentLang === "ar") ? (
+                        <>
+                            <span style={{ color: "#4f747a" }}> Add Apps </span> / Apps / Account / EQA
+                        </>
+                    ) : (
+                        <>
+                            EQA / Account / Apps / <span style={{ color: "#4f747a" }}> Add Apps </span>
+                        </>
+                    )}
                 </div>
                 <div>
                     <span style={{ color: "#4f747a", paddingRight: 10 }}>{currentFormatedDate}</span>
@@ -233,6 +244,8 @@ const AddApp: React.FC<AppProps> = ({
                     // border: "1px solid red",
                     display: "flex",
                     marginBottom: 2,
+                    alignItems: (currentLang === "ar") ? ("flex-end") : ("flex-start"),
+                    flexDirection: (currentLang === "ar") ? ("row-reverse") : ("row")
                 }}>
                     <Box sx={{
                         boxShadow: "rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;",
@@ -256,6 +269,8 @@ const AddApp: React.FC<AppProps> = ({
                             color: "#3c6766",
                             fontWeight: 500,
                             marginTop: (windowSize[0] < 600) ? (0) : (0.5),
+                            display: "flex",
+                            flexDirection: (currentLang === "ar") ? ("row-reverse") : ("row")
                         }}>
                             Add App
                         </Typography>
@@ -293,6 +308,7 @@ const AddApp: React.FC<AppProps> = ({
                                         setAppNameErrorMessage("");
                                     }
                                 }}
+                                dir={(currentLang === "ar") ? "rtl" : "ltr"}
                             />
                         </Grid>
                         <Grid item xs={12}>
@@ -313,6 +329,7 @@ const AddApp: React.FC<AppProps> = ({
                                         setAppDescriptionErrorMessage("");
                                     }
                                 }}
+                                dir={(currentLang === "ar") ? "rtl" : "ltr"}
                             />
                         </Grid>
                         <Grid item xs={12}>
@@ -333,6 +350,7 @@ const AddApp: React.FC<AppProps> = ({
                                         setAppUrlErrorMessage("");
                                     }
                                 }}
+                                dir={(currentLang === "ar") ? "rtl" : "ltr"}
                             />
                         </Grid>
                         <Grid item xs={12}>
@@ -357,11 +375,16 @@ const AddApp: React.FC<AppProps> = ({
                                     }
                                 }}
                                 type="number"
+                                dir={(currentLang === "ar") ? "rtl" : "ltr"}
                             />
                         </Grid>
                         <Grid item xs={12}>
                             {/* Define here two radio buttons active and inactive from material ui. Also import them for me */}
-                            <FormControl>
+                            <FormControl
+                                sx={{
+                                    width: "100%"
+                                }}
+                            >
                                 <FormLabel
                                     id="demo-row-radio-buttons-app-label"
                                     sx={{
@@ -374,6 +397,7 @@ const AddApp: React.FC<AppProps> = ({
                                         },
                                         marginTop: 0
                                     }}
+                                    dir={(currentLang === "ar") ? "rtl" : "ltr"}
                                 >
                                     Status
                                 </FormLabel>
@@ -390,16 +414,23 @@ const AddApp: React.FC<AppProps> = ({
                                     }}
                                     value={status}
                                     onChange={handleChangeStatus}
+                                    dir={(currentLang === "ar") ? "rtl" : "ltr"}
                                 >
                                     <FormControlLabel
                                         value="Active"
-                                        control={<Radio />}
+                                        control={<Radio
+                                            dir={(currentLang === "ar") ? "rtl" : "ltr"}
+                                        />}
                                         label="Active"
+                                        dir={(currentLang === "ar") ? "rtl" : "ltr"}
                                     />
                                     <FormControlLabel
                                         value="DeActive"
-                                        control={<Radio />}
+                                        control={<Radio
+                                            dir={(currentLang === "ar") ? "rtl" : "ltr"}
+                                        />}
                                         label="Deactive"
+                                        dir={(currentLang === "ar") ? "rtl" : "ltr"}
                                     />
                                 </RadioGroup>
                             </FormControl>
@@ -408,40 +439,69 @@ const AddApp: React.FC<AppProps> = ({
                 </Box>
             </Box>
 
-            <Button
-                variant="contained"
+            <Box
                 sx={{
-                    backgroundColor: "#e79f43",
-                    // textTransform: "none",
-                    fontWeight: "bold",
-                    height: 40,
-                    mt:
-                    // Give margins based on screen size
-                    {
-                        xs: 3, // theme.breakpoints.up('xs')
-                        sm: 2, // theme.breakpoints.up('sm')
-                        md: 2, // theme.breakpoints.up('md')
-                        lg: 3, // theme.breakpoints.up('lg')
-                        xl: 3, // theme.breakpoints.up('xl')
-                    },
                     display: "flex",
-                    justifyContent: "center",
-                    "&:hover": {
-                        backgroundColor: "#e79f43",
-                    }
+                    flexDirection: (currentLang === "ar") ? ('row-reverse') : ('row')
                 }}
-                // Give full width if screen size if less than 600px otherwise give auto width
-                fullWidth={(
-                    windowSize[0] < 600
-                ) ? true : false}
-                // onClick={() => {
-                //     navigate("/");
-                // }}
-                startIcon={<SendIcon style={{ display: "block" }} />}
-                onClick={submitForm}
+                dir={(currentLang === "ar") ? ('rtl') : ('ltr')}
             >
-                <Typography style={{ display: "block" }}>Submit</Typography>
-            </Button>
+                <Button
+                    dir={(currentLang === "ar") ? ('rtl') : ('ltr')}
+                    variant="contained"
+                    sx={{
+                        backgroundColor: "#e79f43",
+                        // textTransform: "none",
+                        fontWeight: "bold",
+                        height: 40,
+                        mt:
+                        // Give margins based on screen size
+                        {
+                            xs: 3, // theme.breakpoints.up('xs')
+                            sm: 2, // theme.breakpoints.up('sm')
+                            md: 2, // theme.breakpoints.up('md')
+                            lg: 3, // theme.breakpoints.up('lg')
+                            xl: 3, // theme.breakpoints.up('xl')
+                        },
+                        display: "flex",
+                        // justifyContent: (currentLang === "ar") ? ('flex-start') : ('center'),
+                        // alignItems:(currentLang === "ar") ? ('flex-end') : ('center'),
+                        "&:hover": {
+                            backgroundColor: "#e79f43",
+                        },
+                        // border:"1px solid red"
+                    }}
+                    // Give full width if screen size if less than 600px otherwise give auto width
+                    fullWidth={(
+                        windowSize[0] < 600
+                    ) ? true : false}
+                    // onClick={() => {
+                    //     navigate("/");
+                    // }}
+                    startIcon={
+                        (currentLang === "ar") ? (
+                            null
+                        ) : (
+                            <SendIcon />
+                        )
+                    }
+                    endIcon={
+                        (currentLang === "ar") ? (
+                            <SendIcon />
+                        ) : (
+                            null
+                        )
+                    }
+                    onClick={submitForm}
+                >
+                    <Typography
+                        style={{ display: "block" }}
+                        dir={(currentLang === "ar") ? ('rtl') : ('ltr')}
+                    >
+                        {t('Home.Sidebar.list.userManagement.subMenu.Users.details.submit')}
+                    </Typography>
+                </Button>
+            </Box>
 
             <SnackBar
                 isOpen={snackBarHandler.open}

@@ -6,6 +6,7 @@ import AppsIcon from '@mui/icons-material/Apps';
 import SendIcon from '@mui/icons-material/Send';
 
 import { useNavigate } from 'react-router';
+import { useTranslation } from "react-i18next";
 
 import axios from 'axios';
 
@@ -42,6 +43,7 @@ interface AddGroupRoleProps {
     // For minified sidebar
     isMinified: Boolean,
     setIsMinified: any,
+    currentLang: string
 }
 
 const ITEM_HEIGHT = 48;
@@ -60,8 +62,10 @@ const AddGroupRole: React.FC<AddGroupRoleProps> = ({
     isOpen,
     // For minified sidebar
     isMinified,
-    setIsMinified
+    setIsMinified,
+    currentLang
 }) => {
+    const { t } = useTranslation();
     const navigate = useNavigate();
 
     ///////////////////////////////// Snackbar State /////////////////////////////////
@@ -267,7 +271,7 @@ const AddGroupRole: React.FC<AddGroupRoleProps> = ({
                                 if (response.data.code === "200.200") {
                                     setTimeout(() => {
                                         navigate("/account/group-role/view");
-                                    }, 2000);
+                                    }, 3000);
                                 }
                                 console.log(m);
                             }
@@ -305,9 +309,17 @@ const AddGroupRole: React.FC<AddGroupRoleProps> = ({
                     setIsOpen(false);
             }}
         >
-            <div style={{ marginTop: 5 }} className={`${(windowSize[0] > 990) ? ("d-flex justify-content-between") : ("d-flex flex-column justify-content-start")}`}>
+            <div style={{ marginTop: 5, flexDirection: (currentLang === "ar") ? ("row-reverse") : ("row") }} className={`${(windowSize[0] > 990) ? ("d-flex justify-content-between") : ("d-flex flex-column justify-content-start")}`}>
                 <div>
-                    EQA / Account / GroupRole / <span style={{ color: "#4f747a" }}> Add GroupRole </span>
+                    {(currentLang === "ar") ? (
+                        <>
+                            <span style={{ color: "#4f747a" }}> Add GroupRole </span> / GroupRole / Account / EQA
+                        </>
+                    ) : (
+                        <>
+                            EQA / Account / GroupRole / <span style={{ color: "#4f747a" }}> Add GroupRole </span>
+                        </>
+                    )}
                 </div>
                 <div>
                     <span style={{ color: "#4f747a", paddingRight: 10 }}>{currentFormatedDate}</span>
@@ -328,6 +340,8 @@ const AddGroupRole: React.FC<AddGroupRoleProps> = ({
                     // border: "1px solid red",
                     display: "flex",
                     marginBottom: 2,
+                    alignItems: (currentLang === "ar") ? ("flex-end") : ("flex-start"),
+                    flexDirection: (currentLang === "ar") ? ("row-reverse") : ("row")
                 }}>
                     <Box sx={{
                         boxShadow: "rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;",
@@ -351,6 +365,8 @@ const AddGroupRole: React.FC<AddGroupRoleProps> = ({
                             color: "#3c6766",
                             fontWeight: 500,
                             marginTop: (windowSize[0] < 600) ? (0) : (0.5),
+                            display: "flex",
+                            flexDirection: (currentLang === "ar") ? ("row-reverse") : ("row")
                         }}>
                             Add Group Role
                         </Typography>
@@ -391,6 +407,7 @@ const AddGroupRole: React.FC<AddGroupRoleProps> = ({
                                         setGroupIdError(false);
                                     }
                                 }}
+                                dir={(currentLang === "ar") ? "rtl" : "ltr"}
                                 renderInput={(params) => (
                                     <TextField
                                         {...params}
@@ -399,6 +416,7 @@ const AddGroupRole: React.FC<AddGroupRoleProps> = ({
                                         variant="outlined"
                                         helperText={(groupIdError) ? (groupIdErrorMessage) : ("")}
                                         error={groupIdError}
+                                        dir={(currentLang === "ar") ? "rtl" : "ltr"}
                                     />
                                 )}
                             />
@@ -418,22 +436,8 @@ const AddGroupRole: React.FC<AddGroupRoleProps> = ({
                                 sx={{
                                     width: "100%",
                                 }}
+                                dir={(currentLang === "ar") ? "rtl" : "ltr"}
                             >
-                                {/* <FormLabel
-                                    id="multipleGroupsSelect"
-                                    sx={{
-                                        fontSize: {
-                                            xs: 20, // theme.breakpoints.up('xs')
-                                            sm: 20, // theme.breakpoints.up('sm')
-                                            md: 22, // theme.breakpoints.up('md')
-                                            lg: 22, // theme.breakpoints.up('lg')
-                                            xl: 22, // theme.breakpoints.up('xl')
-                                        },
-                                        marginTop: 0
-                                    }}
-                                >
-                                    User Groups
-                                </FormLabel> */}
                                 <div>
                                     <FormControl sx={{
                                         // mt: 2,
@@ -446,6 +450,7 @@ const AddGroupRole: React.FC<AddGroupRoleProps> = ({
                                         // }
                                         width: "100%",
                                     }}
+                                        dir={(currentLang === "ar") ? "rtl" : "ltr"}
                                     >
                                         <Select
                                             id="multipleGroupsSelect"
@@ -468,23 +473,34 @@ const AddGroupRole: React.FC<AddGroupRoleProps> = ({
                                             }}
                                             MenuProps={MenuProps}
                                             inputProps={{ 'aria-label': 'Without label' }}
+                                            dir={(currentLang === "ar") ? "rtl" : "ltr"}
                                         >
                                             {
                                                 (rolesList !== null) ? (
                                                     rolesList.map((roles: any, index: number) => (
-                                                        <MenuItem key={index} value={roles.roleId}>
-                                                            <Checkbox checked={roleName.indexOf(roles.roleId) > -1} />
-                                                            <ListItemText primary={roles.roleName} />
+                                                        <MenuItem
+                                                            key={index}
+                                                            value={roles.roleId}
+                                                            dir={(currentLang === "ar") ? "rtl" : "ltr"}
+                                                        >
+                                                            <Checkbox
+                                                                checked={roleName.indexOf(roles.roleId) > -1}
+                                                                dir={(currentLang === "ar") ? "rtl" : "ltr"}
+                                                            />
+                                                            <ListItemText primary={roles.roleName}
+                                                                dir={(currentLang === "ar") ? "rtl" : "ltr"}
+                                                            />
                                                         </MenuItem>
                                                     ))
                                                 ) : (
-                                                    <MenuItem key="No Roles" value="No Roles">
+                                                    <MenuItem key="No Roles" value="No Roles" dir={(currentLang === "ar") ? "rtl" : "ltr"}>
                                                         No Roles
                                                     </MenuItem>
                                                 )
                                             }
                                         </Select>
                                         <FormHelperText
+                                            dir={(currentLang === "ar") ? "rtl" : "ltr"}
                                             sx={{
                                                 color: "#f44336",
                                                 // fontSize: {
@@ -506,7 +522,12 @@ const AddGroupRole: React.FC<AddGroupRoleProps> = ({
 
                         {/* Status */}
                         <Grid item xs={12}>
-                            <FormControl>
+                            <FormControl
+                                dir={(currentLang === "ar") ? "rtl" : "ltr"}
+                                sx={{
+                                    width: "100%"
+                                }}
+                            >
                                 <FormLabel
                                     id="demo-row-radio-buttons-app-label"
                                     sx={{
@@ -519,6 +540,7 @@ const AddGroupRole: React.FC<AddGroupRoleProps> = ({
                                         },
                                         marginTop: 0
                                     }}
+                                    dir={(currentLang === "ar") ? "rtl" : "ltr"}
                                 >
                                     Status
                                 </FormLabel>
@@ -535,15 +557,20 @@ const AddGroupRole: React.FC<AddGroupRoleProps> = ({
                                     }}
                                     value={status}
                                     onChange={handleChangeStatus}
+                                    dir={(currentLang === "ar") ? "rtl" : "ltr"}
                                 >
                                     <FormControlLabel
                                         value="Active"
-                                        control={<Radio />}
+                                        control={<Radio
+                                            dir={(currentLang === "ar") ? "rtl" : "ltr"}
+                                        />}
                                         label="Active"
                                     />
                                     <FormControlLabel
                                         value="DeActive"
-                                        control={<Radio />}
+                                        control={<Radio
+                                            dir={(currentLang === "ar") ? "rtl" : "ltr"}
+                                        />}
                                         label="Deactive"
                                     />
                                 </RadioGroup>
@@ -556,6 +583,7 @@ const AddGroupRole: React.FC<AddGroupRoleProps> = ({
                                 sx={{
                                     width: "100%",
                                 }}
+                                dir={(currentLang === "ar") ? "rtl" : "ltr"}
                             >
                                 <FormLabel
                                     id="description"
@@ -569,6 +597,7 @@ const AddGroupRole: React.FC<AddGroupRoleProps> = ({
                                         },
                                         marginTop: 0
                                     }}
+                                    dir={(currentLang === "ar") ? "rtl" : "ltr"}
                                 >
                                     Description
                                 </FormLabel>
@@ -593,6 +622,7 @@ const AddGroupRole: React.FC<AddGroupRoleProps> = ({
                                         width: "100%",
                                         mt: 2
                                     }}
+                                    dir={(currentLang === "ar") ? "rtl" : "ltr"}
                                 />
                             </FormControl>
                         </Grid>
@@ -600,37 +630,69 @@ const AddGroupRole: React.FC<AddGroupRoleProps> = ({
                 </Box>
             </Box>
 
-            <Button
-                variant="contained"
+            <Box
                 sx={{
-                    backgroundColor: "#e79f43",
-                    // textTransform: "none",
-                    fontWeight: "bold",
-                    height: 40,
-                    mt:
-                    // Give margins based on screen size
-                    {
-                        xs: 3, // theme.breakpoints.up('xs')
-                        sm: 2, // theme.breakpoints.up('sm')
-                        md: 2, // theme.breakpoints.up('md')
-                        lg: 3, // theme.breakpoints.up('lg')
-                        xl: 3, // theme.breakpoints.up('xl')
-                    },
                     display: "flex",
-                    justifyContent: "center",
-                    "&:hover": {
-                        backgroundColor: "#e79f43",
-                    }
+                    flexDirection: (currentLang === "ar") ? ('row-reverse') : ('row')
                 }}
-                // Give full width if screen size if less than 600px otherwise give auto width
-                fullWidth={(
-                    windowSize[0] < 600
-                ) ? true : false}
-                startIcon={<SendIcon style={{ display: "block" }} />}
-                onClick={submitForm}
+                dir={(currentLang === "ar") ? ('rtl') : ('ltr')}
             >
-                <Typography style={{ display: "block" }}>Submit</Typography>
-            </Button>
+                <Button
+                    dir={(currentLang === "ar") ? ('rtl') : ('ltr')}
+                    variant="contained"
+                    sx={{
+                        backgroundColor: "#e79f43",
+                        // textTransform: "none",
+                        fontWeight: "bold",
+                        height: 40,
+                        mt:
+                        // Give margins based on screen size
+                        {
+                            xs: 3, // theme.breakpoints.up('xs')
+                            sm: 2, // theme.breakpoints.up('sm')
+                            md: 2, // theme.breakpoints.up('md')
+                            lg: 3, // theme.breakpoints.up('lg')
+                            xl: 3, // theme.breakpoints.up('xl')
+                        },
+                        display: "flex",
+                        // justifyContent: (currentLang === "ar") ? ('flex-start') : ('center'),
+                        // alignItems:(currentLang === "ar") ? ('flex-end') : ('center'),
+                        "&:hover": {
+                            backgroundColor: "#e79f43",
+                        },
+                        // border:"1px solid red"
+                    }}
+                    // Give full width if screen size if less than 600px otherwise give auto width
+                    fullWidth={(
+                        windowSize[0] < 600
+                    ) ? true : false}
+                    // onClick={() => {
+                    //     navigate("/");
+                    // }}
+                    startIcon={
+                        (currentLang === "ar") ? (
+                            null
+                        ) : (
+                            <SendIcon />
+                        )
+                    }
+                    endIcon={
+                        (currentLang === "ar") ? (
+                            <SendIcon />
+                        ) : (
+                            null
+                        )
+                    }
+                    onClick={submitForm}
+                >
+                    <Typography
+                        style={{ display: "block" }}
+                        dir={(currentLang === "ar") ? ('rtl') : ('ltr')}
+                    >
+                        {t('Home.Sidebar.list.userManagement.subMenu.Users.details.submit')}
+                    </Typography>
+                </Button>
+            </Box>
 
             <SnackBar
                 isOpen={snackBarHandler.open}

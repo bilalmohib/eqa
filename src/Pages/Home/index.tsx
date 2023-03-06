@@ -261,7 +261,7 @@ const Home = ({
                 }
             }
         }
-    }, []);
+    }, [FinalsidebarAppsListArray, location.pathname]);
 
     // useEffect(() => {
     //     if (sidebarAppsListArray.length > 0) {

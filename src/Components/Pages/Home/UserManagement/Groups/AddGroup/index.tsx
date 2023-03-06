@@ -6,6 +6,7 @@ import PeopleOutlineIcon from '@mui/icons-material/PeopleOutline';
 import SendIcon from '@mui/icons-material/Send';
 
 import { useNavigate } from 'react-router';
+import { useTranslation } from "react-i18next";
 
 import axios from 'axios';
 
@@ -34,6 +35,7 @@ interface UserProps {
     // For minified sidebar
     isMinified: Boolean,
     setIsMinified: any,
+    currentLang: string
 }
 
 const AddGroup: React.FC<UserProps> = ({
@@ -41,8 +43,10 @@ const AddGroup: React.FC<UserProps> = ({
     isOpen,
     // For minified sidebar
     isMinified,
-    setIsMinified
+    setIsMinified,
+    currentLang
 }) => {
+    const { t } = useTranslation();
     const navigate = useNavigate();
 
     ///////////////////////////////// Snackbar State /////////////////////////////////
@@ -144,14 +148,16 @@ const AddGroup: React.FC<UserProps> = ({
                             console.log("Response ===> ", response);
                             if (response.status === 200) {
                                 setSnackBarHandler({
-                                    ...snackBarHandler,
                                     open: true,
-                                    message: `Group ${groupName} has been created successfully`,
+                                    message: (response.data.code === "200.200") ? (`Group ${groupName} has been created successfully`) : (response.data.message),
+                                    severity: (response.data.code === "200.200") ? ("success") : ("error")
                                 });
                                 const m = response.data.message;
-                                // setTimeout(() => {
-                                //     navigate("/account/groups/view");
-                                // }, 3000);
+                                if (response.data.code === "200.200") {
+                                    setTimeout(() => {
+                                        navigate("/account/groups/view");
+                                    }, 3000);
+                                }
                                 console.log(m);
                             }
                         })
@@ -186,9 +192,17 @@ const AddGroup: React.FC<UserProps> = ({
                     setIsOpen(false);
             }}
         >
-            <div style={{ marginTop: 5 }} className={`${(windowSize[0] > 990) ? ("d-flex justify-content-between") : ("d-flex flex-column justify-content-start")}`}>
+            <div style={{ marginTop: 5, flexDirection: (currentLang === "ar") ? ("row-reverse") : ("row") }} className={`${(windowSize[0] > 990) ? ("d-flex justify-content-between") : ("d-flex flex-column justify-content-start")}`}>
                 <div>
-                    EQA / User Management / Groups / <span style={{ color: "#4f747a" }}> Add Groups </span>
+                    {(currentLang === "ar") ? (
+                        <>
+                            <span style={{ color: "#4f747a" }}> Add Group </span> / Groups / Account / EQA
+                        </>
+                    ) : (
+                        <>
+                            EQA / Account / Groups / <span style={{ color: "#4f747a" }}> Add Group </span>
+                        </>
+                    )}
                 </div>
                 <div>
                     <span style={{ color: "#4f747a", paddingRight: 10 }}>{currentFormatedDate}</span>
@@ -209,6 +223,8 @@ const AddGroup: React.FC<UserProps> = ({
                     // border: "1px solid red",
                     display: "flex",
                     marginBottom: 2,
+                    alignItems: (currentLang === "ar") ? ("flex-end") : ("flex-start"),
+                    flexDirection: (currentLang === "ar") ? ("row-reverse") : ("row")
                 }}>
                     <Box sx={{
                         boxShadow: "rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;",
@@ -232,6 +248,8 @@ const AddGroup: React.FC<UserProps> = ({
                             color: "#3c6766",
                             fontWeight: 500,
                             marginTop: (windowSize[0] < 600) ? (0) : (0.5),
+                            display: "flex",
+                            flexDirection: (currentLang === "ar") ? ("row-reverse") : ("row")
                         }}>
                             Add Group
                         </Typography>
@@ -262,6 +280,7 @@ const AddGroup: React.FC<UserProps> = ({
                                 error={groupNameError}
                                 helperText={groupNameErrorMessage}
                                 value={groupName}
+                                dir={(currentLang === "ar") ? "rtl" : "ltr"}
                                 onChange={(e) => {
                                     setGroupName(e.target.value);
                                     if (groupNameError) {
@@ -282,6 +301,7 @@ const AddGroup: React.FC<UserProps> = ({
                                 error={groupDescriptionError}
                                 helperText={groupDescriptionErrorMessage}
                                 value={groupDescription}
+                                dir={(currentLang === "ar") ? "rtl" : "ltr"}
                                 onChange={(e) => {
                                     setGroupDescription(e.target.value);
                                     if (groupDescriptionError) {
@@ -293,9 +313,15 @@ const AddGroup: React.FC<UserProps> = ({
                         </Grid>
                         <Grid item xs={12}>
                             {/* Define here two radio buttons active and inactive from material ui. Also import them for me */}
-                            <FormControl>
+                            <FormControl
+                                dir={(currentLang === "ar") ? "rtl" : "ltr"}
+                                sx={{
+                                    width: "100%",
+                                }}
+                            >
                                 <FormLabel
                                     id="demo-row-radio-buttons-group-label"
+                                    dir={(currentLang === "ar") ? "rtl" : "ltr"}
                                     sx={{
                                         fontSize: {
                                             xs: 20, // theme.breakpoints.up('xs')
@@ -322,16 +348,19 @@ const AddGroup: React.FC<UserProps> = ({
                                     }}
                                     value={status}
                                     onChange={handleChangeStatus}
+                                    dir={(currentLang === "ar") ? "rtl" : "ltr"}
                                 >
                                     <FormControlLabel
                                         value="Active"
                                         control={<Radio />}
                                         label="Active"
+                                        dir={(currentLang === "ar") ? "rtl" : "ltr"}
                                     />
                                     <FormControlLabel
                                         value="DeActive"
                                         control={<Radio />}
                                         label="Deactive"
+                                        dir={(currentLang === "ar") ? "rtl" : "ltr"}
                                     />
                                 </RadioGroup>
                             </FormControl>
@@ -340,40 +369,69 @@ const AddGroup: React.FC<UserProps> = ({
                 </Box>
             </Box>
 
-            <Button
-                variant="contained"
+            <Box
                 sx={{
-                    backgroundColor: "#e79f43",
-                    // textTransform: "none",
-                    fontWeight: "bold",
-                    height: 40,
-                    mt:
-                    // Give margins based on screen size
-                    {
-                        xs: 3, // theme.breakpoints.up('xs')
-                        sm: 2, // theme.breakpoints.up('sm')
-                        md: 2, // theme.breakpoints.up('md')
-                        lg: 3, // theme.breakpoints.up('lg')
-                        xl: 3, // theme.breakpoints.up('xl')
-                    },
                     display: "flex",
-                    justifyContent: "center",
-                    "&:hover": {
-                        backgroundColor: "#e79f43",
-                    }
+                    flexDirection: (currentLang === "ar") ? ('row-reverse') : ('row')
                 }}
-                // Give full width if screen size if less than 600px otherwise give auto width
-                fullWidth={(
-                    windowSize[0] < 600
-                ) ? true : false}
-                // onClick={() => {
-                //     navigate("/");
-                // }}
-                startIcon={<SendIcon style={{ display: "block" }} />}
-                onClick={submitForm}
+                dir={(currentLang === "ar") ? ('rtl') : ('ltr')}
             >
-                <Typography style={{ display: "block" }}>Submit</Typography>
-            </Button>
+                <Button
+                    dir={(currentLang === "ar") ? ('rtl') : ('ltr')}
+                    variant="contained"
+                    sx={{
+                        backgroundColor: "#e79f43",
+                        // textTransform: "none",
+                        fontWeight: "bold",
+                        height: 40,
+                        mt:
+                        // Give margins based on screen size
+                        {
+                            xs: 3, // theme.breakpoints.up('xs')
+                            sm: 2, // theme.breakpoints.up('sm')
+                            md: 2, // theme.breakpoints.up('md')
+                            lg: 3, // theme.breakpoints.up('lg')
+                            xl: 3, // theme.breakpoints.up('xl')
+                        },
+                        display: "flex",
+                        // justifyContent: (currentLang === "ar") ? ('flex-start') : ('center'),
+                        // alignItems:(currentLang === "ar") ? ('flex-end') : ('center'),
+                        "&:hover": {
+                            backgroundColor: "#e79f43",
+                        },
+                        // border:"1px solid red"
+                    }}
+                    // Give full width if screen size if less than 600px otherwise give auto width
+                    fullWidth={(
+                        windowSize[0] < 600
+                    ) ? true : false}
+                    // onClick={() => {
+                    //     navigate("/");
+                    // }}
+                    startIcon={
+                        (currentLang === "ar") ? (
+                            null
+                        ) : (
+                            <SendIcon />
+                        )
+                    }
+                    endIcon={
+                        (currentLang === "ar") ? (
+                            <SendIcon />
+                        ) : (
+                            null
+                        )
+                    }
+                    onClick={submitForm}
+                >
+                    <Typography
+                        style={{ display: "block" }}
+                        dir={(currentLang === "ar") ? ('rtl') : ('ltr')}
+                    >
+                        {t('Home.Sidebar.list.userManagement.subMenu.Users.details.submit')}
+                    </Typography>
+                </Button>
+            </Box>
 
             <SnackBar
                 isOpen={snackBarHandler.open}

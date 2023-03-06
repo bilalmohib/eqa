@@ -34,6 +34,8 @@ import SnackBar from '../../../../../SnackBar';
 
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 
+import { useTranslation } from "react-i18next";
+
 import styles from "./style.module.css";
 
 interface AddUserGroupProps {
@@ -42,6 +44,7 @@ interface AddUserGroupProps {
     // For minified sidebar
     isMinified: Boolean,
     setIsMinified: any,
+    currentLang: string
 }
 
 const ITEM_HEIGHT = 48;
@@ -60,8 +63,10 @@ const AddUserGroup: React.FC<AddUserGroupProps> = ({
     isOpen,
     // For minified sidebar
     isMinified,
-    setIsMinified
+    setIsMinified,
+    currentLang
 }) => {
+    const { t } = useTranslation();
     const navigate = useNavigate();
 
     ///////////////////////////////// Snackbar State /////////////////////////////////
@@ -266,8 +271,8 @@ const AddUserGroup: React.FC<AddUserGroupProps> = ({
                                 const m = response.data.message;
                                 if (response.data.code === "200.200") {
                                     setTimeout(() => {
-                                        navigate("/account/role-app/view");
-                                    }, 2000);
+                                        navigate("/account/user-group/view");
+                                    }, 3000);
                                 }
                                 console.log(m);
                             }
@@ -318,9 +323,17 @@ const AddUserGroup: React.FC<AddUserGroupProps> = ({
                     setIsOpen(false);
             }}
         >
-            <div style={{ marginTop: 5 }} className={`${(windowSize[0] > 990) ? ("d-flex justify-content-between") : ("d-flex flex-column justify-content-start")}`}>
+            <div style={{ marginTop: 5, flexDirection: (currentLang === "ar") ? ("row-reverse") : ("row") }} className={`${(windowSize[0] > 990) ? ("d-flex justify-content-between") : ("d-flex flex-column justify-content-start")}`}>
                 <div>
-                    EQA / Account / UserGroup / <span style={{ color: "#4f747a" }}> Add UserGroup </span>
+                    {(currentLang === "ar") ? (
+                        <>
+                            <span style={{ color: "#4f747a" }}> Add UserGroup </span> / UserGroup / Account / EQA
+                        </>
+                    ) : (
+                        <>
+                            EQA / Account / UserGroup / <span style={{ color: "#4f747a" }}> Add UserGroup </span>I
+                        </>
+                    )}
                 </div>
                 <div>
                     <span style={{ color: "#4f747a", paddingRight: 10 }}>{currentFormatedDate}</span>
@@ -341,6 +354,8 @@ const AddUserGroup: React.FC<AddUserGroupProps> = ({
                     // border: "1px solid red",
                     display: "flex",
                     marginBottom: 2,
+                    alignItems: (currentLang === "ar") ? ("flex-end") : ("flex-start"),
+                    flexDirection: (currentLang === "ar") ? ("row-reverse") : ("row")
                 }}>
                     <Box sx={{
                         boxShadow: "rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;",
@@ -364,6 +379,8 @@ const AddUserGroup: React.FC<AddUserGroupProps> = ({
                             color: "#3c6766",
                             fontWeight: 500,
                             marginTop: (windowSize[0] < 600) ? (0) : (0.5),
+                            display: "flex",
+                            flexDirection: (currentLang === "ar") ? ("row-reverse") : ("row")
                         }}>
                             Add User Group
                         </Typography>
@@ -397,6 +414,7 @@ const AddUserGroup: React.FC<AddUserGroupProps> = ({
                                 {...userIdDefaultProps}
                                 id="userIdAutoComplete"
                                 autoHighlight
+                                dir={(currentLang === "ar") ? "rtl" : "ltr"}
                                 value={userId}
                                 onChange={(event, newValue) => {
                                     setUserId(newValue);
@@ -410,6 +428,7 @@ const AddUserGroup: React.FC<AddUserGroupProps> = ({
                                         label={"Select User"}
                                         placeholder="Please select a User from the list"
                                         variant="outlined"
+                                        dir={(currentLang === "ar") ? "rtl" : "ltr"}
                                         helperText={(userIdError) ? (userIdErrorMessage) : ("")}
                                         error={userIdError}
                                     />
@@ -431,22 +450,8 @@ const AddUserGroup: React.FC<AddUserGroupProps> = ({
                                 sx={{
                                     width: "100%",
                                 }}
+                                dir={(currentLang === "ar") ? "rtl" : "ltr"}
                             >
-                                {/* <FormLabel
-                                    id="multipleGroupsSelect"
-                                    sx={{
-                                        fontSize: {
-                                            xs: 20, // theme.breakpoints.up('xs')
-                                            sm: 20, // theme.breakpoints.up('sm')
-                                            md: 22, // theme.breakpoints.up('md')
-                                            lg: 22, // theme.breakpoints.up('lg')
-                                            xl: 22, // theme.breakpoints.up('xl')
-                                        },
-                                        marginTop: 0
-                                    }}
-                                >
-                                    User Groups
-                                </FormLabel> */}
                                 <div>
                                     <FormControl sx={{
                                         // mt: 2,
@@ -457,8 +462,9 @@ const AddUserGroup: React.FC<AddUserGroupProps> = ({
                                         //     lg: 340, // theme.breakpoints.up('lg')
                                         //     xl: 340, // theme.breakpoints.up('xl')
                                         // }
-                                        width: "100%",
+                                        width: "100%"
                                     }}
+                                        dir={(currentLang === "ar") ? "rtl" : "ltr"}
                                     >
                                         <Select
                                             id="multipleGroupsSelect"
@@ -468,6 +474,7 @@ const AddUserGroup: React.FC<AddUserGroupProps> = ({
                                             onChange={handleChangeGroups}
                                             input={<OutlinedInput />}
                                             error={groupNameError}
+                                            dir={(currentLang === "ar") ? "rtl" : "ltr"}
                                             renderValue={(selected) => {
                                                 if (selected.length === 0) {
                                                     return <span
@@ -485,19 +492,29 @@ const AddUserGroup: React.FC<AddUserGroupProps> = ({
                                             {
                                                 (groupsList !== null) ? (
                                                     groupsList.map((groups: any, index: number) => (
-                                                        <MenuItem key={index} value={groups.grpId}>
-                                                            <Checkbox checked={groupName.indexOf(groups.grpId) > -1} />
-                                                            <ListItemText primary={groups.grpName} />
+                                                        <MenuItem key={index} value={groups.grpId}
+                                                            dir={(currentLang === "ar") ? "rtl" : "ltr"}
+                                                        >
+                                                            <Checkbox
+                                                                checked={groupName.indexOf(groups.grpId) > -1}
+                                                                dir={(currentLang === "ar") ? "rtl" : "ltr"}
+                                                            />
+                                                            <ListItemText primary={groups.grpName}
+                                                                dir={(currentLang === "ar") ? "rtl" : "ltr"}
+                                                            />
                                                         </MenuItem>
                                                     ))
                                                 ) : (
-                                                    <MenuItem key="No Groups" value="No Groups">
+                                                    <MenuItem key="No Groups" value="No Groups"
+                                                        dir={(currentLang === "ar") ? "rtl" : "ltr"}
+                                                    >
                                                         No Groups
                                                     </MenuItem>
                                                 )
                                             }
                                         </Select>
                                         <FormHelperText
+                                            dir={(currentLang === "ar") ? "rtl" : "ltr"}
                                             sx={{
                                                 color: "#f44336",
                                                 // fontSize: {
@@ -519,7 +536,12 @@ const AddUserGroup: React.FC<AddUserGroupProps> = ({
 
                         {/* Status */}
                         <Grid item xs={12}>
-                            <FormControl>
+                            <FormControl
+                                dir={(currentLang === "ar") ? "rtl" : "ltr"}
+                                sx={{
+                                    width: "100%"
+                                }}
+                            >
                                 <FormLabel
                                     id="demo-row-radio-buttons-app-label"
                                     sx={{
@@ -532,6 +554,7 @@ const AddUserGroup: React.FC<AddUserGroupProps> = ({
                                         },
                                         marginTop: 0
                                     }}
+                                    dir={(currentLang === "ar") ? "rtl" : "ltr"}
                                 >
                                     Status
                                 </FormLabel>
@@ -546,18 +569,25 @@ const AddUserGroup: React.FC<AddUserGroupProps> = ({
                                         },
                                         mt: 1
                                     }}
+                                    dir={(currentLang === "ar") ? "rtl" : "ltr"}
                                     value={status}
                                     onChange={handleChangeStatus}
                                 >
                                     <FormControlLabel
                                         value="Active"
-                                        control={<Radio />}
+                                        control={<Radio
+                                            dir={(currentLang === "ar") ? "rtl" : "ltr"}
+                                        />}
                                         label="Active"
+                                        dir={(currentLang === "ar") ? "rtl" : "ltr"}
                                     />
                                     <FormControlLabel
                                         value="DeActive"
-                                        control={<Radio />}
+                                        control={<Radio
+                                            dir={(currentLang === "ar") ? "rtl" : "ltr"}
+                                        />}
                                         label="Deactive"
+                                        dir={(currentLang === "ar") ? "rtl" : "ltr"}
                                     />
                                 </RadioGroup>
                             </FormControl>
@@ -569,6 +599,7 @@ const AddUserGroup: React.FC<AddUserGroupProps> = ({
                                 sx={{
                                     width: "100%",
                                 }}
+                                dir={(currentLang === "ar") ? "rtl" : "ltr"}
                             >
                                 <FormLabel
                                     id="description"
@@ -582,6 +613,7 @@ const AddUserGroup: React.FC<AddUserGroupProps> = ({
                                         },
                                         marginTop: 0
                                     }}
+                                    dir={(currentLang === "ar") ? "rtl" : "ltr"}
                                 >
                                     Description
                                 </FormLabel>
@@ -595,6 +627,7 @@ const AddUserGroup: React.FC<AddUserGroupProps> = ({
                                     error={descriptionError}
                                     helperText={(descriptionError) ? (descriptionErrorMessage) : ("")}
                                     variant="outlined"
+                                    dir={(currentLang === "ar") ? "rtl" : "ltr"}
                                     value={description}
                                     onChange={(event) => {
                                         setDescription(event.target.value);
@@ -613,37 +646,69 @@ const AddUserGroup: React.FC<AddUserGroupProps> = ({
                 </Box>
             </Box>
 
-            <Button
-                variant="contained"
+            <Box
                 sx={{
-                    backgroundColor: "#e79f43",
-                    // textTransform: "none",
-                    fontWeight: "bold",
-                    height: 40,
-                    mt:
-                    // Give margins based on screen size
-                    {
-                        xs: 3, // theme.breakpoints.up('xs')
-                        sm: 2, // theme.breakpoints.up('sm')
-                        md: 2, // theme.breakpoints.up('md')
-                        lg: 3, // theme.breakpoints.up('lg')
-                        xl: 3, // theme.breakpoints.up('xl')
-                    },
                     display: "flex",
-                    justifyContent: "center",
-                    "&:hover": {
-                        backgroundColor: "#e79f43",
-                    }
+                    flexDirection: (currentLang === "ar") ? ('row-reverse') : ('row')
                 }}
-                // Give full width if screen size if less than 600px otherwise give auto width
-                fullWidth={(
-                    windowSize[0] < 600
-                ) ? true : false}
-                startIcon={<SendIcon style={{ display: "block" }} />}
-                onClick={submitForm}
+                dir={(currentLang === "ar") ? ('rtl') : ('ltr')}
             >
-                <Typography style={{ display: "block" }}>Submit</Typography>
-            </Button>
+                <Button
+                    dir={(currentLang === "ar") ? ('rtl') : ('ltr')}
+                    variant="contained"
+                    sx={{
+                        backgroundColor: "#e79f43",
+                        // textTransform: "none",
+                        fontWeight: "bold",
+                        height: 40,
+                        mt:
+                        // Give margins based on screen size
+                        {
+                            xs: 3, // theme.breakpoints.up('xs')
+                            sm: 2, // theme.breakpoints.up('sm')
+                            md: 2, // theme.breakpoints.up('md')
+                            lg: 3, // theme.breakpoints.up('lg')
+                            xl: 3, // theme.breakpoints.up('xl')
+                        },
+                        display: "flex",
+                        // justifyContent: (currentLang === "ar") ? ('flex-start') : ('center'),
+                        // alignItems:(currentLang === "ar") ? ('flex-end') : ('center'),
+                        "&:hover": {
+                            backgroundColor: "#e79f43",
+                        },
+                        // border:"1px solid red"
+                    }}
+                    // Give full width if screen size if less than 600px otherwise give auto width
+                    fullWidth={(
+                        windowSize[0] < 600
+                    ) ? true : false}
+                    // onClick={() => {
+                    //     navigate("/");
+                    // }}
+                    startIcon={
+                        (currentLang === "ar") ? (
+                            null
+                        ) : (
+                            <SendIcon />
+                        )
+                    }
+                    endIcon={
+                        (currentLang === "ar") ? (
+                            <SendIcon />
+                        ) : (
+                            null
+                        )
+                    }
+                    onClick={submitForm}
+                >
+                    <Typography
+                        style={{ display: "block" }}
+                        dir={(currentLang === "ar") ? ('rtl') : ('ltr')}
+                    >
+                        {t('Home.Sidebar.list.userManagement.subMenu.Users.details.submit')}
+                    </Typography>
+                </Button>
+            </Box>
 
             <SnackBar
                 isOpen={snackBarHandler.open}
