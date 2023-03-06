@@ -1,14 +1,14 @@
 import React, { FC, useCallback, useMemo, useState, useEffect } from 'react';
 
 import Cookies from 'js-cookie';
-import axios, { AxiosError } from 'axios';
+import axios from 'axios';
 
 import { useNavigate, useLocation } from 'react-router-dom';
 
 import "./loader.css";
 
 import MaterialReactTable, {
-    MaterialReactTableProps,
+    // MaterialReactTableProps,
     MRT_Cell,
     MRT_ColumnDef,
     MRT_Row,
@@ -405,6 +405,7 @@ const CustomTableCrud: FC<CustomTableProps> = ({
         return BigRow;
     }, [currentLang]);
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const rowsNew = useMemo(() => generateRows(data), [data, generateRows]);
 
     // console.log("Columns New ===> ", columnsNew);
@@ -433,8 +434,8 @@ const CustomTableCrud: FC<CustomTableProps> = ({
 
     const handleDeleteRow = useCallback(
         (row: MRT_Row<any>) => {
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
             let colName = columnsNew[0].accessorKey;
-            let getFirstRow = row.getValue(colName);
             //send api delete request here, then refetch or update local table data for re-render
 
             let accessToken: any = Cookies.get("accessToken");

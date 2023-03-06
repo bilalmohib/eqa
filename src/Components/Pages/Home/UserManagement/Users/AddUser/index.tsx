@@ -122,6 +122,8 @@ const AddUser: React.FC<UserProps> = ({
     };
     // FOR REACT MULTI SELECT
 
+    const [departmentDropDownOpen, setDepartmentDropDownOpen] = useState(false);
+
     ///////////////////////////////// Snackbar State /////////////////////////////////
     const [snackBarHandler, setSnackBarHandler] = useState({
         open: false,
@@ -421,15 +423,15 @@ const AddUser: React.FC<UserProps> = ({
                             if (response.status === 200) {
                                 setSnackBarHandler({
                                     open: true,
-                                    message: (response.data.code === "200.200")?(`User ${emailId.split('@')[0]} has been created successfully`):(response.data.message),
-                                    severity: (response.data.code === "200.200")?("success"):("error")
+                                    message: (response.data.code === "200.200") ? (`User ${emailId.split('@')[0]} has been created successfully`) : (response.data.message),
+                                    severity: (response.data.code === "200.200") ? ("success") : ("error")
                                 })
                                 const m = response.data.message;
                                 console.log(m);
                                 if (response.data.code === "200.200") {
                                     setTimeout(() => {
-                                        navigate("/account/view");
-                                    }, 2000);
+                                        navigate("/account/users/view");
+                                    }, 3000);
                                 }
                             }
                         })
@@ -505,9 +507,17 @@ const AddUser: React.FC<UserProps> = ({
                         setIsOpen(false);
                 }}
             >
-                <div style={{ marginTop: 5 }} className={`${(windowSize[0] > 990) ? ("d-flex justify-content-between") : ("d-flex flex-column justify-content-start")}`}>
+                <div style={{ marginTop: 5, flexDirection: (currentLang === "ar") ? ("row-reverse") : ("row") }} className={`${(windowSize[0] > 990) ? ("d-flex justify-content-between") : ("d-flex flex-column justify-content-start")}`}>
                     <div>
-                        {t('Home.Sidebar.list.userManagement.subMenu.Users.details.Add.Users.breadcrumb.f1')} / {t('Home.Sidebar.list.userManagement.subMenu.Users.details.Add.Users.breadcrumb.f2')} / {t('Home.Sidebar.list.userManagement.subMenu.Users.details.Add.Users.breadcrumb.f3')} / <span style={{ color: "#4f747a" }}> {t('Home.Sidebar.list.userManagement.subMenu.Users.details.Add.Users.breadcrumb.f3')} </span>
+                        {(currentLang === "ar") ? (
+                            <>
+                                <span style={{ color: "#4f747a" }}> {t('Home.Sidebar.list.userManagement.subMenu.Users.details.Add.Users.breadcrumb.f4')} </span> / {t('Home.Sidebar.list.userManagement.subMenu.Users.details.Add.Users.breadcrumb.f3')} / {t('Home.Sidebar.list.userManagement.subMenu.Users.details.Add.Users.breadcrumb.f2')} / {t('Home.Sidebar.list.userManagement.subMenu.Users.details.Add.Users.breadcrumb.f1')}
+                            </>
+                        ) : (
+                            <>
+                                {t('Home.Sidebar.list.userManagement.subMenu.Users.details.Add.Users.breadcrumb.f1')} / {t('Home.Sidebar.list.userManagement.subMenu.Users.details.Add.Users.breadcrumb.f2')} / {t('Home.Sidebar.list.userManagement.subMenu.Users.details.Add.Users.breadcrumb.f3')} / <span style={{ color: "#4f747a" }}> {t('Home.Sidebar.list.userManagement.subMenu.Users.details.Add.Users.breadcrumb.f4')} </span>
+                            </>
+                        )}
                     </div>
                     <div>
                         <span style={{ color: "#4f747a", paddingRight: 10 }}>{currentFormatedDate}</span>
@@ -669,8 +679,6 @@ const AddUser: React.FC<UserProps> = ({
                                     {...collegeDefaultProps}
                                     id="collegeAutoComplete"
                                     autoHighlight
-                                    // helperText={(collegeIdError) ? ("* Please select any College.") : ("")}
-                                    // error={collegeIdError}
                                     value={collegeId}
                                     onChange={(event, newValue: string) => {
                                         setCollegeId(newValue);
@@ -697,8 +705,6 @@ const AddUser: React.FC<UserProps> = ({
                                     {...campusDefaultProps}
                                     id="campusAutoComplete"
                                     autoHighlight
-                                    // helperText={(campusIdError) ? ("* Please select any Campus.") : ("")}
-                                    // error={campusIdError}
                                     value={campusId}
                                     onChange={(event, newValue) => {
                                         setCampusId(newValue);
@@ -726,6 +732,22 @@ const AddUser: React.FC<UserProps> = ({
                                     id="departmentAutoComplete"
                                     autoHighlight
                                     value={departmentId}
+                                    open={departmentDropDownOpen}
+                                    // onOpen={() => {
+                                    //     setDepartmentDropDownOpen(!departmentDropDownOpen);
+                                    // }}
+                                    onClick={() => {
+                                        setDepartmentDropDownOpen(true);
+                                    }}
+                                    onClose={() => {
+                                        setDepartmentDropDownOpen(!departmentDropDownOpen);
+                                    }}
+                                    // onOpen={() => {
+                                    //     setOpen(true);
+                                    // }}
+                                    // onClose={() => {
+                                    //     setOpen(false);
+                                    // }}
                                     onChange={(event, newValue) => {
                                         setDepartmentId(newValue);
                                         if (departmentIdError) {
@@ -741,6 +763,9 @@ const AddUser: React.FC<UserProps> = ({
                                             placeholder='Select Department ...'
                                             helperText={(departmentIdError) ? ("* Please select any College.") : ("")}
                                             error={departmentIdError}
+                                            onClick={() => {
+                                                setDepartmentDropDownOpen(true);
+                                            }}
                                             dir={(currentLang === "ar") ? "rtl" : "ltr"}
                                         />
                                     )}
@@ -750,12 +775,12 @@ const AddUser: React.FC<UserProps> = ({
                                 <FormControl
                                     sx={{ width: '100%' }}
                                     variant="standard"
+                                    dir={(currentLang === "ar") ? "rtl" : "ltr"}
                                 >
                                     <InputLabel htmlFor="standard-adornment-password">{t('Home.Sidebar.list.userManagement.subMenu.Users.details.Add.Users.Inputs.Password.label')}</InputLabel>
                                     <Input
                                         id="standard-adornment-password"
                                         type={showPassword ? 'text' : 'password'}
-                                        // helperText={passwordError ? t("* Please fill out the password field") : ""}
                                         error={passwordError}
                                         endAdornment={
                                             <InputAdornment position="end">
@@ -775,6 +800,7 @@ const AddUser: React.FC<UserProps> = ({
                                                 setPasswordError(false);
                                             }
                                         }}
+                                        dir={(currentLang === "ar") ? "rtl" : "ltr"}
                                     />
                                 </FormControl>
                             </Grid>
@@ -1030,7 +1056,9 @@ const AddUser: React.FC<UserProps> = ({
                                                 error={groupNameError}
                                                 renderValue={(selected) => {
                                                     if (selected.length === 0) {
-                                                        return <span>Select groups from the list below</span>;
+                                                        return <span>
+                                                            {t('Home.Sidebar.list.userManagement.subMenu.Users.details.Add.Users.selectGroups.label')}
+                                                        </span>
                                                     }
 
                                                     return selected.join(', ');

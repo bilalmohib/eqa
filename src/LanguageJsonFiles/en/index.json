@@ -439,6 +439,9 @@
                                                 "f4": "Add Users"
                                             },
                                             "title": "Add Users",
+                                            "selectGroups": {
+                                                "label": "Select Groups From the List below"
+                                            },
                                             "description": "Add new users to the system",
                                             "Inputs": {
                                                 "FirstName": {

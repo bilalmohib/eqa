@@ -29,7 +29,7 @@ interface UserProps {
     isMinified: Boolean,
     setIsMinified: any,
     currentLang: string,
-    creatable: boolean,
+    // creatable: boolean,
 }
 
 const ViewUsers: React.FC<UserProps> = ({
@@ -39,12 +39,41 @@ const ViewUsers: React.FC<UserProps> = ({
     isMinified,
     setIsMinified,
     currentLang,
-    creatable
+    // creatable
 }) => {
 
     const { t } = useTranslation();
 
     const navigate = useNavigate();
+
+      // For Checking the Editable and Deletable Permission
+      let FinalsidebarAppsListArray = JSON.parse(localStorage.getItem("sidebarAppsListArray") || '[]');
+
+      const [creatable, setCreatable] = useState<boolean>(false);
+  
+      useEffect(() => {
+          // For getting the current location path
+          // eslint-disable-next-line no-restricted-globals
+          const currentLocationPath = location.pathname;
+  
+          console.log("Current Location Path is: ", currentLocationPath);
+  
+          // Do it using for loop
+          for (let i = 0; i < FinalsidebarAppsListArray.length; i++) {
+              let subMenu = FinalsidebarAppsListArray[i].subMenu;
+              for (let j = 0; j < subMenu.length; j++) {
+                  // alert("Current Location Path is: " + currentLocationPath + " and the subMenu[j].formUrl is: " + subMenu[j].formUrl + " and the i is: " + i + " and the Menu URL is: " + FinalsidebarAppsListArray[i].appUrl);
+                  if (subMenu[j].formUrl === currentLocationPath || FinalsidebarAppsListArray[i].appUrl === currentLocationPath) {
+                      // alert("Equal" + FinalsidebarAppsListArray[i].appName)
+                      if (subMenu[j].createPermission === true) {
+                          setCreatable(true);
+                          console.log("Is Creatable ===> ", creatable);
+                      }
+                  }
+              }
+          }
+      }, [FinalsidebarAppsListArray, creatable]);
+      // For Checking the Editable and Deletable Permission
 
     const currentFormatedDate: string = new Date().toLocaleString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
 
