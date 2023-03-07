@@ -264,11 +264,11 @@ const AddAppForm: React.FC<AddAppFormProps> = ({
                 <div>
                     {(currentLang === "ar") ? (
                         <>
-                            <span style={{ color: "#4f747a" }}> Add AppForm </span> / AppForm / Account / EQA
+                            <span style={{ color: "#4f747a" }}> {t('Home.Sidebar.list.userManagement.subMenu.appForm.details.Add.breadcrumb.f4')} </span> / {t('Home.Sidebar.list.userManagement.subMenu.appForm.details.Add.breadcrumb.f3')} / {t('Home.Sidebar.list.userManagement.subMenu.appForm.details.Add.breadcrumb.f2')} / EQA
                         </>
                     ) : (
                         <>
-                            EQA / Account / AppForm / <span style={{ color: "#4f747a" }}> Add AppForm </span>
+                            EQA / {t('Home.Sidebar.list.userManagement.subMenu.appForm.details.Add.breadcrumb.f2')} / {t('Home.Sidebar.list.userManagement.subMenu.appForm.details.Add.breadcrumb.f3')} / <span style={{ color: "#4f747a" }}> {t('Home.Sidebar.list.userManagement.subMenu.appForm.details.Add.breadcrumb.f4')} </span>
                         </>
                     )}
                 </div>
@@ -291,6 +291,8 @@ const AddAppForm: React.FC<AddAppFormProps> = ({
                     // border: "1px solid red",
                     display: "flex",
                     marginBottom: 2,
+                    alignItems: (currentLang === "ar") ? ("flex-end") : ("flex-start"),
+                    flexDirection: (currentLang === "ar") ? ("row-reverse") : ("row")
                 }}>
                     <Box sx={{
                         boxShadow: "rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;",
@@ -314,8 +316,10 @@ const AddAppForm: React.FC<AddAppFormProps> = ({
                             color: "#3c6766",
                             fontWeight: 500,
                             marginTop: (windowSize[0] < 600) ? (0) : (0.5),
+                            display: "flex",
+                            flexDirection: (currentLang === "ar") ? ("row-reverse") : ("row")
                         }}>
-                            Add App Form
+                            {t('Home.Sidebar.list.userManagement.subMenu.appForm.details.Add.title')}
                         </Typography>
                         <Typography variant="body1" sx={{
                             // color: "#4f747a" 
@@ -323,7 +327,7 @@ const AddAppForm: React.FC<AddAppFormProps> = ({
                             color: "#696969",
                             fontWeight: 300
                         }}>
-                            Add a new AppForm to the system
+                            {t('Home.Sidebar.list.userManagement.subMenu.appForm.details.Add.subTitle')}
                         </Typography>
                     </Box>
                 </Box>
@@ -336,8 +340,8 @@ const AddAppForm: React.FC<AddAppFormProps> = ({
                         <Grid item xs={12}>
                             <TextField
                                 id="moduleNameTextField"
-                                label="Module Name"
-                                placeholder="Enter Module name"
+                                label={t('Home.Sidebar.list.userManagement.subMenu.appForm.details.Add.fields.moduleName.label')}
+                                placeholder={`${t('Home.Sidebar.list.userManagement.subMenu.appForm.details.Add.fields.moduleName.placeholder')}`}
                                 variant="standard"
                                 margin="normal"
                                 fullWidth // t
@@ -351,13 +355,14 @@ const AddAppForm: React.FC<AddAppFormProps> = ({
                                         setModuleNameErrorMessage("");
                                     }
                                 }}
+                                dir={(currentLang === "ar") ? "rtl" : "ltr"}
                             />
                         </Grid>
                         <Grid item xs={12}>
                             <TextField
                                 id="formNameTextField"
-                                label="Form Name"
-                                placeholder="Enter form name"
+                                label={t('Home.Sidebar.list.userManagement.subMenu.appForm.details.Add.fields.FormName.label')}
+                                placeholder={`${t('Home.Sidebar.list.userManagement.subMenu.appForm.details.Add.fields.FormName.placeholder')}`}
                                 variant="standard"
                                 margin="normal"
                                 fullWidth // t
@@ -371,13 +376,14 @@ const AddAppForm: React.FC<AddAppFormProps> = ({
                                         setFormNameErrorMessage("");
                                     }
                                 }}
+                                dir={(currentLang === "ar") ? "rtl" : "ltr"}
                             />
                         </Grid>
                         <Grid item xs={12}>
                             <TextField
                                 id="formUrlTextField"
-                                label="Form URL"
-                                placeholder="Enter form url"
+                                label={t('Home.Sidebar.list.userManagement.subMenu.appForm.details.Add.fields.FormUrl.label')}
+                                placeholder={`${t('Home.Sidebar.list.userManagement.subMenu.appForm.details.Add.fields.FormUrl.placeholder')}`}
                                 variant="standard"
                                 margin="normal"
                                 fullWidth // t
@@ -391,6 +397,7 @@ const AddAppForm: React.FC<AddAppFormProps> = ({
                                         setFormUrlErrorMessage("");
                                     }
                                 }}
+                                dir={(currentLang === "ar") ? "rtl" : "ltr"}
                             />
                         </Grid>
                         <Grid item xs={12}>
@@ -405,23 +412,29 @@ const AddAppForm: React.FC<AddAppFormProps> = ({
                                         setAppIdError(false);
                                     }
                                 }}
-                                // dir={(currentLang === "ar") ? "rtl" : "ltr"}
+                                dir={(currentLang === "ar") ? "rtl" : "ltr"}
                                 renderInput={(params) => (
                                     <TextField
                                         {...params}
-                                        label={"Select App"}
+                                        label={t('Home.Sidebar.list.userManagement.subMenu.appForm.details.Add.fields.selectAppDropdown.label')}
+                                        placeholder={`${t('Home.Sidebar.list.userManagement.subMenu.appForm.details.Add.fields.selectAppDropdown.placeholder')}`}
                                         variant="standard"
                                         helperText={(appIdError) ? (appIdErrorMessage) : ("")}
                                         error={appIdError}
-                                    // dir={(currentLang === "ar") ? "rtl" : "ltr"}
+                                        dir={(currentLang === "ar") ? "rtl" : "ltr"}
                                     />
                                 )}
                             />
                         </Grid>
                         <Grid item xs={12}>
                             {/* Define here two radio buttons active and inactive from material ui. Also import them for me */}
-                            <FormControl>
+                            <FormControl
+                                sx={{
+                                    width: "100%"
+                                }}
+                            >
                                 <FormLabel
+                                    dir={(currentLang === "ar") ? "rtl" : "ltr"}
                                     id="demo-row-radio-buttons-app-label"
                                     sx={{
                                         fontSize: {
@@ -434,7 +447,7 @@ const AddAppForm: React.FC<AddAppFormProps> = ({
                                         marginTop: 0
                                     }}
                                 >
-                                    Status
+                                    {t('Home.Sidebar.list.userManagement.subMenu.appForm.details.Add.fields.Status.title')}
                                 </FormLabel>
                                 <RadioGroup
                                     row
@@ -449,16 +462,23 @@ const AddAppForm: React.FC<AddAppFormProps> = ({
                                     }}
                                     value={status}
                                     onChange={handleChangeStatus}
+                                    dir={(currentLang === "ar") ? "rtl" : "ltr"}
                                 >
                                     <FormControlLabel
                                         value="Active"
-                                        control={<Radio />}
-                                        label="Active"
+                                        control={<Radio
+                                            dir={(currentLang === "ar") ? "rtl" : "ltr"}
+                                        />}
+                                        dir={(currentLang === "ar") ? "rtl" : "ltr"}
+                                        label={t('Home.Sidebar.list.userManagement.subMenu.appForm.details.Add.fields.Status.radio1.label')}
                                     />
                                     <FormControlLabel
                                         value="DeActive"
-                                        control={<Radio />}
-                                        label="Deactive"
+                                        control={<Radio
+                                            dir={(currentLang === "ar") ? "rtl" : "ltr"}
+                                        />}
+                                        label={t('Home.Sidebar.list.userManagement.subMenu.appForm.details.Add.fields.Status.radio2.label')}
+                                        dir={(currentLang === "ar") ? "rtl" : "ltr"}
                                     />
                                 </RadioGroup>
                             </FormControl>

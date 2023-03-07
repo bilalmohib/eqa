@@ -582,6 +582,35 @@
                                     "table": {
                                         "title": "<b style={{ fontWeight: 'bold' }}>مجموعات</b> <i>قائمة</i>",
                                         "subTitle": "فيما يلي قائمة المجموعات"
+                                    },
+                                    "Add": {
+                                        "title": "أضف مجموعة",
+                                        "subTitle": "إضافة مجموعة جديدة إلى النظام",
+                                        "breadcrumb": {
+                                            "f1": "EQA",
+                                            "f2": "حساب",
+                                            "f3": "مجموعات",
+                                            "f4": "أضف مجموعة"
+                                        },
+                                        "fields": {
+                                            "groupName": {
+                                                "label": "أسم المجموعة",
+                                                "placeholder": "أدخل اسم المجموعة"
+                                            },
+                                            "description": {
+                                                "label": "وصف",
+                                                "placeholder": "أدخل وصف المجموعة"
+                                            },
+                                            "Status": {
+                                                "title": "حالة",
+                                                "radio1": {
+                                                    "label": "نشيط"
+                                                },
+                                                "radio2": {
+                                                    "label": "معطل"
+                                                }
+                                            }
+                                        }
                                     }
                                 }
                             },
@@ -599,6 +628,43 @@
                                     "table": {
                                         "title": "<b style={{ fontWeight: 'bold' }}>تطبيقات</b> <i>List</i>",
                                         "subTitle": "فيما يلي قائمة التطبيقات"
+                                    },
+                                    "Add": {
+                                        "breadcrumb": {
+                                            "f1": "EQA",
+                                            "f2": "حساب",
+                                            "f3": "تطبيقات",
+                                            "f4": "أضف تطبيقات"
+                                        },
+                                        "title": "أضف التطبيق",
+                                        "subTitle": "أضف تطبيقًا جديدًا إلى النظام",
+                                        "fields": {
+                                            "appName": {
+                                                "label": "اسم التطبيق",
+                                                "placeholder": "أدخل اسم التطبيق"
+                                            },
+                                            "description": {
+                                                "label": "وصف",
+                                                "placeholder": "أدخل وصف مجموعة المستخدمين"
+                                            },
+                                            "appUrl": {
+                                                "label": "عنوان URL للتطبيق",
+                                                "placeholder": "أدخل عنوان URL للتطبيق"
+                                            },
+                                            "AppOrder": {
+                                                "label": "طلب التطبيق",
+                                                "placeholder": "أدخل طلب التطبيق"
+                                            },
+                                            "Status": {
+                                                "title": "حالة",
+                                                "radio1": {
+                                                    "label": "نشيط"
+                                                },
+                                                "radio2": {
+                                                    "label": "معطل"
+                                                }
+                                            }
+                                        }
                                     }
                                 }
                             },
@@ -616,6 +682,43 @@
                                     "table": {
                                         "title": "<b style={{ fontWeight: 'bold' }}>نموذج التطبيق</b> <i>List</i>",
                                         "subTitle": "فيما يلي قائمة نماذج التطبيقات"
+                                    },
+                                    "Add": {
+                                        "breadcrumb": {
+                                            "f1": "EQA",
+                                            "f2": "حساب",
+                                            "f3": "نموذج التطبيق",
+                                            "f4": "إضافة نموذج التطبيق"
+                                        },
+                                        "title": "إضافة نموذج التطبيق",
+                                        "subTitle": "إضافة نموذج تطبيق جديد إلى النظام",
+                                        "fields": {
+                                            "moduleName": {
+                                                "label": "اسم وحدة",
+                                                "placeholder": "أدخل اسم الوحدة"
+                                            },
+                                            "FormName": {
+                                                "label": "اسم النموذج",
+                                                "placeholder": "أدخل اسم النموذج"
+                                            },
+                                            "FormUrl": {
+                                                "label": "URL النموذج",
+                                                "placeholder": "أدخل عنوان url للنموذج"
+                                            },
+                                            "selectAppDropdown": {
+                                                "label": "حدد التطبيق",
+                                                "placeholder": "حدد التطبيق من القائمة أدناه"
+                                            },
+                                            "Status": {
+                                                "title": "حالة",
+                                                "radio1": {
+                                                    "label": "نشيط"
+                                                },
+                                                "radio2": {
+                                                    "label": "معطل"
+                                                }
+                                            }
+                                        }
                                     }
                                 }
                             },
@@ -633,6 +736,48 @@
                                     "table": {
                                         "title": "<b style={{ fontWeight: 'bold' }}>دور التطبيق</b> <i>قائمة</i>",
                                         "subTitle": "فيما يلي قائمة دور التطبيق الامتيازات"
+                                    },
+                                    "Add": {
+                                        "breadcrumb": {
+                                            "f1": "EQA",
+                                            "f2": "حساب",
+                                            "f3": "الدور",
+                                            "f4": "إضافة دور"
+                                        },
+                                        "title": "إضافة امتياز دور التطبيق",
+                                        "subTitle": "إضافة امتياز تطبيق دور جديد إلى النظام",
+                                        "fields": {
+                                            "selectRoleDropdown": {
+                                                "label": "حدد الدور",
+                                                "placeholder": "الرجاء تحديد دور من القائمة"
+                                            },
+                                            "selectAppDropdown": {
+                                                "label": "حدد التطبيق",
+                                                "placeholder": "الرجاء تحديد تطبيق من القائمة أدناه"
+                                            },
+                                            "selectFormDropdown": {
+                                                "label": "حدد النموذج",
+                                                "placeholder": "الرجاء تحديد نموذج من القائمة أدناه"
+                                            },
+                                            "PermissionStatus": {
+                                                "label": "حالة الإذن",
+                                                "Switches": {
+                                                    "Create": "يخلق",
+                                                    "Read": "يقرأ",
+                                                    "Update": "تحديث",
+                                                    "Delete": "يمسح"
+                                                }
+                                            },
+                                            "Status": {
+                                                "title": "حالة",
+                                                "radio1": {
+                                                    "label": "نشيط"
+                                                },
+                                                "radio2": {
+                                                    "label": "معطل"
+                                                }
+                                            }
+                                        }
                                     }
                                 }
                             },
@@ -650,6 +795,39 @@
                                     "table": {
                                         "title": "<b style={{ fontWeight: 'bold' }}>مجموعة المستخدمين</b> <i>قائمة</i>",
                                         "subTitle": "فيما يلي قائمة مجموعة المستخدمين"
+                                    },
+                                    "Add": {
+                                        "breadcrumb": {
+                                            "f1": "EQA",
+                                            "f2": "حساب",
+                                            "f3": "مجموعة المستخدمين",
+                                            "f4": "أضف مجموعة مستخدمين"
+                                        },
+                                        "title": "أضف مجموعة مستخدمين",
+                                        "subTitle": "أضف مجموعة مستخدمين جديدة إلى النظام",
+                                        "fields": {
+                                            "userDropDown": {
+                                                "label": "اختر المستخدم",
+                                                "placeholder": "الرجاء تحديد مستخدم من القائمة"
+                                            },
+                                            "groupsDropDown": {
+                                                "label": "حدد المجموعات",
+                                                "noGroups": "لم يتم العثور على مجموعات"
+                                            },
+                                            "description": {
+                                                "label": "وصف",
+                                                "placeholder": "أدخل وصف مجموعة المستخدمين"
+                                            },
+                                            "Status": {
+                                                "title": "حالة",
+                                                "radio1": {
+                                                    "label": "نشيط"
+                                                },
+                                                "radio2": {
+                                                    "label": "معطل"
+                                                }
+                                            }
+                                        }
                                     }
                                 }
                             },
@@ -667,6 +845,39 @@
                                     "table": {
                                         "title": "<b style={{ fontWeight: 'bold' }}>المجموعة</b> <i>List</i>",
                                         "subTitle": "فيما يلي قائمة دور المجموعة"
+                                    },
+                                    "Add": {
+                                        "breadcrumb": {
+                                            "f1": "EQA",
+                                            "f2": "حساب",
+                                            "f3": "المجموعة",
+                                            "f4": "أضف دور المجموعة"
+                                        },
+                                        "title": "أضف دور المجموعة",
+                                        "subTitle": "إضافة دور مجموعة جديد إلى النظام",
+                                        "fields": {
+                                            "groupDropDown": {
+                                                "label": "اختر مجموعة",
+                                                "placeholder": "الرجاء تحديد مجموعة من القائمة"
+                                            },
+                                            "rolesDropDown": {
+                                                "label": "حدد الأدوار",
+                                                "noRoles":"لا أدوار"
+                                            },
+                                            "description": {
+                                                "label": "وصف",
+                                                "placeholder": "أدخل وصف مجموعة المستخدمين"
+                                            },
+                                            "Status": {
+                                                "title": "حالة",
+                                                "radio1": {
+                                                    "label": "نشيط"
+                                                },
+                                                "radio2": {
+                                                    "label": "معطل"
+                                                }
+                                            }
+                                        }
                                     }
                                 }
                             },
@@ -684,6 +895,35 @@
                                     "table": {
                                         "title": "<b style={{ fontWeight: 'bold' }}>الأدوار</b> <i>قائمة</i>",
                                         "subTitle": "الأدوار التالية متاحة"
+                                    },
+                                    "Add": {
+                                        "title": "أضف دورًا",
+                                        "subTitle": "إضافة دور جديد للنظام",
+                                        "breadcrumb": {
+                                            "f1": "EQA",
+                                            "f2": "حساب",
+                                            "f3": "الأدوار",
+                                            "f4": "أضف دورًا"
+                                        },
+                                        "fields": {
+                                            "roleName": {
+                                                "label": "اسم الدور",
+                                                "placeholder": "أدخل اسم الدور"
+                                            },
+                                            "description": {
+                                                "label": "وصف",
+                                                "placeholder": "أدخل وصف الدور"
+                                            },
+                                            "Status": {
+                                                "title": "حالة",
+                                                "radio1": {
+                                                    "label": "نشيط"
+                                                },
+                                                "radio2": {
+                                                    "label": "معطل"
+                                                }
+                                            }
+                                        }
                                     }
                                 }
                             }

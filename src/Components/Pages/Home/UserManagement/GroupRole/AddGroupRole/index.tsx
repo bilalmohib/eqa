@@ -313,11 +313,11 @@ const AddGroupRole: React.FC<AddGroupRoleProps> = ({
                 <div>
                     {(currentLang === "ar") ? (
                         <>
-                            <span style={{ color: "#4f747a" }}> Add GroupRole </span> / GroupRole / Account / EQA
+                            <span style={{ color: "#4f747a" }}> {t('Home.Sidebar.list.userManagement.subMenu.groupRole.details.Add.breadcrumb.f4')} </span> / {t('Home.Sidebar.list.userManagement.subMenu.groupRole.details.Add.breadcrumb.f3')} / {t('Home.Sidebar.list.userManagement.subMenu.groupRole.details.Add.breadcrumb.f2')} / EQA
                         </>
                     ) : (
                         <>
-                            EQA / Account / GroupRole / <span style={{ color: "#4f747a" }}> Add GroupRole </span>
+                            EQA / {t('Home.Sidebar.list.userManagement.subMenu.groupRole.details.Add.breadcrumb.f2')} / {t('Home.Sidebar.list.userManagement.subMenu.groupRole.details.Add.breadcrumb.f3')} / <span style={{ color: "#4f747a" }}> {t('Home.Sidebar.list.userManagement.subMenu.groupRole.details.Add.breadcrumb.f4')} </span>
                         </>
                     )}
                 </div>
@@ -368,7 +368,7 @@ const AddGroupRole: React.FC<AddGroupRoleProps> = ({
                             display: "flex",
                             flexDirection: (currentLang === "ar") ? ("row-reverse") : ("row")
                         }}>
-                            Add Group Role
+                            {t('Home.Sidebar.list.userManagement.subMenu.groupRole.details.Add.title')}
                         </Typography>
                         <Typography variant="body1" sx={{
                             // color: "#4f747a" 
@@ -376,7 +376,7 @@ const AddGroupRole: React.FC<AddGroupRoleProps> = ({
                             color: "#696969",
                             fontWeight: 300
                         }}>
-                            Add a new GroupRole to the system
+                            {t('Home.Sidebar.list.userManagement.subMenu.groupRole.details.Add.subTitle')}
                         </Typography>
                     </Box>
                 </Box>
@@ -411,8 +411,8 @@ const AddGroupRole: React.FC<AddGroupRoleProps> = ({
                                 renderInput={(params) => (
                                     <TextField
                                         {...params}
-                                        label={"Select Group"}
-                                        placeholder="Please select a Group from the list"
+                                        label={t('Home.Sidebar.list.userManagement.subMenu.groupRole.details.Add.fields.groupDropDown.label')}
+                                        placeholder={`${t('Home.Sidebar.list.userManagement.subMenu.groupRole.details.Add.fields.groupDropDown.placeholder')}`}
                                         variant="outlined"
                                         helperText={(groupIdError) ? (groupIdErrorMessage) : ("")}
                                         error={groupIdError}
@@ -466,7 +466,7 @@ const AddGroupRole: React.FC<AddGroupRoleProps> = ({
                                                         style={{
                                                             color: (roleNameError) ? ("red") : ("#818181")
                                                         }}
-                                                    >Select roles</span>;
+                                                    >{t('Home.Sidebar.list.userManagement.subMenu.groupRole.details.Add.fields.rolesDropDown.label')}</span>;
                                                 }
 
                                                 return selected.join(', ');
@@ -494,7 +494,7 @@ const AddGroupRole: React.FC<AddGroupRoleProps> = ({
                                                     ))
                                                 ) : (
                                                     <MenuItem key="No Roles" value="No Roles" dir={(currentLang === "ar") ? "rtl" : "ltr"}>
-                                                        No Roles
+                                                        {t('Home.Sidebar.list.userManagement.subMenu.groupRole.details.Add.fields.rolesDropDown.noRoles')}
                                                     </MenuItem>
                                                 )
                                             }
@@ -542,7 +542,7 @@ const AddGroupRole: React.FC<AddGroupRoleProps> = ({
                                     }}
                                     dir={(currentLang === "ar") ? "rtl" : "ltr"}
                                 >
-                                    Status
+                                    {t('Home.Sidebar.list.userManagement.subMenu.groupRole.details.Add.fields.Status.title')}
                                 </FormLabel>
                                 <RadioGroup
                                     row
@@ -564,14 +564,14 @@ const AddGroupRole: React.FC<AddGroupRoleProps> = ({
                                         control={<Radio
                                             dir={(currentLang === "ar") ? "rtl" : "ltr"}
                                         />}
-                                        label="Active"
+                                        label={t('Home.Sidebar.list.userManagement.subMenu.groupRole.details.Add.fields.Status.radio1.label')}
                                     />
                                     <FormControlLabel
                                         value="DeActive"
                                         control={<Radio
                                             dir={(currentLang === "ar") ? "rtl" : "ltr"}
                                         />}
-                                        label="Deactive"
+                                        label={t('Home.Sidebar.list.userManagement.subMenu.groupRole.details.Add.fields.Status.radio2.label')}
                                     />
                                 </RadioGroup>
                             </FormControl>
@@ -599,12 +599,12 @@ const AddGroupRole: React.FC<AddGroupRoleProps> = ({
                                     }}
                                     dir={(currentLang === "ar") ? "rtl" : "ltr"}
                                 >
-                                    Description
+                                    {t('Home.Sidebar.list.userManagement.subMenu.groupRole.details.Add.fields.description.label')}
                                 </FormLabel>
                                 <TextField
                                     id="description"
-                                    label="Description"
-                                    placeholder='Enter Description'
+                                    label={t('Home.Sidebar.list.userManagement.subMenu.groupRole.details.Add.fields.description.label')}
+                                    placeholder={`${t('Home.Sidebar.list.userManagement.subMenu.groupRole.details.Add.fields.description.placeholder')}`}
                                     multiline
                                     rows={4}
                                     defaultValue=""

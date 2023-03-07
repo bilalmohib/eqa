@@ -596,6 +596,35 @@
                                     "table": {
                                         "title": "<b style={{ fontWeight: 'bold' }}>Groups</b> <i>List</i>",
                                         "subTitle": "Following is the list of groups"
+                                    },
+                                    "Add": {
+                                        "title": "Add Group",
+                                        "subTitle": "Add a new group to the system",
+                                        "breadcrumb": {
+                                            "f1": "EQA",
+                                            "f2": "Account",
+                                            "f3": "Groups",
+                                            "f4": "Add Group"
+                                        },
+                                        "fields": {
+                                            "groupName": {
+                                                "label": "Group Name",
+                                                "placeholder": "Enter group name"
+                                            },
+                                            "description": {
+                                                "label": "Description",
+                                                "placeholder": "Enter group description"
+                                            },
+                                            "Status": {
+                                                "title": "Status",
+                                                "radio1": {
+                                                    "label": "Active"
+                                                },
+                                                "radio2": {
+                                                    "label": "Deactive"
+                                                }
+                                            }
+                                        }
                                     }
                                 }
                             },
@@ -613,6 +642,43 @@
                                     "table": {
                                         "title": "<b style={{ fontWeight: 'bold' }}>Apps</b> <i>List</i>",
                                         "subTitle": "Following is the list of Apps"
+                                    },
+                                    "Add": {
+                                        "breadcrumb": {
+                                            "f1": "EQA",
+                                            "f2": "Account",
+                                            "f3": "Apps",
+                                            "f4": "Add Apps"
+                                        },
+                                        "title": "Add App",
+                                        "subTitle": "Add a new app to the system",
+                                        "fields": {
+                                            "appName": {
+                                                "label": "App Name",
+                                                "placeholder": "Enter App name"
+                                            },
+                                            "description": {
+                                                "label": "Description",
+                                                "placeholder": "Enter UserGroup description"
+                                            },
+                                            "appUrl": {
+                                                "label": "App URL",
+                                                "placeholder": "Enter app url"
+                                            },
+                                            "AppOrder": {
+                                                "label": "App Order",
+                                                "placeholder": "Enter app order"
+                                            },
+                                            "Status": {
+                                                "title": "Status",
+                                                "radio1": {
+                                                    "label": "Active"
+                                                },
+                                                "radio2": {
+                                                    "label": "Deactive"
+                                                }
+                                            }
+                                        }
                                     }
                                 }
                             },
@@ -630,6 +696,43 @@
                                     "table": {
                                         "title": "<b style={{ fontWeight: 'bold' }}>AppForm</b> <i>List</i>",
                                         "subTitle": "Following is the list of AppForms"
+                                    },
+                                    "Add": {
+                                        "breadcrumb": {
+                                            "f1": "EQA",
+                                            "f2": "Account",
+                                            "f3": "AppForm",
+                                            "f4": "Add AppForm"
+                                        },
+                                        "title": "Add App Form",
+                                        "subTitle": "Add a new AppForm to the system",
+                                        "fields": {
+                                            "moduleName": {
+                                                "label": "Module Name",
+                                                "placeholder": "Enter Module name"
+                                            },
+                                            "FormName": {
+                                                "label": "Form Name",
+                                                "placeholder": "Enter form name"
+                                            },
+                                            "FormUrl": {
+                                                "label": "Form URL",
+                                                "placeholder": "Enter form url"
+                                            },
+                                            "selectAppDropdown": {
+                                                "label": "Select App",
+                                                "placeholder": "Select App from the list below"
+                                            },
+                                            "Status": {
+                                                "title": "Status",
+                                                "radio1": {
+                                                    "label": "Active"
+                                                },
+                                                "radio2": {
+                                                    "label": "Deactive"
+                                                }
+                                            }
+                                        }
                                     }
                                 }
                             },
@@ -647,6 +750,48 @@
                                     "table": {
                                         "title": "<b style={{ fontWeight: 'bold' }}>AppRole</b> <i>List</i>",
                                         "subTitle": "Following is the list of AppRolePrvilages"
+                                    },
+                                    "Add": {
+                                        "breadcrumb": {
+                                            "f1": "EQA",
+                                            "f2": "Account",
+                                            "f3": "RoleApp",
+                                            "f4": "Add RoleApp"
+                                        },
+                                        "title": "Add RoleApp Privilege",
+                                        "subTitle": "Add a new RoleApp Privilege to the system",
+                                        "fields": {
+                                            "selectRoleDropdown": {
+                                                "label": "Select Role",
+                                                "placeholder": "Please select a Role from the list"
+                                            },
+                                            "selectAppDropdown": {
+                                                "label": "Select App",
+                                                "placeholder": "Please select an App from the list below"
+                                            },
+                                            "selectFormDropdown": {
+                                                "label": "Select Form",
+                                                "placeholder": "Please select a Form from the list below"
+                                            },
+                                            "PermissionStatus": {
+                                                "label": "Permission Status",
+                                                "Switches": {
+                                                    "Create": "Create",
+                                                    "Read": "Read",
+                                                    "Update": "Update",
+                                                    "Delete": "Delete"
+                                                }
+                                            },
+                                            "Status": {
+                                                "title": "Status",
+                                                "radio1": {
+                                                    "label": "Active"
+                                                },
+                                                "radio2": {
+                                                    "label": "Deactive"
+                                                }
+                                            }
+                                        }
                                     }
                                 }
                             },
@@ -664,6 +809,39 @@
                                     "table": {
                                         "title": "<b style={{ fontWeight: 'bold' }}>UserGroup</b> <i>List</i>",
                                         "subTitle": "Following is the list of UserGroup"
+                                    },
+                                    "Add": {
+                                        "breadcrumb": {
+                                            "f1": "EQA",
+                                            "f2": "Account",
+                                            "f3": "UserGroup",
+                                            "f4": "Add UserGroup"
+                                        },
+                                        "title": "Add User Group",
+                                        "subTitle": "Add a new UserGroup to the system",
+                                        "fields": {
+                                            "userDropDown": {
+                                                "label": "Select User",
+                                                "placeholder": "Please select a User from the list"
+                                            },
+                                            "groupsDropDown": {
+                                                "label": "Select groups",
+                                                "noGroups": "No groups found"
+                                            },
+                                            "description": {
+                                                "label": "Description",
+                                                "placeholder": "Enter UserGroup description"
+                                            },
+                                            "Status": {
+                                                "title": "Status",
+                                                "radio1": {
+                                                    "label": "Active"
+                                                },
+                                                "radio2": {
+                                                    "label": "Deactive"
+                                                }
+                                            }
+                                        }
                                     }
                                 }
                             },
@@ -681,6 +859,39 @@
                                     "table": {
                                         "title": "<b style={{ fontWeight: 'bold' }}>GroupRole</b> <i>List</i>",
                                         "subTitle": "Following is the list of GroupRole"
+                                    },
+                                    "Add": {
+                                        "breadcrumb": {
+                                            "f1": "EQA",
+                                            "f2": "Account",
+                                            "f3": "GroupRole",
+                                            "f4": "Add GroupRole"
+                                        },
+                                        "title": "Add Group Role",
+                                        "subTitle": "Add a new GroupRole to the system",
+                                        "fields": {
+                                            "groupDropDown": {
+                                                "label": "Select Group",
+                                                "placeholder": "Please select a Group from the list"
+                                            },
+                                            "rolesDropDown": {
+                                                "label": "Select roles",
+                                                "noRoles":"No Roles"
+                                            },
+                                            "description": {
+                                                "label": "Description",
+                                                "placeholder": "Enter UserGroup description"
+                                            },
+                                            "Status": {
+                                                "title": "Status",
+                                                "radio1": {
+                                                    "label": "Active"
+                                                },
+                                                "radio2": {
+                                                    "label": "Deactive"
+                                                }
+                                            }
+                                        }
                                     }
                                 }
                             },
@@ -698,6 +909,35 @@
                                     "table": {
                                         "title": "<b style={{ fontWeight: 'bold' }}>Roles</b> <i>List</i>",
                                         "subTitle": "Following roles are available"
+                                    },
+                                    "Add": {
+                                        "title": "Add Role",
+                                        "subTitle": "Add a new role to the system",
+                                        "breadcrumb": {
+                                            "f1": "EQA",
+                                            "f2": "Account",
+                                            "f3": "Roles",
+                                            "f4": "Add Role"
+                                        },
+                                        "fields": {
+                                            "roleName": {
+                                                "label": "Role Name",
+                                                "placeholder": "Enter role name"
+                                            },
+                                            "description": {
+                                                "label": "Description",
+                                                "placeholder": "Enter role description"
+                                            },
+                                            "Status": {
+                                                "title": "Status",
+                                                "radio1": {
+                                                    "label": "Active"
+                                                },
+                                                "radio2": {
+                                                    "label": "Deactive"
+                                                }
+                                            }
+                                        }
                                     }
                                 }
                             }
