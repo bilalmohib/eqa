@@ -346,11 +346,11 @@ const AddRoleApp: React.FC<AddRoleAppProps> = ({
                 <div>
                     {(currentLang === "ar") ? (
                         <>
-                            <span style={{ color: "#4f747a" }}> Add RoleApp </span> / RoleApp / Account / EQA
+                            <span style={{ color: "#4f747a" }}> {t('Home.Sidebar.list.userManagement.subMenu.roleApp.details.Add.breadcrumb.f4')} </span> / {t('Home.Sidebar.list.userManagement.subMenu.roleApp.details.Add.breadcrumb.f3')} / {t('Home.Sidebar.list.userManagement.subMenu.roleApp.details.Add.breadcrumb.f2')} / EQA
                         </>
                     ) : (
                         <>
-                            EQA / Account / RoleApp / <span style={{ color: "#4f747a" }}> Add RoleApp </span>
+                            EQA / {t('Home.Sidebar.list.userManagement.subMenu.roleApp.details.Add.breadcrumb.f2')} / {t('Home.Sidebar.list.userManagement.subMenu.roleApp.details.Add.breadcrumb.f3')} / <span style={{ color: "#4f747a" }}> {t('Home.Sidebar.list.userManagement.subMenu.roleApp.details.Add.breadcrumb.f4')} </span>
                         </>
                     )}
                 </div>
@@ -401,7 +401,7 @@ const AddRoleApp: React.FC<AddRoleAppProps> = ({
                             display: "flex",
                             flexDirection: (currentLang === "ar") ? ("row-reverse") : ("row")
                         }}>
-                            Add RoleApp Privilege
+                            {t('Home.Sidebar.list.userManagement.subMenu.roleApp.details.Add.title')}
                         </Typography>
                         <Typography variant="body1" sx={{
                             // color: "#4f747a" 
@@ -409,7 +409,7 @@ const AddRoleApp: React.FC<AddRoleAppProps> = ({
                             color: "#696969",
                             fontWeight: 300
                         }}>
-                            Add a new RoleApp Privilege to the system
+                            {t('Home.Sidebar.list.userManagement.subMenu.roleApp.details.Add.subTitle')}
                         </Typography>
                     </Box>
                 </Box>
@@ -437,8 +437,8 @@ const AddRoleApp: React.FC<AddRoleAppProps> = ({
                                 renderInput={(params) => (
                                     <TextField
                                         {...params}
-                                        label={"Select Role"}
-                                        placeholder="Please select a Role from the list"
+                                        label={t('Home.Sidebar.list.userManagement.subMenu.roleApp.details.Add.fields.selectRoleDropdown.label')}
+                                        placeholder={`${t('Home.Sidebar.list.userManagement.subMenu.roleApp.details.Add.fields.selectRoleDropdown.placeholder')}`}
                                         variant="standard"
                                         dir={(currentLang === "ar") ? "rtl" : "ltr"}
                                         helperText={(roleIdError) ? (roleIdErrorMessage) : ("")}
@@ -467,8 +467,8 @@ const AddRoleApp: React.FC<AddRoleAppProps> = ({
                                 renderInput={(params) => (
                                     <TextField
                                         {...params}
-                                        label={"Select App"}
-                                        placeholder="Please select an App from the list"
+                                        label={t('Home.Sidebar.list.userManagement.subMenu.roleApp.details.Add.fields.selectAppDropdown.label')}
+                                        placeholder={`${t('Home.Sidebar.list.userManagement.subMenu.roleApp.details.Add.fields.selectAppDropdown.placeholder')}`}
                                         variant="standard"
                                         dir={(currentLang === "ar") ? "rtl" : "ltr"}
                                         helperText={(appIdError) ? (appIdErrorMessage) : ("")}
@@ -497,8 +497,8 @@ const AddRoleApp: React.FC<AddRoleAppProps> = ({
                                 renderInput={(params) => (
                                     <TextField
                                         {...params}
-                                        label={"Select Form"}
-                                        placeholder="Please select a Form from the list"
+                                        label={t('Home.Sidebar.list.userManagement.subMenu.roleApp.details.Add.fields.selectFormDropdown.label')}
+                                        placeholder={`${t('Home.Sidebar.list.userManagement.subMenu.roleApp.details.Add.fields.selectFormDropdown.placeholder')}`}
                                         variant="standard"
                                         dir={(currentLang === "ar") ? "rtl" : "ltr"}
                                         helperText={(formIdError) ? (formIdErrorMessage) : ("")}
@@ -533,7 +533,7 @@ const AddRoleApp: React.FC<AddRoleAppProps> = ({
                                     }}
                                     dir={(currentLang === "ar") ? "rtl" : "ltr"}
                                 >
-                                    Permission Status
+                                    {t('Home.Sidebar.list.userManagement.subMenu.roleApp.details.Add.fields.PermissionStatus.label')}
                                 </FormLabel>
                                 <FormGroup
                                     dir={(currentLang === "ar") ? "rtl" : "ltr"}
@@ -556,7 +556,7 @@ const AddRoleApp: React.FC<AddRoleAppProps> = ({
                                                 dir={(currentLang === "ar") ? "rtl" : "ltr"}
                                             />
                                         }
-                                        label="Create"
+                                        label={t('Home.Sidebar.list.userManagement.subMenu.roleApp.details.Add.fields.PermissionStatus.Switches.Create')}
                                         dir={(currentLang === "ar") ? "rtl" : "ltr"}
                                     />
                                     <FormControlLabel
@@ -577,7 +577,7 @@ const AddRoleApp: React.FC<AddRoleAppProps> = ({
                                                 dir={(currentLang === "ar") ? "rtl" : "ltr"}
                                             />
                                         }
-                                        label="Read"
+                                        label={t('Home.Sidebar.list.userManagement.subMenu.roleApp.details.Add.fields.PermissionStatus.Switches.Read')}
                                         dir={(currentLang === "ar") ? "rtl" : "ltr"}
                                     />
                                     <FormControlLabel
@@ -598,7 +598,7 @@ const AddRoleApp: React.FC<AddRoleAppProps> = ({
                                                 dir={(currentLang === "ar") ? "rtl" : "ltr"}
                                             />
                                         }
-                                        label="Update"
+                                        label={t('Home.Sidebar.list.userManagement.subMenu.roleApp.details.Add.fields.PermissionStatus.Switches.Update')}
                                         dir={(currentLang === "ar") ? "rtl" : "ltr"}
                                     />
                                     <FormControlLabel
@@ -619,7 +619,7 @@ const AddRoleApp: React.FC<AddRoleAppProps> = ({
                                                 dir={(currentLang === "ar") ? "rtl" : "ltr"}
                                             />
                                         }
-                                        label="Delete"
+                                        label={t('Home.Sidebar.list.userManagement.subMenu.roleApp.details.Add.fields.PermissionStatus.Switches.Delete')}
                                         dir={(currentLang === "ar") ? "rtl" : "ltr"}
                                     />
                                 </FormGroup>
@@ -648,7 +648,7 @@ const AddRoleApp: React.FC<AddRoleAppProps> = ({
                                         marginTop: 0
                                     }}
                                 >
-                                    Status
+                                    {t('Home.Sidebar.list.userManagement.subMenu.roleApp.details.Add.fields.Status.title')}
                                 </FormLabel>
                                 <RadioGroup
                                     row
@@ -670,7 +670,7 @@ const AddRoleApp: React.FC<AddRoleAppProps> = ({
                                         control={<Radio
                                             dir={(currentLang === "ar") ? "rtl" : "ltr"}
                                         />}
-                                        label="Active"
+                                        label={t('Home.Sidebar.list.userManagement.subMenu.roleApp.details.Add.fields.Status.radio1.label')}
                                         dir={(currentLang === "ar") ? "rtl" : "ltr"}
                                     />
                                     <FormControlLabel
@@ -678,7 +678,7 @@ const AddRoleApp: React.FC<AddRoleAppProps> = ({
                                         control={<Radio
                                             dir={(currentLang === "ar") ? "rtl" : "ltr"}
                                         />}
-                                        label="Deactive"
+                                        label={t('Home.Sidebar.list.userManagement.subMenu.roleApp.details.Add.fields.Status.radio2.label')}
                                         dir={(currentLang === "ar") ? "rtl" : "ltr"}
                                     />
                                 </RadioGroup>

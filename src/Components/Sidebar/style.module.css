@@ -163,6 +163,7 @@ html[dir="rtl"] .rightInsideProfile {
     height: 37px !important;
     display: flex;
 }
+
 html[dir="rtl"] .searchFilterMenuSubContainer {
     margin-left: auto;
     margin-right: auto;
@@ -392,6 +393,16 @@ html[dir="rtl"] .SubMenuItemContainer li:hover {
     margin-left: -32px !important;
     padding-left: 19px !important;
 }
+
+html[dir="rtl"] .selectedSubMenuItemContainerli {
+    background-color: #517170 !important;
+    transition: 0.1s linear;
+    border-left: initial !important;
+    border-right: 2px solid #64a9a8;
+    margin-left: -32px !important;
+    padding-left: 19px !important;
+}
+
 /* .selectedSubMenuItemContainerli:hover{
     padding-left: 10px !important;
 } */

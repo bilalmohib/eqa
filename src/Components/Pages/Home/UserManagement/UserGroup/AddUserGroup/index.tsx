@@ -327,11 +327,11 @@ const AddUserGroup: React.FC<AddUserGroupProps> = ({
                 <div>
                     {(currentLang === "ar") ? (
                         <>
-                            <span style={{ color: "#4f747a" }}> Add UserGroup </span> / UserGroup / Account / EQA
+                            <span style={{ color: "#4f747a" }}> {t('Home.Sidebar.list.userManagement.subMenu.userGroup.details.Add.breadcrumb.f4')} </span> / {t('Home.Sidebar.list.userManagement.subMenu.userGroup.details.Add.breadcrumb.f3')} / {t('Home.Sidebar.list.userManagement.subMenu.userGroup.details.Add.breadcrumb.f2')} / EQA
                         </>
                     ) : (
                         <>
-                            EQA / Account / UserGroup / <span style={{ color: "#4f747a" }}> Add UserGroup </span>I
+                            EQA / {t('Home.Sidebar.list.userManagement.subMenu.userGroup.details.Add.breadcrumb.f2')} / {t('Home.Sidebar.list.userManagement.subMenu.userGroup.details.Add.breadcrumb.f3')} / <span style={{ color: "#4f747a" }}> {t('Home.Sidebar.list.userManagement.subMenu.userGroup.details.Add.breadcrumb.f4')} </span>I
                         </>
                     )}
                 </div>
@@ -382,7 +382,7 @@ const AddUserGroup: React.FC<AddUserGroupProps> = ({
                             display: "flex",
                             flexDirection: (currentLang === "ar") ? ("row-reverse") : ("row")
                         }}>
-                            Add User Group
+                            {t('Home.Sidebar.list.userManagement.subMenu.userGroup.details.Add.title')}
                         </Typography>
                         <Typography variant="body1" sx={{
                             // color: "#4f747a" 
@@ -390,7 +390,7 @@ const AddUserGroup: React.FC<AddUserGroupProps> = ({
                             color: "#696969",
                             fontWeight: 300
                         }}>
-                            Add a new UserGroup to the system
+                            {t('Home.Sidebar.list.userManagement.subMenu.userGroup.details.Add.subTitle')}
                         </Typography>
                     </Box>
                 </Box>
@@ -425,8 +425,8 @@ const AddUserGroup: React.FC<AddUserGroupProps> = ({
                                 renderInput={(params) => (
                                     <TextField
                                         {...params}
-                                        label={"Select User"}
-                                        placeholder="Please select a User from the list"
+                                        label={t('Home.Sidebar.list.userManagement.subMenu.userGroup.details.Add.fields.userDropDown.label')}
+                                        placeholder={`${t('Home.Sidebar.list.userManagement.subMenu.userGroup.details.Add.fields.userDropDown.placeholder')}`}
                                         variant="outlined"
                                         dir={(currentLang === "ar") ? "rtl" : "ltr"}
                                         helperText={(userIdError) ? (userIdErrorMessage) : ("")}
@@ -481,7 +481,7 @@ const AddUserGroup: React.FC<AddUserGroupProps> = ({
                                                         style={{
                                                             color: (groupNameError) ? ("red") : ("#818181")
                                                         }}
-                                                    >Select groups</span>;
+                                                    >{t('Home.Sidebar.list.userManagement.subMenu.userGroup.details.Add.fields.groupsDropDown.label')}</span>;
                                                 }
 
                                                 return selected.join(', ');
@@ -508,7 +508,7 @@ const AddUserGroup: React.FC<AddUserGroupProps> = ({
                                                     <MenuItem key="No Groups" value="No Groups"
                                                         dir={(currentLang === "ar") ? "rtl" : "ltr"}
                                                     >
-                                                        No Groups
+                                                        {t('Home.Sidebar.list.userManagement.subMenu.userGroup.details.Add.fields.groupsDropDown.noGroups')}
                                                     </MenuItem>
                                                 )
                                             }
@@ -556,7 +556,7 @@ const AddUserGroup: React.FC<AddUserGroupProps> = ({
                                     }}
                                     dir={(currentLang === "ar") ? "rtl" : "ltr"}
                                 >
-                                    Status
+                                    {t('Home.Sidebar.list.userManagement.subMenu.userGroup.details.Add.fields.Status.title')}
                                 </FormLabel>
                                 <RadioGroup
                                     row
@@ -578,7 +578,7 @@ const AddUserGroup: React.FC<AddUserGroupProps> = ({
                                         control={<Radio
                                             dir={(currentLang === "ar") ? "rtl" : "ltr"}
                                         />}
-                                        label="Active"
+                                        label={t('Home.Sidebar.list.userManagement.subMenu.userGroup.details.Add.fields.Status.radio1.label')}
                                         dir={(currentLang === "ar") ? "rtl" : "ltr"}
                                     />
                                     <FormControlLabel
@@ -586,7 +586,7 @@ const AddUserGroup: React.FC<AddUserGroupProps> = ({
                                         control={<Radio
                                             dir={(currentLang === "ar") ? "rtl" : "ltr"}
                                         />}
-                                        label="Deactive"
+                                        label={t('Home.Sidebar.list.userManagement.subMenu.userGroup.details.Add.fields.Status.radio2.label')}
                                         dir={(currentLang === "ar") ? "rtl" : "ltr"}
                                     />
                                 </RadioGroup>
@@ -615,12 +615,12 @@ const AddUserGroup: React.FC<AddUserGroupProps> = ({
                                     }}
                                     dir={(currentLang === "ar") ? "rtl" : "ltr"}
                                 >
-                                    Description
+                                    {t('Home.Sidebar.list.userManagement.subMenu.userGroup.details.Add.fields.description.label')}
                                 </FormLabel>
                                 <TextField
                                     id="description"
-                                    label="Description"
-                                    placeholder='Enter Description'
+                                    label={t('Home.Sidebar.list.userManagement.subMenu.userGroup.details.Add.fields.description.label')}
+                                    placeholder={`${t('Home.Sidebar.list.userManagement.subMenu.userGroup.details.Add.fields.description.placeholder')}`}
                                     multiline
                                     rows={4}
                                     defaultValue=""

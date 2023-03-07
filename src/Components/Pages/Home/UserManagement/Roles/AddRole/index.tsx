@@ -200,11 +200,11 @@ const AddRole: React.FC<UserProps> = ({
                 <div>
                     {(currentLang === "ar") ? (
                         <>
-                            <span style={{ color: "#4f747a" }}> Add Role </span> / Roles / Account / EQA
+                            <span style={{ color: "#4f747a" }}> {t('Home.Sidebar.list.userManagement.subMenu.roles.details.Add.breadcrumb.f4')} </span> / {t('Home.Sidebar.list.userManagement.subMenu.roles.details.Add.breadcrumb.f3')} / {t('Home.Sidebar.list.userManagement.subMenu.roles.details.Add.breadcrumb.f2')} / EQA
                         </>
                     ) : (
                         <>
-                            EQA / Account / Roles / <span style={{ color: "#4f747a" }}> Add Role </span>
+                            EQA / {t('Home.Sidebar.list.userManagement.subMenu.roles.details.Add.breadcrumb.f2')} / {t('Home.Sidebar.list.userManagement.subMenu.roles.details.Add.breadcrumb.f3')} / <span style={{ color: "#4f747a" }}> {t('Home.Sidebar.list.userManagement.subMenu.roles.details.Add.breadcrumb.f4')} </span>
                         </>
                     )}
                 </div>
@@ -259,7 +259,7 @@ const AddRole: React.FC<UserProps> = ({
                             display: "flex",
                             flexDirection: (currentLang === "ar") ? ("row-reverse") : ("row")
                         }}>
-                            Add Role
+                            {t('Home.Sidebar.list.userManagement.subMenu.roles.details.Add.title')}
                         </Typography>
                         <Typography variant="body1" sx={{
                             // color: "#4f747a" 
@@ -267,7 +267,7 @@ const AddRole: React.FC<UserProps> = ({
                             color: "#696969",
                             fontWeight: 300
                         }}>
-                            Add a new role to the system
+                            {t('Home.Sidebar.list.userManagement.subMenu.roles.details.Add.subTitle')}
                         </Typography>
                     </Box>
                 </Box>
@@ -280,8 +280,8 @@ const AddRole: React.FC<UserProps> = ({
                         <Grid item xs={12}>
                             <TextField
                                 id="roleNameTextField"
-                                label="Role Name"
-                                placeholder="Enter role name"
+                                label={t('Home.Sidebar.list.userManagement.subMenu.roles.details.Add.fields.roleName.label')}
+                                placeholder={`${t('Home.Sidebar.list.userManagement.subMenu.roles.details.Add.fields.roleName.placeholder')}`}
                                 variant="standard"
                                 margin="normal"
                                 fullWidth // t
@@ -300,8 +300,8 @@ const AddRole: React.FC<UserProps> = ({
                         <Grid item xs={12}>
                             <TextField
                                 id="roleDescriptionTextField"
-                                label="Description"
-                                placeholder="Enter role description"
+                                label={t('Home.Sidebar.list.userManagement.subMenu.roles.details.Add.fields.description.label')}
+                                placeholder={`${t('Home.Sidebar.list.userManagement.subMenu.roles.details.Add.fields.description.placeholder')}`}
                                 variant="standard"
                                 margin="normal"
                                 fullWidth // t
@@ -339,7 +339,7 @@ const AddRole: React.FC<UserProps> = ({
                                         marginTop: 0
                                     }}
                                 >
-                                    Status
+                                    {t('Home.Sidebar.list.userManagement.subMenu.roles.details.Add.fields.Status.title')}
                                 </FormLabel>
                                 <RadioGroup
                                     row
@@ -361,7 +361,7 @@ const AddRole: React.FC<UserProps> = ({
                                         control={<Radio
                                             dir={(currentLang === "ar") ? "rtl" : "ltr"}
                                         />}
-                                        label="Active"
+                                        label={t('Home.Sidebar.list.userManagement.subMenu.roles.details.Add.fields.Status.radio1.label')}
                                         dir={(currentLang === "ar") ? "rtl" : "ltr"}
                                     />
                                     <FormControlLabel
@@ -369,7 +369,7 @@ const AddRole: React.FC<UserProps> = ({
                                         control={<Radio
                                             dir={(currentLang === "ar") ? "rtl" : "ltr"}
                                         />}
-                                        label="Deactive"
+                                        label={t('Home.Sidebar.list.userManagement.subMenu.roles.details.Add.fields.Status.radio2.label')}
                                         dir={(currentLang === "ar") ? "rtl" : "ltr"}
                                     />
                                 </RadioGroup>

@@ -196,11 +196,11 @@ const AddGroup: React.FC<UserProps> = ({
                 <div>
                     {(currentLang === "ar") ? (
                         <>
-                            <span style={{ color: "#4f747a" }}> Add Group </span> / Groups / Account / EQA
+                            <span style={{ color: "#4f747a" }}> {t('Home.Sidebar.list.userManagement.subMenu.groups.details.Add.breadcrumb.f4')} </span> / {t('Home.Sidebar.list.userManagement.subMenu.groups.details.Add.breadcrumb.f3')} / {t('Home.Sidebar.list.userManagement.subMenu.groups.details.Add.breadcrumb.f2')} / EQA
                         </>
                     ) : (
                         <>
-                            EQA / Account / Groups / <span style={{ color: "#4f747a" }}> Add Group </span>
+                            EQA / {t('Home.Sidebar.list.userManagement.subMenu.groups.details.Add.breadcrumb.f2')} / {t('Home.Sidebar.list.userManagement.subMenu.groups.details.Add.breadcrumb.f3')} / <span style={{ color: "#4f747a" }}> {t('Home.Sidebar.list.userManagement.subMenu.groups.details.Add.breadcrumb.f4')} </span>
                         </>
                     )}
                 </div>
@@ -251,7 +251,7 @@ const AddGroup: React.FC<UserProps> = ({
                             display: "flex",
                             flexDirection: (currentLang === "ar") ? ("row-reverse") : ("row")
                         }}>
-                            Add Group
+                            {t('Home.Sidebar.list.userManagement.subMenu.groups.details.Add.title')}
                         </Typography>
                         <Typography variant="body1" sx={{
                             // color: "#4f747a" 
@@ -259,7 +259,7 @@ const AddGroup: React.FC<UserProps> = ({
                             color: "#696969",
                             fontWeight: 300
                         }}>
-                            Add a new group to the system
+                            {t('Home.Sidebar.list.userManagement.subMenu.groups.details.Add.subTitle')}
                         </Typography>
                     </Box>
                 </Box>
@@ -272,8 +272,8 @@ const AddGroup: React.FC<UserProps> = ({
                         <Grid item xs={12}>
                             <TextField
                                 id="groupNameTextField"
-                                label="Group Name"
-                                placeholder="Enter group name"
+                                label={t('Home.Sidebar.list.userManagement.subMenu.groups.details.Add.fields.groupName.label')}
+                                placeholder={`${t('Home.Sidebar.list.userManagement.subMenu.groups.details.Add.fields.groupName.placeholder')}`}
                                 variant="standard"
                                 margin="normal"
                                 fullWidth // t
@@ -293,8 +293,8 @@ const AddGroup: React.FC<UserProps> = ({
                         <Grid item xs={12}>
                             <TextField
                                 id="groupDescriptionTextField"
-                                label="Description"
-                                placeholder="Enter group description"
+                                label={t('Home.Sidebar.list.userManagement.subMenu.groups.details.Add.fields.description.label')}
+                                placeholder={`${t('Home.Sidebar.list.userManagement.subMenu.groups.details.Add.fields.description.placeholder')}`}
                                 variant="standard"
                                 margin="normal"
                                 fullWidth // t
@@ -333,7 +333,7 @@ const AddGroup: React.FC<UserProps> = ({
                                         marginTop: 0
                                     }}
                                 >
-                                    Status
+                                    {t('Home.Sidebar.list.userManagement.subMenu.groups.details.Add.fields.Status.title')}
                                 </FormLabel>
                                 <RadioGroup
                                     row
@@ -353,13 +353,13 @@ const AddGroup: React.FC<UserProps> = ({
                                     <FormControlLabel
                                         value="Active"
                                         control={<Radio />}
-                                        label="Active"
+                                        label={t('Home.Sidebar.list.userManagement.subMenu.groups.details.Add.fields.Status.radio1.label')}
                                         dir={(currentLang === "ar") ? "rtl" : "ltr"}
                                     />
                                     <FormControlLabel
                                         value="DeActive"
                                         control={<Radio />}
-                                        label="Deactive"
+                                        label={t('Home.Sidebar.list.userManagement.subMenu.groups.details.Add.fields.Status.radio2.label')}
                                         dir={(currentLang === "ar") ? "rtl" : "ltr"}
                                     />
                                 </RadioGroup>

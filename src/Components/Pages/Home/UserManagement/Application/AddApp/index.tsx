@@ -217,11 +217,11 @@ const AddApp: React.FC<AppProps> = ({
                 <div>
                     {(currentLang === "ar") ? (
                         <>
-                            <span style={{ color: "#4f747a" }}> Add Apps </span> / Apps / Account / EQA
+                            <span style={{ color: "#4f747a" }}> {t('Home.Sidebar.list.userManagement.subMenu.apps.details.Add.breadcrumb.f4')} </span> / {t('Home.Sidebar.list.userManagement.subMenu.apps.details.Add.breadcrumb.f3')} / {t('Home.Sidebar.list.userManagement.subMenu.apps.details.Add.breadcrumb.f2')} / EQA
                         </>
                     ) : (
                         <>
-                            EQA / Account / Apps / <span style={{ color: "#4f747a" }}> Add Apps </span>
+                            EQA / {t('Home.Sidebar.list.userManagement.subMenu.apps.details.Add.breadcrumb.f2')} / {t('Home.Sidebar.list.userManagement.subMenu.apps.details.Add.breadcrumb.f3')} / <span style={{ color: "#4f747a" }}> {t('Home.Sidebar.list.userManagement.subMenu.apps.details.Add.breadcrumb.f4')} </span>
                         </>
                     )}
                 </div>
@@ -272,7 +272,7 @@ const AddApp: React.FC<AppProps> = ({
                             display: "flex",
                             flexDirection: (currentLang === "ar") ? ("row-reverse") : ("row")
                         }}>
-                            Add App
+                            {t('Home.Sidebar.list.userManagement.subMenu.apps.details.Add.title')}
                         </Typography>
                         <Typography variant="body1" sx={{
                             // color: "#4f747a" 
@@ -280,7 +280,7 @@ const AddApp: React.FC<AppProps> = ({
                             color: "#696969",
                             fontWeight: 300
                         }}>
-                            Add a new app to the system
+                            {t('Home.Sidebar.list.userManagement.subMenu.apps.details.Add.subTitle')}
                         </Typography>
                     </Box>
                 </Box>
@@ -293,8 +293,8 @@ const AddApp: React.FC<AppProps> = ({
                         <Grid item xs={12}>
                             <TextField
                                 id="appNameTextField"
-                                label="App Name"
-                                placeholder="Enter App name"
+                                label={t('Home.Sidebar.list.userManagement.subMenu.apps.details.Add.fields.appName.label')}
+                                placeholder={`${t('Home.Sidebar.list.userManagement.subMenu.apps.details.Add.fields.appName.placeholder')}`}
                                 variant="standard"
                                 margin="normal"
                                 fullWidth // t
@@ -314,8 +314,8 @@ const AddApp: React.FC<AppProps> = ({
                         <Grid item xs={12}>
                             <TextField
                                 id="appDescriptionTextField"
-                                label="Description"
-                                placeholder="Enter app description"
+                                label={t('Home.Sidebar.list.userManagement.subMenu.apps.details.Add.fields.description.label')}
+                                placeholder={`${t('Home.Sidebar.list.userManagement.subMenu.apps.details.Add.fields.description.placeholder')}`}
                                 variant="standard"
                                 margin="normal"
                                 fullWidth // t
@@ -335,8 +335,8 @@ const AddApp: React.FC<AppProps> = ({
                         <Grid item xs={12}>
                             <TextField
                                 id="appUrlTextField"
-                                label="App URL"
-                                placeholder="Enter app url"
+                                label={t('Home.Sidebar.list.userManagement.subMenu.apps.details.Add.fields.appUrl.label')}
+                                placeholder={`${t('Home.Sidebar.list.userManagement.subMenu.apps.details.Add.fields.appUrl.placeholder')}`}
                                 variant="standard"
                                 margin="normal"
                                 fullWidth // t
@@ -356,8 +356,8 @@ const AddApp: React.FC<AppProps> = ({
                         <Grid item xs={12}>
                             <TextField
                                 id="appOrderTextField"
-                                label="App Order"
-                                placeholder="Enter app order"
+                                label={t('Home.Sidebar.list.userManagement.subMenu.apps.details.Add.fields.AppOrder.label')}
+                                placeholder={`${t('Home.Sidebar.list.userManagement.subMenu.apps.details.Add.fields.AppOrder.placeholder')}`}
                                 variant="standard"
                                 margin="normal"
                                 fullWidth // t
@@ -399,7 +399,7 @@ const AddApp: React.FC<AppProps> = ({
                                     }}
                                     dir={(currentLang === "ar") ? "rtl" : "ltr"}
                                 >
-                                    Status
+                                    {t('Home.Sidebar.list.userManagement.subMenu.apps.details.Add.fields.Status.title')}
                                 </FormLabel>
                                 <RadioGroup
                                     row
@@ -421,7 +421,7 @@ const AddApp: React.FC<AppProps> = ({
                                         control={<Radio
                                             dir={(currentLang === "ar") ? "rtl" : "ltr"}
                                         />}
-                                        label="Active"
+                                        label={t('Home.Sidebar.list.userManagement.subMenu.apps.details.Add.fields.Status.radio1.label')}
                                         dir={(currentLang === "ar") ? "rtl" : "ltr"}
                                     />
                                     <FormControlLabel
@@ -429,7 +429,7 @@ const AddApp: React.FC<AppProps> = ({
                                         control={<Radio
                                             dir={(currentLang === "ar") ? "rtl" : "ltr"}
                                         />}
-                                        label="Deactive"
+                                        label={t('Home.Sidebar.list.userManagement.subMenu.apps.details.Add.fields.Status.radio2.label')}
                                         dir={(currentLang === "ar") ? "rtl" : "ltr"}
                                     />
                                 </RadioGroup>
