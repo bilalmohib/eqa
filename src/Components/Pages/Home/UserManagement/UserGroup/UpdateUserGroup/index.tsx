@@ -6,7 +6,6 @@ import AppsIcon from '@mui/icons-material/Apps';
 import SendIcon from '@mui/icons-material/Send';
 
 import { useNavigate } from 'react-router';
-import { useTranslation } from "react-i18next";
 
 import axios from 'axios';
 
@@ -35,15 +34,13 @@ import SnackBar from '../../../../../SnackBar';
 
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 
+import { useTranslation } from "react-i18next";
+
 import styles from "./style.module.css";
 
-interface AddGroupRoleProps {
-    setIsOpen: any,
-    isOpen: Boolean,
-    // For minified sidebar
-    isMinified: Boolean,
-    setIsMinified: any,
+interface UpdateUserGroupProps {
     currentLang: string
+    originalValues: any
 }
 
 const ITEM_HEIGHT = 48;
@@ -57,13 +54,9 @@ const MenuProps = {
     },
 };
 
-const AddGroupRole: React.FC<AddGroupRoleProps> = ({
-    setIsOpen,
-    isOpen,
-    // For minified sidebar
-    isMinified,
-    setIsMinified,
-    currentLang
+const UpdateUserGroup: React.FC<UpdateUserGroupProps> = ({
+    currentLang,
+    originalValues
 }) => {
     const { t } = useTranslation();
     const navigate = useNavigate();
@@ -97,14 +90,14 @@ const AddGroupRole: React.FC<AddGroupRoleProps> = ({
 
     // For field validation
 
-    // For Selecting one Group
-    const [groupId, setGroupId] = useState<any>(null);
+    // For Selecting one user
+    const [userId, setUserId] = useState<any>(null);
 
     // Error messages
-    const [groupIdErrorMessage, setGroupIdErrorMessage] = useState("");
+    const [userIdErrorMessage, setUserIdErrorMessage] = useState("");
 
     // For field validation
-    const [groupIdError, setGroupIdError] = useState(false);
+    const [userIdError, setUserIdError] = useState(false);
 
     // Status radio buttons
     const [status, setStatus] = useState("Active");
@@ -117,8 +110,8 @@ const AddGroupRole: React.FC<AddGroupRoleProps> = ({
 
 
     // For fetching data from API
-    const [rolesList, setRolesList] = useState<any>([]);
-    const [groupList, setGroupList] = useState<any>([]);
+    const [groupsList, setGroupsList] = useState<any>([]);
+    const [userList, setUserList] = useState<any>([]);
     // For fetching data from API
 
     // For checking loading state of API
@@ -126,21 +119,21 @@ const AddGroupRole: React.FC<AddGroupRoleProps> = ({
 
     // FOR REACT MULTI SELECT
 
-    // @1) roleName
-    const [roleName, setRoleName] = useState<any>([]);
+    // @1) groupName
+    const [groupName, setGroupName] = useState<any>([]);
 
-    const [roleNameError, setRoleNameError] = useState(false);
-    const [roleNameErrorMessage, setRoleNameErrorMessage] = useState("");
+    const [groupNameError, setGroupNameError] = useState(false);
+    const [groupNameErrorMessage, setGroupNameErrorMessage] = useState("");
 
-    const handleChangeRoles = (event: SelectChangeEvent<typeof roleName>) => {
+    const handleChangeGroups = (event: SelectChangeEvent<typeof groupName>) => {
         const {
             target: { value },
         } = event;
-        if (roleNameError === true) {
-            setRoleNameError(false);
-            setRoleNameErrorMessage("");
+        if (groupNameError === true) {
+            setGroupNameError(false);
+            setGroupNameErrorMessage("");
         }
-        setRoleName(
+        setGroupName(
             // On autofill we get a stringified value.
             typeof value === 'string' ? value.split(',') : value,
         );
@@ -157,27 +150,27 @@ const AddGroupRole: React.FC<AddGroupRoleProps> = ({
         console.log("Access Token in View Users ===> ", accessToken);
 
         if (accessToken !== null && loadData === true) {
-            // Fetching Roles 
-            axios.get("https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/fetchGroups", {
+            // Fetching Users
+            axios.get("https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/fetchUsers", {
                 headers: {
                     "x-api-key": accessToken
                 }
             })
                 .then((res) => {
-                    setGroupList(res.data.obj);
+                    setUserList(res.data.obj);
                 })
                 .catch((err) => {
                     console.log(err);
                 });
 
             // Fetching Group
-            axios.get("https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/fetchRoles", {
+            axios.get("https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/fetchGroups", {
                 headers: {
                     "x-api-key": accessToken
                 }
             })
                 .then((res) => {
-                    setRolesList(res.data.obj);
+                    setGroupsList(res.data.obj);
                 })
                 .catch((err) => {
                     console.log(err);
@@ -192,12 +185,12 @@ const AddGroupRole: React.FC<AddGroupRoleProps> = ({
 
     // --------------------- AUTO COMPLETE DEFAULT PROPS ---------------------
 
-    // @1 FOR GROUP ID AUTO COMPLETE
-    const groupIdDefaultProps = {
-        options: groupList,
-        getOptionLabel: (option: any) => option.grpName
+    // @1 FOR USER ID AUTO COMPLETE
+    const userIdDefaultProps = {
+        options: userList,
+        getOptionLabel: (option: any) => option.userName
     };
-    // FOR GROUP ID AUTO COMPLETE
+    // FOR USER ID AUTO COMPLETE
     // --------------------- AUTO COMPLETE DEFAULT PROPS ---------------------
 
     const handleChangeStatus = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -223,36 +216,36 @@ const AddGroupRole: React.FC<AddGroupRoleProps> = ({
 
             if (accessToken !== null) {
                 // Set the validation errors
-                if (groupId === null) {
-                    setGroupIdErrorMessage("* Please select any User from the list.");
-                    setGroupIdError(true);
+                if (userId === null) {
+                    setUserIdErrorMessage("* Please select any User from the list.");
+                    setUserIdError(true);
                 }
                 if (description === "") {
                     setDescriptionErrorMessage("* Please enter the Description.");
                     setDescriptionError(true);
                 }
-                if (roleName.length < 1) {
-                    setRoleNameErrorMessage("* Please select atleast one group.");
-                    setRoleNameError(true);
+                if (groupName.length < 1) {
+                    setGroupNameErrorMessage("* Please select atleast one group.");
+                    setGroupNameError(true);
                 }
                 // Set the validation errors
 
                 if (
-                    groupId !== null &&
+                    userId !== null &&
                     description !== "" &&
-                    roleName.length > 0
+                    groupName.length > 0
                 ) {
                     const formState = {
-                        "roleIds": roleName,
-                        "grpId": groupId.grpId,
-                        "grpRoleDescription": description,
-                        // "loggedInUser": loggedInUser,
-                        "active": (status === "Active") ? true : false
+                        "groupIds": groupName,
+                        "userId": userId.userId,
+                        "description": description,
+                        "active": (status === "Active") ? true : false,
+                        "loggedInUser": loggedInUser
                     };
 
                     console.log("User Form Data ===> ", formState);
 
-                    axios.post('https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/saveGroupRole',
+                    axios.post('https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/createUserGroup',
                         formState
                         , {
                             headers: {
@@ -264,32 +257,45 @@ const AddGroupRole: React.FC<AddGroupRoleProps> = ({
                             if (response.status === 200) {
                                 setSnackBarHandler({
                                     severity: (response.data.code === "200.200") ? "success" : "error",
-                                    message: (response.data.code === "200.200") ? response.data.message : (response.data.message),
+                                    message: (response.data.code === "200.200") ? "User Group Created Successfully." : (response.data.message),
                                     open: true
                                 })
                                 const m = response.data.message;
                                 if (response.data.code === "200.200") {
                                     setTimeout(() => {
-                                        navigate("/account/group-role/view");
+                                        navigate("/account/user-group/view");
                                     }, 3000);
                                 }
                                 console.log(m);
                             }
                         })
                         .catch(function (error) {
-                            setSnackBarHandler({
-                                severity: "error",
-                                message: error.message,
-                                open: true
-                            })
                             console.log(error);
                         });
                 } else {
+                    // set the errors
+                    // setUserIdError(true);
+                    // setDescriptionError(true);
+                    // setGroupNameError(true);
+                    // if (userId === null) {
+                    //     setUserIdErrorMessage("* Please select any User from the list.");
+                    //     setUserIdError(true);
+                    // }
+                    // if (description === "") {
+                    //     setDescriptionErrorMessage("* Please enter the Description.");
+                    //     setDescriptionError(true);
+                    // }
+                    // if (groupName.length < 1) {
+                    //     setGroupNameErrorMessage("* Please select atleast one group.");
+                    //     setGroupNameError(true);
+                    // }
+                    // set the errors
+
                     setSnackBarHandler({
                         message: `Please fill out all the fields.`,
                         open: true,
                         severity: "error"
-                    });
+                    })
                 }
             } else {
                 alert("Please login first");
@@ -303,21 +309,16 @@ const AddGroupRole: React.FC<AddGroupRoleProps> = ({
 
     return (
         <Box
-            className={`${styles.container} ${(windowSize[0] < 991 && isOpen) ? ("bgMobileOnSideOpen") : ("")}`}
-            onClick={() => {
-                if ((windowSize[0] < 991) && isOpen)
-                    setIsOpen(false);
-            }}
-        >
-            <div style={{ marginTop: 5, flexDirection: (currentLang === "ar") ? ("row-reverse") : ("row") }} className={`${(windowSize[0] > 990) ? ("d-flex justify-content-between") : ("d-flex flex-column justify-content-start")}`}>
+            className={styles.container}>
+            {/* <div style={{ marginTop: 5, flexDirection: (currentLang === "ar") ? ("row-reverse") : ("row") }} className={`${(windowSize[0] > 990) ? ("d-flex justify-content-between") : ("d-flex flex-column justify-content-start")}`}>
                 <div>
                     {(currentLang === "ar") ? (
                         <>
-                            <span style={{ color: "#4f747a" }}> {t('Home.Sidebar.list.userManagement.subMenu.groupRole.details.Add.breadcrumb.f4')} </span> / {t('Home.Sidebar.list.userManagement.subMenu.groupRole.details.Add.breadcrumb.f3')} / {t('Home.Sidebar.list.userManagement.subMenu.groupRole.details.Add.breadcrumb.f2')} / EQA
+                            <span style={{ color: "#4f747a" }}> {t('Home.Sidebar.list.userManagement.subMenu.userGroup.details.Add.breadcrumb.f4')} </span> / {t('Home.Sidebar.list.userManagement.subMenu.userGroup.details.Add.breadcrumb.f3')} / {t('Home.Sidebar.list.userManagement.subMenu.userGroup.details.Add.breadcrumb.f2')} / EQA
                         </>
                     ) : (
                         <>
-                            EQA / {t('Home.Sidebar.list.userManagement.subMenu.groupRole.details.Add.breadcrumb.f2')} / {t('Home.Sidebar.list.userManagement.subMenu.groupRole.details.Add.breadcrumb.f3')} / <span style={{ color: "#4f747a" }}> {t('Home.Sidebar.list.userManagement.subMenu.groupRole.details.Add.breadcrumb.f4')} </span>
+                            EQA / {t('Home.Sidebar.list.userManagement.subMenu.userGroup.details.Add.breadcrumb.f2')} / {t('Home.Sidebar.list.userManagement.subMenu.userGroup.details.Add.breadcrumb.f3')} / <span style={{ color: "#4f747a" }}> {t('Home.Sidebar.list.userManagement.subMenu.userGroup.details.Add.breadcrumb.f4')} </span>I
                         </>
                     )}
                 </div>
@@ -326,7 +327,7 @@ const AddGroupRole: React.FC<AddGroupRoleProps> = ({
                 </div>
             </div>
 
-            <hr />
+            <hr /> */}
 
             <Box sx={{
                 // border: "1px solid red",
@@ -336,7 +337,7 @@ const AddGroupRole: React.FC<AddGroupRoleProps> = ({
                 boxShadow: "rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;"
             }}>
 
-                <Box sx={{
+                {/* <Box sx={{
                     // border: "1px solid red",
                     display: "flex",
                     marginBottom: 2,
@@ -368,7 +369,7 @@ const AddGroupRole: React.FC<AddGroupRoleProps> = ({
                             display: "flex",
                             flexDirection: (currentLang === "ar") ? ("row-reverse") : ("row")
                         }}>
-                            {t('Home.Sidebar.list.userManagement.subMenu.groupRole.details.Add.title')}
+                            {t('Home.Sidebar.list.userManagement.subMenu.userGroup.details.Add.title')}
                         </Typography>
                         <Typography variant="body1" sx={{
                             // color: "#4f747a" 
@@ -376,12 +377,12 @@ const AddGroupRole: React.FC<AddGroupRoleProps> = ({
                             color: "#696969",
                             fontWeight: 300
                         }}>
-                            {t('Home.Sidebar.list.userManagement.subMenu.groupRole.details.Add.subTitle')}
+                            {t('Home.Sidebar.list.userManagement.subMenu.userGroup.details.Add.subTitle')}
                         </Typography>
                     </Box>
-                </Box>
+                </Box> */}
 
-                <Box sx={{ flexGrow: 1, mt: 4 }}>
+                <Box sx={{ flexGrow: 1, mt: 0 }}>
                     <Grid container spacing={
                         // Categorize according to small, medium, large screen
                         (windowSize[0] < 576) ? (0) : ((windowSize[0] < 768) ? (1) : ((windowSize[0] < 992) ? (2) : (3)))
@@ -397,26 +398,26 @@ const AddGroupRole: React.FC<AddGroupRoleProps> = ({
                             xl={6}
                         >
                             <Autocomplete
-                                {...groupIdDefaultProps}
-                                id="groupIdAutoComplete"
+                                {...userIdDefaultProps}
+                                id="userIdAutoComplete"
                                 autoHighlight
-                                value={groupId}
+                                dir={(currentLang === "ar") ? "rtl" : "ltr"}
+                                value={userId}
                                 onChange={(event, newValue) => {
-                                    setGroupId(newValue);
-                                    if (groupIdError) {
-                                        setGroupIdError(false);
+                                    setUserId(newValue);
+                                    if (userIdError) {
+                                        setUserIdError(false);
                                     }
                                 }}
-                                dir={(currentLang === "ar") ? "rtl" : "ltr"}
                                 renderInput={(params) => (
                                     <TextField
                                         {...params}
-                                        label={t('Home.Sidebar.list.userManagement.subMenu.groupRole.details.Add.fields.groupDropDown.label')}
-                                        placeholder={`${t('Home.Sidebar.list.userManagement.subMenu.groupRole.details.Add.fields.groupDropDown.placeholder')}`}
+                                        label={t('Home.Sidebar.list.userManagement.subMenu.userGroup.details.Add.fields.userDropDown.label')}
+                                        placeholder={`${t('Home.Sidebar.list.userManagement.subMenu.userGroup.details.Add.fields.userDropDown.placeholder')}`}
                                         variant="outlined"
-                                        helperText={(groupIdError) ? (groupIdErrorMessage) : ("")}
-                                        error={groupIdError}
                                         dir={(currentLang === "ar") ? "rtl" : "ltr"}
+                                        helperText={(userIdError) ? (userIdErrorMessage) : ("")}
+                                        error={userIdError}
                                     />
                                 )}
                             />
@@ -448,7 +449,7 @@ const AddGroupRole: React.FC<AddGroupRoleProps> = ({
                                         //     lg: 340, // theme.breakpoints.up('lg')
                                         //     xl: 340, // theme.breakpoints.up('xl')
                                         // }
-                                        width: "100%",
+                                        width: "100%"
                                     }}
                                         dir={(currentLang === "ar") ? "rtl" : "ltr"}
                                     >
@@ -456,45 +457,45 @@ const AddGroupRole: React.FC<AddGroupRoleProps> = ({
                                             id="multipleGroupsSelect"
                                             displayEmpty
                                             multiple
-                                            value={roleName}
-                                            onChange={handleChangeRoles}
+                                            value={groupName}
+                                            onChange={handleChangeGroups}
                                             input={<OutlinedInput />}
-                                            error={roleNameError}
+                                            error={groupNameError}
+                                            dir={(currentLang === "ar") ? "rtl" : "ltr"}
                                             renderValue={(selected) => {
                                                 if (selected.length === 0) {
                                                     return <span
                                                         style={{
-                                                            color: (roleNameError) ? ("red") : ("#818181")
+                                                            color: (groupNameError) ? ("red") : ("#818181")
                                                         }}
-                                                    >{t('Home.Sidebar.list.userManagement.subMenu.groupRole.details.Add.fields.rolesDropDown.label')}</span>;
+                                                    >{t('Home.Sidebar.list.userManagement.subMenu.userGroup.details.Add.fields.groupsDropDown.label')}</span>;
                                                 }
 
                                                 return selected.join(', ');
                                             }}
                                             MenuProps={MenuProps}
                                             inputProps={{ 'aria-label': 'Without label' }}
-                                            dir={(currentLang === "ar") ? "rtl" : "ltr"}
                                         >
                                             {
-                                                (rolesList !== null) ? (
-                                                    rolesList.map((roles: any, index: number) => (
-                                                        <MenuItem
-                                                            key={index}
-                                                            value={roles.roleId}
+                                                (groupsList !== null) ? (
+                                                    groupsList.map((groups: any, index: number) => (
+                                                        <MenuItem key={index} value={groups.grpId}
                                                             dir={(currentLang === "ar") ? "rtl" : "ltr"}
                                                         >
                                                             <Checkbox
-                                                                checked={roleName.indexOf(roles.roleId) > -1}
+                                                                checked={groupName.indexOf(groups.grpId) > -1}
                                                                 dir={(currentLang === "ar") ? "rtl" : "ltr"}
                                                             />
-                                                            <ListItemText primary={roles.roleName}
+                                                            <ListItemText primary={groups.grpName}
                                                                 dir={(currentLang === "ar") ? "rtl" : "ltr"}
                                                             />
                                                         </MenuItem>
                                                     ))
                                                 ) : (
-                                                    <MenuItem key="No Roles" value="No Roles" dir={(currentLang === "ar") ? "rtl" : "ltr"}>
-                                                        {t('Home.Sidebar.list.userManagement.subMenu.groupRole.details.Add.fields.rolesDropDown.noRoles')}
+                                                    <MenuItem key="No Groups" value="No Groups"
+                                                        dir={(currentLang === "ar") ? "rtl" : "ltr"}
+                                                    >
+                                                        {t('Home.Sidebar.list.userManagement.subMenu.userGroup.details.Add.fields.groupsDropDown.noGroups')}
                                                     </MenuItem>
                                                 )
                                             }
@@ -512,7 +513,7 @@ const AddGroupRole: React.FC<AddGroupRoleProps> = ({
                                                 // },
                                             }}
                                         >
-                                            {(roleNameError) ? (roleNameErrorMessage) : ("")}
+                                            {(groupNameError) ? (groupNameErrorMessage) : ("")}
                                         </FormHelperText>
                                     </FormControl>
                                 </div>
@@ -542,7 +543,7 @@ const AddGroupRole: React.FC<AddGroupRoleProps> = ({
                                     }}
                                     dir={(currentLang === "ar") ? "rtl" : "ltr"}
                                 >
-                                    {t('Home.Sidebar.list.userManagement.subMenu.groupRole.details.Add.fields.Status.title')}
+                                    {t('Home.Sidebar.list.userManagement.subMenu.userGroup.details.Add.fields.Status.title')}
                                 </FormLabel>
                                 <RadioGroup
                                     row
@@ -555,23 +556,25 @@ const AddGroupRole: React.FC<AddGroupRoleProps> = ({
                                         },
                                         mt: 1
                                     }}
+                                    dir={(currentLang === "ar") ? "rtl" : "ltr"}
                                     value={status}
                                     onChange={handleChangeStatus}
-                                    dir={(currentLang === "ar") ? "rtl" : "ltr"}
                                 >
                                     <FormControlLabel
                                         value="Active"
                                         control={<Radio
                                             dir={(currentLang === "ar") ? "rtl" : "ltr"}
                                         />}
-                                        label={t('Home.Sidebar.list.userManagement.subMenu.groupRole.details.Add.fields.Status.radio1.label')}
+                                        label={t('Home.Sidebar.list.userManagement.subMenu.userGroup.details.Add.fields.Status.radio1.label')}
+                                        dir={(currentLang === "ar") ? "rtl" : "ltr"}
                                     />
                                     <FormControlLabel
                                         value="DeActive"
                                         control={<Radio
                                             dir={(currentLang === "ar") ? "rtl" : "ltr"}
                                         />}
-                                        label={t('Home.Sidebar.list.userManagement.subMenu.groupRole.details.Add.fields.Status.radio2.label')}
+                                        label={t('Home.Sidebar.list.userManagement.subMenu.userGroup.details.Add.fields.Status.radio2.label')}
+                                        dir={(currentLang === "ar") ? "rtl" : "ltr"}
                                     />
                                 </RadioGroup>
                             </FormControl>
@@ -599,18 +602,19 @@ const AddGroupRole: React.FC<AddGroupRoleProps> = ({
                                     }}
                                     dir={(currentLang === "ar") ? "rtl" : "ltr"}
                                 >
-                                    {t('Home.Sidebar.list.userManagement.subMenu.groupRole.details.Add.fields.description.label')}
+                                    {t('Home.Sidebar.list.userManagement.subMenu.userGroup.details.Add.fields.description.label')}
                                 </FormLabel>
                                 <TextField
                                     id="description"
-                                    label={t('Home.Sidebar.list.userManagement.subMenu.groupRole.details.Add.fields.description.label')}
-                                    placeholder={`${t('Home.Sidebar.list.userManagement.subMenu.groupRole.details.Add.fields.description.placeholder')}`}
+                                    label={t('Home.Sidebar.list.userManagement.subMenu.userGroup.details.Add.fields.description.label')}
+                                    placeholder={`${t('Home.Sidebar.list.userManagement.subMenu.userGroup.details.Add.fields.description.placeholder')}`}
                                     multiline
                                     rows={4}
                                     defaultValue=""
                                     error={descriptionError}
                                     helperText={(descriptionError) ? (descriptionErrorMessage) : ("")}
                                     variant="outlined"
+                                    dir={(currentLang === "ar") ? "rtl" : "ltr"}
                                     value={description}
                                     onChange={(event) => {
                                         setDescription(event.target.value);
@@ -622,7 +626,6 @@ const AddGroupRole: React.FC<AddGroupRoleProps> = ({
                                         width: "100%",
                                         mt: 2
                                     }}
-                                    dir={(currentLang === "ar") ? "rtl" : "ltr"}
                                 />
                             </FormControl>
                         </Grid>
@@ -630,7 +633,7 @@ const AddGroupRole: React.FC<AddGroupRoleProps> = ({
                 </Box>
             </Box>
 
-            <Box
+            {/* <Box
                 sx={{
                     display: "flex",
                     flexDirection: (currentLang === "ar") ? ('row-reverse') : ('row')
@@ -692,7 +695,7 @@ const AddGroupRole: React.FC<AddGroupRoleProps> = ({
                         {t('Home.Sidebar.list.userManagement.subMenu.Users.details.submit')}
                     </Typography>
                 </Button>
-            </Box>
+            </Box> */}
 
             <SnackBar
                 isOpen={snackBarHandler.open}
@@ -705,8 +708,11 @@ const AddGroupRole: React.FC<AddGroupRoleProps> = ({
                 }
             />
 
-            <br /><br /> <br />
+            <Box sx={{
+                mt: 5,
+            }}>
+            </Box>
         </Box>
     )
 }
-export default AddGroupRole;
+export default UpdateUserGroup;

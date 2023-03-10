@@ -1,11 +1,16 @@
 import * as React from 'react';
 import { useState, useEffect } from "react";
 
-import { useNavigate } from "react-router";
-
 // Importing Icons
 import PeopleOutlineIcon from '@mui/icons-material/PeopleOutline';
 import SendIcon from '@mui/icons-material/Send';
+
+import { useNavigate } from 'react-router';
+import { useTranslation } from "react-i18next";
+
+import axios from 'axios';
+
+import Cookies from 'js-cookie';
 
 // Importing material ui components
 import {
@@ -22,30 +27,16 @@ import {
 } from '@mui/material';
 import SnackBar from '../../../../../SnackBar';
 
-import { useTranslation } from "react-i18next";
-
-import Cookies from 'js-cookie';
-
-import axios from 'axios';
-
 import styles from "./style.module.css";
 
-interface AddRoleProps {
-    setIsOpen: any,
-    isOpen: Boolean,
-    // For minified sidebar
-    isMinified: Boolean,
-    setIsMinified: any,
+interface UpdateGroupProps {
     currentLang: string
+    originalValues: any
 }
 
-const AddRole: React.FC<AddRoleProps> = ({
-    setIsOpen,
-    isOpen,
-    // For minified sidebar
-    isMinified,
-    setIsMinified,
-    currentLang
+const UpdateGroup: React.FC<UpdateGroupProps> = ({
+    currentLang,    
+    originalValues
 }) => {
     const { t } = useTranslation();
     const navigate = useNavigate();
@@ -77,21 +68,28 @@ const AddRole: React.FC<AddRoleProps> = ({
         };
     });
 
-    /// Handling the data of the form
+    // newValues = {
+    //     "grpId": values.grpId,
+    //     "grpName": values.grpName,
+    //     "grpDescription": values.grpDescription,
+    //     "active": values.active === "true" ? true : false,
+    //     "loggedInUser": loggedInUser
+    // }
+
     // For field validation
-    const [roleName, setRoleName] = useState<string>("");
-    const [roleDescription, setRoleDescription] = useState<string>("");
+    const [groupName, setGroupName] = useState(originalValues.grpName);
+    const [groupDescription, setGroupDescription] = useState(originalValues.grpDescription);
 
     // Error messages
-    const [roleNameErrorMessage, setRoleNameErrorMessage] = useState<string>("");
-    const [roleDescriptionErrorMessage, setRoleDescriptionErrorMessage] = useState<string>("");
+    const [groupNameErrorMessage, setGroupNameErrorMessage] = useState("");
+    const [groupDescriptionErrorMessage, setGroupDescriptionErrorMessage] = useState("");
 
     // For field validation
-    const [roleNameError, setRoleNameError] = useState<boolean>(false);
-    const [roleDescriptionError, setRoleDescriptionError] = useState<boolean>(false);
+    const [groupNameError, setGroupNameError] = useState(false);
+    const [groupDescriptionError, setGroupDescriptionError] = useState(false);
 
     // Status radio buttons
-    const [status, setStatus] = useState("Active");
+    const [status, setStatus] = useState((originalValues.active === true) ? ("Active") : ("Deactive"));
 
     const handleChangeStatus = (event: React.ChangeEvent<HTMLInputElement>) => {
         setStatus((event.target as HTMLInputElement).value);
@@ -116,31 +114,30 @@ const AddRole: React.FC<AddRoleProps> = ({
 
             if (accessToken !== null) {
                 // Set the validation errors
-                if (roleName === "") {
-                    setRoleNameErrorMessage("Role Name is required");
-                    setRoleNameError(true);
+                if (groupName === "") {
+                    setGroupNameErrorMessage("Group Name is required");
+                    setGroupNameError(true);
                 }
-                if (roleDescription === "") {
-                    setRoleDescriptionErrorMessage("Role Description is required");
-                    setRoleDescriptionError(true);
+                if (groupDescription === "") {
+                    setGroupDescriptionErrorMessage("Group Description is required");
+                    setGroupDescriptionError(true);
                 }
                 // Set the validation errors
 
                 if (
-                    roleName !== "" &&
-                    roleDescription !== ""
+                    groupName !== "" &&
+                    groupDescription !== ""
                 ) {
                     const formState = {
-                        "roleId": "OR05",
-                        "roleName": roleName,
-                        "roleDescription": roleDescription,
+                        "grpName": groupName,
+                        "grpDescription": groupDescription,
                         "loggedInUser": loggedInUser,
                         "active": (status === "Active") ? true : false
                     };
 
                     console.log("User Form Data ===> ", formState);
 
-                    axios.post('https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/createRole',
+                    axios.post('https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/saveGroup',
                         formState
                         , {
                             headers: {
@@ -151,14 +148,14 @@ const AddRole: React.FC<AddRoleProps> = ({
                             console.log("Response ===> ", response);
                             if (response.status === 200) {
                                 setSnackBarHandler({
-                                    severity: (response.data.code === "200.200") ? "success" : "error",
-                                    message: (response.data.code === "200.200") ? `Role ${roleName} has been created successfully` : (response.data.message),
-                                    open: true
-                                })
+                                    open: true,
+                                    message: (response.data.code === "200.200") ? (`Group ${groupName} has been created successfully`) : (response.data.message),
+                                    severity: (response.data.code === "200.200") ? ("success") : ("error")
+                                });
                                 const m = response.data.message;
                                 if (response.data.code === "200.200") {
                                     setTimeout(() => {
-                                        navigate("/account/roles/view");
+                                        navigate("/account/groups/view");
                                     }, 3000);
                                 }
                                 console.log(m);
@@ -168,14 +165,14 @@ const AddRole: React.FC<AddRoleProps> = ({
                             console.log(error);
                         });
                 } else {
-                    // set the errors
-                    setRoleNameError(true);
-                    setRoleDescriptionError(true);
                     setSnackBarHandler({
+                        severity: 'error',
                         open: true,
-                        message: "Please fill all the required fields",
-                        severity: 'error'
+                        message: "Please fill all fields",
                     });
+                    // set the errors
+                    setGroupNameError(true);
+                    setGroupDescriptionError(true);
                 }
             } else {
                 alert("Please login first");
@@ -186,25 +183,19 @@ const AddRole: React.FC<AddRoleProps> = ({
             navigate("/login");
         }
     }
-    /// Handling the data of the form
 
     return (
         <Box
-            className={`${styles.container} ${(windowSize[0] < 991 && isOpen) ? ("bgMobileOnSideOpen") : ("")}`}
-            onClick={() => {
-                if ((windowSize[0] < 991) && isOpen)
-                    setIsOpen(false);
-            }}
-        >
-            <div style={{ marginTop: 5, flexDirection: (currentLang === "ar") ? ("row-reverse") : ("row") }} className={`${(windowSize[0] > 990) ? ("d-flex justify-content-between") : ("d-flex flex-column justify-content-start")}`}>
+            className={styles.container}>
+            {/* <div style={{ marginTop: 5, flexDirection: (currentLang === "ar") ? ("row-reverse") : ("row") }} className={`${(windowSize[0] > 990) ? ("d-flex justify-content-between") : ("d-flex flex-column justify-content-start")}`}>
                 <div>
                     {(currentLang === "ar") ? (
                         <>
-                            <span style={{ color: "#4f747a" }}> {t('Home.Sidebar.list.userManagement.subMenu.roles.details.Add.breadcrumb.f4')} </span> / {t('Home.Sidebar.list.userManagement.subMenu.roles.details.Add.breadcrumb.f3')} / {t('Home.Sidebar.list.userManagement.subMenu.roles.details.Add.breadcrumb.f2')} / EQA
+                            <span style={{ color: "#4f747a" }}> {t('Home.Sidebar.list.userManagement.subMenu.groups.details.Add.breadcrumb.f4')} </span> / {t('Home.Sidebar.list.userManagement.subMenu.groups.details.Add.breadcrumb.f3')} / {t('Home.Sidebar.list.userManagement.subMenu.groups.details.Add.breadcrumb.f2')} / EQA
                         </>
                     ) : (
                         <>
-                            EQA / {t('Home.Sidebar.list.userManagement.subMenu.roles.details.Add.breadcrumb.f2')} / {t('Home.Sidebar.list.userManagement.subMenu.roles.details.Add.breadcrumb.f3')} / <span style={{ color: "#4f747a" }}> {t('Home.Sidebar.list.userManagement.subMenu.roles.details.Add.breadcrumb.f4')} </span>
+                            EQA / {t('Home.Sidebar.list.userManagement.subMenu.groups.details.Add.breadcrumb.f2')} / {t('Home.Sidebar.list.userManagement.subMenu.groups.details.Add.breadcrumb.f3')} / <span style={{ color: "#4f747a" }}> {t('Home.Sidebar.list.userManagement.subMenu.groups.details.Add.breadcrumb.f4')} </span>
                         </>
                     )}
                 </div>
@@ -213,7 +204,7 @@ const AddRole: React.FC<AddRoleProps> = ({
                 </div>
             </div>
 
-            <hr />
+            <hr /> */}
 
             <Box sx={{
                 // border: "1px solid red",
@@ -223,7 +214,7 @@ const AddRole: React.FC<AddRoleProps> = ({
                 boxShadow: "rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;"
             }}>
 
-                <Box sx={{
+                {/* <Box sx={{
                     // border: "1px solid red",
                     display: "flex",
                     marginBottom: 2,
@@ -231,9 +222,6 @@ const AddRole: React.FC<AddRoleProps> = ({
                     flexDirection: (currentLang === "ar") ? ("row-reverse") : ("row")
                 }}>
                     <Box sx={{
-                        // border: "1px solid black",
-                        // boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;",
-                        // boxShadow: "rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;",
                         boxShadow: "rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;",
                         width: 60,
                         height: 60,
@@ -246,8 +234,7 @@ const AddRole: React.FC<AddRoleProps> = ({
                         <PeopleOutlineIcon
                             sx={{
                                 color: "#4f747a",
-                                fontSize: 35,
-                                // boxShadow: "rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;", 
+                                fontSize: 35
                             }} />
                     </Box>
                     <Box sx={{ ml: 3 }}>
@@ -259,7 +246,7 @@ const AddRole: React.FC<AddRoleProps> = ({
                             display: "flex",
                             flexDirection: (currentLang === "ar") ? ("row-reverse") : ("row")
                         }}>
-                            {t('Home.Sidebar.list.userManagement.subMenu.roles.details.Add.title')}
+                            {t('Home.Sidebar.list.userManagement.subMenu.groups.details.Add.title')}
                         </Typography>
                         <Typography variant="body1" sx={{
                             // color: "#4f747a" 
@@ -267,54 +254,56 @@ const AddRole: React.FC<AddRoleProps> = ({
                             color: "#696969",
                             fontWeight: 300
                         }}>
-                            {t('Home.Sidebar.list.userManagement.subMenu.roles.details.Add.subTitle')}
+                            {t('Home.Sidebar.list.userManagement.subMenu.groups.details.Add.subTitle')}
                         </Typography>
                     </Box>
-                </Box>
+                </Box> */}
 
-                <Box sx={{ flexGrow: 1, mt: 2 }}>
+                <Box sx={{ flexGrow: 1, mt: 0 }}>
                     <Grid container spacing={
                         // Categorize according to small, medium, large screen
                         (windowSize[0] < 576) ? (0) : ((windowSize[0] < 768) ? (1) : ((windowSize[0] < 992) ? (2) : (3)))
                     }>
                         <Grid item xs={12}>
                             <TextField
-                                id="roleNameTextField"
-                                label={t('Home.Sidebar.list.userManagement.subMenu.roles.details.Add.fields.roleName.label')}
-                                placeholder={`${t('Home.Sidebar.list.userManagement.subMenu.roles.details.Add.fields.roleName.placeholder')}`}
+                                id="groupNameTextField"
+                                label={t('Home.Sidebar.list.userManagement.subMenu.groups.details.Add.fields.groupName.label')}
+                                placeholder={`${t('Home.Sidebar.list.userManagement.subMenu.groups.details.Add.fields.groupName.placeholder')}`}
                                 variant="standard"
                                 margin="normal"
                                 fullWidth // t
-                                value={roleName}
+                                error={groupNameError}
+                                helperText={groupNameErrorMessage}
+                                value={groupName}
+                                dir={(currentLang === "ar") ? "rtl" : "ltr"}
                                 onChange={(e) => {
-                                    setRoleName(e.target.value);
-                                    if (roleNameError) {
-                                        setRoleNameError(false);
+                                    setGroupName(e.target.value);
+                                    if (groupNameError) {
+                                        setGroupNameError(false);
+                                        setGroupNameErrorMessage("");
                                     }
                                 }}
-                                error={roleNameError}
-                                helperText={roleNameError ? roleNameErrorMessage : ""}
-                                dir={(currentLang === "ar") ? "rtl" : "ltr"}
                             />
                         </Grid>
                         <Grid item xs={12}>
                             <TextField
-                                id="roleDescriptionTextField"
-                                label={t('Home.Sidebar.list.userManagement.subMenu.roles.details.Add.fields.description.label')}
-                                placeholder={`${t('Home.Sidebar.list.userManagement.subMenu.roles.details.Add.fields.description.placeholder')}`}
+                                id="groupDescriptionTextField"
+                                label={t('Home.Sidebar.list.userManagement.subMenu.groups.details.Add.fields.description.label')}
+                                placeholder={`${t('Home.Sidebar.list.userManagement.subMenu.groups.details.Add.fields.description.placeholder')}`}
                                 variant="standard"
                                 margin="normal"
                                 fullWidth // t
-                                value={roleDescription}
+                                error={groupDescriptionError}
+                                helperText={groupDescriptionErrorMessage}
+                                value={groupDescription}
+                                dir={(currentLang === "ar") ? "rtl" : "ltr"}
                                 onChange={(e) => {
-                                    setRoleDescription(e.target.value);
-                                    if (roleDescriptionError) {
-                                        setRoleDescriptionError(false);
+                                    setGroupDescription(e.target.value);
+                                    if (groupDescriptionError) {
+                                        setGroupDescriptionError(false);
+                                        setGroupDescriptionErrorMessage("");
                                     }
                                 }}
-                                error={roleDescriptionError}
-                                helperText={roleDescriptionError ? roleDescriptionErrorMessage : ""}
-                                dir={(currentLang === "ar") ? "rtl" : "ltr"}
                             />
                         </Grid>
                         <Grid item xs={12}>
@@ -322,12 +311,12 @@ const AddRole: React.FC<AddRoleProps> = ({
                             <FormControl
                                 dir={(currentLang === "ar") ? "rtl" : "ltr"}
                                 sx={{
-                                    width: "100%"
+                                    width: "100%",
                                 }}
                             >
                                 <FormLabel
-                                    dir={(currentLang === "ar") ? "rtl" : "ltr"}
                                     id="demo-row-radio-buttons-group-label"
+                                    dir={(currentLang === "ar") ? "rtl" : "ltr"}
                                     sx={{
                                         fontSize: {
                                             xs: 20, // theme.breakpoints.up('xs')
@@ -339,7 +328,7 @@ const AddRole: React.FC<AddRoleProps> = ({
                                         marginTop: 0
                                     }}
                                 >
-                                    {t('Home.Sidebar.list.userManagement.subMenu.roles.details.Add.fields.Status.title')}
+                                    {t('Home.Sidebar.list.userManagement.subMenu.groups.details.Add.fields.Status.title')}
                                 </FormLabel>
                                 <RadioGroup
                                     row
@@ -358,18 +347,14 @@ const AddRole: React.FC<AddRoleProps> = ({
                                 >
                                     <FormControlLabel
                                         value="Active"
-                                        control={<Radio
-                                            dir={(currentLang === "ar") ? "rtl" : "ltr"}
-                                        />}
-                                        label={t('Home.Sidebar.list.userManagement.subMenu.roles.details.Add.fields.Status.radio1.label')}
+                                        control={<Radio />}
+                                        label={t('Home.Sidebar.list.userManagement.subMenu.groups.details.Add.fields.Status.radio1.label')}
                                         dir={(currentLang === "ar") ? "rtl" : "ltr"}
                                     />
                                     <FormControlLabel
                                         value="DeActive"
-                                        control={<Radio
-                                            dir={(currentLang === "ar") ? "rtl" : "ltr"}
-                                        />}
-                                        label={t('Home.Sidebar.list.userManagement.subMenu.roles.details.Add.fields.Status.radio2.label')}
+                                        control={<Radio />}
+                                        label={t('Home.Sidebar.list.userManagement.subMenu.groups.details.Add.fields.Status.radio2.label')}
                                         dir={(currentLang === "ar") ? "rtl" : "ltr"}
                                     />
                                 </RadioGroup>
@@ -379,7 +364,7 @@ const AddRole: React.FC<AddRoleProps> = ({
                 </Box>
             </Box>
 
-            <Box
+            {/* <Box
                 sx={{
                     display: "flex",
                     flexDirection: (currentLang === "ar") ? ('row-reverse') : ('row')
@@ -441,7 +426,7 @@ const AddRole: React.FC<AddRoleProps> = ({
                         {t('Home.Sidebar.list.userManagement.subMenu.Users.details.submit')}
                     </Typography>
                 </Button>
-            </Box>
+            </Box> */}
 
             <SnackBar
                 isOpen={snackBarHandler.open}
@@ -454,8 +439,11 @@ const AddRole: React.FC<AddRoleProps> = ({
                 }
             />
 
-            <br /><br />
+            <Box sx={{
+                mt: 5,
+            }}>
+            </Box>
         </Box>
     )
 }
-export default AddRole;
+export default UpdateGroup;
