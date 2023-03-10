@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 // import { useNavigate } from "react-router-dom";
 import CancelIcon from '@mui/icons-material/Cancel';
 
@@ -49,30 +49,30 @@ import UpdateGroupRole from "../../Pages/Home/UserManagement/GroupRole/UpdateGro
 import styles from "./style.module.css";
 
 interface EditTableModalModalProps {
-    openResetPasswordModal: boolean;
-    setOpenResetPasswordModal: React.Dispatch<React.SetStateAction<boolean>>;
+    openUpdateTableModal: boolean;
+    setOpenUpdateTableModal: React.Dispatch<React.SetStateAction<boolean>>;
     originalValues: any;
     columnName: string;
+    url: string;
     // Current Language
     // currentLang: string;
 }
 
 const EditTableModal: React.FC<EditTableModalModalProps> = ({
-    openResetPasswordModal,
-    setOpenResetPasswordModal,
+    openUpdateTableModal,
+    setOpenUpdateTableModal,
     originalValues,
-    columnName
+    columnName,
+    url
     // // Current Language
     // currentLang,
 }) => {
     const { t } = useTranslation();
 
-    // const navigate = useNavigate();
+    const childRef = useRef<any>(null);
 
-    const validateForm = () => {
-        // alert("Validating Form");
-        //   setValidateNow(true);
-
+    const handleUpdate = () => {
+        childRef.current?.submitForm();
     }
 
     const [windowDimensions, setWindowDimensions] = useState({
@@ -108,6 +108,9 @@ const EditTableModal: React.FC<EditTableModalModalProps> = ({
         modalContent = <UpdateGroup
             currentLang={""}
             originalValues={originalValues}
+            url={url}
+            ref={childRef}
+            setOpenUpdateTableModal={setOpenUpdateTableModal}
         />
     } else if (columnName === "ViewApps") {
         modalContent = <UpdateApp
@@ -146,15 +149,15 @@ const EditTableModal: React.FC<EditTableModalModalProps> = ({
         <Modal
             aria-labelledby="transition-modal-title"
             aria-describedby="transition-modal-description"
-            open={openResetPasswordModal}
-            onClose={() => setOpenResetPasswordModal(false)}
+            open={openUpdateTableModal}
+            onClose={() => setOpenUpdateTableModal(false)}
             closeAfterTransition
             BackdropComponent={Backdrop}
             BackdropProps={{
                 timeout: 500,
             }}
         >
-            <Fade in={openResetPasswordModal}>
+            <Fade in={openUpdateTableModal}>
                 <Box className={styles.modalStyle}
                     sx={{
                         height: (columnName === "ViewUsers") ? "90vh" :
@@ -208,7 +211,7 @@ const EditTableModal: React.FC<EditTableModalModalProps> = ({
                                     fontSize: "2rem",
                                     cursor: "pointer",
                                 }}
-                                onClick={() => setOpenResetPasswordModal(false)}
+                                onClick={() => setOpenUpdateTableModal(false)}
                             />
                         </Box>
                     </Box>
@@ -263,7 +266,7 @@ const EditTableModal: React.FC<EditTableModalModalProps> = ({
                                         backgroundColor: "#3c6766",
                                     }
                                 }}
-                                onClick={() => validateForm()}
+                                onClick={handleUpdate}
                             >
                                 {/* {t('Home.Header.Modals.ChangePassword.policy.Buttons.ChangePassword')} */}
                                 {(columnName === "ViewUsers") ? (
@@ -300,7 +303,7 @@ const EditTableModal: React.FC<EditTableModalModalProps> = ({
                                     //     backgroundColor: "#e79f43",
                                     // }
                                 }}
-                                onClick={() => setOpenResetPasswordModal(false)}
+                                onClick={() => setOpenUpdateTableModal(false)}
                             >
                                 {t('Home.Header.Modals.ChangePassword.policy.Buttons.Cancel')}
                             </Button>
