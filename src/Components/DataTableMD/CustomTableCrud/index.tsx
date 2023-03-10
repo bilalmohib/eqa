@@ -27,6 +27,9 @@ import {
 } from '@mui/material';
 import { Delete, Edit } from '@mui/icons-material';
 
+// Importing Edit Table Modal
+import EditTableModal from '../EditTableModal';
+
 // importing modular css
 import styles from './style.module.css';
 
@@ -56,6 +59,10 @@ const CustomTableCrud: FC<CustomTableProps> = ({
 }): JSX.Element => {
     const navigate = useNavigate();
     const location = useLocation();
+
+    const [openModal, setOpenModal] = useState(false);
+
+    const [originalValues, setOriginalValues] = useState<any>(null);
 
     // const [columnStateValues, setColumnStateValues] = useState<any>(null);
 
@@ -518,6 +525,12 @@ const CustomTableCrud: FC<CustomTableProps> = ({
                     url = `https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/deletePrivilege/${privilegeId}`;
                     message = "Are you sure you want to delete AppRole Privilege " + privilegeId + " ?";
                     deleteMessage = `AppRole Privilege with Id: ${privilegeId} Deleted Successfully`;
+                } else if (columnName === "ViewGroupRole") {
+                    const groupRoleId = row.getValue('groupRoleId');
+
+                    url = `https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/deleteGroupRole/${groupRoleId}`;
+                    message = "Are you sure you want to delete GroupRole " + groupRoleId + " ?";
+                    deleteMessage = `GroupRole with Id: ${groupRoleId} Deleted Successfully`;
                 }
                 else {
                     alert("Wrong Column Name");
@@ -561,17 +574,229 @@ const CustomTableCrud: FC<CustomTableProps> = ({
         [columnName, columnsNew, navigate, tableData],
     );
 
-    const handleSaveRowEdits = async ({
-        exitEditingMode,
-        row,
-        table,
-        values,
-    }: any): Promise<void> => {
-        // try {
-        // Send a POST request to update the row in the server
+    // const handleSaveRowEdits = async ({
+    //     exitEditingMode,
+    //     row,
+    //     table,
+    //     values,
+    // }: any): Promise<void> => {
+    //     // try {
+    //     // Send a POST request to update the row in the server
 
+    //     alert("Save Row Edits 111");
+
+    //     setOpenModal(true);
+
+    //     // alert("Save Row Edits");
+    //     console.log("Values ===> ", values);
+    //     // console.log("Row ===> ", row);
+
+    //     //////////////////////////////////////////////////////////////
+    //     //////////////////////////////////////////////////////////////
+    //     //////////////////////////////////////////////////////////////
+    //     //////////////////////////////////////////////////////////////
+    //     //////////////////////////////////////////////////////////////
+    //     //////////////////////////////////////////////////////////////
+    //     //////////////////////////////////////////////////////////////
+    //     ////////////////////////  API CALL  //////////////////////////
+    //     const userLocalStorage = JSON.parse(localStorage.getItem('user') || '{}');
+    //     if (userLocalStorage !== null && userLocalStorage !== undefined) {
+    //         const loggedInUser = userLocalStorage.userName;
+    //         console.log("Logged In UserName ===> ", loggedInUser);
+
+    //         let accessToken: any = Cookies.get("accessToken");
+
+    //         if (accessToken === undefined || accessToken === null) {
+    //             accessToken = null;
+    //         }
+
+    //         if (accessToken !== null) {
+    //             //////////////////////////////////////////@
+    //             let url = "";
+    //             let newValues: any = null;
+
+    //             if (columnName === "ViewUsers") {
+    //                 url = "https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/updateUser";
+
+    //                 // Fetch all the properties of the object [...tableData]
+    //                 newValues = {
+    //                     "userId": values.userId,
+    //                     "firstName": values.firstName,
+    //                     "lastName": values.lastName,
+    //                     "userName": values.userName,
+    //                     "password": "123456",
+    //                     "emailId": values.emailId,
+    //                     "collegeId": values.collegeId,
+    //                     "campusId": values.campusId,
+    //                     "departmentId": values.departmentId,
+    //                     "loggedInUser": loggedInUser,
+    //                     "active": values.active === "true" ? true : false,
+    //                     "staff": values.staff === "true" ? true : false,
+    //                     "superUser": values.superUser === "true" ? true : false
+    //                 };
+    //             } else if (columnName === "ViewRoles") {
+    //                 url = "https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/updateRole";
+
+    //                 newValues = {
+    //                     "roleId": values.roleId,
+    //                     "roleName": values.roleName,
+    //                     "roleDescription": values.roleDescription,
+    //                     "loggedInUser": loggedInUser,
+    //                     "active": values.active === "true" ? true : false
+    //                 };
+    //             } else if (columnName === "ViewGroups") {
+    //                 url = "https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/updateGroup";
+
+    //                 // Fetch all the properties of the object [...tableData]
+    //                 newValues = {
+    //                     "grpId": values.grpId,
+    //                     "grpName": values.grpName,
+    //                     "grpDescription": values.grpDescription,
+    //                     "active": values.active === "true" ? true : false,
+    //                     "loggedInUser": loggedInUser
+    //                 }
+
+    //             } else if (columnName === "ViewApps") {
+    //                 url = "https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/saveAppDetails";
+
+    //                 // Fetch all the properties of the object [...tableData]
+    //                 newValues = {
+    //                     "appId": values.appId,
+    //                     "appName": values.appName,
+    //                     "appDescription": values.appDescription,
+    //                     "appUrl": values.appUrl,
+    //                     "appOrder": values.appOrder,
+    //                     "active": values.active === "true" ? true : false,
+    //                     "loggedInUser": loggedInUser
+    //                 }
+
+    //             } else if (columnName === "ViewAppForm") {
+    //                 url = "https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/updateAppForm";
+
+    //                 // Fetch all the properties of the object [...tableData]
+    //                 newValues = {
+    //                     "formId": values.formId,
+    //                     "appId": values.appId,
+    //                     "moduleName": values.moduleName,
+    //                     "formName": values.formName,
+    //                     "formUrl": values.formUrl,
+    //                     "active": values.active === "true" ? true : false,
+    //                     "loggedInUser": loggedInUser
+    //                 }
+
+    //             } else if (columnName === "ViewGroupRole") {
+    //                 url = "https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/updateGroupRole";
+
+    //                 // Fetch all the properties of the object [...tableData]
+    //                 newValues = {
+    //                     "groupRoleId": values.groupRoleId,
+    //                     "roleIds": [values.roleId],
+    //                     "grpId": values.grpId,
+    //                     "grpRoleDescription": values.grpRoleDescription,
+    //                     "active": true
+    //                 }
+    //             } else if (columnName === "ViewUserGroup") {
+    //                 url = "https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/updateUserGroup";
+
+    //                 // Fetch all the properties of the object [...tableData]
+    //                 newValues = {
+    //                     "userGroupId": values.userGroupId,
+    //                     "userId": values.userId,
+    //                     "grpId": values.grpId,
+    //                     "active": true
+    //                 }
+    //             }
+    //             else {
+    //                 url = "";
+    //                 newValues = null;
+    //                 tableData[row.index] = values;
+    //                 //send/receive api updates here, then refetch or update local table data for re-render
+    //                 setTableData([...tableData]);
+    //             }
+
+    //             if (url !== "" && newValues !== null) {
+    //                 try {
+    //                     if (columnName === "ViewApps") {
+    //                         const response = await axios.post(
+    //                             url,
+    //                             newValues,
+    //                             {
+    //                                 headers: {
+    //                                     "x-api-key": accessToken,
+    //                                 },
+    //                             }
+    //                         );
+
+    //                         console.log("Response Data ==> ", response.data);
+    //                         if (response.data.status === "OK") {
+    //                             // setFetchUpdate(true);
+    //                             tableData[row.index] = values;
+    //                             //send/receive api updates here, then refetch or update local table data for re-render
+    //                             setTableData([...tableData]);
+    //                             alert("App Updated Successfully");
+    //                         }
+    //                     } else {
+    //                         const response = await axios.put(
+    //                             url,
+    //                             newValues,
+    //                             {
+    //                                 headers: {
+    //                                     "Content-Type": "application/json",
+    //                                     "x-api-key": accessToken,
+    //                                 },
+    //                             }
+    //                         );
+
+    //                         console.log("Response Data ==> ", response.data);
+    //                         if (response.data.status === "OK") {
+    //                             // setFetchUpdate(true);
+    //                             tableData[row.index] = values;
+    //                             //send/receive api updates here, then refetch or update local table data for re-render
+    //                             setTableData([...tableData]);
+    //                             alert("Updated Successfully");
+    //                         }
+    //                     }
+    //                 } catch (err) {
+    //                     console.log("Error Updating User ===> ", err);
+    //                     alert("Error Updating User : " + err);
+    //                 }
+    //             }
+    //             else {
+    //                 console.log("URL is empty");
+    //                 alert("URL is empty");
+    //             }
+    //         }
+    //         else {
+    //             alert("Please login first");
+    //             navigate('/login');
+    //         }
+    //     }
+    //     else {
+    //         alert("Please login first");
+    //         navigate('/login');
+    //     }
+
+    //     // Exit editing mode
+    //     exitEditingMode();
+    // }
+
+    // const handleEditRow = async ({
+    //     enterEditingMode,
+    //     exitEditingMode,
+    //     row,
+    //     table,
+    //     values,
+    // }: any): Promise<void> => {
+    const handleEditRow = (row: any) => {
+        // Enter editing mode
+        setOpenModal(true);
+        //alert("Edit Row");
+        console.log(row.original);
+
+        let values: any = row.original;
+        // alert("Save Row Edits");
         console.log("Values ===> ", values);
-        console.log("Row ===> ", row);
+        // console.log("Row ===> ", row);
 
         //////////////////////////////////////////////////////////////
         //////////////////////////////////////////////////////////////
@@ -616,7 +841,6 @@ const CustomTableCrud: FC<CustomTableProps> = ({
                         "staff": values.staff === "true" ? true : false,
                         "superUser": values.superUser === "true" ? true : false
                     };
-
                 } else if (columnName === "ViewRoles") {
                     url = "https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/updateRole";
 
@@ -627,7 +851,6 @@ const CustomTableCrud: FC<CustomTableProps> = ({
                         "loggedInUser": loggedInUser,
                         "active": values.active === "true" ? true : false
                     };
-
                 } else if (columnName === "ViewGroups") {
                     url = "https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/updateGroup";
 
@@ -668,7 +891,39 @@ const CustomTableCrud: FC<CustomTableProps> = ({
                         "loggedInUser": loggedInUser
                     }
 
-                } else {
+                } else if (columnName === "ViewGroupRole") {
+                    url = "https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/updateGroupRole";
+
+                    // Fetch all the properties of the object [...tableData]
+                    newValues = {
+                        "groupRoleId": values.groupRoleId,
+                        "roleIds": [values.roleId],
+                        "grpId": values.grpId,
+                        "grpRoleDescription": values.grpRoleDescription,
+                        "active": true
+                    }
+                } else if (columnName === "ViewUserGroup") {
+                    url = "https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/updateUserGroup";
+
+                    // Fetch all the properties of the object [...tableData]
+                    newValues = {
+                        "userGroupId": values.userGroupId,
+                        "userId": values.userId,
+                        "grpId": values.grpId,
+                        "active": true
+                    }
+                } else if (columnName === "ViewRoleApp") {
+                    url = "https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/updateRoleApp";
+
+                    // Fetch all the properties of the object [...tableData]
+                    newValues = {
+                        "roleAppId": values.roleAppId,
+                        "roleId": values.roleId,
+                        "appId": values.appId,
+                        "active": true
+                    }
+                }
+                else {
                     url = "";
                     newValues = null;
                     tableData[row.index] = values;
@@ -677,51 +932,52 @@ const CustomTableCrud: FC<CustomTableProps> = ({
                 }
 
                 if (url !== "" && newValues !== null) {
-                    try {
-                        if (columnName === "ViewApps") {
-                            const response = await axios.post(
-                                url,
-                                newValues,
-                                {
-                                    headers: {
-                                        "x-api-key": accessToken,
-                                    },
-                                }
-                            );
+                    // try {
+                    //     if (columnName === "ViewApps") {
+                    //         const response = await axios.post(
+                    //             url,
+                    //             newValues,
+                    //             {
+                    //                 headers: {
+                    //                     "x-api-key": accessToken,
+                    //                 },
+                    //             }
+                    //         );
 
-                            console.log("Response Data ==> ", response.data);
-                            if (response.data.status === "OK") {
-                                // setFetchUpdate(true);
-                                tableData[row.index] = values;
-                                //send/receive api updates here, then refetch or update local table data for re-render
-                                setTableData([...tableData]);
-                                alert("App Updated Successfully");
-                            }
-                        } else {
-                            const response = await axios.put(
-                                url,
-                                newValues,
-                                {
-                                    headers: {
-                                        "Content-Type": "application/json",
-                                        "x-api-key": accessToken,
-                                    },
-                                }
-                            );
+                    //         console.log("Response Data ==> ", response.data);
+                    //         if (response.data.status === "OK") {
+                    //             // setFetchUpdate(true);
+                    //             tableData[row.index] = values;
+                    //             //send/receive api updates here, then refetch or update local table data for re-render
+                    //             setTableData([...tableData]);
+                    //             alert("App Updated Successfully");
+                    //         }
+                    //     } else {
+                    //         const response = await axios.put(
+                    //             url,
+                    //             newValues,
+                    //             {
+                    //                 headers: {
+                    //                     "Content-Type": "application/json",
+                    //                     "x-api-key": accessToken,
+                    //                 },
+                    //             }
+                    //         );
 
-                            console.log("Response Data ==> ", response.data);
-                            if (response.data.status === "OK") {
-                                // setFetchUpdate(true);
-                                tableData[row.index] = values;
-                                //send/receive api updates here, then refetch or update local table data for re-render
-                                setTableData([...tableData]);
-                                alert("Updated Successfully");
-                            }
-                        }
-                    } catch (err) {
-                        console.log("Error Updating User ===> ", err);
-                        alert("Error Updating User : " + err);
-                    }
+                    //         console.log("Response Data ==> ", response.data);
+                    //         if (response.data.status === "OK") {
+                    //             // setFetchUpdate(true);
+                    //             tableData[row.index] = values;
+                    //             //send/receive api updates here, then refetch or update local table data for re-render
+                    //             setTableData([...tableData]);
+                    //             alert("Updated Successfully");
+                    //         }
+                    //     }
+                    // } catch (err) {
+                    //     console.log("Error Updating User ===> ", err);
+                    //     alert("Error Updating User : " + err);
+                    // }
+                    setOriginalValues(newValues);
                 }
                 else {
                     console.log("URL is empty");
@@ -737,114 +993,122 @@ const CustomTableCrud: FC<CustomTableProps> = ({
             alert("Please login first");
             navigate('/login');
         }
-
-        // Exit editing mode
-        exitEditingMode();
+        // enterEditingMode(row.index);
     }
 
-
-
     return (
-        <div className={styles.container}>
-            <div className={styles.insideTableContainer}
-                style={{
-                    height: (windowSize[0] < 600) ? ('400px') : ('100%'),
-                    overflowY: (windowSize[0] < 600) ? ('auto') : ('unset'),
-                }}
-            >
-                {(
-                    data && data.length > 0
-                ) ? (
-                    <MaterialReactTable
-                        displayColumnDefOptions={{
-                            'mrt-row-actions': {
-                                muiTableHeadCellProps: {
-                                    align: 'center',
-                                },
-                                size: 170,
-                            },
-                        }}
-                        // sx={{
-                        //     '& .MuiTableBody-root': {
-                        //         height: 'calc(300px)',
-                        //         overflowY: 'auto',
-                        //     },
-                        // }}
-                        columns={columnsNew}
-                        data={tableData}
-                        editingMode="modal" //default
-                        enableColumnOrdering
-                        enableEditing
-                        enableClickToCopy
-                        onEditingRowSave={handleSaveRowEdits}
-                        onEditingRowCancel={handleCancelRowEdits}
-                        renderRowActions={({ row, table }) => (
-                            <Box sx={{ display: 'flex', gap: '1rem', justifyContent: "center" }}>
-                                {(editable) && (
-                                    <Tooltip arrow placement="left" title="Edit">
-                                        <IconButton onClick={() => {
-                                            table.setEditingRow(row)
-                                        }
-                                        }>
-                                            <Edit />
-                                        </IconButton>
-                                    </Tooltip>
-                                )}
+        <div>
 
-                                {(deletable) && (
-                                    <Tooltip arrow placement="right" title="Delete">
-                                        <IconButton
-                                            color="error"
-                                            // @ts-ignore
-                                            onClick={() => handleDeleteRow(row)}
-                                        >
-                                            <Delete />
-                                        </IconButton>
-                                    </Tooltip>
-                                )}
+            <div className={styles.container}>
+                <div className={styles.insideTableContainer}
+                    style={{
+                        height: (windowSize[0] < 600) ? ('400px') : ('100%'),
+                        overflowY: (windowSize[0] < 600) ? ('auto') : ('unset'),
+                    }}
+                >
+                    {(
+                        data && data.length > 0
+                    ) ? (
+                        <MaterialReactTable
+                            displayColumnDefOptions={{
+                                'mrt-row-actions': {
+                                    muiTableHeadCellProps: {
+                                        align: 'center',
+                                    },
+                                    size: 170,
+                                },
+                            }}
+                            // sx={{
+                            //     '& .MuiTableBody-root': {
+                            //         height: 'calc(300px)',
+                            //         overflowY: 'auto',
+                            //     },
+                            // }}
+                            columns={columnsNew}
+                            data={tableData}
+                            editingMode="modal" //default
+                            enableColumnOrdering
+                            enableEditing
+                            enableClickToCopy
+                            onEditingRowSave={handleEditRow}
+                            onEditingRowCancel={handleCancelRowEdits}
+                            renderRowActions={({ row, table }) => (
+                                <Box sx={{ display: 'flex', gap: '1rem', justifyContent: "center" }}>
+                                    {(editable) && (
+                                        <Tooltip arrow placement="left" title="Edit">
+                                            <IconButton onClick={() => {
+                                                // table.setEditingRow(row)
+                                                // alert("Edit Clicked");
+                                                //console.log(row);
+                                                handleEditRow(row);
+                                            }
+                                            }>
+                                                <Edit />
+                                            </IconButton>
+                                        </Tooltip>
+                                    )}
+
+                                    {(deletable) && (
+                                        <Tooltip arrow placement="right" title="Delete">
+                                            <IconButton
+                                                color="error"
+                                                // @ts-ignore
+                                                onClick={() => handleDeleteRow(row)}
+                                            >
+                                                <Delete />
+                                            </IconButton>
+                                        </Tooltip>
+                                    )}
+
+                                </Box>
+                            )}
+                        />
+                    ) : (
+                        <Box
+                            sx={{
+                                display: "flex",
+                                justifyContent: "center",
+                                alignItems: "center",
+                                height: "100%",
+                            }}
+                        >
+                            <Box sx={{
+                                height: "300px",
+                                display: "flex",
+                                justifyContent: "center",
+                                alignItems: "center",
+                                flexDirection: "column"
+                            }}>
+                                <div className="lds-roller">
+                                    <div>
+                                    </div>
+                                    <div>
+                                    </div>
+                                    <div>
+                                    </div>
+                                    <div>
+                                    </div>
+                                    <div>
+                                    </div>
+                                    <div>
+                                    </div>
+                                    <div>
+                                    </div>
+                                    <div>
+                                    </div>
+                                </div>
 
                             </Box>
-                        )}
-                    />
-                ) : (
-                    <Box
-                        sx={{
-                            display: "flex",
-                            justifyContent: "center",
-                            alignItems: "center",
-                            height: "100%",
-                        }}
-                    >
-                        <Box sx={{
-                            height: "300px",
-                            display: "flex",
-                            justifyContent: "center",
-                            alignItems: "center",
-                            flexDirection: "column"
-                        }}>
-                            <div className="lds-roller">
-                                <div>
-                                </div>
-                                <div>
-                                </div>
-                                <div>
-                                </div>
-                                <div>
-                                </div>
-                                <div>
-                                </div>
-                                <div>
-                                </div>
-                                <div>
-                                </div>
-                                <div>
-                                </div>
-                            </div>
-
                         </Box>
-                    </Box>
-                )}
+                    )}
+                </div>
             </div>
+            <EditTableModal
+                openResetPasswordModal={openModal}
+                setOpenResetPasswordModal={setOpenModal}
+                originalValues={originalValues}
+                columnName={columnName}
+            />
         </div>
     );
 };

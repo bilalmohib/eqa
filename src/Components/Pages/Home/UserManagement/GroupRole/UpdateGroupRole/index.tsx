@@ -37,13 +37,9 @@ import Select, { SelectChangeEvent } from '@mui/material/Select';
 
 import styles from "./style.module.css";
 
-interface AddGroupRoleProps {
-    setIsOpen: any,
-    isOpen: Boolean,
-    // For minified sidebar
-    isMinified: Boolean,
-    setIsMinified: any,
+interface UpdateGroupRoleProps {
     currentLang: string
+    originalValues: any
 }
 
 const ITEM_HEIGHT = 48;
@@ -57,13 +53,9 @@ const MenuProps = {
     },
 };
 
-const AddGroupRole: React.FC<AddGroupRoleProps> = ({
-    setIsOpen,
-    isOpen,
-    // For minified sidebar
-    isMinified,
-    setIsMinified,
-    currentLang
+const UpdateGroupRole: React.FC<UpdateGroupRoleProps> = ({
+    currentLang,
+    originalValues
 }) => {
     const { t } = useTranslation();
     const navigate = useNavigate();
@@ -302,14 +294,8 @@ const AddGroupRole: React.FC<AddGroupRoleProps> = ({
     }
 
     return (
-        <Box
-            className={`${styles.container} ${(windowSize[0] < 991 && isOpen) ? ("bgMobileOnSideOpen") : ("")}`}
-            onClick={() => {
-                if ((windowSize[0] < 991) && isOpen)
-                    setIsOpen(false);
-            }}
-        >
-            <div style={{ marginTop: 5, flexDirection: (currentLang === "ar") ? ("row-reverse") : ("row") }} className={`${(windowSize[0] > 990) ? ("d-flex justify-content-between") : ("d-flex flex-column justify-content-start")}`}>
+        <Box className={styles.container}>
+            {/* <div style={{ marginTop: 5, flexDirection: (currentLang === "ar") ? ("row-reverse") : ("row") }} className={`${(windowSize[0] > 990) ? ("d-flex justify-content-between") : ("d-flex flex-column justify-content-start")}`}>
                 <div>
                     {(currentLang === "ar") ? (
                         <>
@@ -326,7 +312,7 @@ const AddGroupRole: React.FC<AddGroupRoleProps> = ({
                 </div>
             </div>
 
-            <hr />
+            <hr /> */}
 
             <Box sx={{
                 // border: "1px solid red",
@@ -336,7 +322,7 @@ const AddGroupRole: React.FC<AddGroupRoleProps> = ({
                 boxShadow: "rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;"
             }}>
 
-                <Box sx={{
+                {/* <Box sx={{
                     // border: "1px solid red",
                     display: "flex",
                     marginBottom: 2,
@@ -379,9 +365,9 @@ const AddGroupRole: React.FC<AddGroupRoleProps> = ({
                             {t('Home.Sidebar.list.userManagement.subMenu.groupRole.details.Add.subTitle')}
                         </Typography>
                     </Box>
-                </Box>
+                </Box> */}
 
-                <Box sx={{ flexGrow: 1, mt: 4 }}>
+                <Box sx={{ flexGrow: 1, mt: 0 }}>
                     <Grid container spacing={
                         // Categorize according to small, medium, large screen
                         (windowSize[0] < 576) ? (0) : ((windowSize[0] < 768) ? (1) : ((windowSize[0] < 992) ? (2) : (3)))
@@ -630,7 +616,7 @@ const AddGroupRole: React.FC<AddGroupRoleProps> = ({
                 </Box>
             </Box>
 
-            <Box
+            {/* <Box
                 sx={{
                     display: "flex",
                     flexDirection: (currentLang === "ar") ? ('row-reverse') : ('row')
@@ -692,7 +678,7 @@ const AddGroupRole: React.FC<AddGroupRoleProps> = ({
                         {t('Home.Sidebar.list.userManagement.subMenu.Users.details.submit')}
                     </Typography>
                 </Button>
-            </Box>
+            </Box> */}
 
             <SnackBar
                 isOpen={snackBarHandler.open}
@@ -705,8 +691,11 @@ const AddGroupRole: React.FC<AddGroupRoleProps> = ({
                 }
             />
 
-            <br /><br /> <br />
+            <Box sx={{
+                mt: 5,
+            }}>
+            </Box>
         </Box>
     )
 }
-export default AddGroupRole;
+export default UpdateGroupRole;

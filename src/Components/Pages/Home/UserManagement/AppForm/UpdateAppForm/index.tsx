@@ -1,11 +1,16 @@
 import * as React from 'react';
 import { useState, useEffect } from "react";
 
-import { useNavigate } from "react-router";
-
 // Importing Icons
-import PeopleOutlineIcon from '@mui/icons-material/PeopleOutline';
+import AppsIcon from '@mui/icons-material/Apps';
 import SendIcon from '@mui/icons-material/Send';
+
+import { useNavigate } from 'react-router';
+import { useTranslation } from "react-i18next";
+
+import axios from 'axios';
+
+import Cookies from 'js-cookie';
 
 // Importing material ui components
 import {
@@ -18,34 +23,21 @@ import {
     FormControlLabel,
     FormLabel,
     RadioGroup,
-    Radio
+    Radio,
+    Autocomplete
 } from '@mui/material';
 import SnackBar from '../../../../../SnackBar';
 
-import { useTranslation } from "react-i18next";
-
-import Cookies from 'js-cookie';
-
-import axios from 'axios';
-
 import styles from "./style.module.css";
 
-interface AddRoleProps {
-    setIsOpen: any,
-    isOpen: Boolean,
-    // For minified sidebar
-    isMinified: Boolean,
-    setIsMinified: any,
+interface UpdateAppFormProps {
     currentLang: string
+    originalValues: any
 }
 
-const AddRole: React.FC<AddRoleProps> = ({
-    setIsOpen,
-    isOpen,
-    // For minified sidebar
-    isMinified,
-    setIsMinified,
-    currentLang
+const UpdateAppForm: React.FC<UpdateAppFormProps> = ({
+    currentLang,
+    originalValues
 }) => {
     const { t } = useTranslation();
     const navigate = useNavigate();
@@ -77,21 +69,72 @@ const AddRole: React.FC<AddRoleProps> = ({
         };
     });
 
-    /// Handling the data of the form
     // For field validation
-    const [roleName, setRoleName] = useState<string>("");
-    const [roleDescription, setRoleDescription] = useState<string>("");
+    const [moduleName, setModuleName] = useState("");
+    const [formName, setFormName] = useState("");
+    const [formUrl, setFormUrl] = useState("");
+    const [appId, setAppId] = useState<any>(null);
 
     // Error messages
-    const [roleNameErrorMessage, setRoleNameErrorMessage] = useState<string>("");
-    const [roleDescriptionErrorMessage, setRoleDescriptionErrorMessage] = useState<string>("");
+    const [moduleNameErrorMessage, setModuleNameErrorMessage] = useState("");
+    const [formNameErrorMessage, setFormNameErrorMessage] = useState("");
+    const [formUrlErrorMessage, setFormUrlErrorMessage] = useState("");
+    const [appIdErrorMessage, setAppIdErrorMessage] = useState("");
 
     // For field validation
-    const [roleNameError, setRoleNameError] = useState<boolean>(false);
-    const [roleDescriptionError, setRoleDescriptionError] = useState<boolean>(false);
+    const [moduleNameError, setModuleNameError] = useState(false);
+    const [formNameError, setFormNameError] = useState(false);
+    const [formUrlError, setFormUrlError] = useState(false);
+    const [appIdError, setAppIdError] = useState(false);
 
     // Status radio buttons
     const [status, setStatus] = useState("Active");
+
+    // FOR APP ID AUTO COMPLETE
+
+    // For College autocomplete component
+    const [appIdList, setAppIdList] = useState<any>([]);
+    const [loadData, setLoadData] = useState(true);
+
+    useEffect(() => {
+        let accessToken: any = Cookies.get("accessToken");
+
+        if (accessToken === undefined || accessToken === null) {
+            accessToken = null;
+        }
+
+        console.log("Access Token in View Users ===> ", accessToken);
+
+        if (accessToken !== null && loadData === true) {
+            // Fetching data using axios and also pass the header x-api-key for auth
+            axios.get("https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/fetchAppDetails", {
+                headers: {
+                    "x-api-key": accessToken
+                }
+            })
+                .then((res) => {
+                    setAppIdList(res.data.obj);
+                    setLoadData(false);
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+        }
+    }, [appIdList, loadData]);
+
+    useEffect(() => {
+        if (appId !== null) {
+            console.log("Current App Id ===> ", appId.appId);
+        }
+    }, [appId, appIdList]);
+
+    // For autocomplete component
+    const appIdDefaultProps = {
+        options: appIdList,
+        getOptionLabel: (option: any) => option.appName
+    };
+    // For College autocomplete component
+    // FOR APP ID AUTO COMPLETE
 
     const handleChangeStatus = (event: React.ChangeEvent<HTMLInputElement>) => {
         setStatus((event.target as HTMLInputElement).value);
@@ -116,31 +159,42 @@ const AddRole: React.FC<AddRoleProps> = ({
 
             if (accessToken !== null) {
                 // Set the validation errors
-                if (roleName === "") {
-                    setRoleNameErrorMessage("Role Name is required");
-                    setRoleNameError(true);
+                if (moduleName === "") {
+                    setModuleNameErrorMessage("Module Name is required");
+                    setModuleNameError(true);
                 }
-                if (roleDescription === "") {
-                    setRoleDescriptionErrorMessage("Role Description is required");
-                    setRoleDescriptionError(true);
+                if (formName === "") {
+                    setFormNameErrorMessage("Form Name is required");
+                    setFormNameError(true);
+                }
+                if (formUrl === "") {
+                    setFormUrlErrorMessage("Form URL is required");
+                    setFormUrlError(true);
+                }
+                if (appId === null) {
+                    setAppIdErrorMessage("* Please select any AppId from the list.");
+                    setAppIdError(true);
                 }
                 // Set the validation errors
 
                 if (
-                    roleName !== "" &&
-                    roleDescription !== ""
+                    moduleName !== "" &&
+                    formName !== "" &&
+                    formUrl !== "" &&
+                    appId !== null
                 ) {
                     const formState = {
-                        "roleId": "OR05",
-                        "roleName": roleName,
-                        "roleDescription": roleDescription,
+                        "moduleName": moduleName,
+                        "formName": formName,
+                        "formUrl": formUrl,
+                        "appId": (appId !== null) ? appId.appId : null,
                         "loggedInUser": loggedInUser,
                         "active": (status === "Active") ? true : false
                     };
 
                     console.log("User Form Data ===> ", formState);
 
-                    axios.post('https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/createRole',
+                    axios.post('https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/saveAppForm',
                         formState
                         , {
                             headers: {
@@ -152,13 +206,13 @@ const AddRole: React.FC<AddRoleProps> = ({
                             if (response.status === 200) {
                                 setSnackBarHandler({
                                     severity: (response.data.code === "200.200") ? "success" : "error",
-                                    message: (response.data.code === "200.200") ? `Role ${roleName} has been created successfully` : (response.data.message),
-                                    open: true
-                                })
+                                    open: true,
+                                    message: (response.data.code === "200.200") ? `AppForm ${formName} has been created successfully` : response.data.message
+                                });
                                 const m = response.data.message;
                                 if (response.data.code === "200.200") {
                                     setTimeout(() => {
-                                        navigate("/account/roles/view");
+                                        navigate("/account/appForm/view");
                                     }, 3000);
                                 }
                                 console.log(m);
@@ -168,14 +222,17 @@ const AddRole: React.FC<AddRoleProps> = ({
                             console.log(error);
                         });
                 } else {
+                    // alert("Please fill All fields");
                     // set the errors
-                    setRoleNameError(true);
-                    setRoleDescriptionError(true);
+                    setModuleNameError(true);
+                    setFormNameError(true);
+                    setFormUrlError(true);
+                    setAppIdError(true);
                     setSnackBarHandler({
                         open: true,
-                        message: "Please fill all the required fields",
-                        severity: 'error'
-                    });
+                        message: "Please fill all the fields",
+                        severity: "error"
+                    })
                 }
             } else {
                 alert("Please login first");
@@ -186,25 +243,18 @@ const AddRole: React.FC<AddRoleProps> = ({
             navigate("/login");
         }
     }
-    /// Handling the data of the form
 
     return (
-        <Box
-            className={`${styles.container} ${(windowSize[0] < 991 && isOpen) ? ("bgMobileOnSideOpen") : ("")}`}
-            onClick={() => {
-                if ((windowSize[0] < 991) && isOpen)
-                    setIsOpen(false);
-            }}
-        >
-            <div style={{ marginTop: 5, flexDirection: (currentLang === "ar") ? ("row-reverse") : ("row") }} className={`${(windowSize[0] > 990) ? ("d-flex justify-content-between") : ("d-flex flex-column justify-content-start")}`}>
+        <Box className={styles.container}>
+            {/* <div style={{ marginTop: 5, flexDirection: (currentLang === "ar") ? ("row-reverse") : ("row") }} className={`${(windowSize[0] > 990) ? ("d-flex justify-content-between") : ("d-flex flex-column justify-content-start")}`}>
                 <div>
                     {(currentLang === "ar") ? (
                         <>
-                            <span style={{ color: "#4f747a" }}> {t('Home.Sidebar.list.userManagement.subMenu.roles.details.Add.breadcrumb.f4')} </span> / {t('Home.Sidebar.list.userManagement.subMenu.roles.details.Add.breadcrumb.f3')} / {t('Home.Sidebar.list.userManagement.subMenu.roles.details.Add.breadcrumb.f2')} / EQA
+                            <span style={{ color: "#4f747a" }}> {t('Home.Sidebar.list.userManagement.subMenu.appForm.details.Add.breadcrumb.f4')} </span> / {t('Home.Sidebar.list.userManagement.subMenu.appForm.details.Add.breadcrumb.f3')} / {t('Home.Sidebar.list.userManagement.subMenu.appForm.details.Add.breadcrumb.f2')} / EQA
                         </>
                     ) : (
                         <>
-                            EQA / {t('Home.Sidebar.list.userManagement.subMenu.roles.details.Add.breadcrumb.f2')} / {t('Home.Sidebar.list.userManagement.subMenu.roles.details.Add.breadcrumb.f3')} / <span style={{ color: "#4f747a" }}> {t('Home.Sidebar.list.userManagement.subMenu.roles.details.Add.breadcrumb.f4')} </span>
+                            EQA / {t('Home.Sidebar.list.userManagement.subMenu.appForm.details.Add.breadcrumb.f2')} / {t('Home.Sidebar.list.userManagement.subMenu.appForm.details.Add.breadcrumb.f3')} / <span style={{ color: "#4f747a" }}> {t('Home.Sidebar.list.userManagement.subMenu.appForm.details.Add.breadcrumb.f4')} </span>
                         </>
                     )}
                 </div>
@@ -213,7 +263,7 @@ const AddRole: React.FC<AddRoleProps> = ({
                 </div>
             </div>
 
-            <hr />
+            <hr /> */}
 
             <Box sx={{
                 // border: "1px solid red",
@@ -223,7 +273,7 @@ const AddRole: React.FC<AddRoleProps> = ({
                 boxShadow: "rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;"
             }}>
 
-                <Box sx={{
+                {/* <Box sx={{
                     // border: "1px solid red",
                     display: "flex",
                     marginBottom: 2,
@@ -231,9 +281,6 @@ const AddRole: React.FC<AddRoleProps> = ({
                     flexDirection: (currentLang === "ar") ? ("row-reverse") : ("row")
                 }}>
                     <Box sx={{
-                        // border: "1px solid black",
-                        // boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;",
-                        // boxShadow: "rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;",
                         boxShadow: "rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;",
                         width: 60,
                         height: 60,
@@ -243,11 +290,10 @@ const AddRole: React.FC<AddRoleProps> = ({
                         justifyContent: "center",
                         alignItems: "center",
                     }}>
-                        <PeopleOutlineIcon
+                        <AppsIcon
                             sx={{
                                 color: "#4f747a",
-                                fontSize: 35,
-                                // boxShadow: "rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;", 
+                                fontSize: 35
                             }} />
                     </Box>
                     <Box sx={{ ml: 3 }}>
@@ -259,7 +305,7 @@ const AddRole: React.FC<AddRoleProps> = ({
                             display: "flex",
                             flexDirection: (currentLang === "ar") ? ("row-reverse") : ("row")
                         }}>
-                            {t('Home.Sidebar.list.userManagement.subMenu.roles.details.Add.title')}
+                            {t('Home.Sidebar.list.userManagement.subMenu.appForm.details.Add.title')}
                         </Typography>
                         <Typography variant="body1" sx={{
                             // color: "#4f747a" 
@@ -267,67 +313,115 @@ const AddRole: React.FC<AddRoleProps> = ({
                             color: "#696969",
                             fontWeight: 300
                         }}>
-                            {t('Home.Sidebar.list.userManagement.subMenu.roles.details.Add.subTitle')}
+                            {t('Home.Sidebar.list.userManagement.subMenu.appForm.details.Add.subTitle')}
                         </Typography>
                     </Box>
-                </Box>
+                </Box> */}
 
-                <Box sx={{ flexGrow: 1, mt: 2 }}>
+                <Box sx={{ flexGrow: 1, mt: 0 }}>
                     <Grid container spacing={
                         // Categorize according to small, medium, large screen
                         (windowSize[0] < 576) ? (0) : ((windowSize[0] < 768) ? (1) : ((windowSize[0] < 992) ? (2) : (3)))
                     }>
                         <Grid item xs={12}>
                             <TextField
-                                id="roleNameTextField"
-                                label={t('Home.Sidebar.list.userManagement.subMenu.roles.details.Add.fields.roleName.label')}
-                                placeholder={`${t('Home.Sidebar.list.userManagement.subMenu.roles.details.Add.fields.roleName.placeholder')}`}
+                                id="moduleNameTextField"
+                                label={t('Home.Sidebar.list.userManagement.subMenu.appForm.details.Add.fields.moduleName.label')}
+                                placeholder={`${t('Home.Sidebar.list.userManagement.subMenu.appForm.details.Add.fields.moduleName.placeholder')}`}
                                 variant="standard"
                                 margin="normal"
                                 fullWidth // t
-                                value={roleName}
+                                error={moduleNameError}
+                                helperText={moduleNameErrorMessage}
+                                value={moduleName}
                                 onChange={(e) => {
-                                    setRoleName(e.target.value);
-                                    if (roleNameError) {
-                                        setRoleNameError(false);
+                                    setModuleName(e.target.value);
+                                    if (moduleNameError) {
+                                        setModuleNameError(false);
+                                        setModuleNameErrorMessage("");
                                     }
                                 }}
-                                error={roleNameError}
-                                helperText={roleNameError ? roleNameErrorMessage : ""}
                                 dir={(currentLang === "ar") ? "rtl" : "ltr"}
                             />
                         </Grid>
                         <Grid item xs={12}>
                             <TextField
-                                id="roleDescriptionTextField"
-                                label={t('Home.Sidebar.list.userManagement.subMenu.roles.details.Add.fields.description.label')}
-                                placeholder={`${t('Home.Sidebar.list.userManagement.subMenu.roles.details.Add.fields.description.placeholder')}`}
+                                id="formNameTextField"
+                                label={t('Home.Sidebar.list.userManagement.subMenu.appForm.details.Add.fields.FormName.label')}
+                                placeholder={`${t('Home.Sidebar.list.userManagement.subMenu.appForm.details.Add.fields.FormName.placeholder')}`}
                                 variant="standard"
                                 margin="normal"
                                 fullWidth // t
-                                value={roleDescription}
+                                error={formNameError}
+                                helperText={formNameErrorMessage}
+                                value={formName}
                                 onChange={(e) => {
-                                    setRoleDescription(e.target.value);
-                                    if (roleDescriptionError) {
-                                        setRoleDescriptionError(false);
+                                    setFormName(e.target.value);
+                                    if (formNameError) {
+                                        setFormNameError(false);
+                                        setFormNameErrorMessage("");
                                     }
                                 }}
-                                error={roleDescriptionError}
-                                helperText={roleDescriptionError ? roleDescriptionErrorMessage : ""}
                                 dir={(currentLang === "ar") ? "rtl" : "ltr"}
+                            />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <TextField
+                                id="formUrlTextField"
+                                label={t('Home.Sidebar.list.userManagement.subMenu.appForm.details.Add.fields.FormUrl.label')}
+                                placeholder={`${t('Home.Sidebar.list.userManagement.subMenu.appForm.details.Add.fields.FormUrl.placeholder')}`}
+                                variant="standard"
+                                margin="normal"
+                                fullWidth // t
+                                error={formUrlError}
+                                helperText={formUrlErrorMessage}
+                                value={formUrl}
+                                onChange={(e) => {
+                                    setFormUrl(e.target.value);
+                                    if (formUrlError) {
+                                        setFormUrlError(false);
+                                        setFormUrlErrorMessage("");
+                                    }
+                                }}
+                                dir={(currentLang === "ar") ? "rtl" : "ltr"}
+                            />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <Autocomplete
+                                {...appIdDefaultProps}
+                                id="appIdAutoComplete"
+                                autoHighlight
+                                value={appId}
+                                onChange={(event, newValue) => {
+                                    setAppId(newValue);
+                                    if (appIdError) {
+                                        setAppIdError(false);
+                                    }
+                                }}
+                                dir={(currentLang === "ar") ? "rtl" : "ltr"}
+                                renderInput={(params) => (
+                                    <TextField
+                                        {...params}
+                                        label={t('Home.Sidebar.list.userManagement.subMenu.appForm.details.Add.fields.selectAppDropdown.label')}
+                                        placeholder={`${t('Home.Sidebar.list.userManagement.subMenu.appForm.details.Add.fields.selectAppDropdown.placeholder')}`}
+                                        variant="standard"
+                                        helperText={(appIdError) ? (appIdErrorMessage) : ("")}
+                                        error={appIdError}
+                                        dir={(currentLang === "ar") ? "rtl" : "ltr"}
+                                    />
+                                )}
                             />
                         </Grid>
                         <Grid item xs={12}>
                             {/* Define here two radio buttons active and inactive from material ui. Also import them for me */}
                             <FormControl
-                                dir={(currentLang === "ar") ? "rtl" : "ltr"}
                                 sx={{
                                     width: "100%"
                                 }}
                             >
                                 <FormLabel
                                     dir={(currentLang === "ar") ? "rtl" : "ltr"}
-                                    id="demo-row-radio-buttons-group-label"
+                                    id="demo-row-radio-buttons-app-label"
                                     sx={{
                                         fontSize: {
                                             xs: 20, // theme.breakpoints.up('xs')
@@ -339,12 +433,12 @@ const AddRole: React.FC<AddRoleProps> = ({
                                         marginTop: 0
                                     }}
                                 >
-                                    {t('Home.Sidebar.list.userManagement.subMenu.roles.details.Add.fields.Status.title')}
+                                    {t('Home.Sidebar.list.userManagement.subMenu.appForm.details.Add.fields.Status.title')}
                                 </FormLabel>
                                 <RadioGroup
                                     row
-                                    aria-labelledby="demo-row-radio-buttons-group-label"
-                                    name="row-radio-buttons-group"
+                                    aria-labelledby="demo-row-radio-buttons-app-label"
+                                    name="row-radio-buttons-app"
                                     // Add spacing between radio buttons
                                     sx={{
                                         '& .MuiFormControlLabel-root': {
@@ -361,15 +455,15 @@ const AddRole: React.FC<AddRoleProps> = ({
                                         control={<Radio
                                             dir={(currentLang === "ar") ? "rtl" : "ltr"}
                                         />}
-                                        label={t('Home.Sidebar.list.userManagement.subMenu.roles.details.Add.fields.Status.radio1.label')}
                                         dir={(currentLang === "ar") ? "rtl" : "ltr"}
+                                        label={t('Home.Sidebar.list.userManagement.subMenu.appForm.details.Add.fields.Status.radio1.label')}
                                     />
                                     <FormControlLabel
                                         value="DeActive"
                                         control={<Radio
                                             dir={(currentLang === "ar") ? "rtl" : "ltr"}
                                         />}
-                                        label={t('Home.Sidebar.list.userManagement.subMenu.roles.details.Add.fields.Status.radio2.label')}
+                                        label={t('Home.Sidebar.list.userManagement.subMenu.appForm.details.Add.fields.Status.radio2.label')}
                                         dir={(currentLang === "ar") ? "rtl" : "ltr"}
                                     />
                                 </RadioGroup>
@@ -379,7 +473,7 @@ const AddRole: React.FC<AddRoleProps> = ({
                 </Box>
             </Box>
 
-            <Box
+            {/* <Box
                 sx={{
                     display: "flex",
                     flexDirection: (currentLang === "ar") ? ('row-reverse') : ('row')
@@ -441,7 +535,7 @@ const AddRole: React.FC<AddRoleProps> = ({
                         {t('Home.Sidebar.list.userManagement.subMenu.Users.details.submit')}
                     </Typography>
                 </Button>
-            </Box>
+            </Box> */}
 
             <SnackBar
                 isOpen={snackBarHandler.open}
@@ -454,8 +548,11 @@ const AddRole: React.FC<AddRoleProps> = ({
                 }
             />
 
-            <br /><br />
+            <Box sx={{
+                mt: 5,
+            }}>
+            </Box>
         </Box>
     )
 }
-export default AddRole;
+export default UpdateAppForm;

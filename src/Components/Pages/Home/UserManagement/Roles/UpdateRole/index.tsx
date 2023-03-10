@@ -30,22 +30,14 @@ import axios from 'axios';
 
 import styles from "./style.module.css";
 
-interface AddRoleProps {
-    setIsOpen: any,
-    isOpen: Boolean,
-    // For minified sidebar
-    isMinified: Boolean,
-    setIsMinified: any,
+interface UpdateRoleProps {
     currentLang: string
+    originalValues: any
 }
 
-const AddRole: React.FC<AddRoleProps> = ({
-    setIsOpen,
-    isOpen,
-    // For minified sidebar
-    isMinified,
-    setIsMinified,
-    currentLang
+const UpdateRole: React.FC<UpdateRoleProps> = ({
+    currentLang,
+    originalValues
 }) => {
     const { t } = useTranslation();
     const navigate = useNavigate();
@@ -77,10 +69,18 @@ const AddRole: React.FC<AddRoleProps> = ({
         };
     });
 
+    // newValues = {
+    //     "roleId": values.roleId,
+    //     "roleName": values.roleName,
+    //     "roleDescription": values.roleDescription,
+    //     "loggedInUser": loggedInUser,
+    //     "active": values.active === "true" ? true : false
+    // };
+
     /// Handling the data of the form
     // For field validation
-    const [roleName, setRoleName] = useState<string>("");
-    const [roleDescription, setRoleDescription] = useState<string>("");
+    const [roleName, setRoleName] = useState<string>(originalValues.roleName);
+    const [roleDescription, setRoleDescription] = useState<string>(originalValues.roleDescription);
 
     // Error messages
     const [roleNameErrorMessage, setRoleNameErrorMessage] = useState<string>("");
@@ -91,7 +91,7 @@ const AddRole: React.FC<AddRoleProps> = ({
     const [roleDescriptionError, setRoleDescriptionError] = useState<boolean>(false);
 
     // Status radio buttons
-    const [status, setStatus] = useState("Active");
+    const [status, setStatus] = useState(originalValues.active === true ? "Active" : "Deactive");
 
     const handleChangeStatus = (event: React.ChangeEvent<HTMLInputElement>) => {
         setStatus((event.target as HTMLInputElement).value);
@@ -189,14 +189,8 @@ const AddRole: React.FC<AddRoleProps> = ({
     /// Handling the data of the form
 
     return (
-        <Box
-            className={`${styles.container} ${(windowSize[0] < 991 && isOpen) ? ("bgMobileOnSideOpen") : ("")}`}
-            onClick={() => {
-                if ((windowSize[0] < 991) && isOpen)
-                    setIsOpen(false);
-            }}
-        >
-            <div style={{ marginTop: 5, flexDirection: (currentLang === "ar") ? ("row-reverse") : ("row") }} className={`${(windowSize[0] > 990) ? ("d-flex justify-content-between") : ("d-flex flex-column justify-content-start")}`}>
+        <Box className={styles.container}>
+            {/* <div style={{ marginTop: 5, flexDirection: (currentLang === "ar") ? ("row-reverse") : ("row") }} className={`${(windowSize[0] > 990) ? ("d-flex justify-content-between") : ("d-flex flex-column justify-content-start")}`}>
                 <div>
                     {(currentLang === "ar") ? (
                         <>
@@ -211,9 +205,9 @@ const AddRole: React.FC<AddRoleProps> = ({
                 <div>
                     <span style={{ color: "#4f747a", paddingRight: 10 }}>{currentFormatedDate}</span>
                 </div>
-            </div>
+            </div> */}
 
-            <hr />
+            {/* <hr /> */}
 
             <Box sx={{
                 // border: "1px solid red",
@@ -223,7 +217,7 @@ const AddRole: React.FC<AddRoleProps> = ({
                 boxShadow: "rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;"
             }}>
 
-                <Box sx={{
+                {/* <Box sx={{
                     // border: "1px solid red",
                     display: "flex",
                     marginBottom: 2,
@@ -270,9 +264,9 @@ const AddRole: React.FC<AddRoleProps> = ({
                             {t('Home.Sidebar.list.userManagement.subMenu.roles.details.Add.subTitle')}
                         </Typography>
                     </Box>
-                </Box>
+                </Box> */}
 
-                <Box sx={{ flexGrow: 1, mt: 2 }}>
+                <Box sx={{ flexGrow: 1, mt: 0 }}>
                     <Grid container spacing={
                         // Categorize according to small, medium, large screen
                         (windowSize[0] < 576) ? (0) : ((windowSize[0] < 768) ? (1) : ((windowSize[0] < 992) ? (2) : (3)))
@@ -379,7 +373,7 @@ const AddRole: React.FC<AddRoleProps> = ({
                 </Box>
             </Box>
 
-            <Box
+            {/* <Box
                 sx={{
                     display: "flex",
                     flexDirection: (currentLang === "ar") ? ('row-reverse') : ('row')
@@ -441,7 +435,7 @@ const AddRole: React.FC<AddRoleProps> = ({
                         {t('Home.Sidebar.list.userManagement.subMenu.Users.details.submit')}
                     </Typography>
                 </Button>
-            </Box>
+            </Box> */}
 
             <SnackBar
                 isOpen={snackBarHandler.open}
@@ -454,8 +448,8 @@ const AddRole: React.FC<AddRoleProps> = ({
                 }
             />
 
-            <br /><br />
+            <br />
         </Box>
     )
 }
-export default AddRole;
+export default UpdateRole;

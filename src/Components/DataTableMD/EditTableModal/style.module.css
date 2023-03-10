@@ -1,0 +1,129 @@
+.modalStyle {
+    position: absolute !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    width: 80vw !important;
+    background-color: #ffffff !important;
+    box-shadow: 24 !important;
+    /* border: 1px solid red; */
+    padding: 20px !important;
+    /* height: 90vh !important; */
+    /* overflow-y: auto !important; */
+    border-radius: 10px !important;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px !important;
+}
+
+.modalContent {
+    /* border: 1px solid red; */
+    /* height: 70vh !important; */
+    overflow-y: auto !important;
+}
+
+.transition_modal_title {
+    font-size: 1.5rem !important;
+    font-weight: 500 !important;
+    line-height: 1.6 !important;
+    letter-spacing: 0.0075em !important;
+    color: #3c6766 !important;
+    margin-bottom: 0.5rem !important;
+    margin-top: 0 !important;
+    text-align: left !important;
+}
+
+.transition_modal_reset {
+    font-size: 1.3rem !important;
+    font-weight: 300 !important;
+    line-height: 1.6 !important;
+    letter-spacing: 0.0075em !important;
+    color: #54787e !important;
+    margin-bottom: 0.5rem !important;
+    margin-top: 0 !important;
+    text-align: center !important;
+    /* border-bottom: 1px solid #54787e; */
+}
+
+.resetPasswordPolicy {
+    font-size: 1.5rem !important;
+    font-weight: 300 !important;
+    line-height: 1.6 !important;
+    letter-spacing: 0.0075em !important;
+    color: #000000 !important;
+    margin-bottom: 0.5rem !important;
+    margin-top: 0 !important;
+    text-align: left !important;
+    /* border-bottom: 1px solid #54787e; */
+}
+
+html[dir="rtl"] .resetPasswordPolicy {
+    text-align: right !important;
+}
+
+.passwordPolicyPoints {
+    text-align: left !important;
+}
+
+html[dir="rtl"] .passwordPolicyPoints {
+    text-align: right !important;
+}
+
+.cancelButton {
+    margin-left: 15px !important;
+}
+
+
+html[dir="rtl"] .cancelButton {
+    margin-left: 0px !important;
+    margin-right: 15px !important;
+}
+
+.buttonsContainer {
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: flex-end !important;
+    align-items: flex-end !important;
+    width: 100% !important;
+    /* border: 1px solid red !important; */
+    border-top: 1px solid #54787e !important;
+    padding-top: 30px !important;
+}
+
+html[dir="rtl"] .buttonsContainer {
+    flex-direction: row-reverse !important;
+}
+
+.formControlBox {
+    /* border: 1px solid red !important; */
+}
+
+html[dir="rtl"] .formControlBox {
+    direction: rtl !important;
+}
+
+@media all and (max-width: 900px) {
+    .modalStyle {
+        width: 90%;
+        /* height: 90vh; */
+        overflow-y: auto !important;
+        /* top: 0;
+        left: 0;
+        transform: none;
+        border-radius: 0; */
+        margin-top: 0vh !important;
+        margin-bottom: 20px !important;
+    }
+}
+
+@media all and (max-width: 730px) {
+    .modalStyle {
+        height: 90vh !important;
+        overflow-y: auto !important;
+    }
+}
+
+@media all and (max-width:400px) {
+    .transition_modal_title {
+        font-size: 1.5rem !important;
+        margin-bottom: 0rem !important;
+    }
+}
