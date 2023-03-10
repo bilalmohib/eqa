@@ -87,6 +87,8 @@ const CustomTableCrud: FC<CustomTableProps> = ({
     const [editable, setEditable] = useState<boolean>(false);
     const [deletable, setDeletable] = useState<boolean>(false);
 
+    const [URL, setURL] = useState<string>("");
+
     useEffect(() => {
         // For getting the current location path
         const currentLocationPath = location.pathname;
@@ -978,6 +980,7 @@ const CustomTableCrud: FC<CustomTableProps> = ({
                     //     alert("Error Updating User : " + err);
                     // }
                     setOriginalValues(newValues);
+                    setURL(url);
                 }
                 else {
                     console.log("URL is empty");
@@ -1104,10 +1107,11 @@ const CustomTableCrud: FC<CustomTableProps> = ({
                 </div>
             </div>
             <EditTableModal
-                openResetPasswordModal={openModal}
-                setOpenResetPasswordModal={setOpenModal}
+                openUpdateTableModal={openModal}
+                setOpenUpdateTableModal={setOpenModal}
                 originalValues={originalValues}
                 columnName={columnName}
+                url={URL}
             />
         </div>
     );

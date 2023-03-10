@@ -31,163 +31,181 @@ import styles from "./style.module.css";
 
 interface UpdateGroupProps {
     currentLang: string
-    originalValues: any
+    originalValues: any,
+    url: string,
+    setOpenUpdateTableModal: any
 }
 
-const UpdateGroup: React.FC<UpdateGroupProps> = ({
-    currentLang,    
-    originalValues
-}) => {
-    const { t } = useTranslation();
-    const navigate = useNavigate();
+interface UpdateRef {
+    // Define any functions that you want to expose to the parent component
+    submitForm: any
+}
 
-    ///////////////////////////////// Snackbar State /////////////////////////////////
-    const [snackBarHandler, setSnackBarHandler] = useState({
-        open: false,
-        message: '',
-        severity: 'success'
-    });
-    ///////////////////////////////// Snackbar State /////////////////////////////////
+const UpdateGroup = React.forwardRef<UpdateRef, UpdateGroupProps>(
+    ({
+        currentLang,
+        originalValues,
+        url,
+        setOpenUpdateTableModal
+    },
+        ref
+    ) => {
 
-    const currentFormatedDate: string = new Date().toLocaleString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+        const { t } = useTranslation();
+        const navigate = useNavigate();
 
-    const [windowSize, setWindowSize] = useState([
-        window.innerWidth,
-        window.innerHeight,
-    ]);
+        ///////////////////////////////// Snackbar State /////////////////////////////////
+        const [snackBarHandler, setSnackBarHandler] = useState({
+            open: false,
+            message: '',
+            severity: 'success'
+        });
+        ///////////////////////////////// Snackbar State /////////////////////////////////
 
-    useEffect(() => {
-        const handleWindowResize = () => {
-            setWindowSize([window.innerWidth, window.innerHeight]);
+        const currentFormatedDate: string = new Date().toLocaleString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+
+        const [windowSize, setWindowSize] = useState([
+            window.innerWidth,
+            window.innerHeight,
+        ]);
+
+        useEffect(() => {
+            const handleWindowResize = () => {
+                setWindowSize([window.innerWidth, window.innerHeight]);
+            };
+
+            window.addEventListener('resize', handleWindowResize);
+
+            return () => {
+                window.removeEventListener('resize', handleWindowResize);
+            };
+        });
+
+        // newValues = {
+        //     "grpId": values.grpId,
+        //     "grpName": values.grpName,
+        //     "grpDescription": values.grpDescription,
+        //     "active": values.active === "true" ? true : false,
+        //     "loggedInUser": loggedInUser
+        // }
+
+        // For field validation
+        const [groupName, setGroupName] = useState(originalValues.grpName);
+        const [groupDescription, setGroupDescription] = useState(originalValues.grpDescription);
+
+        // Error messages
+        const [groupNameErrorMessage, setGroupNameErrorMessage] = useState("");
+        const [groupDescriptionErrorMessage, setGroupDescriptionErrorMessage] = useState("");
+
+        // For field validation
+        const [groupNameError, setGroupNameError] = useState(false);
+        const [groupDescriptionError, setGroupDescriptionError] = useState(false);
+
+        // Status radio buttons
+        const [status, setStatus] = useState((originalValues.active === true) ? ("Active") : ("Deactive"));
+
+        const handleChangeStatus = (event: React.ChangeEvent<HTMLInputElement>) => {
+            setStatus((event.target as HTMLInputElement).value);
         };
+        // Status radio buttons
 
-        window.addEventListener('resize', handleWindowResize);
+        const submitForm = () => {
+            // Get the user from local storage
+            // Add validation also 
+            const userLocalStorage = JSON.parse(localStorage.getItem('user') || '{}');
+            if (userLocalStorage !== null && userLocalStorage !== undefined) {
+                const loggedInUser = userLocalStorage.userName;
+                console.log("Logged In UserName ===> ", loggedInUser);
 
-        return () => {
-            window.removeEventListener('resize', handleWindowResize);
-        };
-    });
+                let accessToken: any = Cookies.get("accessToken");
 
-    // newValues = {
-    //     "grpId": values.grpId,
-    //     "grpName": values.grpName,
-    //     "grpDescription": values.grpDescription,
-    //     "active": values.active === "true" ? true : false,
-    //     "loggedInUser": loggedInUser
-    // }
-
-    // For field validation
-    const [groupName, setGroupName] = useState(originalValues.grpName);
-    const [groupDescription, setGroupDescription] = useState(originalValues.grpDescription);
-
-    // Error messages
-    const [groupNameErrorMessage, setGroupNameErrorMessage] = useState("");
-    const [groupDescriptionErrorMessage, setGroupDescriptionErrorMessage] = useState("");
-
-    // For field validation
-    const [groupNameError, setGroupNameError] = useState(false);
-    const [groupDescriptionError, setGroupDescriptionError] = useState(false);
-
-    // Status radio buttons
-    const [status, setStatus] = useState((originalValues.active === true) ? ("Active") : ("Deactive"));
-
-    const handleChangeStatus = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setStatus((event.target as HTMLInputElement).value);
-    };
-    // Status radio buttons
-
-    const submitForm = (e: any) => {
-        e.preventDefault();
-
-        // Get the user from local storage
-        // Add validation also 
-        const userLocalStorage = JSON.parse(localStorage.getItem('user') || '{}');
-        if (userLocalStorage !== null && userLocalStorage !== undefined) {
-            const loggedInUser = userLocalStorage.userName;
-            console.log("Logged In UserName ===> ", loggedInUser);
-
-            let accessToken: any = Cookies.get("accessToken");
-
-            if (accessToken === undefined || accessToken === null) {
-                accessToken = null;
-            }
-
-            if (accessToken !== null) {
-                // Set the validation errors
-                if (groupName === "") {
-                    setGroupNameErrorMessage("Group Name is required");
-                    setGroupNameError(true);
+                if (accessToken === undefined || accessToken === null) {
+                    accessToken = null;
                 }
-                if (groupDescription === "") {
-                    setGroupDescriptionErrorMessage("Group Description is required");
-                    setGroupDescriptionError(true);
-                }
-                // Set the validation errors
 
-                if (
-                    groupName !== "" &&
-                    groupDescription !== ""
-                ) {
-                    const formState = {
-                        "grpName": groupName,
-                        "grpDescription": groupDescription,
-                        "loggedInUser": loggedInUser,
-                        "active": (status === "Active") ? true : false
-                    };
+                if (accessToken !== null) {
+                    // Set the validation errors
+                    if (groupName === "") {
+                        setGroupNameErrorMessage("Group Name is required");
+                        setGroupNameError(true);
+                    }
+                    if (groupDescription === "") {
+                        setGroupDescriptionErrorMessage("Group Description is required");
+                        setGroupDescriptionError(true);
+                    }
+                    // Set the validation errors
 
-                    console.log("User Form Data ===> ", formState);
+                    if (
+                        originalValues.grpId !== "" &&
+                        groupName !== "" &&
+                        groupDescription !== ""
+                    ) {
+                        const formState = {
+                            "grpId": originalValues.grpId,
+                            "grpName": groupName,
+                            "grpDescription": groupDescription,
+                            "active": (status === "Active") ? true : false
+                        };
 
-                    axios.post('https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/saveGroup',
-                        formState
-                        , {
-                            headers: {
-                                'x-api-key': accessToken
-                            }
-                        })
-                        .then(function (response) {
-                            console.log("Response ===> ", response);
-                            if (response.status === 200) {
-                                setSnackBarHandler({
-                                    open: true,
-                                    message: (response.data.code === "200.200") ? (`Group ${groupName} has been created successfully`) : (response.data.message),
-                                    severity: (response.data.code === "200.200") ? ("success") : ("error")
-                                });
-                                const m = response.data.message;
-                                if (response.data.code === "200.200") {
-                                    setTimeout(() => {
-                                        navigate("/account/groups/view");
-                                    }, 3000);
+                        console.log("User Form Data ===> ", formState);
+
+                        axios.put(url,
+                            formState
+                            , {
+                                headers: {
+                                    'x-api-key': accessToken
                                 }
-                                console.log(m);
-                            }
-                        })
-                        .catch(function (error) {
-                            console.log(error);
+                            })
+                            .then(function (response) {
+                                console.log("Response ===> ", response);
+                                if (response.status === 200) {
+                                    setSnackBarHandler({
+                                        open: true,
+                                        message: (response.data.code === "200.200") ? (`Group ${groupName} has been updated successfully`) : (response.data.message),
+                                        severity: (response.data.code === "200.200") ? ("success") : ("error")
+                                    });
+                                    const m = response.data.message;
+                                    if (response.data.code === "200.200") {
+                                        setTimeout(() => {
+                                            setOpenUpdateTableModal(false);
+                                        }, 3000);
+                                    }
+                                    console.log(m);
+                                }
+                            })
+                            .catch(function (error) {
+                                console.log(error);
+                            });
+                    } else {
+                        setSnackBarHandler({
+                            severity: 'error',
+                            open: true,
+                            message: "Please fill all fields to update the group",
                         });
+                        // set the errors
+                        setGroupNameError(true);
+                        setGroupDescriptionError(true);
+                    }
                 } else {
-                    setSnackBarHandler({
-                        severity: 'error',
-                        open: true,
-                        message: "Please fill all fields",
-                    });
-                    // set the errors
-                    setGroupNameError(true);
-                    setGroupDescriptionError(true);
+                    alert("Please login first");
+                    navigate("/login");
                 }
             } else {
                 alert("Please login first");
                 navigate("/login");
             }
-        } else {
-            alert("Please login first");
-            navigate("/login");
         }
-    }
 
-    return (
-        <Box
-            className={styles.container}>
-            {/* <div style={{ marginTop: 5, flexDirection: (currentLang === "ar") ? ("row-reverse") : ("row") }} className={`${(windowSize[0] > 990) ? ("d-flex justify-content-between") : ("d-flex flex-column justify-content-start")}`}>
+        // Define any functions or state that you want to expose to the parent component
+
+        React.useImperativeHandle(ref, () => ({
+            submitForm
+        }));
+
+        return (
+            <Box
+                className={styles.container}>
+                {/* <div style={{ marginTop: 5, flexDirection: (currentLang === "ar") ? ("row-reverse") : ("row") }} className={`${(windowSize[0] > 990) ? ("d-flex justify-content-between") : ("d-flex flex-column justify-content-start")}`}>
                 <div>
                     {(currentLang === "ar") ? (
                         <>
@@ -206,15 +224,15 @@ const UpdateGroup: React.FC<UpdateGroupProps> = ({
 
             <hr /> */}
 
-            <Box sx={{
-                // border: "1px solid red",
-                padding:
-                    // Categorize according to small, medium, large screen
-                    (windowSize[0] < 991) ? (2) : (windowSize[0] < 1200) ? (3) : (4),
-                boxShadow: "rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;"
-            }}>
+                <Box sx={{
+                    // border: "1px solid red",
+                    padding:
+                        // Categorize according to small, medium, large screen
+                        (windowSize[0] < 991) ? (2) : (windowSize[0] < 1200) ? (3) : (4),
+                    boxShadow: "rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;"
+                }}>
 
-                {/* <Box sx={{
+                    {/* <Box sx={{
                     // border: "1px solid red",
                     display: "flex",
                     marginBottom: 2,
@@ -259,112 +277,112 @@ const UpdateGroup: React.FC<UpdateGroupProps> = ({
                     </Box>
                 </Box> */}
 
-                <Box sx={{ flexGrow: 1, mt: 0 }}>
-                    <Grid container spacing={
-                        // Categorize according to small, medium, large screen
-                        (windowSize[0] < 576) ? (0) : ((windowSize[0] < 768) ? (1) : ((windowSize[0] < 992) ? (2) : (3)))
-                    }>
-                        <Grid item xs={12}>
-                            <TextField
-                                id="groupNameTextField"
-                                label={t('Home.Sidebar.list.userManagement.subMenu.groups.details.Add.fields.groupName.label')}
-                                placeholder={`${t('Home.Sidebar.list.userManagement.subMenu.groups.details.Add.fields.groupName.placeholder')}`}
-                                variant="standard"
-                                margin="normal"
-                                fullWidth // t
-                                error={groupNameError}
-                                helperText={groupNameErrorMessage}
-                                value={groupName}
-                                dir={(currentLang === "ar") ? "rtl" : "ltr"}
-                                onChange={(e) => {
-                                    setGroupName(e.target.value);
-                                    if (groupNameError) {
-                                        setGroupNameError(false);
-                                        setGroupNameErrorMessage("");
-                                    }
-                                }}
-                            />
-                        </Grid>
-                        <Grid item xs={12}>
-                            <TextField
-                                id="groupDescriptionTextField"
-                                label={t('Home.Sidebar.list.userManagement.subMenu.groups.details.Add.fields.description.label')}
-                                placeholder={`${t('Home.Sidebar.list.userManagement.subMenu.groups.details.Add.fields.description.placeholder')}`}
-                                variant="standard"
-                                margin="normal"
-                                fullWidth // t
-                                error={groupDescriptionError}
-                                helperText={groupDescriptionErrorMessage}
-                                value={groupDescription}
-                                dir={(currentLang === "ar") ? "rtl" : "ltr"}
-                                onChange={(e) => {
-                                    setGroupDescription(e.target.value);
-                                    if (groupDescriptionError) {
-                                        setGroupDescriptionError(false);
-                                        setGroupDescriptionErrorMessage("");
-                                    }
-                                }}
-                            />
-                        </Grid>
-                        <Grid item xs={12}>
-                            {/* Define here two radio buttons active and inactive from material ui. Also import them for me */}
-                            <FormControl
-                                dir={(currentLang === "ar") ? "rtl" : "ltr"}
-                                sx={{
-                                    width: "100%",
-                                }}
-                            >
-                                <FormLabel
-                                    id="demo-row-radio-buttons-group-label"
+                    <Box sx={{ flexGrow: 1, mt: 0 }}>
+                        <Grid container spacing={
+                            // Categorize according to small, medium, large screen
+                            (windowSize[0] < 576) ? (0) : ((windowSize[0] < 768) ? (1) : ((windowSize[0] < 992) ? (2) : (3)))
+                        }>
+                            <Grid item xs={12}>
+                                <TextField
+                                    id="groupNameTextField"
+                                    label={t('Home.Sidebar.list.userManagement.subMenu.groups.details.Add.fields.groupName.label')}
+                                    placeholder={`${t('Home.Sidebar.list.userManagement.subMenu.groups.details.Add.fields.groupName.placeholder')}`}
+                                    variant="standard"
+                                    margin="normal"
+                                    fullWidth // t
+                                    error={groupNameError}
+                                    helperText={groupNameErrorMessage}
+                                    value={groupName}
+                                    dir={(currentLang === "ar") ? "rtl" : "ltr"}
+                                    onChange={(e) => {
+                                        setGroupName(e.target.value);
+                                        if (groupNameError) {
+                                            setGroupNameError(false);
+                                            setGroupNameErrorMessage("");
+                                        }
+                                    }}
+                                />
+                            </Grid>
+                            <Grid item xs={12}>
+                                <TextField
+                                    id="groupDescriptionTextField"
+                                    label={t('Home.Sidebar.list.userManagement.subMenu.groups.details.Add.fields.description.label')}
+                                    placeholder={`${t('Home.Sidebar.list.userManagement.subMenu.groups.details.Add.fields.description.placeholder')}`}
+                                    variant="standard"
+                                    margin="normal"
+                                    fullWidth // t
+                                    error={groupDescriptionError}
+                                    helperText={groupDescriptionErrorMessage}
+                                    value={groupDescription}
+                                    dir={(currentLang === "ar") ? "rtl" : "ltr"}
+                                    onChange={(e) => {
+                                        setGroupDescription(e.target.value);
+                                        if (groupDescriptionError) {
+                                            setGroupDescriptionError(false);
+                                            setGroupDescriptionErrorMessage("");
+                                        }
+                                    }}
+                                />
+                            </Grid>
+                            <Grid item xs={12}>
+                                {/* Define here two radio buttons active and inactive from material ui. Also import them for me */}
+                                <FormControl
                                     dir={(currentLang === "ar") ? "rtl" : "ltr"}
                                     sx={{
-                                        fontSize: {
-                                            xs: 20, // theme.breakpoints.up('xs')
-                                            sm: 20, // theme.breakpoints.up('sm')
-                                            md: 22, // theme.breakpoints.up('md')
-                                            lg: 22, // theme.breakpoints.up('lg')
-                                            xl: 22, // theme.breakpoints.up('xl')
-                                        },
-                                        marginTop: 0
+                                        width: "100%",
                                     }}
                                 >
-                                    {t('Home.Sidebar.list.userManagement.subMenu.groups.details.Add.fields.Status.title')}
-                                </FormLabel>
-                                <RadioGroup
-                                    row
-                                    aria-labelledby="demo-row-radio-buttons-group-label"
-                                    name="row-radio-buttons-group"
-                                    // Add spacing between radio buttons
-                                    sx={{
-                                        '& .MuiFormControlLabel-root': {
-                                            marginRight: 10,
-                                        },
-                                        mt: 1
-                                    }}
-                                    value={status}
-                                    onChange={handleChangeStatus}
-                                    dir={(currentLang === "ar") ? "rtl" : "ltr"}
-                                >
-                                    <FormControlLabel
-                                        value="Active"
-                                        control={<Radio />}
-                                        label={t('Home.Sidebar.list.userManagement.subMenu.groups.details.Add.fields.Status.radio1.label')}
+                                    <FormLabel
+                                        id="demo-row-radio-buttons-group-label"
                                         dir={(currentLang === "ar") ? "rtl" : "ltr"}
-                                    />
-                                    <FormControlLabel
-                                        value="DeActive"
-                                        control={<Radio />}
-                                        label={t('Home.Sidebar.list.userManagement.subMenu.groups.details.Add.fields.Status.radio2.label')}
+                                        sx={{
+                                            fontSize: {
+                                                xs: 20, // theme.breakpoints.up('xs')
+                                                sm: 20, // theme.breakpoints.up('sm')
+                                                md: 22, // theme.breakpoints.up('md')
+                                                lg: 22, // theme.breakpoints.up('lg')
+                                                xl: 22, // theme.breakpoints.up('xl')
+                                            },
+                                            marginTop: 0
+                                        }}
+                                    >
+                                        {t('Home.Sidebar.list.userManagement.subMenu.groups.details.Add.fields.Status.title')}
+                                    </FormLabel>
+                                    <RadioGroup
+                                        row
+                                        aria-labelledby="demo-row-radio-buttons-group-label"
+                                        name="row-radio-buttons-group"
+                                        // Add spacing between radio buttons
+                                        sx={{
+                                            '& .MuiFormControlLabel-root': {
+                                                marginRight: 10,
+                                            },
+                                            mt: 1
+                                        }}
+                                        value={status}
+                                        onChange={handleChangeStatus}
                                         dir={(currentLang === "ar") ? "rtl" : "ltr"}
-                                    />
-                                </RadioGroup>
-                            </FormControl>
+                                    >
+                                        <FormControlLabel
+                                            value="Active"
+                                            control={<Radio />}
+                                            label={t('Home.Sidebar.list.userManagement.subMenu.groups.details.Add.fields.Status.radio1.label')}
+                                            dir={(currentLang === "ar") ? "rtl" : "ltr"}
+                                        />
+                                        <FormControlLabel
+                                            value="DeActive"
+                                            control={<Radio />}
+                                            label={t('Home.Sidebar.list.userManagement.subMenu.groups.details.Add.fields.Status.radio2.label')}
+                                            dir={(currentLang === "ar") ? "rtl" : "ltr"}
+                                        />
+                                    </RadioGroup>
+                                </FormControl>
+                            </Grid>
                         </Grid>
-                    </Grid>
+                    </Box>
                 </Box>
-            </Box>
 
-            {/* <Box
+                {/* <Box
                 sx={{
                     display: "flex",
                     flexDirection: (currentLang === "ar") ? ('row-reverse') : ('row')
@@ -426,24 +444,26 @@ const UpdateGroup: React.FC<UpdateGroupProps> = ({
                         {t('Home.Sidebar.list.userManagement.subMenu.Users.details.submit')}
                     </Typography>
                 </Button>
-            </Box> */}
+                    </Box> 
+                    */}
 
-            <SnackBar
-                isOpen={snackBarHandler.open}
-                message={snackBarHandler.message}
-                severity={snackBarHandler.severity}
-                setIsOpen={
-                    // Only pass the setIsOpen function to the SnackBar component
-                    // and not the whole state object
-                    (isOpen: boolean) => setSnackBarHandler({ ...snackBarHandler, open: isOpen })
-                }
-            />
+                <SnackBar
+                    isOpen={snackBarHandler.open}
+                    message={snackBarHandler.message}
+                    severity={snackBarHandler.severity}
+                    setIsOpen={
+                        // Only pass the setIsOpen function to the SnackBar component
+                        // and not the whole state object
+                        (isOpen: boolean) => setSnackBarHandler({ ...snackBarHandler, open: isOpen })
+                    }
+                />
 
-            <Box sx={{
-                mt: 5,
-            }}>
+                <Box sx={{
+                    mt: 5,
+                }}>
+                </Box>
             </Box>
-        </Box>
-    )
-}
+        )
+    }
+);
 export default UpdateGroup;
