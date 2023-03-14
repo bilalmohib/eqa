@@ -30,15 +30,27 @@ import SnackBar from '../../../../../SnackBar';
 
 import styles from "./style.module.css";
 
-interface UpdateAppFormProps {
+interface UpdateProps {
     currentLang: string
-    originalValues: any
+    originalValues: any,
+    url: string,
+    setOpenUpdateTableModal: any
 }
 
-const UpdateAppForm: React.FC<UpdateAppFormProps> = ({
-    currentLang,
-    originalValues
-}) => {
+interface UpdateRef {
+    // Define any functions that you want to expose to the parent component
+    submitForm: any
+}
+
+const UpdateAppForm = React.forwardRef<UpdateRef, UpdateProps>(
+    ({
+        currentLang,
+        originalValues,
+        url,
+        setOpenUpdateTableModal
+    },
+        ref
+    ) => {
     const { t } = useTranslation();
     const navigate = useNavigate();
 
@@ -555,4 +567,5 @@ const UpdateAppForm: React.FC<UpdateAppFormProps> = ({
         </Box>
     )
 }
+)
 export default UpdateAppForm;

@@ -29,179 +29,197 @@ import SnackBar from '../../../../../SnackBar';
 
 import styles from "./style.module.css";
 
-interface UpdateAppProps {
+interface UpdateProps {
     currentLang: string
-    originalValues: any
+    originalValues: any,
+    url: string,
+    setOpenUpdateTableModal: any
 }
 
-const UpdateApp: React.FC<UpdateAppProps> = ({
-    currentLang,
-    originalValues
-}) => {
-    const { t } = useTranslation();
-    const navigate = useNavigate();
+interface UpdateRef {
+    // Define any functions that you want to expose to the parent component
+    submitForm: any
+}
 
-    ///////////////////////////////// Snackbar State /////////////////////////////////
-    const [snackBarHandler, setSnackBarHandler] = useState({
-        open: false,
-        message: '',
-        severity: 'success'
-    });
-    ///////////////////////////////// Snackbar State /////////////////////////////////
+const UpdateApp = React.forwardRef<UpdateRef, UpdateProps>(
+    ({
+        currentLang,
+        originalValues,
+        url,
+        setOpenUpdateTableModal
+    },
+        ref
+    ) => {
+        const { t } = useTranslation();
+        const navigate = useNavigate();
 
-    const currentFormatedDate: string = new Date().toLocaleString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+        ///////////////////////////////// Snackbar State /////////////////////////////////
+        const [snackBarHandler, setSnackBarHandler] = useState({
+            open: false,
+            message: '',
+            severity: 'success'
+        });
+        ///////////////////////////////// Snackbar State /////////////////////////////////
 
-    const [windowSize, setWindowSize] = useState([
-        window.innerWidth,
-        window.innerHeight,
-    ]);
+        const currentFormatedDate: string = new Date().toLocaleString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
 
-    useEffect(() => {
-        const handleWindowResize = () => {
-            setWindowSize([window.innerWidth, window.innerHeight]);
+        const [windowSize, setWindowSize] = useState([
+            window.innerWidth,
+            window.innerHeight,
+        ]);
+
+        useEffect(() => {
+            const handleWindowResize = () => {
+                setWindowSize([window.innerWidth, window.innerHeight]);
+            };
+
+            window.addEventListener('resize', handleWindowResize);
+
+            return () => {
+                window.removeEventListener('resize', handleWindowResize);
+            };
+        });
+
+        // For field validation
+        const [appName, setAppName] = useState("");
+        const [appDescription, setAppDescription] = useState("");
+        const [appUrl, setAppUrl] = useState("");
+        const [appOrder, setAppOrder] = useState("");
+
+        // Error messages
+        const [appNameErrorMessage, setAppNameErrorMessage] = useState("");
+        const [appDescriptionErrorMessage, setAppDescriptionErrorMessage] = useState("");
+        const [appUrlErrorMessage, setAppUrlErrorMessage] = useState("");
+        const [appOrderErrorMessage, setAppOrderErrorMessage] = useState("");
+
+        // For field validation
+        const [appNameError, setAppNameError] = useState(false);
+        const [appDescriptionError, setAppDescriptionError] = useState(false);
+        const [appUrlError, setAppUrlError] = useState(false);
+        const [appOrderError, setAppOrderError] = useState(false);
+
+        // Status radio buttons
+        const [status, setStatus] = useState("Active");
+
+        const handleChangeStatus = (event: React.ChangeEvent<HTMLInputElement>) => {
+            setStatus((event.target as HTMLInputElement).value);
         };
+        // Status radio buttons
 
-        window.addEventListener('resize', handleWindowResize);
+        const submitForm = (e: any) => {
+            e.preventDefault();
 
-        return () => {
-            window.removeEventListener('resize', handleWindowResize);
-        };
-    });
+            // Get the user from local storage
+            // Add validation also 
+            const userLocalStorage = JSON.parse(localStorage.getItem('user') || '{}');
+            if (userLocalStorage !== null && userLocalStorage !== undefined) {
+                const loggedInUser = userLocalStorage.userName;
+                console.log("Logged In UserName ===> ", loggedInUser);
 
-    // For field validation
-    const [appName, setAppName] = useState("");
-    const [appDescription, setAppDescription] = useState("");
-    const [appUrl, setAppUrl] = useState("");
-    const [appOrder, setAppOrder] = useState("");
+                let accessToken: any = Cookies.get("accessToken");
 
-    // Error messages
-    const [appNameErrorMessage, setAppNameErrorMessage] = useState("");
-    const [appDescriptionErrorMessage, setAppDescriptionErrorMessage] = useState("");
-    const [appUrlErrorMessage, setAppUrlErrorMessage] = useState("");
-    const [appOrderErrorMessage, setAppOrderErrorMessage] = useState("");
-
-    // For field validation
-    const [appNameError, setAppNameError] = useState(false);
-    const [appDescriptionError, setAppDescriptionError] = useState(false);
-    const [appUrlError, setAppUrlError] = useState(false);
-    const [appOrderError, setAppOrderError] = useState(false);
-
-    // Status radio buttons
-    const [status, setStatus] = useState("Active");
-
-    const handleChangeStatus = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setStatus((event.target as HTMLInputElement).value);
-    };
-    // Status radio buttons
-
-    const submitForm = (e: any) => {
-        e.preventDefault();
-
-        // Get the user from local storage
-        // Add validation also 
-        const userLocalStorage = JSON.parse(localStorage.getItem('user') || '{}');
-        if (userLocalStorage !== null && userLocalStorage !== undefined) {
-            const loggedInUser = userLocalStorage.userName;
-            console.log("Logged In UserName ===> ", loggedInUser);
-
-            let accessToken: any = Cookies.get("accessToken");
-
-            if (accessToken === undefined || accessToken === null) {
-                accessToken = null;
-            }
-
-            if (accessToken !== null) {
-                // Set the validation errors
-                if (appName === "") {
-                    setAppNameErrorMessage("App Name is required");
-                    setAppNameError(true);
+                if (accessToken === undefined || accessToken === null) {
+                    accessToken = null;
                 }
-                if (appDescription === "") {
-                    setAppDescriptionErrorMessage("App Description is required");
-                    setAppDescriptionError(true);
-                }
-                if (appUrl === "") {
-                    setAppUrlErrorMessage("App URL is required");
-                    setAppUrlError(true);
-                }
-                if (appOrder === "") {
-                    setAppOrderErrorMessage("App Order is required");
-                    setAppOrderError(true);
-                }
-                // Set the validation errors
 
-                if (
-                    appName !== "" &&
-                    appDescription !== "" &&
-                    appUrl !== "" &&
-                    appOrder !== ""
-                ) {
-                    const formState = {
-                        "appName": appName,
-                        "appDescription": appDescription,
-                        "appUrl": appUrl,
-                        "appOrder": appOrder,
-                        "loggedInUser": loggedInUser,
-                        "active": (status === "Active") ? true : false
-                    };
+                if (accessToken !== null) {
+                    // Set the validation errors
+                    if (appName === "") {
+                        setAppNameErrorMessage("App Name is required");
+                        setAppNameError(true);
+                    }
+                    if (appDescription === "") {
+                        setAppDescriptionErrorMessage("App Description is required");
+                        setAppDescriptionError(true);
+                    }
+                    if (appUrl === "") {
+                        setAppUrlErrorMessage("App URL is required");
+                        setAppUrlError(true);
+                    }
+                    if (appOrder === "") {
+                        setAppOrderErrorMessage("App Order is required");
+                        setAppOrderError(true);
+                    }
+                    // Set the validation errors
 
-                    console.log("User Form Data ===> ", formState);
+                    if (
+                        appName !== "" &&
+                        appDescription !== "" &&
+                        appUrl !== "" &&
+                        appOrder !== ""
+                    ) {
+                        const formState = {
+                            "appName": appName,
+                            "appDescription": appDescription,
+                            "appUrl": appUrl,
+                            "appOrder": appOrder,
+                            "loggedInUser": loggedInUser,
+                            "active": (status === "Active") ? true : false
+                        };
 
-                    axios.post('https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/saveAppDetails',
-                        formState
-                        , {
-                            headers: {
-                                'x-api-key': accessToken
-                            }
-                        })
-                        .then(function (response) {
-                            console.log("Response ===> ", response);
-                            if (response.status === 200) {
-                                setSnackBarHandler({
-                                    severity: (response.data.code === "200.200") ? "success" : "error",
-                                    open: true,
-                                    message: (response.data.code === "200.200") ? `App ${appName} has been created successfully` : response.data.message
-                                });
-                                const m = response.data.message;
-                                if (response.data.code === "200.200") {
-                                    setTimeout(() => {
-                                        navigate("/account/apps/view");
-                                    }, 3000);
+                        console.log("User Form Data ===> ", formState);
+
+                        axios.post('https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/saveAppDetails',
+                            formState
+                            , {
+                                headers: {
+                                    'x-api-key': accessToken
                                 }
-                                console.log(m);
-                            }
-                        })
-                        .catch(function (error) {
-                            console.log(error);
+                            })
+                            .then(function (response) {
+                                console.log("Response ===> ", response);
+                                if (response.status === 200) {
+                                    setSnackBarHandler({
+                                        severity: (response.data.code === "200.200") ? "success" : "error",
+                                        open: true,
+                                        message: (response.data.code === "200.200") ? `App ${appName} has been created successfully` : response.data.message
+                                    });
+                                    const m = response.data.message;
+                                    if (response.data.code === "200.200") {
+                                        setTimeout(() => {
+                                            navigate("/account/apps/view");
+                                        }, 3000);
+                                    }
+                                    console.log(m);
+                                }
+                            })
+                            .catch(function (error) {
+                                console.log(error);
+                            });
+                    } else {
+                        // alert("Please fill All fields");
+                        // set the errors
+                        setAppNameError(true);
+                        setAppDescriptionError(true);
+                        setAppUrlError(true);
+                        setAppOrderError(true);
+                        setSnackBarHandler({
+                            severity: 'error',
+                            open: true,
+                            message: "Please fill all fields"
                         });
+                    }
                 } else {
-                    // alert("Please fill All fields");
-                    // set the errors
-                    setAppNameError(true);
-                    setAppDescriptionError(true);
-                    setAppUrlError(true);
-                    setAppOrderError(true);
-                    setSnackBarHandler({
-                        severity: 'error',
-                        open: true,
-                        message: "Please fill all fields"
-                    });
+                    alert("Please login first");
+                    navigate("/login");
                 }
             } else {
                 alert("Please login first");
                 navigate("/login");
             }
-        } else {
-            alert("Please login first");
-            navigate("/login");
         }
-    }
 
-    return (
-        <Box
-            className={styles.container}
-        >
-            {/* <div style={{ marginTop: 5, flexDirection: (currentLang === "ar") ? ("row-reverse") : ("row") }} className={`${(windowSize[0] > 990) ? ("d-flex justify-content-between") : ("d-flex flex-column justify-content-start")}`}>
+        // Define any functions or state that you want to expose to the parent component
+
+        React.useImperativeHandle(ref, () => ({
+            submitForm
+        }));
+
+        return (
+            <Box
+                className={styles.container}
+            >
+                {/* <div style={{ marginTop: 5, flexDirection: (currentLang === "ar") ? ("row-reverse") : ("row") }} className={`${(windowSize[0] > 990) ? ("d-flex justify-content-between") : ("d-flex flex-column justify-content-start")}`}>
                 <div>
                     {(currentLang === "ar") ? (
                         <>
@@ -220,15 +238,15 @@ const UpdateApp: React.FC<UpdateAppProps> = ({
 
             <hr /> */}
 
-            <Box sx={{
-                // border: "1px solid red",
-                padding:
-                    // Categorize according to small, medium, large screen
-                    (windowSize[0] < 991) ? (2) : (windowSize[0] < 1200) ? (3) : (4),
-                boxShadow: "rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;"
-            }}>
+                <Box sx={{
+                    // border: "1px solid red",
+                    padding:
+                        // Categorize according to small, medium, large screen
+                        (windowSize[0] < 991) ? (2) : (windowSize[0] < 1200) ? (3) : (4),
+                    boxShadow: "rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;"
+                }}>
 
-                {/* <Box sx={{
+                    {/* <Box sx={{
                     // border: "1px solid red",
                     display: "flex",
                     marginBottom: 2,
@@ -273,161 +291,161 @@ const UpdateApp: React.FC<UpdateAppProps> = ({
                     </Box>
                 </Box> */}
 
-                <Box sx={{ flexGrow: 1, mt: 0 }}>
-                    <Grid container spacing={
-                        // Categorize according to small, medium, large screen
-                        (windowSize[0] < 576) ? (0) : ((windowSize[0] < 768) ? (1) : ((windowSize[0] < 992) ? (2) : (3)))
-                    }>
-                        <Grid item xs={12}>
-                            <TextField
-                                id="appNameTextField"
-                                label={t('Home.Sidebar.list.userManagement.subMenu.apps.details.Add.fields.appName.label')}
-                                placeholder={`${t('Home.Sidebar.list.userManagement.subMenu.apps.details.Add.fields.appName.placeholder')}`}
-                                variant="standard"
-                                margin="normal"
-                                fullWidth // t
-                                error={appNameError}
-                                helperText={appNameErrorMessage}
-                                value={appName}
-                                onChange={(e) => {
-                                    setAppName(e.target.value);
-                                    if (appNameError) {
-                                        setAppNameError(false);
-                                        setAppNameErrorMessage("");
-                                    }
-                                }}
-                                dir={(currentLang === "ar") ? "rtl" : "ltr"}
-                            />
-                        </Grid>
-                        <Grid item xs={12}>
-                            <TextField
-                                id="appDescriptionTextField"
-                                label={t('Home.Sidebar.list.userManagement.subMenu.apps.details.Add.fields.description.label')}
-                                placeholder={`${t('Home.Sidebar.list.userManagement.subMenu.apps.details.Add.fields.description.placeholder')}`}
-                                variant="standard"
-                                margin="normal"
-                                fullWidth // t
-                                error={appDescriptionError}
-                                helperText={appDescriptionErrorMessage}
-                                value={appDescription}
-                                onChange={(e) => {
-                                    setAppDescription(e.target.value);
-                                    if (appDescriptionError) {
-                                        setAppDescriptionError(false);
-                                        setAppDescriptionErrorMessage("");
-                                    }
-                                }}
-                                dir={(currentLang === "ar") ? "rtl" : "ltr"}
-                            />
-                        </Grid>
-                        <Grid item xs={12}>
-                            <TextField
-                                id="appUrlTextField"
-                                label={t('Home.Sidebar.list.userManagement.subMenu.apps.details.Add.fields.appUrl.label')}
-                                placeholder={`${t('Home.Sidebar.list.userManagement.subMenu.apps.details.Add.fields.appUrl.placeholder')}`}
-                                variant="standard"
-                                margin="normal"
-                                fullWidth // t
-                                error={appUrlError}
-                                helperText={appUrlErrorMessage}
-                                value={appUrl}
-                                onChange={(e) => {
-                                    setAppUrl(e.target.value);
-                                    if (appUrlError) {
-                                        setAppUrlError(false);
-                                        setAppUrlErrorMessage("");
-                                    }
-                                }}
-                                dir={(currentLang === "ar") ? "rtl" : "ltr"}
-                            />
-                        </Grid>
-                        <Grid item xs={12}>
-                            <TextField
-                                id="appOrderTextField"
-                                label={t('Home.Sidebar.list.userManagement.subMenu.apps.details.Add.fields.AppOrder.label')}
-                                placeholder={`${t('Home.Sidebar.list.userManagement.subMenu.apps.details.Add.fields.AppOrder.placeholder')}`}
-                                variant="standard"
-                                margin="normal"
-                                fullWidth // t
-                                error={appOrderError}
-                                helperText={appOrderErrorMessage}
-                                value={appOrder}
-                                InputLabelProps={{
-                                    shrink: true,
-                                }}
-                                onChange={(e) => {
-                                    setAppOrder(e.target.value);
-                                    if (appOrderError) {
-                                        setAppOrderError(false);
-                                        setAppOrderErrorMessage("");
-                                    }
-                                }}
-                                type="number"
-                                dir={(currentLang === "ar") ? "rtl" : "ltr"}
-                            />
-                        </Grid>
-                        <Grid item xs={12}>
-                            {/* Define here two radio buttons active and inactive from material ui. Also import them for me */}
-                            <FormControl
-                                sx={{
-                                    width: "100%"
-                                }}
-                            >
-                                <FormLabel
-                                    id="demo-row-radio-buttons-app-label"
-                                    sx={{
-                                        fontSize: {
-                                            xs: 20, // theme.breakpoints.up('xs')
-                                            sm: 20, // theme.breakpoints.up('sm')
-                                            md: 22, // theme.breakpoints.up('md')
-                                            lg: 22, // theme.breakpoints.up('lg')
-                                            xl: 22, // theme.breakpoints.up('xl')
-                                        },
-                                        marginTop: 0
+                    <Box sx={{ flexGrow: 1, mt: 0 }}>
+                        <Grid container spacing={
+                            // Categorize according to small, medium, large screen
+                            (windowSize[0] < 576) ? (0) : ((windowSize[0] < 768) ? (1) : ((windowSize[0] < 992) ? (2) : (3)))
+                        }>
+                            <Grid item xs={12}>
+                                <TextField
+                                    id="appNameTextField"
+                                    label={t('Home.Sidebar.list.userManagement.subMenu.apps.details.Add.fields.appName.label')}
+                                    placeholder={`${t('Home.Sidebar.list.userManagement.subMenu.apps.details.Add.fields.appName.placeholder')}`}
+                                    variant="standard"
+                                    margin="normal"
+                                    fullWidth // t
+                                    error={appNameError}
+                                    helperText={appNameErrorMessage}
+                                    value={appName}
+                                    onChange={(e) => {
+                                        setAppName(e.target.value);
+                                        if (appNameError) {
+                                            setAppNameError(false);
+                                            setAppNameErrorMessage("");
+                                        }
                                     }}
                                     dir={(currentLang === "ar") ? "rtl" : "ltr"}
-                                >
-                                    {t('Home.Sidebar.list.userManagement.subMenu.apps.details.Add.fields.Status.title')}
-                                </FormLabel>
-                                <RadioGroup
-                                    row
-                                    aria-labelledby="demo-row-radio-buttons-app-label"
-                                    name="row-radio-buttons-app"
-                                    // Add spacing between radio buttons
-                                    sx={{
-                                        '& .MuiFormControlLabel-root': {
-                                            marginRight: 10,
-                                        },
-                                        mt: 1
+                                />
+                            </Grid>
+                            <Grid item xs={12}>
+                                <TextField
+                                    id="appDescriptionTextField"
+                                    label={t('Home.Sidebar.list.userManagement.subMenu.apps.details.Add.fields.description.label')}
+                                    placeholder={`${t('Home.Sidebar.list.userManagement.subMenu.apps.details.Add.fields.description.placeholder')}`}
+                                    variant="standard"
+                                    margin="normal"
+                                    fullWidth // t
+                                    error={appDescriptionError}
+                                    helperText={appDescriptionErrorMessage}
+                                    value={appDescription}
+                                    onChange={(e) => {
+                                        setAppDescription(e.target.value);
+                                        if (appDescriptionError) {
+                                            setAppDescriptionError(false);
+                                            setAppDescriptionErrorMessage("");
+                                        }
                                     }}
-                                    value={status}
-                                    onChange={handleChangeStatus}
                                     dir={(currentLang === "ar") ? "rtl" : "ltr"}
+                                />
+                            </Grid>
+                            <Grid item xs={12}>
+                                <TextField
+                                    id="appUrlTextField"
+                                    label={t('Home.Sidebar.list.userManagement.subMenu.apps.details.Add.fields.appUrl.label')}
+                                    placeholder={`${t('Home.Sidebar.list.userManagement.subMenu.apps.details.Add.fields.appUrl.placeholder')}`}
+                                    variant="standard"
+                                    margin="normal"
+                                    fullWidth // t
+                                    error={appUrlError}
+                                    helperText={appUrlErrorMessage}
+                                    value={appUrl}
+                                    onChange={(e) => {
+                                        setAppUrl(e.target.value);
+                                        if (appUrlError) {
+                                            setAppUrlError(false);
+                                            setAppUrlErrorMessage("");
+                                        }
+                                    }}
+                                    dir={(currentLang === "ar") ? "rtl" : "ltr"}
+                                />
+                            </Grid>
+                            <Grid item xs={12}>
+                                <TextField
+                                    id="appOrderTextField"
+                                    label={t('Home.Sidebar.list.userManagement.subMenu.apps.details.Add.fields.AppOrder.label')}
+                                    placeholder={`${t('Home.Sidebar.list.userManagement.subMenu.apps.details.Add.fields.AppOrder.placeholder')}`}
+                                    variant="standard"
+                                    margin="normal"
+                                    fullWidth // t
+                                    error={appOrderError}
+                                    helperText={appOrderErrorMessage}
+                                    value={appOrder}
+                                    InputLabelProps={{
+                                        shrink: true,
+                                    }}
+                                    onChange={(e) => {
+                                        setAppOrder(e.target.value);
+                                        if (appOrderError) {
+                                            setAppOrderError(false);
+                                            setAppOrderErrorMessage("");
+                                        }
+                                    }}
+                                    type="number"
+                                    dir={(currentLang === "ar") ? "rtl" : "ltr"}
+                                />
+                            </Grid>
+                            <Grid item xs={12}>
+                                {/* Define here two radio buttons active and inactive from material ui. Also import them for me */}
+                                <FormControl
+                                    sx={{
+                                        width: "100%"
+                                    }}
                                 >
-                                    <FormControlLabel
-                                        value="Active"
-                                        control={<Radio
-                                            dir={(currentLang === "ar") ? "rtl" : "ltr"}
-                                        />}
-                                        label={t('Home.Sidebar.list.userManagement.subMenu.apps.details.Add.fields.Status.radio1.label')}
+                                    <FormLabel
+                                        id="demo-row-radio-buttons-app-label"
+                                        sx={{
+                                            fontSize: {
+                                                xs: 20, // theme.breakpoints.up('xs')
+                                                sm: 20, // theme.breakpoints.up('sm')
+                                                md: 22, // theme.breakpoints.up('md')
+                                                lg: 22, // theme.breakpoints.up('lg')
+                                                xl: 22, // theme.breakpoints.up('xl')
+                                            },
+                                            marginTop: 0
+                                        }}
                                         dir={(currentLang === "ar") ? "rtl" : "ltr"}
-                                    />
-                                    <FormControlLabel
-                                        value="DeActive"
-                                        control={<Radio
-                                            dir={(currentLang === "ar") ? "rtl" : "ltr"}
-                                        />}
-                                        label={t('Home.Sidebar.list.userManagement.subMenu.apps.details.Add.fields.Status.radio2.label')}
+                                    >
+                                        {t('Home.Sidebar.list.userManagement.subMenu.apps.details.Add.fields.Status.title')}
+                                    </FormLabel>
+                                    <RadioGroup
+                                        row
+                                        aria-labelledby="demo-row-radio-buttons-app-label"
+                                        name="row-radio-buttons-app"
+                                        // Add spacing between radio buttons
+                                        sx={{
+                                            '& .MuiFormControlLabel-root': {
+                                                marginRight: 10,
+                                            },
+                                            mt: 1
+                                        }}
+                                        value={status}
+                                        onChange={handleChangeStatus}
                                         dir={(currentLang === "ar") ? "rtl" : "ltr"}
-                                    />
-                                </RadioGroup>
-                            </FormControl>
+                                    >
+                                        <FormControlLabel
+                                            value="Active"
+                                            control={<Radio
+                                                dir={(currentLang === "ar") ? "rtl" : "ltr"}
+                                            />}
+                                            label={t('Home.Sidebar.list.userManagement.subMenu.apps.details.Add.fields.Status.radio1.label')}
+                                            dir={(currentLang === "ar") ? "rtl" : "ltr"}
+                                        />
+                                        <FormControlLabel
+                                            value="DeActive"
+                                            control={<Radio
+                                                dir={(currentLang === "ar") ? "rtl" : "ltr"}
+                                            />}
+                                            label={t('Home.Sidebar.list.userManagement.subMenu.apps.details.Add.fields.Status.radio2.label')}
+                                            dir={(currentLang === "ar") ? "rtl" : "ltr"}
+                                        />
+                                    </RadioGroup>
+                                </FormControl>
+                            </Grid>
                         </Grid>
-                    </Grid>
+                    </Box>
                 </Box>
-            </Box>
 
-            {/* <Box
+                {/* <Box
                 sx={{
                     display: "flex",
                     flexDirection: (currentLang === "ar") ? ('row-reverse') : ('row')
@@ -491,22 +509,23 @@ const UpdateApp: React.FC<UpdateAppProps> = ({
                 </Button>
             </Box> */}
 
-            <SnackBar
-                isOpen={snackBarHandler.open}
-                message={snackBarHandler.message}
-                severity={snackBarHandler.severity}
-                setIsOpen={
-                    // Only pass the setIsOpen function to the SnackBar component
-                    // and not the whole state object
-                    (isOpen: boolean) => setSnackBarHandler({ ...snackBarHandler, open: isOpen })
-                }
-            />
+                <SnackBar
+                    isOpen={snackBarHandler.open}
+                    message={snackBarHandler.message}
+                    severity={snackBarHandler.severity}
+                    setIsOpen={
+                        // Only pass the setIsOpen function to the SnackBar component
+                        // and not the whole state object
+                        (isOpen: boolean) => setSnackBarHandler({ ...snackBarHandler, open: isOpen })
+                    }
+                />
 
-            <Box sx={{
-                mt: 5,
-            }}>
+                <Box sx={{
+                    mt: 5,
+                }}>
+                </Box>
             </Box>
-        </Box>
-    )
-}
+        )
+    }
+)
 export default UpdateApp;
