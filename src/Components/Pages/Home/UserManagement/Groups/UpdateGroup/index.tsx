@@ -29,7 +29,7 @@ import SnackBar from '../../../../../SnackBar';
 
 import styles from "./style.module.css";
 
-interface UpdateGroupProps {
+interface UpdateProps {
     currentLang: string
     originalValues: any,
     url: string,
@@ -41,7 +41,7 @@ interface UpdateRef {
     submitForm: any
 }
 
-const UpdateGroup = React.forwardRef<UpdateRef, UpdateGroupProps>(
+const UpdateGroup = React.forwardRef<UpdateRef, UpdateProps>(
     ({
         currentLang,
         originalValues,
@@ -451,6 +451,7 @@ const UpdateGroup = React.forwardRef<UpdateRef, UpdateGroupProps>(
                     isOpen={snackBarHandler.open}
                     message={snackBarHandler.message}
                     severity={snackBarHandler.severity}
+                    isModal={true}
                     setIsOpen={
                         // Only pass the setIsOpen function to the SnackBar component
                         // and not the whole state object

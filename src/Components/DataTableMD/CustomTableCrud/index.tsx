@@ -63,6 +63,7 @@ const CustomTableCrud: FC<CustomTableProps> = ({
     const [openModal, setOpenModal] = useState(false);
 
     const [originalValues, setOriginalValues] = useState<any>(null);
+    const [currentRowIndex, setCurrentRowIndex] = useState<number>(-1);
 
     // const [columnStateValues, setColumnStateValues] = useState<any>(null);
 
@@ -792,6 +793,7 @@ const CustomTableCrud: FC<CustomTableProps> = ({
     const handleEditRow = (row: any) => {
         // Enter editing mode
         setOpenModal(true);
+        setCurrentRowIndex(row.index);
         //alert("Edit Row");
         console.log(row.original);
 
@@ -1112,6 +1114,9 @@ const CustomTableCrud: FC<CustomTableProps> = ({
                 originalValues={originalValues}
                 columnName={columnName}
                 url={URL}
+                currentRowIndex={currentRowIndex}
+                tableData={tableData}
+                setTableData={setTableData}
             />
         </div>
     );

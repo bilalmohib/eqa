@@ -30,167 +30,185 @@ import axios from 'axios';
 
 import styles from "./style.module.css";
 
-interface UpdateRoleProps {
+interface UpdateProps {
     currentLang: string
-    originalValues: any
+    originalValues: any,
+    url: string,
+    setOpenUpdateTableModal: any
 }
 
-const UpdateRole: React.FC<UpdateRoleProps> = ({
-    currentLang,
-    originalValues
-}) => {
-    const { t } = useTranslation();
-    const navigate = useNavigate();
+interface UpdateRef {
+    // Define any functions that you want to expose to the parent component
+    submitForm: any
+}
 
-    ///////////////////////////////// Snackbar State /////////////////////////////////
-    const [snackBarHandler, setSnackBarHandler] = useState({
-        open: false,
-        message: '',
-        severity: 'success'
-    });
-    ///////////////////////////////// Snackbar State /////////////////////////////////
+const UpdateRole = React.forwardRef<UpdateRef, UpdateProps>(
+    ({
+        currentLang,
+        originalValues,
+        url,
+        setOpenUpdateTableModal
+    },
+        ref
+    ) => {
+        const { t } = useTranslation();
+        const navigate = useNavigate();
 
-    const currentFormatedDate: string = new Date().toLocaleString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+        ///////////////////////////////// Snackbar State /////////////////////////////////
+        const [snackBarHandler, setSnackBarHandler] = useState({
+            open: false,
+            message: '',
+            severity: 'success'
+        });
+        ///////////////////////////////// Snackbar State /////////////////////////////////
 
-    const [windowSize, setWindowSize] = useState([
-        window.innerWidth,
-        window.innerHeight,
-    ]);
+        const currentFormatedDate: string = new Date().toLocaleString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
 
-    useEffect(() => {
-        const handleWindowResize = () => {
-            setWindowSize([window.innerWidth, window.innerHeight]);
+        const [windowSize, setWindowSize] = useState([
+            window.innerWidth,
+            window.innerHeight,
+        ]);
+
+        useEffect(() => {
+            const handleWindowResize = () => {
+                setWindowSize([window.innerWidth, window.innerHeight]);
+            };
+
+            window.addEventListener('resize', handleWindowResize);
+
+            return () => {
+                window.removeEventListener('resize', handleWindowResize);
+            };
+        });
+
+        // newValues = {
+        //     "roleId": values.roleId,
+        //     "roleName": values.roleName,
+        //     "roleDescription": values.roleDescription,
+        //     "loggedInUser": loggedInUser,
+        //     "active": values.active === "true" ? true : false
+        // };
+
+        /// Handling the data of the form
+        // For field validation
+        const [roleName, setRoleName] = useState<string>(originalValues.roleName);
+        const [roleDescription, setRoleDescription] = useState<string>(originalValues.roleDescription);
+
+        // Error messages
+        const [roleNameErrorMessage, setRoleNameErrorMessage] = useState<string>("");
+        const [roleDescriptionErrorMessage, setRoleDescriptionErrorMessage] = useState<string>("");
+
+        // For field validation
+        const [roleNameError, setRoleNameError] = useState<boolean>(false);
+        const [roleDescriptionError, setRoleDescriptionError] = useState<boolean>(false);
+
+        // Status radio buttons
+        const [status, setStatus] = useState(originalValues.active === true ? "Active" : "Deactive");
+
+        const handleChangeStatus = (event: React.ChangeEvent<HTMLInputElement>) => {
+            setStatus((event.target as HTMLInputElement).value);
         };
+        // Status radio buttons
 
-        window.addEventListener('resize', handleWindowResize);
+        const submitForm = (e: any) => {
+            e.preventDefault();
 
-        return () => {
-            window.removeEventListener('resize', handleWindowResize);
-        };
-    });
+            // Get the user from local storage
+            // Add validation also 
+            const userLocalStorage = JSON.parse(localStorage.getItem('user') || '{}');
+            if (userLocalStorage !== null && userLocalStorage !== undefined) {
+                const loggedInUser = userLocalStorage.userName;
+                console.log("Logged In UserName ===> ", loggedInUser);
 
-    // newValues = {
-    //     "roleId": values.roleId,
-    //     "roleName": values.roleName,
-    //     "roleDescription": values.roleDescription,
-    //     "loggedInUser": loggedInUser,
-    //     "active": values.active === "true" ? true : false
-    // };
+                let accessToken: any = Cookies.get("accessToken");
 
-    /// Handling the data of the form
-    // For field validation
-    const [roleName, setRoleName] = useState<string>(originalValues.roleName);
-    const [roleDescription, setRoleDescription] = useState<string>(originalValues.roleDescription);
-
-    // Error messages
-    const [roleNameErrorMessage, setRoleNameErrorMessage] = useState<string>("");
-    const [roleDescriptionErrorMessage, setRoleDescriptionErrorMessage] = useState<string>("");
-
-    // For field validation
-    const [roleNameError, setRoleNameError] = useState<boolean>(false);
-    const [roleDescriptionError, setRoleDescriptionError] = useState<boolean>(false);
-
-    // Status radio buttons
-    const [status, setStatus] = useState(originalValues.active === true ? "Active" : "Deactive");
-
-    const handleChangeStatus = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setStatus((event.target as HTMLInputElement).value);
-    };
-    // Status radio buttons
-
-    const submitForm = (e: any) => {
-        e.preventDefault();
-
-        // Get the user from local storage
-        // Add validation also 
-        const userLocalStorage = JSON.parse(localStorage.getItem('user') || '{}');
-        if (userLocalStorage !== null && userLocalStorage !== undefined) {
-            const loggedInUser = userLocalStorage.userName;
-            console.log("Logged In UserName ===> ", loggedInUser);
-
-            let accessToken: any = Cookies.get("accessToken");
-
-            if (accessToken === undefined || accessToken === null) {
-                accessToken = null;
-            }
-
-            if (accessToken !== null) {
-                // Set the validation errors
-                if (roleName === "") {
-                    setRoleNameErrorMessage("Role Name is required");
-                    setRoleNameError(true);
+                if (accessToken === undefined || accessToken === null) {
+                    accessToken = null;
                 }
-                if (roleDescription === "") {
-                    setRoleDescriptionErrorMessage("Role Description is required");
-                    setRoleDescriptionError(true);
-                }
-                // Set the validation errors
 
-                if (
-                    roleName !== "" &&
-                    roleDescription !== ""
-                ) {
-                    const formState = {
-                        "roleId": "OR05",
-                        "roleName": roleName,
-                        "roleDescription": roleDescription,
-                        "loggedInUser": loggedInUser,
-                        "active": (status === "Active") ? true : false
-                    };
+                if (accessToken !== null) {
+                    // Set the validation errors
+                    if (roleName === "") {
+                        setRoleNameErrorMessage("Role Name is required");
+                        setRoleNameError(true);
+                    }
+                    if (roleDescription === "") {
+                        setRoleDescriptionErrorMessage("Role Description is required");
+                        setRoleDescriptionError(true);
+                    }
+                    // Set the validation errors
 
-                    console.log("User Form Data ===> ", formState);
+                    if (
+                        roleName !== "" &&
+                        roleDescription !== ""
+                    ) {
+                        const formState = {
+                            "roleId": "OR05",
+                            "roleName": roleName,
+                            "roleDescription": roleDescription,
+                            "loggedInUser": loggedInUser,
+                            "active": (status === "Active") ? true : false
+                        };
 
-                    axios.post('https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/createRole',
-                        formState
-                        , {
-                            headers: {
-                                'x-api-key': accessToken
-                            }
-                        })
-                        .then(function (response) {
-                            console.log("Response ===> ", response);
-                            if (response.status === 200) {
-                                setSnackBarHandler({
-                                    severity: (response.data.code === "200.200") ? "success" : "error",
-                                    message: (response.data.code === "200.200") ? `Role ${roleName} has been created successfully` : (response.data.message),
-                                    open: true
-                                })
-                                const m = response.data.message;
-                                if (response.data.code === "200.200") {
-                                    setTimeout(() => {
-                                        navigate("/account/roles/view");
-                                    }, 3000);
+                        console.log("User Form Data ===> ", formState);
+
+                        axios.post('https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/createRole',
+                            formState
+                            , {
+                                headers: {
+                                    'x-api-key': accessToken
                                 }
-                                console.log(m);
-                            }
-                        })
-                        .catch(function (error) {
-                            console.log(error);
+                            })
+                            .then(function (response) {
+                                console.log("Response ===> ", response);
+                                if (response.status === 200) {
+                                    setSnackBarHandler({
+                                        severity: (response.data.code === "200.200") ? "success" : "error",
+                                        message: (response.data.code === "200.200") ? `Role ${roleName} has been created successfully` : (response.data.message),
+                                        open: true
+                                    })
+                                    const m = response.data.message;
+                                    if (response.data.code === "200.200") {
+                                        setTimeout(() => {
+                                            navigate("/account/roles/view");
+                                        }, 3000);
+                                    }
+                                    console.log(m);
+                                }
+                            })
+                            .catch(function (error) {
+                                console.log(error);
+                            });
+                    } else {
+                        // set the errors
+                        setRoleNameError(true);
+                        setRoleDescriptionError(true);
+                        setSnackBarHandler({
+                            open: true,
+                            message: "Please fill all the required fields",
+                            severity: 'error'
                         });
+                    }
                 } else {
-                    // set the errors
-                    setRoleNameError(true);
-                    setRoleDescriptionError(true);
-                    setSnackBarHandler({
-                        open: true,
-                        message: "Please fill all the required fields",
-                        severity: 'error'
-                    });
+                    alert("Please login first");
+                    navigate("/login");
                 }
             } else {
                 alert("Please login first");
                 navigate("/login");
             }
-        } else {
-            alert("Please login first");
-            navigate("/login");
         }
-    }
-    /// Handling the data of the form
+        /// Handling the data of the form
 
-    return (
-        <Box className={styles.container}>
-            {/* <div style={{ marginTop: 5, flexDirection: (currentLang === "ar") ? ("row-reverse") : ("row") }} className={`${(windowSize[0] > 990) ? ("d-flex justify-content-between") : ("d-flex flex-column justify-content-start")}`}>
+        // Define any functions or state that you want to expose to the parent component
+
+        React.useImperativeHandle(ref, () => ({
+            submitForm
+        }));
+
+        return (
+            <Box className={styles.container}>
+                {/* <div style={{ marginTop: 5, flexDirection: (currentLang === "ar") ? ("row-reverse") : ("row") }} className={`${(windowSize[0] > 990) ? ("d-flex justify-content-between") : ("d-flex flex-column justify-content-start")}`}>
                 <div>
                     {(currentLang === "ar") ? (
                         <>
@@ -207,17 +225,17 @@ const UpdateRole: React.FC<UpdateRoleProps> = ({
                 </div>
             </div> */}
 
-            {/* <hr /> */}
+                {/* <hr /> */}
 
-            <Box sx={{
-                // border: "1px solid red",
-                padding:
-                    // Categorize according to small, medium, large screen
-                    (windowSize[0] < 991) ? (2) : (windowSize[0] < 1200) ? (3) : (4),
-                boxShadow: "rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;"
-            }}>
+                <Box sx={{
+                    // border: "1px solid red",
+                    padding:
+                        // Categorize according to small, medium, large screen
+                        (windowSize[0] < 991) ? (2) : (windowSize[0] < 1200) ? (3) : (4),
+                    boxShadow: "rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;"
+                }}>
 
-                {/* <Box sx={{
+                    {/* <Box sx={{
                     // border: "1px solid red",
                     display: "flex",
                     marginBottom: 2,
@@ -266,114 +284,114 @@ const UpdateRole: React.FC<UpdateRoleProps> = ({
                     </Box>
                 </Box> */}
 
-                <Box sx={{ flexGrow: 1, mt: 0 }}>
-                    <Grid container spacing={
-                        // Categorize according to small, medium, large screen
-                        (windowSize[0] < 576) ? (0) : ((windowSize[0] < 768) ? (1) : ((windowSize[0] < 992) ? (2) : (3)))
-                    }>
-                        <Grid item xs={12}>
-                            <TextField
-                                id="roleNameTextField"
-                                label={t('Home.Sidebar.list.userManagement.subMenu.roles.details.Add.fields.roleName.label')}
-                                placeholder={`${t('Home.Sidebar.list.userManagement.subMenu.roles.details.Add.fields.roleName.placeholder')}`}
-                                variant="standard"
-                                margin="normal"
-                                fullWidth // t
-                                value={roleName}
-                                onChange={(e) => {
-                                    setRoleName(e.target.value);
-                                    if (roleNameError) {
-                                        setRoleNameError(false);
-                                    }
-                                }}
-                                error={roleNameError}
-                                helperText={roleNameError ? roleNameErrorMessage : ""}
-                                dir={(currentLang === "ar") ? "rtl" : "ltr"}
-                            />
-                        </Grid>
-                        <Grid item xs={12}>
-                            <TextField
-                                id="roleDescriptionTextField"
-                                label={t('Home.Sidebar.list.userManagement.subMenu.roles.details.Add.fields.description.label')}
-                                placeholder={`${t('Home.Sidebar.list.userManagement.subMenu.roles.details.Add.fields.description.placeholder')}`}
-                                variant="standard"
-                                margin="normal"
-                                fullWidth // t
-                                value={roleDescription}
-                                onChange={(e) => {
-                                    setRoleDescription(e.target.value);
-                                    if (roleDescriptionError) {
-                                        setRoleDescriptionError(false);
-                                    }
-                                }}
-                                error={roleDescriptionError}
-                                helperText={roleDescriptionError ? roleDescriptionErrorMessage : ""}
-                                dir={(currentLang === "ar") ? "rtl" : "ltr"}
-                            />
-                        </Grid>
-                        <Grid item xs={12}>
-                            {/* Define here two radio buttons active and inactive from material ui. Also import them for me */}
-                            <FormControl
-                                dir={(currentLang === "ar") ? "rtl" : "ltr"}
-                                sx={{
-                                    width: "100%"
-                                }}
-                            >
-                                <FormLabel
+                    <Box sx={{ flexGrow: 1, mt: 0 }}>
+                        <Grid container spacing={
+                            // Categorize according to small, medium, large screen
+                            (windowSize[0] < 576) ? (0) : ((windowSize[0] < 768) ? (1) : ((windowSize[0] < 992) ? (2) : (3)))
+                        }>
+                            <Grid item xs={12}>
+                                <TextField
+                                    id="roleNameTextField"
+                                    label={t('Home.Sidebar.list.userManagement.subMenu.roles.details.Add.fields.roleName.label')}
+                                    placeholder={`${t('Home.Sidebar.list.userManagement.subMenu.roles.details.Add.fields.roleName.placeholder')}`}
+                                    variant="standard"
+                                    margin="normal"
+                                    fullWidth // t
+                                    value={roleName}
+                                    onChange={(e) => {
+                                        setRoleName(e.target.value);
+                                        if (roleNameError) {
+                                            setRoleNameError(false);
+                                        }
+                                    }}
+                                    error={roleNameError}
+                                    helperText={roleNameError ? roleNameErrorMessage : ""}
                                     dir={(currentLang === "ar") ? "rtl" : "ltr"}
-                                    id="demo-row-radio-buttons-group-label"
+                                />
+                            </Grid>
+                            <Grid item xs={12}>
+                                <TextField
+                                    id="roleDescriptionTextField"
+                                    label={t('Home.Sidebar.list.userManagement.subMenu.roles.details.Add.fields.description.label')}
+                                    placeholder={`${t('Home.Sidebar.list.userManagement.subMenu.roles.details.Add.fields.description.placeholder')}`}
+                                    variant="standard"
+                                    margin="normal"
+                                    fullWidth // t
+                                    value={roleDescription}
+                                    onChange={(e) => {
+                                        setRoleDescription(e.target.value);
+                                        if (roleDescriptionError) {
+                                            setRoleDescriptionError(false);
+                                        }
+                                    }}
+                                    error={roleDescriptionError}
+                                    helperText={roleDescriptionError ? roleDescriptionErrorMessage : ""}
+                                    dir={(currentLang === "ar") ? "rtl" : "ltr"}
+                                />
+                            </Grid>
+                            <Grid item xs={12}>
+                                {/* Define here two radio buttons active and inactive from material ui. Also import them for me */}
+                                <FormControl
+                                    dir={(currentLang === "ar") ? "rtl" : "ltr"}
                                     sx={{
-                                        fontSize: {
-                                            xs: 20, // theme.breakpoints.up('xs')
-                                            sm: 20, // theme.breakpoints.up('sm')
-                                            md: 22, // theme.breakpoints.up('md')
-                                            lg: 22, // theme.breakpoints.up('lg')
-                                            xl: 22, // theme.breakpoints.up('xl')
-                                        },
-                                        marginTop: 0
+                                        width: "100%"
                                     }}
                                 >
-                                    {t('Home.Sidebar.list.userManagement.subMenu.roles.details.Add.fields.Status.title')}
-                                </FormLabel>
-                                <RadioGroup
-                                    row
-                                    aria-labelledby="demo-row-radio-buttons-group-label"
-                                    name="row-radio-buttons-group"
-                                    // Add spacing between radio buttons
-                                    sx={{
-                                        '& .MuiFormControlLabel-root': {
-                                            marginRight: 10,
-                                        },
-                                        mt: 1
-                                    }}
-                                    value={status}
-                                    onChange={handleChangeStatus}
-                                    dir={(currentLang === "ar") ? "rtl" : "ltr"}
-                                >
-                                    <FormControlLabel
-                                        value="Active"
-                                        control={<Radio
-                                            dir={(currentLang === "ar") ? "rtl" : "ltr"}
-                                        />}
-                                        label={t('Home.Sidebar.list.userManagement.subMenu.roles.details.Add.fields.Status.radio1.label')}
+                                    <FormLabel
                                         dir={(currentLang === "ar") ? "rtl" : "ltr"}
-                                    />
-                                    <FormControlLabel
-                                        value="DeActive"
-                                        control={<Radio
-                                            dir={(currentLang === "ar") ? "rtl" : "ltr"}
-                                        />}
-                                        label={t('Home.Sidebar.list.userManagement.subMenu.roles.details.Add.fields.Status.radio2.label')}
+                                        id="demo-row-radio-buttons-group-label"
+                                        sx={{
+                                            fontSize: {
+                                                xs: 20, // theme.breakpoints.up('xs')
+                                                sm: 20, // theme.breakpoints.up('sm')
+                                                md: 22, // theme.breakpoints.up('md')
+                                                lg: 22, // theme.breakpoints.up('lg')
+                                                xl: 22, // theme.breakpoints.up('xl')
+                                            },
+                                            marginTop: 0
+                                        }}
+                                    >
+                                        {t('Home.Sidebar.list.userManagement.subMenu.roles.details.Add.fields.Status.title')}
+                                    </FormLabel>
+                                    <RadioGroup
+                                        row
+                                        aria-labelledby="demo-row-radio-buttons-group-label"
+                                        name="row-radio-buttons-group"
+                                        // Add spacing between radio buttons
+                                        sx={{
+                                            '& .MuiFormControlLabel-root': {
+                                                marginRight: 10,
+                                            },
+                                            mt: 1
+                                        }}
+                                        value={status}
+                                        onChange={handleChangeStatus}
                                         dir={(currentLang === "ar") ? "rtl" : "ltr"}
-                                    />
-                                </RadioGroup>
-                            </FormControl>
+                                    >
+                                        <FormControlLabel
+                                            value="Active"
+                                            control={<Radio
+                                                dir={(currentLang === "ar") ? "rtl" : "ltr"}
+                                            />}
+                                            label={t('Home.Sidebar.list.userManagement.subMenu.roles.details.Add.fields.Status.radio1.label')}
+                                            dir={(currentLang === "ar") ? "rtl" : "ltr"}
+                                        />
+                                        <FormControlLabel
+                                            value="DeActive"
+                                            control={<Radio
+                                                dir={(currentLang === "ar") ? "rtl" : "ltr"}
+                                            />}
+                                            label={t('Home.Sidebar.list.userManagement.subMenu.roles.details.Add.fields.Status.radio2.label')}
+                                            dir={(currentLang === "ar") ? "rtl" : "ltr"}
+                                        />
+                                    </RadioGroup>
+                                </FormControl>
+                            </Grid>
                         </Grid>
-                    </Grid>
+                    </Box>
                 </Box>
-            </Box>
 
-            {/* <Box
+                {/* <Box
                 sx={{
                     display: "flex",
                     flexDirection: (currentLang === "ar") ? ('row-reverse') : ('row')
@@ -437,19 +455,20 @@ const UpdateRole: React.FC<UpdateRoleProps> = ({
                 </Button>
             </Box> */}
 
-            <SnackBar
-                isOpen={snackBarHandler.open}
-                message={snackBarHandler.message}
-                severity={snackBarHandler.severity}
-                setIsOpen={
-                    // Only pass the setIsOpen function to the SnackBar component
-                    // and not the whole state object
-                    (isOpen: boolean) => setSnackBarHandler({ ...snackBarHandler, open: isOpen })
-                }
-            />
+                <SnackBar
+                    isOpen={snackBarHandler.open}
+                    message={snackBarHandler.message}
+                    severity={snackBarHandler.severity}
+                    setIsOpen={
+                        // Only pass the setIsOpen function to the SnackBar component
+                        // and not the whole state object
+                        (isOpen: boolean) => setSnackBarHandler({ ...snackBarHandler, open: isOpen })
+                    }
+                />
 
-            <br />
-        </Box>
-    )
-}
+                <br />
+            </Box>
+        )
+    }
+)
 export default UpdateRole;

@@ -54,6 +54,9 @@ interface EditTableModalModalProps {
     originalValues: any;
     columnName: string;
     url: string;
+    currentRowIndex: number;
+    tableData: any;
+    setTableData: any;
     // Current Language
     // currentLang: string;
 }
@@ -63,7 +66,10 @@ const EditTableModal: React.FC<EditTableModalModalProps> = ({
     setOpenUpdateTableModal,
     originalValues,
     columnName,
-    url
+    url,
+    currentRowIndex,
+    tableData,
+    setTableData
     // // Current Language
     // currentLang,
 }) => {
@@ -98,11 +104,17 @@ const EditTableModal: React.FC<EditTableModalModalProps> = ({
         modalContent = <UpdateUser
             currentLang={""}
             originalValues={originalValues}
+            url={url}
+            ref={childRef}
+            setOpenUpdateTableModal={setOpenUpdateTableModal}
         />
     } else if (columnName === "ViewRoles") {
         modalContent = <UpdateRole
             currentLang={""}
             originalValues={originalValues}
+            url={url}
+            ref={childRef}
+            setOpenUpdateTableModal={setOpenUpdateTableModal}
         />
     } else if (columnName === "ViewGroups") {
         modalContent = <UpdateGroup
@@ -116,32 +128,50 @@ const EditTableModal: React.FC<EditTableModalModalProps> = ({
         modalContent = <UpdateApp
             currentLang={""}
             originalValues={originalValues}
+            url={url}
+            ref={childRef}
+            setOpenUpdateTableModal={setOpenUpdateTableModal}
         />
     } else if (columnName === "ViewAppForm") {
         modalContent = <UpdateAppForm
             currentLang={""}
             originalValues={originalValues}
+            url={url}
+            ref={childRef}
+            setOpenUpdateTableModal={setOpenUpdateTableModal}
         />
     } else if (columnName === "ViewGroupRole") {
         modalContent = <UpdateGroupRole
             currentLang={""}
             originalValues={originalValues}
+            url={url}
+            ref={childRef}
+            setOpenUpdateTableModal={setOpenUpdateTableModal}
         />
     } else if (columnName === "ViewUserGroup") {
         modalContent = <UpdateUserGroup
             currentLang={""}
             originalValues={originalValues}
+            url={url}
+            ref={childRef}
+            setOpenUpdateTableModal={setOpenUpdateTableModal}
         />
     } else if (columnName === "ViewRoleApp") {
         modalContent = <UpdateRoleApp
             currentLang={""}
             originalValues={originalValues}
+            url={url}
+            ref={childRef}
+            setOpenUpdateTableModal={setOpenUpdateTableModal}
         />
     }
     else {
         modalContent = <UpdateUser
             currentLang={""}
             originalValues={originalValues}
+            url={url}
+            ref={childRef}
+            setOpenUpdateTableModal={setOpenUpdateTableModal}
         />
     }
 

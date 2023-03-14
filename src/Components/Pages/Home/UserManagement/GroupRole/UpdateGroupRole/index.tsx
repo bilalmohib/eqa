@@ -37,11 +37,6 @@ import Select, { SelectChangeEvent } from '@mui/material/Select';
 
 import styles from "./style.module.css";
 
-interface UpdateGroupRoleProps {
-    currentLang: string
-    originalValues: any
-}
-
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
 const MenuProps = {
@@ -53,249 +48,272 @@ const MenuProps = {
     },
 };
 
-const UpdateGroupRole: React.FC<UpdateGroupRoleProps> = ({
-    currentLang,
-    originalValues
-}) => {
-    const { t } = useTranslation();
-    const navigate = useNavigate();
+interface UpdateProps {
+    currentLang: string
+    originalValues: any,
+    url: string,
+    setOpenUpdateTableModal: any
+}
 
-    ///////////////////////////////// Snackbar State /////////////////////////////////
-    const [snackBarHandler, setSnackBarHandler] = useState({
-        open: false,
-        message: '',
-        severity: 'success'
-    });
-    ///////////////////////////////// Snackbar State /////////////////////////////////
+interface UpdateRef {
+    // Define any functions that you want to expose to the parent component
+    submitForm: any
+}
 
-    const currentFormatedDate: string = new Date().toLocaleString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+const UpdateGroupRole = React.forwardRef<UpdateRef, UpdateProps>(
+    ({
+        currentLang,
+        originalValues,
+        url,
+        setOpenUpdateTableModal
+    },
+        ref
+    ) => {
+        const { t } = useTranslation();
+        const navigate = useNavigate();
 
-    const [windowSize, setWindowSize] = useState([
-        window.innerWidth,
-        window.innerHeight,
-    ]);
+        ///////////////////////////////// Snackbar State /////////////////////////////////
+        const [snackBarHandler, setSnackBarHandler] = useState({
+            open: false,
+            message: '',
+            severity: 'success'
+        });
+        ///////////////////////////////// Snackbar State /////////////////////////////////
 
-    useEffect(() => {
-        const handleWindowResize = () => {
-            setWindowSize([window.innerWidth, window.innerHeight]);
+        const currentFormatedDate: string = new Date().toLocaleString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+
+        const [windowSize, setWindowSize] = useState([
+            window.innerWidth,
+            window.innerHeight,
+        ]);
+
+        useEffect(() => {
+            const handleWindowResize = () => {
+                setWindowSize([window.innerWidth, window.innerHeight]);
+            };
+
+            window.addEventListener('resize', handleWindowResize);
+
+            return () => {
+                window.removeEventListener('resize', handleWindowResize);
+            };
+        });
+
+        // For field validation
+
+        // For Selecting one Group
+        const [groupId, setGroupId] = useState<any>(null);
+
+        // Error messages
+        const [groupIdErrorMessage, setGroupIdErrorMessage] = useState("");
+
+        // For field validation
+        const [groupIdError, setGroupIdError] = useState(false);
+
+        // Status radio buttons
+        const [status, setStatus] = useState("Active");
+
+        const [description, setDescription] = useState("");
+
+        const [descriptionError, setDescriptionError] = useState(false);
+
+        const [descriptionErrorMessage, setDescriptionErrorMessage] = useState("");
+
+
+        // For fetching data from API
+        const [rolesList, setRolesList] = useState<any>([]);
+        const [groupList, setGroupList] = useState<any>([]);
+        // For fetching data from API
+
+        // For checking loading state of API
+        const [loadData, setLoadData] = useState(true);
+
+        // FOR REACT MULTI SELECT
+
+        // @1) roleName
+        const [roleName, setRoleName] = useState<any>([]);
+
+        const [roleNameError, setRoleNameError] = useState(false);
+        const [roleNameErrorMessage, setRoleNameErrorMessage] = useState("");
+
+        const handleChangeRoles = (event: SelectChangeEvent<typeof roleName>) => {
+            const {
+                target: { value },
+            } = event;
+            if (roleNameError === true) {
+                setRoleNameError(false);
+                setRoleNameErrorMessage("");
+            }
+            setRoleName(
+                // On autofill we get a stringified value.
+                typeof value === 'string' ? value.split(',') : value,
+            );
         };
+        // FOR REACT MULTI SELECT
 
-        window.addEventListener('resize', handleWindowResize);
-
-        return () => {
-            window.removeEventListener('resize', handleWindowResize);
-        };
-    });
-
-    // For field validation
-
-    // For Selecting one Group
-    const [groupId, setGroupId] = useState<any>(null);
-
-    // Error messages
-    const [groupIdErrorMessage, setGroupIdErrorMessage] = useState("");
-
-    // For field validation
-    const [groupIdError, setGroupIdError] = useState(false);
-
-    // Status radio buttons
-    const [status, setStatus] = useState("Active");
-
-    const [description, setDescription] = useState("");
-
-    const [descriptionError, setDescriptionError] = useState(false);
-
-    const [descriptionErrorMessage, setDescriptionErrorMessage] = useState("");
-
-
-    // For fetching data from API
-    const [rolesList, setRolesList] = useState<any>([]);
-    const [groupList, setGroupList] = useState<any>([]);
-    // For fetching data from API
-
-    // For checking loading state of API
-    const [loadData, setLoadData] = useState(true);
-
-    // FOR REACT MULTI SELECT
-
-    // @1) roleName
-    const [roleName, setRoleName] = useState<any>([]);
-
-    const [roleNameError, setRoleNameError] = useState(false);
-    const [roleNameErrorMessage, setRoleNameErrorMessage] = useState("");
-
-    const handleChangeRoles = (event: SelectChangeEvent<typeof roleName>) => {
-        const {
-            target: { value },
-        } = event;
-        if (roleNameError === true) {
-            setRoleNameError(false);
-            setRoleNameErrorMessage("");
-        }
-        setRoleName(
-            // On autofill we get a stringified value.
-            typeof value === 'string' ? value.split(',') : value,
-        );
-    };
-    // FOR REACT MULTI SELECT
-
-    useEffect(() => {
-        let accessToken: any = Cookies.get("accessToken");
-
-        if (accessToken === undefined || accessToken === null) {
-            accessToken = null;
-        }
-
-        console.log("Access Token in View Users ===> ", accessToken);
-
-        if (accessToken !== null && loadData === true) {
-            // Fetching Roles 
-            axios.get("https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/fetchGroups", {
-                headers: {
-                    "x-api-key": accessToken
-                }
-            })
-                .then((res) => {
-                    setGroupList(res.data.obj);
-                })
-                .catch((err) => {
-                    console.log(err);
-                });
-
-            // Fetching Group
-            axios.get("https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/fetchRoles", {
-                headers: {
-                    "x-api-key": accessToken
-                }
-            })
-                .then((res) => {
-                    setRolesList(res.data.obj);
-                })
-                .catch((err) => {
-                    console.log(err);
-                });
-
-            // At the end set the load data to false
-            setLoadData(false);
-        }
-
-
-    }, [loadData]);
-
-    // --------------------- AUTO COMPLETE DEFAULT PROPS ---------------------
-
-    // @1 FOR GROUP ID AUTO COMPLETE
-    const groupIdDefaultProps = {
-        options: groupList,
-        getOptionLabel: (option: any) => option.grpName
-    };
-    // FOR GROUP ID AUTO COMPLETE
-    // --------------------- AUTO COMPLETE DEFAULT PROPS ---------------------
-
-    const handleChangeStatus = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setStatus((event.target as HTMLInputElement).value);
-    };
-    // Status radio buttons
-
-    const submitForm = (e: any) => {
-        e.preventDefault();
-
-        // Get the user from local storage
-        // Add validation also 
-        const userLocalStorage = JSON.parse(localStorage.getItem('user') || '{}');
-        if (userLocalStorage !== null && userLocalStorage !== undefined) {
-            const loggedInUser = userLocalStorage.userName;
-            console.log("Logged In UserName ===> ", loggedInUser);
-
+        useEffect(() => {
             let accessToken: any = Cookies.get("accessToken");
 
             if (accessToken === undefined || accessToken === null) {
                 accessToken = null;
             }
 
-            if (accessToken !== null) {
-                // Set the validation errors
-                if (groupId === null) {
-                    setGroupIdErrorMessage("* Please select any User from the list.");
-                    setGroupIdError(true);
-                }
-                if (description === "") {
-                    setDescriptionErrorMessage("* Please enter the Description.");
-                    setDescriptionError(true);
-                }
-                if (roleName.length < 1) {
-                    setRoleNameErrorMessage("* Please select atleast one group.");
-                    setRoleNameError(true);
-                }
-                // Set the validation errors
+            console.log("Access Token in View Users ===> ", accessToken);
 
-                if (
-                    groupId !== null &&
-                    description !== "" &&
-                    roleName.length > 0
-                ) {
-                    const formState = {
-                        "roleIds": roleName,
-                        "grpId": groupId.grpId,
-                        "grpRoleDescription": description,
-                        // "loggedInUser": loggedInUser,
-                        "active": (status === "Active") ? true : false
-                    };
+            if (accessToken !== null && loadData === true) {
+                // Fetching Roles 
+                axios.get("https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/fetchGroups", {
+                    headers: {
+                        "x-api-key": accessToken
+                    }
+                })
+                    .then((res) => {
+                        setGroupList(res.data.obj);
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                    });
 
-                    console.log("User Form Data ===> ", formState);
+                // Fetching Group
+                axios.get("https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/fetchRoles", {
+                    headers: {
+                        "x-api-key": accessToken
+                    }
+                })
+                    .then((res) => {
+                        setRolesList(res.data.obj);
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                    });
 
-                    axios.post('https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/saveGroupRole',
-                        formState
-                        , {
-                            headers: {
-                                'x-api-key': accessToken
-                            }
-                        })
-                        .then(function (response) {
-                            console.log("Response ===> ", response);
-                            if (response.status === 200) {
+                // At the end set the load data to false
+                setLoadData(false);
+            }
+
+
+        }, [loadData]);
+
+        // --------------------- AUTO COMPLETE DEFAULT PROPS ---------------------
+
+        // @1 FOR GROUP ID AUTO COMPLETE
+        const groupIdDefaultProps = {
+            options: groupList,
+            getOptionLabel: (option: any) => option.grpName
+        };
+        // FOR GROUP ID AUTO COMPLETE
+        // --------------------- AUTO COMPLETE DEFAULT PROPS ---------------------
+
+        const handleChangeStatus = (event: React.ChangeEvent<HTMLInputElement>) => {
+            setStatus((event.target as HTMLInputElement).value);
+        };
+        // Status radio buttons
+
+        const submitForm = (e: any) => {
+            e.preventDefault();
+
+            // Get the user from local storage
+            // Add validation also 
+            const userLocalStorage = JSON.parse(localStorage.getItem('user') || '{}');
+            if (userLocalStorage !== null && userLocalStorage !== undefined) {
+                const loggedInUser = userLocalStorage.userName;
+                console.log("Logged In UserName ===> ", loggedInUser);
+
+                let accessToken: any = Cookies.get("accessToken");
+
+                if (accessToken === undefined || accessToken === null) {
+                    accessToken = null;
+                }
+
+                if (accessToken !== null) {
+                    // Set the validation errors
+                    if (groupId === null) {
+                        setGroupIdErrorMessage("* Please select any User from the list.");
+                        setGroupIdError(true);
+                    }
+                    if (description === "") {
+                        setDescriptionErrorMessage("* Please enter the Description.");
+                        setDescriptionError(true);
+                    }
+                    if (roleName.length < 1) {
+                        setRoleNameErrorMessage("* Please select atleast one group.");
+                        setRoleNameError(true);
+                    }
+                    // Set the validation errors
+
+                    if (
+                        groupId !== null &&
+                        description !== "" &&
+                        roleName.length > 0
+                    ) {
+                        const formState = {
+                            "roleIds": roleName,
+                            "grpId": groupId.grpId,
+                            "grpRoleDescription": description,
+                            // "loggedInUser": loggedInUser,
+                            "active": (status === "Active") ? true : false
+                        };
+
+                        console.log("User Form Data ===> ", formState);
+
+                        axios.post('https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/saveGroupRole',
+                            formState
+                            , {
+                                headers: {
+                                    'x-api-key': accessToken
+                                }
+                            })
+                            .then(function (response) {
+                                console.log("Response ===> ", response);
+                                if (response.status === 200) {
+                                    setSnackBarHandler({
+                                        severity: (response.data.code === "200.200") ? "success" : "error",
+                                        message: (response.data.code === "200.200") ? response.data.message : (response.data.message),
+                                        open: true
+                                    })
+                                    const m = response.data.message;
+                                    if (response.data.code === "200.200") {
+                                        setTimeout(() => {
+                                            navigate("/account/group-role/view");
+                                        }, 3000);
+                                    }
+                                    console.log(m);
+                                }
+                            })
+                            .catch(function (error) {
                                 setSnackBarHandler({
-                                    severity: (response.data.code === "200.200") ? "success" : "error",
-                                    message: (response.data.code === "200.200") ? response.data.message : (response.data.message),
+                                    severity: "error",
+                                    message: error.message,
                                     open: true
                                 })
-                                const m = response.data.message;
-                                if (response.data.code === "200.200") {
-                                    setTimeout(() => {
-                                        navigate("/account/group-role/view");
-                                    }, 3000);
-                                }
-                                console.log(m);
-                            }
-                        })
-                        .catch(function (error) {
-                            setSnackBarHandler({
-                                severity: "error",
-                                message: error.message,
-                                open: true
-                            })
-                            console.log(error);
+                                console.log(error);
+                            });
+                    } else {
+                        setSnackBarHandler({
+                            message: `Please fill out all the fields.`,
+                            open: true,
+                            severity: "error"
                         });
+                    }
                 } else {
-                    setSnackBarHandler({
-                        message: `Please fill out all the fields.`,
-                        open: true,
-                        severity: "error"
-                    });
+                    alert("Please login first");
+                    navigate("/login");
                 }
             } else {
                 alert("Please login first");
                 navigate("/login");
             }
-        } else {
-            alert("Please login first");
-            navigate("/login");
         }
-    }
 
-    return (
-        <Box className={styles.container}>
-            {/* <div style={{ marginTop: 5, flexDirection: (currentLang === "ar") ? ("row-reverse") : ("row") }} className={`${(windowSize[0] > 990) ? ("d-flex justify-content-between") : ("d-flex flex-column justify-content-start")}`}>
+        // Define any functions or state that you want to expose to the parent component
+
+        React.useImperativeHandle(ref, () => ({
+            submitForm
+        }));
+
+        return (
+            <Box className={styles.container}>
+                {/* <div style={{ marginTop: 5, flexDirection: (currentLang === "ar") ? ("row-reverse") : ("row") }} className={`${(windowSize[0] > 990) ? ("d-flex justify-content-between") : ("d-flex flex-column justify-content-start")}`}>
                 <div>
                     {(currentLang === "ar") ? (
                         <>
@@ -314,15 +332,15 @@ const UpdateGroupRole: React.FC<UpdateGroupRoleProps> = ({
 
             <hr /> */}
 
-            <Box sx={{
-                // border: "1px solid red",
-                padding:
-                    // Categorize according to small, medium, large screen
-                    (windowSize[0] < 991) ? (2) : (windowSize[0] < 1200) ? (3) : (4),
-                boxShadow: "rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;"
-            }}>
+                <Box sx={{
+                    // border: "1px solid red",
+                    padding:
+                        // Categorize according to small, medium, large screen
+                        (windowSize[0] < 991) ? (2) : (windowSize[0] < 1200) ? (3) : (4),
+                    boxShadow: "rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;"
+                }}>
 
-                {/* <Box sx={{
+                    {/* <Box sx={{
                     // border: "1px solid red",
                     display: "flex",
                     marginBottom: 2,
@@ -367,256 +385,256 @@ const UpdateGroupRole: React.FC<UpdateGroupRoleProps> = ({
                     </Box>
                 </Box> */}
 
-                <Box sx={{ flexGrow: 1, mt: 0 }}>
-                    <Grid container spacing={
-                        // Categorize according to small, medium, large screen
-                        (windowSize[0] < 576) ? (0) : ((windowSize[0] < 768) ? (1) : ((windowSize[0] < 992) ? (2) : (3)))
-                    }>
+                    <Box sx={{ flexGrow: 1, mt: 0 }}>
+                        <Grid container spacing={
+                            // Categorize according to small, medium, large screen
+                            (windowSize[0] < 576) ? (0) : ((windowSize[0] < 768) ? (1) : ((windowSize[0] < 992) ? (2) : (3)))
+                        }>
 
-                        {/* Select one USER ID */}
-                        <Grid
-                            item
-                            xs={12}
-                            sm={6}
-                            md={6}
-                            lg={6}
-                            xl={6}
-                        >
-                            <Autocomplete
-                                {...groupIdDefaultProps}
-                                id="groupIdAutoComplete"
-                                autoHighlight
-                                value={groupId}
-                                onChange={(event, newValue) => {
-                                    setGroupId(newValue);
-                                    if (groupIdError) {
-                                        setGroupIdError(false);
-                                    }
-                                }}
-                                dir={(currentLang === "ar") ? "rtl" : "ltr"}
-                                renderInput={(params) => (
-                                    <TextField
-                                        {...params}
-                                        label={t('Home.Sidebar.list.userManagement.subMenu.groupRole.details.Add.fields.groupDropDown.label')}
-                                        placeholder={`${t('Home.Sidebar.list.userManagement.subMenu.groupRole.details.Add.fields.groupDropDown.placeholder')}`}
-                                        variant="outlined"
-                                        helperText={(groupIdError) ? (groupIdErrorMessage) : ("")}
-                                        error={groupIdError}
-                                        dir={(currentLang === "ar") ? "rtl" : "ltr"}
-                                    />
-                                )}
-                            />
-                        </Grid>
-                        {/* Select one USER ID */}
-
-                        {/* Select one or more groups from the list */}
-                        <Grid
-                            item
-                            xs={12}
-                            sm={6}
-                            md={6}
-                            lg={6}
-                            xl={6}
-                        >
-                            <FormControl
-                                sx={{
-                                    width: "100%",
-                                }}
-                                dir={(currentLang === "ar") ? "rtl" : "ltr"}
+                            {/* Select one USER ID */}
+                            <Grid
+                                item
+                                xs={12}
+                                sm={6}
+                                md={6}
+                                lg={6}
+                                xl={6}
                             >
-                                <div>
-                                    <FormControl sx={{
-                                        // mt: 2,
-                                        // width: {
-                                        //     xs: 210, // theme.breakpoints.up('xs')
-                                        //     sm: 300, // theme.breakpoints.up('sm')
-                                        //     md: 340, // theme.breakpoints.up('md')
-                                        //     lg: 340, // theme.breakpoints.up('lg')
-                                        //     xl: 340, // theme.breakpoints.up('xl')
-                                        // }
-                                        width: "100%",
-                                    }}
-                                        dir={(currentLang === "ar") ? "rtl" : "ltr"}
-                                    >
-                                        <Select
-                                            id="multipleGroupsSelect"
-                                            displayEmpty
-                                            multiple
-                                            value={roleName}
-                                            onChange={handleChangeRoles}
-                                            input={<OutlinedInput />}
-                                            error={roleNameError}
-                                            renderValue={(selected) => {
-                                                if (selected.length === 0) {
-                                                    return <span
-                                                        style={{
-                                                            color: (roleNameError) ? ("red") : ("#818181")
-                                                        }}
-                                                    >{t('Home.Sidebar.list.userManagement.subMenu.groupRole.details.Add.fields.rolesDropDown.label')}</span>;
-                                                }
-
-                                                return selected.join(', ');
-                                            }}
-                                            MenuProps={MenuProps}
-                                            inputProps={{ 'aria-label': 'Without label' }}
-                                            dir={(currentLang === "ar") ? "rtl" : "ltr"}
-                                        >
-                                            {
-                                                (rolesList !== null) ? (
-                                                    rolesList.map((roles: any, index: number) => (
-                                                        <MenuItem
-                                                            key={index}
-                                                            value={roles.roleId}
-                                                            dir={(currentLang === "ar") ? "rtl" : "ltr"}
-                                                        >
-                                                            <Checkbox
-                                                                checked={roleName.indexOf(roles.roleId) > -1}
-                                                                dir={(currentLang === "ar") ? "rtl" : "ltr"}
-                                                            />
-                                                            <ListItemText primary={roles.roleName}
-                                                                dir={(currentLang === "ar") ? "rtl" : "ltr"}
-                                                            />
-                                                        </MenuItem>
-                                                    ))
-                                                ) : (
-                                                    <MenuItem key="No Roles" value="No Roles" dir={(currentLang === "ar") ? "rtl" : "ltr"}>
-                                                        {t('Home.Sidebar.list.userManagement.subMenu.groupRole.details.Add.fields.rolesDropDown.noRoles')}
-                                                    </MenuItem>
-                                                )
-                                            }
-                                        </Select>
-                                        <FormHelperText
-                                            dir={(currentLang === "ar") ? "rtl" : "ltr"}
-                                            sx={{
-                                                color: "#f44336",
-                                                // fontSize: {
-                                                //     xs: 12, // theme.breakpoints.up('xs')
-                                                //     sm: 12, // theme.breakpoints.up('sm')
-                                                //     md: 14, // theme.breakpoints.up('md')
-                                                //     lg: 14, // theme.breakpoints.up('lg')
-                                                //     xl: 14, // theme.breakpoints.up('xl')
-                                                // },
-                                            }}
-                                        >
-                                            {(roleNameError) ? (roleNameErrorMessage) : ("")}
-                                        </FormHelperText>
-                                    </FormControl>
-                                </div>
-                            </FormControl>
-                        </Grid>
-                        {/* Select one or more groups from the list */}
-
-                        {/* Status */}
-                        <Grid item xs={12}>
-                            <FormControl
-                                dir={(currentLang === "ar") ? "rtl" : "ltr"}
-                                sx={{
-                                    width: "100%"
-                                }}
-                            >
-                                <FormLabel
-                                    id="demo-row-radio-buttons-app-label"
-                                    sx={{
-                                        fontSize: {
-                                            xs: 20, // theme.breakpoints.up('xs')
-                                            sm: 20, // theme.breakpoints.up('sm')
-                                            md: 22, // theme.breakpoints.up('md')
-                                            lg: 22, // theme.breakpoints.up('lg')
-                                            xl: 22, // theme.breakpoints.up('xl')
-                                        },
-                                        marginTop: 0
-                                    }}
-                                    dir={(currentLang === "ar") ? "rtl" : "ltr"}
-                                >
-                                    {t('Home.Sidebar.list.userManagement.subMenu.groupRole.details.Add.fields.Status.title')}
-                                </FormLabel>
-                                <RadioGroup
-                                    row
-                                    aria-labelledby="demo-row-radio-buttons-app-label"
-                                    name="row-radio-buttons-app"
-                                    // Add spacing between radio buttons
-                                    sx={{
-                                        '& .MuiFormControlLabel-root': {
-                                            marginRight: 10,
-                                        },
-                                        mt: 1
-                                    }}
-                                    value={status}
-                                    onChange={handleChangeStatus}
-                                    dir={(currentLang === "ar") ? "rtl" : "ltr"}
-                                >
-                                    <FormControlLabel
-                                        value="Active"
-                                        control={<Radio
-                                            dir={(currentLang === "ar") ? "rtl" : "ltr"}
-                                        />}
-                                        label={t('Home.Sidebar.list.userManagement.subMenu.groupRole.details.Add.fields.Status.radio1.label')}
-                                    />
-                                    <FormControlLabel
-                                        value="DeActive"
-                                        control={<Radio
-                                            dir={(currentLang === "ar") ? "rtl" : "ltr"}
-                                        />}
-                                        label={t('Home.Sidebar.list.userManagement.subMenu.groupRole.details.Add.fields.Status.radio2.label')}
-                                    />
-                                </RadioGroup>
-                            </FormControl>
-                        </Grid>
-
-                        {/* Description */}
-                        <Grid item xs={12}>
-                            <FormControl
-                                sx={{
-                                    width: "100%",
-                                }}
-                                dir={(currentLang === "ar") ? "rtl" : "ltr"}
-                            >
-                                <FormLabel
-                                    id="description"
-                                    sx={{
-                                        fontSize: {
-                                            xs: 20, // theme.breakpoints.up('xs')
-                                            sm: 20, // theme.breakpoints.up('sm')
-                                            md: 22, // theme.breakpoints.up('md')
-                                            lg: 22, // theme.breakpoints.up('lg')
-                                            xl: 22, // theme.breakpoints.up('xl')
-                                        },
-                                        marginTop: 0
-                                    }}
-                                    dir={(currentLang === "ar") ? "rtl" : "ltr"}
-                                >
-                                    {t('Home.Sidebar.list.userManagement.subMenu.groupRole.details.Add.fields.description.label')}
-                                </FormLabel>
-                                <TextField
-                                    id="description"
-                                    label={t('Home.Sidebar.list.userManagement.subMenu.groupRole.details.Add.fields.description.label')}
-                                    placeholder={`${t('Home.Sidebar.list.userManagement.subMenu.groupRole.details.Add.fields.description.placeholder')}`}
-                                    multiline
-                                    rows={4}
-                                    defaultValue=""
-                                    error={descriptionError}
-                                    helperText={(descriptionError) ? (descriptionErrorMessage) : ("")}
-                                    variant="outlined"
-                                    value={description}
-                                    onChange={(event) => {
-                                        setDescription(event.target.value);
-                                        if (descriptionError) {
-                                            setDescriptionError(false);
+                                <Autocomplete
+                                    {...groupIdDefaultProps}
+                                    id="groupIdAutoComplete"
+                                    autoHighlight
+                                    value={groupId}
+                                    onChange={(event, newValue) => {
+                                        setGroupId(newValue);
+                                        if (groupIdError) {
+                                            setGroupIdError(false);
                                         }
                                     }}
+                                    dir={(currentLang === "ar") ? "rtl" : "ltr"}
+                                    renderInput={(params) => (
+                                        <TextField
+                                            {...params}
+                                            label={t('Home.Sidebar.list.userManagement.subMenu.groupRole.details.Add.fields.groupDropDown.label')}
+                                            placeholder={`${t('Home.Sidebar.list.userManagement.subMenu.groupRole.details.Add.fields.groupDropDown.placeholder')}`}
+                                            variant="outlined"
+                                            helperText={(groupIdError) ? (groupIdErrorMessage) : ("")}
+                                            error={groupIdError}
+                                            dir={(currentLang === "ar") ? "rtl" : "ltr"}
+                                        />
+                                    )}
+                                />
+                            </Grid>
+                            {/* Select one USER ID */}
+
+                            {/* Select one or more groups from the list */}
+                            <Grid
+                                item
+                                xs={12}
+                                sm={6}
+                                md={6}
+                                lg={6}
+                                xl={6}
+                            >
+                                <FormControl
                                     sx={{
                                         width: "100%",
-                                        mt: 2
                                     }}
                                     dir={(currentLang === "ar") ? "rtl" : "ltr"}
-                                />
-                            </FormControl>
-                        </Grid>
-                    </Grid>
-                </Box>
-            </Box>
+                                >
+                                    <div>
+                                        <FormControl sx={{
+                                            // mt: 2,
+                                            // width: {
+                                            //     xs: 210, // theme.breakpoints.up('xs')
+                                            //     sm: 300, // theme.breakpoints.up('sm')
+                                            //     md: 340, // theme.breakpoints.up('md')
+                                            //     lg: 340, // theme.breakpoints.up('lg')
+                                            //     xl: 340, // theme.breakpoints.up('xl')
+                                            // }
+                                            width: "100%",
+                                        }}
+                                            dir={(currentLang === "ar") ? "rtl" : "ltr"}
+                                        >
+                                            <Select
+                                                id="multipleGroupsSelect"
+                                                displayEmpty
+                                                multiple
+                                                value={roleName}
+                                                onChange={handleChangeRoles}
+                                                input={<OutlinedInput />}
+                                                error={roleNameError}
+                                                renderValue={(selected) => {
+                                                    if (selected.length === 0) {
+                                                        return <span
+                                                            style={{
+                                                                color: (roleNameError) ? ("red") : ("#818181")
+                                                            }}
+                                                        >{t('Home.Sidebar.list.userManagement.subMenu.groupRole.details.Add.fields.rolesDropDown.label')}</span>;
+                                                    }
 
-            {/* <Box
+                                                    return selected.join(', ');
+                                                }}
+                                                MenuProps={MenuProps}
+                                                inputProps={{ 'aria-label': 'Without label' }}
+                                                dir={(currentLang === "ar") ? "rtl" : "ltr"}
+                                            >
+                                                {
+                                                    (rolesList !== null) ? (
+                                                        rolesList.map((roles: any, index: number) => (
+                                                            <MenuItem
+                                                                key={index}
+                                                                value={roles.roleId}
+                                                                dir={(currentLang === "ar") ? "rtl" : "ltr"}
+                                                            >
+                                                                <Checkbox
+                                                                    checked={roleName.indexOf(roles.roleId) > -1}
+                                                                    dir={(currentLang === "ar") ? "rtl" : "ltr"}
+                                                                />
+                                                                <ListItemText primary={roles.roleName}
+                                                                    dir={(currentLang === "ar") ? "rtl" : "ltr"}
+                                                                />
+                                                            </MenuItem>
+                                                        ))
+                                                    ) : (
+                                                        <MenuItem key="No Roles" value="No Roles" dir={(currentLang === "ar") ? "rtl" : "ltr"}>
+                                                            {t('Home.Sidebar.list.userManagement.subMenu.groupRole.details.Add.fields.rolesDropDown.noRoles')}
+                                                        </MenuItem>
+                                                    )
+                                                }
+                                            </Select>
+                                            <FormHelperText
+                                                dir={(currentLang === "ar") ? "rtl" : "ltr"}
+                                                sx={{
+                                                    color: "#f44336",
+                                                    // fontSize: {
+                                                    //     xs: 12, // theme.breakpoints.up('xs')
+                                                    //     sm: 12, // theme.breakpoints.up('sm')
+                                                    //     md: 14, // theme.breakpoints.up('md')
+                                                    //     lg: 14, // theme.breakpoints.up('lg')
+                                                    //     xl: 14, // theme.breakpoints.up('xl')
+                                                    // },
+                                                }}
+                                            >
+                                                {(roleNameError) ? (roleNameErrorMessage) : ("")}
+                                            </FormHelperText>
+                                        </FormControl>
+                                    </div>
+                                </FormControl>
+                            </Grid>
+                            {/* Select one or more groups from the list */}
+
+                            {/* Status */}
+                            <Grid item xs={12}>
+                                <FormControl
+                                    dir={(currentLang === "ar") ? "rtl" : "ltr"}
+                                    sx={{
+                                        width: "100%"
+                                    }}
+                                >
+                                    <FormLabel
+                                        id="demo-row-radio-buttons-app-label"
+                                        sx={{
+                                            fontSize: {
+                                                xs: 20, // theme.breakpoints.up('xs')
+                                                sm: 20, // theme.breakpoints.up('sm')
+                                                md: 22, // theme.breakpoints.up('md')
+                                                lg: 22, // theme.breakpoints.up('lg')
+                                                xl: 22, // theme.breakpoints.up('xl')
+                                            },
+                                            marginTop: 0
+                                        }}
+                                        dir={(currentLang === "ar") ? "rtl" : "ltr"}
+                                    >
+                                        {t('Home.Sidebar.list.userManagement.subMenu.groupRole.details.Add.fields.Status.title')}
+                                    </FormLabel>
+                                    <RadioGroup
+                                        row
+                                        aria-labelledby="demo-row-radio-buttons-app-label"
+                                        name="row-radio-buttons-app"
+                                        // Add spacing between radio buttons
+                                        sx={{
+                                            '& .MuiFormControlLabel-root': {
+                                                marginRight: 10,
+                                            },
+                                            mt: 1
+                                        }}
+                                        value={status}
+                                        onChange={handleChangeStatus}
+                                        dir={(currentLang === "ar") ? "rtl" : "ltr"}
+                                    >
+                                        <FormControlLabel
+                                            value="Active"
+                                            control={<Radio
+                                                dir={(currentLang === "ar") ? "rtl" : "ltr"}
+                                            />}
+                                            label={t('Home.Sidebar.list.userManagement.subMenu.groupRole.details.Add.fields.Status.radio1.label')}
+                                        />
+                                        <FormControlLabel
+                                            value="DeActive"
+                                            control={<Radio
+                                                dir={(currentLang === "ar") ? "rtl" : "ltr"}
+                                            />}
+                                            label={t('Home.Sidebar.list.userManagement.subMenu.groupRole.details.Add.fields.Status.radio2.label')}
+                                        />
+                                    </RadioGroup>
+                                </FormControl>
+                            </Grid>
+
+                            {/* Description */}
+                            <Grid item xs={12}>
+                                <FormControl
+                                    sx={{
+                                        width: "100%",
+                                    }}
+                                    dir={(currentLang === "ar") ? "rtl" : "ltr"}
+                                >
+                                    <FormLabel
+                                        id="description"
+                                        sx={{
+                                            fontSize: {
+                                                xs: 20, // theme.breakpoints.up('xs')
+                                                sm: 20, // theme.breakpoints.up('sm')
+                                                md: 22, // theme.breakpoints.up('md')
+                                                lg: 22, // theme.breakpoints.up('lg')
+                                                xl: 22, // theme.breakpoints.up('xl')
+                                            },
+                                            marginTop: 0
+                                        }}
+                                        dir={(currentLang === "ar") ? "rtl" : "ltr"}
+                                    >
+                                        {t('Home.Sidebar.list.userManagement.subMenu.groupRole.details.Add.fields.description.label')}
+                                    </FormLabel>
+                                    <TextField
+                                        id="description"
+                                        label={t('Home.Sidebar.list.userManagement.subMenu.groupRole.details.Add.fields.description.label')}
+                                        placeholder={`${t('Home.Sidebar.list.userManagement.subMenu.groupRole.details.Add.fields.description.placeholder')}`}
+                                        multiline
+                                        rows={4}
+                                        defaultValue=""
+                                        error={descriptionError}
+                                        helperText={(descriptionError) ? (descriptionErrorMessage) : ("")}
+                                        variant="outlined"
+                                        value={description}
+                                        onChange={(event) => {
+                                            setDescription(event.target.value);
+                                            if (descriptionError) {
+                                                setDescriptionError(false);
+                                            }
+                                        }}
+                                        sx={{
+                                            width: "100%",
+                                            mt: 2
+                                        }}
+                                        dir={(currentLang === "ar") ? "rtl" : "ltr"}
+                                    />
+                                </FormControl>
+                            </Grid>
+                        </Grid>
+                    </Box>
+                </Box>
+
+                {/* <Box
                 sx={{
                     display: "flex",
                     flexDirection: (currentLang === "ar") ? ('row-reverse') : ('row')
@@ -680,22 +698,23 @@ const UpdateGroupRole: React.FC<UpdateGroupRoleProps> = ({
                 </Button>
             </Box> */}
 
-            <SnackBar
-                isOpen={snackBarHandler.open}
-                message={snackBarHandler.message}
-                severity={snackBarHandler.severity}
-                setIsOpen={
-                    // Only pass the setIsOpen function to the SnackBar component
-                    // and not the whole state object
-                    (isOpen: boolean) => setSnackBarHandler({ ...snackBarHandler, open: isOpen })
-                }
-            />
+                <SnackBar
+                    isOpen={snackBarHandler.open}
+                    message={snackBarHandler.message}
+                    severity={snackBarHandler.severity}
+                    setIsOpen={
+                        // Only pass the setIsOpen function to the SnackBar component
+                        // and not the whole state object
+                        (isOpen: boolean) => setSnackBarHandler({ ...snackBarHandler, open: isOpen })
+                    }
+                />
 
-            <Box sx={{
-                mt: 5,
-            }}>
+                <Box sx={{
+                    mt: 5,
+                }}>
+                </Box>
             </Box>
-        </Box>
-    )
-}
+        )
+    }
+)
 export default UpdateGroupRole;

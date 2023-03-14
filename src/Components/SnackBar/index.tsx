@@ -15,23 +15,25 @@ interface SnackBarProps {
   isOpen: boolean,
   message: string,
   severity: any,
-  setIsOpen: any
+  setIsOpen: any,
+  isModal?:boolean
 }
 
 const SnackBar: React.FC<SnackBarProps> = ({
   isOpen,
   message,
   severity,
-  setIsOpen
+  setIsOpen,
+  isModal
 }) => {
 
   const vertical = 'bottom';
-  const horizontal = 'right';
+  const horizontal = (isModal) ? ('left') : ('right');
 
   type TransitionProps = Omit<SlideProps, 'direction'>;
 
   function TransitionRight(props: TransitionProps) {
-    return <Slide {...props} direction="right" />;
+    return <Slide {...props} direction={(isModal) ? ("left") : ("right")} />;
   }
 
   const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {

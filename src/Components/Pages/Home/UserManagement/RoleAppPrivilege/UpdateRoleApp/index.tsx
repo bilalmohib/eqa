@@ -33,296 +33,315 @@ import SnackBar from '../../../../../SnackBar';
 
 import styles from "./style.module.css";
 
-interface UpdateRoleAppProps {
+interface UpdateProps {
     currentLang: string
-    originalValues: any
+    originalValues: any,
+    url: string,
+    setOpenUpdateTableModal: any
 }
 
-const UpdateRoleApp: React.FC<UpdateRoleAppProps> = ({
-    currentLang,
-    originalValues
-}) => {
-    const { t } = useTranslation();
-    const navigate = useNavigate();
+interface UpdateRef {
+    // Define any functions that you want to expose to the parent component
+    submitForm: any
+}
 
-    ///////////////////////////////// Snackbar State /////////////////////////////////
-    const [snackBarHandler, setSnackBarHandler] = useState({
-        open: false,
-        message: '',
-        severity: 'success'
-    });
-    ///////////////////////////////// Snackbar State /////////////////////////////////
+const UpdateRoleApp = React.forwardRef<UpdateRef, UpdateProps>(
+    ({
+        currentLang,
+        originalValues,
+        url,
+        setOpenUpdateTableModal
+    },
+        ref
+    ) => {
 
-    const currentFormatedDate: string = new Date().toLocaleString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+        const { t } = useTranslation();
+        const navigate = useNavigate();
 
-    const [windowSize, setWindowSize] = useState([
-        window.innerWidth,
-        window.innerHeight,
-    ]);
-
-    useEffect(() => {
-        const handleWindowResize = () => {
-            setWindowSize([window.innerWidth, window.innerHeight]);
-        };
-
-        window.addEventListener('resize', handleWindowResize);
-
-        return () => {
-            window.removeEventListener('resize', handleWindowResize);
-        };
-    });
-
-    // For field validation
-    const [roleId, setRoleId] = useState<any>(null);
-    const [appId, setAppId] = useState<any>(null);
-    const [formId, setFormId] = useState<any>(null);
-
-    // Error messages
-    const [roleIdErrorMessage, setRoleIdErrorMessage] = useState("");
-    const [appIdErrorMessage, setAppIdErrorMessage] = useState("");
-    const [formIdErrorMessage, setFormIdErrorMessage] = useState("");
-
-    // For field validation
-    const [roleIdError, setRoleIdError] = useState(false);
-    const [appIdError, setAppIdError] = useState(false);
-    const [formIdError, setFormIdError] = useState(false);
-
-    // Create Permission radio buttons
-    // const [createPermission, setCreatePermission] = useState("Yes");
-
-    // // Read Permission radio buttons
-    // const [readPermission, setReadPermission] = useState("Yes");
-
-    // // Update Permission radio buttons
-    // const [updatePermission, setUpdatePermission] = useState("Yes");
-
-    // // Delete Permission radio buttons
-    // const [deletePermission, setDeletePermission] = useState("Yes");
-
-    // Status radio buttons
-    const [status, setStatus] = useState("Active");
-
-    // FOR APP ID AUTO COMPLETE
-
-    // For AppId autocomplete component
-    const [appIdList, setAppIdList] = useState<any>([]);
-    const [formIdList, setFormIdList] = useState<any>([]);
-    const [roleIdList, setRoleIdList] = useState<any>([]);
-
-    const [loadData, setLoadData] = useState(true);
-
-    useEffect(() => {
-        let accessToken: any = Cookies.get("accessToken");
-
-        if (accessToken === undefined || accessToken === null) {
-            accessToken = null;
-        }
-
-        console.log("Access Token in View Users ===> ", accessToken);
-
-        if (accessToken !== null && loadData === true) {
-            // Fetching APP DETAILS
-            axios.get("https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/fetchAppDetails", {
-                headers: {
-                    "x-api-key": accessToken
-                }
-            })
-                .then((res) => {
-                    setAppIdList(res.data.obj);
-                })
-                .catch((err) => {
-                    console.log(err);
-                });
-
-            // Fetching FORM DETAILS
-            axios.get("https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/fetchAppForm", {
-                headers: {
-                    "x-api-key": accessToken
-                }
-            })
-                .then((res) => {
-                    setFormIdList(res.data.obj);
-                })
-                .catch((err) => {
-                    console.log(err);
-                });
-
-            // Fetching ROLE DETAILS
-            axios.get("https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/fetchRoles", {
-                headers: {
-                    "x-api-key": accessToken
-                }
-            })
-                .then((res) => {
-                    setRoleIdList(res.data.obj);
-                })
-                .catch((err) => {
-                    console.log(err);
-                });
-
-            // At the end set the load data to false
-            setLoadData(false);
-        }
-
-
-    }, [appIdList, loadData]);
-
-    useEffect(() => {
-        if (roleId !== null && appId !== null && formId !== null) {
-            console.log("Current Role Id ===> ", roleId.roleId);
-            console.log("Current App Id ===> ", appId.appId);
-            console.log("Current Form Id ===> ", formId.formId);
-        }
-    }, [appId, appIdList, formId, roleId]);
-
-
-    // --------------------- AUTO COMPLETE DEFAULT PROPS ---------------------
-
-    // @1 FOR APP ID AUTO COMPLETE
-    const appIdDefaultProps = {
-        options: appIdList,
-        getOptionLabel: (option: any) => option.appName
-    };
-    // FOR APP ID AUTO COMPLETE
-
-    // @2 FOR FORM ID AUTO COMPLETE
-    const formIdDefaultProps = {
-        options: formIdList,
-        getOptionLabel: (option: any) => option.formName
-    };
-
-    // @3 FOR ROLE ID AUTO COMPLETE
-    const roleIdDefaultProps = {
-        options: roleIdList,
-        getOptionLabel: (option: any) => option.roleName
-    };
-    // --------------------- AUTO COMPLETE DEFAULT PROPS ---------------------
-
-    const handleChangeStatus = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setStatus((event.target as HTMLInputElement).value);
-    };
-    // Status radio buttons
-
-    // Handling Permission Status
-    const [permissionState, setPermissionState] = React.useState({
-        create: true,
-        read: true,
-        update: true,
-        delete: true,
-    });
-
-    const handleChangePermission = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setPermissionState({
-            ...permissionState,
-            [event.target.name]: event.target.checked,
+        ///////////////////////////////// Snackbar State /////////////////////////////////
+        const [snackBarHandler, setSnackBarHandler] = useState({
+            open: false,
+            message: '',
+            severity: 'success'
         });
-    };
-    // Handling Permissions Status
+        ///////////////////////////////// Snackbar State /////////////////////////////////
 
+        const currentFormatedDate: string = new Date().toLocaleString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
 
-    const submitForm = (e: any) => {
-        e.preventDefault();
+        const [windowSize, setWindowSize] = useState([
+            window.innerWidth,
+            window.innerHeight,
+        ]);
 
-        // Get the user from local storage
-        // Add validation also 
-        const userLocalStorage = JSON.parse(localStorage.getItem('user') || '{}');
-        if (userLocalStorage !== null && userLocalStorage !== undefined) {
-            const loggedInUser = userLocalStorage.userName;
-            console.log("Logged In UserName ===> ", loggedInUser);
+        useEffect(() => {
+            const handleWindowResize = () => {
+                setWindowSize([window.innerWidth, window.innerHeight]);
+            };
 
+            window.addEventListener('resize', handleWindowResize);
+
+            return () => {
+                window.removeEventListener('resize', handleWindowResize);
+            };
+        });
+
+        // For field validation
+        const [roleId, setRoleId] = useState<any>(null);
+        const [appId, setAppId] = useState<any>(null);
+        const [formId, setFormId] = useState<any>(null);
+
+        // Error messages
+        const [roleIdErrorMessage, setRoleIdErrorMessage] = useState("");
+        const [appIdErrorMessage, setAppIdErrorMessage] = useState("");
+        const [formIdErrorMessage, setFormIdErrorMessage] = useState("");
+
+        // For field validation
+        const [roleIdError, setRoleIdError] = useState(false);
+        const [appIdError, setAppIdError] = useState(false);
+        const [formIdError, setFormIdError] = useState(false);
+
+        // Create Permission radio buttons
+        // const [createPermission, setCreatePermission] = useState("Yes");
+
+        // // Read Permission radio buttons
+        // const [readPermission, setReadPermission] = useState("Yes");
+
+        // // Update Permission radio buttons
+        // const [updatePermission, setUpdatePermission] = useState("Yes");
+
+        // // Delete Permission radio buttons
+        // const [deletePermission, setDeletePermission] = useState("Yes");
+
+        // Status radio buttons
+        const [status, setStatus] = useState("Active");
+
+        // FOR APP ID AUTO COMPLETE
+
+        // For AppId autocomplete component
+        const [appIdList, setAppIdList] = useState<any>([]);
+        const [formIdList, setFormIdList] = useState<any>([]);
+        const [roleIdList, setRoleIdList] = useState<any>([]);
+
+        const [loadData, setLoadData] = useState(true);
+
+        useEffect(() => {
             let accessToken: any = Cookies.get("accessToken");
 
             if (accessToken === undefined || accessToken === null) {
                 accessToken = null;
             }
 
-            if (accessToken !== null) {
-                // Set the validation errors
-                if (roleId === null) {
-                    setRoleIdErrorMessage("* Please select any RoleId from the list.");
-                    setRoleIdError(true);
-                }
-                if (appId === null) {
-                    setAppIdErrorMessage("* Please select any AppId from the list.");
-                    setAppIdError(true);
-                }
-                if (formId === null) {
-                    setFormIdErrorMessage("* Please select any FormId from the list.");
-                    setFormIdError(true);
-                }
-                // Set the validation errors
+            console.log("Access Token in View Users ===> ", accessToken);
 
-                if (
-                    roleId !== null &&
-                    appId !== null &&
-                    formId !== null
-                ) {
-                    const formState = {
-                        "roleId": (roleId !== null) ? roleId.roleId : null,
-                        "appId": (appId !== null) ? appId.appId : null,
-                        "formId": (formId !== null) ? formId.formId : null,
-                        "loggedInUser": loggedInUser,
-                        "createPermission": permissionState.create,
-                        "readPermission": permissionState.read,
-                        "updatePermission": permissionState.update,
-                        "deletePermission": permissionState.delete,
-                        "active": (status === "Active") ? true : false
-                    };
-
-                    console.log("User Form Data ===> ", formState);
-
-                    axios.post('https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/savePrivilege',
-                        formState
-                        , {
-                            headers: {
-                                'x-api-key': accessToken
-                            }
-                        })
-                        .then(function (response) {
-                            console.log("Response ===> ", response);
-                            if (response.status === 200) {
-                                // setSnackbarMessage(`AppRole Privilege for App : ${appId.appName} , Form : ${formId.formName} and Role : ${roleId.roleName} has been created successfully.`);
-                                // setOpen(true);
-                                setSnackBarHandler({
-                                    open: true,
-                                    message: (response.data.code === "200.200") ? `AppRole Privilege for App : ${appId.appName} , Form : ${formId.formName} and Role : ${roleId.roleName} has been created successfully.` : (response.data.message),
-                                    severity: (response.data.code === "200.200") ? "success" : "error"
-                                });
-                                const m = response.data.message;
-                                if (response.data.code === "200.200") {
-                                    setTimeout(() => {
-                                        navigate("/account/role-app/view");
-                                    }, 2000);
-                                }
-                                console.log(m);
-                            }
-                        })
-                        .catch(function (error) {
-                            console.log(error);
-                        });
-                } else {
-                    // alert("Please fill All fields");
-                    // set the errors
-                    setAppIdError(true);
-                    setSnackBarHandler({
-                        open: true,
-                        message: "Please fill all the required fields.",
-                        severity: "error"
+            if (accessToken !== null && loadData === true) {
+                // Fetching APP DETAILS
+                axios.get("https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/fetchAppDetails", {
+                    headers: {
+                        "x-api-key": accessToken
+                    }
+                })
+                    .then((res) => {
+                        setAppIdList(res.data.obj);
                     })
+                    .catch((err) => {
+                        console.log(err);
+                    });
+
+                // Fetching FORM DETAILS
+                axios.get("https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/fetchAppForm", {
+                    headers: {
+                        "x-api-key": accessToken
+                    }
+                })
+                    .then((res) => {
+                        setFormIdList(res.data.obj);
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                    });
+
+                // Fetching ROLE DETAILS
+                axios.get("https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/fetchRoles", {
+                    headers: {
+                        "x-api-key": accessToken
+                    }
+                })
+                    .then((res) => {
+                        setRoleIdList(res.data.obj);
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                    });
+
+                // At the end set the load data to false
+                setLoadData(false);
+            }
+
+
+        }, [appIdList, loadData]);
+
+        useEffect(() => {
+            if (roleId !== null && appId !== null && formId !== null) {
+                console.log("Current Role Id ===> ", roleId.roleId);
+                console.log("Current App Id ===> ", appId.appId);
+                console.log("Current Form Id ===> ", formId.formId);
+            }
+        }, [appId, appIdList, formId, roleId]);
+
+
+        // --------------------- AUTO COMPLETE DEFAULT PROPS ---------------------
+
+        // @1 FOR APP ID AUTO COMPLETE
+        const appIdDefaultProps = {
+            options: appIdList,
+            getOptionLabel: (option: any) => option.appName
+        };
+        // FOR APP ID AUTO COMPLETE
+
+        // @2 FOR FORM ID AUTO COMPLETE
+        const formIdDefaultProps = {
+            options: formIdList,
+            getOptionLabel: (option: any) => option.formName
+        };
+
+        // @3 FOR ROLE ID AUTO COMPLETE
+        const roleIdDefaultProps = {
+            options: roleIdList,
+            getOptionLabel: (option: any) => option.roleName
+        };
+        // --------------------- AUTO COMPLETE DEFAULT PROPS ---------------------
+
+        const handleChangeStatus = (event: React.ChangeEvent<HTMLInputElement>) => {
+            setStatus((event.target as HTMLInputElement).value);
+        };
+        // Status radio buttons
+
+        // Handling Permission Status
+        const [permissionState, setPermissionState] = React.useState({
+            create: true,
+            read: true,
+            update: true,
+            delete: true,
+        });
+
+        const handleChangePermission = (event: React.ChangeEvent<HTMLInputElement>) => {
+            setPermissionState({
+                ...permissionState,
+                [event.target.name]: event.target.checked,
+            });
+        };
+        // Handling Permissions Status
+
+
+        const submitForm = (e: any) => {
+            e.preventDefault();
+
+            // Get the user from local storage
+            // Add validation also 
+            const userLocalStorage = JSON.parse(localStorage.getItem('user') || '{}');
+            if (userLocalStorage !== null && userLocalStorage !== undefined) {
+                const loggedInUser = userLocalStorage.userName;
+                console.log("Logged In UserName ===> ", loggedInUser);
+
+                let accessToken: any = Cookies.get("accessToken");
+
+                if (accessToken === undefined || accessToken === null) {
+                    accessToken = null;
+                }
+
+                if (accessToken !== null) {
+                    // Set the validation errors
+                    if (roleId === null) {
+                        setRoleIdErrorMessage("* Please select any RoleId from the list.");
+                        setRoleIdError(true);
+                    }
+                    if (appId === null) {
+                        setAppIdErrorMessage("* Please select any AppId from the list.");
+                        setAppIdError(true);
+                    }
+                    if (formId === null) {
+                        setFormIdErrorMessage("* Please select any FormId from the list.");
+                        setFormIdError(true);
+                    }
+                    // Set the validation errors
+
+                    if (
+                        roleId !== null &&
+                        appId !== null &&
+                        formId !== null
+                    ) {
+                        const formState = {
+                            "roleId": (roleId !== null) ? roleId.roleId : null,
+                            "appId": (appId !== null) ? appId.appId : null,
+                            "formId": (formId !== null) ? formId.formId : null,
+                            "loggedInUser": loggedInUser,
+                            "createPermission": permissionState.create,
+                            "readPermission": permissionState.read,
+                            "updatePermission": permissionState.update,
+                            "deletePermission": permissionState.delete,
+                            "active": (status === "Active") ? true : false
+                        };
+
+                        console.log("User Form Data ===> ", formState);
+
+                        axios.post('https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/savePrivilege',
+                            formState
+                            , {
+                                headers: {
+                                    'x-api-key': accessToken
+                                }
+                            })
+                            .then(function (response) {
+                                console.log("Response ===> ", response);
+                                if (response.status === 200) {
+                                    // setSnackbarMessage(`AppRole Privilege for App : ${appId.appName} , Form : ${formId.formName} and Role : ${roleId.roleName} has been created successfully.`);
+                                    // setOpen(true);
+                                    setSnackBarHandler({
+                                        open: true,
+                                        message: (response.data.code === "200.200") ? `AppRole Privilege for App : ${appId.appName} , Form : ${formId.formName} and Role : ${roleId.roleName} has been created successfully.` : (response.data.message),
+                                        severity: (response.data.code === "200.200") ? "success" : "error"
+                                    });
+                                    const m = response.data.message;
+                                    if (response.data.code === "200.200") {
+                                        setTimeout(() => {
+                                            navigate("/account/role-app/view");
+                                        }, 2000);
+                                    }
+                                    console.log(m);
+                                }
+                            })
+                            .catch(function (error) {
+                                console.log(error);
+                            });
+                    } else {
+                        // alert("Please fill All fields");
+                        // set the errors
+                        setAppIdError(true);
+                        setSnackBarHandler({
+                            open: true,
+                            message: "Please fill all the required fields.",
+                            severity: "error"
+                        })
+                    }
+                } else {
+                    alert("Please login first");
+                    navigate("/login");
                 }
             } else {
                 alert("Please login first");
                 navigate("/login");
             }
-        } else {
-            alert("Please login first");
-            navigate("/login");
         }
-    }
 
-    return (
-        <Box className={styles.container}>
-            {/* <div
+        // Define any functions or state that you want to expose to the parent component
+
+        React.useImperativeHandle(ref, () => ({
+            submitForm
+        }));
+
+        return (
+            <Box className={styles.container}>
+                {/* <div
                 className={`${(windowSize[0] > 990) ? ("d-flex justify-content-between") : ("d-flex flex-column justify-content-start")}`}
                 style={{
                     marginTop: 5,
@@ -347,15 +366,15 @@ const UpdateRoleApp: React.FC<UpdateRoleAppProps> = ({
 
             <hr /> */}
 
-            <Box sx={{
-                // border: "1px solid red",
-                padding:
-                    // Categorize according to small, medium, large screen
-                    (windowSize[0] < 991) ? (2) : (windowSize[0] < 1200) ? (3) : (4),
-                boxShadow: "rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;"
-            }}>
+                <Box sx={{
+                    // border: "1px solid red",
+                    padding:
+                        // Categorize according to small, medium, large screen
+                        (windowSize[0] < 991) ? (2) : (windowSize[0] < 1200) ? (3) : (4),
+                    boxShadow: "rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;"
+                }}>
 
-                {/* <Box sx={{
+                    {/* <Box sx={{
                     // border: "1px solid red",
                     display: "flex",
                     marginBottom: 2,
@@ -400,281 +419,281 @@ const UpdateRoleApp: React.FC<UpdateRoleAppProps> = ({
                     </Box>
                 </Box> */}
 
-                <Box sx={{ flexGrow: 1, mt: 0 }}>
-                    <Grid container spacing={
-                        // Categorize according to small, medium, large screen
-                        (windowSize[0] < 576) ? (0) : ((windowSize[0] < 768) ? (1) : ((windowSize[0] < 992) ? (2) : (3)))
-                    }>
-                        {/* ROLE ID */}
-                        <Grid item xs={12}>
-                            <Autocomplete
-                                {...roleIdDefaultProps}
-                                id="roleIdAutoComplete"
-                                autoHighlight
-                                dir={(currentLang === "ar") ? "rtl" : "ltr"}
-                                value={roleId}
-                                onChange={(event, newValue) => {
-                                    setRoleId(newValue);
-                                    if (roleIdError) {
-                                        setRoleIdError(false);
-                                    }
-                                }}
-                                // dir={(currentLang === "ar") ? "rtl" : "ltr"}
-                                renderInput={(params) => (
-                                    <TextField
-                                        {...params}
-                                        label={t('Home.Sidebar.list.userManagement.subMenu.roleApp.details.Add.fields.selectRoleDropdown.label')}
-                                        placeholder={`${t('Home.Sidebar.list.userManagement.subMenu.roleApp.details.Add.fields.selectRoleDropdown.placeholder')}`}
-                                        variant="standard"
-                                        dir={(currentLang === "ar") ? "rtl" : "ltr"}
-                                        helperText={(roleIdError) ? (roleIdErrorMessage) : ("")}
-                                        error={roleIdError}
-                                    // dir={(currentLang === "ar") ? "rtl" : "ltr"}
-                                    />
-                                )}
-                            />
-                        </Grid>
-
-                        {/* APP ID */}
-                        <Grid item xs={12}>
-                            <Autocomplete
-                                {...appIdDefaultProps}
-                                id="appIdAutoComplete"
-                                autoHighlight
-                                dir={(currentLang === "ar") ? "rtl" : "ltr"}
-                                value={appId}
-                                onChange={(event, newValue) => {
-                                    setAppId(newValue);
-                                    if (appIdError) {
-                                        setAppIdError(false);
-                                    }
-                                }}
-                                // dir={(currentLang === "ar") ? "rtl" : "ltr"}
-                                renderInput={(params) => (
-                                    <TextField
-                                        {...params}
-                                        label={t('Home.Sidebar.list.userManagement.subMenu.roleApp.details.Add.fields.selectAppDropdown.label')}
-                                        placeholder={`${t('Home.Sidebar.list.userManagement.subMenu.roleApp.details.Add.fields.selectAppDropdown.placeholder')}`}
-                                        variant="standard"
-                                        dir={(currentLang === "ar") ? "rtl" : "ltr"}
-                                        helperText={(appIdError) ? (appIdErrorMessage) : ("")}
-                                        error={appIdError}
-                                    // dir={(currentLang === "ar") ? "rtl" : "ltr"}
-                                    />
-                                )}
-                            />
-                        </Grid>
-
-                        {/* FORM ID */}
-                        <Grid item xs={12}>
-                            <Autocomplete
-                                {...formIdDefaultProps}
-                                id="formIdAutoComplete"
-                                autoHighlight
-                                value={formId}
-                                dir={(currentLang === "ar") ? "rtl" : "ltr"}
-                                onChange={(event, newValue) => {
-                                    setFormId(newValue);
-                                    if (formIdError) {
-                                        setFormIdError(false);
-                                    }
-                                }}
-                                // dir={(currentLang === "ar") ? "rtl" : "ltr"}
-                                renderInput={(params) => (
-                                    <TextField
-                                        {...params}
-                                        label={t('Home.Sidebar.list.userManagement.subMenu.roleApp.details.Add.fields.selectFormDropdown.label')}
-                                        placeholder={`${t('Home.Sidebar.list.userManagement.subMenu.roleApp.details.Add.fields.selectFormDropdown.placeholder')}`}
-                                        variant="standard"
-                                        dir={(currentLang === "ar") ? "rtl" : "ltr"}
-                                        helperText={(formIdError) ? (formIdErrorMessage) : ("")}
-                                        error={formIdError}
-                                    // dir={(currentLang === "ar") ? "rtl" : "ltr"}
-                                    />
-                                )}
-                            />
-                        </Grid>
-
-                        {/* Permisson Status List : Create, Read, Update, Delete */}
-                        <Grid item xs={12}>
-                            <FormControl
-                                component="fieldset"
-                                variant="standard"
-                                dir={(currentLang === "ar") ? "rtl" : "ltr"}
-                                sx={{
-                                    width: "100%"
-                                }}
-                            >
-                                <FormLabel
-                                    component="legend"
-                                    sx={{
-                                        fontSize: {
-                                            xs: 20, // theme.breakpoints.up('xs')
-                                            sm: 20, // theme.breakpoints.up('sm')
-                                            md: 22, // theme.breakpoints.up('md')
-                                            lg: 22, // theme.breakpoints.up('lg')
-                                            xl: 22, // theme.breakpoints.up('xl')
-                                        },
-                                        marginTop: 2
+                    <Box sx={{ flexGrow: 1, mt: 0 }}>
+                        <Grid container spacing={
+                            // Categorize according to small, medium, large screen
+                            (windowSize[0] < 576) ? (0) : ((windowSize[0] < 768) ? (1) : ((windowSize[0] < 992) ? (2) : (3)))
+                        }>
+                            {/* ROLE ID */}
+                            <Grid item xs={12}>
+                                <Autocomplete
+                                    {...roleIdDefaultProps}
+                                    id="roleIdAutoComplete"
+                                    autoHighlight
+                                    dir={(currentLang === "ar") ? "rtl" : "ltr"}
+                                    value={roleId}
+                                    onChange={(event, newValue) => {
+                                        setRoleId(newValue);
+                                        if (roleIdError) {
+                                            setRoleIdError(false);
+                                        }
                                     }}
-                                    dir={(currentLang === "ar") ? "rtl" : "ltr"}
-                                >
-                                    {t('Home.Sidebar.list.userManagement.subMenu.roleApp.details.Add.fields.PermissionStatus.label')}
-                                </FormLabel>
-                                <FormGroup
-                                    dir={(currentLang === "ar") ? "rtl" : "ltr"}
-                                >
-                                    <FormControlLabel
-                                        control={
-                                            <Switch
-                                                checked={permissionState.create}
-                                                onChange={handleChangePermission}
-                                                name="create"
-                                                sx={{
-                                                    color: "#4f747a",
-                                                    "& .MuiSwitch-switchBase.Mui-checked": {
-                                                        color: "#3c6766"
-                                                    },
-                                                    "& .MuiSwitch-switchBase.Mui-checked+.MuiSwitch-track": {
-                                                        backgroundColor: '#4f747a'
-                                                    }
-                                                }}
-                                                dir={(currentLang === "ar") ? "rtl" : "ltr"}
-                                            />
-                                        }
-                                        label={t('Home.Sidebar.list.userManagement.subMenu.roleApp.details.Add.fields.PermissionStatus.Switches.Create')}
-                                        dir={(currentLang === "ar") ? "rtl" : "ltr"}
-                                    />
-                                    <FormControlLabel
-                                        control={
-                                            <Switch
-                                                checked={permissionState.read}
-                                                onChange={handleChangePermission}
-                                                name="read"
-                                                sx={{
-                                                    color: "#4f747a",
-                                                    "& .MuiSwitch-switchBase.Mui-checked": {
-                                                        color: "#3c6766"
-                                                    },
-                                                    "& .MuiSwitch-switchBase.Mui-checked+.MuiSwitch-track": {
-                                                        backgroundColor: '#4f747a'
-                                                    }
-                                                }}
-                                                dir={(currentLang === "ar") ? "rtl" : "ltr"}
-                                            />
-                                        }
-                                        label={t('Home.Sidebar.list.userManagement.subMenu.roleApp.details.Add.fields.PermissionStatus.Switches.Read')}
-                                        dir={(currentLang === "ar") ? "rtl" : "ltr"}
-                                    />
-                                    <FormControlLabel
-                                        control={
-                                            <Switch
-                                                checked={permissionState.update}
-                                                onChange={handleChangePermission}
-                                                name="update"
-                                                sx={{
-                                                    color: "#4f747a",
-                                                    "& .MuiSwitch-switchBase.Mui-checked": {
-                                                        color: "#3c6766"
-                                                    },
-                                                    "& .MuiSwitch-switchBase.Mui-checked+.MuiSwitch-track": {
-                                                        backgroundColor: '#4f747a'
-                                                    }
-                                                }}
-                                                dir={(currentLang === "ar") ? "rtl" : "ltr"}
-                                            />
-                                        }
-                                        label={t('Home.Sidebar.list.userManagement.subMenu.roleApp.details.Add.fields.PermissionStatus.Switches.Update')}
-                                        dir={(currentLang === "ar") ? "rtl" : "ltr"}
-                                    />
-                                    <FormControlLabel
-                                        control={
-                                            <Switch
-                                                checked={permissionState.delete}
-                                                onChange={handleChangePermission}
-                                                name="delete"
-                                                sx={{
-                                                    color: "#4f747a",
-                                                    "& .MuiSwitch-switchBase.Mui-checked": {
-                                                        color: "#3c6766"
-                                                    },
-                                                    "& .MuiSwitch-switchBase.Mui-checked+.MuiSwitch-track": {
-                                                        backgroundColor: '#4f747a'
-                                                    }
-                                                }}
-                                                dir={(currentLang === "ar") ? "rtl" : "ltr"}
-                                            />
-                                        }
-                                        label={t('Home.Sidebar.list.userManagement.subMenu.roleApp.details.Add.fields.PermissionStatus.Switches.Delete')}
-                                        dir={(currentLang === "ar") ? "rtl" : "ltr"}
-                                    />
-                                </FormGroup>
-                            </FormControl>
-                        </Grid>
-                        {/* Permisson Status List : Create, Read, Update, Delete */}
-
-                        {/* Status */}
-                        <Grid item xs={12}>
-                            <FormControl
-                                sx={{
-                                    width: "100%"
-                                }}
-                            >
-                                <FormLabel
-                                    dir={(currentLang === "ar") ? "rtl" : "ltr"}
-                                    id="statusAppButtonsLabel"
-                                    sx={{
-                                        fontSize: {
-                                            xs: 20, // theme.breakpoints.up('xs')
-                                            sm: 20, // theme.breakpoints.up('sm')
-                                            md: 22, // theme.breakpoints.up('md')
-                                            lg: 22, // theme.breakpoints.up('lg')
-                                            xl: 22, // theme.breakpoints.up('xl')
-                                        },
-                                        marginTop: 0
-                                    }}
-                                >
-                                    {t('Home.Sidebar.list.userManagement.subMenu.roleApp.details.Add.fields.Status.title')}
-                                </FormLabel>
-                                <RadioGroup
-                                    row
-                                    aria-labelledby="statusAppButtonsLabel"
-                                    name="statusAppButtons"
-                                    // Add spacing between radio buttons
-                                    sx={{
-                                        '& .MuiFormControlLabel-root': {
-                                            marginRight: 10,
-                                        },
-                                        mt: 1
-                                    }}
-                                    value={status}
-                                    onChange={handleChangeStatus}
-                                    dir={(currentLang === "ar") ? "rtl" : "ltr"}
-                                >
-                                    <FormControlLabel
-                                        value="Active"
-                                        control={<Radio
+                                    // dir={(currentLang === "ar") ? "rtl" : "ltr"}
+                                    renderInput={(params) => (
+                                        <TextField
+                                            {...params}
+                                            label={t('Home.Sidebar.list.userManagement.subMenu.roleApp.details.Add.fields.selectRoleDropdown.label')}
+                                            placeholder={`${t('Home.Sidebar.list.userManagement.subMenu.roleApp.details.Add.fields.selectRoleDropdown.placeholder')}`}
+                                            variant="standard"
                                             dir={(currentLang === "ar") ? "rtl" : "ltr"}
-                                        />}
-                                        label={t('Home.Sidebar.list.userManagement.subMenu.roleApp.details.Add.fields.Status.radio1.label')}
-                                        dir={(currentLang === "ar") ? "rtl" : "ltr"}
-                                    />
-                                    <FormControlLabel
-                                        value="DeActive"
-                                        control={<Radio
+                                            helperText={(roleIdError) ? (roleIdErrorMessage) : ("")}
+                                            error={roleIdError}
+                                        // dir={(currentLang === "ar") ? "rtl" : "ltr"}
+                                        />
+                                    )}
+                                />
+                            </Grid>
+
+                            {/* APP ID */}
+                            <Grid item xs={12}>
+                                <Autocomplete
+                                    {...appIdDefaultProps}
+                                    id="appIdAutoComplete"
+                                    autoHighlight
+                                    dir={(currentLang === "ar") ? "rtl" : "ltr"}
+                                    value={appId}
+                                    onChange={(event, newValue) => {
+                                        setAppId(newValue);
+                                        if (appIdError) {
+                                            setAppIdError(false);
+                                        }
+                                    }}
+                                    // dir={(currentLang === "ar") ? "rtl" : "ltr"}
+                                    renderInput={(params) => (
+                                        <TextField
+                                            {...params}
+                                            label={t('Home.Sidebar.list.userManagement.subMenu.roleApp.details.Add.fields.selectAppDropdown.label')}
+                                            placeholder={`${t('Home.Sidebar.list.userManagement.subMenu.roleApp.details.Add.fields.selectAppDropdown.placeholder')}`}
+                                            variant="standard"
                                             dir={(currentLang === "ar") ? "rtl" : "ltr"}
-                                        />}
-                                        label={t('Home.Sidebar.list.userManagement.subMenu.roleApp.details.Add.fields.Status.radio2.label')}
+                                            helperText={(appIdError) ? (appIdErrorMessage) : ("")}
+                                            error={appIdError}
+                                        // dir={(currentLang === "ar") ? "rtl" : "ltr"}
+                                        />
+                                    )}
+                                />
+                            </Grid>
+
+                            {/* FORM ID */}
+                            <Grid item xs={12}>
+                                <Autocomplete
+                                    {...formIdDefaultProps}
+                                    id="formIdAutoComplete"
+                                    autoHighlight
+                                    value={formId}
+                                    dir={(currentLang === "ar") ? "rtl" : "ltr"}
+                                    onChange={(event, newValue) => {
+                                        setFormId(newValue);
+                                        if (formIdError) {
+                                            setFormIdError(false);
+                                        }
+                                    }}
+                                    // dir={(currentLang === "ar") ? "rtl" : "ltr"}
+                                    renderInput={(params) => (
+                                        <TextField
+                                            {...params}
+                                            label={t('Home.Sidebar.list.userManagement.subMenu.roleApp.details.Add.fields.selectFormDropdown.label')}
+                                            placeholder={`${t('Home.Sidebar.list.userManagement.subMenu.roleApp.details.Add.fields.selectFormDropdown.placeholder')}`}
+                                            variant="standard"
+                                            dir={(currentLang === "ar") ? "rtl" : "ltr"}
+                                            helperText={(formIdError) ? (formIdErrorMessage) : ("")}
+                                            error={formIdError}
+                                        // dir={(currentLang === "ar") ? "rtl" : "ltr"}
+                                        />
+                                    )}
+                                />
+                            </Grid>
+
+                            {/* Permisson Status List : Create, Read, Update, Delete */}
+                            <Grid item xs={12}>
+                                <FormControl
+                                    component="fieldset"
+                                    variant="standard"
+                                    dir={(currentLang === "ar") ? "rtl" : "ltr"}
+                                    sx={{
+                                        width: "100%"
+                                    }}
+                                >
+                                    <FormLabel
+                                        component="legend"
+                                        sx={{
+                                            fontSize: {
+                                                xs: 20, // theme.breakpoints.up('xs')
+                                                sm: 20, // theme.breakpoints.up('sm')
+                                                md: 22, // theme.breakpoints.up('md')
+                                                lg: 22, // theme.breakpoints.up('lg')
+                                                xl: 22, // theme.breakpoints.up('xl')
+                                            },
+                                            marginTop: 2
+                                        }}
                                         dir={(currentLang === "ar") ? "rtl" : "ltr"}
-                                    />
-                                </RadioGroup>
-                            </FormControl>
+                                    >
+                                        {t('Home.Sidebar.list.userManagement.subMenu.roleApp.details.Add.fields.PermissionStatus.label')}
+                                    </FormLabel>
+                                    <FormGroup
+                                        dir={(currentLang === "ar") ? "rtl" : "ltr"}
+                                    >
+                                        <FormControlLabel
+                                            control={
+                                                <Switch
+                                                    checked={permissionState.create}
+                                                    onChange={handleChangePermission}
+                                                    name="create"
+                                                    sx={{
+                                                        color: "#4f747a",
+                                                        "& .MuiSwitch-switchBase.Mui-checked": {
+                                                            color: "#3c6766"
+                                                        },
+                                                        "& .MuiSwitch-switchBase.Mui-checked+.MuiSwitch-track": {
+                                                            backgroundColor: '#4f747a'
+                                                        }
+                                                    }}
+                                                    dir={(currentLang === "ar") ? "rtl" : "ltr"}
+                                                />
+                                            }
+                                            label={t('Home.Sidebar.list.userManagement.subMenu.roleApp.details.Add.fields.PermissionStatus.Switches.Create')}
+                                            dir={(currentLang === "ar") ? "rtl" : "ltr"}
+                                        />
+                                        <FormControlLabel
+                                            control={
+                                                <Switch
+                                                    checked={permissionState.read}
+                                                    onChange={handleChangePermission}
+                                                    name="read"
+                                                    sx={{
+                                                        color: "#4f747a",
+                                                        "& .MuiSwitch-switchBase.Mui-checked": {
+                                                            color: "#3c6766"
+                                                        },
+                                                        "& .MuiSwitch-switchBase.Mui-checked+.MuiSwitch-track": {
+                                                            backgroundColor: '#4f747a'
+                                                        }
+                                                    }}
+                                                    dir={(currentLang === "ar") ? "rtl" : "ltr"}
+                                                />
+                                            }
+                                            label={t('Home.Sidebar.list.userManagement.subMenu.roleApp.details.Add.fields.PermissionStatus.Switches.Read')}
+                                            dir={(currentLang === "ar") ? "rtl" : "ltr"}
+                                        />
+                                        <FormControlLabel
+                                            control={
+                                                <Switch
+                                                    checked={permissionState.update}
+                                                    onChange={handleChangePermission}
+                                                    name="update"
+                                                    sx={{
+                                                        color: "#4f747a",
+                                                        "& .MuiSwitch-switchBase.Mui-checked": {
+                                                            color: "#3c6766"
+                                                        },
+                                                        "& .MuiSwitch-switchBase.Mui-checked+.MuiSwitch-track": {
+                                                            backgroundColor: '#4f747a'
+                                                        }
+                                                    }}
+                                                    dir={(currentLang === "ar") ? "rtl" : "ltr"}
+                                                />
+                                            }
+                                            label={t('Home.Sidebar.list.userManagement.subMenu.roleApp.details.Add.fields.PermissionStatus.Switches.Update')}
+                                            dir={(currentLang === "ar") ? "rtl" : "ltr"}
+                                        />
+                                        <FormControlLabel
+                                            control={
+                                                <Switch
+                                                    checked={permissionState.delete}
+                                                    onChange={handleChangePermission}
+                                                    name="delete"
+                                                    sx={{
+                                                        color: "#4f747a",
+                                                        "& .MuiSwitch-switchBase.Mui-checked": {
+                                                            color: "#3c6766"
+                                                        },
+                                                        "& .MuiSwitch-switchBase.Mui-checked+.MuiSwitch-track": {
+                                                            backgroundColor: '#4f747a'
+                                                        }
+                                                    }}
+                                                    dir={(currentLang === "ar") ? "rtl" : "ltr"}
+                                                />
+                                            }
+                                            label={t('Home.Sidebar.list.userManagement.subMenu.roleApp.details.Add.fields.PermissionStatus.Switches.Delete')}
+                                            dir={(currentLang === "ar") ? "rtl" : "ltr"}
+                                        />
+                                    </FormGroup>
+                                </FormControl>
+                            </Grid>
+                            {/* Permisson Status List : Create, Read, Update, Delete */}
+
+                            {/* Status */}
+                            <Grid item xs={12}>
+                                <FormControl
+                                    sx={{
+                                        width: "100%"
+                                    }}
+                                >
+                                    <FormLabel
+                                        dir={(currentLang === "ar") ? "rtl" : "ltr"}
+                                        id="statusAppButtonsLabel"
+                                        sx={{
+                                            fontSize: {
+                                                xs: 20, // theme.breakpoints.up('xs')
+                                                sm: 20, // theme.breakpoints.up('sm')
+                                                md: 22, // theme.breakpoints.up('md')
+                                                lg: 22, // theme.breakpoints.up('lg')
+                                                xl: 22, // theme.breakpoints.up('xl')
+                                            },
+                                            marginTop: 0
+                                        }}
+                                    >
+                                        {t('Home.Sidebar.list.userManagement.subMenu.roleApp.details.Add.fields.Status.title')}
+                                    </FormLabel>
+                                    <RadioGroup
+                                        row
+                                        aria-labelledby="statusAppButtonsLabel"
+                                        name="statusAppButtons"
+                                        // Add spacing between radio buttons
+                                        sx={{
+                                            '& .MuiFormControlLabel-root': {
+                                                marginRight: 10,
+                                            },
+                                            mt: 1
+                                        }}
+                                        value={status}
+                                        onChange={handleChangeStatus}
+                                        dir={(currentLang === "ar") ? "rtl" : "ltr"}
+                                    >
+                                        <FormControlLabel
+                                            value="Active"
+                                            control={<Radio
+                                                dir={(currentLang === "ar") ? "rtl" : "ltr"}
+                                            />}
+                                            label={t('Home.Sidebar.list.userManagement.subMenu.roleApp.details.Add.fields.Status.radio1.label')}
+                                            dir={(currentLang === "ar") ? "rtl" : "ltr"}
+                                        />
+                                        <FormControlLabel
+                                            value="DeActive"
+                                            control={<Radio
+                                                dir={(currentLang === "ar") ? "rtl" : "ltr"}
+                                            />}
+                                            label={t('Home.Sidebar.list.userManagement.subMenu.roleApp.details.Add.fields.Status.radio2.label')}
+                                            dir={(currentLang === "ar") ? "rtl" : "ltr"}
+                                        />
+                                    </RadioGroup>
+                                </FormControl>
+                            </Grid>
                         </Grid>
-                    </Grid>
+                    </Box>
                 </Box>
-            </Box>
 
-            {/* <Box
+                {/* <Box
                 sx={{
                     display: "flex",
                     flexDirection: (currentLang === "ar") ? ('row-reverse') : ('row')
@@ -738,22 +757,23 @@ const UpdateRoleApp: React.FC<UpdateRoleAppProps> = ({
                 </Button>
             </Box> */}
 
-            <SnackBar
-                isOpen={snackBarHandler.open}
-                message={snackBarHandler.message}
-                severity={snackBarHandler.severity}
-                setIsOpen={
-                    // Only pass the setIsOpen function to the SnackBar component
-                    // and not the whole state object
-                    (isOpen: boolean) => setSnackBarHandler({ ...snackBarHandler, open: isOpen })
-                }
-            />
+                <SnackBar
+                    isOpen={snackBarHandler.open}
+                    message={snackBarHandler.message}
+                    severity={snackBarHandler.severity}
+                    setIsOpen={
+                        // Only pass the setIsOpen function to the SnackBar component
+                        // and not the whole state object
+                        (isOpen: boolean) => setSnackBarHandler({ ...snackBarHandler, open: isOpen })
+                    }
+                />
 
-            <Box sx={{
-                mt: 5,
-            }}>
+                <Box sx={{
+                    mt: 5,
+                }}>
+                </Box>
             </Box>
-        </Box>
-    )
-}
+        )
+    }
+)
 export default UpdateRoleApp;
