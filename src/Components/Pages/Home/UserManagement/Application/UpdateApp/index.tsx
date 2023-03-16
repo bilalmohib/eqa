@@ -81,10 +81,10 @@ const UpdateApp = React.forwardRef<UpdateRef, UpdateProps>(
         });
 
         // For field validation
-        const [appName, setAppName] = useState("");
-        const [appDescription, setAppDescription] = useState("");
-        const [appUrl, setAppUrl] = useState("");
-        const [appOrder, setAppOrder] = useState("");
+        const [appName, setAppName] = useState(originalValues.appName);
+        const [appDescription, setAppDescription] = useState(originalValues.appDescription);
+        const [appUrl, setAppUrl] = useState(originalValues.appUrl);
+        const [appOrder, setAppOrder] = useState(originalValues.appOrder);
 
         // Error messages
         const [appNameErrorMessage, setAppNameErrorMessage] = useState("");
@@ -99,16 +99,14 @@ const UpdateApp = React.forwardRef<UpdateRef, UpdateProps>(
         const [appOrderError, setAppOrderError] = useState(false);
 
         // Status radio buttons
-        const [status, setStatus] = useState("Active");
+        const [status, setStatus] = useState((originalValues.active) ? "Active" : "Deactive");
 
         const handleChangeStatus = (event: React.ChangeEvent<HTMLInputElement>) => {
             setStatus((event.target as HTMLInputElement).value);
         };
         // Status radio buttons
 
-        const submitForm = (e: any) => {
-            e.preventDefault();
-
+        const submitForm = () => {
             // Get the user from local storage
             // Add validation also 
             const userLocalStorage = JSON.parse(localStorage.getItem('user') || '{}');
@@ -149,17 +147,18 @@ const UpdateApp = React.forwardRef<UpdateRef, UpdateProps>(
                         appOrder !== ""
                     ) {
                         const formState = {
-                            "appName": appName,
-                            "appDescription": appDescription,
-                            "appUrl": appUrl,
-                            "appOrder": appOrder,
-                            "loggedInUser": loggedInUser,
-                            "active": (status === "Active") ? true : false
+                            "formId": originalValues.formId,
+                            "moduleName": originalValues.moduleName,
+                            "formName": originalValues.formName,
+                            "formUrl": originalValues.formUrl,
+                            "appId": originalValues.appId,
+                            "active": (status === "Active") ? true : false,
+                            "loggedInUser": loggedInUser
                         };
 
-                        console.log("User Form Data ===> ", formState);
+                        console.log("Update App Data ===> ", formState);
 
-                        axios.post('https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/saveAppDetails',
+                        axios.put(url,
                             formState
                             , {
                                 headers: {
@@ -172,12 +171,12 @@ const UpdateApp = React.forwardRef<UpdateRef, UpdateProps>(
                                     setSnackBarHandler({
                                         severity: (response.data.code === "200.200") ? "success" : "error",
                                         open: true,
-                                        message: (response.data.code === "200.200") ? `App ${appName} has been created successfully` : response.data.message
+                                        message: (response.data.code === "200.200") ? `App ${appName} has been updated successfully` : response.data.message
                                     });
                                     const m = response.data.message;
                                     if (response.data.code === "200.200") {
                                         setTimeout(() => {
-                                            navigate("/account/apps/view");
+                                            setOpenUpdateTableModal(false);
                                         }, 3000);
                                     }
                                     console.log(m);
@@ -187,12 +186,6 @@ const UpdateApp = React.forwardRef<UpdateRef, UpdateProps>(
                                 console.log(error);
                             });
                     } else {
-                        // alert("Please fill All fields");
-                        // set the errors
-                        setAppNameError(true);
-                        setAppDescriptionError(true);
-                        setAppUrlError(true);
-                        setAppOrderError(true);
                         setSnackBarHandler({
                             severity: 'error',
                             open: true,

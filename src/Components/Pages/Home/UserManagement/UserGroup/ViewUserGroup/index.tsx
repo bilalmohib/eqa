@@ -124,6 +124,8 @@ const ViewUserGroup: React.FC<ViewUserGroupProps> = ({
 
                     // Adding a new property appId in the array
                     arr.forEach((element: any) => {
+                        element.userId = element.user.userId;
+                        element.grpId = element.group.grpId; 
                         element.user = element.user.userId + " " + element.user.userName;
                         element.group = element.group.grpId + " " + element.group.grpName;
                         element.active = element.active === true ? "true" : "false";

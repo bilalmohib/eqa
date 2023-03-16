@@ -112,9 +112,10 @@ const UpdateUserGroup = React.forwardRef<UpdateRef, UpdateProps>(
         const [userIdError, setUserIdError] = useState(false);
 
         // Status radio buttons
-        const [status, setStatus] = useState("Active");
+        // alert("original Active : "+originalValues.active)
+        const [status, setStatus] = useState(originalValues.active ? "Active" : "Deactive");
 
-        const [description, setDescription] = useState("");
+        const [description, setDescription] = useState(`Assigning group ${originalValues.grpId} to User ${originalValues.userId}`);
 
         const [descriptionError, setDescriptionError] = useState(false);
 
@@ -130,7 +131,6 @@ const UpdateUserGroup = React.forwardRef<UpdateRef, UpdateProps>(
         const [loadData, setLoadData] = useState(true);
 
         // FOR REACT MULTI SELECT
-
         // @1) groupName
         const [groupName, setGroupName] = useState<any>([]);
 
@@ -153,6 +153,17 @@ const UpdateUserGroup = React.forwardRef<UpdateRef, UpdateProps>(
         // FOR REACT MULTI SELECT
 
         useEffect(() => {
+            console.log("Group Name : ", groupName);
+        })
+
+        // // Assigning the original values to group list and the userId List
+        // useEffect(()=>{
+        //     // Assigning group list the original value
+        //     for(let i =0;i<)
+        // })
+        // // Assigning the original values to group list and the userId List
+
+        useEffect(() => {
             let accessToken: any = Cookies.get("accessToken");
 
             if (accessToken === undefined || accessToken === null) {
@@ -170,6 +181,13 @@ const UpdateUserGroup = React.forwardRef<UpdateRef, UpdateProps>(
                 })
                     .then((res) => {
                         setUserList(res.data.obj);
+                        let usersList = res.data.obj;
+
+                        for (let i = 0; i < usersList.length; i++) {
+                            if (usersList[i].userId === originalValues.userId) {
+                                setUserId(usersList[i]);
+                            }
+                        }
                     })
                     .catch((err) => {
                         console.log(err);
@@ -183,6 +201,16 @@ const UpdateUserGroup = React.forwardRef<UpdateRef, UpdateProps>(
                 })
                     .then((res) => {
                         setGroupsList(res.data.obj);
+
+                        let groupsList = res.data.obj;
+
+                        for (let i = 0; i < groupsList.length; i++) {
+                            if (groupsList[i].grpId === originalValues.grpId) {
+                                let value = groupsList[i];
+                                console.log("Group Value Matches is here: ", [value.grpId]);
+                                setGroupName([value.grpId]);
+                            }
+                        }
                     })
                     .catch((err) => {
                         console.log(err);
@@ -210,9 +238,7 @@ const UpdateUserGroup = React.forwardRef<UpdateRef, UpdateProps>(
         };
         // Status radio buttons
 
-        const submitForm = (e: any) => {
-            e.preventDefault();
-
+        const submitForm = () => {
             // Get the user from local storage
             // Add validation also 
             const userLocalStorage = JSON.parse(localStorage.getItem('user') || '{}');
@@ -248,6 +274,7 @@ const UpdateUserGroup = React.forwardRef<UpdateRef, UpdateProps>(
                         groupName.length > 0
                     ) {
                         const formState = {
+                            "userGroupId": originalValues.userGroupId,
                             "groupIds": groupName,
                             "userId": userId.userId,
                             "description": description,
@@ -255,9 +282,9 @@ const UpdateUserGroup = React.forwardRef<UpdateRef, UpdateProps>(
                             "loggedInUser": loggedInUser
                         };
 
-                        console.log("User Form Data ===> ", formState);
+                        console.log("User Group Data ===> ", formState);
 
-                        axios.post('https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/createUserGroup',
+                        axios.put(url,
                             formState
                             , {
                                 headers: {
@@ -269,13 +296,13 @@ const UpdateUserGroup = React.forwardRef<UpdateRef, UpdateProps>(
                                 if (response.status === 200) {
                                     setSnackBarHandler({
                                         severity: (response.data.code === "200.200") ? "success" : "error",
-                                        message: (response.data.code === "200.200") ? "User Group Updated Successfully." : (response.data.message),
+                                        message: (response.data.code === "200.200") ? `User Group with id ${originalValues.userGroupId} Updated Successfully.` : (response.data.message),
                                         open: true
                                     })
                                     const m = response.data.message;
                                     if (response.data.code === "200.200") {
                                         setTimeout(() => {
-                                            navigate("/account/user-group/view");
+                                            setOpenUpdateTableModal(false);
                                         }, 3000);
                                     }
                                     console.log(m);
@@ -304,7 +331,7 @@ const UpdateUserGroup = React.forwardRef<UpdateRef, UpdateProps>(
                         // set the errors
 
                         setSnackBarHandler({
-                            message: `Please fill out all the fields.`,
+                            message: "Please fill all fields to update the UserGroup",
                             open: true,
                             severity: "error"
                         })
@@ -400,12 +427,14 @@ const UpdateUserGroup = React.forwardRef<UpdateRef, UpdateProps>(
                     </Box>
                 </Box> */}
 
-                    <Box sx={{ flexGrow: 1, mt: 0 }}>
+                    <Box sx={{
+                        flexGrow: 1,
+                        mt: 0
+                    }}>
                         <Grid container spacing={
                             // Categorize according to small, medium, large screen
                             (windowSize[0] < 576) ? (0) : ((windowSize[0] < 768) ? (1) : ((windowSize[0] < 992) ? (2) : (3)))
                         }>
-
                             {/* Select one USER ID */}
                             <Grid
                                 item
@@ -719,6 +748,7 @@ const UpdateUserGroup = React.forwardRef<UpdateRef, UpdateProps>(
                     isOpen={snackBarHandler.open}
                     message={snackBarHandler.message}
                     severity={snackBarHandler.severity}
+                    isModal={true}
                     setIsOpen={
                         // Only pass the setIsOpen function to the SnackBar component
                         // and not the whole state object

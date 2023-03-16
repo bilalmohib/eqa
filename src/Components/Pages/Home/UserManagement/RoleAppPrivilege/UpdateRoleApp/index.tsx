@@ -233,9 +233,7 @@ const UpdateRoleApp = React.forwardRef<UpdateRef, UpdateProps>(
         // Handling Permissions Status
 
 
-        const submitForm = (e: any) => {
-            e.preventDefault();
-
+        const submitForm = () => {
             // Get the user from local storage
             // Add validation also 
             const userLocalStorage = JSON.parse(localStorage.getItem('user') || '{}');
@@ -284,7 +282,7 @@ const UpdateRoleApp = React.forwardRef<UpdateRef, UpdateProps>(
 
                         console.log("User Form Data ===> ", formState);
 
-                        axios.post('https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/savePrivilege',
+                        axios.put(url,
                             formState
                             , {
                                 headers: {
@@ -304,8 +302,8 @@ const UpdateRoleApp = React.forwardRef<UpdateRef, UpdateProps>(
                                     const m = response.data.message;
                                     if (response.data.code === "200.200") {
                                         setTimeout(() => {
-                                            navigate("/account/role-app/view");
-                                        }, 2000);
+                                            setOpenUpdateTableModal(false);
+                                        }, 3000);
                                     }
                                     console.log(m);
                                 }
@@ -761,6 +759,7 @@ const UpdateRoleApp = React.forwardRef<UpdateRef, UpdateProps>(
                     isOpen={snackBarHandler.open}
                     message={snackBarHandler.message}
                     severity={snackBarHandler.severity}
+                    isModal={true}
                     setIsOpen={
                         // Only pass the setIsOpen function to the SnackBar component
                         // and not the whole state object

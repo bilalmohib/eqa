@@ -110,9 +110,7 @@ const UpdateRole = React.forwardRef<UpdateRef, UpdateProps>(
         };
         // Status radio buttons
 
-        const submitForm = (e: any) => {
-            e.preventDefault();
-
+        const submitForm = () => {
             // Get the user from local storage
             // Add validation also 
             const userLocalStorage = JSON.parse(localStorage.getItem('user') || '{}');
@@ -143,7 +141,7 @@ const UpdateRole = React.forwardRef<UpdateRef, UpdateProps>(
                         roleDescription !== ""
                     ) {
                         const formState = {
-                            "roleId": "OR05",
+                            "roleId": originalValues.roleId,
                             "roleName": roleName,
                             "roleDescription": roleDescription,
                             "loggedInUser": loggedInUser,
@@ -152,7 +150,7 @@ const UpdateRole = React.forwardRef<UpdateRef, UpdateProps>(
 
                         console.log("User Form Data ===> ", formState);
 
-                        axios.post('https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/createRole',
+                        axios.put(url,
                             formState
                             , {
                                 headers: {
@@ -164,13 +162,13 @@ const UpdateRole = React.forwardRef<UpdateRef, UpdateProps>(
                                 if (response.status === 200) {
                                     setSnackBarHandler({
                                         severity: (response.data.code === "200.200") ? "success" : "error",
-                                        message: (response.data.code === "200.200") ? `Role ${roleName} has been created successfully` : (response.data.message),
+                                        message: (response.data.code === "200.200") ? `Role ${roleName} has been updated successfully` : (response.data.message),
                                         open: true
                                     })
                                     const m = response.data.message;
                                     if (response.data.code === "200.200") {
                                         setTimeout(() => {
-                                            navigate("/account/roles/view");
+                                            setOpenUpdateTableModal(false);
                                         }, 3000);
                                     }
                                     console.log(m);
@@ -180,9 +178,6 @@ const UpdateRole = React.forwardRef<UpdateRef, UpdateProps>(
                                 console.log(error);
                             });
                     } else {
-                        // set the errors
-                        setRoleNameError(true);
-                        setRoleDescriptionError(true);
                         setSnackBarHandler({
                             open: true,
                             message: "Please fill all the required fields",
@@ -459,6 +454,7 @@ const UpdateRole = React.forwardRef<UpdateRef, UpdateProps>(
                     isOpen={snackBarHandler.open}
                     message={snackBarHandler.message}
                     severity={snackBarHandler.severity}
+                    isModal={true}
                     setIsOpen={
                         // Only pass the setIsOpen function to the SnackBar component
                         // and not the whole state object

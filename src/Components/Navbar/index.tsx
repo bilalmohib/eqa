@@ -592,7 +592,7 @@ const Navbar: React.FC<NavProps> = ({
                                                 {(NotificationsList.map((v: any, i: number) => {
                                                     return (
                                                         <div key={i} className={styles.individualNotificationList}>
-                                                            <h3 className={styles.nlTitle}>{v.title}</h3>
+                                                            <h3 className={styles.nlTitle}>{v.title} ddsaf</h3>
                                                             <p className={styles.nlMessage}>{v.message}</p>
                                                             <p className={styles.nlTime}>{v.time}</p>
                                                         </div>
