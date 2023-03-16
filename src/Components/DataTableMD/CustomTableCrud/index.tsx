@@ -274,7 +274,8 @@ const CustomTableCrud: FC<CustomTableProps> = ({
     //     }));
     //     return generate;
     // }, [ColHeader, getCommonEditTextFieldProps]);
-    const generateColumns = useCallback((data: any) => {
+
+    const generateColumns = useCallback((data: any, currentLang: string) => {
         if (!data || !data.length) return [];
 
         const keyOrder = ColHeader.flat();
@@ -285,12 +286,144 @@ const CustomTableCrud: FC<CustomTableProps> = ({
             return indexA - indexB;
         });
 
+        let columnNamesArabic: any = null;
+
+        if (columnName === "ViewUsers") {
+            columnNamesArabic = {
+                "createdBy": 'تم الإنشاء بواسطة',
+                "creationDateAndTime": 'تاريخ ووقت الإنشاء',
+                "updatedBy": 'تم التحديث بواسطة',
+                "updateDateAndTime": 'تاريخ ووقت التحديث',
+                "userId": 'معرّف المستخدم',
+                "firstName": 'الاسم الأول',
+                "lastName": 'اسم العائلة',
+                "userName": 'اسم المستخدم',
+                "password": 'كلمة السر',
+                "emailId": 'البريد الإلكتروني',
+                "collegeId": 'معرّف الكلية',
+                "campusId": 'معرّف الحرم الجامعي',
+                "departmentId": 'معرّف القسم',
+                "emailStatus": 'حالة البريد الإلكتروني',
+                "staff": 'الموظفين',
+                "superUser": 'المستخدم الفائق',
+                "active": 'نشط'
+            };
+        }
+        else if (columnName === "ViewApps") {
+            columnNamesArabic = {
+                "createdBy": "تم الإنشاء بواسطة",
+                "creationDateAndTime": "تاريخ ووقت الإنشاء",
+                "updatedBy": "تم التحديث بواسطة",
+                "updateDateAndTime": "تاريخ ووقت التحديث",
+                "appId": "معرّف التطبيق",
+                "appName": "اسم التطبيق",
+                "appName_Ar": "اسم التطبيق بالعربية",
+                "appIcon": "رمز التطبيق",
+                "appDescription": "وصف التطبيق",
+                "appUrl": "رابط التطبيق",
+                "appOrder": "ترتيب التطبيق",
+                "active": "نشط"
+            }
+        }
+        else if (columnName === "ViewGroups") {
+            columnNamesArabic = {
+                "createdBy": "المُنشئ",
+                "creationDateAndTime": "تاريخ ووقت الإنشاء",
+                "updatedBy": "المُحدّث",
+                "updateDateAndTime": "تاريخ ووقت التحديث",
+                "grpId": "معرّف المجموعة",
+                "grpName": "اسم المجموعة",
+                "grpDescription": "وصف المجموعة",
+                "active": "نشط"
+            };
+        }
+        else if (columnName === "ViewRoles") {
+            columnNamesArabic = {
+                "createdBy": 'المنشئ',
+                "creationDateAndTime": 'تاريخ الإنشاء والوقت',
+                "updatedBy": 'المحدث',
+                "updateDateAndTime": 'تاريخ التحديث والوقت',
+                "roleId": 'رقم الدور',
+                "roleName": 'اسم الدور',
+                "roleDescription": 'وصف الدور',
+                "active": 'نشط'
+            };
+        }
+        else if (columnName === "ViewAppForm") {
+            columnNamesArabic = {
+                "createdBy": "صُنِّعَ بواسطة",
+                "creationDateAndTime": "تاريخ ووقت الإنشاء",
+                "updatedBy": "تحديث بواسطة",
+                "updateDateAndTime": "تاريخ ووقت التحديث",
+                "formId": "معرّف النموذج",
+                "moduleName": "اسم الوحدة النمطية",
+                "formName": "اسم النموذج",
+                "formName_Ar": "اسم النموذج بالعربية",
+                "formIcon": "رمز النموذج",
+                "formUrl": "عنوان URL للنموذج",
+                "appDetails": "وصف التطبيق",
+                "active": "نشط؟",
+                "appId": "معرّف التطبيق"
+            }
+        }
+        else if (columnName === "ViewRoleApp") {
+            columnNamesArabic = {
+                "createdBy": "المنشئ",
+                "creationDateAndTime": "تاريخ ووقت الإنشاء",
+                "updatedBy": "المحدث",
+                "updateDateAndTime": "تاريخ ووقت التحديث",
+                "privilegeId": "معرّف الصلاحية",
+                "role": "الدور",
+                "appDetails": "تفاصيل التطبيق",
+                "appForms": "أشكال التطبيق",
+                "createPermission": "صلاحية الإنشاء",
+                "readPermission": "صلاحية القراءة",
+                "updatePermission": "صلاحية التحديث",
+                "deletePermission": "صلاحية الحذف",
+                "active": "نشط؟"
+            }
+        } else if (columnName === "ViewGroupRole") {
+            columnNamesArabic = {
+                "createdBy": "صُنِّعَ بواسطة",
+                "creationDateAndTime": "تاريخ ووقت الإنشاء",
+                "updatedBy": "تحديث بواسطة",
+                "updateDateAndTime": "تاريخ ووقت التحديث",
+                "groupRoleId": "معرف دور المجموعة",
+                "groupDetails": "تفاصيل المجموعة",
+                "role": "الدور",
+                "grpRoleDescription": "وصف دور المجموعة",
+                "grpId": "معرّف المجموعة",
+                "roleId": "معرّف الدور",
+                "active": "نشط؟"
+            }
+        } else if (columnName === "ViewUserGroup") {
+            columnNamesArabic = {
+                "createdBy": "تم إنشاؤه بواسطة",
+                "creationDateAndTime": "تاريخ ووقت الإنشاء",
+                "updatedBy": "تم التحديث بواسطة",
+                "updateDateAndTime": "تاريخ ووقت التحديث",
+                "userGroupId": "معرّف مجموعة المستخدمين",
+                "user": "المستخدم",
+                "group": "المجموعة",
+                "active": "نشط",
+                "userId": "معرف المستخدم",
+                "grpId": "معرف المجموعة"
+            }
+        }
+
+        // console.log("Cols data[0] ===> ", data[0]);
+
         const generate = keys.map((key) => {
-            const header = key
+            let header = key
                 .toString()
                 .replace(/([a-z])([A-Z])/g, '$1 $2') // add space between camelCase words
                 .replace(/([A-Z])([A-Z][a-z])/g, '$1 $2') // add space between consecutive capital letters
                 .replace(/^./, (str) => str.toUpperCase()); // capitalize first letter
+
+            if (currentLang === 'ar') {
+                // Map column name to Arabic if current language is Arabic
+                header = columnNamesArabic[key] || header;
+            }
 
             return {
                 accessorKey: key.toString(),
@@ -301,11 +434,12 @@ const CustomTableCrud: FC<CustomTableProps> = ({
                 }),
             };
         });
+
         return generate;
-    }, [ColHeader, getCommonEditTextFieldProps]);
+    }, [ColHeader, columnName, getCommonEditTextFieldProps]);
 
     // Usage:
-    const columnsNew = useMemo(() => generateColumns(data), [data, generateColumns]);
+    const columnsNew = useMemo(() => generateColumns(data, currentLang), [currentLang, data, generateColumns]);
 
     // State to Store rows 
     const [tableData, setTableData] = useState<any>(null);
@@ -387,7 +521,7 @@ const CustomTableCrud: FC<CustomTableProps> = ({
                             }
                         }
                         else {
-                            newRow[prop] = 'null';
+                            newRow[prop] = '';
                             // console.log('updateDateAndTime Null --> ', data[i][prop]);
                         }
                         break;
@@ -398,10 +532,11 @@ const CustomTableCrud: FC<CustomTableProps> = ({
                         // newRow['appId'] = data[i][prop].appId;
                         break;
                     case 'active':
-                        newRow[prop] = data[i][prop] ? 'true' : 'false';
+                        console.log("Active : ",data[i][prop]);
+                        newRow[prop] = data[i][prop];
                         break;
                     default:
-                        newRow[prop] = data[i][prop] || 'null';
+                        newRow[prop] = data[i][prop] || '';
                 }
             }
 
@@ -534,6 +669,12 @@ const CustomTableCrud: FC<CustomTableProps> = ({
                     url = `https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/deleteGroupRole/${groupRoleId}`;
                     message = "Are you sure you want to delete GroupRole " + groupRoleId + " ?";
                     deleteMessage = `GroupRole with Id: ${groupRoleId} Deleted Successfully`;
+                } else if (columnName === "ViewUserGroup") {
+                    const userGroupId = row.getValue('userGroupId');
+
+                    url = `https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/deleteUserGroup/${userGroupId}`;
+                    message = "Are you sure you want to delete UserGroup " + userGroupId + " ?";
+                    deleteMessage = `UserGroup with Id: ${userGroupId} Deleted Successfully`;
                 }
                 else {
                     alert("Wrong Column Name");
@@ -900,21 +1041,29 @@ const CustomTableCrud: FC<CustomTableProps> = ({
 
                     // Fetch all the properties of the object [...tableData]
                     newValues = {
+                        // "groupRoleId": values.groupRoleId,
+                        // "roleIds": [values.roleId],
+                        // "grpId": values.grpId,
+                        // "grpRoleDescription": values.grpRoleDescription,
+                        // "active": true
                         "groupRoleId": values.groupRoleId,
-                        "roleIds": [values.roleId],
+                        "roleId": values.roleId,
                         "grpId": values.grpId,
                         "grpRoleDescription": values.grpRoleDescription,
-                        "active": true
+                        "loggedInUser": loggedInUser,
+                        "active": values.active === "true" ? true : false
                     }
                 } else if (columnName === "ViewUserGroup") {
                     url = "https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/updateUserGroup";
+
+                    alert(values.active)
 
                     // Fetch all the properties of the object [...tableData]
                     newValues = {
                         "userGroupId": values.userGroupId,
                         "userId": values.userId,
                         "grpId": values.grpId,
-                        "active": true
+                        "active": values.active === "true" ? true : false
                     }
                 } else if (columnName === "ViewRoleApp") {
                     url = "https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/updateRoleApp";
@@ -924,7 +1073,7 @@ const CustomTableCrud: FC<CustomTableProps> = ({
                         "roleAppId": values.roleAppId,
                         "roleId": values.roleId,
                         "appId": values.appId,
-                        "active": true
+                        "active": values.active === "true" ? true : false
                     }
                 }
                 else {
@@ -1064,7 +1213,6 @@ const CustomTableCrud: FC<CustomTableProps> = ({
                                             </IconButton>
                                         </Tooltip>
                                     )}
-
                                 </Box>
                             )}
                         />

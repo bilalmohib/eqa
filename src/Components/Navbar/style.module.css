@@ -92,6 +92,7 @@ html[dir="rtl"] .minifyNavigationDropdown li a button {
     margin-left: 20px;
     margin-top: -5px;
 }
+
 html[dir="rtl"] .searchBoxNavbar {
     transition: 0.1s linear;
     /* border-bottom: 0.2px solid #4f747a56; */
@@ -121,6 +122,7 @@ html[dir="rtl"] .searchBoxNavbar {
     /* border: 2px solid red; */
     transition: 0.1s linear;
 }
+
 html[dir="rtl"] .isSideOpen {
     width: calc(100% - 270px) !important;
     margin-right: 270px;
@@ -135,6 +137,7 @@ html[dir="rtl"] .isSideOpen {
     transition: 0.1s linear;
     /* border: 2px solid rgb(0, 13, 255); */
 }
+
 html[dir="rtl"] .isSideClose {
     width: 100%;
     margin-right: 0px;
@@ -163,6 +166,7 @@ html[dir="rtl"] .isSideClose {
     margin-top: 0px !important;
     /* border: 1px solid red !important; */
 }
+
 html[dir="rtl"] .dropdown_nav {
     margin-right: -240px !important;
     margin-left: 0px !important;
@@ -211,6 +215,7 @@ html[dir="rtl"] .dropdown_nav {
     padding-top: 11px;
     padding-left: 30px;
 }
+
 html[dir="rtl"] .dropdownProfileNav li a {
     /* border: 1px solid red; */
     height: 45px;
@@ -227,6 +232,7 @@ html[dir="rtl"] .dropdownProfileNav li a {
     padding-top: 11px;
     padding-left: 30px;
 }
+
 html[dir="rtl"] .dropdownProfileNav li a:hover {
     /* border: 1px solid red; */
     background-color: #f8f9fa;
@@ -255,6 +261,7 @@ html[dir="rtl"] .dropdownProfileNav li a:hover {
 .rightInsideProfile {
     margin-left: 10px;
 }
+
 html[dir="rtl"] .rightInsideProfile {
     margin-right: 10px;
     margin-left: 0px;
@@ -280,6 +287,7 @@ html[dir="rtl"] .rightInsideProfile {
     width: 350px !important;
     margin-left: -280px !important;
 }
+
 html[dir="rtl"] .dropdownNotificationNav {
     /* border: 2px solid red !important; */
     width: 350px !important;
@@ -362,6 +370,9 @@ html[dir="rtl"] .dropdownNotificationNav {
     border-bottom: 0.1px solid rgba(0, 0, 0, 0.212) !important;
     /* border: 2px solid blue; */
 }
+html[dir="rtl"] .individualMessageList {
+    flex-direction: row-reverse;
+}
 
 .individualMessageList:hover {
     background-color: rgba(128, 128, 128, 0.125);
@@ -389,6 +400,11 @@ html[dir="rtl"] .dropdownNotificationNav {
     margin-top: 19px;
 }
 
+html[dir="rtl"] .nameML {
+    /* border: 1px solid red; */
+    padding-left: 5%;
+}
+
 .messageML {
     line-height: 15px;
     font-size: 12px !important;
@@ -406,6 +422,9 @@ html[dir="rtl"] .dropdownNotificationNav {
     margin-top: -13px;
     font-size: 12px !important;
     color: grey;
+}
+html[dir="rtl"] .timeML{
+    padding-left: 5%;
 }
 
 .eventContainer h5 {
@@ -429,9 +448,10 @@ html[dir="rtl"] .dropdownNotificationNav {
     border-bottom: 0.1px solid rgba(0, 0, 0, 0.212) !important;
     /* border: 2px solid blue; */
 }
+
 html[dir="rtl"] .individualNotificationList {
     padding-right: 5%;
-    padding-left: 0%;
+    padding-left: initial !important;
 }
 
 .individualNotificationList:hover {
@@ -441,8 +461,13 @@ html[dir="rtl"] .individualNotificationList {
 
 .nlTitle {
     font-size: 16px;
-    /* border: 1px solid red; */
+
     padding-top: 12px;
+}
+
+html[dir="rtl"] .nlTitle {
+    /* border: 1px solid red; */
+    padding-left: 5% !important;
 }
 
 .nlMessage {
@@ -452,16 +477,28 @@ html[dir="rtl"] .individualNotificationList {
     height: fit-content;
     margin-top: -3px !important;
     display: -webkit-box !important;
-    max-width: 90% !important;
+    /* max-width: 90% !important; */
     -webkit-line-clamp: 4 !important;
     -webkit-box-orient: vertical !important;
     overflow: hidden !important;
+}
+
+html[dir="rtl"] .nlMessage {
+    /* border: 1px solid red; */
+    padding-left: 5% !important;
+    padding-right: initial !important;
 }
 
 .nlTime {
     margin-top: -13px;
     font-size: 12px !important;
     color: grey;
+}
+
+html[dir="rtl"] .nlTime {
+    /* border: 1px solid red; */
+    padding-left: 5% !important;
+    padding-right: initial !important;
 }
 
 /* %%%%%%%%%%%%%%%%%%%%%%% Notifcations container %%%%%%%%%%%%%%%%%%%% */
@@ -477,6 +514,7 @@ html[dir="rtl"] .individualNotificationList {
     width: 350px !important;
     margin-left: -220px !important;
 }
+
 html[dir="rtl"] .dropdownAppNav {
     margin-right: -220px !important;
     margin-left: 0px !important;
@@ -546,6 +584,7 @@ html[dir="rtl"] .dropdownAppNav {
     text-align: center;
     padding-top: 10px;
 }
+
 html[dir="rtl"] .insideContainerAC li {
     width: auto;
     height: 95px;
@@ -561,7 +600,8 @@ html[dir="rtl"] .insideContainerAC li {
     color: #4f747a;
     transform: scale(1.1);
 }
-.selectedAppStyle{
+
+.selectedAppStyle {
     background-color: #f7f7f7;
     transition: 0.2s linear;
     color: #4f747a;
@@ -590,6 +630,7 @@ html[dir="rtl"] .insideContainerAC li {
     z-index: 1;
     /* border: 1px solid blue !important; */
 }
+
 html[dir="rtl"] .isSideOpenMinified {
     margin-right: 80px !important;
     margin-left: 0px !important;
@@ -607,18 +648,20 @@ html[dir="rtl"] .isSideOpenMinified {
         transition: 0.1s linear;
         z-index: 1;
     }
+
     html[dir="rtl"] .isSideOpen {
         margin-right: 0px !important;
         margin-left: 0px !important;
         /* border: 2px solid rgb(77, 255, 0); */
     }
-    dropdownProfileNav
-    .isSideClose {
+
+    dropdownProfileNav .isSideClose {
         width: 100%;
         margin-left: 0px;
         transition: 0.1s linear;
         /* border: 2px solid rgb(0, 13, 255); */
     }
+
     html[dir="rtl"] .isSideClose {
         margin-right: 0px !important;
         margin-left: 0px !important;

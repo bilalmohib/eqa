@@ -111,9 +111,9 @@ const UpdateGroupRole = React.forwardRef<UpdateRef, UpdateProps>(
         const [groupIdError, setGroupIdError] = useState(false);
 
         // Status radio buttons
-        const [status, setStatus] = useState("Active");
+        const [status, setStatus] = useState((originalValues.active)?"Active":"Deactive");
 
-        const [description, setDescription] = useState("");
+        const [description, setDescription] = useState(originalValues.grpRoleDescription);
 
         const [descriptionError, setDescriptionError] = useState(false);
 
@@ -152,6 +152,10 @@ const UpdateGroupRole = React.forwardRef<UpdateRef, UpdateProps>(
         // FOR REACT MULTI SELECT
 
         useEffect(() => {
+            console.log("Current Role Name is : ", roleName);
+        })
+
+        useEffect(() => {
             let accessToken: any = Cookies.get("accessToken");
 
             if (accessToken === undefined || accessToken === null) {
@@ -169,12 +173,22 @@ const UpdateGroupRole = React.forwardRef<UpdateRef, UpdateProps>(
                 })
                     .then((res) => {
                         setGroupList(res.data.obj);
+
+                        let groupsList = res.data.obj;
+
+                        for (let i = 0; i < groupsList.length; i++) {
+                            if (groupsList[i].grpId === originalValues.grpId) {
+                                let value = groupsList[i];
+                                console.log("Group Value Matches is here: ", [value.grpId]);
+                                setGroupId(value);
+                            }
+                        }
                     })
                     .catch((err) => {
                         console.log(err);
                     });
 
-                // Fetching Group
+                // Fetching Roles
                 axios.get("https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/fetchRoles", {
                     headers: {
                         "x-api-key": accessToken
@@ -182,6 +196,19 @@ const UpdateGroupRole = React.forwardRef<UpdateRef, UpdateProps>(
                 })
                     .then((res) => {
                         setRolesList(res.data.obj);
+
+                        let rolesList = res.data.obj;
+
+                        console.log("Roles List here ()()()()==> : ",rolesList[0].roleId === originalValues.roleId)
+
+                        for (let i = 0; i < rolesList.length; i++) {
+                            if (rolesList[i].roleId === originalValues.roleId) {
+                                let value = rolesList[i];
+                                // alert("We came here")
+                                console.log("Role value Matches is here: ", [value.roleId]);
+                                setRoleName([value.roleId]);
+                            }
+                        }
                     })
                     .catch((err) => {
                         console.log(err);
@@ -209,9 +236,7 @@ const UpdateGroupRole = React.forwardRef<UpdateRef, UpdateProps>(
         };
         // Status radio buttons
 
-        const submitForm = (e: any) => {
-            e.preventDefault();
-
+        const submitForm = () => {
             // Get the user from local storage
             // Add validation also 
             const userLocalStorage = JSON.parse(localStorage.getItem('user') || '{}');
@@ -247,16 +272,17 @@ const UpdateGroupRole = React.forwardRef<UpdateRef, UpdateProps>(
                         roleName.length > 0
                     ) {
                         const formState = {
-                            "roleIds": roleName,
+                            "groupRoleId": originalValues.groupRoleId,
+                            "roleId": roleName[0],
                             "grpId": groupId.grpId,
                             "grpRoleDescription": description,
-                            // "loggedInUser": loggedInUser,
+                            "loggedInUser": loggedInUser,
                             "active": (status === "Active") ? true : false
                         };
 
-                        console.log("User Form Data ===> ", formState);
+                        console.log("Update Group Role Data ===> ", formState);
 
-                        axios.post('https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/saveGroupRole',
+                        axios.post(url,
                             formState
                             , {
                                 headers: {
@@ -274,7 +300,7 @@ const UpdateGroupRole = React.forwardRef<UpdateRef, UpdateProps>(
                                     const m = response.data.message;
                                     if (response.data.code === "200.200") {
                                         setTimeout(() => {
-                                            navigate("/account/group-role/view");
+                                            setOpenUpdateTableModal(false);
                                         }, 3000);
                                     }
                                     console.log(m);
@@ -611,7 +637,6 @@ const UpdateGroupRole = React.forwardRef<UpdateRef, UpdateProps>(
                                         placeholder={`${t('Home.Sidebar.list.userManagement.subMenu.groupRole.details.Add.fields.description.placeholder')}`}
                                         multiline
                                         rows={4}
-                                        defaultValue=""
                                         error={descriptionError}
                                         helperText={(descriptionError) ? (descriptionErrorMessage) : ("")}
                                         variant="outlined"
@@ -702,6 +727,7 @@ const UpdateGroupRole = React.forwardRef<UpdateRef, UpdateProps>(
                     isOpen={snackBarHandler.open}
                     message={snackBarHandler.message}
                     severity={snackBarHandler.severity}
+                    isModal={true}
                     setIsOpen={
                         // Only pass the setIsOpen function to the SnackBar component
                         // and not the whole state object

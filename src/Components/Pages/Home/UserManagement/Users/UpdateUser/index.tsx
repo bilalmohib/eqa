@@ -125,6 +125,9 @@ const UpdateUser = React.forwardRef<UpdateRef, UpdateProps>(
         //     "superUser": values.superUser === "true" ? true : false
         // };
 
+        // Data from Local Storage for logged in user
+        const user = JSON.parse(localStorage.getItem('user') || '{}');
+
         // FOR REACT MULTI SELECT
         const [groupName, setGroupName] = useState<any>([]);
 
@@ -159,77 +162,33 @@ const UpdateUser = React.forwardRef<UpdateRef, UpdateProps>(
             window.innerHeight
         ]);
 
-        interface OptionType {
-            id: string;
-            title: string;
-            value: string;
-        }
-
         // For College autocomplete component
-        const collegeList: OptionType[] = [
-            {
-                id: '0C01',
-                title: 'College of Computers & Information Technology',
-                value: 'College of Computers & Information Technology'
-            },
-            {
-                id: '0C02',
-                title: 'College of Science',
-                value: 'College of Science'
-            }
-        ];
+        const [collegeList, setCollegeList] = useState<any>([]);
 
         // For autocomplete component
         const collegeDefaultProps = {
             options: collegeList,
-            getOptionLabel: (option: any) => option.title
+            getOptionLabel: (option: any) => option.collegeName
         };
         // For College autocomplete component
 
         // For Campus autocomplete component
-        const campusList: OptionType[] = [
-            {
-                id: '0CP01',
-                title: 'Boy',
-                value: 'Boy'
-            },
-            {
-                id: '0CP02',
-                title: 'Girl',
-                value: 'Girl'
-            }
-        ];
+        const [campusList, setCampusList] = useState<any>([]);
 
         // For autocomplete component
         const campusDefaultProps = {
             options: campusList,
-            getOptionLabel: (option: any) => option.title,
+            getOptionLabel: (option: any) => option.campusName,
         };
         // For Campus autocomplete component
 
         // For Department autocomplete component
-        const departmentList: OptionType[] = [
-            {
-                id: '0D01',
-                title: 'Computer Science',
-                value: 'Computer Science'
-            },
-            {
-                id: '0D02',
-                title: 'Computer Engineering',
-                value: 'Computer Engineering'
-            },
-            {
-                id: '0D03',
-                title: 'Information Technology',
-                value: 'Information Technology'
-            }
-        ];
+        const [departmentList, setDepartmentList] = useState<any>([]);
 
         // For autocomplete component
         const departmentDefaultProps = {
             options: departmentList,
-            getOptionLabel: (option: any) => option.title,
+            getOptionLabel: (option: any) => option.departmentName,
         };
         // For Department autocomplete component
 
@@ -306,7 +265,6 @@ const UpdateUser = React.forwardRef<UpdateRef, UpdateProps>(
                     .then((res) => {
                         if (res.data.code === "200.200") {
                             setViewAllUsersData(res.data);
-                            setLoading(false);
                         }
                     })
                     .catch((err) => {
@@ -328,6 +286,54 @@ const UpdateUser = React.forwardRef<UpdateRef, UpdateProps>(
                     .catch((err) => {
                         console.log(err);
                     });
+
+                // @3) Fetching All Colleges
+                axios.get("https://eqa.datadimens.com:8443/EQACORE-SERVICE/colleges", {
+                    headers: {
+                        "x-api-key": accessToken
+                    }
+                })
+                    .then((res) => {
+                        if (res.data.code === "200.200") {
+                            setCollegeList(res.data.obj);
+                        }
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                    });
+
+                // @4) Fetching All Campuses by College Id
+                let loggedInUserCollegeId = user.College;
+                axios.get(`https://eqa.datadimens.com:8443/EQACORE-SERVICE/getAllCampusesByCollegeId/${loggedInUserCollegeId}`, {
+                    headers: {
+                        "x-api-key": accessToken
+                    }
+                })
+                    .then((res) => {
+                        if (res.data.code === "200.200") {
+                            setCampusList(res.data.obj);
+                        }
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                    });
+
+                // @5) Fetching All Departments
+                axios.get("https://eqa.datadimens.com:8443/EQACORE-SERVICE/department", {
+                    headers: {
+                        "x-api-key": accessToken
+                    }
+                })
+                    .then((res) => {
+                        if (res.data.code === "200.200") {
+                            setDepartmentList(res.data.obj);
+                        }
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                    });
+
+                setLoading(false);
             }
             else {
                 navigate("/login");
@@ -357,8 +363,7 @@ const UpdateUser = React.forwardRef<UpdateRef, UpdateProps>(
         const [groupNameError, setGroupNameError] = useState(false);
 
 
-        const submitForm = (e: any) => {
-            e.preventDefault();
+        const submitForm = () => {
 
             // Get the user from local storage
             // Add validation also 
@@ -421,9 +426,9 @@ const UpdateUser = React.forwardRef<UpdateRef, UpdateProps>(
                             "userName": emailId.split('@')[0],
                             "password": password,
                             "emailId": emailId,
-                            "collegeId": collegeId.id,
-                            "campusId": campusId.id,
-                            "departmentId": departmentId.id,
+                            "collegeId": collegeId.collegeId,
+                            "campusId": campusId.campusId,
+                            "departmentId": departmentId.departmentId,
                             "loggedInUser": loggedInUser,
                             "active": (statusState === "Active") ? true : false,
                             "staff": staffStatus,
