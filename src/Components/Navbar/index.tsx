@@ -2,10 +2,15 @@
 import React, { useState, useEffect } from 'react';
 import Cookies from 'js-cookie';
 import { CgMenu } from 'react-icons/cg';
+import { BsPerson, BsFullscreen } from 'react-icons/bs';
+import { GrLanguage } from "react-icons/gr";
+import { FcPrint } from "react-icons/fc";
 import { MdMenuOpen } from 'react-icons/md';
 import styles from './style.module.css';
 import { useNavigate } from 'react-router';
 import { AiTwotoneLock } from 'react-icons/ai';
+import { RiLockPasswordLine } from "react-icons/ri";
+import { CiSettings } from "react-icons/ci";
 import { MdOutlineFactCheck, MdManageAccounts, MdPieChart } from "react-icons/md";
 // import SchoolIcon from '@mui/icons-material/School';
 // import ImportExportIcon from '@mui/icons-material/ImportExport';
@@ -132,6 +137,8 @@ const Navbar: React.FC<NavProps> = ({
         horizontal: 'center'
     });
     const { vertical, horizontal, open, message } = state;
+
+    const isSuperUser = user.superUser;
 
     // The Sidebar List
     let FinalsidebarAppsListArray = JSON.parse(localStorage.getItem("sidebarAppsListArray") || '[]');
@@ -432,6 +439,7 @@ const Navbar: React.FC<NavProps> = ({
                             name="search"
                             autoComplete="search"
                             // autoFocus
+                            dir={(currentLang === "ar") ? "rtl" : "ltr"}
                             value={searchValue}
                             sx={{
                                 // Focus the input
@@ -463,25 +471,29 @@ const Navbar: React.FC<NavProps> = ({
                     {(true) ? (
                         <div className={`${styles.navItems} navbar-nav`}>
                             {/* Generic Settings Menu Item */}
-                            <li className="nav-item">
-                                <a className="nav-link d-flex align-items-center" title="Generic Settings" href="#" role="button" data-mdb-toggle="dropdown" aria-expanded="false">
-                                    <IoColorPaletteOutline
-                                        size={28}
-                                        className={styles.navLinkDropDown}
-                                    />
-                                </a>
-                            </li>
-                            {/* Settings Menu Item */}
+                            {(isSuperUser) && (
+                                <li className="nav-item">
+                                    <a className="nav-link d-flex align-items-center" title="Generic Settings" href="#" role="button" data-mdb-toggle="dropdown" aria-expanded="false">
+                                        <IoColorPaletteOutline
+                                            size={28}
+                                            className={styles.navLinkDropDown}
+                                        />
+                                    </a>
+                                </li>
+                            )}
+                            {/* Generic Settings Menu Item */}
 
                             {/* Settings Menu Item */}
-                            <li className="nav-item" onClick={() => navigate("/settings/general")}>
-                                <a className="nav-link d-flex align-items-center" title="Settings" href="#" id="navbarDropdownMenuLink" role="button" data-mdb-toggle="dropdown" aria-expanded="false">
-                                    <IoSettingsOutline
-                                        size={28}
-                                        className={styles.navLinkDropDown}
-                                    />
-                                </a>
-                            </li>
+                            {(isSuperUser) && (
+                                <li className="nav-item" onClick={() => navigate("/settings/general")}>
+                                    <a className="nav-link d-flex align-items-center" title="Settings" href="#" id="navbarDropdownMenuLink" role="button" data-mdb-toggle="dropdown" aria-expanded="false">
+                                        <IoSettingsOutline
+                                            size={28}
+                                            className={styles.navLinkDropDown}
+                                        />
+                                    </a>
+                                </li>
+                            )}
                             {/* Settings Menu Item */}
 
                             {/* Apps DropDown */}
@@ -667,27 +679,59 @@ const Navbar: React.FC<NavProps> = ({
                                             setOpenUserInfoModal(!openUserInfoModal);
                                         }}
                                     >
-                                        <a className="dropdown-item" href="#">{t('Home.Header.DropDown.Apps.Profile.list.myprofile')}</a>
+                                        <a className="dropdown-item" href="#">
+                                            <div className='d-flex'>
+                                                <p className={styles.profileIconStyles}>
+                                                    <BsPerson fontSize={22} />
+                                                </p>
+                                                <p style={{ paddingTop: 2 }}>
+                                                    {t('Home.Header.DropDown.Apps.Profile.list.myprofile')}
+                                                </p>
+                                            </div>
+                                        </a>
                                     </li>
                                     <li
                                         onClick={() => {
                                             setOpenResetPasswordModal(!openResetPasswordModal);
                                         }}
                                     >
-                                        <a className="dropdown-item" href="#">{t('Home.Header.DropDown.Apps.Profile.list.changePassword')}</a>
+                                        <a className="dropdown-item" href="#">
+                                            <div className='d-flex'>
+                                                <p className={styles.profileIconStyles}>
+                                                    <RiLockPasswordLine fontSize={22} />
+                                                </p>
+                                                <p style={{ paddingTop: 2 }}>
+                                                    {t('Home.Header.DropDown.Apps.Profile.list.changePassword')}
+                                                </p>
+                                            </div>
+                                        </a>
                                     </li>
                                     <li
                                         onClick={() => {
                                             navigate("/settings/general");
                                         }}
                                     >
-                                        <a className="dropdown-item" href="#">{t('Home.Header.DropDown.Apps.Profile.list.settings')}</a>
+                                        <a className="dropdown-item" href="#">
+                                            <div className='d-flex'>
+                                                <p className={styles.profileIconStyles}>
+                                                    <CiSettings fontSize={24} />
+                                                </p>
+                                                <p style={{ paddingTop: 2 }}>
+                                                    {t('Home.Header.DropDown.Apps.Profile.list.settings')}
+                                                </p>
+                                            </div>
+                                        </a>
                                     </li>
                                     <li>
                                         <a className="dropdown-item" href="#">
-                                            <div className={`d-flex justify-content-between ${(i18n.language === "ar") && ("flex-row-reverse")}`}>
-                                                <div>
-                                                    {t('Home.Header.DropDown.Apps.Profile.list.Language.title')}
+                                            <div className={`d-flex justify-content-between`}>
+                                                <div className='d-flex'>
+                                                    <p className={styles.profileIconStyles}>
+                                                        <GrLanguage fontSize={20} style={{ color: "#7f7f7f", marginLeft: 1 }} />
+                                                    </p>
+                                                    <p style={{ paddingTop: 2 }}>
+                                                        {t('Home.Header.DropDown.Apps.Profile.list.Language.title')}
+                                                    </p>
                                                 </div>
                                                 <div>
                                                     <b style={{ color: "black" }}>
@@ -723,12 +767,17 @@ const Navbar: React.FC<NavProps> = ({
                                     >
                                         <a className="dropdown-item" href="#">
                                             <div className="d-flex justify-content-between">
-                                                <div>
-                                                    {document.fullscreenElement ? (
-                                                        <span>{t('Home.Header.DropDown.Apps.Profile.list.fullscreen.fullTitle')}</span>
-                                                    ) : (
-                                                        <span>{t('Home.Header.DropDown.Apps.Profile.list.fullscreen.title')}</span>
-                                                    )}
+                                                <div className='d-flex'>
+                                                    <p className={styles.profileIconStyles}>
+                                                        <BsFullscreen fontSize={20} style={{ color: "#7f7f7f", marginLeft: 1 }} />
+                                                    </p>
+                                                    <p style={{ paddingTop: 2 }}>
+                                                        {document.fullscreenElement ? (
+                                                            <span>{t('Home.Header.DropDown.Apps.Profile.list.fullscreen.fullTitle')}</span>
+                                                        ) : (
+                                                            <span>{t('Home.Header.DropDown.Apps.Profile.list.fullscreen.title')}</span>
+                                                        )}
+                                                    </p>
                                                 </div>
                                                 <div>
                                                     <i style={{ color: "grey" }}>{t('Home.Header.DropDown.Apps.Profile.list.fullscreen.shortcut')}</i>
@@ -751,8 +800,13 @@ const Navbar: React.FC<NavProps> = ({
                                     >
                                         <a className="dropdown-item" href="#">
                                             <div className="d-flex justify-content-between">
-                                                <div>
-                                                    {t('Home.Header.DropDown.Apps.Profile.list.print.title')}
+                                                <div className="d-flex">
+                                                    <p className={styles.profileIconStyles}>
+                                                        <FcPrint fontSize={22} style={{ color: "#7f7f7f", marginLeft: 1 }} />
+                                                    </p>
+                                                    <p style={{ paddingTop: 2 }}>
+                                                        {t('Home.Header.DropDown.Apps.Profile.list.print.title')}
+                                                    </p>
                                                 </div>
                                                 <div>
                                                     <i style={{ color: "grey" }}>{t('Home.Header.DropDown.Apps.Profile.list.print.shortcut')}</i>

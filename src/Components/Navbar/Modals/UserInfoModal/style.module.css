@@ -12,6 +12,10 @@
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
 
+.loader {
+    height: 80vh;
+}
+
 /* Title */
 .transition_modal_title {
     font-size: 2rem;
@@ -31,6 +35,7 @@
     justify-content: center !important;
     margin-top: 30px !important;
 }
+
 html[dir="rtl"] .modalHeader {
     flex-direction: row-reverse !important;
 }
@@ -90,6 +95,7 @@ html[dir="rtl"] .modalHeader {
     /* border-left: 1px solid #e0e0e0 !important; */
 
 }
+
 html[dir="rtl"] .modalHeaderRight {
     margin-left: 0px !important;
     margin-right: 30px !important;
@@ -146,13 +152,15 @@ html[dir="rtl"] .modalHeaderRight {
 
     display: flex;
 }
+
 html[dir="rtl"] .modalBodyTitle {
     /* justify-content: flex-end !important; */
 }
 
-.modalBodyTitleIcon{
+.modalBodyTitleIcon {
     display: flex;
 }
+
 html[dir="rtl"] .modalBodyTitleIcon {
     flex-direction: row-reverse !important;
     /* justify-content: flex-end !important; */
@@ -164,6 +172,7 @@ html[dir="rtl"] .modalBodyTitleIcon {
     cursor: pointer;
     display: flex;
 }
+
 html[dir="rtl"] .modalBodySocial {
     flex-direction: row-reverse !important;
 }
@@ -212,6 +221,7 @@ html[dir="rtl"] .modalBodySocial {
 }
 
 @media all and (max-width:500px) {
+
     /* Header Info */
     .modalHeader {
         /* border: 1px solid red !important; */

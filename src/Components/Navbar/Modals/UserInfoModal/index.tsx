@@ -1,6 +1,11 @@
 import * as React from "react";
 import { useState, useEffect, FC } from "react";
 
+import Cookies from "js-cookie";
+import { useNavigate } from 'react-router-dom';
+
+import axios from "axios";
+
 // importing from material ui
 import {
     Box,
@@ -31,6 +36,8 @@ import { useTranslation } from "react-i18next";
 
 import profileImage from "../../../../assets/Images/Navbar/Modal/ProfileInfo/logo.png";
 
+import Loader from "../../../Loader";
+
 import styles from "./style.module.css";
 
 interface UserInfoModalProps {
@@ -51,7 +58,8 @@ const UserInfoModal: FC<UserInfoModalProps> = ({
     setCurrentLang
 }) => {
     const { t } = useTranslation();
-    
+    const navigate = useNavigate();
+
     const [windowDimensions, setWindowDimensions] = useState({
         width: window.innerWidth,
         height: window.innerHeight
@@ -71,6 +79,106 @@ const UserInfoModal: FC<UserInfoModalProps> = ({
 
     // Data from Local Storage for logged in user
     const user = JSON.parse(localStorage.getItem('user') || '{}');
+
+    const [loading, setLoading] = useState<boolean>(true);
+
+    // States for fetching college, campus and department 
+    const [collegeName, setCollegeName] = useState<string>("");
+    const [campusName, setCampusName] = useState<string>("");
+    const [departmentName, setDepartmentName] = useState<string>("");
+
+    useEffect(() => {
+        let accessToken: any = Cookies.get("accessToken");
+
+        if (accessToken === undefined || accessToken === null) {
+            accessToken = null;
+        }
+
+        console.log("Access Token in View Users ===> ", accessToken);
+
+        if (accessToken !== null) {
+            // @1) Fetching All Colleges
+            axios.get("https://eqa.datadimens.com:8443/EQACORE-SERVICE/colleges", {
+                headers: {
+                    "x-api-key": accessToken
+                }
+            })
+                .then((res) => {
+                    if (res.data.code === "200.200") {
+                        let collegeList = res.data.obj;
+
+                        console.log("Logged In College Id: ",user.College);
+                        console.log("College List: ", collegeList);
+
+                        // Looping through all colleges and checking if one of it maches the logged in user college id
+                        for (let i = 0; i < collegeList.length; i++) {
+                            if (collegeList[i].collegeId === user.College) {
+                                setCollegeName(collegeList[i].collegeName);
+                            }
+                        }
+                    }
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+
+            // @2) Fetching All Campuses by College Id
+            axios.get(`https://eqa.datadimens.com:8443/EQACORE-SERVICE/getAllCampusesByCollegeId/${user.College}`, {
+                headers: {
+                    "x-api-key": accessToken
+                }
+            })
+                .then((res) => {
+                    if (res.data.code === "200.200") {
+                        let campusList = res.data.obj;
+
+                        console.log("Logged In Campus Id: ",user.Campus);
+                        console.log("Campus List: ", campusList);
+
+                        // Looping through all colleges and checking if one of it maches the logged in user college id
+                        for (let i = 0; i < campusList.length; i++) {
+                            if (campusList[i].campusId === user.Campus) {
+                                setCampusName(campusList[i].campusName);
+                            }
+                        }
+                    }
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+
+            // @3) Fetching All Departments
+            axios.get("https://eqa.datadimens.com:8443/EQACORE-SERVICE/department", {
+                headers: {
+                    "x-api-key": accessToken
+                }
+            })
+                .then((res) => {
+                    if (res.data.code === "200.200") {
+                        let departmentList = res.data.obj;
+
+                        console.log("Logged In Department Id: ",user.Department);
+                        console.log("Department List: ", departmentList);
+
+                        // Looping through all colleges and checking if one of it maches the logged in user college id
+                        for (let i = 0; i < departmentList.length; i++) {
+                            // console.log("Department Id Match: ", departmentList[i].departmentId === user.Department);
+                            if (departmentList[i].departmentId === user.Department) {
+                                setDepartmentName(departmentList[i].departmentName);
+                            }
+                        }
+                    }
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+
+            setLoading(false);
+        }
+        else {
+            navigate("/login");
+        }
+    }, [navigate, user.Campus, user.College, user.Department]);
 
     return (
         <Modal
@@ -153,7 +261,8 @@ const UserInfoModal: FC<UserInfoModalProps> = ({
                                     <Box>
                                         <Box sx={{ pl: 1 }}>
                                             {/* {t('Home.Header.Modals.ProfileModal.College.value')} */}
-                                            {user.College}
+                                            {/* {user.College} */}
+                                            {collegeName}
                                         </Box>
                                     </Box>
                                 </Typography>
@@ -188,7 +297,8 @@ const UserInfoModal: FC<UserInfoModalProps> = ({
                                     <Box>
                                         <Box sx={{ pl: 1 }}>
                                             {/* {t('Home.Header.Modals.ProfileModal.Campus.value')} */}
-                                            {user.Campus}
+                                            {/* {user.Campus} */}
+                                            {campusName}
                                         </Box>
                                     </Box>
                                 </Typography>
@@ -306,7 +416,8 @@ const UserInfoModal: FC<UserInfoModalProps> = ({
                                     <Box>
                                         <Box sx={{ pl: 1 }}>
                                             {/* {t('Home.Header.Modals.ProfileModal.Department.value')} */}
-                                            {user.Department}
+                                            {/* {user.Department} */}
+                                            {departmentName}
                                         </Box>
                                     </Box>
                                 </Typography>

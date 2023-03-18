@@ -420,7 +420,7 @@ const CustomTableCrud: FC<CustomTableProps> = ({
                 .replace(/([A-Z])([A-Z][a-z])/g, '$1 $2') // add space between consecutive capital letters
                 .replace(/^./, (str) => str.toUpperCase()); // capitalize first letter
 
-            if (currentLang === 'ar') {
+            if (currentLang === 'ar' && columnName !== "CourseOfferingTypes") {
                 // Map column name to Arabic if current language is Arabic
                 header = columnNamesArabic[key] || header;
             }
@@ -532,8 +532,14 @@ const CustomTableCrud: FC<CustomTableProps> = ({
                         // newRow['appId'] = data[i][prop].appId;
                         break;
                     case 'active':
-                        console.log("Active : ",data[i][prop]);
-                        newRow[prop] = data[i][prop];
+                        console.log("Active : ", data[i][prop]);
+                        newRow[prop] = data[i][prop].toString();
+                        break;
+                    case 'staff':
+                        newRow[prop] = data[i][prop].toString();
+                        break;
+                    case 'superUser':
+                        newRow[prop] = data[i][prop].toString();
                         break;
                     default:
                         newRow[prop] = data[i][prop] || '';
@@ -1186,6 +1192,15 @@ const CustomTableCrud: FC<CustomTableProps> = ({
                             enableClickToCopy
                             onEditingRowSave={handleEditRow}
                             onEditingRowCancel={handleCancelRowEdits}
+                            initialState={{
+                                density: 'compact',
+                                columnVisibility: {
+                                    createdBy: false,
+                                    creationDateAndTime: false,
+                                    updateDateAndTime: false,
+                                    updatedBy: false
+                                }
+                            }}
                             renderRowActions={({ row, table }) => (
                                 <Box sx={{ display: 'flex', gap: '1rem', justifyContent: "center" }}>
                                     {(editable) && (
