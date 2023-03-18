@@ -13,6 +13,16 @@
 
 }
 
+.profileIconStyles{
+    width: 30px;
+    height: 30px;
+    margin-right: 15px;
+}
+html[dir="rtl"] .profileIconStyles{
+    margin-left: 15px;
+    margin-right: 0px;
+}
+
 /* Minifying Navigation Styles */
 .minifyNavigationDropdown {
     min-width: 63px !important;
@@ -188,9 +198,11 @@ html[dir="rtl"] .dropdown_nav {
 }
 
 .navLinkDropDown:hover {
-    border: 0.1px solid #4f747a;
-    background-color: #4f747a;
-    color: aliceblue;
+    /* border: 0.1px solid #4f747a; */
+    /* background-color: #4f747a; */
+    border:0.1px solid #f7f7f7;
+    background-color: #f7f7f7;
+    /* color: aliceblue; */
     transition: 0.3s cubic-bezier(0.455, 0.03, 0.515, 0.955);
 }
 

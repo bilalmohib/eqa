@@ -246,6 +246,30 @@ const UpdateUser = React.forwardRef<UpdateRef, UpdateProps>(
         // Loading state
         const [loading, setLoading] = useState(true)
 
+        // Form States
+        const [firstName, setFirstName] = useState(originalValues.firstName);
+        const [lastName, setLastName] = useState(originalValues.lastName);
+        const [password, setPassword] = useState(originalValues.password);
+        const [emailId, setEmailId] = useState(originalValues.emailId);
+        const [collegeId, setCollegeId] = useState<any>(originalValues.collegeId);
+        const [campusId, setCampusId] = useState<any>(originalValues.campusId);
+        const [departmentId, setDepartmentId] = useState<any>(originalValues.departmentId);
+
+        // Errors
+        const [userNameError, setUserNameError] = useState(false);
+        const [firstNameError, setFirstNameError] = useState(false);
+        const [lastNameError, setLastNameError] = useState(false);
+        const [passwordError, setPasswordError] = useState(false);
+        const [emailIdError, setEmailIdError] = useState(false);
+        const [collegeIdError, setCollegeIdError] = useState(false);
+        const [campusIdError, setCampusIdError] = useState(false);
+        const [departmentIdError, setDepartmentIdError] = useState(false);
+        const [groupNameError, setGroupNameError] = useState(false);
+
+        // useEffect(()=>{
+        //     console.log("The ")
+        // })
+
         useEffect(() => {
             let accessToken: any = Cookies.get("accessToken");
 
@@ -280,7 +304,6 @@ const UpdateUser = React.forwardRef<UpdateRef, UpdateProps>(
                     .then((res) => {
                         if (res.data.code === "200.200") {
                             setViewAllGroupsData(res.data.obj);
-                            setLoading(false);
                         }
                     })
                     .catch((err) => {
@@ -296,6 +319,16 @@ const UpdateUser = React.forwardRef<UpdateRef, UpdateProps>(
                     .then((res) => {
                         if (res.data.code === "200.200") {
                             setCollegeList(res.data.obj);
+
+                            let collegeList = res.data.obj;
+
+                            for (let i = 0; i < collegeList.length; i++) {
+                                if (collegeList[i].collegeId === originalValues.collegeId) {
+                                    let value = collegeList[i];
+                                    console.log("College Value Matches is here: ", value);
+                                    setCollegeId(value);
+                                }
+                            }
                         }
                     })
                     .catch((err) => {
@@ -303,20 +336,35 @@ const UpdateUser = React.forwardRef<UpdateRef, UpdateProps>(
                     });
 
                 // @4) Fetching All Campuses by College Id
-                let loggedInUserCollegeId = user.College;
-                axios.get(`https://eqa.datadimens.com:8443/EQACORE-SERVICE/getAllCampusesByCollegeId/${loggedInUserCollegeId}`, {
-                    headers: {
-                        "x-api-key": accessToken
-                    }
-                })
-                    .then((res) => {
-                        if (res.data.code === "200.200") {
-                            setCampusList(res.data.obj);
+                if (collegeId !== null) {
+                    console.log("College ID New ::: ", collegeId.collegeId);
+                    axios.get(`https://eqa.datadimens.com:8443/EQACORE-SERVICE/getAllCampusesByCollegeId/${collegeId.collegeId}`, {
+                        headers: {
+                            "x-api-key": accessToken
                         }
                     })
-                    .catch((err) => {
-                        console.log(err);
-                    });
+                        .then((res) => {
+                            if (res.data.code === "200.200") {
+                                setCampusList(res.data.obj);
+
+                                let campusList = res.data.obj;
+
+                                for (let i = 0; i < campusList.length; i++) {
+                                    if (campusList[i].campusId === originalValues.campusId) {
+                                        let value = campusList[i];
+                                        console.log("Campus Value Matches is here: ", value);
+                                        setCampusId(value);
+                                    } else {
+                                        setCampusList([]);
+                                        setLoading(false);
+                                    }
+                                }
+                            }
+                        })
+                        .catch((err) => {
+                            console.log(err);
+                        });
+                }
 
                 // @5) Fetching All Departments
                 axios.get("https://eqa.datadimens.com:8443/EQACORE-SERVICE/department", {
@@ -327,6 +375,16 @@ const UpdateUser = React.forwardRef<UpdateRef, UpdateProps>(
                     .then((res) => {
                         if (res.data.code === "200.200") {
                             setDepartmentList(res.data.obj);
+
+                            let departmentList = res.data.obj;
+
+                            for (let i = 0; i < departmentList.length; i++) {
+                                if (departmentList[i].departmentId === originalValues.departmentId) {
+                                    let value = departmentList[i];
+                                    console.log("Department Value Matches is here: ", value);
+                                    setDepartmentId(value);
+                                }
+                            }
                         }
                     })
                     .catch((err) => {
@@ -338,30 +396,9 @@ const UpdateUser = React.forwardRef<UpdateRef, UpdateProps>(
             else {
                 navigate("/login");
             }
-        }, [navigate]);
+        }, [collegeId, navigate, originalValues.campusId, originalValues.collegeId, originalValues.departmentId]);
 
         console.log("Original Values ===> ", originalValues);
-
-        // Form States
-        const [firstName, setFirstName] = useState(originalValues.firstName);
-        const [lastName, setLastName] = useState(originalValues.lastName);
-        const [password, setPassword] = useState(originalValues.password);
-        const [emailId, setEmailId] = useState(originalValues.emailId);
-        const [collegeId, setCollegeId] = useState<any>(originalValues.collegeId);
-        const [campusId, setCampusId] = useState<any>(originalValues.campusId);
-        const [departmentId, setDepartmentId] = useState<any>(originalValues.departmentId);
-
-        // Errors
-        const [userNameError, setUserNameError] = useState(false);
-        const [firstNameError, setFirstNameError] = useState(false);
-        const [lastNameError, setLastNameError] = useState(false);
-        const [passwordError, setPasswordError] = useState(false);
-        const [emailIdError, setEmailIdError] = useState(false);
-        const [collegeIdError, setCollegeIdError] = useState(false);
-        const [campusIdError, setCampusIdError] = useState(false);
-        const [departmentIdError, setDepartmentIdError] = useState(false);
-        const [groupNameError, setGroupNameError] = useState(false);
-
 
         const submitForm = () => {
 

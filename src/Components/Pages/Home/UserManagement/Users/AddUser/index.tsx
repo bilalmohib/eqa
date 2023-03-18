@@ -305,7 +305,6 @@ const AddUser: React.FC<UserProps> = ({
                 });
 
             // @4) Fetching All Campuses by College Id
-            // let loggedInUserCollegeId = user.College;
             if (collegeId !== null) {
                 console.log("College ID New ::: ", collegeId.collegeId);
                 axios.get(`https://eqa.datadimens.com:8443/EQACORE-SERVICE/getAllCampusesByCollegeId/${collegeId.collegeId}`, {
