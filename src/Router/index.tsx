@@ -11,7 +11,7 @@ import {
 // 1) Home Page
 import Home from "../Pages/Home";
 // 2) Login Page
-// import Login from "../Pages/Login";
+import Login from "../Pages/Login";
 // 3) Login2 Page
 import Login2 from "../Pages/Login2";
 // 4) Forgot Password Page
@@ -85,7 +85,7 @@ const AppRouter: FC<AppRouterProps> = ({
     return (
         <Router>
             <Routes>
-                <Route index path={"/login"} element={<Login2
+                <Route index path={"/login"} element={<Login
                     setShowHeader={setShowHeader}
                     currentTab={currentTab}
                     setCurrentTab={setCurrentTab}

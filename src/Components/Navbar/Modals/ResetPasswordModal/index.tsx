@@ -25,6 +25,8 @@ import Grid2 from "@mui/material/Unstable_Grid2";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 
+import SnackBar from "../../../../Components/SnackBar";
+
 // Importing Services Layer API
 import { resetPassword } from "../../../../Service/ResetPassword";
 
@@ -57,10 +59,23 @@ const ResetPasswordModal: React.FC<ResetPasswordModalProps> = ({
     const [newPassword, setNewPassword] = useState<string>("");
     const [confirmPassword, setConfirmPassword] = useState<string>("");
 
+    // For handling errors of oldPassword, newPassword and confirmPassword
+    const [oldPasswordError, setOldPasswordError] = useState<boolean>(false);
+    const [newPasswordError, setNewPasswordError] = useState<boolean>(false);
+    const [confirmPasswordError, setConfirmPasswordError] = useState<boolean>(false);
+
     // For handling show/hide password
     const [showOldPassword, setShowOldPassword] = useState(false);
     const [showNewPassword, setShowNewPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
+    ///////////////////////////////// Snackbar State /////////////////////////////////
+    const [snackBarHandler, setSnackBarHandler] = useState({
+        open: false,
+        message: '',
+        severity: 'success'
+    });
+    ///////////////////////////////// Snackbar State /////////////////////////////////
 
     const handleClickShowOldPassword = () =>
         setShowOldPassword((show) => !show);
@@ -77,15 +92,54 @@ const ResetPasswordModal: React.FC<ResetPasswordModalProps> = ({
     // For handling show/hide password
 
     const validateForm = () => {
-        // alert("Validating Form");
-        //   setValidateNow(true);
+
+        // {{{{{{{{{{{{{{{{{{{{ Change Password Policy }}}}}}}}}}}}}}}}}}}}
+        // 1. Password must be at least 8 characters long.
+        // 2. Password must contain at least one uppercase letter, one lowercase letter, one number and one special character.
+        // 3. Password must not contain any spaces.
+
+        const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+
+        if (!passwordRegex.test(newPassword)) {
+            setSnackBarHandler({
+                severity: "warning",
+                open: true,
+                message: "Password must be at least 8 characters long and must contain at least one uppercase letter, one lowercase letter, one number and one special character."
+            });
+
+            setNewPasswordError(true);
+            setNewPassword("");
+            setConfirmPassword("");
+
+            return false;
+        }
+
+        if (oldPassword === "") {
+            setOldPasswordError(true);
+        }
+        if (newPassword === "") {
+            setNewPasswordError(true);
+        }
+        if (confirmPassword === "") {
+            setConfirmPasswordError(true);
+        }
+
         if (oldPassword === "" || newPassword === "" || confirmPassword === "") {
             // setValidationStatusEmail(false);
             // setValidationStatusPassword(false);
-            alert("Please enter all the fields");
+            // alert("Please enter all the fields");
+            setSnackBarHandler({
+                severity: "warning",
+                open: true,
+                message: "Please enter all the fields"
+            });
             return;
         } else if (newPassword !== confirmPassword) {
-            alert("New Password and Confirm Password should be same");
+            setSnackBarHandler({
+                severity: "warning",
+                open: true,
+                message: "New Password and Confirm Password should be same"
+            });
             return;
         }
         else {
@@ -110,25 +164,25 @@ const ResetPasswordModal: React.FC<ResetPasswordModalProps> = ({
                 )
                     .then((response) => {
                         console.log("Presetation layer response: ", response);
-                        if (response === "SUCCESS") {
-                            alert("Password Reset Successfully");
-                            // setValidationStatusEmail(true);
-                            // setValidationStatusPassword(true);
-                            // alert("Validated Correctly");
-                            // navigate("/dashboard/assessment");
-                        }
+                        setSnackBarHandler({
+                            severity: (response === "OK") ? "success" : "warning",
+                            open: true,
+                            message: (response === "OK") ? `Password has been reset successfully` : "Please enter correct current password"
+                        });
+                        setTimeout(() => {
+                            setOpenResetPasswordModal(false);
+                        }, 3000);
                     })
                     .catch((error) => {
                         console.log("Error in response : ", error);
-                        // else if (response === 'FAILED') {
-                        // setValidateNow(false);
-                        // setValidationStatusEmail(false);
-                        // setValidationStatusPassword(false);
-                        // Clearing the fields
-                        setOldPassword("");
-                        setNewPassword("");
-                        setConfirmPassword("");
-                        alert("Invalid Credentials");
+                        // setOldPassword("");
+                        // setNewPassword("");
+                        // setConfirmPassword("");
+                        setSnackBarHandler({
+                            severity: "error",
+                            open: true,
+                            message: error.message
+                        });
                         return;
                     });
             }
@@ -187,8 +241,14 @@ const ResetPasswordModal: React.FC<ResetPasswordModalProps> = ({
                                     id="old-password-textfield"
                                     type={showOldPassword ? 'text' : 'password'}
                                     value={oldPassword}
+                                    error={oldPasswordError}
                                     // dir="rtl"
-                                    onChange={(e) => setOldPassword(e.target.value)}
+                                    onChange={(e) => {
+                                        if (oldPasswordError) {
+                                            setOldPasswordError(false);
+                                        }
+                                        setOldPassword(e.target.value);
+                                    }}
                                     endAdornment={
                                         <InputAdornment position="end">
                                             <IconButton
@@ -201,8 +261,8 @@ const ResetPasswordModal: React.FC<ResetPasswordModalProps> = ({
                                             </IconButton>
                                         </InputAdornment>
                                     }
-                                    label={`${t('Home.Header.Modals.ChangePassword.policy.Inputs.OldPassword.label')}`}
-                                    placeholder={`${t('Home.Header.Modals.ChangePassword.policy.Inputs.OldPassword.placeholder')}`}
+                                    label={(oldPasswordError) ? `${t('Home.Header.Modals.ChangePassword.policy.Inputs.OldPassword.error')}` : `${t('Home.Header.Modals.ChangePassword.policy.Inputs.OldPassword.label')}`}
+                                    placeholder={(oldPasswordError) ? `${t('Home.Header.Modals.ChangePassword.policy.Inputs.OldPassword.error')}` : `${t('Home.Header.Modals.ChangePassword.policy.Inputs.OldPassword.placeholder')}`}
                                 />
                             </FormControl>
                             <FormControl className={styles.formControlBox} sx={{ mt: 2 }} variant="outlined" fullWidth>
@@ -211,8 +271,14 @@ const ResetPasswordModal: React.FC<ResetPasswordModalProps> = ({
                                     id="newPassword"
                                     type={showNewPassword ? 'text' : 'password'}
                                     value={newPassword}
+                                    error={newPasswordError}
                                     // dir="rtl"
-                                    onChange={(e) => setNewPassword(e.target.value)}
+                                    onChange={(e) => {
+                                        if (newPasswordError) {
+                                            setNewPasswordError(false);
+                                        }
+                                        setNewPassword(e.target.value);
+                                    }}
                                     endAdornment={
                                         <InputAdornment position="end">
                                             <IconButton
@@ -225,8 +291,8 @@ const ResetPasswordModal: React.FC<ResetPasswordModalProps> = ({
                                             </IconButton>
                                         </InputAdornment>
                                     }
-                                    label={`${t('Home.Header.Modals.ChangePassword.policy.Inputs.NewPassword.label')}`}
-                                    placeholder={`${t('Home.Header.Modals.ChangePassword.policy.Inputs.NewPassword.placeholder')}`}
+                                    label={(newPasswordError) ? `${t('Home.Header.Modals.ChangePassword.policy.Inputs.NewPassword.error')}` : `${t('Home.Header.Modals.ChangePassword.policy.Inputs.NewPassword.label')}`}
+                                    placeholder={(newPasswordError) ? `${t('Home.Header.Modals.ChangePassword.policy.Inputs.NewPassword.error')}` : `${t('Home.Header.Modals.ChangePassword.policy.Inputs.NewPassword.placeholder')}`}
                                 />
                             </FormControl>
                             <FormControl className={styles.formControlBox} sx={{ mt: 2 }} variant="outlined" fullWidth>
@@ -235,8 +301,14 @@ const ResetPasswordModal: React.FC<ResetPasswordModalProps> = ({
                                     id="ConfirmPassword"
                                     type={showConfirmPassword ? 'text' : 'password'}
                                     value={confirmPassword}
+                                    error={confirmPasswordError}
                                     // dir="rtl"
-                                    onChange={(e) => setConfirmPassword(e.target.value)}
+                                    onChange={(e) => {
+                                        if (confirmPasswordError) {
+                                            setConfirmPasswordError(false);
+                                        }
+                                        setConfirmPassword(e.target.value);
+                                    }}
                                     endAdornment={
                                         <InputAdornment position="end">
                                             <IconButton
@@ -249,8 +321,8 @@ const ResetPasswordModal: React.FC<ResetPasswordModalProps> = ({
                                             </IconButton>
                                         </InputAdornment>
                                     }
-                                    label={`${t('Home.Header.Modals.ChangePassword.policy.Inputs.ConfirmPassword.label')}`}
-                                    placeholder={`${t('Home.Header.Modals.ChangePassword.policy.Inputs.ConfirmPassword.placeholder')}`}
+                                    label={(confirmPasswordError) ? `${t('Home.Header.Modals.ChangePassword.policy.Inputs.ConfirmPassword.error')}` : `${t('Home.Header.Modals.ChangePassword.policy.Inputs.ConfirmPassword.label')}`}
+                                    placeholder={(confirmPasswordError) ? `${t('Home.Header.Modals.ChangePassword.policy.Inputs.ConfirmPassword.error')}` : `${t('Home.Header.Modals.ChangePassword.policy.Inputs.ConfirmPassword.placeholder')}`}
                                 />
                             </FormControl>
                         </Grid2>
@@ -306,6 +378,16 @@ const ResetPasswordModal: React.FC<ResetPasswordModalProps> = ({
                             {t('Home.Header.Modals.ChangePassword.policy.Buttons.Cancel')}
                         </Button>
                     </Box>
+                    <SnackBar
+                        isOpen={snackBarHandler.open}
+                        message={snackBarHandler.message}
+                        severity={snackBarHandler.severity}
+                        setIsOpen={
+                            // Only pass the setIsOpen function to the SnackBar component
+                            // and not the whole state object
+                            (isOpen: boolean) => setSnackBarHandler({ ...snackBarHandler, open: isOpen })
+                        }
+                    />
                 </Box>
             </Fade>
         </Modal>

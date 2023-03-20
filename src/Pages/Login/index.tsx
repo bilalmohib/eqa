@@ -10,10 +10,26 @@ import { Link } from 'react-router-dom';
 import logo from '../../assets/Images/Login/login_logo.png';
 
 interface LoginProps {
-    setShowHeader: any;
+    setShowHeader: any,
+    currentTab: any,
+    setCurrentTab: any,
+    mobileViewContainer: any,
+
+    // Sidebar Apps List
+    sidebarAppsListArray: any,
+    setSidebarAppsListArray: any
 }
 
-const Login: React.FC<LoginProps> = ({ setShowHeader }) => {
+const Login: React.FC<LoginProps> = ({
+    setShowHeader,
+    currentTab,
+    setCurrentTab,
+    mobileViewContainer,
+
+    // Sidebar Apps List
+    sidebarAppsListArray,
+    setSidebarAppsListArray
+}) => {
     const location = useLocation();
 
     useEffect(() => {
