@@ -13,12 +13,13 @@
 
 }
 
-.profileIconStyles{
+.profileIconStyles {
     width: 30px;
     height: 30px;
     margin-right: 15px;
 }
-html[dir="rtl"] .profileIconStyles{
+
+html[dir="rtl"] .profileIconStyles {
     margin-left: 15px;
     margin-right: 0px;
 }
@@ -137,7 +138,6 @@ html[dir="rtl"] .isSideOpen {
     width: calc(100% - 270px) !important;
     margin-right: 270px;
     margin-left: 0px;
-    /* border: 2px solid red; */
     transition: 0.1s linear;
 }
 
@@ -200,7 +200,7 @@ html[dir="rtl"] .dropdown_nav {
 .navLinkDropDown:hover {
     /* border: 0.1px solid #4f747a; */
     /* background-color: #4f747a; */
-    border:0.1px solid #f7f7f7;
+    border: 0.1px solid #f7f7f7;
     background-color: #f7f7f7;
     /* color: aliceblue; */
     transition: 0.3s cubic-bezier(0.455, 0.03, 0.515, 0.955);
@@ -382,6 +382,7 @@ html[dir="rtl"] .dropdownNotificationNav {
     border-bottom: 0.1px solid rgba(0, 0, 0, 0.212) !important;
     /* border: 2px solid blue; */
 }
+
 html[dir="rtl"] .individualMessageList {
     flex-direction: row-reverse;
 }
@@ -435,7 +436,8 @@ html[dir="rtl"] .nameML {
     font-size: 12px !important;
     color: grey;
 }
-html[dir="rtl"] .timeML{
+
+html[dir="rtl"] .timeML {
     padding-left: 5%;
 }
 
@@ -654,7 +656,7 @@ html[dir="rtl"] .isSideOpenMinified {
 
 @media all and (max-width:990px) {
     .isSideOpen {
-        width: calc(100% - 0px) !important;
+        width: 100% !important;
         margin-left: 0px;
         /* border: 2px solid rgb(77, 255, 0); */
         transition: 0.1s linear;
@@ -662,12 +664,13 @@ html[dir="rtl"] .isSideOpenMinified {
     }
 
     html[dir="rtl"] .isSideOpen {
+        width: 100% !important;
         margin-right: 0px !important;
         margin-left: 0px !important;
         /* border: 2px solid rgb(77, 255, 0); */
     }
 
-    dropdownProfileNav .isSideClose {
+    .dropdownProfileNav .isSideClose {
         width: 100%;
         margin-left: 0px;
         transition: 0.1s linear;

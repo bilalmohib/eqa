@@ -207,7 +207,8 @@ const Sidebar: React.FC<SidebarProps> = ({
                         className={styles.LogoSidebar}
                         title={`${(t('Home.Sidebar.image.title'))}`}
                         alt={`${(t('Home.Sidebar.image.alt'))}`}
-                    /> <FiChevronDown color="grey" />
+                    />
+                    <FiChevronDown color="grey" />
                 </div>
                 {(!showFilterMenu) ? (
                     <div className={styles.profileInfoContainer}>
@@ -339,7 +340,14 @@ const Sidebar: React.FC<SidebarProps> = ({
                                                         <span dangerouslySetInnerHTML={{ __html: item.icon }} />
                                                     </p>
                                                     <p className={styles.itemMenuListText}>
-                                                        {item.text}
+                                                        {(currentLang === 'ar') ?
+                                                            (
+                                                                item.appName_Ar
+                                                            ) :
+                                                            (
+                                                                item.text
+                                                            )
+                                                        }
                                                     </p>
                                                 </div>
                                             </li>
@@ -415,7 +423,11 @@ const Sidebar: React.FC<SidebarProps> = ({
                                                                                 <span
                                                                                     className={styles.textSidebarSubMenuList}
                                                                                 >
-                                                                                    {subItem.text}
+                                                                                    {(currentLang === "ar") ? (
+                                                                                        subItem.formName_Ar
+                                                                                    ) : (
+                                                                                        subItem.text
+                                                                                    )}
                                                                                 </span>
                                                                             </div>
                                                                         ) : (
@@ -436,7 +448,11 @@ const Sidebar: React.FC<SidebarProps> = ({
                                                                                 <p
                                                                                     className={styles.textSidebarSubMenuList}
                                                                                 >
-                                                                                    {subItem.text}
+                                                                                    {(currentLang === "ar") ? (
+                                                                                        subItem.formName_Ar
+                                                                                    ) : (
+                                                                                        subItem.text
+                                                                                    )}
                                                                                 </p>
                                                                             </div>
                                                                         )}

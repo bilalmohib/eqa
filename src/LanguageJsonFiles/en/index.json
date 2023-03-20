@@ -231,15 +231,18 @@
                             "Inputs": {
                                 "OldPassword": {
                                     "label": "Old Password",
-                                    "placeholder": "Enter old password"
+                                    "placeholder": "Enter old password",
+                                    "error":"Please enter old password"
                                 },
                                 "NewPassword": {
                                     "label": "New Password",
-                                    "placeholder": "Enter new password"
+                                    "placeholder": "Enter new password",
+                                    "error":"Please enter new password"
                                 },
                                 "ConfirmPassword": {
                                     "label": "Confirm New Password",
-                                    "placeholder": "Confirm new password"
+                                    "placeholder": "Confirm new password",
+                                    "error":"Please enter confirm password"
                                 }
                             },
                             "Buttons": {

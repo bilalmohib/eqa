@@ -505,15 +505,15 @@ const UpdateUser = React.forwardRef<UpdateRef, UpdateProps>(
                     } else {
                         // alert("Please fill All fields");
                         // set the errors
-                        setFirstNameError(true);
-                        setLastNameError(true);
-                        setPasswordError(true);
-                        setEmailIdError(true);
-                        setCollegeIdError(true);
-                        setCampusIdError(true);
-                        setDepartmentIdError(true);
-                        setGroupNameError(true);
-                        setUserNameError(true);
+                        // setFirstNameError(true);
+                        // setLastNameError(true);
+                        // setPasswordError(true);
+                        // setEmailIdError(true);
+                        // setCollegeIdError(true);
+                        // setCampusIdError(true);
+                        // setDepartmentIdError(true);
+                        // setGroupNameError(true);
+                        // setUserNameError(true);
                         setSnackBarHandler({
                             open: true,
                             message: "Please fill all the fields",

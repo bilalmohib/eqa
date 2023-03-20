@@ -13,10 +13,10 @@ import { RiLockPasswordLine } from "react-icons/ri";
 import { CiSettings } from "react-icons/ci";
 import { MdOutlineFactCheck, MdManageAccounts, MdPieChart } from "react-icons/md";
 // import SchoolIcon from '@mui/icons-material/School';
-// import ImportExportIcon from '@mui/icons-material/ImportExport';
+import ImportExportIcon from '@mui/icons-material/ImportExport';
 // import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 // import { BsAlarmFill } from "react-icons/bs";
-// import { TfiAlarmClock } from "react-icons/tfi";
+import { TfiAlarmClock } from "react-icons/tfi";
 // import PieChartIcon from '@mui/icons-material/PieChart';
 
 import { renderToString } from 'react-dom/server';
@@ -159,30 +159,17 @@ const Navbar: React.FC<NavProps> = ({
         } else if (FinalsidebarAppsListArray[i].appName === "Report") {
             FinalsidebarAppsListArray[i].icon = renderToString(<MdPieChart style={{ color: "orange", fontSize: 50, height: 50, width: 50 }} />);
             FinalsidebarAppsListArray[i].text = "Reports";
+        } else if (FinalsidebarAppsListArray[i].appName === "Exam") {
+            FinalsidebarAppsListArray[i].icon = renderToString(<ImportExportIcon style={{ color: "grey", fontSize: 50, height: 50, width: 50 }} />);
+            FinalsidebarAppsListArray[i].text = "Exam";
+        }else if(FinalsidebarAppsListArray[i].appName === "Alarm"){
+            FinalsidebarAppsListArray[i].icon = renderToString( <TfiAlarmClock style={{ color: "red", fontSize: 48, height: 48, width: 48, marginBottom: 2 }} />);
+            FinalsidebarAppsListArray[i].text = "Alarm";
         }
         else {
             FinalsidebarAppsListArray[i].icon = `${i} icon`;
         }
     }
-
-    // useEffect(() => {
-    //     if (FinalsidebarAppsListArray.length > 0) {
-    //         for (let i = 0; i < FinalsidebarAppsListArray.length; i++) {
-    //             if (FinalsidebarAppsListArray[i].appName === "Account") {
-    //                 FinalsidebarAppsListArray[i].icon = renderToString(<ManageAccountsIcon style={{ color: "blue", fontSize: 50, height: 50, width: 50 }} />);
-    //                 FinalsidebarAppsListArray[i].text = t('Home.Header.DropDown.Apps.List.account');
-    //             } else if (FinalsidebarAppsListArray[i].appName === "Assessment Application") {
-    //                 FinalsidebarAppsListArray[i].icon = renderToString(<MdOutlineFactCheck style={{ color: "#4f747a", fontSize: 50, height: 50, width: 50 }} />);
-    //                 FinalsidebarAppsListArray[i].text = t('Home.Header.DropDown.Apps.List.Assessment');
-    //             } else if (FinalsidebarAppsListArray[i].appName === "Settings") {
-    //                 FinalsidebarAppsListArray[i].icon = renderToString(<IoSettingsOutline size={25} style={{ color: "#000000", fontSize: 50, height: 50, width: 50 }} />);
-    //                 FinalsidebarAppsListArray[i].text = "Settings";
-    //             } else {
-    //                 FinalsidebarAppsListArray[i].icon = `${i} icon`;
-    //             }
-    //         }
-    //     }
-    // });
 
     const handleClick = (newState: SnackbarOrigin, index: any, useCase: string) => () => {
         if (useCase === "menu") {
@@ -241,8 +228,7 @@ const Navbar: React.FC<NavProps> = ({
                     "logout"
                 )
                 Cookies.remove("accessToken");
-                navigate(`/`);
-                return;
+                navigate("/");
             }
             else {
                 // alert("Error in logging out");
@@ -535,7 +521,9 @@ const Navbar: React.FC<NavProps> = ({
                                                             <li className={(index === (currentMenuItem - 1)) ? (styles.selectedAppStyle) : ("")}>
                                                                 {/* {app.icon} */}
                                                                 <span dangerouslySetInnerHTML={{ __html: app.icon }} />
-                                                                <p>{app.text}</p>
+                                                                <p>
+                                                                    {(currentLang === "ar") ? (app.appName_Ar) : (app.text)}
+                                                                </p>
                                                             </li>
                                                         </div>
                                                     ))
