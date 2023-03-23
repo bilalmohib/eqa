@@ -5,3 +5,12 @@
     padding-right: 30px;
     padding-top: 20px;
 }
+
+.loader {
+    /* border: 1px solid red; */
+    height: 60vh;
+    /* Align it in center vertically and horizontally */
+    /* display: flex;
+    justify-content: center;
+    align-items: center; */
+}

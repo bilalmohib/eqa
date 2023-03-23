@@ -1015,7 +1015,7 @@ const CustomTableCrud: FC<CustomTableProps> = ({
                     }
 
                 } else if (columnName === "ViewApps") {
-                    url = "https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/saveAppDetails";
+                    url = "https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/updateAppDetails";
 
                     // Fetch all the properties of the object [...tableData]
                     newValues = {
@@ -1023,6 +1023,8 @@ const CustomTableCrud: FC<CustomTableProps> = ({
                         "appName": values.appName,
                         "appDescription": values.appDescription,
                         "appUrl": values.appUrl,
+                        "appName_Ar": values.appName_Ar,
+                        "appIcon": values.appIcon,
                         "appOrder": values.appOrder,
                         "active": values.active === "true" ? true : false,
                         "loggedInUser": loggedInUser
@@ -1034,12 +1036,13 @@ const CustomTableCrud: FC<CustomTableProps> = ({
                     // Fetch all the properties of the object [...tableData]
                     newValues = {
                         "formId": values.formId,
-                        "appId": values.appId,
                         "moduleName": values.moduleName,
                         "formName": values.formName,
                         "formUrl": values.formUrl,
-                        "active": values.active === "true" ? true : false,
-                        "loggedInUser": loggedInUser
+                        "formName_Ar": values.formName_Ar,
+                        "formIcon": values.formIcon,
+                        "appId": values.appId,
+                        "active": values.active === "true" ? true : false
                     }
 
                 } else if (columnName === "ViewGroupRole") {
@@ -1047,11 +1050,6 @@ const CustomTableCrud: FC<CustomTableProps> = ({
 
                     // Fetch all the properties of the object [...tableData]
                     newValues = {
-                        // "groupRoleId": values.groupRoleId,
-                        // "roleIds": [values.roleId],
-                        // "grpId": values.grpId,
-                        // "grpRoleDescription": values.grpRoleDescription,
-                        // "active": true
                         "groupRoleId": values.groupRoleId,
                         "roleId": values.roleId,
                         "grpId": values.grpId,
@@ -1062,7 +1060,7 @@ const CustomTableCrud: FC<CustomTableProps> = ({
                 } else if (columnName === "ViewUserGroup") {
                     url = "https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/updateUserGroup";
 
-                    alert(values.active)
+                    // alert(values.active)
 
                     // Fetch all the properties of the object [...tableData]
                     newValues = {
@@ -1072,13 +1070,19 @@ const CustomTableCrud: FC<CustomTableProps> = ({
                         "active": values.active === "true" ? true : false
                     }
                 } else if (columnName === "ViewRoleApp") {
-                    url = "https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/updateRoleApp";
+                    url = "https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/updatePrivilege";
 
                     // Fetch all the properties of the object [...tableData]
                     newValues = {
-                        "roleAppId": values.roleAppId,
+                        "privilegeId": values.privilegeId,
                         "roleId": values.roleId,
+                        "formId": values.formId,
                         "appId": values.appId,
+                        "loggedInUser": loggedInUser,
+                        "createPermission": values.createPermission === "true" ? true : false,
+                        "readPermission": values.readPermission === "true" ? true : false,
+                        "updatePermission": values.updatePermission === "true" ? true : false,
+                        "deletePermission": values.deletePermission === "true" ? true : false,
                         "active": values.active === "true" ? true : false
                     }
                 }

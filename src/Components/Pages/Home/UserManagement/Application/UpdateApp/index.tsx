@@ -99,7 +99,7 @@ const UpdateApp = React.forwardRef<UpdateRef, UpdateProps>(
         const [appOrderError, setAppOrderError] = useState(false);
 
         // Status radio buttons
-        const [status, setStatus] = useState((originalValues.active) ? "Active" : "Deactive");
+        const [status, setStatus] = useState((originalValues.active) ? "Active" : "DeActive");
 
         const handleChangeStatus = (event: React.ChangeEvent<HTMLInputElement>) => {
             setStatus((event.target as HTMLInputElement).value);
@@ -147,13 +147,14 @@ const UpdateApp = React.forwardRef<UpdateRef, UpdateProps>(
                         appOrder !== ""
                     ) {
                         const formState = {
-                            "formId": originalValues.formId,
-                            "moduleName": originalValues.moduleName,
-                            "formName": originalValues.formName,
-                            "formUrl": originalValues.formUrl,
                             "appId": originalValues.appId,
-                            "active": (status === "Active") ? true : false,
-                            "loggedInUser": loggedInUser
+                            "appName": appName,
+                            "appName_Ar": originalValues.appName_Ar,
+                            "appIcon": originalValues.appIcon,
+                            "appDescription": appDescription,
+                            "appUrl": appUrl,
+                            "appOrder": appOrder,
+                            "active": (status === "Active") ? true : false
                         };
 
                         console.log("Update App Data ===> ", formState);
@@ -184,6 +185,11 @@ const UpdateApp = React.forwardRef<UpdateRef, UpdateProps>(
                             })
                             .catch(function (error) {
                                 console.log(error);
+                                setSnackBarHandler({
+                                    severity: 'error',
+                                    open: true,
+                                    message: error.message
+                                });
                             });
                     } else {
                         setSnackBarHandler({

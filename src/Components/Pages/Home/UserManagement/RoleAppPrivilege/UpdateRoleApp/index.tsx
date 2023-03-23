@@ -113,7 +113,7 @@ const UpdateRoleApp = React.forwardRef<UpdateRef, UpdateProps>(
         // const [deletePermission, setDeletePermission] = useState("Yes");
 
         // Status radio buttons
-        const [status, setStatus] = useState("Active");
+        const [status, setStatus] = useState(originalValues.status ? "Active" : "DeActive");
 
         // FOR APP ID AUTO COMPLETE
 
@@ -142,6 +142,20 @@ const UpdateRoleApp = React.forwardRef<UpdateRef, UpdateProps>(
                 })
                     .then((res) => {
                         setAppIdList(res.data.obj);
+
+                        let appIdList = res.data.obj;
+                        console.clear()
+                        console.log("App ID List: ", appIdList);
+                        console.log("Original Values: ", originalValues.appId);
+                        // Checking if the value matches with the original value
+
+                        for (let i = 0; i < appIdList.length; i++) {
+                            if (appIdList[i].appId === originalValues.appId) {
+                                let value = appIdList[i];
+                                console.log("App Id Value Matches is here: ", value);
+                                setAppId(value);
+                            }
+                        }
                     })
                     .catch((err) => {
                         console.log(err);
@@ -155,6 +169,16 @@ const UpdateRoleApp = React.forwardRef<UpdateRef, UpdateProps>(
                 })
                     .then((res) => {
                         setFormIdList(res.data.obj);
+
+                        let formIdList = res.data.obj;
+
+                        for (let i = 0; i < formIdList.length; i++) {
+                            if (formIdList[i].formId === originalValues.formId) {
+                                let value = formIdList[i];
+                                console.log("Form Id Value Matches is here: ", value);
+                                setFormId(value);
+                            }
+                        }
                     })
                     .catch((err) => {
                         console.log(err);
@@ -168,17 +192,29 @@ const UpdateRoleApp = React.forwardRef<UpdateRef, UpdateProps>(
                 })
                     .then((res) => {
                         setRoleIdList(res.data.obj);
+
+                        let roleIdList = res.data.obj;
+
+                        for (let i = 0; i < roleIdList.length; i++) {
+                            if (roleIdList[i].roleId === originalValues.roleId) {
+                                let value = roleIdList[i];
+                                console.log("Role Id Value Matches is here: ", value);
+                                setRoleId(value);
+                            }
+                        }
                     })
                     .catch((err) => {
                         console.log(err);
                     });
 
-                // At the end set the load data to false
-                setLoadData(false);
+                if (loadData === true) {
+                    // At the end set the load data to false
+                    setLoadData(false);
+                }
             }
 
 
-        }, [appIdList, loadData]);
+        }, [loadData]);
 
         useEffect(() => {
             if (roleId !== null && appId !== null && formId !== null) {
@@ -218,10 +254,10 @@ const UpdateRoleApp = React.forwardRef<UpdateRef, UpdateProps>(
 
         // Handling Permission Status
         const [permissionState, setPermissionState] = React.useState({
-            create: true,
-            read: true,
-            update: true,
-            delete: true,
+            create: originalValues.createPermission,
+            read: originalValues.readPermission,
+            update: originalValues.updatePermission,
+            delete: originalValues.deletePermission,
         });
 
         const handleChangePermission = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -269,10 +305,10 @@ const UpdateRoleApp = React.forwardRef<UpdateRef, UpdateProps>(
                         formId !== null
                     ) {
                         const formState = {
-                            "roleId": (roleId !== null) ? roleId.roleId : null,
-                            "appId": (appId !== null) ? appId.appId : null,
-                            "formId": (formId !== null) ? formId.formId : null,
-                            "loggedInUser": loggedInUser,
+                            "privilegeId": originalValues.privilegeId,
+                            "roleId": roleId.roleId,
+                            "appId": appId.appId,
+                            "formId": formId.formId,
                             "createPermission": permissionState.create,
                             "readPermission": permissionState.read,
                             "updatePermission": permissionState.update,
@@ -310,6 +346,12 @@ const UpdateRoleApp = React.forwardRef<UpdateRef, UpdateProps>(
                             })
                             .catch(function (error) {
                                 console.log(error);
+
+                                setSnackBarHandler({
+                                    open: true,
+                                    message: error.message,
+                                    severity: "error"
+                                })
                             });
                     } else {
                         // alert("Please fill All fields");

@@ -192,15 +192,20 @@ html[dir="rtl"] .dropdown_nav {
     border-radius: 50px;
     /* width: 30px;
     height: 30px; */
-    border: 0.1px solid transparent;
+    transition: 0.3s linear;
+    border: 0.3px solid transparent;
     color: #4f747a;
+
     transition: 0.3s cubic-bezier(0.455, 0.03, 0.515, 0.955);
 }
 
 .navLinkDropDown:hover {
     /* border: 0.1px solid #4f747a; */
     /* background-color: #4f747a; */
-    border: 0.1px solid #f7f7f7;
+    /* border: 0.1px solid #f7f7f7; */
+    transition: 0.3s linear;
+    border: 0.3px solid #4f747a;
+    background: #ffffff;
     background-color: #f7f7f7;
     /* color: aliceblue; */
     transition: 0.3s cubic-bezier(0.455, 0.03, 0.515, 0.955);

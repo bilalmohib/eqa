@@ -111,7 +111,8 @@ const UpdateGroupRole = React.forwardRef<UpdateRef, UpdateProps>(
         const [groupIdError, setGroupIdError] = useState(false);
 
         // Status radio buttons
-        const [status, setStatus] = useState((originalValues.active)?"Active":"Deactive");
+        const [status, setStatus] = useState(originalValues.active ? "Active" : "DeActive");
+        // alert("Status is here: "+ status)
 
         const [description, setDescription] = useState(originalValues.grpRoleDescription);
 
@@ -199,7 +200,7 @@ const UpdateGroupRole = React.forwardRef<UpdateRef, UpdateProps>(
 
                         let rolesList = res.data.obj;
 
-                        console.log("Roles List here ()()()()==> : ",rolesList[0].roleId === originalValues.roleId)
+                        console.log("Roles List here ()()()()==> : ", rolesList[0].roleId === originalValues.roleId)
 
                         for (let i = 0; i < rolesList.length; i++) {
                             if (rolesList[i].roleId === originalValues.roleId) {
@@ -273,16 +274,15 @@ const UpdateGroupRole = React.forwardRef<UpdateRef, UpdateProps>(
                     ) {
                         const formState = {
                             "groupRoleId": originalValues.groupRoleId,
-                            "roleId": roleName[0],
+                            "roleIds": roleName,
                             "grpId": groupId.grpId,
                             "grpRoleDescription": description,
-                            "loggedInUser": loggedInUser,
                             "active": (status === "Active") ? true : false
                         };
 
                         console.log("Update Group Role Data ===> ", formState);
 
-                        axios.post(url,
+                        axios.put(url,
                             formState
                             , {
                                 headers: {
