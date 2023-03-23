@@ -113,7 +113,7 @@ const UpdateUserGroup = React.forwardRef<UpdateRef, UpdateProps>(
 
         // Status radio buttons
         // alert("original Active : "+originalValues.active)
-        const [status, setStatus] = useState(originalValues.active ? "Active" : "Deactive");
+        const [status, setStatus] = useState(originalValues.active ? "Active" : "DeActive");
 
         const [description, setDescription] = useState(`Assigning group ${originalValues.grpId} to User ${originalValues.userId}`);
 
@@ -309,6 +309,11 @@ const UpdateUserGroup = React.forwardRef<UpdateRef, UpdateProps>(
                                 }
                             })
                             .catch(function (error) {
+                                setSnackBarHandler({
+                                    message: error.message,
+                                    open: true,
+                                    severity: "error"
+                                })
                                 console.log(error);
                             });
                     } else {

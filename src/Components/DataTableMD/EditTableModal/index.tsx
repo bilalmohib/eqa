@@ -277,7 +277,7 @@ const EditTableModal: React.FC<EditTableModalModalProps> = ({
                             sx={{
                                 display: "flex",
                                 flexDirection: "row",
-                                width: "40%",
+                                width: (windowDimensions.width > 900)?("40%"):("100%"),
                             }}
                         >
 
