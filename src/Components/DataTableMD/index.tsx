@@ -13,6 +13,22 @@ import copy from 'copy-to-clipboard';
 
 import SnackBar from "../../Components/SnackBar";
 
+import {
+    Button,
+    Box,
+    Typography,
+    Grid,
+    TextField,
+    FormControl,
+    FormControlLabel,
+    FormLabel,
+    RadioGroup,
+    Radio,
+    Autocomplete,
+    Switch,
+    FormGroup
+} from '@mui/material';
+
 // Importing Ripples
 import { createRipples } from 'react-ripples';
 
@@ -37,6 +53,18 @@ const ButtonRipples = createRipples({
     color: 'rgba(0, 0, 0, .1)',
     during: 600,
 })
+
+const colorArray = [
+    "#4f598c",
+    "#70519f",
+    "#0d8aee",
+    "#0b7cd6",
+    "#0e769e",
+    "#0d6886",
+    "#26848a",
+    "#18a193",
+    "#be0a67"
+];
 
 interface DataTableMDProps {
     isOpen: Boolean
@@ -161,10 +189,18 @@ const DataTableMD: FC<DataTableMDProps> = ({
         // console.log("Copied to clipboard");
     }
 
+    const [currentColor, setCurrentColor] = useState("white");
+
     return (
         <div className={styles.container}>
             {/* Header Starts here */}
-            <header className={styles.headerContainer}>
+            <header
+                className={styles.headerContainer}
+                style={{
+                    backgroundColor: currentColor,
+                    color: (currentColor === "white" ? "black" : "white")
+                }}
+            >
                 <section className={styles.headerLeft}>
                     <h5
                         className={styles.headingTopLeft}
@@ -180,25 +216,98 @@ const DataTableMD: FC<DataTableMDProps> = ({
                         <ButtonBase className={styles.btnControls} style={{ backgroundColor: "#ff5969" }}>
                         </ButtonBase>
                     </div>
-                    <div className={styles.btnDropDownTableBtn}>
+                    <Box className={styles.btnDropDownTableBtn}
+                        sx={{
+                            backgroundColor: currentColor,
+                            // Hover
+                            "&:hover": {
+                                backgroundColor: (currentColor === "white" ? "#f4f4f4" : "white"),
+                            },
+                        }}
+                    >
                         <div className="dropdown">
-                            <a className="dropdown-toggle hidden-arrow" type="button" id="dropdownMenuicon" data-mdb-toggle="dropdown" aria-expanded="false" style={{}}>
+                            <a className="dropdown-toggle hidden-arrow" type="button" id="dropdownMenuicon" data-mdb-toggle="dropdown" aria-expanded="false">
                                 <ButtonRipples>
                                     <div style={{ width: "30px", display: "flex", justifyContent: "center", height: "48px" }}>
-                                        <i className="fas fa-ellipsis-v" style={{ paddingTop: 14, fontSize: 20, color: "grey" }} />
+                                        <i
+                                            className="fas fa-ellipsis-v"
+                                            style={{
+                                                paddingTop: 14,
+                                                fontSize: 20,
+                                                color: (currentColor === "white" ? "grey" : "white")
+                                            }}
+                                        />
                                     </div>
                                 </ButtonRipples>
                             </a>
-                            <ul className="dropdown-menu" aria-labelledby="dropdownMenuicon">
+                            <ul className="dropdown-menu" aria-labelledby="dropdownMenuicon"
+                                style={{
+                                    transition: "all 0.3s ease-in-out",
+                                }}
+                            >
                                 {/* // eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-                                <li><a className="dropdown-item" href="#"> <i className="fas fa-user-alt pe-2" />My Profile</a></li>
-                                <li><a className="dropdown-item" href="#"> <i className="fas fa-cog pe-2" />Settings</a></li>
-                                <li><a className="dropdown-item" href="#"> <i className="fas fa-door-open pe-2" />Logout</a></li>
+                                <li>
+                                    <a className="dropdown-item" href="#"> <i className="fas fa-exchange-alt pe-2" /> &nbsp;&nbsp;&nbsp; Panel Style &raquo; </a>
+                                    <ul className="dropdown-menu dropdown-submenu" style={{
+                                        // marginTop: 40,
+                                        marginLeft: (currentLang === "ar") ? 0 : -160,
+                                        marginRight: (currentLang === "ar") ? -100 : 0
+                                    }}>
+                                        <li>
+                                            <a className="dropdown-item" href="#">
+                                                <Box sx={{ width: 120, display: "flex", flexDirection: "row", justifyContent: "space-between" }} className="flex mt-2">
+                                                    {colorArray.slice(0, 3).map((color: string, index: number) => {
+                                                        return (
+                                                            <Box
+                                                                onClick={() => {
+                                                                    setCurrentColor(color);
+                                                                }}
+                                                            >
+                                                                <div key={index} style={{ width: 30, height: 30, backgroundColor: color, borderRadius: 5, margin: 2 }} />
+                                                            </Box>
+                                                        )
+                                                    })}
+                                                </Box>
+
+                                                <Box sx={{ width: 120, display: "flex", flexDirection: "row", justifyContent: "space-between" }} className="flex mt-2">
+                                                    {colorArray.slice(3, 6).map((color: string, index: number) => {
+                                                        return (
+                                                            <Box
+                                                                onClick={() => {
+                                                                    setCurrentColor(color);
+                                                                }}
+                                                            >
+                                                                <div key={index} style={{ width: 30, height: 30, backgroundColor: color, borderRadius: 5, margin: 2 }} />
+                                                            </Box>
+                                                        )
+                                                    })}
+                                                </Box>
+
+                                                <Box sx={{ width: 120, display: "flex", flexDirection: "row", justifyContent: "space-between" }} className="flex mt-2">
+                                                    {colorArray.slice(6, 9).map((color: string, index: number) => {
+                                                        return (
+                                                            <Box
+                                                                onClick={() => {
+                                                                    setCurrentColor(color);
+                                                                }}
+                                                            >
+                                                                <div key={index} style={{ width: 30, height: 30, backgroundColor: color, borderRadius: 5, margin: 2 }} />
+                                                            </Box>
+                                                        )
+                                                    })}
+                                                </Box>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a className="dropdown-item" href="#"> <i className="fas fa-redo pe-2" /> &nbsp;&nbsp;&nbsp; Reset Panel</a>
+                                </li>
                             </ul>
                         </div>
-                    </div>
+                    </Box>
                 </section>
-            </header>
+            </header >
             {/* Header Ends here */}
 
             {/* Body Starts here */}
@@ -280,7 +389,7 @@ const DataTableMD: FC<DataTableMDProps> = ({
 
             </section>
             {/* Body Ends here */}
-        </div>
+        </div >
     )
 }
 export default DataTableMD;
