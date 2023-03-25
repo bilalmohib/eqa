@@ -75,7 +75,7 @@ html[dir="rtl"] .btnControls{
     /* border: 1px solid black; */
 }
 .btnDropDownTableBtn:hover,.btnDropDownTableBtn:active{
-    background-color: rgb(236, 236, 236);
+    background-color: transparent;
     transition:0.3s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 /* Header Ends Here */
