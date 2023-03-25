@@ -54,7 +54,17 @@ const ButtonRipples = createRipples({
     during: 600,
 })
 
-const colorArray = ["red", "orange", "yellow", "green", "blue", "purple", "pink", "brown", "black"];
+const colorArray = [
+    "#4f598c",
+    "#70519f",
+    "#0d8aee",
+    "#0b7cd6",
+    "#0e769e",
+    "#0d6886",
+    "#26848a",
+    "#18a193",
+    "#be0a67"
+];
 
 interface DataTableMDProps {
     isOpen: Boolean
@@ -206,24 +216,43 @@ const DataTableMD: FC<DataTableMDProps> = ({
                         <ButtonBase className={styles.btnControls} style={{ backgroundColor: "#ff5969" }}>
                         </ButtonBase>
                     </div>
-                    <div className={styles.btnDropDownTableBtn}>
+                    <Box className={styles.btnDropDownTableBtn}
+                        sx={{
+                            backgroundColor: currentColor,
+                            // Hover
+                            "&:hover": {
+                                backgroundColor: (currentColor === "white" ? "#f4f4f4" : "white"),
+                            },
+                        }}
+                    >
                         <div className="dropdown">
                             <a className="dropdown-toggle hidden-arrow" type="button" id="dropdownMenuicon" data-mdb-toggle="dropdown" aria-expanded="false">
                                 <ButtonRipples>
                                     <div style={{ width: "30px", display: "flex", justifyContent: "center", height: "48px" }}>
-                                        <i className="fas fa-ellipsis-v" style={{ paddingTop: 14, fontSize: 20, color: "grey" }} />
+                                        <i
+                                            className="fas fa-ellipsis-v"
+                                            style={{
+                                                paddingTop: 14,
+                                                fontSize: 20,
+                                                color: (currentColor === "white" ? "grey" : "white")
+                                            }}
+                                        />
                                     </div>
                                 </ButtonRipples>
                             </a>
                             <ul className="dropdown-menu" aria-labelledby="dropdownMenuicon"
-                            style={{
-                                transition: "all 0.3s ease-in-out",
-                            }}
+                                style={{
+                                    transition: "all 0.3s ease-in-out",
+                                }}
                             >
                                 {/* // eslint-disable-next-line jsx-a11y/anchor-is-valid */}
                                 <li>
                                     <a className="dropdown-item" href="#"> <i className="fas fa-exchange-alt pe-2" /> &nbsp;&nbsp;&nbsp; Panel Style &raquo; </a>
-                                    <ul className="dropdown-menu dropdown-submenu">
+                                    <ul className="dropdown-menu dropdown-submenu" style={{
+                                        // marginTop: 40,
+                                        marginLeft: (currentLang === "ar") ? 0 : -160,
+                                        marginRight: (currentLang === "ar") ? -100 : 0
+                                    }}>
                                         <li>
                                             <a className="dropdown-item" href="#">
                                                 <Box sx={{ width: 120, display: "flex", flexDirection: "row", justifyContent: "space-between" }} className="flex mt-2">
@@ -276,9 +305,9 @@ const DataTableMD: FC<DataTableMDProps> = ({
                                 </li>
                             </ul>
                         </div>
-                    </div>
+                    </Box>
                 </section>
-            </header>
+            </header >
             {/* Header Ends here */}
 
             {/* Body Starts here */}
@@ -360,7 +389,7 @@ const DataTableMD: FC<DataTableMDProps> = ({
 
             </section>
             {/* Body Ends here */}
-        </div>
+        </div >
     )
 }
 export default DataTableMD;
