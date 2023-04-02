@@ -27,6 +27,10 @@ import {
 } from '@mui/material';
 import SnackBar from '../../../../../SnackBar';
 
+// importing API URLs
+import createAPI from "../../../../../../Data/API/CREATE";
+// import readAPI from "../../../../../../Data/API/READ";
+
 import styles from "./style.module.css";
 
 interface AppProps {
@@ -155,7 +159,7 @@ const AddApp: React.FC<AppProps> = ({
 
                     console.log("User Form Data ===> ", formState);
 
-                    axios.post('https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/saveAppDetails',
+                    axios.post(createAPI.Apps,
                         formState
                         , {
                             headers: {

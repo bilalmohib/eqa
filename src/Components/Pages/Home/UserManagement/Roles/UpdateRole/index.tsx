@@ -3,15 +3,9 @@ import { useState, useEffect } from "react";
 
 import { useNavigate } from "react-router";
 
-// Importing Icons
-import PeopleOutlineIcon from '@mui/icons-material/PeopleOutline';
-import SendIcon from '@mui/icons-material/Send';
-
 // Importing material ui components
 import {
-    Button,
     Box,
-    Typography,
     Grid,
     TextField,
     FormControl,
@@ -62,7 +56,7 @@ const UpdateRole = React.forwardRef<UpdateRef, UpdateProps>(
         });
         ///////////////////////////////// Snackbar State /////////////////////////////////
 
-        const currentFormatedDate: string = new Date().toLocaleString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+        // const currentFormatedDate: string = new Date().toLocaleString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
 
         const [windowSize, setWindowSize] = useState([
             window.innerWidth,

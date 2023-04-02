@@ -40,6 +40,9 @@ import SnackBar from '../../../../../SnackBar';
 
 import Loader from '../../../../../Loader';
 
+// importing API URLs
+import readAPI from "../../../../../../Data/API/READ";
+
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
@@ -290,7 +293,7 @@ const UpdateUser = React.forwardRef<UpdateRef, UpdateProps>(
 
             if (accessToken !== null) {
                 // @1) Fetching Users
-                axios.get("https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/fetchUsers", {
+                axios.get(readAPI.Users, {
                     headers: {
                         "x-api-key": accessToken
                     }
@@ -305,7 +308,7 @@ const UpdateUser = React.forwardRef<UpdateRef, UpdateProps>(
                     });
 
                 // @2) Fetching Groups
-                axios.get("https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/fetchGroups", {
+                axios.get(readAPI.Groups, {
                     headers: {
                         "x-api-key": accessToken
                     }
@@ -330,7 +333,7 @@ const UpdateUser = React.forwardRef<UpdateRef, UpdateProps>(
                     });
 
                 // @3) Fetching All Colleges
-                axios.get("https://eqa.datadimens.com:8443/EQACORE-SERVICE/colleges", {
+                axios.get(readAPI.College, {
                     headers: {
                         "x-api-key": accessToken
                     }
@@ -363,7 +366,7 @@ const UpdateUser = React.forwardRef<UpdateRef, UpdateProps>(
                 // @4) Fetching All Campuses by College Id
                 if (collegeId !== null) {
                     console.log("College ID New ::: ", collegeId.collegeId);
-                    axios.get(`https://eqa.datadimens.com:8443/EQACORE-SERVICE/getAllCampusesByCollegeId/${collegeId.collegeId}`, {
+                    axios.get(`${readAPI.getAllCampusesByCollegeId}${collegeId.collegeId}`, {
                         headers: {
                             "x-api-key": accessToken
                         }
@@ -392,7 +395,7 @@ const UpdateUser = React.forwardRef<UpdateRef, UpdateProps>(
                 }
 
                 // @5) Fetching All Departments
-                axios.get("https://eqa.datadimens.com:8443/EQACORE-SERVICE/department", {
+                axios.get(readAPI.Department, {
                     headers: {
                         "x-api-key": accessToken
                     }
@@ -817,7 +820,7 @@ const UpdateUser = React.forwardRef<UpdateRef, UpdateProps>(
                                             // @ts-ignore
                                             let cid = newValue.collegeId;
                                             // console.log("College ID New @@ Latest ", cid);
-                                            axios.get(`https://eqa.datadimens.com:8443/EQACORE-SERVICE/getAllCampusesByCollegeId/${cid}`, {
+                                            axios.get(`${readAPI.getAllCampusesByCollegeId}${cid}`, {
                                                 headers: {
                                                     "x-api-key": accessToken
                                                 }

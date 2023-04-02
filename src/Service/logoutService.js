@@ -1,10 +1,12 @@
 //
 import { logoutCore } from "../Core/Logout";
 
+import createAPI from "../Data/API/CREATE";
+
 const logoutService = async (xapiKey) => {
   try {
     const data = await logoutCore(
-      "https://eqa.datadimens.com:8443/IDENTITY-SERVICE/user/logout",
+      createAPI.Logout,
       xapiKey
     );
     console.log("Response DATA in service layer ===== >", data);

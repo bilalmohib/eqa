@@ -13,6 +13,7 @@ import MaterialReactTable, {
     MRT_ColumnDef,
     MRT_Row,
 } from 'material-react-table';
+
 import {
     Box,
     Button,
@@ -25,10 +26,17 @@ import {
     TextField,
     Tooltip
 } from '@mui/material';
+
 import { Delete, Edit } from '@mui/icons-material';
 
 // Importing Edit Table Modal
 import EditTableModal from '../EditTableModal';
+
+// Importing API urls
+// Delete API
+import deleteAPI from '../../../Data/API/DELETE';
+// Update API
+import updateAPI from '../../../Data/API/UPDATE';
 
 // importing modular css
 import styles from './style.module.css';
@@ -611,7 +619,7 @@ const CustomTableCrud: FC<CustomTableProps> = ({
                     // console.log("User Name ===> ", userName);
 
                     // Send a DELETE request to delete the row in the server also pass the header of access token as x-access-token
-                    url = `https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/deleteUser/${userId}`;
+                    url = `${deleteAPI.Users}${userId}`;
                     message = `Are you sure you want to delete user: ${userName} ?`;
                     deleteMessage = `User: ${userName} deleted successfully`;
                 }
@@ -623,7 +631,7 @@ const CustomTableCrud: FC<CustomTableProps> = ({
                     // console.log("User ID ===> ", appId);
                     // console.log("User Name ===> ", appName);
 
-                    url = `https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/deleteAppDetails/${appId}`;
+                    url = `${deleteAPI.Apps}${appId}`;
                     message = "Are you sure you want to delete App " + appName + " ?";
                     deleteMessage = `App ${appName} Deleted Successfully`;
                 }
@@ -635,7 +643,7 @@ const CustomTableCrud: FC<CustomTableProps> = ({
                     // console.log("Group ID ===> ", grpId);
                     // console.log("Group Name ===> ", grpName);
 
-                    url = `https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/deleteGroup/${grpId}`;
+                    url = `${deleteAPI.Groups}${grpId}`;
                     message = "Are you sure you want to delete Group " + grpName + " ?";
                     deleteMessage = `Group ${grpName} Deleted Successfully`;
                 }
@@ -647,7 +655,7 @@ const CustomTableCrud: FC<CustomTableProps> = ({
                     // console.log("Role ID ===> ", roleId);
                     // console.log("Role Name ===> ", roleName);
 
-                    url = `https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/deleteRole/${roleId}`;
+                    url = `${deleteAPI.Roles}${roleId}`;
                     message = "Are you sure you want to delete Group " + roleName + " ?";
                     deleteMessage = `Group ${roleName} Deleted Successfully`;
                 }
@@ -659,31 +667,32 @@ const CustomTableCrud: FC<CustomTableProps> = ({
                     // console.log("form ID ===> ", formId);
                     // console.log("form Name ===> ", formName);
 
-                    url = `https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/deleteAppForm/${formId}`;
+                    url = `${deleteAPI.AppForm}${formId}`;
                     message = "Are you sure you want to delete AppForm " + formName + " ?";
                     deleteMessage = `AppForm ${formName} Deleted Successfully`;
                 }
                 else if (columnName === "ViewRoleApp") {
                     const privilegeId = row.getValue('privilegeId');
 
-                    url = `https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/deletePrivilege/${privilegeId}`;
+                    url = `${deleteAPI.RoleApp}${privilegeId}`;
                     message = "Are you sure you want to delete AppRole Privilege " + privilegeId + " ?";
                     deleteMessage = `AppRole Privilege with Id: ${privilegeId} Deleted Successfully`;
                 } else if (columnName === "ViewGroupRole") {
                     const groupRoleId = row.getValue('groupRoleId');
 
-                    url = `https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/deleteGroupRole/${groupRoleId}`;
+                    url = `${deleteAPI.GroupRole}${groupRoleId}`;
                     message = "Are you sure you want to delete GroupRole " + groupRoleId + " ?";
                     deleteMessage = `GroupRole with Id: ${groupRoleId} Deleted Successfully`;
                 } else if (columnName === "ViewUserGroup") {
                     const userGroupId = row.getValue('userGroupId');
 
-                    url = `https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/deleteUserGroup/${userGroupId}`;
+                    url = `${deleteAPI.UserGroup}${userGroupId}`;
                     message = "Are you sure you want to delete UserGroup " + userGroupId + " ?";
                     deleteMessage = `UserGroup with Id: ${userGroupId} Deleted Successfully`;
                 }
                 else {
                     alert("Wrong Column Name");
+                    console.warn("Wrong Column Name");
                     // tableData.splice(row.index, 1);
                     // setTableData([...tableData]);
                 }
@@ -974,7 +983,7 @@ const CustomTableCrud: FC<CustomTableProps> = ({
                 let newValues: any = null;
 
                 if (columnName === "ViewUsers") {
-                    url = "https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/updateUser";
+                    url = updateAPI.Users;
 
                     // Fetch all the properties of the object [...tableData]
                     newValues = {
@@ -993,7 +1002,7 @@ const CustomTableCrud: FC<CustomTableProps> = ({
                         "superUser": values.superUser === "true" ? true : false
                     };
                 } else if (columnName === "ViewRoles") {
-                    url = "https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/updateRole";
+                    url = updateAPI.Roles;
 
                     newValues = {
                         "roleId": values.roleId,
@@ -1003,7 +1012,7 @@ const CustomTableCrud: FC<CustomTableProps> = ({
                         "active": values.active === "true" ? true : false
                     };
                 } else if (columnName === "ViewGroups") {
-                    url = "https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/updateGroup";
+                    url = updateAPI.Groups;
 
                     // Fetch all the properties of the object [...tableData]
                     newValues = {
@@ -1015,7 +1024,7 @@ const CustomTableCrud: FC<CustomTableProps> = ({
                     }
 
                 } else if (columnName === "ViewApps") {
-                    url = "https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/updateAppDetails";
+                    url = updateAPI.Apps;
 
                     // Fetch all the properties of the object [...tableData]
                     newValues = {
@@ -1031,7 +1040,7 @@ const CustomTableCrud: FC<CustomTableProps> = ({
                     }
 
                 } else if (columnName === "ViewAppForm") {
-                    url = "https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/updateAppForm";
+                    url = updateAPI.AppForm;
 
                     // Fetch all the properties of the object [...tableData]
                     newValues = {
@@ -1046,7 +1055,7 @@ const CustomTableCrud: FC<CustomTableProps> = ({
                     }
 
                 } else if (columnName === "ViewGroupRole") {
-                    url = "https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/updateGroupRole";
+                    url = updateAPI.GroupRole;
 
                     // Fetch all the properties of the object [...tableData]
                     newValues = {
@@ -1058,7 +1067,7 @@ const CustomTableCrud: FC<CustomTableProps> = ({
                         "active": values.active === "true" ? true : false
                     }
                 } else if (columnName === "ViewUserGroup") {
-                    url = "https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/updateUserGroup";
+                    url = updateAPI.UserGroup;
 
                     // alert(values.active)
 
@@ -1070,7 +1079,7 @@ const CustomTableCrud: FC<CustomTableProps> = ({
                         "active": values.active === "true" ? true : false
                     }
                 } else if (columnName === "ViewRoleApp") {
-                    url = "https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/updatePrivilege";
+                    url = updateAPI.RoleApp;
 
                     // Fetch all the properties of the object [...tableData]
                     newValues = {

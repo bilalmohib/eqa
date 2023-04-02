@@ -8,6 +8,8 @@ import { renderToString } from 'react-dom/server';
 // Importing Cookies
 import Cookies from 'js-cookie';
 
+import createAPI from '../../Data/API/CREATE';
+
 // Importing Sidebar Icons
 // import { AiFillDashboard } from "react-icons/ai";
 import { MdOutlineFactCheck } from "react-icons/md";
@@ -119,7 +121,7 @@ const LoginContainer: FC<LoginContainerProps> = ({
                 }
             };
 
-            axios.post('https://eqa.datadimens.com:8443/IDENTITY-SERVICE/login/permissions', JSON.stringify(postData), config)
+            axios.post(createAPI.Login, JSON.stringify(postData), config)
                 .then((response: any) => {
                     console.log(response.data);
 

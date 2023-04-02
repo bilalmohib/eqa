@@ -28,6 +28,10 @@ import {
 } from '@mui/material';
 import SnackBar from '../../../../../SnackBar';
 
+// importing API URLs
+import createAPI from "../../../../../../Data/API/CREATE";
+import readAPI from "../../../../../../Data/API/READ";
+
 import styles from "./style.module.css";
 
 interface AddAppFormProps {
@@ -115,7 +119,7 @@ const AddAppForm: React.FC<AddAppFormProps> = ({
 
         if (accessToken !== null && loadData === true) {
             // Fetching data using axios and also pass the header x-api-key for auth
-            axios.get("https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/fetchAppDetails", {
+            axios.get(readAPI.Apps, {
                 headers: {
                     "x-api-key": accessToken
                 }
@@ -202,7 +206,7 @@ const AddAppForm: React.FC<AddAppFormProps> = ({
 
                     console.log("User Form Data ===> ", formState);
 
-                    axios.post('https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/saveAppForm',
+                    axios.post(createAPI.AppForm,
                         formState
                         , {
                             headers: {

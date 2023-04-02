@@ -11,6 +11,9 @@ import axios from 'axios';
 
 import Cookies from 'js-cookie';
 
+import createAPI from "../../../../../../Data/API/CREATE";
+import readAPI from "../../../../../../Data/API/READ";
+
 // Importing material ui components
 import {
     Button,
@@ -159,7 +162,7 @@ const AddUserGroup: React.FC<AddUserGroupProps> = ({
 
         if (accessToken !== null && loadData === true) {
             // Fetching Users
-            axios.get("https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/fetchUsers", {
+            axios.get(readAPI.Users, {
                 headers: {
                     "x-api-key": accessToken
                 }
@@ -172,7 +175,7 @@ const AddUserGroup: React.FC<AddUserGroupProps> = ({
                 });
 
             // Fetching Group
-            axios.get("https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/fetchGroups", {
+            axios.get(readAPI.Groups, {
                 headers: {
                     "x-api-key": accessToken
                 }
@@ -253,7 +256,7 @@ const AddUserGroup: React.FC<AddUserGroupProps> = ({
 
                     console.log("User Form Data ===> ", formState);
 
-                    axios.post('https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/createUserGroup',
+                    axios.post(createAPI.UserGroup,
                         formState
                         , {
                             headers: {
@@ -281,24 +284,6 @@ const AddUserGroup: React.FC<AddUserGroupProps> = ({
                             console.log(error);
                         });
                 } else {
-                    // set the errors
-                    // setUserIdError(true);
-                    // setDescriptionError(true);
-                    // setGroupNameError(true);
-                    // if (userId === null) {
-                    //     setUserIdErrorMessage("* Please select any User from the list.");
-                    //     setUserIdError(true);
-                    // }
-                    // if (description === "") {
-                    //     setDescriptionErrorMessage("* Please enter the Description.");
-                    //     setDescriptionError(true);
-                    // }
-                    // if (groupName.length < 1) {
-                    //     setGroupNameErrorMessage("* Please select atleast one group.");
-                    //     setGroupNameError(true);
-                    // }
-                    // set the errors
-
                     setSnackBarHandler({
                         message: `Please fill out all the fields.`,
                         open: true,

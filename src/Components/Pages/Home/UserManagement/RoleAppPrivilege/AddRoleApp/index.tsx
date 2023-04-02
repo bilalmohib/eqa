@@ -12,6 +12,9 @@ import axios from 'axios';
 
 import Cookies from 'js-cookie';
 
+import createAPI from "../../../../../../Data/API/CREATE";
+import readAPI from "../../../../../../Data/API/READ";
+
 // Importing material ui components
 import {
     Button,
@@ -129,8 +132,8 @@ const AddRoleApp: React.FC<AddRoleAppProps> = ({
         console.log("Access Token in View Users ===> ", accessToken);
 
         if (accessToken !== null && loadData === true) {
-            // Fetching APP DETAILS
-            axios.get("https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/fetchAppDetails", {
+            // Fetching APP 
+            axios.get(readAPI.Apps, {
                 headers: {
                     "x-api-key": accessToken
                 }
@@ -142,8 +145,8 @@ const AddRoleApp: React.FC<AddRoleAppProps> = ({
                     console.log(err);
                 });
 
-            // Fetching FORM DETAILS
-            axios.get("https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/fetchAppForm", {
+            // Fetching APP FORM
+            axios.get(readAPI.AppForm, {
                 headers: {
                     "x-api-key": accessToken
                 }
@@ -155,8 +158,8 @@ const AddRoleApp: React.FC<AddRoleAppProps> = ({
                     console.log(err);
                 });
 
-            // Fetching ROLE DETAILS
-            axios.get("https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/fetchRoles", {
+            // Fetching ROLES
+            axios.get(readAPI.Roles, {
                 headers: {
                     "x-api-key": accessToken
                 }
@@ -279,7 +282,7 @@ const AddRoleApp: React.FC<AddRoleAppProps> = ({
 
                     console.log("User Form Data ===> ", formState);
 
-                    axios.post('https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/savePrivilege',
+                    axios.post(createAPI.RoleApp,
                         formState
                         , {
                             headers: {

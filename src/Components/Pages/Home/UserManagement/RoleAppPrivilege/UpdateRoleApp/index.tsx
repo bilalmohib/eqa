@@ -12,6 +12,9 @@ import axios from 'axios';
 
 import Cookies from 'js-cookie';
 
+// importing API URLs
+import readAPI from "../../../../../../Data/API/READ";
+
 // Importing material ui components
 import {
     Button,
@@ -134,8 +137,8 @@ const UpdateRoleApp = React.forwardRef<UpdateRef, UpdateProps>(
             console.log("Access Token in View Users ===> ", accessToken);
 
             if (accessToken !== null && loadData === true) {
-                // Fetching APP DETAILS
-                axios.get("https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/fetchAppDetails", {
+                // Fetching APP 
+                axios.get(readAPI.Apps, {
                     headers: {
                         "x-api-key": accessToken
                     }
@@ -161,8 +164,8 @@ const UpdateRoleApp = React.forwardRef<UpdateRef, UpdateProps>(
                         console.log(err);
                     });
 
-                // Fetching FORM DETAILS
-                axios.get("https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/fetchAppForm", {
+                // Fetching APP FORM
+                axios.get(readAPI.AppForm, {
                     headers: {
                         "x-api-key": accessToken
                     }
@@ -184,8 +187,8 @@ const UpdateRoleApp = React.forwardRef<UpdateRef, UpdateProps>(
                         console.log(err);
                     });
 
-                // Fetching ROLE DETAILS
-                axios.get("https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/fetchRoles", {
+                // Fetching ROLE 
+                axios.get(readAPI.Roles, {
                     headers: {
                         "x-api-key": accessToken
                     }
