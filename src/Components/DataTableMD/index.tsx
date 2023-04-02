@@ -144,88 +144,88 @@ const DataTableMD: FC<DataTableMDProps> = ({
 
         if (columnName === "ViewUsers") {
             localColHeader = {
-                // "createdBy": 'تم الإنشاء بواسطة',
-                // "creationDateAndTime": 'تاريخ ووقت الإنشاء',
-                // "updatedBy": 'تم التحديث بواسطة',
-                // "updateDateAndTime": 'تاريخ ووقت التحديث',
+                "createdBy": 'تم الإنشاء بواسطة',
+                "creationDateAndTime": 'تاريخ ووقت الإنشاء',
+                "updatedBy": 'تم التحديث بواسطة',
+                "updateDateAndTime": 'تاريخ ووقت التحديث',
                 "userId": 'معرّف المستخدم',
-                // "firstName": 'الاسم الأول',
-                // "lastName": 'اسم العائلة',
+                "firstName": 'الاسم الأول',
+                "lastName": 'اسم العائلة',
                 "userName": 'اسم المستخدم',
                 "password": 'كلمة السر',
                 "emailId": 'البريد الإلكتروني',
                 "collegeId": 'معرّف الكلية',
                 "campusId": 'معرّف الحرم الجامعي',
                 "departmentId": 'معرّف القسم',
-                // "emailStatus": 'حالة البريد الإلكتروني',
+                "emailStatus": 'حالة البريد الإلكتروني',
                 "staff": 'الموظفين',
                 "superUser": 'المستخدم الفائق',
-                // "active": 'نشط'
+                "active": 'نشط'
             };
         }
         else if (columnName === "ViewApps") {
             localColHeader = {
-                // "createdBy": "تم الإنشاء بواسطة",
-                // "creationDateAndTime": "تاريخ ووقت الإنشاء",
-                // "updatedBy": "تم التحديث بواسطة",
-                // "updateDateAndTime": "تاريخ ووقت التحديث",
+                "createdBy": "تم الإنشاء بواسطة",
+                "creationDateAndTime": "تاريخ ووقت الإنشاء",
+                "updatedBy": "تم التحديث بواسطة",
+                "updateDateAndTime": "تاريخ ووقت التحديث",
                 "appId": "معرّف التطبيق",
                 "appName": "اسم التطبيق",
-                // "appName_Ar": "اسم التطبيق بالعربية",
-                // "appIcon": "رمز التطبيق",
+                "appName_Ar": "اسم التطبيق بالعربية",
+                "appIcon": "رمز التطبيق",
                 "appDescription": "وصف التطبيق",
                 "appUrl": "رابط التطبيق",
                 "appOrder": "ترتيب التطبيق",
-                // "active": "نشط"
+                 "active": "نشط"
             }
         }
         else if (columnName === "ViewGroups") {
             localColHeader = {
-                // "createdBy": "المُنشئ",
-                // "creationDateAndTime": "تاريخ ووقت الإنشاء",
-                // "updatedBy": "المُحدّث",
-                // "updateDateAndTime": "تاريخ ووقت التحديث",
+                 "createdBy": "المُنشئ",
+                 "creationDateAndTime": "تاريخ ووقت الإنشاء",
+                "updatedBy": "المُحدّث",
+                "updateDateAndTime": "تاريخ ووقت التحديث",
                 "grpId": "معرّف المجموعة",
                 "grpName": "اسم المجموعة",
                 "grpDescription": "وصف المجموعة",
-                // "active": "نشط"
+                "active": "نشط"
             };
         }
         else if (columnName === "ViewRoles") {
             localColHeader = {
-                // "createdBy": 'المنشئ',
-                // "creationDateAndTime": 'تاريخ الإنشاء والوقت',
-                // "updatedBy": 'المحدث',
-                // "updateDateAndTime": 'تاريخ التحديث والوقت',
+                "createdBy": 'المنشئ',
+                "creationDateAndTime": 'تاريخ الإنشاء والوقت',
+                "updatedBy": 'المحدث',
+                "updateDateAndTime": 'تاريخ التحديث والوقت',
                 "roleId": 'رقم الدور',
                 "roleName": 'اسم الدور',
                 "roleDescription": 'وصف الدور',
-                // "active": 'نشط'
+                "active": 'نشط'
             };
         }
         else if (columnName === "ViewAppForm") {
             localColHeader = {
-                // "createdBy": "صُنِّعَ بواسطة",
-                // "creationDateAndTime": "تاريخ ووقت الإنشاء",
-                // "updatedBy": "تحديث بواسطة",
-                // "updateDateAndTime": "تاريخ ووقت التحديث",
+                "createdBy": "صُنِّعَ بواسطة",
+                "creationDateAndTime": "تاريخ ووقت الإنشاء",
+                "updatedBy": "تحديث بواسطة",
+                "updateDateAndTime": "تاريخ ووقت التحديث",
                 "formId": "معرّف النموذج",
                 "moduleName": "اسم الوحدة النمطية",
                 "formName": "اسم النموذج",
-                // "formName_Ar": "اسم النموذج بالعربية",
-                // "formIcon": "رمز النموذج",
+                "formName_Ar": "اسم النموذج بالعربية",
+                "formIcon": "رمز النموذج",
                 "formUrl": "عنوان URL للنموذج",
                 "appDetails": "وصف التطبيق",
-                // "active": "نشط؟",
+                "active": "نشط؟",
                 "appId": "معرّف التطبيق"
             }
         }
         else if (columnName === "ViewRoleApp") {
             localColHeader = {
-                // "createdBy": "المنشئ",
-                // "creationDateAndTime": "تاريخ ووقت الإنشاء",
-                // "updatedBy": "المحدث",
-                // "updateDateAndTime": "تاريخ ووقت التحديث",
+                 "createdBy": "المنشئ",
+                 "creationDateAndTime": "تاريخ ووقت الإنشاء",
+                "updatedBy": "المحدث",
+                "updateDateAndTime": "تاريخ ووقت التحديث",
                 "privilegeId": "معرّف الصلاحية",
                 "role": "الدور",
                 "appDetails": "تفاصيل التطبيق",
@@ -234,21 +234,21 @@ const DataTableMD: FC<DataTableMDProps> = ({
                 "readPermission": "صلاحية القراءة",
                 "updatePermission": "صلاحية التحديث",
                 "deletePermission": "صلاحية الحذف",
-                // "active": "نشط؟"
+                "active": "نشط؟"
             }
         } else if (columnName === "ViewGroupRole") {
             localColHeader = {
-                // "createdBy": "صُنِّعَ بواسطة",
-                // "creationDateAndTime": "تاريخ ووقت الإنشاء",
-                // "updatedBy": "تحديث بواسطة",
-                // "updateDateAndTime": "تاريخ ووقت التحديث",
+                "createdBy": "صُنِّعَ بواسطة",
+                "creationDateAndTime": "تاريخ ووقت الإنشاء",
+                "updatedBy": "تحديث بواسطة",
+                "updateDateAndTime": "تاريخ ووقت التحديث",
                 "groupRoleId": "معرف دور المجموعة",
                 "groupDetails": "تفاصيل المجموعة",
                 "role": "الدور",
                 "grpRoleDescription": "وصف دور المجموعة",
                 "grpId": "معرّف المجموعة",
                 "roleId": "معرّف الدور",
-                // "active": "نشط؟"
+                 "active": "نشط؟"
             }
         } else if (columnName === "ViewUserGroup") {
             localColHeader = {
@@ -259,7 +259,7 @@ const DataTableMD: FC<DataTableMDProps> = ({
                 "userGroupId": "معرّف مجموعة المستخدمين",
                 "user": "المستخدم",
                 "group": "المجموعة",
-                // "active": "نشط",
+                 "active": "نشط",
                 "userId": "معرف المستخدم",
                 "grpId": "معرف المجموعة"
             }
@@ -313,7 +313,7 @@ const DataTableMD: FC<DataTableMDProps> = ({
         localBodyData = newLocalBodyData;
 
         autoTable(doc, {
-            head: colHeader,
+            head: [EnglishColHeader],
             body: bodyData,
         });
 
