@@ -254,7 +254,6 @@ const ViewUsers: React.FC<UserProps> = ({
                         viewAllUsersData.obj
                     ) : ([])}
                     states={states}
-                    ColHeader={tableColHeaders}
                     columnName={"ViewUsers"}
                     tableInfo={(t('Home.Sidebar.list.userManagement.subMenu.Users.details.table.subTitle'))}
                     buttonTitle={"Create New User"}

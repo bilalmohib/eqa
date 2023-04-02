@@ -225,7 +225,6 @@ const ViewGroupRole: React.FC<ViewGroupRoleProps> = ({
                         viewAllData
                     ) : ([])}
                     states={states}
-                    ColHeader={tableColHeaders}
                     columnName={"ViewGroupRole"}
                     tableInfo={(t('Home.Sidebar.list.userManagement.subMenu.groupRole.details.table.subTitle'))}
                     buttonTitle={"Create New Group Role"}

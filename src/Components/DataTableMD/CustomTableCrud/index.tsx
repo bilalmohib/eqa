@@ -51,7 +51,8 @@ interface CustomTableProps {
     buttonTitle: string,
     isOpen: Boolean,
     currentLang: string,
-    ColHeader: any,
+    colHeader: any,
+    setColHeader: any,
     setFetchUpdate: any
 }
 
@@ -62,7 +63,8 @@ const CustomTableCrud: FC<CustomTableProps> = ({
     buttonTitle,
     isOpen,
     currentLang,
-    ColHeader,
+    colHeader,
+    setColHeader,
     setFetchUpdate
 }): JSX.Element => {
     const navigate = useNavigate();
@@ -264,7 +266,7 @@ const CustomTableCrud: FC<CustomTableProps> = ({
     // const generateColumns = useCallback((data: any) => {
     //     if (!data || !data.length) return [];
 
-    //     const keyOrder = ColHeader.flat();
+    //     const keyOrder = colHeader.flat();
 
     //     const keys = Object.keys(data[0]).sort((a, b) => {
     //         const indexA = keyOrder.indexOf(a);
@@ -281,12 +283,14 @@ const CustomTableCrud: FC<CustomTableProps> = ({
     //         }),
     //     }));
     //     return generate;
-    // }, [ColHeader, getCommonEditTextFieldProps]);
+    // }, [colHeader, getCommonEditTextFieldProps]);
+
+    const [tableColumnsNew, setTableColumnsNew] = useState<MRT_ColumnDef<any>[]>([]);
 
     const generateColumns = useCallback((data: any, currentLang: string) => {
         if (!data || !data.length) return [];
 
-        const keyOrder = ColHeader.flat();
+        const keyOrder = colHeader.flat();
 
         const keys = Object.keys(data[0]).sort((a, b) => {
             const indexA = keyOrder.indexOf(a);
@@ -443,10 +447,24 @@ const CustomTableCrud: FC<CustomTableProps> = ({
             };
         });
 
-        return generate;
-    }, [ColHeader, columnName, getCommonEditTextFieldProps]);
+        setTableColumnsNew(generate);
 
-    // Usage:
+        // Extract the column names from the data
+        // const NewKeys = Object.keys(generate.header);
+
+        let NewKeys: any = [];
+
+        for (let i = 0; i < generate.length; i++) {
+            NewKeys.push(generate[i].header);
+        }
+        console.log("NewKeys ===> ", [NewKeys]);
+
+        setColHeader([NewKeys]);
+
+        return generate;
+    }, [columnName, getCommonEditTextFieldProps]);
+
+    // // Usage:
     const columnsNew = useMemo(() => generateColumns(data, currentLang), [currentLang, data, generateColumns]);
 
     // State to Store rows 
@@ -1197,7 +1215,7 @@ const CustomTableCrud: FC<CustomTableProps> = ({
                             //         overflowY: 'auto',
                             //     },
                             // }}
-                            columns={columnsNew}
+                            columns={tableColumnsNew}
                             data={tableData}
                             editingMode="modal" //default
                             enableColumnOrdering

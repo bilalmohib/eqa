@@ -218,7 +218,6 @@ const ViewAppForm: React.FC<ViewAppFormProps> = ({
                         viewAllData
                     ) : ([])}
                     states={states}
-                    ColHeader={tableColHeaders}
                     columnName={"ViewAppForm"}
                     tableInfo={(t('Home.Sidebar.list.userManagement.subMenu.appForm.details.table.subTitle'))}
                     buttonTitle={"Create New AppForm"}

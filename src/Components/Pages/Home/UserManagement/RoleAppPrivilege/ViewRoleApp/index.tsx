@@ -234,7 +234,6 @@ const ViewRoleApp: React.FC<ViewRoleAppProps> = ({
                         viewAllData
                     ) : ([])}
                     states={states}
-                    ColHeader={tableColHeaders}
                     columnName={"ViewRoleApp"}
                     tableInfo={(t('Home.Sidebar.list.userManagement.subMenu.roleApp.details.table.subTitle'))}
                     buttonTitle={"Create New RoleApp"}

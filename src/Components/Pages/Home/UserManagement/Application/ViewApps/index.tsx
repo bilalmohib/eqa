@@ -210,7 +210,6 @@ const ViewApps: React.FC<AppsProps> = ({
                         viewAllData.obj
                     ) : ([])}
                     states={states}
-                    ColHeader={tableColHeaders}
                     columnName={"ViewApps"}
                     tableInfo={(t('Home.Sidebar.list.userManagement.subMenu.apps.details.table.subTitle'))}
                     buttonTitle={"Create New App"}

@@ -209,7 +209,6 @@ const ViewRoles: React.FC<RolesProps> = ({
                         viewAllUsersData.obj
                     ) : ([])}
                     states={states}
-                    ColHeader={tableColHeaders}
                     columnName={"ViewRoles"}
                     tableInfo={(t('Home.Sidebar.list.userManagement.subMenu.roles.details.table.subTitle'))}
                     buttonTitle={"Create New Role"}

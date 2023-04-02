@@ -210,7 +210,6 @@ const ViewGroups: React.FC<GroupsProps> = ({
                         viewAllData.obj
                     ) : ([])}
                     states={states}
-                    ColHeader={tableColHeaders}
                     columnName={"ViewGroups"}
                     tableInfo={(t('Home.Sidebar.list.userManagement.subMenu.groups.details.table.subTitle'))}
                     buttonTitle={"Create New Group"}

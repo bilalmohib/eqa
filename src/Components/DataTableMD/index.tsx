@@ -73,7 +73,6 @@ interface DataTableMDProps {
     columnName: string
     buttonTitle: string,
     tableTitle: string,
-    ColHeader: any,
     tableInfo: any,
     currentLang: string,
     setFetchUpdate: any
@@ -86,7 +85,6 @@ const DataTableMD: FC<DataTableMDProps> = ({
     columnName,
     buttonTitle,
     tableTitle,
-    ColHeader,
     tableInfo,
     currentLang,
     setFetchUpdate
@@ -101,10 +99,12 @@ const DataTableMD: FC<DataTableMDProps> = ({
     });
     ///////////////////////////////// Snackbar State /////////////////////////////////
 
+    const [colHeader, setColHeader] = useState<any>([]);
+
     const printTable = () => {
         // console.clear();
         // console.log("Print Table DATA ===> ", data);
-        // console.log(ColHeader);
+        // console.log(colHeader);
 
         const doc = new jsPDF();
 
@@ -115,8 +115,205 @@ const DataTableMD: FC<DataTableMDProps> = ({
             return keys.map(key => obj[key]);
         });
 
+        const keys = new Set();
+
+        data.forEach((obj: any) => {
+            for (const key in obj) {
+                keys.add(key);
+            }
+        });
+
+        // console.log();
+
+        let localColNames = Array.from(keys);
+
+        console.log("Body Data ===> ", bodyData);
+
+        // remove the 'creationDateAndTime','updateDateAndTime' from the colHeader array.
+        // const index = colHeader.indexOf('creationDateAndTime');
+        // if (index > -1) {
+        //     colHeader.splice(index, 1);
+        // }
+
+        // const index2 = colHeader.indexOf('updateDateAndTime');
+        // if (index2 > -1) {
+        //     colHeader.splice(index2, 1);
+        // }
+
+        let localColHeader: any = null;
+
+        if (columnName === "ViewUsers") {
+            localColHeader = {
+                // "createdBy": 'تم الإنشاء بواسطة',
+                // "creationDateAndTime": 'تاريخ ووقت الإنشاء',
+                // "updatedBy": 'تم التحديث بواسطة',
+                // "updateDateAndTime": 'تاريخ ووقت التحديث',
+                "userId": 'معرّف المستخدم',
+                // "firstName": 'الاسم الأول',
+                // "lastName": 'اسم العائلة',
+                "userName": 'اسم المستخدم',
+                "password": 'كلمة السر',
+                "emailId": 'البريد الإلكتروني',
+                "collegeId": 'معرّف الكلية',
+                "campusId": 'معرّف الحرم الجامعي',
+                "departmentId": 'معرّف القسم',
+                // "emailStatus": 'حالة البريد الإلكتروني',
+                "staff": 'الموظفين',
+                "superUser": 'المستخدم الفائق',
+                // "active": 'نشط'
+            };
+        }
+        else if (columnName === "ViewApps") {
+            localColHeader = {
+                // "createdBy": "تم الإنشاء بواسطة",
+                // "creationDateAndTime": "تاريخ ووقت الإنشاء",
+                // "updatedBy": "تم التحديث بواسطة",
+                // "updateDateAndTime": "تاريخ ووقت التحديث",
+                "appId": "معرّف التطبيق",
+                "appName": "اسم التطبيق",
+                // "appName_Ar": "اسم التطبيق بالعربية",
+                // "appIcon": "رمز التطبيق",
+                "appDescription": "وصف التطبيق",
+                "appUrl": "رابط التطبيق",
+                "appOrder": "ترتيب التطبيق",
+                // "active": "نشط"
+            }
+        }
+        else if (columnName === "ViewGroups") {
+            localColHeader = {
+                // "createdBy": "المُنشئ",
+                // "creationDateAndTime": "تاريخ ووقت الإنشاء",
+                // "updatedBy": "المُحدّث",
+                // "updateDateAndTime": "تاريخ ووقت التحديث",
+                "grpId": "معرّف المجموعة",
+                "grpName": "اسم المجموعة",
+                "grpDescription": "وصف المجموعة",
+                // "active": "نشط"
+            };
+        }
+        else if (columnName === "ViewRoles") {
+            localColHeader = {
+                // "createdBy": 'المنشئ',
+                // "creationDateAndTime": 'تاريخ الإنشاء والوقت',
+                // "updatedBy": 'المحدث',
+                // "updateDateAndTime": 'تاريخ التحديث والوقت',
+                "roleId": 'رقم الدور',
+                "roleName": 'اسم الدور',
+                "roleDescription": 'وصف الدور',
+                // "active": 'نشط'
+            };
+        }
+        else if (columnName === "ViewAppForm") {
+            localColHeader = {
+                // "createdBy": "صُنِّعَ بواسطة",
+                // "creationDateAndTime": "تاريخ ووقت الإنشاء",
+                // "updatedBy": "تحديث بواسطة",
+                // "updateDateAndTime": "تاريخ ووقت التحديث",
+                "formId": "معرّف النموذج",
+                "moduleName": "اسم الوحدة النمطية",
+                "formName": "اسم النموذج",
+                // "formName_Ar": "اسم النموذج بالعربية",
+                // "formIcon": "رمز النموذج",
+                "formUrl": "عنوان URL للنموذج",
+                "appDetails": "وصف التطبيق",
+                // "active": "نشط؟",
+                "appId": "معرّف التطبيق"
+            }
+        }
+        else if (columnName === "ViewRoleApp") {
+            localColHeader = {
+                // "createdBy": "المنشئ",
+                // "creationDateAndTime": "تاريخ ووقت الإنشاء",
+                // "updatedBy": "المحدث",
+                // "updateDateAndTime": "تاريخ ووقت التحديث",
+                "privilegeId": "معرّف الصلاحية",
+                "role": "الدور",
+                "appDetails": "تفاصيل التطبيق",
+                "appForms": "أشكال التطبيق",
+                "createPermission": "صلاحية الإنشاء",
+                "readPermission": "صلاحية القراءة",
+                "updatePermission": "صلاحية التحديث",
+                "deletePermission": "صلاحية الحذف",
+                // "active": "نشط؟"
+            }
+        } else if (columnName === "ViewGroupRole") {
+            localColHeader = {
+                // "createdBy": "صُنِّعَ بواسطة",
+                // "creationDateAndTime": "تاريخ ووقت الإنشاء",
+                // "updatedBy": "تحديث بواسطة",
+                // "updateDateAndTime": "تاريخ ووقت التحديث",
+                "groupRoleId": "معرف دور المجموعة",
+                "groupDetails": "تفاصيل المجموعة",
+                "role": "الدور",
+                "grpRoleDescription": "وصف دور المجموعة",
+                "grpId": "معرّف المجموعة",
+                "roleId": "معرّف الدور",
+                // "active": "نشط؟"
+            }
+        } else if (columnName === "ViewUserGroup") {
+            localColHeader = {
+                // "createdBy": "تم إنشاؤه بواسطة",
+                // "creationDateAndTime": "تاريخ ووقت الإنشاء",
+                // "updatedBy": "تم التحديث بواسطة",
+                // "updateDateAndTime": "تاريخ ووقت التحديث",
+                "userGroupId": "معرّف مجموعة المستخدمين",
+                "user": "المستخدم",
+                "group": "المجموعة",
+                // "active": "نشط",
+                "userId": "معرف المستخدم",
+                "grpId": "معرف المجموعة"
+            }
+        }
+
+        let finalColHeader: any = [];
+
+        let EnglishColHeader = Object.keys(localColHeader);
+
+        let localBodyData: any = [];
+
+        if (currentLang === "ar") {
+            finalColHeader = Object.values(localColHeader);
+
+            // the value or columns names that finalColHeader has if it 
+            // matches with the keys in bodyData then it will be placed in the
+            // bodyData array in the same order as finalColHeader
+            // If not present then it will not be pushed to the array
+
+            // let newlocalBodyData: any = [];
+
+            // // const bodyData = data.map((obj: any) => {
+            // //     const keys = Object.keys(obj);
+            // //     return keys.map(key => obj[key]);
+            // // });
+
+            // for (let i = 0; i < EnglishColHeader.length; i++) {
+            //     if (EnglishColHeader[i] === localColNames[i]) {
+            //         newlocalBodyData.push(localBodyData[EnglishColHeader[i]]);
+            //     }
+            // }
+
+        } else if (currentLang === "en") {
+            finalColHeader = Object.keys(localColHeader);
+        }
+
+        let newLocalBodyData = [];
+
+        for (const obj of data) {
+            let row = [];
+            for (let i = 0; i < EnglishColHeader.length; i++) {
+                if (EnglishColHeader[i] === localColNames[i]) {
+                    row.push(obj[EnglishColHeader[i]]);
+                }
+            }
+            newLocalBodyData.push(row);
+        }
+
+        console.log(newLocalBodyData);
+
+        localBodyData = newLocalBodyData;
+
         autoTable(doc, {
-            head: ColHeader,
+            head: colHeader,
             body: bodyData,
         });
 
@@ -176,7 +373,7 @@ const DataTableMD: FC<DataTableMDProps> = ({
 
         const bodyData = data.map((obj: any) => Object.keys(obj).map(key => obj[key]));
 
-        const csvData = ColHeader.concat(bodyData);
+        const csvData = colHeader.concat(bodyData);
 
         console.log(csvData);
 
@@ -371,7 +568,8 @@ const DataTableMD: FC<DataTableMDProps> = ({
                         buttonTitle={buttonTitle}
                         isOpen={isOpen}
                         currentLang={currentLang}
-                        ColHeader={ColHeader}
+                        colHeader={colHeader}
+                        setColHeader={setColHeader}
                         setFetchUpdate={setFetchUpdate}
                     />
                 </div>

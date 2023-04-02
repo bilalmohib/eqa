@@ -227,7 +227,6 @@ const AssessmentDashboard: React.FC<AssessmentDashboardProps> = ({
                     isOpen={isOpen}
                     data={data}
                     states={states}
-                    ColHeader={tableColHeaders}
                     columnName={"CourseOfferingTypes"}
                     tableInfo={`${t('Home.Sidebar.list.Dashboard.subMenu.Dashboard.details.table.subTitle')}`}
                     buttonTitle={"Create New Course Offering"}
