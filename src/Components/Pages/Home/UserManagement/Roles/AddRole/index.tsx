@@ -28,6 +28,8 @@ import Cookies from 'js-cookie';
 
 import axios from 'axios';
 
+import createAPI from "../../../../../../Data/API/CREATE";
+
 import styles from "./style.module.css";
 
 interface AddRoleProps {
@@ -140,7 +142,7 @@ const AddRole: React.FC<AddRoleProps> = ({
 
                     console.log("User Form Data ===> ", formState);
 
-                    axios.post('https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/createRole',
+                    axios.post(createAPI.Roles,
                         formState
                         , {
                             headers: {

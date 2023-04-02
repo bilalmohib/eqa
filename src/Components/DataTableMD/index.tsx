@@ -106,7 +106,7 @@ const DataTableMD: FC<DataTableMDProps> = ({
         // console.log("Print Table DATA ===> ", data);
         // console.log(ColHeader);
 
-        const doc = new jsPDF()
+        const doc = new jsPDF();
 
         // Converting the data into the format required by the autoTable function.
         // Into Array of Arrays.
@@ -120,8 +120,9 @@ const DataTableMD: FC<DataTableMDProps> = ({
             body: bodyData,
         });
 
-        doc.save(tableTitle);
-        console.log(`./${tableTitle}.pdf generated`);
+        doc.save(columnName);
+        doc.setFillColor(60, 103, 102);
+        console.log(`./${columnName}.pdf generated`);
     }
 
     const refreshTable = () => {

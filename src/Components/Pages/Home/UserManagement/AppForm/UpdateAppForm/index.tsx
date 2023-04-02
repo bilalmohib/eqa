@@ -12,6 +12,9 @@ import axios from 'axios';
 
 import Cookies from 'js-cookie';
 
+// importing API urls
+import readAPI from "../../../../../../Data/API/READ";
+
 import Loader from '../../../../../Loader';
 
 // Importing material ui components
@@ -121,7 +124,7 @@ const UpdateAppForm = React.forwardRef<UpdateRef, UpdateProps>(
 
             if (accessToken !== null && loadData === true) {
                 // Fetching data using axios and also pass the header x-api-key for auth
-                axios.get("https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/fetchAppDetails", {
+                axios.get(readAPI.Apps, {
                     headers: {
                         "x-api-key": accessToken
                     }

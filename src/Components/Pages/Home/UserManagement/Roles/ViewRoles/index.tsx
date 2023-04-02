@@ -20,7 +20,11 @@ import { useTranslation } from "react-i18next";
 // Importing the course offering table data
 import { states } from '../../../../../../Data/Tables/CourseOfferings';
 
+// importing urls
+import readAPI from "../../../../../../Data/API/READ";
+
 import styles from "./style.module.css";
+
 interface RolesProps {
     setIsOpen: any,
     isOpen: Boolean,
@@ -112,7 +116,7 @@ const ViewRoles: React.FC<RolesProps> = ({
 
         if (accessToken !== null && fetchUpdate === true) {
             // Fetching data using axios and also pass the header x-api-key for auth
-            axios.get("https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/fetchRoles", {
+            axios.get(readAPI.Roles, {
                 headers: {
                     "x-api-key": accessToken
                 }

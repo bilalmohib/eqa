@@ -10,6 +10,9 @@ import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 import LockOpenIcon from '@mui/icons-material/LockOpen';
 import SendIcon from '@mui/icons-material/Send';
 
+import createAPI from "../../../../../../Data/API/CREATE";
+import readAPI from "../../../../../../Data/API/READ";
+
 // Importing material ui components
 import {
     Button,
@@ -257,7 +260,7 @@ const AddUser: React.FC<UserProps> = ({
 
         if (accessToken !== null) {
             // @1) Fetching Users
-            axios.get("https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/fetchUsers", {
+            axios.get(readAPI.Users, {
                 headers: {
                     "x-api-key": accessToken
                 }
@@ -273,7 +276,7 @@ const AddUser: React.FC<UserProps> = ({
                 });
 
             // @2) Fetching Groups
-            axios.get("https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/fetchGroups", {
+            axios.get(readAPI.Groups, {
                 headers: {
                     "x-api-key": accessToken
                 }
@@ -289,7 +292,7 @@ const AddUser: React.FC<UserProps> = ({
                 });
 
             // @3) Fetching All Colleges
-            axios.get("https://eqa.datadimens.com:8443/EQACORE-SERVICE/colleges", {
+            axios.get(readAPI.College, {
                 headers: {
                     "x-api-key": accessToken
                 }
@@ -307,7 +310,7 @@ const AddUser: React.FC<UserProps> = ({
             // @4) Fetching All Campuses by College Id
             if (collegeId !== null) {
                 console.log("College ID New ::: ", collegeId.collegeId);
-                axios.get(`https://eqa.datadimens.com:8443/EQACORE-SERVICE/getAllCampusesByCollegeId/${collegeId.collegeId}`, {
+                axios.get(`${readAPI.getAllCampusesByCollegeId}${collegeId.collegeId}`, {
                     headers: {
                         "x-api-key": accessToken
                     }
@@ -327,7 +330,7 @@ const AddUser: React.FC<UserProps> = ({
             }
 
             // @5) Fetching All Departments
-            axios.get("https://eqa.datadimens.com:8443/EQACORE-SERVICE/department", {
+            axios.get(readAPI.Department, {
                 headers: {
                     "x-api-key": accessToken
                 }
@@ -424,7 +427,7 @@ const AddUser: React.FC<UserProps> = ({
 
                     console.log("User Form Data ===> ", formState);
 
-                    axios.post('https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/createUser',
+                    axios.post(createAPI.Users,
                         formState
                         , {
                             headers: {

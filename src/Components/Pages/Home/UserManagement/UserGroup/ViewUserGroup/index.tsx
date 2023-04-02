@@ -19,6 +19,9 @@ import { useTranslation } from "react-i18next";
 // Importing the course offering table data
 import { states } from '../../../../../../Data/Tables/CourseOfferings';
 
+// importing urls
+import readAPI from "../../../../../../Data/API/READ";
+
 import styles from "./style.module.css";
 
 interface ViewUserGroupProps {
@@ -113,7 +116,7 @@ const ViewUserGroup: React.FC<ViewUserGroupProps> = ({
 
         if (accessToken !== null && fetchUpdate === true) {
             // Fetching data using axios and also pass the header x-api-key for auth
-            axios.get("https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/fetchUserGroups", {
+            axios.get(readAPI.UserGroup, {
                 headers: {
                     "x-api-key": accessToken
                 }

@@ -12,6 +12,10 @@ import axios from 'axios';
 
 import Cookies from 'js-cookie';
 
+// importing API URLs
+import createAPI from "../../../../../../Data/API/CREATE";
+import readAPI from "../../../../../../Data/API/READ";
+
 // Importing material ui components
 import {
     Button,
@@ -157,8 +161,8 @@ const AddGroupRole: React.FC<AddGroupRoleProps> = ({
         console.log("Access Token in View Users ===> ", accessToken);
 
         if (accessToken !== null && loadData === true) {
-            // Fetching Roles 
-            axios.get("https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/fetchGroups", {
+            // Fetching Groups 
+            axios.get(readAPI.Groups, {
                 headers: {
                     "x-api-key": accessToken
                 }
@@ -170,8 +174,8 @@ const AddGroupRole: React.FC<AddGroupRoleProps> = ({
                     console.log(err);
                 });
 
-            // Fetching Group
-            axios.get("https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/fetchRoles", {
+            // Fetching Roles
+            axios.get(readAPI.Roles, {
                 headers: {
                     "x-api-key": accessToken
                 }
@@ -252,7 +256,7 @@ const AddGroupRole: React.FC<AddGroupRoleProps> = ({
 
                     console.log("User Form Data ===> ", formState);
 
-                    axios.post('https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/saveGroupRole',
+                    axios.post(createAPI.GroupRole,
                         formState
                         , {
                             headers: {

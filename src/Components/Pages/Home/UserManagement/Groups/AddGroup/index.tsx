@@ -12,6 +12,9 @@ import axios from 'axios';
 
 import Cookies from 'js-cookie';
 
+// importing API URLs
+import createAPI from "../../../../../../Data/API/CREATE";
+
 // Importing material ui components
 import {
     Button,
@@ -137,7 +140,7 @@ const AddGroup: React.FC<UserProps> = ({
 
                     console.log("User Form Data ===> ", formState);
 
-                    axios.post('https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/saveGroup',
+                    axios.post(createAPI.Groups,
                         formState
                         , {
                             headers: {

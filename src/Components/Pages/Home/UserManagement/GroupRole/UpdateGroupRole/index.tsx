@@ -12,6 +12,9 @@ import axios from 'axios';
 
 import Cookies from 'js-cookie';
 
+// importing urls
+import readAPI from "../../../../../../Data/API/READ";
+
 // Importing material ui components
 import {
     Button,
@@ -166,8 +169,8 @@ const UpdateGroupRole = React.forwardRef<UpdateRef, UpdateProps>(
             console.log("Access Token in View Users ===> ", accessToken);
 
             if (accessToken !== null && loadData === true) {
-                // Fetching Roles 
-                axios.get("https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/fetchGroups", {
+                // Fetching Groups 
+                axios.get(readAPI.Groups, {
                     headers: {
                         "x-api-key": accessToken
                     }
@@ -190,7 +193,7 @@ const UpdateGroupRole = React.forwardRef<UpdateRef, UpdateProps>(
                     });
 
                 // Fetching Roles
-                axios.get("https://eqa.datadimens.com:8443/IDENTITY-SERVICE/privileges/fetchRoles", {
+                axios.get(readAPI.Roles, {
                     headers: {
                         "x-api-key": accessToken
                     }
