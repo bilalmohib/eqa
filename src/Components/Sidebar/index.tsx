@@ -449,7 +449,7 @@ const Sidebar: React.FC<SidebarProps> = ({
                                     onChange={handleChange(subItem.formModule)}
                                     sx={{
                                       pr: 0,
-                                      ml: -5,
+                                      ml: -3,
                                       mr: 0,
                                       borderRadius: "0px",
                                     }}
