@@ -14,11 +14,16 @@ import { MdOutlineFactCheck } from "react-icons/md";
 import { RxDot } from "react-icons/rx";
 import { FaUserAlt } from "react-icons/fa";
 
-import Accordion from "@mui/material/Accordion";
-import AccordionDetails from "@mui/material/AccordionDetails";
-import AccordionSummary from "@mui/material/AccordionSummary";
+import ArrowForwardIosSharpIcon from "@mui/icons-material/ArrowForwardIosSharp";
+import MuiAccordion, { AccordionProps } from "@mui/material/Accordion";
+import MuiAccordionSummary, {
+  AccordionSummaryProps,
+} from "@mui/material/AccordionSummary";
+import MuiAccordionDetails from "@mui/material/AccordionDetails";
+import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import { styled } from "@mui/material/styles";
 
 // Importing i18 for language
 import i18n from "../../i18n";
@@ -33,6 +38,55 @@ import logo from "../../assets/Images/Navbar/logo.png";
 import logoMinified from "../../assets/Images/Navbar/logoMinify.png";
 
 import styles from "./style.module.css";
+
+const Accordion = styled((props: AccordionProps) => (
+  <MuiAccordion disableGutters elevation={0} square {...props} />
+))(({ theme }) => ({
+  // border: `1px solid ${theme.palette.divider}`,
+  "&:not(:last-child)": {
+    borderBottom: 0,
+  },
+  "&:before": {
+    display: "none",
+  },
+}));
+
+const AccordionSummary = styled((props: AccordionSummaryProps) => (
+  <MuiAccordionSummary
+    expandIcon={<ArrowForwardIosSharpIcon sx={{ fontSize: ".9rem" }} />}
+    {...props}
+  />
+))(({ theme }) => ({
+  backgroundColor: "#3c6766",
+  flexDirection: "row-reverse",
+  "& .MuiAccordionSummary-expandIconWrapper.Mui-expanded": {
+    transform: "rotate(270deg)",
+  },
+  "& .MuiAccordionSummary-content": {
+    marginLeft: theme.spacing(1),
+  },
+}));
+
+const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
+  overflowY: "scroll",
+  borderTop: "1px solid rgba(0, 0, 0, .125)",
+  paddingTop: 0,
+  paddingBottom: 0,
+  paddingLeft: 0,
+  paddingRight: 0,
+  maxHeight: "40vh",
+  //   "&::-webkit-scrollbar": {
+  //     width: "0.4em",
+  //   },
+  //   "&::-webkit-scrollbar-track": {
+  //     boxShadow: "inset 0 0 6px rgba(0,0,0,0.00)",
+  //     webkitBoxShadow: "inset 0 0 6px rgba(0,0,0,0.00)",
+  //   },
+  //   "&::-webkit-scrollbar-thumb": {
+  //     backgroundColor: "rgba(0,0,0,.1)",
+  //     outline: "1px solid slategrey",
+  //   },
+}));
 
 interface SidebarProps {
   // For hiding the sidebar
@@ -150,6 +204,7 @@ const Sidebar: React.FC<SidebarProps> = ({
         const organizedArray = Object.keys(organizedData).map((key) => ({
           formModule: key,
           forms: organizedData[key],
+          formIcon: sidebarList[i].subMenu[0].icon, // Get the icon from the first form in the submenu
         }));
 
         setCurrentSubSubMenuSidebarArray(organizedArray);
@@ -404,7 +459,10 @@ const Sidebar: React.FC<SidebarProps> = ({
                               dangerouslySetInnerHTML={{ __html: item.icon }}
                             />
                           </p>
-                          <p className={styles.itemMenuListText}>
+                          <p
+                            className={styles.itemMenuListText}
+                            style={{ fontWeight: "bold" }}
+                          >
                             {currentLang === "ar" ? item.appName_Ar : item.text}
                           </p>
                         </div>
@@ -430,8 +488,8 @@ const Sidebar: React.FC<SidebarProps> = ({
                           style={{
                             overflowY: "scroll",
                             // border: "1px solid red",
-                            borderBottom: "0.1px solid #e5e5e5",
-                            height: "51vh",
+                            // borderBottom: "0.1px solid #e5e5e5",
+                            // height: "51vh",
                           }}
                         >
                           {currentSubSubMenuSidebarArray.map(
@@ -449,13 +507,17 @@ const Sidebar: React.FC<SidebarProps> = ({
                                     onChange={handleChange(subItem.formModule)}
                                     sx={{
                                       pr: 0,
-                                      ml: -3,
+                                      ml: 0,
                                       mr: 0,
                                       borderRadius: "0px",
                                     }}
                                   >
                                     <AccordionSummary
-                                      expandIcon={<ExpandMoreIcon />}
+                                      expandIcon={
+                                        <ExpandMoreIcon
+                                          sx={{ color: "white" }}
+                                        />
+                                      }
                                       aria-controls="panel1bh-content"
                                       id="panel1bh-header"
                                       sx={{
@@ -466,21 +528,37 @@ const Sidebar: React.FC<SidebarProps> = ({
                                         borderRadius: "0px",
                                       }}
                                     >
+                                      {/* <span
+                                        dangerouslySetInnerHTML={{
+                                          __html: subItem.formIcon,
+                                        }}
+                                      /> */}
                                       <Typography
-                                        sx={{ width: "auto", flexShrink: 0 }}
+                                        sx={{
+                                          width: "auto",
+                                          flexShrink: 0,
+                                          color: "white",
+                                          textTransform: "capitalize",
+                                          fontWeight: "bold",
+                                        }}
                                       >
                                         {subItem.formModule}
                                       </Typography>
                                     </AccordionSummary>
                                     <AccordionDetails>
-                                      <div
-                                        style={{
-                                          overflowY: "scroll",
+                                      <Box
+                                        sx={{
+                                          color: "white",
+                                          // overflowY: "scroll",
+                                          backgroundColor: "#3c6766",
+                                          padding: 2,
+                                          // padding: 2,
+                                          // On hover change the background color
                                         }}
                                       >
                                         {subItem.forms.map(
                                           (form: any, formIndex: number) => (
-                                            <li
+                                            <div
                                               key={subIndex}
                                               onClick={() => {
                                                 // Navigate to the link
@@ -503,30 +581,30 @@ const Sidebar: React.FC<SidebarProps> = ({
                                                   subIndex
                                                 );
                                               }}
-                                              style={{
-                                                borderTopLeftRadius:
-                                                  subIndex === 0 && isMinified
-                                                    ? 5
-                                                    : 0,
-                                                borderTopRightRadius:
-                                                  subIndex === 0 && isMinified
-                                                    ? 5
-                                                    : 0,
-                                                borderBottomLeftRadius:
-                                                  subIndex ===
-                                                    sidebarList[index].subMenu
-                                                      .length -
-                                                      1 && isMinified
-                                                    ? 5
-                                                    : 0,
-                                                borderBottomRightRadius:
-                                                  subIndex ===
-                                                    sidebarList[index].subMenu
-                                                      .length -
-                                                      1 && isMinified
-                                                    ? 5
-                                                    : 0,
-                                              }}
+                                              // style={{
+                                              //   borderTopLeftRadius:
+                                              //     subIndex === 0 && isMinified
+                                              //       ? 5
+                                              //       : 0,
+                                              //   borderTopRightRadius:
+                                              //     subIndex === 0 && isMinified
+                                              //       ? 5
+                                              //       : 0,
+                                              //   borderBottomLeftRadius:
+                                              //     subIndex ===
+                                              //       sidebarList[index].subMenu
+                                              //         .length -
+                                              //         1 && isMinified
+                                              //       ? 5
+                                              //       : 0,
+                                              //   borderBottomRightRadius:
+                                              //     subIndex ===
+                                              //       sidebarList[index].subMenu
+                                              //         .length -
+                                              //         1 && isMinified
+                                              //       ? 5
+                                              //       : 0,
+                                              // }}
                                               className={`${
                                                 isMinified &&
                                                 styles.SubMenuItemContainerMinifiedVersionli
@@ -579,10 +657,10 @@ const Sidebar: React.FC<SidebarProps> = ({
                                                   </p>
                                                 </div>
                                               )}
-                                            </li>
+                                            </div>
                                           )
                                         )}
-                                      </div>
+                                      </Box>
                                     </AccordionDetails>
                                   </Accordion>
                                 </div>
