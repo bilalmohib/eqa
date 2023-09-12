@@ -53,39 +53,80 @@ const Accordion = styled((props: AccordionProps) => (
 
 const AccordionSummary = styled((props: AccordionSummaryProps) => (
   <MuiAccordionSummary
-    expandIcon={<ArrowForwardIosSharpIcon sx={{ fontSize: ".9rem" }} />}
+    expandIcon={<ExpandMoreIcon sx={{ fontSize: ".9rem" }} />}
     {...props}
   />
 ))(({ theme }) => ({
+  // backgroundColor: "#3c6766",
+  // flexDirection: "row-reverse",
+  // "& .MuiAccordionSummary-expandIconWrapper.Mui-expanded": {
+  //   transform: "rotate(270deg)",
+  // },
+  display: "flex",
   backgroundColor: "#3c6766",
-  flexDirection: "row-reverse",
-  "& .MuiAccordionSummary-expandIconWrapper.Mui-expanded": {
-    transform: "rotate(270deg)",
-  },
+
+  justifyContent: "space-between", // Place content on the left and icon on the right
+  alignItems: "center", // Vertically align content and icon
   "& .MuiAccordionSummary-content": {
     marginLeft: theme.spacing(1),
+    flex: 1, // Allow content to grow and take available space
   },
+  "& .MuiAccordionSummary-expandIcon": {
+    order: 2, // Move the icon to the right by changing the order
+  },
+  // "& .MuiAccordionSummary-content": {
+  //   marginLeft: theme.spacing(1),
+  // },
 }));
 
 const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
+  // overflowY: "scroll",
+  // scrollbarColor: 'rgba(212, 37, 37, 0.582)',
+  // // scrollbarWidth: 10,
+  // borderTop: "1px solid rgba(0, 0, 0, .125)",
+  // paddingTop: 0,
+  // paddingBottom: 0,
+  // paddingLeft: 0,
+  // paddingRight: 0,
+  // maxHeight: "40vh",
+  // //   "&::-webkit-scrollbar": {
+  // //     width: "0.4em",
+  // //   },
+  // //   "&::-webkit-scrollbar-track": {
+  // //     boxShadow: "inset 0 0 6px rgba(0,0,0,0.00)",
+  // //     webkitBoxShadow: "inset 0 0 6px rgba(0,0,0,0.00)",
+  // //   },
+  // //   "&::-webkit-scrollbar-thumb": {
+  // //     backgroundColor: "rgba(0,0,0,.1)",
+  // //     outline: "1px solid slategrey",
+  // //   },
+
   overflowY: "scroll",
-  borderTop: "1px solid rgba(0, 0, 0, .125)",
+  borderTop: "1px solid rgba(0, 0, 0, 0.125)",
   paddingTop: 0,
   paddingBottom: 0,
   paddingLeft: 0,
   paddingRight: 0,
   maxHeight: "40vh",
-  //   "&::-webkit-scrollbar": {
-  //     width: "0.4em",
-  //   },
-  //   "&::-webkit-scrollbar-track": {
-  //     boxShadow: "inset 0 0 6px rgba(0,0,0,0.00)",
-  //     webkitBoxShadow: "inset 0 0 6px rgba(0,0,0,0.00)",
-  //   },
-  //   "&::-webkit-scrollbar-thumb": {
-  //     backgroundColor: "rgba(0,0,0,.1)",
-  //     outline: "1px solid slategrey",
-  //   },
+
+  "&::-webkit-scrollbar": {
+    // paddingTop: 10,
+    width: "12px", // Set the width of the scrollbar
+  },
+  "&::-webkit-scrollbar-track": {
+    background: "#40757B", // Background color of the track
+    // innerWidth: '10px'
+    // width: '20px'
+  },
+  "&::-webkit-scrollbar-thumb": {
+    background: "#1c4447", // Color of the thumb
+    borderRadius: "8px", // Round the corners of the thumb
+    // borderRadius: '4px', // Round the corners of the thumb
+    border: "2px solid #40757B", // Add space between thumb and border
+  },
+  "&::-webkit-scrollbar-thumb:hover": {
+    background: "#2e5053", // Hover color of the thumb
+  },
 }));
 
 interface SidebarProps {
@@ -140,11 +181,14 @@ const Sidebar: React.FC<SidebarProps> = ({
 }) => {
   const { t } = useTranslation();
 
-  const [expanded, setExpanded] = React.useState<string | false>(false);
+  const [currentOpenedOndex, setCurrentOpenedOndex] = useState<any>(0);
 
+  const [expanded, setExpanded] = React.useState<string | true>(true);
+  const [Accordionexpanded, setAccordionExpanded] = useState(true);
   const handleChange =
     (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
-      setExpanded(isExpanded ? panel : false);
+      setExpanded(isExpanded ? panel : true);
+      setCurrentOpenedOndex(-1);
     };
 
   // For detecting the window size
@@ -152,10 +196,6 @@ const Sidebar: React.FC<SidebarProps> = ({
     window.innerWidth,
     window.innerHeight,
   ]);
-
-  const changeTheLanguage = (e: any) => {
-    i18n.changeLanguage(e);
-  };
 
   useEffect(() => {
     const handleWindowResize = () => {
@@ -169,7 +209,12 @@ const Sidebar: React.FC<SidebarProps> = ({
     };
   });
   // For detecting the window size
-
+  const toggleAccordion = () => {
+    if (isMinified == true) {
+      setAccordionExpanded(!Accordionexpanded); // Toggle the expanded state
+      console.log(Accordionexpanded);
+    }
+  };
   const [menuItemsArrayState, setMenuItemsArrayState] =
     useState<any>(sidebarList);
 
@@ -383,7 +428,7 @@ const Sidebar: React.FC<SidebarProps> = ({
           </div>
         )}
 
-        <div className={styles.sidebarItemsContainer}>
+        <ul className={styles.sidebarItemsContainer}>
           <ul className={styles.SidebarMenuList}>
             {
               // eslint-disable-next-line array-callback-return
@@ -456,6 +501,8 @@ const Sidebar: React.FC<SidebarProps> = ({
                             }}
                           >
                             <span
+                              style={{ marginLeft: isMinified ? 1 : 0 }}
+                              onClick={toggleAccordion}
                               dangerouslySetInnerHTML={{ __html: item.icon }}
                             />
                           </p>
@@ -468,7 +515,7 @@ const Sidebar: React.FC<SidebarProps> = ({
                         </div>
                       </li>
                       {currentSubMenuSidebarOpenItem === index + 1 && (
-                        <ul
+                        <div
                           onMouseLeave={() => {
                             if (isMinified) {
                               // setCurrentMenuItem(0);
@@ -485,12 +532,14 @@ const Sidebar: React.FC<SidebarProps> = ({
                               ? styles.SubMenuItemContainerMinifiedVersion
                               : styles.SubMenuItemContainer
                           }`}
-                          style={{
-                            overflowY: "scroll",
-                            // border: "1px solid red",
-                            // borderBottom: "0.1px solid #e5e5e5",
-                            // height: "51vh",
-                          }}
+                          style={
+                            {
+                              // overflowY: "scroll",
+                              // border: "1px solid red",
+                              // borderBottom: "0.1px solid #e5e5e5",
+                              // height: "51vh",
+                            }
+                          }
                         >
                           {currentSubSubMenuSidebarArray.map(
                             (subItem: any, subIndex: number) => {
@@ -502,172 +551,204 @@ const Sidebar: React.FC<SidebarProps> = ({
                                     width: "100%",
                                   }}
                                 >
-                                  <Accordion
-                                    expanded={expanded === subItem.formModule}
-                                    onChange={handleChange(subItem.formModule)}
-                                    sx={{
-                                      pr: 0,
-                                      ml: 0,
-                                      mr: 0,
-                                      borderRadius: "0px",
-                                    }}
-                                  >
-                                    <AccordionSummary
-                                      expandIcon={
-                                        <ExpandMoreIcon
-                                          sx={{ color: "white" }}
-                                        />
+                                  {Accordionexpanded === false ||
+                                  isMinified === false ? (
+                                    <Accordion
+                                      expanded={
+                                        expanded === subItem.formModule ||
+                                        isMinified
+                                          ? true
+                                          : false ||
+                                            subIndex === currentOpenedOndex
                                       }
-                                      aria-controls="panel1bh-content"
-                                      id="panel1bh-header"
+                                      // expanded={Accordionexpanded}
+                                      onChange={handleChange(
+                                        subItem.formModule
+                                      )}
+                                      // onChange=setAccordionExpanded(!Accordionexpanded
+                                      // {() => setExpanded(!Accordionexpanded)}
                                       sx={{
-                                        "& .MuiAccordionSummary-content": {
-                                          ml: 0.1,
-                                          mr: 0.1,
-                                        },
+                                        pr: 0,
+                                        ml: 0,
+                                        mr: 0,
+                                        // marginTop: -20,
                                         borderRadius: "0px",
                                       }}
                                     >
-                                      {/* <span
+                                      <AccordionSummary
+                                        expandIcon={
+                                          isMinified ? null : (
+                                            <ExpandMoreIcon
+                                              sx={{ color: "white" }}
+                                            />
+                                          )
+                                        }
+                                        aria-controls="panel1bh-content"
+                                        id="panel1bh-header"
+                                        sx={{
+                                          // border: '5px solid red',
+                                          "& .MuiAccordionSummary-content": {
+                                            ml: 0.1,
+                                            mr: 0.1,
+                                          },
+                                          borderRadius: "0px",
+                                        }}
+                                      >
+                                        {/* <span
                                         dangerouslySetInnerHTML={{
                                           __html: subItem.formIcon,
                                         }}
                                       /> */}
-                                      <Typography
-                                        sx={{
-                                          width: "auto",
-                                          flexShrink: 0,
-                                          color: "white",
-                                          textTransform: "capitalize",
-                                          fontWeight: "bold",
-                                        }}
-                                      >
-                                        {subItem.formModule}
-                                      </Typography>
-                                    </AccordionSummary>
-                                    <AccordionDetails>
-                                      <Box
-                                        sx={{
-                                          color: "white",
-                                          // overflowY: "scroll",
-                                          backgroundColor: "#3c6766",
-                                          padding: 2,
-                                          // padding: 2,
-                                          // On hover change the background color
-                                        }}
-                                      >
-                                        {subItem.forms.map(
-                                          (form: any, formIndex: number) => (
-                                            <div
-                                              key={subIndex}
-                                              onClick={() => {
-                                                // Navigate to the link
-                                                navigate(form.formUrl);
+                                        <Typography
+                                          sx={{
+                                            width: "auto",
+                                            marginLeft: 1,
+                                            flexShrink: 0,
+                                            color: "white",
+                                            textTransform: "capitalize",
+                                            fontWeight: "bold",
+                                            textAlign: "left", // Add this line to move the text and icon to the right
+                                          }}
+                                        >
+                                          {subItem.formModule}
+                                        </Typography>
+                                      </AccordionSummary>
+                                      <AccordionDetails>
+                                        <Box
+                                          sx={{
+                                            color: "white",
+                                            // overflowY: "scroll",
+                                            backgroundColor: "#40757B",
+                                            padding: isMinified ? 0 : 2,
+                                            marginTop: -2,
+                                            paddingTop: 2,
+                                            paddingBottom: isMinified ? 2 : 5,
+                                            // padding: 2,
+                                            // On hover change the background color
+                                          }}
+                                        >
+                                          {subItem.forms.map(
+                                            (form: any, formIndex: number) => (
+                                              <div
+                                                // style={{margin: -20}}
+                                                key={subIndex}
+                                                onClick={() => {
+                                                  // Navigate to the link
+                                                  navigate(form.formUrl);
 
-                                                if (windowSize[0] <= 990) {
-                                                  setIsOpen(false);
-                                                }
+                                                  if (windowSize[0] <= 990) {
+                                                    setIsOpen(false);
+                                                  }
 
-                                                // Set the current menu item
-                                                if (isMinified) {
-                                                  // setCurrentMenuItem(0);
-                                                  setCurrentSubMenuSidebarOpenItem(
-                                                    0
+                                                  // Set the current menu item
+                                                  if (isMinified) {
+                                                    // setCurrentMenuItem(0);
+                                                    setCurrentSubMenuSidebarOpenItem(
+                                                      0
+                                                    );
+                                                  }
+
+                                                  // Set the current selected sub menu item
+                                                  setCurrentSelectedSubMenu(
+                                                    subIndex
                                                   );
-                                                }
-
-                                                // Set the current selected sub menu item
-                                                setCurrentSelectedSubMenu(
+                                                }}
+                                                // style={{
+                                                //   borderTopLeftRadius:
+                                                //     subIndex === 0 && isMinified
+                                                //       ? 5
+                                                //       : 0,
+                                                //   borderTopRightRadius:
+                                                //     subIndex === 0 && isMinified
+                                                //       ? 5
+                                                //       : 0,
+                                                //   borderBottomLeftRadius:
+                                                //     subIndex ===
+                                                //       sidebarList[index].subMenu
+                                                //         .length -
+                                                //         1 && isMinified
+                                                //       ? 5
+                                                //       : 0,
+                                                //   borderBottomRightRadius:
+                                                //     subIndex ===
+                                                //       sidebarList[index].subMenu
+                                                //         .length -
+                                                //         1 && isMinified
+                                                //       ? 5
+                                                //       : 0,
+                                                // }}
+                                                className={`${
+                                                  isMinified &&
+                                                  styles.SubMenuItemContainerMinifiedVersionli
+                                                } ${
+                                                  currentSelectedSubMenu ===
                                                   subIndex
-                                                );
-                                              }}
-                                              // style={{
-                                              //   borderTopLeftRadius:
-                                              //     subIndex === 0 && isMinified
-                                              //       ? 5
-                                              //       : 0,
-                                              //   borderTopRightRadius:
-                                              //     subIndex === 0 && isMinified
-                                              //       ? 5
-                                              //       : 0,
-                                              //   borderBottomLeftRadius:
-                                              //     subIndex ===
-                                              //       sidebarList[index].subMenu
-                                              //         .length -
-                                              //         1 && isMinified
-                                              //       ? 5
-                                              //       : 0,
-                                              //   borderBottomRightRadius:
-                                              //     subIndex ===
-                                              //       sidebarList[index].subMenu
-                                              //         .length -
-                                              //         1 && isMinified
-                                              //       ? 5
-                                              //       : 0,
-                                              // }}
-                                              className={`${
-                                                isMinified &&
-                                                styles.SubMenuItemContainerMinifiedVersionli
-                                              } ${
-                                                currentSelectedSubMenu ===
-                                                subIndex
-                                                  ? styles.selectedSubMenuItemContainerli
-                                                  : null
-                                              }`}
-                                            >
-                                              {!isMinified ? (
-                                                <div
-                                                  style={{
-                                                    display: "flex",
-                                                  }}
-                                                >
-                                                  {/* {form.icon} */}
-                                                  <p
+                                                    ? styles.selectedSubMenuItemContainerli
+                                                    : null
+                                                }`}
+                                              >
+                                                {!isMinified ? (
+                                                  <div
+                                                    className={
+                                                      styles.SubMenuItemContainerli
+                                                    }
+                                                    style={{
+                                                      display: "flex",
+                                                      // border: '1px solid red'
+                                                    }}
+                                                  >
+                                                    {/* {form.icon} */}
+                                                    {/* <p
                                                     dangerouslySetInnerHTML={{
                                                       __html: form.icon,
                                                     }}
-                                                  />
-                                                  &nbsp; &nbsp; &nbsp;
-                                                  <p
-                                                    className={
-                                                      styles.textSidebarSubMenuList
-                                                    }
+                                                  /> */}
+                                                    &nbsp; &nbsp; &nbsp;
+                                                    <p
+                                                      className={
+                                                        styles.textSidebarSubMenuList
+                                                      }
+                                                    >
+                                                      {currentLang === "ar"
+                                                        ? form.formName_Ar
+                                                        : form.text}
+                                                    </p>
+                                                  </div>
+                                                ) : (
+                                                  <div
+                                                    className={`${styles.SubMenuItemContainerliMinified}`}
                                                   >
-                                                    {currentLang === "ar"
-                                                      ? form.formName_Ar
-                                                      : form.text}
-                                                  </p>
-                                                </div>
-                                              ) : (
-                                                <div className="d-flex">
-                                                  <p>
+                                                    {/* <p>
                                                     <RxDot
                                                       style={{ marginLeft: 2 }}
                                                     />
-                                                  </p>
-                                                  &nbsp; &nbsp; &nbsp;
-                                                  <p
-                                                    className={
-                                                      styles.textSidebarSubMenuList
-                                                    }
-                                                  >
-                                                    {currentLang === "ar"
-                                                      ? form.formName_Ar
-                                                      : form.text}
-                                                  </p>
-                                                </div>
-                                              )}
-                                            </div>
-                                          )
-                                        )}
-                                      </Box>
-                                    </AccordionDetails>
-                                  </Accordion>
+                                                  </p> */}
+                                                    &nbsp; &nbsp; &nbsp;
+                                                    <p
+                                                      className={
+                                                        styles.textSidebarSubMenuList
+                                                      }
+                                                    >
+                                                      {currentLang === "ar"
+                                                        ? form.formName_Ar
+                                                        : form.text}
+                                                    </p>
+                                                  </div>
+                                                )}
+                                              </div>
+                                            )
+                                          )}
+                                        </Box>
+                                      </AccordionDetails>
+                                    </Accordion>
+                                  ) : (
+                                    <div></div>
+                                  )}
                                 </div>
                               );
                             }
                           )}
-                        </ul>
+                        </div>
                       )}
                     </li>
                   );
@@ -706,7 +787,7 @@ const Sidebar: React.FC<SidebarProps> = ({
             </div>
           </div>
           {/* Invite Members Section */}
-        </div>
+        </ul>
       </div>
     </section>
   );

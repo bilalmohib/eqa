@@ -9,7 +9,7 @@ import { MdMenuOpen } from "react-icons/md";
 import styles from "./style.module.css";
 import { useNavigate } from "react-router";
 import { AiTwotoneLock } from "react-icons/ai";
-import { BiSolidCog } from "react-icons/bi";
+// import { BiSolidBiCog } from "react-icons/bi";
 import { RiLockPasswordLine } from "react-icons/ri";
 import { CiSettings } from "react-icons/ci";
 import {
@@ -208,17 +208,17 @@ const Navbar: React.FC<NavProps> = ({
       );
       FinalsidebarAppsListArray[i].text = "Alarm";
     } else if (FinalsidebarAppsListArray[i].appName === "EQA Core") {
-      FinalsidebarAppsListArray[i].icon = renderToString(
-        <BiSolidCog
-          style={{
-            color: "#004080",
-            fontSize: 48,
-            height: 48,
-            width: 48,
-            marginBottom: 2,
-          }}
-        />
-      );
+      // FinalsidebarAppsListArray[i].icon = renderToString(
+      //   // <BiSolidCog
+      //   //   style={{
+      //   //     color: "#004080",
+      //   //     fontSize: 48,
+      //   //     height: 48,
+      //   //     width: 48,
+      //   //     marginBottom: 2,
+      //   //   }}
+      //   // />
+      // );
       FinalsidebarAppsListArray[i].text = "Core";
     } else {
       FinalsidebarAppsListArray[i].icon = `${i} icon`;

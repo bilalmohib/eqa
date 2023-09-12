@@ -271,7 +271,7 @@ html[dir="rtl"] .sidebarItemsContainer {
 
 .SidebarMenuList {
   list-style: none;
-  padding-bottom: 5px;
+  padding-bottom: 0px;
   margin-left: -25px !important;
   margin-top: 0px;
   transition: 0.1s linear;
@@ -367,6 +367,7 @@ html[dir="rtl"] .SubMenuItemContainer {
   /* padding-left: 2px !important; */
   padding-top: 10px !important;
   transition: 0.1s linear;
+  /* border: 1px solid red; */
 }
 
 html[dir="rtl"] .SubMenuItemContainer li {
@@ -382,6 +383,7 @@ html[dir="rtl"] .SubMenuItemContainer li {
   transition: 0.1s linear;
   margin-left: -32px !important;
   padding-left: 22px !important;
+  /* border: 1px solid red; */
   /* border: 1px solid red !important; */
 }
 
@@ -391,12 +393,55 @@ html[dir="rtl"] .SubMenuItemContainer li:hover {
   transition: 0.1s linear;
 }
 
-.selectedSubMenuItemContainerli {
-  background-color: #517170 !important;
-  transition: 0.1s linear;
-  border-left: 2px solid #64a9a8;
-  margin-left: -32px !important;
-  padding-left: 19px !important;
+.selectedSubMenuItemContainerli:hover {
+  background-color: #517170;
+  margin-left: 0px !important;
+  transition: cubic-bezier(0.215, 0.61, 0.355, 1) !important;
+  box-shadow: #00b2b233 0px 30px 60px -12px inset,
+    #03f9f962 0px 18px 36px -18px inset !important;
+  transition: 0s linear !important;
+}
+.SubMenuItemContainerli {
+  border-bottom: 1px solid rgb(207, 207, 207);
+  height: 40px;
+  width: 260px;
+  margin-left: -20px;
+  padding-left: 0px;
+  cursor: pointer;
+  /* width: 250px; */
+}
+.SubMenuItemContainerli:hover {
+  background-color: #517170;
+  margin-left: -20px !important;
+  transition: cubic-bezier(0.215, 0.61, 0.355, 1) !important;
+  box-shadow: #00b2b233 0px 30px 60px -12px inset,
+    #03f9f962 0px 18px 36px -18px inset !important;
+  transition: 0s linear !important;
+}
+
+.SubMenuItemContainerliMinified {
+  border-bottom: 1px solid rgb(207, 207, 207);
+  display: flex;
+  height: 35px;
+  /* border: 2px solid red; */
+  padding-bottom: 10px;
+  width: 280px;
+  margin-left: -20px;
+  padding-left: 0px;
+  padding-right: 0px;
+  margin-left: 0px;
+  margin-right: 0px;
+  cursor: pointer;
+  /* width: 250px; */
+}
+.SubMenuItemContainerliMinified:hover {
+  background-color: #517170;
+  /* border: 2px solid rgb(4, 0, 255); */
+  /* margin-left: -20px !important; */
+  transition: cubic-bezier(0.215, 0.61, 0.355, 1) !important;
+  box-shadow: #00b2b233 0px 30px 60px -12px inset,
+    #03f9f962 0px 18px 36px -18px inset !important;
+  transition: 0s linear !important;
 }
 
 html[dir="rtl"] .selectedSubMenuItemContainerli {
@@ -407,10 +452,6 @@ html[dir="rtl"] .selectedSubMenuItemContainerli {
   margin-left: -32px !important;
   padding-left: 19px !important;
 }
-
-/* .selectedSubMenuItemContainerli:hover{
-    padding-left: 10px !important;
-} */
 
 /* Inside sub menu item container */
 .SubMenuItemContainer li div {
@@ -425,7 +466,8 @@ html[dir="rtl"] .SubMenuItemContainer li div {
 
 .textSidebarSubMenuList {
   padding-left: 5px !important;
-
+  margin-top: 5px;
+  height: 30px;
   /* Add text overflow to the text as ... */
   white-space: nowrap;
   overflow: hidden;
@@ -438,11 +480,19 @@ html[dir="rtl"] .SubMenuItemContainer li div {
 html[dir="rtl"] .textSidebarSubMenuList {
   padding-left: initial !important;
   padding-right: 5px !important;
+  margin-top: 5px;
+  height: 30px;
+  /* Add text overflow to the text as ... */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+  display: block;
+  /* border: 1px solid red; */
 }
 
 /* ________________________________________ Footer block ________________________________________ */
 .sidebarFooter {
-  /* border: 1px solid red; */
   position: absolute;
   bottom: 0px;
   margin-left: -30px;
@@ -451,7 +501,7 @@ html[dir="rtl"] .textSidebarSubMenuList {
   background-color: #3c6766;
   /* border-top: 1px solid #424244;
     border-bottom: 1px solid #424244; */
-  padding-bottom: 5px;
+  padding-bottom: 30px;
   display: flex;
   justify-content: center;
 }
@@ -767,18 +817,7 @@ html[dir="rtl"]
   background-color: transparent;
   color: white !important;
   transition: 0s linear;
-
-  /* border-left: 0px solid transparent !important;
-    border-right: 4px solid #64a9a8 !important;
-    transition: 0.1s linear;
-    /* padding-left: 11px !important; */
 }
-
-/* html[dir="rtl"] .minifySidebar div .sidebarItemsContainer .SidebarMenuList li .selected_Menu_Item .minifiedSidebarInsideContainer p:hover {
-    border: 1px solid rgb(255, 0, 0) !important;
-    transition: 0.1s linear !important;
-    padding-left: 20px;
-} */
 
 /* Hiding the text of the list */
 .minifySidebar
@@ -821,12 +860,12 @@ html[dir="rtl"] .SubMenuItemContainerMinifiedVersion {
 /* Minified version of the sidebar submenu dropdown items */
 .SubMenuItemContainerMinifiedVersionli {
   position: relative !important;
-  background-color: #3c6766 !important;
-  /* border: 1px solid rgb(255, 0, 0) !important; */
+  background-color: #40757b !important;
   margin-left: 0px !important;
-  height: 42px;
+  /* height: 50px; */
   transition: 0.2s cubic-bezier(0.215, 0.61, 0.355, 1) !important;
   display: flex;
+  margin-right: 0px;
   justify-content: flex-start;
 }
 
