@@ -1,249 +1,254 @@
 .sidebar {
-    position: fixed !important;
-    background-color: #4f747a;
-    /* border: 1px solid red; */
-    top: 0rem;
-    width: 270px;
-    min-height: 100vh;
-    z-index: 100;
+  position: fixed !important;
+  background-color: #4f747a;
+  /* border: 1px solid red; */
+  top: 0rem;
+  width: 270px;
+  min-height: 100vh;
+  z-index: 100;
 
-    transition: 0.1s linear;
+  transition: 0.1s linear;
 }
 
 html[dir="rtl"] .sidebar {
-    right: 0px;
-    left: initial;
+  right: 0px;
+  left: initial;
 }
 
 .profileInfoContainer {
-    background-image: url("https://images.unsplash.com/photo-1508951377804-f6ed6d17163e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTd8fGd1eSUyMGluJTIwYmxhY2slMjBiYWNrZ3JvdW5kfGVufDB8fDB8fA%3D%3D&w=1000&q=80");
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-    height: 150px;
-    transition: 0.1s linear;
-    /* border: 1px solid red; */
+  background-image: url("https://images.unsplash.com/photo-1508951377804-f6ed6d17163e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTd8fGd1eSUyMGluJTIwYmxhY2slMjBiYWNrZ3JvdW5kfGVufDB8fDB8fA%3D%3D&w=1000&q=80");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 150px;
+  transition: 0.1s linear;
+  /* border: 1px solid red; */
 }
 
 .sidebarLogoContainer {
-    position: relative;
-    background-color: #4f747a;
-    /* border: 1px solid rgb(220, 3, 3); */
-    height: 66px;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    transition: 0.1s linear;
-    cursor: pointer;
-    z-index: 10;
+  position: relative;
+  background-color: #4f747a;
+  /* border: 1px solid rgb(220, 3, 3); */
+  height: 66px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  transition: 0.1s linear;
+  cursor: pointer;
+  z-index: 10;
 }
 
 .sidebarLogoContainer:active {
-    transform: scale(0.95);
-    transition: 0.1s linear;
+  transform: scale(0.95);
+  transition: 0.1s linear;
 }
 
 .profilePullTriggerBtn {
-    position: relative;
-    /* top: -5px;
+  position: relative;
+  /* top: -5px;
     left: 0px;
     right: 0px; */
-    left: 0px;
-    right: 0px;
-    margin-left: auto;
-    margin-right: auto;
-    font-size: 17px;
-    height: 21px;
-    width: 31px;
-    line-height: 10px;
-    text-align: center;
-    box-shadow: rgba(136, 106, 181, 0.3) 0px 0px 2px;
-    opacity: 1;
-    position: absolute !important;
-    color: rgb(255, 255, 255) !important;
-    background: #293738;
-    padding: 0px 5px;
-    border-width: 1px;
-    border-style: solid;
-    border-color: rgba(0, 0, 0, 0.4);
-    border-image: initial;
-    border-radius: 0px 0px 20px 20px;
-    text-decoration: none;
-    transition: all 200ms cubic-bezier(0.34, 1.25, 0.6, 1) 0s;
-    cursor: pointer;
-    z-index: 0;
-    transition: 0.3s cubic-bezier(0.075, 0.82, 0.165, 1);
+  left: 0px;
+  right: 0px;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 17px;
+  height: 21px;
+  width: 31px;
+  line-height: 10px;
+  text-align: center;
+  box-shadow: rgba(136, 106, 181, 0.3) 0px 0px 2px;
+  opacity: 1;
+  position: absolute !important;
+  color: rgb(255, 255, 255) !important;
+  background: #293738;
+  padding: 0px 5px;
+  border-width: 1px;
+  border-style: solid;
+  border-color: rgba(0, 0, 0, 0.4);
+  border-image: initial;
+  border-radius: 0px 0px 20px 20px;
+  text-decoration: none;
+  transition: all 200ms cubic-bezier(0.34, 1.25, 0.6, 1) 0s;
+  cursor: pointer;
+  z-index: 0;
+  transition: 0.3s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
 html[dir="rtl"] .profilePullTriggerBtn {
-    left: 0px;
-    right: 0px;
-    margin-left: auto;
-    margin-right: auto;
+  left: 0px;
+  right: 0px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .profilePullTriggerBtn:hover {
-    background-color: #4cb9b7;
-    margin-top: -14px;
-    width: 35px;
-    height: 35px;
-    border-top: 1px solid #7dbebe;
-    box-shadow: 0px 0px 2px #4cb9b7;
-    color: white;
-    transition: 0.3s cubic-bezier(0.075, 0.82, 0.165, 1);
-    padding: 12px 5px;
+  background-color: #4cb9b7;
+  margin-top: -14px;
+  width: 35px;
+  height: 35px;
+  border-top: 1px solid #7dbebe;
+  box-shadow: 0px 0px 2px #4cb9b7;
+  color: white;
+  transition: 0.3s cubic-bezier(0.075, 0.82, 0.165, 1);
+  padding: 12px 5px;
 }
 
 .LogoSidebar {
-    /* border: 1px solid red; */
-    transition: 0.1s linear;
+  /* border: 1px solid red; */
+  transition: 0.1s linear;
 }
 
 .imageProfile {
-    border-radius: 50%;
-    margin-left: 40px;
-    transition: 0.1s linear;
+  border-radius: 50%;
+  margin-left: 40px;
+  transition: 0.1s linear;
 }
 
 html[dir="rtl"] .imageProfile {
-    margin-left: initial;
-    margin-right: 40px;
+  margin-left: initial;
+  margin-right: 40px;
 }
 
 .rightInsideProfile {
-    margin-left: 10px;
-    transition: 0.1s linear;
+  margin-left: 10px;
+  transition: 0.1s linear;
 }
 
 html[dir="rtl"] .rightInsideProfile {
-    margin-left: initial;
-    margin-right: 10px;
+  margin-left: initial;
+  margin-right: 10px;
 }
 
 .rightInsideProfile h3 {
-    margin-top: 3px;
-    font-size: 20px;
-    color: white;
-    transition: 0.1s linear;
+  margin-top: 3px;
+  font-size: 20px;
+  color: white;
+  transition: 0.1s linear;
 }
 
 .rightInsideProfile p {
-    color: white;
-    margin-top: -10px;
-    font-size: 15px;
-    transition: 0.1s linear;
+  color: white;
+  margin-top: -10px;
+  font-size: 15px;
+  transition: 0.1s linear;
 }
 
-
 .insideContainerProfile {
-    /* border: 1px solid red; */
-    display: flex;
-    padding-top: 50px;
-    transition: 0.1s linear;
+  /* border: 1px solid red; */
+  display: flex;
+  padding-top: 50px;
+  transition: 0.1s linear;
 }
 
 /* search Filter Menu Container */
 .searchFilterMenuContainer {
-    height: 66px;
-    transition: 0.1s linear;
-    /* border: 1px solid red; */
+  height: 66px;
+  transition: 0.1s linear;
+  /* border: 1px solid red; */
 }
 
 .searchFilterMenuSubContainer {
-    width: 234px !important;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 14px;
-    border-radius: 5px;
-    border: 1px solid rgb(41, 91, 65);
-    background-color: #2f4649;
-    color: white !important;
-    transition: 0.1s linear;
-    height: 37px !important;
-    display: flex;
+  width: 234px !important;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 14px;
+  border-radius: 5px;
+  border: 1px solid rgb(41, 91, 65);
+  background-color: #2f4649;
+  color: white !important;
+  transition: 0.1s linear;
+  height: 37px !important;
+  display: flex;
 }
 
 html[dir="rtl"] .searchFilterMenuSubContainer {
-    margin-left: auto;
-    margin-right: auto;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-.searchFilterMenuSubContainer:focus, .searchFilterMenuSubContainer:active, .searchFilterMenuSubContainer:after {
-    background-color: #2f4649;
-    color: white !important;
-    transition: 0.1s linear;
-    border: 1px solid rgb(11, 46, 11) !important;
+.searchFilterMenuSubContainer:focus,
+.searchFilterMenuSubContainer:active,
+.searchFilterMenuSubContainer:after {
+  background-color: #2f4649;
+  color: white !important;
+  transition: 0.1s linear;
+  border: 1px solid rgb(11, 46, 11) !important;
 }
 
 .searchFilterIconContainer {
-    width: 25px !important;
-    height: 22px !important;
-    padding-right: 2px;
-    padding-left: 3px;
-    margin-top: 6px;
-    margin-right: 10px;
-    border-radius: 5px;
-    background-color: #3c6766;
-    font-size: 16px !important;
-    cursor: pointer;
+  width: 25px !important;
+  height: 22px !important;
+  padding-right: 2px;
+  padding-left: 3px;
+  margin-top: 6px;
+  margin-right: 10px;
+  border-radius: 5px;
+  background-color: #3c6766;
+  font-size: 16px !important;
+  cursor: pointer;
 }
 
 html[dir="rtl"] .searchFilterIconContainer {
-    margin-left: 10px;
-    margin-right: initial;
+  margin-left: 10px;
+  margin-right: initial;
 
-    padding-right: 3px;
-    padding-left: 2px;
+  padding-right: 3px;
+  padding-left: 2px;
 }
 
 .searchFilterIconContainer:hover {
-    background-color: #4cb9b7;
+  background-color: #4cb9b7;
 }
 
 .searchFilterMenu {
-    border: none;
-    box-shadow: none;
-    border-radius: 5px !important;
-    background-color: #2f4649;
+  border: none;
+  box-shadow: none;
+  border-radius: 5px !important;
+  background-color: #2f4649;
 }
 
-.searchFilterMenu:focus, .searchFilterMenu:active, .searchFilterMenu::after, .searchFilterMenu::backdrop, .searchFilterMenu:focus {
-    background-color: #2f4649;
-    color: white !important;
-    transition: 0.1s linear;
-    border: none !important;
-    box-shadow: none !important;
-    border-radius: 5px !important;
+.searchFilterMenu:focus,
+.searchFilterMenu:active,
+.searchFilterMenu::after,
+.searchFilterMenu::backdrop,
+.searchFilterMenu:focus {
+  background-color: #2f4649;
+  color: white !important;
+  transition: 0.1s linear;
+  border: none !important;
+  box-shadow: none !important;
+  border-radius: 5px !important;
 }
 
 /* search Filter Menu Container */
 
 /* When The sidebar is hidden */
 .hideSidebar {
-    margin-left: -270px !important;
-    transition: 0.1s linear;
+  margin-left: -270px !important;
+  transition: 0.1s linear;
 }
 
 html[dir="rtl"] .hideSidebar {
-    margin-right: -270px !important;
-    margin-left: initial !important;
-    transition: 0.1s linear;
+  margin-right: -270px !important;
+  margin-left: initial !important;
+  transition: 0.1s linear;
 }
 
 .sidebarItemsContainer {
-    /* border: 1px solid #0000ff; */
-    padding-left: 30px;
-    padding-top: 0px;
-    margin-top: 20px;
-    transition: 0.1s linear;
+  /* border: 1px solid #0000ff; */
+  padding-left: 30px;
+  padding-top: 0px;
+  margin-top: 20px;
+  transition: 0.1s linear;
 }
 
 html[dir="rtl"] .sidebarItemsContainer {
-    /* border: 1px solid red; */
-    padding-left: initial !important;
-    padding-right: 20px !important;
-    transition: 0.1s linear;
+  /* border: 1px solid red; */
+  padding-left: initial !important;
+  padding-right: 20px !important;
+  transition: 0.1s linear;
 }
 
 /*
@@ -265,403 +270,524 @@ html[dir="rtl"] .sidebarItemsContainer {
 } */
 
 .SidebarMenuList {
-    list-style: none;
-    padding-bottom: 5px;
-    margin-left: -25px !important;
-    margin-top: 0px;
-    transition: 0.1s linear;
+  list-style: none;
+  padding-bottom: 0px;
+  margin-left: -25px !important;
+  margin-top: 0px;
+  transition: 0.1s linear;
 }
 
 html[dir="rtl"] .SidebarMenuList {
-    /* border: 1px solid rgb(0, 72, 255); */
-    margin-left: initial !important;
-    margin-right: -25px !important;
-    transition: 0.1s linear;
+  /* border: 1px solid rgb(0, 72, 255); */
+  margin-left: initial !important;
+  margin-right: -25px !important;
+  transition: 0.1s linear;
 }
 
 .SidebarMenuList li li {
-    color: #d7d6d5;
-    cursor: pointer;
-    width: 266px !important;
-    margin-left: -36px;
-    height: 44px;
-    padding-top: 3%;
-    padding-left: 25px;
-    transition: 0.1s linear;
+  color: #d7d6d5;
+  cursor: pointer;
+  width: 266px !important;
+  margin-left: -36px;
+  height: 44px;
+  padding-top: 3%;
+  padding-left: 25px;
+  transition: 0.1s linear;
 }
 
 html[dir="rtl"] .SidebarMenuList li li {
-    margin-left: initial !important;
-    margin-right: -36px !important;
+  margin-left: initial !important;
+  margin-right: -36px !important;
 
-    padding-left: initial !important;
-    padding-right: 25px !important;
-    transition: 0.1s linear;
+  padding-left: initial !important;
+  padding-right: 25px !important;
+  transition: 0.1s linear;
 }
 
 .SidebarMenuList li li:hover {
-    background-color: #47686e;
-    transition: 0.1s linear;
-    width: 268px !important;
-    /* border: 1px solid red; */
+  background-color: #47686e;
+  transition: 0.1s linear;
+  width: 268px !important;
+  /* border: 1px solid red; */
 }
 
 .selected_Menu_Item {
-    /* background-color: #56797f !important; */
-    /* border-left: 2px solid #64a9a8; */
-    transition: 0.1s linear;
-    padding-left: 23px !important;
+  /* background-color: #56797f !important; */
+  /* border-left: 2px solid #64a9a8; */
+  transition: 0.1s linear;
+  padding-left: 23px !important;
 }
 
 html[dir="rtl"] .selected_Menu_Item {
-    padding-left: initial !important;
-    padding-right: 23px !important;
-    border-left: initial !important;
-    border-right: 2px solid #64a9a8;
-    transition: 0.1s linear;
+  padding-left: initial !important;
+  padding-right: 23px !important;
+  border-left: initial !important;
+  border-right: 2px solid #64a9a8;
+  transition: 0.1s linear;
 }
 
 .selected_Menu_Item:hover {
-    background-color: #47686e !important;
-    transition: 0.1s linear;
+  background-color: #47686e !important;
+  transition: 0.1s linear;
 }
 
 .itemMenuListText {
-    margin-top: 2px;
-    margin-left: 20px;
-    font-size: 16px;
-    transition: 0.1s linear;
+  margin-top: 2px;
+  margin-left: 20px;
+  font-size: 16px;
+  transition: 0.1s linear;
 }
 
 html[dir="rtl"] .itemMenuListText {
-    margin-left: initial !important;
-    margin-right: 20px;
-    transition: 0.1s linear;
+  margin-left: initial !important;
+  margin-right: 20px;
+  transition: 0.1s linear;
 }
 
 .SubMenuItemContainer {
-    width: 268px !important;
-    background-color: #3c6766;
-    list-style: none;
-    margin-left: -35px;
-    transition: 0.6s linear;
+  width: 268px !important;
+  background-color: #3c6766;
+  list-style: none;
+  margin-left: -35px;
+  transition: 0.6s linear;
 }
 
 html[dir="rtl"] .SubMenuItemContainer {
-    /* border: 2px solid blue; */
-    margin-left: initial !important;
-    margin-right: -42px !important;
-    transition: 0.6s linear;
+  /* border: 2px solid blue; */
+  margin-left: initial !important;
+  margin-right: -42px !important;
+  transition: 0.6s linear;
 }
 
 .SubMenuItemContainer li {
-    background-color: #3c6766;
-    width: 269px !important;
-    margin-left: -33px;
-    height: 42px;
-    /* padding-left: 2px !important; */
-    padding-top: 10px !important;
-    transition: 0.1s linear;
+  background-color: #3c6766;
+  width: 269px !important;
+  margin-left: -33px;
+  height: 42px;
+  /* padding-left: 2px !important; */
+  padding-top: 10px !important;
+  transition: 0.1s linear;
+  /* border: 1px solid red; */
 }
 
 html[dir="rtl"] .SubMenuItemContainer li {
-    /* border: 1px solid rgb(255, 0, 0); */
-    width: 270px !important;
-    margin-left: initial !important;
-    margin-right: 10px !important;
-    transition: 0.1s linear;
+  /* border: 1px solid rgb(255, 0, 0); */
+  width: 270px !important;
+  margin-left: initial !important;
+  margin-right: 10px !important;
+  transition: 0.1s linear;
 }
 
 .SubMenuItemContainer li:hover {
-    background-color: #517170 !important;
-    transition: 0.1s linear;
-    margin-left: -32px !important;
-    padding-left: 22px !important;
-    /* border: 1px solid red !important; */
+  background-color: #517170 !important;
+  transition: 0.1s linear;
+  margin-left: -32px !important;
+  padding-left: 22px !important;
+  /* border: 1px solid red; */
+  /* border: 1px solid red !important; */
 }
 
 html[dir="rtl"] .SubMenuItemContainer li:hover {
-    margin-left: initial !important;
-    margin-right: -33px !important;
-    transition: 0.1s linear;
+  margin-left: initial !important;
+  margin-right: -33px !important;
+  transition: 0.1s linear;
 }
 
-.selectedSubMenuItemContainerli {
-    background-color: #517170 !important;
-    transition: 0.1s linear;
-    border-left: 2px solid #64a9a8;
-    margin-left: -32px !important;
-    padding-left: 19px !important;
+.selectedSubMenuItemContainerli:hover {
+  background-color: #517170;
+  margin-left: 0px !important;
+  transition: cubic-bezier(0.215, 0.61, 0.355, 1) !important;
+  box-shadow: #00b2b233 0px 30px 60px -12px inset,
+    #03f9f962 0px 18px 36px -18px inset !important;
+  transition: 0s linear !important;
+}
+.SubMenuItemContainerli {
+  border-bottom: 1px solid rgb(207, 207, 207);
+  height: 40px;
+  width: 260px;
+  margin-left: -20px;
+  padding-left: 0px;
+  cursor: pointer;
+  /* width: 250px; */
+}
+.SubMenuItemContainerli:hover {
+  background-color: #517170;
+  margin-left: -20px !important;
+  transition: cubic-bezier(0.215, 0.61, 0.355, 1) !important;
+  box-shadow: #00b2b233 0px 30px 60px -12px inset,
+    #03f9f962 0px 18px 36px -18px inset !important;
+  transition: 0s linear !important;
+}
+
+.SubMenuItemContainerliMinified {
+  border-bottom: 1px solid rgb(207, 207, 207);
+  display: flex;
+  height: 35px;
+  /* border: 2px solid red; */
+  padding-bottom: 10px;
+  width: 280px;
+  margin-left: -20px;
+  padding-left: 0px;
+  padding-right: 0px;
+  margin-left: 0px;
+  margin-right: 0px;
+  cursor: pointer;
+  /* width: 250px; */
+}
+.SubMenuItemContainerliMinified:hover {
+  background-color: #517170;
+  /* border: 2px solid rgb(4, 0, 255); */
+  /* margin-left: -20px !important; */
+  transition: cubic-bezier(0.215, 0.61, 0.355, 1) !important;
+  box-shadow: #00b2b233 0px 30px 60px -12px inset,
+    #03f9f962 0px 18px 36px -18px inset !important;
+  transition: 0s linear !important;
 }
 
 html[dir="rtl"] .selectedSubMenuItemContainerli {
-    background-color: #517170 !important;
-    transition: 0.1s linear;
-    border-left: initial !important;
-    border-right: 2px solid #64a9a8;
-    margin-left: -32px !important;
-    padding-left: 19px !important;
+  background-color: #517170 !important;
+  transition: 0.1s linear;
+  border-left: initial !important;
+  border-right: 2px solid #64a9a8;
+  margin-left: -32px !important;
+  padding-left: 19px !important;
 }
-
-/* .selectedSubMenuItemContainerli:hover{
-    padding-left: 10px !important;
-} */
 
 /* Inside sub menu item container */
 .SubMenuItemContainer li div {
-    padding-left: 2px;
-    /* border: 1px solid rgb(106, 255, 0); */
+  padding-left: 2px;
+  /* border: 1px solid rgb(106, 255, 0); */
 }
 
 html[dir="rtl"] .SubMenuItemContainer li div {
-    padding-left: initial !important;
-    padding-right: 2px;
+  padding-left: initial !important;
+  padding-right: 2px;
 }
 
 .textSidebarSubMenuList {
-    padding-left: 5px !important;
+  padding-left: 5px !important;
+  margin-top: 5px;
+  height: 30px;
+  /* Add text overflow to the text as ... */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+  display: block;
+  /* border: 1px solid red; */
 }
 
 html[dir="rtl"] .textSidebarSubMenuList {
-    padding-left: initial !important;
-    padding-right: 5px !important;
+  padding-left: initial !important;
+  padding-right: 5px !important;
+  margin-top: 5px;
+  height: 30px;
+  /* Add text overflow to the text as ... */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+  display: block;
+  /* border: 1px solid red; */
 }
 
 /* ________________________________________ Footer block ________________________________________ */
 .sidebarFooter {
-    /* border: 1px solid red; */
-    position: absolute;
-    bottom: 0px;
-    margin-left: -30px;
-    width: 269px;
-    height: 45px;
-    background-color: #3c6766;
-    /* border-top: 1px solid #424244;
+  position: absolute;
+  bottom: 0px;
+  margin-left: -30px;
+  width: 269px;
+  height: 45px;
+  background-color: #3c6766;
+  /* border-top: 1px solid #424244;
     border-bottom: 1px solid #424244; */
-    padding-bottom: 5px;
-    display: flex;
-    justify-content: center;
+  padding-bottom: 30px;
+  display: flex;
+  justify-content: center;
 }
 
 html[dir="rtl"] .sidebarFooter {
-    /* border: 1px solid red; */
-    margin-left: initial !important;
-    margin-right: -20px !important;
-    transition: 0.1s linear;
+  /* border: 1px solid red; */
+  margin-left: initial !important;
+  margin-right: -20px !important;
+  transition: 0.1s linear;
 }
 
 .sidebarFooterContainer {
-    /* border: 1px solid red; */
-    /* margin-left: 30px; */
-    margin-top: 8px;
-    width: 50%;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    color: white;
-    font-weight: 300;
+  /* border: 1px solid red; */
+  /* margin-left: 30px; */
+  margin-top: 8px;
+  width: 50%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  color: white;
+  font-weight: 300;
 }
 
 .logoutText {
-    margin-top: 0;
-    margin-left: 25px;
-    font-size: 20px;
-    cursor: pointer;
+  margin-top: 0;
+  margin-left: 25px;
+  font-size: 20px;
+  cursor: pointer;
 }
 
 html[dir="rtl"] .logoutText {
-    margin-left: initial;
-    margin-right: 25px;
-    transition: 0.1s linear;
+  margin-left: initial;
+  margin-right: 25px;
+  transition: 0.1s linear;
 }
 
 .logoutText:hover {
-    text-decoration: underline;
+  text-decoration: underline;
 }
 
 /* ________________________________________ Footer block ________________________________________ */
 
-
 /* @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ Minified Sidbar @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ */
 .minifySidebar {
-    margin-left: 0px !important;
-    transition: 0.1s linear;
-    /* border: 1px solid rgb(0, 76, 255); */
-    width: 80px;
+  margin-left: 0px !important;
+  transition: 0.1s linear;
+  /* border: 1px solid rgb(0, 76, 255); */
+  width: 80px;
 }
 
 html[dir="rtl"] .minifySidebar {
-    margin-right: 0px !important;
-    margin-left: initial !important;
-    transition: 0.1s linear;
+  margin-right: 0px !important;
+  margin-left: initial !important;
+  transition: 0.1s linear;
 }
 
 /* Changing the logo styles */
 .minifySidebar div .sidebarLogoContainer .LogoSidebar {
-    /* border: 1px solid rgb(0, 110, 255); */
-    width: 40px;
-    height: 40px;
-    margin-left: 5px;
-    transition: 0.1s linear;
+  /* border: 1px solid rgb(0, 110, 255); */
+  width: 40px;
+  height: 40px;
+  margin-left: 5px;
+  transition: 0.1s linear;
 }
 
 html[dir="rtl"] .minifySidebar div .sidebarLogoContainer .LogoSidebar {
-    margin-left: initial;
-    margin-right: 5px;
-    transition: 0.1s linear;
+  margin-left: initial;
+  margin-right: 5px;
+  transition: 0.1s linear;
 }
 
 /* Profile Info Container */
 .minifySidebar div .profileInfoContainer {
-    /* border: 2px solid green; */
-    height: 100px;
-    transition: 0.1s linear;
+  /* border: 2px solid green; */
+  height: 100px;
+  transition: 0.1s linear;
 }
 
 /* Profile Image Profile Info Container */
 .minifySidebar div .profileInfoContainer .insideContainerProfile {
-    /* border: 2px solid rgb(30, 255, 0); */
-    padding-top: 0px !important;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    transition: 0.1s linear;
+  /* border: 2px solid rgb(30, 255, 0); */
+  padding-top: 0px !important;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  transition: 0.1s linear;
 }
 
-.minifySidebar div .profileInfoContainer .insideContainerProfile .leftInsideProfile {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: fit-content;
-    /* border: 2px solid rgb(251, 226, 0); */
-    width: calc(100%);
-    margin-top: 0px !important;
+.minifySidebar
+  div
+  .profileInfoContainer
+  .insideContainerProfile
+  .leftInsideProfile {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: fit-content;
+  /* border: 2px solid rgb(251, 226, 0); */
+  width: calc(100%);
+  margin-top: 0px !important;
 }
 
-.minifySidebar div .profileInfoContainer .insideContainerProfile .leftInsideProfile .imageProfile {
-    /* border: 2px solid red; */
-    width: 50px;
-    height: 50px;
-    display: block;
-    margin-left: 0px;
-    transition: 0.1s linear;
-    border: 1px solid rgba(255, 255, 255, 0);
+.minifySidebar
+  div
+  .profileInfoContainer
+  .insideContainerProfile
+  .leftInsideProfile
+  .imageProfile {
+  /* border: 2px solid red; */
+  width: 50px;
+  height: 50px;
+  display: block;
+  margin-left: 0px;
+  transition: 0.1s linear;
+  border: 1px solid rgba(255, 255, 255, 0);
 }
 
-html[dir="rtl"] .minifySidebar div .profileInfoContainer .insideContainerProfile .leftInsideProfile .imageProfile {
-    margin-left: initial;
-    margin-right: 0px !important;
-    transition: 0.1s linear;
+html[dir="rtl"]
+  .minifySidebar
+  div
+  .profileInfoContainer
+  .insideContainerProfile
+  .leftInsideProfile
+  .imageProfile {
+  margin-left: initial;
+  margin-right: 0px !important;
+  transition: 0.1s linear;
 }
 
-.minifySidebar div .profileInfoContainer .insideContainerProfile .leftInsideProfile .imageProfile:hover {
-    border: 1px solid #b7cfd3;
-    transform: rotate(360deg);
-    cursor: pointer;
+.minifySidebar
+  div
+  .profileInfoContainer
+  .insideContainerProfile
+  .leftInsideProfile
+  .imageProfile:hover {
+  border: 1px solid #b7cfd3;
+  transform: rotate(360deg);
+  cursor: pointer;
 }
 
 /* Hide Right Side */
-.minifySidebar div .profileInfoContainer .insideContainerProfile .rightInsideProfile {
-    display: none;
+.minifySidebar
+  div
+  .profileInfoContainer
+  .insideContainerProfile
+  .rightInsideProfile {
+  display: none;
 }
 
 /* List Sidebar Container */
 .minifySidebar div .sidebarItemsContainer {
-    /* border: 2px solid rgb(0, 255, 255); */
-    margin-top: 0px;
-    transition: 0.1s linear;
+  /* border: 2px solid rgb(0, 255, 255); */
+  margin-top: 0px;
+  transition: 0.1s linear;
 }
 
 /* List Sidebar */
 .minifySidebar div .sidebarItemsContainer .SidebarMenuList {
-    width: 77px !important;
-    margin-left: -30px !important;
-    transition: 0.1s linear;
+  width: 77px !important;
+  margin-left: -30px !important;
+  transition: 0.1s linear;
 }
 
 html[dir="rtl"] .minifySidebar div .sidebarItemsContainer .SidebarMenuList {
-    /* border: 1px solid rgb(43, 0, 255) !important; */
-    margin-left: initial !important;
-    margin-right: -22px !important;
-    transition: 0.1s linear;
+  /* border: 1px solid rgb(43, 0, 255) !important; */
+  margin-left: initial !important;
+  margin-right: -22px !important;
+  transition: 0.1s linear;
 }
 
 /* individual list */
 .minifySidebar div .sidebarItemsContainer .SidebarMenuList li li {
-    width: 266px !important;
-    /* border: 1px solid red !important; */
-    margin-left: -32px !important;
-    border-left: 4px solid transparent !important;
-    display: flex;
-    background-color: transparent !important;
-    justify-content: flex-start;
-    align-items: flex-start;
-    padding-left: 24px !important;
-    padding-top: 5px !important;
-    transition: 0.1s linear !important;
+  width: 266px !important;
+  /* border: 1px solid red !important; */
+  margin-left: -32px !important;
+  border-left: 4px solid transparent !important;
+  display: flex;
+  background-color: transparent !important;
+  justify-content: flex-start;
+  align-items: flex-start;
+  padding-left: 24px !important;
+  padding-top: 5px !important;
+  transition: 0.1s linear !important;
 }
 
-html[dir="rtl"] .minifySidebar div .sidebarItemsContainer .SidebarMenuList li li {
-    margin-left: initial !important;
-    margin-right: -32px !important;
-    padding-left: initial !important;
-    padding-right: 24px !important;
-    transition: 0.1s linear !important;
+html[dir="rtl"]
+  .minifySidebar
+  div
+  .sidebarItemsContainer
+  .SidebarMenuList
+  li
+  li {
+  margin-left: initial !important;
+  margin-right: -32px !important;
+  padding-left: initial !important;
+  padding-right: 24px !important;
+  transition: 0.1s linear !important;
 }
 
 .minifySidebar div .sidebarItemsContainer .SidebarMenuList li li:hover {
-    /* border: 1px solid red !important; */
-    transition: 0.1s linear !important;
+  /* border: 1px solid red !important; */
+  transition: 0.1s linear !important;
 }
 
 /* Increasing the font size of the icon items */
 .minifySidebar div .sidebarItemsContainer .SidebarMenuList li li div p {
-    font-size: 16px !important;
-    padding-left: 0px !important;
-    padding-top: 2.5px !important;
-    transition: 0.1s linear;
+  font-size: 16px !important;
+  padding-left: 0px !important;
+  padding-top: 2.5px !important;
+  transition: 0.1s linear;
 }
 
-html[dir="rtl"] .minifySidebar div .sidebarItemsContainer .SidebarMenuList li li div p {
-    padding-right: 0px !important;
-    padding-left: initial !important;
-    padding-top: 2.5px !important;
-    transition: 0.1s linear;
+html[dir="rtl"]
+  .minifySidebar
+  div
+  .sidebarItemsContainer
+  .SidebarMenuList
+  li
+  li
+  div
+  p {
+  padding-right: 0px !important;
+  padding-left: initial !important;
+  padding-top: 2.5px !important;
+  transition: 0.1s linear;
 }
 
 /* Selected List item of minified sidebar adding some padding  */
-.minifySidebar div .sidebarItemsContainer .SidebarMenuList li .selected_Menu_Item div p {
-    padding-left: 0px !important;
-    padding-top: 2.5px !important;
-    transition: 0.1s linear;
+.minifySidebar
+  div
+  .sidebarItemsContainer
+  .SidebarMenuList
+  li
+  .selected_Menu_Item
+  div
+  p {
+  padding-left: 0px !important;
+  padding-top: 2.5px !important;
+  transition: 0.1s linear;
 }
 
-html[dir="rtl"] .minifySidebar div .sidebarItemsContainer .SidebarMenuList li .selected_Menu_Item div p {
-    padding-right: 0px !important;
-    padding-left: initial !important;
-    padding-top: 2.5px !important;
-    transition: 0.1s linear;
+html[dir="rtl"]
+  .minifySidebar
+  div
+  .sidebarItemsContainer
+  .SidebarMenuList
+  li
+  .selected_Menu_Item
+  div
+  p {
+  padding-right: 0px !important;
+  padding-left: initial !important;
+  padding-top: 2.5px !important;
+  transition: 0.1s linear;
 }
 
 /* Minfied Sidebar Selected List item */
-.minifySidebar div .sidebarItemsContainer .SidebarMenuList li .selected_Menu_Item {
-    /* border: 1px solid red !important; */
-    background-color: #56797f !important;
-    color: rgb(199, 199, 199) !important;
-    border-left: 4px solid #64a9a8 !important;
-    transition: 0.1s linear;
-    width: 80px !important;
+.minifySidebar
+  div
+  .sidebarItemsContainer
+  .SidebarMenuList
+  li
+  .selected_Menu_Item {
+  /* border: 1px solid red !important; */
+  background-color: #56797f !important;
+  color: rgb(199, 199, 199) !important;
+  border-left: 4px solid #64a9a8 !important;
+  transition: 0.1s linear;
+  width: 80px !important;
 }
 
-html[dir="rtl"] .minifySidebar div .sidebarItemsContainer .SidebarMenuList li .selected_Menu_Item {
-    border-left: 0px solid transparent !important;
-    border-right: 4px solid #64a9a8 !important;
-    transition: 0.1s linear;
-    padding-left: 0px !important;
-    margin-right: -38px !important;
-    width: 78px !important;
+html[dir="rtl"]
+  .minifySidebar
+  div
+  .sidebarItemsContainer
+  .SidebarMenuList
+  li
+  .selected_Menu_Item {
+  border-left: 0px solid transparent !important;
+  border-right: 4px solid #64a9a8 !important;
+  transition: 0.1s linear;
+  padding-left: 0px !important;
+  margin-right: -38px !important;
+  width: 78px !important;
 }
 
 /* 
@@ -669,161 +795,167 @@ html[dir="rtl"] .minifySidebar div .sidebarItemsContainer .SidebarMenuList li .s
     hovering adding a border of 4px to the left of the items. 
 */
 
-
 /* %%%%%%%%%%%%%%%%%%%%%%%%%% IDHAR  */
-.minifySidebar div .sidebarItemsContainer .SidebarMenuList li .selected_Menu_Item:hover {
-    background-color: transparent;
-    color: white !important;
-    transition: 0.1s linear;
+.minifySidebar
+  div
+  .sidebarItemsContainer
+  .SidebarMenuList
+  li
+  .selected_Menu_Item:hover {
+  background-color: transparent;
+  color: white !important;
+  transition: 0.1s linear;
 }
 
-html[dir="rtl"] .minifySidebar div .sidebarItemsContainer .SidebarMenuList li .selected_Menu_Item:hover {
-    background-color: transparent;
-    color: white !important;
-    transition: 0s linear;
-
-    /* border-left: 0px solid transparent !important;
-    border-right: 4px solid #64a9a8 !important;
-    transition: 0.1s linear;
-    /* padding-left: 11px !important; */
+html[dir="rtl"]
+  .minifySidebar
+  div
+  .sidebarItemsContainer
+  .SidebarMenuList
+  li
+  .selected_Menu_Item:hover {
+  background-color: transparent;
+  color: white !important;
+  transition: 0s linear;
 }
-
-/* html[dir="rtl"] .minifySidebar div .sidebarItemsContainer .SidebarMenuList li .selected_Menu_Item .minifiedSidebarInsideContainer p:hover {
-    border: 1px solid rgb(255, 0, 0) !important;
-    transition: 0.1s linear !important;
-    padding-left: 20px;
-} */
 
 /* Hiding the text of the list */
-.minifySidebar div .sidebarItemsContainer .SidebarMenuList li li div .itemMenuListText {
-    display: none;
-    transition: 0.1s linear;
+.minifySidebar
+  div
+  .sidebarItemsContainer
+  .SidebarMenuList
+  li
+  li
+  div
+  .itemMenuListText {
+  display: none;
+  transition: 0.1s linear;
 }
 
 /* Minify Sidebar Footer */
 .minifySidebar div .sidebarFooter {
-    /* border: 2px solid red !important; */
-    width: 80px;
-    display: none;
-    transition: 0.1s linear;
+  /* border: 2px solid red !important; */
+  width: 80px;
+  display: none;
+  transition: 0.1s linear;
 }
 
 /* Submenu Items Styles */
 .SubMenuItemContainerMinifiedVersion {
-    /* border: 1px solid red; */
-    position: absolute;
-    border-radius: 5px !important;
-    margin-top: -90px !important;
-    margin-left: 50px !important;
-    transition: 0.1s linear;
-    background-color: #3c6766 !important;
+  /* border: 1px solid red; */
+  position: absolute;
+  border-radius: 5px !important;
+  margin-top: -90px !important;
+  margin-left: 50px !important;
+  transition: 0.1s linear;
+  background-color: #3c6766 !important;
 }
 
 html[dir="rtl"] .SubMenuItemContainerMinifiedVersion {
-    margin-left: initial !important;
-    margin-right: 50px !important;
-    transition: 0s linear;
+  margin-left: initial !important;
+  margin-right: 50px !important;
+  transition: 0s linear;
 }
 
 /* Minified version of the sidebar submenu dropdown items */
 .SubMenuItemContainerMinifiedVersionli {
-    position: relative !important;
-    background-color: #3c6766 !important;
-    /* border: 1px solid rgb(255, 0, 0) !important; */
-    margin-left: 0px !important;
-    height: 42px;
-    transition: 0.2s cubic-bezier(0.215, 0.610, 0.355, 1) !important;
-    display: flex;
-    justify-content: flex-start;
+  position: relative !important;
+  background-color: #40757b !important;
+  margin-left: 0px !important;
+  /* height: 50px; */
+  transition: 0.2s cubic-bezier(0.215, 0.61, 0.355, 1) !important;
+  display: flex;
+  margin-right: 0px;
+  justify-content: flex-start;
 }
 
 html[dir="rtl"] .SubMenuItemContainerMinifiedVersionli {
-    margin-left: initial !important;
-    margin-right: 0px !important;
-    transition: 0.2s cubic-bezier(0.215, 0.610, 0.355, 1) !important;
+  margin-left: initial !important;
+  margin-right: 0px !important;
+  transition: 0.2s cubic-bezier(0.215, 0.61, 0.355, 1) !important;
 }
 
 /* When hovering occurs on sub menu drop down items */
 .SubMenuItemContainerMinifiedVersionli:hover {
-    background-color: #517170;
-    margin-left: 0px !important;
-    transition: cubic-bezier(0.215, 0.610, 0.355, 1) !important;
-    box-shadow: #00b2b233 0px 30px 60px -12px inset, #03f9f962 0px 18px 36px -18px inset !important;
-    transition: 0s linear !important;
+  background-color: #517170;
+  margin-left: 0px !important;
+  transition: cubic-bezier(0.215, 0.61, 0.355, 1) !important;
+  box-shadow: #00b2b233 0px 30px 60px -12px inset,
+    #03f9f962 0px 18px 36px -18px inset !important;
+  transition: 0s linear !important;
 }
 
 html[dir="rtl"] .SubMenuItemContainerMinifiedVersionli:hover {
-    margin-left: initial !important;
-    margin-right: 0px !important;
-    transition: cubic-bezier(0.215, 0.610, 0.355, 1) !important;
-    transition: 0s linear !important;
+  margin-left: initial !important;
+  margin-right: 0px !important;
+  transition: cubic-bezier(0.215, 0.61, 0.355, 1) !important;
+  transition: 0s linear !important;
 }
 
 /* Increasing the margin for minified sidebar submenu dropdown for its icon and text */
-.SubMenuItemContainerMinifiedVersionli div .textSidebarSubMenuList, .SubMenuItemContainerMinifiedVersionli div p {
-    margin-top: 1px;
+.SubMenuItemContainerMinifiedVersionli div .textSidebarSubMenuList,
+.SubMenuItemContainerMinifiedVersionli div p {
+  margin-top: 1px;
 }
 
 /* @@@@@@@ Inside Container of Minified Sidebar @@@@@@@@ */
 .minifiedSidebarInsideContainer {
-    /* border: 1px solid red !important; */
-    width: 79px;
-    margin-left: -27px !important;
-    justify-content: center;
-    align-items: center;
-    margin-top: -5px;
-    height: inherit;
-    padding-top: 10px;
-    border-left: 3px solid #ff000000 !important;
+  /* border: 1px solid red !important; */
+  width: 79px;
+  margin-left: -27px !important;
+  justify-content: center;
+  align-items: center;
+  margin-top: -5px;
+  height: inherit;
+  padding-top: 10px;
+  border-left: 3px solid #ff000000 !important;
 }
 
 html[dir="rtl"] .minifiedSidebarInsideContainer {
-    margin-left: initial !important;
-    margin-right: -33px !important;
-    transition: 0.1s linear;
+  margin-left: initial !important;
+  margin-right: -33px !important;
+  transition: 0.1s linear;
 }
 
 .minifiedSidebarInsideContainer:hover {
-    background-color: #47686e !important;
-    border-left: 3px solid #64a9a8 !important;
-    margin-left: -27px !important;
+  background-color: #47686e !important;
+  border-left: 3px solid #64a9a8 !important;
+  margin-left: -27px !important;
 }
 
 html[dir="rtl"] .minifiedSidebarInsideContainer:hover {
-    margin-left: 0px !important;
-    margin-right: -27px !important;
-    border-right: 3px solid #64a9a8 !important;
-    border-left: 0px solid transparent !important;
-    transition: 0.1s linear;
+  margin-left: 0px !important;
+  margin-right: -27px !important;
+  border-right: 3px solid #64a9a8 !important;
+  border-left: 0px solid transparent !important;
+  transition: 0.1s linear;
 }
-
 
 /* @@@@@@@@ Inside Container of Minified Sidebar @@@@@@@ */
 
 /* @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ Minified Sidbar @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ */
 
+@media all and (max-width: 990px) {
+  .sidebar {
+    margin-left: 0px;
+    z-index: 1;
+    transition: 0.1s linear;
+  }
 
-@media all and (max-width:990px) {
-    .sidebar {
-        margin-left: 0px;
-        z-index: 1;
-        transition: 0.1s linear;
-    }
+  html[dir="rtl"] .sidebar {
+    margin-right: initial;
+    margin-left: 0px;
+    transition: 0.1s linear;
+  }
 
-    html[dir="rtl"] .sidebar {
-        margin-right: initial;
-        margin-left: 0px;
-        transition: 0.1s linear;
-    }
+  .hideSidebar {
+    margin-left: 0px;
+    transition: 0.1s linear;
+  }
 
-    .hideSidebar {
-        margin-left: 0px;
-        transition: 0.1s linear;
-    }
-
-    html[dir="rtl"] .hideSidebar {
-        margin-right: 0px;
-        margin-left: initial;
-        transition: 0.1s linear;
-    }
+  html[dir="rtl"] .hideSidebar {
+    margin-right: 0px;
+    margin-left: initial;
+    transition: 0.1s linear;
+  }
 }

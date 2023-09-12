@@ -1,1008 +1,1090 @@
 {
-    "translation": {
-        "login": {
-            "leftSide": {
-                "tabs": {
-                    "aboutus": {
-                        "name": "معلومات عنا",
-                        "title": "ضمان جودة التعليم (EQA) إطار اعتماد لـ NCAAA & ABET",
-                        "subTitle": "EQA هو تطبيق قائم على الويب للأتمتة",
-                        "description": "EQA هو تطبيق قائم على الويب لأتمتة أنشطة الاعتماد الأكاديمي من البداية إلى النهاية والتنفيذ الصارم لمتطلبات الامتثال المحددة من قبل وكالات الاعتماد في جميع أنحاء العالم لتحسين أساليب وممارسات تقديم التعليم.",
-                        "learnMoreBtn": "يتعلم أكثر",
-                        "findUs": "تجدنا على وسائل التواصل الاجتماعي"
-                    },
-                    "noticeboard": {
-                        "name": "لوح الإعلانات",
-                        "title": "الإعلانات",
-                        "subTitle": ".هذه هي الإخطارات الأخيرة المدرجة أدناه"
-                    }
-                }
+  "translation": {
+    "login": {
+      "leftSide": {
+        "tabs": {
+          "aboutus": {
+            "name": "معلومات عنا",
+            "title": "ضمان جودة التعليم (EQA) إطار اعتماد لـ NCAAA & ABET",
+            "subTitle": "EQA هو تطبيق قائم على الويب للأتمتة",
+            "description": "EQA هو تطبيق قائم على الويب لأتمتة أنشطة الاعتماد الأكاديمي من البداية إلى النهاية والتنفيذ الصارم لمتطلبات الامتثال المحددة من قبل وكالات الاعتماد في جميع أنحاء العالم لتحسين أساليب وممارسات تقديم التعليم.",
+            "learnMoreBtn": "يتعلم أكثر",
+            "findUs": "تجدنا على وسائل التواصل الاجتماعي"
+          },
+          "noticeboard": {
+            "name": "لوح الإعلانات",
+            "title": "الإعلانات",
+            "subTitle": ".هذه هي الإخطارات الأخيرة المدرجة أدناه"
+          }
+        }
+      },
+      "rightSide": {
+        "loginContainer": {
+          "img": {
+            "title": "جامعة EQA",
+            "alt": "جامعة EQA"
+          },
+          "title": "تسجيل الدخول بحسابك",
+          "formInputs": {
+            "userName": {
+              "label": "اسم االمستخدم",
+              "placeHolder": "ادخل اسم المستخدم"
             },
-            "rightSide": {
-                "loginContainer": {
-                    "img": {
-                        "title": "جامعة EQA",
-                        "alt": "جامعة EQA"
-                    },
-                    "title": "تسجيل الدخول بحسابك",
-                    "formInputs": {
-                        "userName": {
-                            "label": "اسم االمستخدم",
-                            "placeHolder": "ادخل اسم المستخدم"
-                        },
-                        "password": {
-                            "label": "كلمة المرور",
-                            "placeHolder": "أدخل كلمة المرور"
-                        },
-                        "rememberMeText": "تذكرني لمدة 30 يومًا القادمة",
-                        "btnLogin": "تسجيل الدخول",
-                        "forgetPassword": "هل نسيت كلمة السر؟",
-                        "clickHere": "انقر هنا"
-                    }
-                }
-            }
-        },
-        "forgetPassword": {
-            "title": "هل نسيت كلمة السر؟",
-            "subTitle": "يمكنك إعادة تعيين كلمة المرور الخاصة بك هنا.",
-            "img": {
-                "img1": {
-                    "title": "جامعة EQA",
-                    "alt": "جامعة EQA"
-                },
-                "img2": {
-                    "title": "نسيت كلمة المرور يمكنك إعادة تعيين هنا لا تقلق",
-                    "alt": "نسيت كلمة المرور يمكنك إعادة تعيين هنا لا تقلق"
-                }
+            "password": {
+              "label": "كلمة المرور",
+              "placeHolder": "أدخل كلمة المرور"
             },
-            "formInputs": {
-                "userName": {
-                    "label": "عنوان البريد الإلكتروني",
-                    "placeHolder": "example@gmail.com"
-                },
-                "btnResetPassword": "إعادة تعيين كلمة المرور"
-            }
+            "rememberMeText": "تذكرني لمدة 30 يومًا القادمة",
+            "btnLogin": "تسجيل الدخول",
+            "forgetPassword": "هل نسيت كلمة السر؟",
+            "clickHere": "انقر هنا"
+          }
+        }
+      }
+    },
+    "forgetPassword": {
+      "title": "هل نسيت كلمة السر؟",
+      "subTitle": "يمكنك إعادة تعيين كلمة المرور الخاصة بك هنا.",
+      "img": {
+        "img1": {
+          "title": "جامعة EQA",
+          "alt": "جامعة EQA"
         },
-        "Home": {
-            "Header": {
-                "search": "ابحث عن أي شيء",
-                "DropDown": {
-                    "Apps": {
-                        "title": "تطبيقات",
-                        "subTitle": "تطبيقات المستخدم والملحقات",
-                        "settings": {
-                            "title": "إعدادات"
-                        },
-                        "genericSettings": {
-                            "title": "إعدادات عامة"
-                        },
-                        "List": {
-                            "Assessment": "Assessment",
-                            "Form": "Form",
-                            "Alarm": "Alarm",
-                            "Report": "Report",
-                            "Portal": "Portal",
-                            "account": "حساب",
-                            "services": "خدمات",
-                            "security": "حماية",
-                            "calender": "التقويم",
-                            "stats": "احصائيات",
-                            "messages": "رسائل",
-                            "notes": "ملاحظات",
-                            "photos": "الصور",
-                            "maps": "خرائط"
-                        },
-                        "Notifications": {
-                            "title": "إشعارات",
-                            "info": "11 جديد",
-                            "subTitle": "إخطارات المستخدم",
-                            "ViewAll": "عرض جميع الإخطارات",
-                            "tabs": {
-                                "Messages": {
-                                    "title": "رسائل",
-                                    "list": [
-                                        {
-                                            "name": "ميليسا اير",
-                                            "message": "إعادة: رموز الأمان الجديدة. مرحبًا مرة أخرى وشكرًا لكونك جزءًا من مجتمعنا المذهل.",
-                                            "time": "قبل 56 ثانية",
-                                            "isOnline": "success",
-                                            "profileURL": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSlqSdStWAtFfqu7ZUGwOXD4wGJZA1z8vb-WLWw1FwhGo_b-xXWM3B-J01wdL9zwUBbsAI&usqp=CAU"
-                                        },
-                                        {
-                                            "name": "أديسون لي",
-                                            "message": "ماذا تفعل الآن.",
-                                            "time": "منذ 2 دقيقة",
-                                            "isOnline": "warning",
-                                            "profileURL": "https://media.istockphoto.com/id/480286744/photo/portrait-of-a-german-businessman-with-beard.jpg?s=612x612&w=0&k=20&c=PAi9oWMV2LLkbPM14nvpWOAZUk_kb6DXvpQ4ZwyJvjs="
-                                        },
-                                        {
-                                            "name": "ديفيد لي",
-                                            "message": "مرحباً ، أعتقد أنك تبلي بلاءً حسناً.",
-                                            "time": "منذ 3 ساعات",
-                                            "isOnline": "dark",
-                                            "profileURL": "https://i.pinimg.com/originals/c3/33/27/c333273fcfc3198e93df380c0cfc0437.jpg"
-                                        },
-                                        {
-                                            "name": "أديسون لي",
-                                            "message": "نحن نعمل على رموز أمنية جديدة.",
-                                            "time": "قبل 12 دقيقة",
-                                            "isOnline": "warning",
-                                            "profileURL": "https://t3.ftcdn.net/jpg/03/31/63/82/360_F_331638217_BsSy1TcziNymxOBAMGO6Zrc4hge5yQWz.jpg"
-                                        },
-                                        {
-                                            "name": "يانغ دانغ",
-                                            "message": "لقد أكملنا التكرار الأول لتطبيق الويب.",
-                                            "time": "منذ 1 ساعة",
-                                            "isOnline": "success",
-                                            "profileURL": "https://visafoto.com/img/source355x388_ar.jpg"
-                                        },
-                                        {
-                                            "name": "روجر اونيل",
-                                            "message": "كيف حالك يانغ دانغ؟",
-                                            "time": "قبل 12 دقيقة",
-                                            "isOnline": "success",
-                                            "profileURL": "https://cdn1.sph.harvard.edu/wp-content/uploads/sites/2501/2020/12/Prof.-Alemayehu-Worku-e1607531245550.jpg"
-                                        }
-                                    ]
-                                },
-                                "Notifications": {
-                                    "title": "إشعارات",
-                                    "list": [
-                                        {
-                                            "title": "تم إنشاء تقييم جديد",
-                                            "message": "تم إنشاء تقييم جديد باسم' العمل في عملك من المنزل",
-                                            "time": "قبل 56 ثانية"
-                                        },
-                                        {
-                                            "title": "تمت إضافة المستخدم",
-                                            "message": "تم إنشاء مستخدم باسم شبير حسين",
-                                            "time": "منذ 2 دقيقة"
-                                        },
-                                        {
-                                            "title": "تم إنشاء الدورة",
-                                            "message": "تم إنشاء دورة بعنوان Learning React JS.",
-                                            "time": "1 second ago"
-                                        },
-                                        {
-                                            "title": "تم إنشاء الحدث",
-                                            "message": "تم تحديد لقائك مع محمد بلال الآن.",
-                                            "time": "قبل 46 سنة"
-                                        },
-                                        {
-                                            "title": "تم استلام رسالة جديدة",
-                                            "message": "من محمد علي: ماذا تفعل الآن؟.",
-                                            "time": "قبل 56 ثانية"
-                                        },
-                                        {
-                                            "title": "ميليسا اير",
-                                            "message": "إعادة: رموز الأمان الجديدة. مرحبًا مرة أخرى وشكرًا لكونك جزءًا من مجتمعنا المذهل.",
-                                            "time": "قبل 56 ثانية"
-                                        }
-                                    ]
-                                },
-                                "Events": {
-                                    "title": "الأحداث"
-                                }
-                            }
-                        },
-                        "Profile": {
-                            "title": "معلومات الملف الشخصي",
-                            "name": "محمد شبير علم",
-                            "location": "نيويورك ، المملكة المتحدة",
-                            "list": {
-                                "myprofile": "ملفي",
-                                "changePassword": "تغيير كلمة المرور",
-                                "settings": "إعدادات",
-                                "Language": {
-                                    "title": "لغة",
-                                    "list": {
-                                        "English": "إنجليزي",
-                                        "Urdu": "الأردية",
-                                        "Arabic": "عربي"
-                                    }
-                                },
-                                "fullscreen": {
-                                    "title": "كامل الشاشة",
-                                    "fullTitle": "الخروج من الشاشة الكاملة",
-                                    "shortcut": "F11"
-                                },
-                                "print": {
-                                    "title": "مطبعة",
-                                    "shortcut": "السيطرة + P."
-                                },
-                                "Logout": {
-                                    "title": "تسجيل خروج",
-                                    "email": "bilalmohib7896@gmail.com"
-                                }
-                            }
-                        }
-                    }
-                },
-                "Modals": {
-                    "ChangePassword": {
-                        "title": "تغيير كلمة المرور",
-                        "policy": {
-                            "title": "تغيير سياسة كلمة المرور",
-                            "Points": {
-                                "Point1": "1. يجب أن تتكون كلمة المرور من 8 أحرف على الأقل.",
-                                "Point2": "2. يجب أن تحتوي كلمة المرور على حرف واحد كبير على الأقل وحرف صغير واحد ورقم واحد وحرف خاص واحد.",
-                                "Point3": "3. يجب ألا تحتوي كلمة المرور على أية مسافات."
-                            },
-                            "Inputs": {
-                                "OldPassword": {
-                                    "label": "كلمة المرور القديمة",
-                                    "placeholder": "أدخل كلمة المرور القديمة"
-                                },
-                                "NewPassword": {
-                                    "label": "كلمة المرور الجديدة",
-                                    "placeholder": "أدخل كلمة مرور جديدة"
-                                },
-                                "ConfirmPassword": {
-                                    "label": "تأكيد كلمة المرور الجديدة",
-                                    "placeholder": "تأكيد كلمة المرور الجديدة"
-                                }
-                            },
-                            "Buttons": {
-                                "ChangePassword": "تغيير كلمة المرور",
-                                "Cancel": "يلغي"
-                            }
-                        }
+        "img2": {
+          "title": "نسيت كلمة المرور يمكنك إعادة تعيين هنا لا تقلق",
+          "alt": "نسيت كلمة المرور يمكنك إعادة تعيين هنا لا تقلق"
+        }
+      },
+      "formInputs": {
+        "userName": {
+          "label": "عنوان البريد الإلكتروني",
+          "placeHolder": "example@gmail.com"
+        },
+        "btnResetPassword": "إعادة تعيين كلمة المرور"
+      }
+    },
+    "Home": {
+      "Header": {
+        "search": "ابحث عن أي شيء",
+        "DropDown": {
+          "Apps": {
+            "title": "تطبيقات",
+            "subTitle": "تطبيقات المستخدم والملحقات",
+            "settings": {
+              "title": "إعدادات"
+            },
+            "genericSettings": {
+              "title": "إعدادات عامة"
+            },
+            "List": {
+              "Assessment": "Assessment",
+              "Form": "Form",
+              "Alarm": "Alarm",
+              "Report": "Report",
+              "Portal": "Portal",
+              "account": "حساب",
+              "services": "خدمات",
+              "security": "حماية",
+              "calender": "التقويم",
+              "stats": "احصائيات",
+              "messages": "رسائل",
+              "notes": "ملاحظات",
+              "photos": "الصور",
+              "maps": "خرائط"
+            },
+            "Notifications": {
+              "title": "إشعارات",
+              "info": "11 جديد",
+              "subTitle": "إخطارات المستخدم",
+              "ViewAll": "عرض جميع الإخطارات",
+              "tabs": {
+                "Messages": {
+                  "title": "رسائل",
+                  "list": [
+                    {
+                      "name": "ميليسا اير",
+                      "message": "إعادة: رموز الأمان الجديدة. مرحبًا مرة أخرى وشكرًا لكونك جزءًا من مجتمعنا المذهل.",
+                      "time": "قبل 56 ثانية",
+                      "isOnline": "success",
+                      "profileURL": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSlqSdStWAtFfqu7ZUGwOXD4wGJZA1z8vb-WLWw1FwhGo_b-xXWM3B-J01wdL9zwUBbsAI&usqp=CAU"
                     },
-                    "ProfileModal": {
-                        "Instructor": {
-                            "title": "مدرب",
-                            "value": "ستيف كوهين"
+                    {
+                      "name": "أديسون لي",
+                      "message": "ماذا تفعل الآن.",
+                      "time": "منذ 2 دقيقة",
+                      "isOnline": "warning",
+                      "profileURL": "https://media.istockphoto.com/id/480286744/photo/portrait-of-a-german-businessman-with-beard.jpg?s=612x612&w=0&k=20&c=PAi9oWMV2LLkbPM14nvpWOAZUk_kb6DXvpQ4ZwyJvjs="
+                    },
+                    {
+                      "name": "ديفيد لي",
+                      "message": "مرحباً ، أعتقد أنك تبلي بلاءً حسناً.",
+                      "time": "منذ 3 ساعات",
+                      "isOnline": "dark",
+                      "profileURL": "https://i.pinimg.com/originals/c3/33/27/c333273fcfc3198e93df380c0cfc0437.jpg"
+                    },
+                    {
+                      "name": "أديسون لي",
+                      "message": "نحن نعمل على رموز أمنية جديدة.",
+                      "time": "قبل 12 دقيقة",
+                      "isOnline": "warning",
+                      "profileURL": "https://t3.ftcdn.net/jpg/03/31/63/82/360_F_331638217_BsSy1TcziNymxOBAMGO6Zrc4hge5yQWz.jpg"
+                    },
+                    {
+                      "name": "يانغ دانغ",
+                      "message": "لقد أكملنا التكرار الأول لتطبيق الويب.",
+                      "time": "منذ 1 ساعة",
+                      "isOnline": "success",
+                      "profileURL": "https://visafoto.com/img/source355x388_ar.jpg"
+                    },
+                    {
+                      "name": "روجر اونيل",
+                      "message": "كيف حالك يانغ دانغ؟",
+                      "time": "قبل 12 دقيقة",
+                      "isOnline": "success",
+                      "profileURL": "https://cdn1.sph.harvard.edu/wp-content/uploads/sites/2501/2020/12/Prof.-Alemayehu-Worku-e1607531245550.jpg"
+                    }
+                  ]
+                },
+                "Notifications": {
+                  "title": "إشعارات",
+                  "list": [
+                    {
+                      "title": "تم إنشاء تقييم جديد",
+                      "message": "تم إنشاء تقييم جديد باسم' العمل في عملك من المنزل",
+                      "time": "قبل 56 ثانية"
+                    },
+                    {
+                      "title": "تمت إضافة المستخدم",
+                      "message": "تم إنشاء مستخدم باسم شبير حسين",
+                      "time": "منذ 2 دقيقة"
+                    },
+                    {
+                      "title": "تم إنشاء الدورة",
+                      "message": "تم إنشاء دورة بعنوان Learning React JS.",
+                      "time": "1 second ago"
+                    },
+                    {
+                      "title": "تم إنشاء الحدث",
+                      "message": "تم تحديد لقائك مع محمد بلال الآن.",
+                      "time": "قبل 46 سنة"
+                    },
+                    {
+                      "title": "تم استلام رسالة جديدة",
+                      "message": "من محمد علي: ماذا تفعل الآن؟.",
+                      "time": "قبل 56 ثانية"
+                    },
+                    {
+                      "title": "ميليسا اير",
+                      "message": "إعادة: رموز الأمان الجديدة. مرحبًا مرة أخرى وشكرًا لكونك جزءًا من مجتمعنا المذهل.",
+                      "time": "قبل 56 ثانية"
+                    }
+                  ]
+                },
+                "Events": {
+                  "title": "الأحداث"
+                }
+              }
+            },
+            "Profile": {
+              "title": "معلومات الملف الشخصي",
+              "name": "محمد شبير علم",
+              "location": "نيويورك ، المملكة المتحدة",
+              "list": {
+                "myprofile": "ملفي",
+                "changePassword": "تغيير كلمة المرور",
+                "settings": "إعدادات",
+                "Language": {
+                  "title": "لغة",
+                  "list": {
+                    "English": "إنجليزي",
+                    "Urdu": "الأردية",
+                    "Arabic": "عربي"
+                  }
+                },
+                "fullscreen": {
+                  "title": "كامل الشاشة",
+                  "fullTitle": "الخروج من الشاشة الكاملة",
+                  "shortcut": "F11"
+                },
+                "print": {
+                  "title": "مطبعة",
+                  "shortcut": "السيطرة + P."
+                },
+                "Logout": {
+                  "title": "تسجيل خروج",
+                  "email": "bilalmohib7896@gmail.com"
+                }
+              }
+            }
+          }
+        },
+        "Modals": {
+          "ChangePassword": {
+            "title": "تغيير كلمة المرور",
+            "policy": {
+              "title": "تغيير سياسة كلمة المرور",
+              "Points": {
+                "Point1": "1. يجب أن تتكون كلمة المرور من 8 أحرف على الأقل.",
+                "Point2": "2. يجب أن تحتوي كلمة المرور على حرف واحد كبير على الأقل وحرف صغير واحد ورقم واحد وحرف خاص واحد.",
+                "Point3": "3. يجب ألا تحتوي كلمة المرور على أية مسافات."
+              },
+              "Inputs": {
+                "OldPassword": {
+                  "label": "كلمة المرور القديمة",
+                  "placeholder": "أدخل كلمة المرور القديمة"
+                },
+                "NewPassword": {
+                  "label": "كلمة المرور الجديدة",
+                  "placeholder": "أدخل كلمة مرور جديدة"
+                },
+                "ConfirmPassword": {
+                  "label": "تأكيد كلمة المرور الجديدة",
+                  "placeholder": "تأكيد كلمة المرور الجديدة"
+                }
+              },
+              "Buttons": {
+                "ChangePassword": "تغيير كلمة المرور",
+                "Cancel": "يلغي"
+              }
+            }
+          },
+          "ProfileModal": {
+            "Instructor": {
+              "title": "مدرب",
+              "value": "ستيف كوهين"
+            },
+            "Role": {
+              "title": "دور",
+              "value": "مسؤل"
+            },
+            "College": {
+              "title": ": كلية",
+              "value": "كلية الحاسبات وتقنية المعلومات"
+            },
+            "Campus": {
+              "title": ": حرم الجامعة",
+              "value": "دهانموندي"
+            },
+            "Designation": {
+              "title": ": تعيين",
+              "value": "مهندس برمجيات"
+            },
+            "Phone": {
+              "title": ": هاتف",
+              "value": "+1 234 567 890"
+            },
+            "LastLogin": {
+              "title": ": آخر تسجيل دخول",
+              "value": "2021-08-01 12:00:00"
+            },
+            "Department": {
+              "title": ": قسم",
+              "value": "علوم الكمبيوتر"
+            },
+            "Linkedin": {
+              "title": "ينكدين",
+              "value": "ستيف كوهين"
+            },
+            "Twitter": {
+              "title": "تويتر",
+              "value": "انضما معا"
+            },
+            "Facebook": {
+              "title": "فيسبوك",
+              "value": "ستيف"
+            },
+            "Buttons": {
+              "Edit": "يحرر",
+              "Close": "يغلق"
+            }
+          }
+        }
+      },
+      "Sidebar": {
+        "profile": {
+          "name": "محمد شبير علم",
+          "location": "لوس أنجلوس ، الولايات المتحدة الأمريكية"
+        },
+        "image": {
+          "title": "تطبيق ويب EQA",
+          "alt": "تطبيق ويب EQA"
+        },
+        "list": {
+          "Dashboard": {
+            "index": 1,
+            "text": "تقدير",
+            "subMenu": {
+              "Dashboard": {
+                "text": "لوحة معلومات التقييم",
+                "link": "/dashboard/assessment",
+                "details": {
+                  "title": "لوحة معلومات التقييم",
+                  "pages": {
+                    "eqa": "EQA",
+                    "assessment": "تقدير",
+                    "overall": "شاملة",
+                    "dashboard": "لوحة القيادة"
+                  },
+                  "presentStudents": {
+                    "title": "الطلاب الحاليون",
+                    "number": "مائتان"
+                  },
+                  "total_no_of_login": {
+                    "title": "إجمالي عدد تسجيل الدخول",
+                    "number": "خمسة وأربعون ألف وستة مائة وثمانية وتسعون"
+                  },
+                  "stats": {
+                    "courses": {
+                      "title": "مجموع الدورات",
+                      "number": "ثمانون"
+                    },
+                    "campuses": {
+                      "title": "مجموع الحرم الجامعية",
+                      "number": "عشرون"
+                    },
+                    "assessments": {
+                      "title": "عدد التقييمات التي تم إنشاؤها",
+                      "number": "أربعون ألف+"
+                    },
+                    "graduates": {
+                      "title": "تخرج",
+                      "number": "خمسون ألف+"
+                    },
+                    "libraries": {
+                      "title": "مكتبات في الحرم الجامعي",
+                      "number": "أربعة عشر"
+                    },
+                    "faculty": {
+                      "title": "أعضاء هيئة التدريس",
+                      "number": "أربعة مائة وستة وخمسون+"
+                    }
+                  },
+                  "chart": {
+                    "title": "مقارنة الدرجات",
+                    "subTitle": "مقارنة الدرجات",
+                    "description": "مقارنة درجات الطلاب"
+                  },
+                  "table": {
+                    "title": "<b style={{ fontWeight: 'bold' }}>المستخدمون</b> <i>قائمة</i>",
+                    "subTitle": "تم تسجيل المستخدمين التالين",
+                    "menuItems": {
+                      "MyProfile": "ملفي",
+                      "Settings": "إعدادات",
+                      "Logout": "تسجيل خروج"
+                    },
+                    "Buttons": {
+                      "btnCopy": "ينسخ",
+                      "btnCSV": "CSV"
+                    }
+                  }
+                }
+              },
+              "assessment": {
+                "text": "إنشاء التقييم",
+                "link": "/dashboard/createassessment"
+              },
+              "grade": {
+                "text": "أدخل الدرجة",
+                "link": "/dashboard/entergrade"
+              },
+              "overAllGrade": {
+                "text": "أدخل الدرجة الكلية",
+                "link": "/dashboard/enteroverallgrade"
+              }
+            }
+          },
+          "userManagement": {
+            "index": 2,
+            "text": "حساب",
+            "subMenu": {
+              "Users": {
+                "text": "المستخدمون",
+                "link": "/usermanagement/users/viewusers",
+                "details": {
+                  "breadcrumb": {
+                    "f1": "EQA",
+                    "f2": "حساب",
+                    "f3": "المستخدمون"
+                  },
+                  "title": "حساب",
+                  "addUser": "إضافة مستخدم",
+                  "boards": {
+                    "totalUsers": {
+                      "title": "إجمالي المستخدمين",
+                      "number": "ستة آلاف وثمانية مائة"
+                    },
+                    "inActiveUsers": {
+                      "title": "إجمالي المستخدمين غير النشطين",
+                      "number": "ثمانية مائة"
+                    },
+                    "activeUsers": {
+                      "title": "إجمالي المستخدمين النشطين",
+                      "number": "ستة آلاف"
+                    }
+                  },
+                  "Add": {
+                    "Users": {
+                      "breadcrumb": {
+                        "f1": "EQA",
+                        "f2": "حساب",
+                        "f3": "المستخدمون",
+                        "f4": "أضف مستخدمين"
+                      },
+                      "title": "أضف مستخدمين",
+                      "selectGroups": {
+                        "label": "حدد المجموعات من القائمة أدناه"
+                      },
+                      "description": "إضافة مستخدمين جدد إلى النظام",
+                      "Inputs": {
+                        "FirstName": {
+                          "label": "الاسم الأول",
+                          "placeholder": "أدخل اسمك الأول"
                         },
-                        "Role": {
-                            "title": "دور",
-                            "value": "مسؤل"
+                        "LastName": {
+                          "label": "اسم العائلة",
+                          "placeholder": "أدخل اسمك الأخير"
+                        },
+                        "Email": {
+                          "label": "بريد إلكتروني",
+                          "placeholder": "أدخل عنوان بريدك الالكتروني"
                         },
                         "College": {
-                            "title": ": كلية",
-                            "value": "كلية الحاسبات وتقنية المعلومات"
+                          "label": "كلية",
+                          "placeholder": "اختر كليتك",
+                          "Options": {
+                            "option1": "كلية الحاسبات وتقنية المعلومات",
+                            "option2": "كلية إدارة الأعمال",
+                            "option3": "كلية الهندسة",
+                            "option4": "كلية العلوم",
+                            "option5": "كلية الآداب والعلوم الإنسانية",
+                            "option6": "كلية التربية",
+                            "option7": "كلية الحقوق",
+                            "option8": "كلية الصيدلة",
+                            "option9": "كلية التمريض",
+                            "option10": "كلية طب الاسنان",
+                            "option11": "كلية الطب",
+                            "option12": "كلية الطب البيطري",
+                            "option13": "كلية العلوم الصحية",
+                            "option14": "كلية العلوم الطبية التطبيقية",
+                            "option15": "كلية العلوم الطبية التطبيقية",
+                            "option16": "كلية العلوم الطبية التطبيقية",
+                            "option17": "كلية العلوم الطبية التطبيقية",
+                            "option18": "كلية العلوم الطبية التطبيقية",
+                            "option19": "كلية العلوم الطبية التطبيقية",
+                            "option20": "كلية العلوم الطبية التطبيقية"
+                          }
                         },
                         "Campus": {
-                            "title": ": حرم الجامعة",
-                            "value": "دهانموندي"
-                        },
-                        "Designation": {
-                            "title": ": تعيين",
-                            "value": "مهندس برمجيات"
-                        },
-                        "Phone": {
-                            "title": ": هاتف",
-                            "value": "+1 234 567 890"
-                        },
-                        "LastLogin": {
-                            "title": ": آخر تسجيل دخول",
-                            "value": "2021-08-01 12:00:00"
+                          "label": "حرم الجامعة",
+                          "placeholder": "حدد الحرم الجامعي الخاص بك",
+                          "Options": {
+                            "option1": "الحرم الجامعي لاهور",
+                            "option2": "حرم كراتشي",
+                            "option3": "الحرم الجامعي اسلام اباد",
+                            "option4": "حرم بيشاور",
+                            "option5": "حرم كويتا",
+                            "option6": "الحرم الجامعي فيصل أباد",
+                            "option7": "الحرم الجامعي ملتان",
+                            "option8": "الحرم الجامعي سيالكوت",
+                            "option9": "الحرم الجامعي جوجرانوالا",
+                            "option10": "حرم روالبندي",
+                            "option11": "الحرم الجامعي باهاوالبور",
+                            "option12": "حرم سرغودا",
+                            "option13": "حرم ساهيوال",
+                            "option14": "الحرم الجامعي جانغ",
+                            "option15": "حرم رحيم يار خان",
+                            "option16": "حرم جوجرات",
+                            "option17": "الحرم الجامعي صادق آباد",
+                            "option18": "حرم المظفرغره",
+                            "option19": "الحرم الجامعي ديرا غازي خان",
+                            "option20": "حرم ماردان"
+                          }
                         },
                         "Department": {
-                            "title": ": قسم",
-                            "value": "علوم الكمبيوتر"
+                          "label": "قسم",
+                          "placeholder": "حدد قسمك",
+                          "Options": {
+                            "option1": "قسم علوم الحاسوب",
+                            "option2": "قسم تقنية المعلومات",
+                            "option3": "قسم هندسة البرمجيات",
+                            "option4": "قسم هندسة الحاسوب",
+                            "option5": "قسم هندسة نظم الحاسوب",
+                            "option6": "قسم هندسة نظم الحاسوب",
+                            "option7": "قسم هندسة نظم الحاسوب",
+                            "option8": "قسم هندسة نظم الحاسوب",
+                            "option9": "قسم هندسة نظم الحاسوب",
+                            "option10": "قسم هندسة نظم الحاسوب",
+                            "option11": "قسم هندسة نظم الحاسوب",
+                            "option12": "قسم هندسة نظم الحاسوب",
+                            "option13": "قسم هندسة نظم الحاسوب",
+                            "option14": "قسم هندسة نظم الحاسوب"
+                          }
                         },
-                        "Linkedin": {
-                            "title": "ينكدين",
-                            "value": "ستيف كوهين"
+                        "Username": {
+                          "label": "اسم المستخدم",
+                          "placeholder": "أدخل اسم المستخدم الخاص بك",
+                          "error": "اسم المستخدم موجود بالفعل"
                         },
-                        "Twitter": {
-                            "title": "تويتر",
-                            "value": "انضما معا"
-                        },
-                        "Facebook": {
-                            "title": "فيسبوك",
-                            "value": "ستيف"
-                        },
-                        "Buttons": {
-                            "Edit": "يحرر",
-                            "Close": "يغلق"
+                        "Password": {
+                          "label": "كلمة المرور",
+                          "placeholder": "ادخل رقمك السري"
                         }
+                      }
                     }
-                }
-            },
-            "Sidebar": {
-                "profile": {
-                    "name": "محمد شبير علم",
-                    "location": "لوس أنجلوس ، الولايات المتحدة الأمريكية"
-                },
-                "image": {
-                    "title": "تطبيق ويب EQA",
-                    "alt": "تطبيق ويب EQA"
-                },
-                "list": {
-                    "Dashboard": {
-                        "index": 1,
-                        "text": "تقدير",
-                        "subMenu": {
-                            "Dashboard": {
-                                "text": "لوحة معلومات التقييم",
-                                "link": "/dashboard/assessment",
-                                "details": {
-                                    "title": "لوحة معلومات التقييم",
-                                    "pages": {
-                                        "eqa": "EQA",
-                                        "assessment": "تقدير",
-                                        "overall": "شاملة",
-                                        "dashboard": "لوحة القيادة"
-                                    },
-                                    "presentStudents": {
-                                        "title": "الطلاب الحاليون",
-                                        "number": "مائتان"
-                                    },
-                                    "total_no_of_login": {
-                                        "title": "إجمالي عدد تسجيل الدخول",
-                                        "number": "خمسة وأربعون ألف وستة مائة وثمانية وتسعون"
-                                    },
-                                    "stats": {
-                                        "courses": {
-                                            "title": "مجموع الدورات",
-                                            "number": "ثمانون"
-                                        },
-                                        "campuses": {
-                                            "title": "مجموع الحرم الجامعية",
-                                            "number": "عشرون"
-                                        },
-                                        "assessments": {
-                                            "title": "عدد التقييمات التي تم إنشاؤها",
-                                            "number": "أربعون ألف+"
-                                        },
-                                        "graduates": {
-                                            "title": "تخرج",
-                                            "number": "خمسون ألف+"
-                                        },
-                                        "libraries": {
-                                            "title": "مكتبات في الحرم الجامعي",
-                                            "number": "أربعة عشر"
-                                        },
-                                        "faculty": {
-                                            "title": "أعضاء هيئة التدريس",
-                                            "number": "أربعة مائة وستة وخمسون+"
-                                        }
-                                    },
-                                    "chart": {
-                                        "title": "مقارنة الدرجات",
-                                        "subTitle": "مقارنة الدرجات",
-                                        "description": "مقارنة درجات الطلاب"
-                                    },
-                                    "table": {
-                                        "title": "<b style={{ fontWeight: 'bold' }}>المستخدمون</b> <i>قائمة</i>",
-                                        "subTitle": "تم تسجيل المستخدمين التالين",
-                                        "menuItems": {
-                                            "MyProfile": "ملفي",
-                                            "Settings": "إعدادات",
-                                            "Logout": "تسجيل خروج"
-                                        },
-                                        "Buttons": {
-                                            "btnCopy": "ينسخ",
-                                            "btnCSV": "CSV"
-                                        }
-                                    }
-                                }
-                            },
-                            "assessment": {
-                                "text": "إنشاء التقييم",
-                                "link": "/dashboard/createassessment"
-                            },
-                            "grade": {
-                                "text": "أدخل الدرجة",
-                                "link": "/dashboard/entergrade"
-                            },
-                            "overAllGrade": {
-                                "text": "أدخل الدرجة الكلية",
-                                "link": "/dashboard/enteroverallgrade"
-                            }
+                  },
+                  "Permissions": {
+                    "title": "أذونات",
+                    "subTitle": "تعديل أذونات المستخدم",
+                    "fields": {
+                      "staffaccess": {
+                        "title": "مستوى وصول الموظفين",
+                        "checkbox1": {
+                          "label": "حالة الموظفين"
+                        },
+                        "checkbox2": {
+                          "label": "مستخدم ممتاز"
                         }
-                    },
-                    "userManagement": {
-                        "index": 2,
-                        "text": "حساب",
-                        "subMenu": {
-                            "Users": {
-                                "text": "المستخدمون",
-                                "link": "/usermanagement/users/viewusers",
-                                "details": {
-                                    "breadcrumb": {
-                                        "f1": "EQA",
-                                        "f2": "حساب",
-                                        "f3": "المستخدمون"
-                                    },
-                                    "title": "حساب",
-                                    "addUser": "إضافة مستخدم",
-                                    "boards": {
-                                        "totalUsers": {
-                                            "title": "إجمالي المستخدمين",
-                                            "number": "ستة آلاف وثمانية مائة"
-                                        },
-                                        "inActiveUsers": {
-                                            "title": "إجمالي المستخدمين غير النشطين",
-                                            "number": "ثمانية مائة"
-                                        },
-                                        "activeUsers": {
-                                            "title": "إجمالي المستخدمين النشطين",
-                                            "number": "ستة آلاف"
-                                        }
-                                    },
-                                    "Add": {
-                                        "Users": {
-                                            "breadcrumb": {
-                                                "f1": "EQA",
-                                                "f2": "حساب",
-                                                "f3": "المستخدمون",
-                                                "f4": "أضف مستخدمين"
-                                            },
-                                            "title": "أضف مستخدمين",
-                                            "selectGroups": {
-                                                "label": "حدد المجموعات من القائمة أدناه"
-                                            },
-                                            "description": "إضافة مستخدمين جدد إلى النظام",
-                                            "Inputs": {
-                                                "FirstName": {
-                                                    "label": "الاسم الأول",
-                                                    "placeholder": "أدخل اسمك الأول"
-                                                },
-                                                "LastName": {
-                                                    "label": "اسم العائلة",
-                                                    "placeholder": "أدخل اسمك الأخير"
-                                                },
-                                                "Email": {
-                                                    "label": "بريد إلكتروني",
-                                                    "placeholder": "أدخل عنوان بريدك الالكتروني"
-                                                },
-                                                "College": {
-                                                    "label": "كلية",
-                                                    "placeholder": "اختر كليتك",
-                                                    "Options": {
-                                                        "option1": "كلية الحاسبات وتقنية المعلومات",
-                                                        "option2": "كلية إدارة الأعمال",
-                                                        "option3": "كلية الهندسة",
-                                                        "option4": "كلية العلوم",
-                                                        "option5": "كلية الآداب والعلوم الإنسانية",
-                                                        "option6": "كلية التربية",
-                                                        "option7": "كلية الحقوق",
-                                                        "option8": "كلية الصيدلة",
-                                                        "option9": "كلية التمريض",
-                                                        "option10": "كلية طب الاسنان",
-                                                        "option11": "كلية الطب",
-                                                        "option12": "كلية الطب البيطري",
-                                                        "option13": "كلية العلوم الصحية",
-                                                        "option14": "كلية العلوم الطبية التطبيقية",
-                                                        "option15": "كلية العلوم الطبية التطبيقية",
-                                                        "option16": "كلية العلوم الطبية التطبيقية",
-                                                        "option17": "كلية العلوم الطبية التطبيقية",
-                                                        "option18": "كلية العلوم الطبية التطبيقية",
-                                                        "option19": "كلية العلوم الطبية التطبيقية",
-                                                        "option20": "كلية العلوم الطبية التطبيقية"
-                                                    }
-                                                },
-                                                "Campus": {
-                                                    "label": "حرم الجامعة",
-                                                    "placeholder": "حدد الحرم الجامعي الخاص بك",
-                                                    "Options": {
-                                                        "option1": "الحرم الجامعي لاهور",
-                                                        "option2": "حرم كراتشي",
-                                                        "option3": "الحرم الجامعي اسلام اباد",
-                                                        "option4": "حرم بيشاور",
-                                                        "option5": "حرم كويتا",
-                                                        "option6": "الحرم الجامعي فيصل أباد",
-                                                        "option7": "الحرم الجامعي ملتان",
-                                                        "option8": "الحرم الجامعي سيالكوت",
-                                                        "option9": "الحرم الجامعي جوجرانوالا",
-                                                        "option10": "حرم روالبندي",
-                                                        "option11": "الحرم الجامعي باهاوالبور",
-                                                        "option12": "حرم سرغودا",
-                                                        "option13": "حرم ساهيوال",
-                                                        "option14": "الحرم الجامعي جانغ",
-                                                        "option15": "حرم رحيم يار خان",
-                                                        "option16": "حرم جوجرات",
-                                                        "option17": "الحرم الجامعي صادق آباد",
-                                                        "option18": "حرم المظفرغره",
-                                                        "option19": "الحرم الجامعي ديرا غازي خان",
-                                                        "option20": "حرم ماردان"
-                                                    }
-                                                },
-                                                "Department": {
-                                                    "label": "قسم",
-                                                    "placeholder": "حدد قسمك",
-                                                    "Options": {
-                                                        "option1": "قسم علوم الحاسوب",
-                                                        "option2": "قسم تقنية المعلومات",
-                                                        "option3": "قسم هندسة البرمجيات",
-                                                        "option4": "قسم هندسة الحاسوب",
-                                                        "option5": "قسم هندسة نظم الحاسوب",
-                                                        "option6": "قسم هندسة نظم الحاسوب",
-                                                        "option7": "قسم هندسة نظم الحاسوب",
-                                                        "option8": "قسم هندسة نظم الحاسوب",
-                                                        "option9": "قسم هندسة نظم الحاسوب",
-                                                        "option10": "قسم هندسة نظم الحاسوب",
-                                                        "option11": "قسم هندسة نظم الحاسوب",
-                                                        "option12": "قسم هندسة نظم الحاسوب",
-                                                        "option13": "قسم هندسة نظم الحاسوب",
-                                                        "option14": "قسم هندسة نظم الحاسوب"
-                                                    }
-                                                },
-                                                "Username": {
-                                                    "label": "اسم المستخدم",
-                                                    "placeholder": "أدخل اسم المستخدم الخاص بك",
-                                                    "error": "اسم المستخدم موجود بالفعل"
-                                                },
-                                                "Password": {
-                                                    "label": "كلمة المرور",
-                                                    "placeholder": "ادخل رقمك السري"
-                                                }
-                                            }
-                                        }
-                                    },
-                                    "Permissions": {
-                                        "title": "أذونات",
-                                        "subTitle": "تعديل أذونات المستخدم",
-                                        "fields": {
-                                            "staffaccess": {
-                                                "title": "مستوى وصول الموظفين",
-                                                "checkbox1": {
-                                                    "label": "حالة الموظفين"
-                                                },
-                                                "checkbox2": {
-                                                    "label": "مستخدم ممتاز"
-                                                }
-                                            },
-                                            "status": {
-                                                "title": "حالة",
-                                                "checkbox1": {
-                                                    "label": "نشيط"
-                                                },
-                                                "checkbox2": {
-                                                    "label": "معطل"
-                                                }
-                                            },
-                                            "assignGroups": {
-                                                "title": "تعيين مجموعة (مجموعات)",
-                                                "checkbox1": {
-                                                    "label": "مجموعة 1"
-                                                },
-                                                "checkbox2": {
-                                                    "label": "المجموعة 2"
-                                                }
-                                            }
-                                        }
-                                    },
-                                    "submit": "يُقدِّم"
-                                }
-                            },
-                            "groups": {
-                                "text": "مجموعات",
-                                "link": "/usermanagement/groups/viewgroups",
-                                "details": {
-                                    "breadcrumb": {
-                                        "f1": "EQA",
-                                        "f2": "حساب",
-                                        "f3": "مجموعات"
-                                    },
-                                    "title": "إدارة المجموعات",
-                                    "addUser": "أضف مجموعة",
-                                    "table": {
-                                        "title": "<b style={{ fontWeight: 'bold' }}>مجموعات</b> <i>قائمة</i>",
-                                        "subTitle": "فيما يلي قائمة المجموعات"
-                                    },
-                                    "Add": {
-                                        "title": "أضف مجموعة",
-                                        "subTitle": "إضافة مجموعة جديدة إلى النظام",
-                                        "breadcrumb": {
-                                            "f1": "EQA",
-                                            "f2": "حساب",
-                                            "f3": "مجموعات",
-                                            "f4": "أضف مجموعة"
-                                        },
-                                        "fields": {
-                                            "groupName": {
-                                                "label": "أسم المجموعة",
-                                                "placeholder": "أدخل اسم المجموعة"
-                                            },
-                                            "description": {
-                                                "label": "وصف",
-                                                "placeholder": "أدخل وصف المجموعة"
-                                            },
-                                            "Status": {
-                                                "title": "حالة",
-                                                "radio1": {
-                                                    "label": "نشيط"
-                                                },
-                                                "radio2": {
-                                                    "label": "معطل"
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            },
-                            "apps": {
-                                "text": "تطبيقات",
-                                "link": "/usermanagement/groups/apps",
-                                "details": {
-                                    "breadcrumb": {
-                                        "f1": "EQA",
-                                        "f2": "حساب",
-                                        "f3": "تطبيقات"
-                                    },
-                                    "title": "إدارة التطبيقات",
-                                    "addUser": "أضف تطبيقات",
-                                    "table": {
-                                        "title": "<b style={{ fontWeight: 'bold' }}>تطبيقات</b> <i>List</i>",
-                                        "subTitle": "فيما يلي قائمة التطبيقات"
-                                    },
-                                    "Add": {
-                                        "breadcrumb": {
-                                            "f1": "EQA",
-                                            "f2": "حساب",
-                                            "f3": "تطبيقات",
-                                            "f4": "أضف تطبيقات"
-                                        },
-                                        "title": "أضف التطبيق",
-                                        "subTitle": "أضف تطبيقًا جديدًا إلى النظام",
-                                        "fields": {
-                                            "appName": {
-                                                "label": "اسم التطبيق",
-                                                "placeholder": "أدخل اسم التطبيق"
-                                            },
-                                            "description": {
-                                                "label": "وصف",
-                                                "placeholder": "أدخل وصف مجموعة المستخدمين"
-                                            },
-                                            "appUrl": {
-                                                "label": "عنوان URL للتطبيق",
-                                                "placeholder": "أدخل عنوان URL للتطبيق"
-                                            },
-                                            "AppOrder": {
-                                                "label": "طلب التطبيق",
-                                                "placeholder": "أدخل طلب التطبيق"
-                                            },
-                                            "Status": {
-                                                "title": "حالة",
-                                                "radio1": {
-                                                    "label": "نشيط"
-                                                },
-                                                "radio2": {
-                                                    "label": "معطل"
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            },
-                            "appForm": {
-                                "text": "نموذج التطبيق",
-                                "link": "/usermanagement/groups/appForm",
-                                "details": {
-                                    "breadcrumb": {
-                                        "f1": "EQA",
-                                        "f2": "حساب",
-                                        "f3": "نموذج التطبيق"
-                                    },
-                                    "title": "إدارة AppForm",
-                                    "addUser": "إضافة AppForm",
-                                    "table": {
-                                        "title": "<b style={{ fontWeight: 'bold' }}>نموذج التطبيق</b> <i>List</i>",
-                                        "subTitle": "فيما يلي قائمة نماذج التطبيقات"
-                                    },
-                                    "Add": {
-                                        "breadcrumb": {
-                                            "f1": "EQA",
-                                            "f2": "حساب",
-                                            "f3": "نموذج التطبيق",
-                                            "f4": "إضافة نموذج التطبيق"
-                                        },
-                                        "title": "إضافة نموذج التطبيق",
-                                        "subTitle": "إضافة نموذج تطبيق جديد إلى النظام",
-                                        "fields": {
-                                            "moduleName": {
-                                                "label": "اسم وحدة",
-                                                "placeholder": "أدخل اسم الوحدة"
-                                            },
-                                            "FormName": {
-                                                "label": "اسم النموذج",
-                                                "placeholder": "أدخل اسم النموذج"
-                                            },
-                                            "FormUrl": {
-                                                "label": "URL النموذج",
-                                                "placeholder": "أدخل عنوان url للنموذج"
-                                            },
-                                            "selectAppDropdown": {
-                                                "label": "حدد التطبيق",
-                                                "placeholder": "حدد التطبيق من القائمة أدناه"
-                                            },
-                                            "Status": {
-                                                "title": "حالة",
-                                                "radio1": {
-                                                    "label": "نشيط"
-                                                },
-                                                "radio2": {
-                                                    "label": "معطل"
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            },
-                            "roleApp": {
-                                "text": "تطبيق الدور",
-                                "link": "/usermanagement/groups/appForm",
-                                "details": {
-                                    "breadcrumb": {
-                                        "f1": "EQA",
-                                        "f2": "حساب",
-                                        "f3": "الدور"
-                                    },
-                                    "title": "دور التطبيق Prvilage الزواج",
-                                    "addUser": "إضافة دور",
-                                    "table": {
-                                        "title": "<b style={{ fontWeight: 'bold' }}>دور التطبيق</b> <i>قائمة</i>",
-                                        "subTitle": "فيما يلي قائمة دور التطبيق الامتيازات"
-                                    },
-                                    "Add": {
-                                        "breadcrumb": {
-                                            "f1": "EQA",
-                                            "f2": "حساب",
-                                            "f3": "الدور",
-                                            "f4": "إضافة دور"
-                                        },
-                                        "title": "إضافة امتياز دور التطبيق",
-                                        "subTitle": "إضافة امتياز تطبيق دور جديد إلى النظام",
-                                        "fields": {
-                                            "selectRoleDropdown": {
-                                                "label": "حدد الدور",
-                                                "placeholder": "الرجاء تحديد دور من القائمة"
-                                            },
-                                            "selectAppDropdown": {
-                                                "label": "حدد التطبيق",
-                                                "placeholder": "الرجاء تحديد تطبيق من القائمة أدناه"
-                                            },
-                                            "selectFormDropdown": {
-                                                "label": "حدد النموذج",
-                                                "placeholder": "الرجاء تحديد نموذج من القائمة أدناه"
-                                            },
-                                            "PermissionStatus": {
-                                                "label": "حالة الإذن",
-                                                "Switches": {
-                                                    "Create": "يخلق",
-                                                    "Read": "يقرأ",
-                                                    "Update": "تحديث",
-                                                    "Delete": "يمسح"
-                                                }
-                                            },
-                                            "Status": {
-                                                "title": "حالة",
-                                                "radio1": {
-                                                    "label": "نشيط"
-                                                },
-                                                "radio2": {
-                                                    "label": "معطل"
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            },
-                            "userGroup": {
-                                "text": "تطبيق مجموعة المستخدم",
-                                "link": "/usermanagement/groups/appForm",
-                                "details": {
-                                    "breadcrumb": {
-                                        "f1": "EQA",
-                                        "f2": "حساب",
-                                        "f3": "مجموعة المستخدمين"
-                                    },
-                                    "title": "إدارة مجموعة المستخدمين",
-                                    "addUser": "أضف مجموعة مستخدمين",
-                                    "table": {
-                                        "title": "<b style={{ fontWeight: 'bold' }}>مجموعة المستخدمين</b> <i>قائمة</i>",
-                                        "subTitle": "فيما يلي قائمة مجموعة المستخدمين"
-                                    },
-                                    "Add": {
-                                        "breadcrumb": {
-                                            "f1": "EQA",
-                                            "f2": "حساب",
-                                            "f3": "مجموعة المستخدمين",
-                                            "f4": "أضف مجموعة مستخدمين"
-                                        },
-                                        "title": "أضف مجموعة مستخدمين",
-                                        "subTitle": "أضف مجموعة مستخدمين جديدة إلى النظام",
-                                        "fields": {
-                                            "userDropDown": {
-                                                "label": "اختر المستخدم",
-                                                "placeholder": "الرجاء تحديد مستخدم من القائمة"
-                                            },
-                                            "groupsDropDown": {
-                                                "label": "حدد المجموعات",
-                                                "noGroups": "لم يتم العثور على مجموعات"
-                                            },
-                                            "description": {
-                                                "label": "وصف",
-                                                "placeholder": "أدخل وصف مجموعة المستخدمين"
-                                            },
-                                            "Status": {
-                                                "title": "حالة",
-                                                "radio1": {
-                                                    "label": "نشيط"
-                                                },
-                                                "radio2": {
-                                                    "label": "معطل"
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            },
-                            "groupRole": {
-                                "text": "تطبيق دور المجموعة",
-                                "link": "/usermanagement/groups/appForm",
-                                "details": {
-                                    "breadcrumb": {
-                                        "f1": "EQA",
-                                        "f2": "حساب",
-                                        "f3": "المجموعة"
-                                    },
-                                    "title": "إدارة دور المجموعة",
-                                    "addUser": "أضف دور المجموعة",
-                                    "table": {
-                                        "title": "<b style={{ fontWeight: 'bold' }}>المجموعة</b> <i>List</i>",
-                                        "subTitle": "فيما يلي قائمة دور المجموعة"
-                                    },
-                                    "Add": {
-                                        "breadcrumb": {
-                                            "f1": "EQA",
-                                            "f2": "حساب",
-                                            "f3": "المجموعة",
-                                            "f4": "أضف دور المجموعة"
-                                        },
-                                        "title": "أضف دور المجموعة",
-                                        "subTitle": "إضافة دور مجموعة جديد إلى النظام",
-                                        "fields": {
-                                            "groupDropDown": {
-                                                "label": "اختر مجموعة",
-                                                "placeholder": "الرجاء تحديد مجموعة من القائمة"
-                                            },
-                                            "rolesDropDown": {
-                                                "label": "حدد الأدوار",
-                                                "noRoles":"لا أدوار"
-                                            },
-                                            "description": {
-                                                "label": "وصف",
-                                                "placeholder": "أدخل وصف مجموعة المستخدمين"
-                                            },
-                                            "Status": {
-                                                "title": "حالة",
-                                                "radio1": {
-                                                    "label": "نشيط"
-                                                },
-                                                "radio2": {
-                                                    "label": "معطل"
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            },
-                            "roles": {
-                                "text": "دور",
-                                "link": "/usermanagement/roles/viewroles",
-                                "details": {
-                                    "breadcrumb": {
-                                        "f1": "EQA",
-                                        "f2": "حساب",
-                                        "f3": "الأدوار"
-                                    },
-                                    "title": "إدارة الأدوار",
-                                    "addUser": "أضف دورًا",
-                                    "table": {
-                                        "title": "<b style={{ fontWeight: 'bold' }}>الأدوار</b> <i>قائمة</i>",
-                                        "subTitle": "الأدوار التالية متاحة"
-                                    },
-                                    "Add": {
-                                        "title": "أضف دورًا",
-                                        "subTitle": "إضافة دور جديد للنظام",
-                                        "breadcrumb": {
-                                            "f1": "EQA",
-                                            "f2": "حساب",
-                                            "f3": "الأدوار",
-                                            "f4": "أضف دورًا"
-                                        },
-                                        "fields": {
-                                            "roleName": {
-                                                "label": "اسم الدور",
-                                                "placeholder": "أدخل اسم الدور"
-                                            },
-                                            "description": {
-                                                "label": "وصف",
-                                                "placeholder": "أدخل وصف الدور"
-                                            },
-                                            "Status": {
-                                                "title": "حالة",
-                                                "radio1": {
-                                                    "label": "نشيط"
-                                                },
-                                                "radio2": {
-                                                    "label": "معطل"
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
+                      },
+                      "status": {
+                        "title": "حالة",
+                        "checkbox1": {
+                          "label": "نشيط"
+                        },
+                        "checkbox2": {
+                          "label": "معطل"
                         }
-                    },
-                    "settings": {
-                        "index": 3,
-                        "text": "إعدادات",
-                        "subMenu": {
-                            "general": {
-                                "text": "الاعدادات العامة",
-                                "link": "/settings/general",
-                                "details": {
-                                    "breadcrumb": {
-                                        "f1": "EQA",
-                                        "f2": "إعدادات",
-                                        "f3": "عام"
-                                    },
-                                    "Settings": {
-                                        "title": "إعدادات",
-                                        "topButtons": {
-                                            "btn1": "يحفظ",
-                                            "btn2": "ينبذ"
-                                        },
-                                        "Meeting": {
-                                            "title": "مقابلة",
-                                            "s1": {
-                                                "title": "قم بتمكين إشعارات البريد الإلكتروني",
-                                                "subTitle": "قم بتمكين إعلام البريد الإلكتروني أثناء إنشاء الاجتماع. بحيث يمكنك الحصول على إشعار عبر البريد الإلكتروني عند جدولة اجتماع جديد."
-                                            },
-                                            "s2": {
-                                                "title": "يظهر خيار Microsoft Team في 'إنشاء نموذج الاجتماع'",
-                                                "subTitle": "إذا كان هذا مرئيًا ، فيمكن للمستخدم رؤية هذا الخيار في النموذج. حدد هذا الخيار للقيام بذلك."
-                                            },
-                                            "s3": {
-                                                "title": "قم بتمكين إشعارات البريد الإلكتروني",
-                                                "subTitle": "قم بتمكين إعلام البريد الإلكتروني أثناء إنشاء الاجتماع. بحيث يمكن إخطار جميع المستخدمين عبر البريد الإلكتروني عند جدولة اجتماع جديد."
-                                            }
-                                        },
-                                        "MinuteofMeeting": {
-                                            "title": "محضر الاجتماع",
-                                            "s1": {
-                                                "title": "قم بتمكين إشعارات البريد الإلكتروني",
-                                                "subTitle": "قم بتمكين إعلام البريد الإلكتروني أثناء إنشاء الاجتماع. بحيث يمكن إخطار جميع المستخدمين عبر البريد الإلكتروني عند جدولة اجتماع جديد."
-                                            }
-                                        },
-                                        "TaskManagement": {
-                                            "title": "محضر الاجتماع",
-                                            "s1": {
-                                                "title": "قم بتمكين إشعارات البريد الإلكتروني",
-                                                "subTitle": "قم بتمكين إعلام البريد الإلكتروني أثناء إنشاء الاجتماع. بحيث يمكن إخطار جميع المستخدمين عبر البريد الإلكتروني عند جدولة اجتماع جديد."
-                                            }
-                                        },
-                                        "CommitteeManagement": {
-                                            "title": "إدارة اللجنة",
-                                            "s1": {
-                                                "title": "قم بتمكين إشعارات البريد الإلكتروني",
-                                                "subTitle": "قم بتمكين إعلام البريد الإلكتروني أثناء إنشاء الاجتماع. بحيث يمكن إخطار جميع المستخدمين عبر البريد الإلكتروني عند جدولة اجتماع جديد."
-                                            }
-                                        }
-                                    }
-                                }
-                            },
-                            "create": {
-                                "text": "قم بإنشاء الإعدادات",
-                                "link": "/createsettings"
-                            },
-                            "edit": {
-                                "text": "تحرير الإعدادات",
-                                "link": "/editsettings"
-                            },
-                            "update": {
-                                "text": "إعدادات التحديث",
-                                "link": "/updatesettings"
-                            }
+                      },
+                      "assignGroups": {
+                        "title": "تعيين مجموعة (مجموعات)",
+                        "checkbox1": {
+                          "label": "مجموعة 1"
+                        },
+                        "checkbox2": {
+                          "label": "المجموعة 2"
                         }
+                      }
                     }
+                  },
+                  "submit": "يُقدِّم"
                 }
+              },
+              "groups": {
+                "text": "مجموعات",
+                "link": "/usermanagement/groups/viewgroups",
+                "details": {
+                  "breadcrumb": {
+                    "f1": "EQA",
+                    "f2": "حساب",
+                    "f3": "مجموعات"
+                  },
+                  "title": "إدارة المجموعات",
+                  "addUser": "أضف مجموعة",
+                  "table": {
+                    "title": "<b style={{ fontWeight: 'bold' }}>مجموعات</b> <i>قائمة</i>",
+                    "subTitle": "فيما يلي قائمة المجموعات"
+                  },
+                  "Add": {
+                    "title": "أضف مجموعة",
+                    "subTitle": "إضافة مجموعة جديدة إلى النظام",
+                    "breadcrumb": {
+                      "f1": "EQA",
+                      "f2": "حساب",
+                      "f3": "مجموعات",
+                      "f4": "أضف مجموعة"
+                    },
+                    "fields": {
+                      "groupName": {
+                        "label": "أسم المجموعة",
+                        "placeholder": "أدخل اسم المجموعة"
+                      },
+                      "description": {
+                        "label": "وصف",
+                        "placeholder": "أدخل وصف المجموعة"
+                      },
+                      "Status": {
+                        "title": "حالة",
+                        "radio1": {
+                          "label": "نشيط"
+                        },
+                        "radio2": {
+                          "label": "معطل"
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "apps": {
+                "text": "تطبيقات",
+                "link": "/usermanagement/groups/apps",
+                "details": {
+                  "breadcrumb": {
+                    "f1": "EQA",
+                    "f2": "حساب",
+                    "f3": "تطبيقات"
+                  },
+                  "title": "إدارة التطبيقات",
+                  "addUser": "أضف تطبيقات",
+                  "table": {
+                    "title": "<b style={{ fontWeight: 'bold' }}>تطبيقات</b> <i>List</i>",
+                    "subTitle": "فيما يلي قائمة التطبيقات"
+                  },
+                  "Add": {
+                    "breadcrumb": {
+                      "f1": "EQA",
+                      "f2": "حساب",
+                      "f3": "تطبيقات",
+                      "f4": "أضف تطبيقات"
+                    },
+                    "title": "أضف التطبيق",
+                    "subTitle": "أضف تطبيقًا جديدًا إلى النظام",
+                    "fields": {
+                      "appName": {
+                        "label": "اسم التطبيق",
+                        "placeholder": "أدخل اسم التطبيق"
+                      },
+                      "description": {
+                        "label": "وصف",
+                        "placeholder": "أدخل وصف مجموعة المستخدمين"
+                      },
+                      "appUrl": {
+                        "label": "عنوان URL للتطبيق",
+                        "placeholder": "أدخل عنوان URL للتطبيق"
+                      },
+                      "AppOrder": {
+                        "label": "طلب التطبيق",
+                        "placeholder": "أدخل طلب التطبيق"
+                      },
+                      "Status": {
+                        "title": "حالة",
+                        "radio1": {
+                          "label": "نشيط"
+                        },
+                        "radio2": {
+                          "label": "معطل"
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "appForm": {
+                "text": "نموذج التطبيق",
+                "link": "/usermanagement/groups/appForm",
+                "details": {
+                  "breadcrumb": {
+                    "f1": "EQA",
+                    "f2": "حساب",
+                    "f3": "نموذج التطبيق"
+                  },
+                  "title": "إدارة AppForm",
+                  "addUser": "إضافة AppForm",
+                  "table": {
+                    "title": "<b style={{ fontWeight: 'bold' }}>نموذج التطبيق</b> <i>List</i>",
+                    "subTitle": "فيما يلي قائمة نماذج التطبيقات"
+                  },
+                  "Add": {
+                    "breadcrumb": {
+                      "f1": "EQA",
+                      "f2": "حساب",
+                      "f3": "نموذج التطبيق",
+                      "f4": "إضافة نموذج التطبيق"
+                    },
+                    "title": "إضافة نموذج التطبيق",
+                    "subTitle": "إضافة نموذج تطبيق جديد إلى النظام",
+                    "fields": {
+                      "moduleName": {
+                        "label": "اسم وحدة",
+                        "placeholder": "أدخل اسم الوحدة"
+                      },
+                      "FormName": {
+                        "label": "اسم النموذج",
+                        "placeholder": "أدخل اسم النموذج"
+                      },
+                      "FormUrl": {
+                        "label": "URL النموذج",
+                        "placeholder": "أدخل عنوان url للنموذج"
+                      },
+                      "selectAppDropdown": {
+                        "label": "حدد التطبيق",
+                        "placeholder": "حدد التطبيق من القائمة أدناه"
+                      },
+                      "Status": {
+                        "title": "حالة",
+                        "radio1": {
+                          "label": "نشيط"
+                        },
+                        "radio2": {
+                          "label": "معطل"
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "roleApp": {
+                "text": "تطبيق الدور",
+                "link": "/usermanagement/groups/appForm",
+                "details": {
+                  "breadcrumb": {
+                    "f1": "EQA",
+                    "f2": "حساب",
+                    "f3": "الدور"
+                  },
+                  "title": "دور التطبيق Prvilage الزواج",
+                  "addUser": "إضافة دور",
+                  "table": {
+                    "title": "<b style={{ fontWeight: 'bold' }}>دور التطبيق</b> <i>قائمة</i>",
+                    "subTitle": "فيما يلي قائمة دور التطبيق الامتيازات"
+                  },
+                  "Add": {
+                    "breadcrumb": {
+                      "f1": "EQA",
+                      "f2": "حساب",
+                      "f3": "الدور",
+                      "f4": "إضافة دور"
+                    },
+                    "title": "إضافة امتياز دور التطبيق",
+                    "subTitle": "إضافة امتياز تطبيق دور جديد إلى النظام",
+                    "fields": {
+                      "selectRoleDropdown": {
+                        "label": "حدد الدور",
+                        "placeholder": "الرجاء تحديد دور من القائمة"
+                      },
+                      "selectAppDropdown": {
+                        "label": "حدد التطبيق",
+                        "placeholder": "الرجاء تحديد تطبيق من القائمة أدناه"
+                      },
+                      "selectFormDropdown": {
+                        "label": "حدد النموذج",
+                        "placeholder": "الرجاء تحديد نموذج من القائمة أدناه"
+                      },
+                      "PermissionStatus": {
+                        "label": "حالة الإذن",
+                        "Switches": {
+                          "Create": "يخلق",
+                          "Read": "يقرأ",
+                          "Update": "تحديث",
+                          "Delete": "يمسح"
+                        }
+                      },
+                      "Status": {
+                        "title": "حالة",
+                        "radio1": {
+                          "label": "نشيط"
+                        },
+                        "radio2": {
+                          "label": "معطل"
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "userGroup": {
+                "text": "تطبيق مجموعة المستخدم",
+                "link": "/usermanagement/groups/appForm",
+                "details": {
+                  "breadcrumb": {
+                    "f1": "EQA",
+                    "f2": "حساب",
+                    "f3": "مجموعة المستخدمين"
+                  },
+                  "title": "إدارة مجموعة المستخدمين",
+                  "addUser": "أضف مجموعة مستخدمين",
+                  "table": {
+                    "title": "<b style={{ fontWeight: 'bold' }}>مجموعة المستخدمين</b> <i>قائمة</i>",
+                    "subTitle": "فيما يلي قائمة مجموعة المستخدمين"
+                  },
+                  "Add": {
+                    "breadcrumb": {
+                      "f1": "EQA",
+                      "f2": "حساب",
+                      "f3": "مجموعة المستخدمين",
+                      "f4": "أضف مجموعة مستخدمين"
+                    },
+                    "title": "أضف مجموعة مستخدمين",
+                    "subTitle": "أضف مجموعة مستخدمين جديدة إلى النظام",
+                    "fields": {
+                      "userDropDown": {
+                        "label": "اختر المستخدم",
+                        "placeholder": "الرجاء تحديد مستخدم من القائمة"
+                      },
+                      "groupsDropDown": {
+                        "label": "حدد المجموعات",
+                        "noGroups": "لم يتم العثور على مجموعات"
+                      },
+                      "description": {
+                        "label": "وصف",
+                        "placeholder": "أدخل وصف مجموعة المستخدمين"
+                      },
+                      "Status": {
+                        "title": "حالة",
+                        "radio1": {
+                          "label": "نشيط"
+                        },
+                        "radio2": {
+                          "label": "معطل"
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "groupRole": {
+                "text": "تطبيق دور المجموعة",
+                "link": "/usermanagement/groups/appForm",
+                "details": {
+                  "breadcrumb": {
+                    "f1": "EQA",
+                    "f2": "حساب",
+                    "f3": "المجموعة"
+                  },
+                  "title": "إدارة دور المجموعة",
+                  "addUser": "أضف دور المجموعة",
+                  "table": {
+                    "title": "<b style={{ fontWeight: 'bold' }}>المجموعة</b> <i>List</i>",
+                    "subTitle": "فيما يلي قائمة دور المجموعة"
+                  },
+                  "Add": {
+                    "breadcrumb": {
+                      "f1": "EQA",
+                      "f2": "حساب",
+                      "f3": "المجموعة",
+                      "f4": "أضف دور المجموعة"
+                    },
+                    "title": "أضف دور المجموعة",
+                    "subTitle": "إضافة دور مجموعة جديد إلى النظام",
+                    "fields": {
+                      "groupDropDown": {
+                        "label": "اختر مجموعة",
+                        "placeholder": "الرجاء تحديد مجموعة من القائمة"
+                      },
+                      "rolesDropDown": {
+                        "label": "حدد الأدوار",
+                        "noRoles": "لا أدوار"
+                      },
+                      "description": {
+                        "label": "وصف",
+                        "placeholder": "أدخل وصف مجموعة المستخدمين"
+                      },
+                      "Status": {
+                        "title": "حالة",
+                        "radio1": {
+                          "label": "نشيط"
+                        },
+                        "radio2": {
+                          "label": "معطل"
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "roles": {
+                "text": "دور",
+                "link": "/usermanagement/roles/viewroles",
+                "details": {
+                  "breadcrumb": {
+                    "f1": "EQA",
+                    "f2": "حساب",
+                    "f3": "الأدوار"
+                  },
+                  "title": "إدارة الأدوار",
+                  "addUser": "أضف دورًا",
+                  "table": {
+                    "title": "<b style={{ fontWeight: 'bold' }}>الأدوار</b> <i>قائمة</i>",
+                    "subTitle": "الأدوار التالية متاحة"
+                  },
+                  "Add": {
+                    "title": "أضف دورًا",
+                    "subTitle": "إضافة دور جديد للنظام",
+                    "breadcrumb": {
+                      "f1": "EQA",
+                      "f2": "حساب",
+                      "f3": "الأدوار",
+                      "f4": "أضف دورًا"
+                    },
+                    "fields": {
+                      "roleName": {
+                        "label": "اسم الدور",
+                        "placeholder": "أدخل اسم الدور"
+                      },
+                      "description": {
+                        "label": "وصف",
+                        "placeholder": "أدخل وصف الدور"
+                      },
+                      "Status": {
+                        "title": "حالة",
+                        "radio1": {
+                          "label": "نشيط"
+                        },
+                        "radio2": {
+                          "label": "معطل"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
             }
+          },
+          "EQACore": {
+            "index": 2,
+            "text": "EQA جوهر",
+            "subMenu": {
+              "University": {
+                "text": "جامعة",
+                "link": "/usermanagement/university/viewuniversity",
+                "details": {
+                  "breadcrumb": {
+                    "f1": "EQA",
+                    "f2": "جوهر",
+                    "f3": "جامعة"
+                  },
+                  "title": "جوهر",
+                  "addUser": "اضافة جامعة",
+                  "table": {
+                    "title": "<b style={{ fontWeight: 'bold' }}>الجامعة</b> <i>قائمة</i>",
+                    "subTitle": "الجامعات التالية مسجلة",
+                    "menuItems": {
+                      "MyProfile": "ملفي",
+                      "Settings": "إعدادات",
+                      "Logout": "تسجيل خروج"
+                    },
+                    "Buttons": {
+                      "btnCopy": "ينسخ",
+                      "btnCSV": "CSV"
+                    }
+                  },
+                  "Add": {
+                    "Users": {
+                      "breadcrumb": {
+                        "f1": "EQA",
+                        "f2": "جوهر",
+                        "f3": "جامعة",
+                        "f4": "اضافة جامعة"
+                      },
+                      "title": "اضافة جامعة",
+                      "selectGroups": {
+                        "label": "حدد المجموعات من القائمة أدناه"
+                      },
+                      "description": "اضافة جامعة جديدة الى النظام",
+                      "Inputs": {}
+                    }
+                  },
+                  "Permissions": {
+                    "title": "أذونات",
+                    "subTitle": "تعديل أذونات المستخدم",
+                    "fields": {
+                      "staffaccess": {
+                        "title": "مستوى وصول الموظفين",
+                        "checkbox1": {
+                          "label": "حالة الموظفين"
+                        },
+                        "checkbox2": {
+                          "label": "مستخدم ممتاز"
+                        }
+                      },
+                      "status": {
+                        "title": "حالة",
+                        "checkbox1": {
+                          "label": "نشيط"
+                        },
+                        "checkbox2": {
+                          "label": "معطل"
+                        }
+                      },
+                      "assignGroups": {
+                        "title": "تعيين مجموعة (مجموعات)",
+                        "checkbox1": {
+                          "label": "مجموعة 1"
+                        },
+                        "checkbox2": {
+                          "label": "المجموعة 2"
+                        }
+                      }
+                    }
+                  },
+                  "submit": "يُقدِّم"
+                }
+              }
+            }
+          },
+          "settings": {
+            "index": 3,
+            "text": "إعدادات",
+            "subMenu": {
+              "general": {
+                "text": "الاعدادات العامة",
+                "link": "/settings/general",
+                "details": {
+                  "breadcrumb": {
+                    "f1": "EQA",
+                    "f2": "إعدادات",
+                    "f3": "عام"
+                  },
+                  "Settings": {
+                    "title": "إعدادات",
+                    "topButtons": {
+                      "btn1": "يحفظ",
+                      "btn2": "ينبذ"
+                    },
+                    "Meeting": {
+                      "title": "مقابلة",
+                      "s1": {
+                        "title": "قم بتمكين إشعارات البريد الإلكتروني",
+                        "subTitle": "قم بتمكين إعلام البريد الإلكتروني أثناء إنشاء الاجتماع. بحيث يمكنك الحصول على إشعار عبر البريد الإلكتروني عند جدولة اجتماع جديد."
+                      },
+                      "s2": {
+                        "title": "يظهر خيار Microsoft Team في 'إنشاء نموذج الاجتماع'",
+                        "subTitle": "إذا كان هذا مرئيًا ، فيمكن للمستخدم رؤية هذا الخيار في النموذج. حدد هذا الخيار للقيام بذلك."
+                      },
+                      "s3": {
+                        "title": "قم بتمكين إشعارات البريد الإلكتروني",
+                        "subTitle": "قم بتمكين إعلام البريد الإلكتروني أثناء إنشاء الاجتماع. بحيث يمكن إخطار جميع المستخدمين عبر البريد الإلكتروني عند جدولة اجتماع جديد."
+                      }
+                    },
+                    "MinuteofMeeting": {
+                      "title": "محضر الاجتماع",
+                      "s1": {
+                        "title": "قم بتمكين إشعارات البريد الإلكتروني",
+                        "subTitle": "قم بتمكين إعلام البريد الإلكتروني أثناء إنشاء الاجتماع. بحيث يمكن إخطار جميع المستخدمين عبر البريد الإلكتروني عند جدولة اجتماع جديد."
+                      }
+                    },
+                    "TaskManagement": {
+                      "title": "محضر الاجتماع",
+                      "s1": {
+                        "title": "قم بتمكين إشعارات البريد الإلكتروني",
+                        "subTitle": "قم بتمكين إعلام البريد الإلكتروني أثناء إنشاء الاجتماع. بحيث يمكن إخطار جميع المستخدمين عبر البريد الإلكتروني عند جدولة اجتماع جديد."
+                      }
+                    },
+                    "CommitteeManagement": {
+                      "title": "إدارة اللجنة",
+                      "s1": {
+                        "title": "قم بتمكين إشعارات البريد الإلكتروني",
+                        "subTitle": "قم بتمكين إعلام البريد الإلكتروني أثناء إنشاء الاجتماع. بحيث يمكن إخطار جميع المستخدمين عبر البريد الإلكتروني عند جدولة اجتماع جديد."
+                      }
+                    }
+                  }
+                }
+              },
+              "create": {
+                "text": "قم بإنشاء الإعدادات",
+                "link": "/createsettings"
+              },
+              "edit": {
+                "text": "تحرير الإعدادات",
+                "link": "/editsettings"
+              },
+              "update": {
+                "text": "إعدادات التحديث",
+                "link": "/updatesettings"
+              }
+            }
+          }
         }
+      }
     }
+  }
 }

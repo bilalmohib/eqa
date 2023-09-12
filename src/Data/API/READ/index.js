@@ -18,6 +18,7 @@ const readAPI = {
   getAllCampusesByCollegeId:
     "https://eqa.datadimens.com:8443/EQACORE-SERVICE/getAllCampusesByCollegeId/",
   Department: "https://eqa.datadimens.com:8443/EQACORE-SERVICE/department",
+  University:"https://eqa.datadimens.com:8443/EQACORE-SERVICE/university",
 };
 
 export default readAPI;
